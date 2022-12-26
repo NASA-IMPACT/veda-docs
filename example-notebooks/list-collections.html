@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>VEDA Documentation</title>
+<title>VEDA Documentation – list-collections</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,90 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./veda-apis.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../example-notebooks/index.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -70,7 +133,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">VEDA Documentation</h1>
+      <h1 class="quarto-secondary-nav-title"></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -82,8 +145,8 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/Veda_logo_blue_no_text.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/Veda_logo_blue_no_text.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://www.earthdata.nasa.gov/esds/veda" title="earthdata.nasa.gov/esds/veda" class="sidebar-tool px-1"><i class="bi bi-info-circle"></i></a>
@@ -101,25 +164,25 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Welcome</a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./veda-apis.html" class="sidebar-item-text sidebar-link">VEDA STAC API and Browser</a>
+  <a href="../veda-apis.html" class="sidebar-item-text sidebar-link">VEDA STAC API and Browser</a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./example-notebooks/index.html" class="sidebar-item-text sidebar-link">Example Notebooks</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+            <a href="../example-notebooks/index.html" class="sidebar-item-text sidebar-link">Example Notebooks</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./example-notebooks/list-collections.html" class="sidebar-item-text sidebar-link">List all collections</a>
+  <a href="../example-notebooks/list-collections.html" class="sidebar-item-text sidebar-link active">List all collections</a>
   </div>
 </li>
       </ul>
@@ -133,60 +196,72 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
-  <li><a href="#what-is-veda" id="toc-what-is-veda" class="nav-link" data-scroll-target="#what-is-veda">What is VEDA?</a></li>
-  <li><a href="#what-can-you-do-with-veda" id="toc-what-can-you-do-with-veda" class="nav-link" data-scroll-target="#what-can-you-do-with-veda">What can you do with VEDA?</a></li>
-  <li><a href="#whats-here" id="toc-whats-here" class="nav-link" data-scroll-target="#whats-here">What’s here</a></li>
-  <li><a href="#whats-coming" id="toc-whats-coming" class="nav-link" data-scroll-target="#whats-coming">What’s coming</a></li>
+  <li><a href="#list-all-collections" id="toc-list-all-collections" class="nav-link active" data-scroll-target="#list-all-collections">List all collections</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/nasa-impact/veda-docs/edit/main/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/nasa-impact/veda-docs/blob/main/example-notebooks/list-collections.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title d-none d-lg-block">VEDA Documentation</h1>
-<p class="subtitle lead">Documentation about VEDA APIs, Datasets and Analytics Platforms</p>
+
+
+<section id="list-all-collections" class="level1 unnumbered">
+<h1 class="unnumbered">List all collections</h1>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
-
-<section id="welcome" class="level2">
-<h2 class="anchored" data-anchor-id="welcome">Welcome</h2>
-<p>This website provides documentation and example notebooks for the various APIs, datasets and analytics platforms maintained by NASA VEDA project. The intended audience is anyone who plans to use those backend systems.</p>
-</section>
-<section id="what-is-veda" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-veda">What is VEDA?</h2>
-<p>VEDA is NASA’s Visualization, Exploration, and Data Analysis (VEDA) project. It is an open-source science cyberinfrastructure for data processing, visualization, exploration, and geographic information systems (GIS) capabilities.</p>
-<p>Learn more at <a href="https://www.earthdata.nasa.gov/esds/veda">https://www.earthdata.nasa.gov/esds/veda</a>.</p>
-</section>
-<section id="what-can-you-do-with-veda" class="level2">
-<h2 class="anchored" data-anchor-id="what-can-you-do-with-veda">What can you do with VEDA?</h2>
-<p><strong>Explore:</strong> Available to anyone, you can visit the VEDA dashboard to explore data and stories developed by NASA scientific community at <a href="https://earthdata.nasa.gov/dashboard">https://earthdata.nasa.gov/dashboard</a>.</p>
-<p><strong>Analyze:</strong> Coming soon, anyone will be able to explore VEDA datasets and stories using a notebook environment. If you are a scientist affiliated with NASA projects such as <a href="https://eis.smce.nasa.gov/about.html">EIS</a> and <a href="https://ops.maap-project.org">MAAP</a> you should have access to a notebook environment associated with those projects.</p>
-</section>
-<section id="whats-here" class="level2">
-<h2 class="anchored" data-anchor-id="whats-here">What’s here</h2>
-<ul>
-<li>Documentation on VEDA datasets and APIs.</li>
-</ul>
-</section>
-<section id="whats-coming" class="level2">
-<h2 class="anchored" data-anchor-id="whats-coming">What’s coming</h2>
-<ul>
-<li>Documentation for scientists on how to get started with the analytics platforms.</li>
-</ul>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">'https://staging-stac.delta-backend.com/'</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> Client.<span class="bu">open</span>(STAC_API_URL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> root, subcatalogs, items <span class="kw">in</span> client.walk():</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># subcats represents any catalogs or collections owned by root</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> cat <span class="kw">in</span> subcatalogs:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(cat.<span class="bu">id</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nightlights-500m-daily
+social-vulnerability-index-household
+nightlights-hd-monthly
+geoglam
+grdi-vnl-raster
+social-vulnerability-index-housing-nopop
+social-vulnerability-index-household-nopop
+social-vulnerability-index-socioeconomic
+social-vulnerability-index-socioeconomic-nopop
+grdi-filled-missing-values-count
+OMI_trno2-COG
+social-vulnerability-index-overall
+social-vulnerability-index-minority-nopop
+grdi-cdr-raster
+MO_NPP_npp_vgpm
+no2-monthly-diff
+lis-tws-trend
+HLSL30.002
+social-vulnerability-index-overall-nopop
+grdi-v1-raster
+IS2SITMOGR4-cog
+lis-tws-anomaly
+blue-tarp-planetscope
+social-vulnerability-index-housing
+blue-tarp-detection
+grdi-shdi-raster
+grdi-imr-raster
+hls-l30-002-ej
+no2-monthly
+nightlights-hd-1band
+social-vulnerability-index-minority
+nceo_africa_2017
+OMSO2PCA-COG
+HLSS30.002
+hls-s30-002-ej-reprocessed
+grdi-v1-built
+hls-s30-002-ej
+hls-l30-002-ej-reprocessed
+facebook_population_density
+grdi-vnl-slope-raster</code></pre>
+</div>
+</div>
 
 
 </section>
@@ -442,11 +517,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../example-notebooks/index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Example Notebooks</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./veda-apis.html" class="pagination-link">
-        <span class="nav-page-text">VEDA STAC API and Browser</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
