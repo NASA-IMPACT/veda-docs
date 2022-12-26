@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Alexandra Kirk">
+<meta name="dcterms.date" content="2022-06-30">
 
-<title>VEDA Documentation – hls-visualization</title>
+<title>VEDA Documentation - Multi-Band Visualization Preview for HLS with CQL2-JSON</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -137,7 +139,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"></h1>
+      <h1 class="quarto-secondary-nav-title">Multi-Band Visualization Preview for HLS with CQL2-JSON</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -191,7 +193,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/hls-visualization.html" class="sidebar-item-text sidebar-link active">Multi-Band Visualization Preview for Harmonized Landsat Sentinel-2 (HLS) with Common Query Language (CQL2-JSON)</a>
+  <a href="../example-notebooks/hls-visualization.html" class="sidebar-item-text sidebar-link active">Multi-Band Visualization Preview for HLS with CQL2-JSON</a>
   </div>
 </li>
       </ul>
@@ -205,9 +207,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#multi-band-visualization-preview-for-harmonized-landsat-sentinel-2-hls-with-common-query-language-cql2-json" id="toc-multi-band-visualization-preview-for-harmonized-landsat-sentinel-2-hls-with-common-query-language-cql2-json" class="nav-link active" data-scroll-target="#multi-band-visualization-preview-for-harmonized-landsat-sentinel-2-hls-with-common-query-language-cql2-json">Multi-Band Visualization Preview for Harmonized Landsat Sentinel-2 (HLS) with Common Query Language (CQL2-JSON)</a>
-  <ul class="collapse">
-  <li><a href="#parameters-for-investigating-hurricane-events-with-the-dynamic-tiler-and-custom-band-combinations" id="toc-parameters-for-investigating-hurricane-events-with-the-dynamic-tiler-and-custom-band-combinations" class="nav-link" data-scroll-target="#parameters-for-investigating-hurricane-events-with-the-dynamic-tiler-and-custom-band-combinations">Parameters for investigating hurricane events with the dynamic tiler and custom band combinations</a>
+  <li><a href="#parameters-for-investigating-hurricane-events-with-the-dynamic-tiler-and-custom-band-combinations" id="toc-parameters-for-investigating-hurricane-events-with-the-dynamic-tiler-and-custom-band-combinations" class="nav-link active" data-scroll-target="#parameters-for-investigating-hurricane-events-with-the-dynamic-tiler-and-custom-band-combinations">Parameters for investigating hurricane events with the dynamic tiler and custom band combinations</a>
   <ul class="collapse">
   <li><a href="#first-search-the-stac-api-to-find-the-specific-dates-available-within-timeframe-of-interest-hurricane-ida" id="toc-first-search-the-stac-api-to-find-the-specific-dates-available-within-timeframe-of-interest-hurricane-ida" class="nav-link" data-scroll-target="#first-search-the-stac-api-to-find-the-specific-dates-available-within-timeframe-of-interest-hurricane-ida">First, search the STAC API to find the specific dates available within timeframe of interest (Hurricane Ida)</a></li>
   </ul></li>
@@ -222,21 +222,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#format-and-render-tiles-using-custom-formatting" id="toc-format-and-render-tiles-using-custom-formatting" class="nav-link" data-scroll-target="#format-and-render-tiles-using-custom-formatting">Format and render tiles using custom formatting</a></li>
   </ul></li>
   <li><a href="#l30-hurricane-maria-example" id="toc-l30-hurricane-maria-example" class="nav-link" data-scroll-target="#l30-hurricane-maria-example">L30 Hurricane Maria Example</a></li>
-  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/nasa-impact/veda-docs/blob/main/example-notebooks/hls-visualization.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Multi-Band Visualization Preview for HLS with CQL2-JSON</h1>
+</div>
 
 
-<section id="multi-band-visualization-preview-for-harmonized-landsat-sentinel-2-hls-with-common-query-language-cql2-json" class="level1 unnumbered">
-<h1 class="unnumbered">Multi-Band Visualization Preview for Harmonized Landsat Sentinel-2 (HLS) with Common Query Language (CQL2-JSON)</h1>
-<ul>
-<li>Author: Alexandra Kirk</li>
-<li>Last Updated Date: June 30, 2022</li>
-</ul>
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Alexandra Kirk </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 30, 2022</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
 <p>This notebook demonstrates how to explore HLS data for a specific event, where an event can be charactized by its time and place. Geospatial imagery, such as HLS, is often used for analysis of changes correlated with an event.</p>
 <ol type="1">
 <li>Identify available dates within a bounding box, which is also an area of interest (AOI) in this example, for a given collection</li>
@@ -533,7 +553,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_6f9a70bad3bb3c1c86ea71367c82b48f {
+                #map_9a099078322bd765bdf8b005a638b2c1 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -547,14 +567,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_6f9a70bad3bb3c1c86ea71367c82b48f&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_9a099078322bd765bdf8b005a638b2c1&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_6f9a70bad3bb3c1c86ea71367c82b48f = L.map(
-                &quot;map_6f9a70bad3bb3c1c86ea71367c82b48f&quot;,
+            var map_9a099078322bd765bdf8b005a638b2c1 = L.map(
+                &quot;map_9a099078322bd765bdf8b005a638b2c1&quot;,
                 {
                     center: [30.210818000000003, -90.349537],
                     crs: L.CRS.EPSG3857,
@@ -568,16 +588,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
         
     
-            var tile_layer_932f26c35ca175b50f7f18c2d36f4576 = L.tileLayer(
+            var tile_layer_d5b774a7c88fe3e38167c37c3fe3e2fb = L.tileLayer(
                 &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_6f9a70bad3bb3c1c86ea71367c82b48f);
+            ).addTo(map_9a099078322bd765bdf8b005a638b2c1);
         
     
-            var tile_layer_db6177a0c5293eb96b8a46a0d7a78aac = L.tileLayer(
+            var tile_layer_75babbf4ccc8c07daad99721d7e06b8c = L.tileLayer(
                 &quot;https://staging-raster.delta-backend.com/mosaic/tiles/7743bcb31bff7151aff7e5508785fce1/WebMercatorQuad/{z}/{x}/{y}@1x?post_process=swir\u0026assets=B12\u0026assets=B8A\u0026assets=B04&quot;,
                 {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_6f9a70bad3bb3c1c86ea71367c82b48f);
+            ).addTo(map_9a099078322bd765bdf8b005a638b2c1);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -676,7 +696,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_6571f924a5f553ca173b713f5e002064 {
+                #map_80d2aec71708f451697c670be21a29f8 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -690,14 +710,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_6571f924a5f553ca173b713f5e002064&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_80d2aec71708f451697c670be21a29f8&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_6571f924a5f553ca173b713f5e002064 = L.map(
-                &quot;map_6571f924a5f553ca173b713f5e002064&quot;,
+            var map_80d2aec71708f451697c670be21a29f8 = L.map(
+                &quot;map_80d2aec71708f451697c670be21a29f8&quot;,
                 {
                     center: [30.210818000000003, -90.349537],
                     crs: L.CRS.EPSG3857,
@@ -711,16 +731,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
         
     
-            var tile_layer_fd3472fb8ae058b8d0ba25239d3ade01 = L.tileLayer(
+            var tile_layer_983386acda3a8bddc3709d8f2fcee3b0 = L.tileLayer(
                 &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_6571f924a5f553ca173b713f5e002064);
+            ).addTo(map_80d2aec71708f451697c670be21a29f8);
         
     
-            var tile_layer_4ad9bc46a6c115eb2f7987cae9f488f1 = L.tileLayer(
+            var tile_layer_89269bff2c7b32b56caba54915aa130e = L.tileLayer(
                 &quot;https://staging-raster.delta-backend.com/mosaic/tiles/7743bcb31bff7151aff7e5508785fce1/WebMercatorQuad/{z}/{x}/{y}@1x?assets=B08\u0026assets=B04\u0026expression=%28B08-B04%29%2F%28B08%2BB04%29\u0026rescale=0%2C1\u0026colormap_name=rdylgn&quot;,
                 {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_6571f924a5f553ca173b713f5e002064);
+            ).addTo(map_80d2aec71708f451697c670be21a29f8);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -904,7 +924,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_4b1ea895a67af091bc1e12a6b31009b5 {
+                #map_2809869d840ee61a16564f2047386f4a {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -918,14 +938,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_4b1ea895a67af091bc1e12a6b31009b5&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_2809869d840ee61a16564f2047386f4a&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_4b1ea895a67af091bc1e12a6b31009b5 = L.map(
-                &quot;map_4b1ea895a67af091bc1e12a6b31009b5&quot;,
+            var map_2809869d840ee61a16564f2047386f4a = L.map(
+                &quot;map_2809869d840ee61a16564f2047386f4a&quot;,
                 {
                     center: [18.464629000000002, -65.638847],
                     crs: L.CRS.EPSG3857,
@@ -939,16 +959,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
         
     
-            var tile_layer_3f8656cfd8df3c2149e90b5b9915f630 = L.tileLayer(
+            var tile_layer_732823af6f6fa9a676a405801afa8e13 = L.tileLayer(
                 &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_4b1ea895a67af091bc1e12a6b31009b5);
+            ).addTo(map_2809869d840ee61a16564f2047386f4a);
         
     
-            var tile_layer_29e3f44434c7909e00dc0ff4ed549349 = L.tileLayer(
+            var tile_layer_40412d71e57da46d668b43df37c51468 = L.tileLayer(
                 &quot;https://staging-raster.delta-backend.com/mosaic/tiles/61809545320d5ea343d57453af06b818/WebMercatorQuad/{z}/{x}/{y}@1x?assets=B03\u0026assets=B05\u0026expression=%28B03-B05%29%2F%28B03%2BB05%29\u0026rescale=0%2C1\u0026colormap_name=viridis&quot;,
                 {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_4b1ea895a67af091bc1e12a6b31009b5);
+            ).addTo(map_2809869d840ee61a16564f2047386f4a);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -956,7 +976,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
