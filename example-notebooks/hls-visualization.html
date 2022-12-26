@@ -507,7 +507,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
-<head>    
+<html>
+<head>
+    
     <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
     
         <script>
@@ -517,39 +519,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     
     <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
     <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
-    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js&quot;></script>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
     <script src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;></script>
-    <script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js&quot;></script>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
     <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
     
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_afbebd5faaeec256b14d8f2a0db36333 {
+                #map_6f9a70bad3bb3c1c86ea71367c82b48f {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
                     left: 0.0%;
                     top: 0.0%;
                 }
+                .leaflet-container { font-size: 1rem; }
             </style>
         
 </head>
-<body>    
+<body>
     
-            <div class=&quot;folium-map&quot; id=&quot;map_afbebd5faaeec256b14d8f2a0db36333&quot; ></div>
+    
+            <div class=&quot;folium-map&quot; id=&quot;map_6f9a70bad3bb3c1c86ea71367c82b48f&quot; ></div>
         
 </body>
-<script>    
+<script>
     
-            var map_afbebd5faaeec256b14d8f2a0db36333 = L.map(
-                &quot;map_afbebd5faaeec256b14d8f2a0db36333&quot;,
+    
+            var map_6f9a70bad3bb3c1c86ea71367c82b48f = L.map(
+                &quot;map_6f9a70bad3bb3c1c86ea71367c82b48f&quot;,
                 {
                     center: [30.210818000000003, -90.349537],
                     crs: L.CRS.EPSG3857,
@@ -563,18 +568,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
         
     
-            var tile_layer_a28c2e75018fb276a08bab6b1eed9c7b = L.tileLayer(
+            var tile_layer_932f26c35ca175b50f7f18c2d36f4576 = L.tileLayer(
                 &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_afbebd5faaeec256b14d8f2a0db36333);
+                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            ).addTo(map_6f9a70bad3bb3c1c86ea71367c82b48f);
         
     
-            var tile_layer_3bae9791389d98eb9d117032232efcfb = L.tileLayer(
+            var tile_layer_db6177a0c5293eb96b8a46a0d7a78aac = L.tileLayer(
                 &quot;https://staging-raster.delta-backend.com/mosaic/tiles/7743bcb31bff7151aff7e5508785fce1/WebMercatorQuad/{z}/{x}/{y}@1x?post_process=swir\u0026assets=B12\u0026assets=B8A\u0026assets=B04&quot;,
                 {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_afbebd5faaeec256b14d8f2a0db36333);
+            ).addTo(map_6f9a70bad3bb3c1c86ea71367c82b48f);
         
-</script>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
+</script>
+</html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
 </div>
 </div>
 </section>
@@ -644,7 +650,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
-<head>    
+<html>
+<head>
+    
     <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
     
         <script>
@@ -654,39 +662,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     
     <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
     <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
-    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js&quot;></script>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
     <script src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;></script>
-    <script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js&quot;></script>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
     <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
     
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_b8591e8bee79a092b622583be06cd143 {
+                #map_6571f924a5f553ca173b713f5e002064 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
                     left: 0.0%;
                     top: 0.0%;
                 }
+                .leaflet-container { font-size: 1rem; }
             </style>
         
 </head>
-<body>    
+<body>
     
-            <div class=&quot;folium-map&quot; id=&quot;map_b8591e8bee79a092b622583be06cd143&quot; ></div>
+    
+            <div class=&quot;folium-map&quot; id=&quot;map_6571f924a5f553ca173b713f5e002064&quot; ></div>
         
 </body>
-<script>    
+<script>
     
-            var map_b8591e8bee79a092b622583be06cd143 = L.map(
-                &quot;map_b8591e8bee79a092b622583be06cd143&quot;,
+    
+            var map_6571f924a5f553ca173b713f5e002064 = L.map(
+                &quot;map_6571f924a5f553ca173b713f5e002064&quot;,
                 {
                     center: [30.210818000000003, -90.349537],
                     crs: L.CRS.EPSG3857,
@@ -700,18 +711,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
         
     
-            var tile_layer_dbd1f0521f985d978161b5d7781685c3 = L.tileLayer(
+            var tile_layer_fd3472fb8ae058b8d0ba25239d3ade01 = L.tileLayer(
                 &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_b8591e8bee79a092b622583be06cd143);
+                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            ).addTo(map_6571f924a5f553ca173b713f5e002064);
         
     
-            var tile_layer_fbd7d685551ac1b10d3168403e8892b6 = L.tileLayer(
+            var tile_layer_4ad9bc46a6c115eb2f7987cae9f488f1 = L.tileLayer(
                 &quot;https://staging-raster.delta-backend.com/mosaic/tiles/7743bcb31bff7151aff7e5508785fce1/WebMercatorQuad/{z}/{x}/{y}@1x?assets=B08\u0026assets=B04\u0026expression=%28B08-B04%29%2F%28B08%2BB04%29\u0026rescale=0%2C1\u0026colormap_name=rdylgn&quot;,
                 {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_b8591e8bee79a092b622583be06cd143);
+            ).addTo(map_6571f924a5f553ca173b713f5e002064);
         
-</script>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
+</script>
+</html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
 </div>
 </div>
 </section>
@@ -866,7 +878,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
-<head>    
+<html>
+<head>
+    
     <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
     
         <script>
@@ -876,39 +890,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     
     <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
     <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
-    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js&quot;></script>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
     <script src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;></script>
-    <script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js&quot;></script>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
     <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
     
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_335e9cda3ec7d86a50e29103cb4b76b9 {
+                #map_4b1ea895a67af091bc1e12a6b31009b5 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
                     left: 0.0%;
                     top: 0.0%;
                 }
+                .leaflet-container { font-size: 1rem; }
             </style>
         
 </head>
-<body>    
+<body>
     
-            <div class=&quot;folium-map&quot; id=&quot;map_335e9cda3ec7d86a50e29103cb4b76b9&quot; ></div>
+    
+            <div class=&quot;folium-map&quot; id=&quot;map_4b1ea895a67af091bc1e12a6b31009b5&quot; ></div>
         
 </body>
-<script>    
+<script>
     
-            var map_335e9cda3ec7d86a50e29103cb4b76b9 = L.map(
-                &quot;map_335e9cda3ec7d86a50e29103cb4b76b9&quot;,
+    
+            var map_4b1ea895a67af091bc1e12a6b31009b5 = L.map(
+                &quot;map_4b1ea895a67af091bc1e12a6b31009b5&quot;,
                 {
                     center: [18.464629000000002, -65.638847],
                     crs: L.CRS.EPSG3857,
@@ -922,18 +939,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
         
     
-            var tile_layer_90ec86d8dbf9203817d154a049621602 = L.tileLayer(
+            var tile_layer_3f8656cfd8df3c2149e90b5b9915f630 = L.tileLayer(
                 &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_335e9cda3ec7d86a50e29103cb4b76b9);
+                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            ).addTo(map_4b1ea895a67af091bc1e12a6b31009b5);
         
     
-            var tile_layer_c4cf9bde4449bcf809f733e9aed5c134 = L.tileLayer(
+            var tile_layer_29e3f44434c7909e00dc0ff4ed549349 = L.tileLayer(
                 &quot;https://staging-raster.delta-backend.com/mosaic/tiles/61809545320d5ea343d57453af06b818/WebMercatorQuad/{z}/{x}/{y}@1x?assets=B03\u0026assets=B05\u0026expression=%28B03-B05%29%2F%28B03%2BB05%29\u0026rescale=0%2C1\u0026colormap_name=viridis&quot;,
                 {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_335e9cda3ec7d86a50e29103cb4b76b9);
+            ).addTo(map_4b1ea895a67af091bc1e12a6b31009b5);
         
-</script>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
+</script>
+</html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
 </div>
 </div>
 
