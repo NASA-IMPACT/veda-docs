@@ -207,6 +207,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../example-notebooks/gif-generation.html" class="sidebar-item-text sidebar-link">GIF generation using the TiTiler /cog/crop endpoint</a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/visualizing-zarr.html" class="sidebar-item-text sidebar-link">Visualizing Zarr: Data from the Soil Moisture Active Passive Mission</a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -807,7 +812,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="comparison-multi-vs-single-threaded-approach" class="level3">
 <h3 class="anchored" data-anchor-id="comparison-multi-vs-single-threaded-approach">Comparison: multi vs single threaded approach</h3>
 <p>We can drastically reduce the time it takes to generate the timeseries, even with the complex AOI above, by taking advantage of the API’s underlying infrastructure. The API is powered by <a href="https://aws.amazon.com/lambda/">AWS Lambda</a>, and executes each request in a separate instance, which makes it <strong>highly</strong> scalable. Since each statistics request is for a single timestamp, we can request statistics for multiple timesteps concurrently, and greatly reduce the amount of time needed. We will demonstrate this by using the <code>concurrent.futures</code> library:</p>
-<div class="cell" data-scrolled="true">
+<div class="cell" data-scrolled="true" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> concurrent.futures <span class="im">import</span> ThreadPoolExecutor </span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># suspended function evaluation</span></span>
@@ -819,6 +824,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    aoi_stats <span class="op">=</span> <span class="bu">list</span>(executor.<span class="bu">map</span>(_generate_stats, items))</span>
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>end <span class="op">=</span> time.time()</span>
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Elapsed time for a complex AOI (france): </span><span class="sc">{</span><span class="bu">round</span>(end<span class="op">-</span>start,<span class="dv">2</span>)<span class="sc">}</span><span class="ss"> seconds. Items queried: </span><span class="sc">{</span><span class="bu">len</span>(items)<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Elapsed time for a complex AOI (france): 23.65 seconds. Items queried: 77</code></pre>
+</div>
 </div>
 <p>By multi-threading the operation, we’ve reduced the runtime by a factor of almost 9 !</p>
 
