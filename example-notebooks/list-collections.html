@@ -2,14 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.313">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Aimee Barciauskas">
 <meta name="dcterms.date" content="2022-12-26">
+<meta name="description" content="Programatically list all collections that are available on a particular STAC catalog">
 
-<title>VEDA Documentation - List all collections</title>
+<title>VEDA Documentation - List STAC collections</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,7 +95,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../example-notebooks/timeseries-stac-api.html" rel="next">
+<link href="../example-notebooks/open-and-plot.html" rel="next">
 <link href="../example-notebooks/index.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -137,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">List all collections</h1>
+      <h1 class="quarto-secondary-nav-title">List STAC collections</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -184,19 +185,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Basic</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/list-collections.html" class="sidebar-item-text sidebar-link active">List all collections</a>
+  <a href="../example-notebooks/list-collections.html" class="sidebar-item-text sidebar-link active">List STAC collections</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/timeseries-stac-api.html" class="sidebar-item-text sidebar-link">Time series using STAC API statistics endpoint</a>
+  <a href="../example-notebooks/open-and-plot.html" class="sidebar-item-text sidebar-link">Open and plot COGs</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/hls-visualization.html" class="sidebar-item-text sidebar-link">Multi-Band Visualization Preview for HLS with CQL2-JSON</a>
+  <a href="../example-notebooks/timeseries-rioxarray-stackstac.html" class="sidebar-item-text sidebar-link">Calculate timeseries from COGs</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/visualizing-zarr.html" class="sidebar-item-text sidebar-link">Visualize Zarr</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/visualize-multiple-times.html" class="sidebar-item-text sidebar-link">Open and visualize COGs</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/intake.html" class="sidebar-item-text sidebar-link">Searching VEDA STAC API and inspecting catalogs with intake</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">Using the Raster API</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/timeseries-stac-api.html" class="sidebar-item-text sidebar-link">Get timeseries from COGs</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/hls-visualization.html" class="sidebar-item-text sidebar-link">Get tiles from COGs</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -204,11 +248,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../example-notebooks/gif-generation.html" class="sidebar-item-text sidebar-link">GIF generation using the TiTiler /cog/crop endpoint</a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/visualizing-zarr.html" class="sidebar-item-text sidebar-link">Visualizing Zarr: Data from the Soil Moisture Active Passive Mission</a>
-  </div>
-</li>
+      </ul>
+  </li>
       </ul>
   </li>
     </ul>
@@ -216,16 +257,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#run-this-notebook" id="toc-run-this-notebook" class="nav-link active" data-scroll-target="#run-this-notebook">Run this notebook</a></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a></li>
+  <li><a href="#open-stac-catalog" id="toc-open-stac-catalog" class="nav-link" data-scroll-target="#open-stac-catalog">Open STAC catalog</a></li>
+  <li><a href="#list-collections" id="toc-list-collections" class="nav-link" data-scroll-target="#list-collections">List collections</a></li>
+  <li><a href="#alternate-approachs" id="toc-alternate-approachs" class="nav-link" data-scroll-target="#alternate-approachs">Alternate approachs</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/nasa-impact/veda-docs/blob/main/example-notebooks/list-collections.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">List all collections</h1>
+<h1 class="title d-none d-lg-block">List STAC collections</h1>
 </div>
 
+<div>
+  <div class="description">
+    Programatically list all collections that are available on a particular STAC catalog
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -250,105 +306,127 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<section id="run-this-notebook" class="level2">
+<h2 class="anchored" data-anchor-id="run-this-notebook">Run this notebook</h2>
 <p>You can launch this notbook using mybinder, by clicking the button below.</p>
 <p><a href="https://mybinder.org/v2/gh/NASA-IMPACT/veda-docs/HEAD?labpath=example-notebooks%2Flist-collections.ipynb"> <img src="https://mybinder.org/badge_logo.svg" alt="Binder" title="A cute binder" width="150"> </a></p>
+</section>
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">Approach</h2>
+<ol type="1">
+<li>Use <code>pystac_client</code> to open the STAC catalog</li>
+<li>Walk through catalog and print the title of each collection</li>
+</ol>
+</section>
+<section id="open-stac-catalog" class="level2">
+<h2 class="anchored" data-anchor-id="open-stac-catalog">Open STAC catalog</h2>
 <div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">'https://staging-stac.delta-backend.com/'</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>catalog <span class="op">=</span> Client.<span class="bu">open</span>(STAC_API_URL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="list-collections" class="level2">
+<h2 class="anchored" data-anchor-id="list-collections">List collections</h2>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">'https://staging-stac.delta-backend.com/'</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> Client.<span class="bu">open</span>(STAC_API_URL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> root, collections, items <span class="kw">in</span> client.walk():</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> collection <span class="kw">in</span> collections:</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(collection.title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> root, collections, items <span class="kw">in</span> catalog.walk():</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> collection <span class="kw">in</span> <span class="bu">sorted</span>(collections, key<span class="op">=</span><span class="kw">lambda</span> x: x.title):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(collection.title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Gridded 2012 EPA Methane Emissions - Composting
-Black Marble 500m Nightlights Daily Dataset
-ICESat-2 L4 Monthly Gridded Sea Ice Thickness (COGs)
-Social Vulnerability Index (Household)
-NO₂
-NO₂ (Diff)
-MTBS Burn Severity
-ECCO sea-surface height change from 1992 to 2017
-Trend in Terrestrial Water Storage (TWS) Anomalies
-Social Vulnerability Index (Housing)
-GRDI IMR Constituent Raster
+<pre><code>
+Annual LAI maps for 2003 and 2021 (Bangladesh)
 Annual land cover maps for 2001 and 2020
-NCEO Africa Aboveground Woody Biomass 2017
-HLSL30.002 Environmental Justice Events
-Gridded 2012 EPA Methane Emissions - Natural Gas Processing
-Gridded 2012 EPA Methane Emissions - Domestic Wastewater Treatment
-Gridded 2012 EPA Methane Emissions - Forest Fires
-Gridded 2012 EPA Methane Emissions - Industrial Wastewater Treatment
-Gridded 2012 EPA Methane Emissions - Petroleum
-Gridded 2012 EPA Methane Emissions - Surface Coal Mines
-Gridded 2012 EPA Methane Emissions - Mobile Combustion
-Gridded 2012 EPA Methane Emissions - Field Burning
-Terrestrial Water Storage (TWS) Anomalies
-Gridded 2012 EPA Methane Emissions - Petrochemical Production
+Black Marble 500m Nightlights Daily Dataset
+Black Marble High Definition Nightlights 1 band Dataset
+Black Marble High Definition Nightlights Monthly Dataset
+CO₂ (Avg)
+CO₂ (Diff)
 Caldor Fire Behavior
 Caldor Fire Burn Severity
-Gridded 2012 EPA Methane Emissions - Natural Gas Production (monthly)
-CO₂ (Avg)
+ECCO sea-surface height change from 1992 to 2017
+GEOGLAM Crop Monitor
+GRDI BUILT Constituent Raster
+GRDI CDR Constituent Raster
+GRDI Filled Missing Values Count
+GRDI IMR Constituent Raster
+GRDI SHDI Constituent Raster
+GRDI V1 raster
+GRDI VNL Constituent Raster
+GRDI VNL Slope Constituent Raster
 Global TWS Non-Stationarity Index
-Annual LAI maps for 2003 and 2021 (Bangladesh)
+Gridded 2012 EPA Methane Emissions - Abandoned Coal Mines
+Gridded 2012 EPA Methane Emissions - Composting
+Gridded 2012 EPA Methane Emissions - Domestic Wastewater Treatment
+Gridded 2012 EPA Methane Emissions - Enteric Fermentation
+Gridded 2012 EPA Methane Emissions - Ferroalloy Production
+Gridded 2012 EPA Methane Emissions - Field Burning
+Gridded 2012 EPA Methane Emissions - Field Burning (monthly)
+Gridded 2012 EPA Methane Emissions - Forest Fires
+Gridded 2012 EPA Methane Emissions - Forest Fires (daily)
+Gridded 2012 EPA Methane Emissions - Industrial Landfills
+Gridded 2012 EPA Methane Emissions - Industrial Wastewater Treatment
+Gridded 2012 EPA Methane Emissions - Manure Management
+Gridded 2012 EPA Methane Emissions - Manure Management (monthly)
+Gridded 2012 EPA Methane Emissions - Mobile Combustion
+Gridded 2012 EPA Methane Emissions - Municipal Landfills
+Gridded 2012 EPA Methane Emissions - Natural Gas Distribution
+Gridded 2012 EPA Methane Emissions - Natural Gas Processing
+Gridded 2012 EPA Methane Emissions - Natural Gas Production
+Gridded 2012 EPA Methane Emissions - Natural Gas Production (monthly)
+Gridded 2012 EPA Methane Emissions - Natural Gas Transmission
+Gridded 2012 EPA Methane Emissions - Petrochemical Production
+Gridded 2012 EPA Methane Emissions - Petroleum
+Gridded 2012 EPA Methane Emissions - Petroleum (monthly)
+Gridded 2012 EPA Methane Emissions - Rice Cultivation
+Gridded 2012 EPA Methane Emissions - Rice Cultivation (monthly)
+Gridded 2012 EPA Methane Emissions - Stationary Combustion
+Gridded 2012 EPA Methane Emissions - Stationary Combustion (monthly)
+Gridded 2012 EPA Methane Emissions - Surface Coal Mines
+Gridded 2012 EPA Methane Emissions - Underground Coal Mines
+HLSL30.002 Environmental Justice Events
+HLSS30.002 Environmental Justice Events
+Hurricane Ida - Blue Tarps PlanetScope Image
+Hurricane Ida - Detected Blue Tarps
+ICESat-2 L4 Monthly Gridded Sea Ice Thickness (COGs)
+MTBS Burn Severity
+NCEO Africa Aboveground Woody Biomass 2017
+NO₂
+NO₂ (Diff)
+OMI/Aura Sulfur Dioxide (SO2) Total Column L3 1 day Best Pixel in 0.25 degree x 0.25 degree V3 as Cloud-Optimized GeoTIFFs (COGs)
+OMI_trno2 - 0.10 x 0.10 Annual as Cloud-Optimized GeoTIFFs (COGs)
+Population Density Maps using satellite imagery built by Meta
 Projections of Snow Water Equivalent (SWE)
-Projections of Snow Water Equivalent (SWE) losses
-Projections of Snow Water Equivalent (SWE) Losses - SSP2-4.5
-Projections of Snow Water Equivalent (SWE) Losses - SSP5-8.5
 Projections of Snow Water Equivalent (SWE) - SSP2-4.5
 Projections of Snow Water Equivalent (SWE) - SSP5-8.5
-GEOGLAM Crop Monitor
-Black Marble High Definition Nightlights Monthly Dataset
-GRDI VNL Constituent Raster
-Social Vulnerability Index (Housing) (Masked)
+Projections of Snow Water Equivalent (SWE) Losses - SSP2-4.5
+Projections of Snow Water Equivalent (SWE) Losses - SSP5-8.5
+Projections of Snow Water Equivalent (SWE) losses
+Social Vulnerability Index (Household)
 Social Vulnerability Index (Household) (Masked)
+Social Vulnerability Index (Housing)
+Social Vulnerability Index (Housing) (Masked)
+Social Vulnerability Index (Minority)
+Social Vulnerability Index (Minority) (Masked)
+Social Vulnerability Index (Overall)
+Social Vulnerability Index (Overall) (Masked)
 Social Vulnerability Index (SocioEconomic)
 Social Vulnerability Index (SocioEconomic) (Masked)
-GRDI Filled Missing Values Count
-OMI_trno2 - 0.10 x 0.10 Annual as Cloud-Optimized GeoTIFFs (COGs)
-Social Vulnerability Index (Overall)
-Social Vulnerability Index (Minority) (Masked)
-GRDI CDR Constituent Raster
-
-Social Vulnerability Index (Overall) (Masked)
-GRDI V1 raster
-GRDI SHDI Constituent Raster
-Hurricane Ida - Blue Tarps PlanetScope Image
-Black Marble High Definition Nightlights 1 band Dataset
-Social Vulnerability Index (Minority)
-OMI/Aura Sulfur Dioxide (SO2) Total Column L3 1 day Best Pixel in 0.25 degree x 0.25 degree V3 as Cloud-Optimized GeoTIFFs (COGs)
-Gridded 2012 EPA Methane Emissions - Underground Coal Mines
-HLSS30.002 Environmental Justice Events
-GRDI BUILT Constituent Raster
-GRDI VNL Slope Constituent Raster
-Population Density Maps using satellite imagery built by Meta
-Gridded 2012 EPA Methane Emissions - Abandoned Coal Mines
-Gridded 2012 EPA Methane Emissions - Manure Management
-Gridded 2012 EPA Methane Emissions - Stationary Combustion
-Gridded 2012 EPA Methane Emissions - Natural Gas Production
-Gridded 2012 EPA Methane Emissions - Industrial Landfills
-Gridded 2012 EPA Methane Emissions - Ferroalloy Production
-Gridded 2012 EPA Methane Emissions - Enteric Fermentation
-Gridded 2012 EPA Methane Emissions - Municipal Landfills
-Gridded 2012 EPA Methane Emissions - Natural Gas Transmission
-Gridded 2012 EPA Methane Emissions - Forest Fires
-Gridded 2012 EPA Methane Emissions - Natural Gas Distribution
-Gridded 2012 EPA Methane Emissions - Rice Cultivation
-Gridded 2012 EPA Methane Emissions - Forest Fires (daily)
-Gridded 2012 EPA Methane Emissions - Stationary Combustion (monthly)
-Gridded 2012 EPA Methane Emissions - Field Burning (monthly)
-Gridded 2012 EPA Methane Emissions - Manure Management (monthly)
-Gridded 2012 EPA Methane Emissions - Petroleum (monthly)
-Hurricane Ida - Detected Blue Tarps
-Gridded 2012 EPA Methane Emissions - Rice Cultivation (monthly)
-CO₂ (Diff)</code></pre>
+Terrestrial Water Storage (TWS) Anomalies
+Trend in Terrestrial Water Storage (TWS) Anomalies</code></pre>
 </div>
 </div>
+</section>
+<section id="alternate-approachs" class="level2">
+<h2 class="anchored" data-anchor-id="alternate-approachs">Alternate approachs</h2>
+<p>Instead of exploring STAC catalog programatically, you can discover available collections the following ways:</p>
+<ul>
+<li>JSON API: https://staging-stac.delta-backend.com/collections</li>
+<li>STAC Browser: http://veda-staging-stac-browser.s3-website-us-west-2.amazonaws.com</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -606,8 +684,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../example-notebooks/timeseries-stac-api.html" class="pagination-link">
-        <span class="nav-page-text">Time series using STAC API statistics endpoint</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../example-notebooks/open-and-plot.html" class="pagination-link">
+        <span class="nav-page-text">Open and plot COGs</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

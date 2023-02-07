@@ -2,14 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.313">
+<meta name="generator" content="quarto-1.2.335">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Alexandra Kirk">
 <meta name="dcterms.date" content="2022-06-30">
+<meta name="description" content="Demonstrates exploring HLS data at a specific time and place using the Raster API.">
 
-<title>VEDA Documentation - Multi-Band Visualization Preview for HLS with CQL2-JSON</title>
+<title>VEDA Documentation - Get tiles from COGs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -140,7 +141,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Multi-Band Visualization Preview for HLS with CQL2-JSON</h1>
+      <h1 class="quarto-secondary-nav-title">Get tiles from COGs</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -187,19 +188,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">Basic</a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/list-collections.html" class="sidebar-item-text sidebar-link">List all collections</a>
+  <a href="../example-notebooks/list-collections.html" class="sidebar-item-text sidebar-link">List STAC collections</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/timeseries-stac-api.html" class="sidebar-item-text sidebar-link">Time series using STAC API statistics endpoint</a>
+  <a href="../example-notebooks/open-and-plot.html" class="sidebar-item-text sidebar-link">Open and plot COGs</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/hls-visualization.html" class="sidebar-item-text sidebar-link active">Multi-Band Visualization Preview for HLS with CQL2-JSON</a>
+  <a href="../example-notebooks/timeseries-rioxarray-stackstac.html" class="sidebar-item-text sidebar-link">Calculate timeseries from COGs</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/visualizing-zarr.html" class="sidebar-item-text sidebar-link">Visualize Zarr</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/visualize-multiple-times.html" class="sidebar-item-text sidebar-link">Open and visualize COGs</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/intake.html" class="sidebar-item-text sidebar-link">Searching VEDA STAC API and inspecting catalogs with intake</a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Using the Raster API</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/timeseries-stac-api.html" class="sidebar-item-text sidebar-link">Get timeseries from COGs</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/hls-visualization.html" class="sidebar-item-text sidebar-link active">Get tiles from COGs</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -207,11 +251,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../example-notebooks/gif-generation.html" class="sidebar-item-text sidebar-link">GIF generation using the TiTiler /cog/crop endpoint</a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/visualizing-zarr.html" class="sidebar-item-text sidebar-link">Visualizing Zarr: Data from the Soil Moisture Active Passive Mission</a>
-  </div>
-</li>
+      </ul>
+  </li>
       </ul>
   </li>
     </ul>
@@ -223,7 +264,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#parameters-for-investigating-hurricane-events-with-the-dynamic-tiler-and-custom-band-combinations" id="toc-parameters-for-investigating-hurricane-events-with-the-dynamic-tiler-and-custom-band-combinations" class="nav-link active" data-scroll-target="#parameters-for-investigating-hurricane-events-with-the-dynamic-tiler-and-custom-band-combinations">Parameters for investigating hurricane events with the dynamic tiler and custom band combinations</a>
+  <li><a href="#run-this-notebook" id="toc-run-this-notebook" class="nav-link active" data-scroll-target="#run-this-notebook">Run this notebook</a></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a></li>
+  <li><a href="#about-the-data" id="toc-about-the-data" class="nav-link" data-scroll-target="#about-the-data">About the Data</a></li>
+  <li><a href="#parameters-for-investigating-hurricane-events-with-the-dynamic-tiler-and-custom-band-combinations" id="toc-parameters-for-investigating-hurricane-events-with-the-dynamic-tiler-and-custom-band-combinations" class="nav-link" data-scroll-target="#parameters-for-investigating-hurricane-events-with-the-dynamic-tiler-and-custom-band-combinations">Parameters for investigating hurricane events with the dynamic tiler and custom band combinations</a>
   <ul class="collapse">
   <li><a href="#first-search-the-stac-api-to-find-the-specific-dates-available-within-timeframe-of-interest-hurricane-ida" id="toc-first-search-the-stac-api-to-find-the-specific-dates-available-within-timeframe-of-interest-hurricane-ida" class="nav-link" data-scroll-target="#first-search-the-stac-api-to-find-the-specific-dates-available-within-timeframe-of-interest-hurricane-ida">First, search the STAC API to find the specific dates available within timeframe of interest (Hurricane Ida)</a></li>
   </ul></li>
@@ -237,7 +281,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#display-the-data-on-a-map" id="toc-display-the-data-on-a-map" class="nav-link" data-scroll-target="#display-the-data-on-a-map">Display the data on a map</a></li>
   <li><a href="#format-and-render-tiles-using-custom-formatting" id="toc-format-and-render-tiles-using-custom-formatting" class="nav-link" data-scroll-target="#format-and-render-tiles-using-custom-formatting">Format and render tiles using custom formatting</a></li>
   </ul></li>
-  <li><a href="#l30-hurricane-maria-example" id="toc-l30-hurricane-maria-example" class="nav-link" data-scroll-target="#l30-hurricane-maria-example">L30 Hurricane Maria Example</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/nasa-impact/veda-docs/blob/main/example-notebooks/hls-visualization.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -246,9 +289,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Multi-Band Visualization Preview for HLS with CQL2-JSON</h1>
+<h1 class="title d-none d-lg-block">Get tiles from COGs</h1>
 </div>
 
+<div>
+  <div class="description">
+    Demonstrates exploring HLS data at a specific time and place using the Raster API.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -273,29 +321,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>This notebook demonstrates how to explore HLS data for a specific event, where an event can be charactized by its time and place. Geospatial imagery, such as HLS, is often used for analysis of changes correlated with an event.</p>
+<section id="run-this-notebook" class="level2">
+<h2 class="anchored" data-anchor-id="run-this-notebook">Run this notebook</h2>
+<p>You can launch this notbook using mybinder, by clicking the button below.</p>
+<p><a href="https://mybinder.org/v2/gh/NASA-IMPACT/veda-docs/HEAD?labpath=example-notebooks%2Fhls-visualization.ipynb"> <img src="https://mybinder.org/badge_logo.svg" alt="Binder" title="A cute binder" width="150"> </a></p>
+</section>
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">Approach</h2>
 <ol type="1">
 <li>Identify available dates within a bounding box, which is also an area of interest (AOI) in this example, for a given collection</li>
 <li>Register a dynamic tiler search for an AOI and specific date range for a given collection</li>
 <li>Explore different options for displaying multi-band Harmonized Landsat and Sentinel (HLS) assets with the Raster API.</li>
 </ol>
-<p><strong>About the Data</strong></p>
+</section>
+<section id="about-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="about-the-data">About the Data</h2>
 <p>A small subset of HLS data has been ingested to the VEDA datastore to visually explore data using the Raster API, which is a VEDA instance of (<a href="https://github.com/stac-utils/titiler-pgstac">pgstac-titiler</a>). This limited subset includes a two granules for dates before and after Hurricane Maria in 2017 and Hurricane Ida in 2021.</p>
 <p>Note about HLS datasets: The Sentinel and Landsat assets have been “harmonized” in the sense that these products have been generated to use the same spatial resolution and grid system. Thus these 2 HLS S30 and L30 productscan be used interchangeably in algorithms. However, the individual band assets are specific to each provider. This notebook focuses on displaying HLS data with a dynamic tiler so separate examples are provided for rendering the unique band assets of each collection.</p>
 <p><strong>Additional Resources</strong></p>
-<p><a href="https://lpdaac.usgs.gov/products/hlsl30v002/">HLSL30 Dataset Landing Page</a></p>
-<p><a href="https://www.l3harrisgeospatial.com/Learn/Blogs/Blog-Details/ArtMID/10198/ArticleID/15691/The-Many-Band-Combinations-of-Landsat-8">Landsat 8 Bands and Combinations Blog</a></p>
-<p><a href="https://lpdaac.usgs.gov/products/hlss30v002/">HLSS30 Dataset Landing Page</a></p>
-<p><a href="https://gisgeography.com/sentinel-2-bands-combinations/">Sentinel 2 Bands and Combinations Blog</a></p>
-<p><a href="https://github.com/radiantearth/stac-api-spec/tree/master/fragments/filter#examples">CQL2 STAC-API Examples</a></p>
+<ul>
+<li><a href="https://lpdaac.usgs.gov/products/hlsl30v002/">HLSL30 Dataset Landing Page</a></li>
+<li><a href="https://www.l3harrisgeospatial.com/Learn/Blogs/Blog-Details/ArtMID/10198/ArticleID/15691/The-Many-Band-Combinations-of-Landsat-8">Landsat 8 Bands and Combinations Blog</a></li>
+<li><a href="https://lpdaac.usgs.gov/products/hlss30v002/">HLSS30 Dataset Landing Page</a></li>
+<li><a href="https://gisgeography.com/sentinel-2-bands-combinations/">Sentinel 2 Bands and Combinations Blog</a></li>
+<li><a href="https://github.com/radiantearth/stac-api-spec/tree/master/fragments/filter#examples">CQL2 STAC-API Examples</a></li>
+</ul>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> folium <span class="im">import</span> Map, TileLayer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> folium <span class="im">import</span> Map, TileLayer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 <section id="parameters-for-investigating-hurricane-events-with-the-dynamic-tiler-and-custom-band-combinations" class="level2">
 <h2 class="anchored" data-anchor-id="parameters-for-investigating-hurricane-events-with-the-dynamic-tiler-and-custom-band-combinations">Parameters for investigating hurricane events with the dynamic tiler and custom band combinations</h2>
-<p>The notebook examples below focus on HLS S30 data for Hurricane Ida, but Hurricane Maria and L30 parameters are provided below for further exploration.</p>
+<p>In this notebook we will focus on HLS S30 data for Hurricane Ida, but Hurricane Maria and L30 parameters are provided below for further exploration.</p>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Endpoints</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://staging-stac.delta-backend.com"</span></span>
@@ -357,47 +417,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    ]</span>
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify cql2-json filter language in search body and add context for a summary of matched results</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>search_body <span class="op">=</span> {</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter-lang"</span>: <span class="st">"cql2-json"</span>,</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"context"</span>: <span class="st">"on"</span>,</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter"</span>: {</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"op"</span>: <span class="st">"and"</span>,</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"args"</span>: [</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>            collections_filter,</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>            spatial_filter,</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>            temporal_filter,</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>            cloud_filter</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>        ]</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Note this search body can also be used for a stac item search </span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>stac_items_response <span class="op">=</span> requests.post(</span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/search"</span>,</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>search_body,</span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Check how many items were matched in searc</span></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"search context:"</span>, stac_items_response[<span class="st">"context"</span>])</span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over search results to get an array of unique item datetimes</span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>datetimes <span class="op">=</span> []</span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> stac_items_response[<span class="st">"features"</span>]</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>datetimes <span class="op">+=</span> [item[<span class="st">"properties"</span>][<span class="st">"datetime"</span>] <span class="cf">for</span> item <span class="kw">in</span> features]</span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>next_link <span class="op">=</span> <span class="bu">next</span>((link <span class="cf">for</span> link <span class="kw">in</span> stac_items_response[<span class="st">"links"</span>] <span class="cf">if</span> link[<span class="st">"rel"</span>] <span class="op">==</span> <span class="st">"next"</span>), <span class="va">None</span>)</span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> next_link:</span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    stac_items_response <span class="op">=</span> requests.post(</span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/search"</span>,</span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>        json<span class="op">=</span>next_link[<span class="st">"body"</span>],</span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>    ).json()</span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>    features <span class="op">=</span> stac_items_response[<span class="st">"features"</span>]</span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>    datetimes <span class="op">+=</span> [item[<span class="st">"properties"</span>][<span class="st">"datetime"</span>] <span class="cf">for</span> item <span class="kw">in</span> features]</span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>    next_link <span class="op">=</span> <span class="bu">next</span>((link <span class="cf">for</span> link <span class="kw">in</span> stac_items_response[<span class="st">"links"</span>] <span class="cf">if</span> link[<span class="st">"rel"</span>] <span class="op">==</span> <span class="st">"next"</span>), <span class="va">False</span>)</span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="bu">sorted</span>(datetimes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>search_body <span class="op">=</span> {</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter-lang"</span>: <span class="st">"cql2-json"</span>,</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">"limit"</span>: <span class="dv">100</span>,</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sortby"</span>: [{<span class="st">"direction"</span>: <span class="st">"asc"</span>, <span class="st">"field"</span>: <span class="st">"properties.datetime"</span>}],</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"context"</span>: <span class="st">"on"</span>,  <span class="co"># add context for a summary of matched results</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter"</span>: {</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"op"</span>: <span class="st">"and"</span>,</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"args"</span>: [</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>            collections_filter,</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>            spatial_filter,</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>            temporal_filter,</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>            cloud_filter</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Note this search body can also be used for a stac item search </span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>stac_items_response <span class="op">=</span> requests.post(</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/search"</span>,</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>search_body,</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>).json()</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Check how many items were matched in search</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"search context:"</span>, stac_items_response[<span class="st">"context"</span>])</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over search results to get an array of item datetimes</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>[item[<span class="st">"properties"</span>][<span class="st">"datetime"</span>] <span class="cf">for</span> item <span class="kw">in</span> stac_items_response[<span class="st">"features"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>search context: {'limit': 10, 'matched': 14, 'returned': 10}</code></pre>
+<pre><code>search context: {'limit': 100, 'matched': 14, 'returned': 14}</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>['2021-07-14T16:55:15.122720Z',
@@ -452,24 +500,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/mosaic/register"</span>,</span>
 <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>search_body,</span>
 <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(mosaic_response, indent<span class="op">=</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(mosaic_response, indent<span class="op">=</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{
- "searchid": "7743bcb31bff7151aff7e5508785fce1",
- "links": [
-  {
-   "rel": "metadata",
-   "type": "application/json",
-   "href": "https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/info"
-  },
-  {
-   "rel": "tilejson",
-   "type": "application/json",
-   "href": "https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/tilejson.json"
-  }
- ]
+  "searchid": "7743bcb31bff7151aff7e5508785fce1",
+  "links": [
+    {
+      "rel": "metadata",
+      "type": "application/json",
+      "href": "https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/info"
+    },
+    {
+      "rel": "tilejson",
+      "type": "application/json",
+      "href": "https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/tilejson.json"
+    }
+  ]
 }</code></pre>
 </div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get base url for tiler from the register mosaic request</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>tiles_href <span class="op">=</span> <span class="bu">next</span>(link[<span class="st">"href"</span>] <span class="cf">for</span> link <span class="kw">in</span> mosaic_response[<span class="st">"links"</span>] <span class="cf">if</span> link[<span class="st">"rel"</span>]<span class="op">==</span><span class="st">"tilejson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="configure-map-formatting-parameters" class="level3">
@@ -480,72 +532,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="use-the-built-in-swir-post-processing-algorithm" class="level2">
 <h2 class="anchored" data-anchor-id="use-the-built-in-swir-post-processing-algorithm">Use the built-in SWIR post processing algorithm</h2>
 <p>Note in the example below the band assets for HLS S30 are selected. The equivalent SWIR band assets for L30 are provided at the top of this notebook.</p>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up format for Map API url</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Get base url for tiler from the register mosaic request</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>tiles_href <span class="op">=</span> <span class="bu">next</span>(link[<span class="st">"href"</span>] <span class="cf">for</span> link <span class="kw">in</span> mosaic_response[<span class="st">"links"</span>] <span class="cf">if</span> link[<span class="st">"rel"</span>]<span class="op">==</span><span class="st">"tilejson"</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Add additional map formatting parameters to tiles url</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>tilejson_response <span class="op">=</span> requests.get(</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    tiles_href,</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Info to add to the tilejson response</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minzoom"</span>: <span class="dv">6</span>,</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"maxzoom"</span>: <span class="dv">12</span>,</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"post_process"</span>: <span class="st">"swir"</span>,</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"assets"</span>: s30_swir_assets</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(tilejson_response, indent<span class="op">=</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add additional map formatting parameters to tiles url</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>tilejson_response <span class="op">=</span> requests.get(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    tiles_href,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Info to add to the tilejson response</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minzoom"</span>: <span class="dv">6</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"maxzoom"</span>: <span class="dv">12</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"post_process"</span>: <span class="st">"swir"</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"assets"</span>: s30_swir_assets</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>).json()</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(tilejson_response, indent<span class="op">=</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{
- "tilejson": "2.2.0",
- "name": "7743bcb31bff7151aff7e5508785fce1",
- "version": "1.0.0",
- "scheme": "xyz",
- "tiles": [
-  "https://staging-raster.delta-backend.com/mosaic/tiles/7743bcb31bff7151aff7e5508785fce1/WebMercatorQuad/{z}/{x}/{y}@1x?post_process=swir&amp;assets=B12&amp;assets=B8A&amp;assets=B04"
- ],
- "minzoom": 6,
- "maxzoom": 12,
- "bounds": [
-  -180.0,
-  -85.0511287798066,
-  180.0,
-  85.0511287798066
- ],
- "center": [
-  0.0,
-  0.0,
-  6
- ]
+  "tilejson": "2.2.0",
+  "name": "7743bcb31bff7151aff7e5508785fce1",
+  "version": "1.0.0",
+  "scheme": "xyz",
+  "tiles": [
+    "https://staging-raster.delta-backend.com/mosaic/tiles/7743bcb31bff7151aff7e5508785fce1/WebMercatorQuad/{z}/{x}/{y}@1x?post_process=swir&amp;assets=B12&amp;assets=B8A&amp;assets=B04"
+  ],
+  "minzoom": 6,
+  "maxzoom": 12,
+  "bounds": [
+    -180.0,
+    -85.0511287798066,
+    180.0,
+    85.0511287798066
+  ],
+  "center": [
+    0.0,
+    0.0,
+    6
+  ]
 }</code></pre>
 </div>
 </div>
 <section id="display-the-data-on-a-map" class="level3">
 <h3 class="anchored" data-anchor-id="display-the-data-on-a-map">Display the data on a map</h3>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use bbox initial zoom and map</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up a map located w/in event bounds</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>zoom_start <span class="op">=</span> <span class="dv">11</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Map(</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span><span class="st">"OpenStreetMap"</span>,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>((ida_bbox[<span class="dv">1</span>] <span class="op">+</span> ida_bbox[<span class="dv">3</span>]) <span class="op">/</span> <span class="dv">2</span>,(ida_bbox[<span class="dv">0</span>] <span class="op">+</span> ida_bbox[<span class="dv">2</span>]) <span class="op">/</span> <span class="dv">2</span>),</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    zoom_start<span class="op">=</span>zoom_start</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the formatted map layer</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>map_layer <span class="op">=</span> TileLayer(</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>tilejson_response[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"Mosaic"</span>,  </span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>map_layer.add_to(m)</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use bbox initial zoom and map</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up a map located w/in event bounds</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>zoom_start <span class="op">=</span> <span class="dv">11</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Map(</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span><span class="st">"OpenStreetMap"</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>((ida_bbox[<span class="dv">1</span>] <span class="op">+</span> ida_bbox[<span class="dv">3</span>]) <span class="op">/</span> <span class="dv">2</span>,(ida_bbox[<span class="dv">0</span>] <span class="op">+</span> ida_bbox[<span class="dv">2</span>]) <span class="op">/</span> <span class="dv">2</span>),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    zoom_start<span class="op">=</span>zoom_start</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the formatted map layer</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>map_layer <span class="op">=</span> TileLayer(</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>tilejson_response[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"Mosaic"</span>,  </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>map_layer.add_to(m)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
-<html>
-<head>
-    
+<head>    
     <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
     
         <script>
@@ -555,42 +601,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     
     <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
     <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
-    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js&quot;></script>
     <script src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;></script>
-    <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
+    <script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js&quot;></script>
     <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
     
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_397a1d9b3c025ce85a7fda968a14f77e {
+                #map_a1cca589ca144aa69804d5d4543c540f {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
                     left: 0.0%;
                     top: 0.0%;
                 }
-                .leaflet-container { font-size: 1rem; }
             </style>
         
 </head>
-<body>
+<body>    
     
-    
-            <div class=&quot;folium-map&quot; id=&quot;map_397a1d9b3c025ce85a7fda968a14f77e&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_a1cca589ca144aa69804d5d4543c540f&quot; ></div>
         
 </body>
-<script>
+<script>    
     
-    
-            var map_397a1d9b3c025ce85a7fda968a14f77e = L.map(
-                &quot;map_397a1d9b3c025ce85a7fda968a14f77e&quot;,
+            var map_a1cca589ca144aa69804d5d4543c540f = L.map(
+                &quot;map_a1cca589ca144aa69804d5d4543c540f&quot;,
                 {
                     center: [30.210818000000003, -90.349537],
                     crs: L.CRS.EPSG3857,
@@ -604,91 +647,84 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
         
     
-            var tile_layer_95e1931260455c28697493e552274732 = L.tileLayer(
+            var tile_layer_d329addece580131a755a35fb6af5d0f = L.tileLayer(
                 &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_397a1d9b3c025ce85a7fda968a14f77e);
+                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            ).addTo(map_a1cca589ca144aa69804d5d4543c540f);
         
     
-            var tile_layer_36ef93cdb051850077c452fabd86a51a = L.tileLayer(
+            var tile_layer_2e1348e33861c0c3bc83fb7ff0318322 = L.tileLayer(
                 &quot;https://staging-raster.delta-backend.com/mosaic/tiles/7743bcb31bff7151aff7e5508785fce1/WebMercatorQuad/{z}/{x}/{y}@1x?post_process=swir\u0026assets=B12\u0026assets=B8A\u0026assets=B04&quot;,
                 {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_397a1d9b3c025ce85a7fda968a14f77e);
+            ).addTo(map_a1cca589ca144aa69804d5d4543c540f);
         
-</script>
-</html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
+</script>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
 </div>
 </div>
 </section>
 <section id="format-and-render-tiles-using-custom-formatting" class="level3">
 <h3 class="anchored" data-anchor-id="format-and-render-tiles-using-custom-formatting">Format and render tiles using custom formatting</h3>
 <p>The titiler/raster-api supports user defined band combinations, band math expressions, rescaling, band index, resampling and more.</p>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up format for Map API url</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Get base url for tiler from the register mosaic request</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>tiles_href <span class="op">=</span> <span class="bu">next</span>(link[<span class="st">"href"</span>] <span class="cf">for</span> link <span class="kw">in</span> mosaic_response[<span class="st">"links"</span>] <span class="cf">if</span> link[<span class="st">"rel"</span>]<span class="op">==</span><span class="st">"tilejson"</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Add additional map formatting parameters to tiles url</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>tilejson_response <span class="op">=</span> requests.get(</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    tiles_href,</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Info to add to the tilejson response</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minzoom"</span>: <span class="dv">6</span>,</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"maxzoom"</span>: <span class="dv">12</span>,</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"assets"</span>: s30_vegetation_index_assets,</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"expression"</span>: s30_vegetation_index_expression,</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"rescale"</span>: s30_vegetation_index_rescaling,</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"colormap_name"</span>: s30_vegetation_index_colormap</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(tilejson_response, indent<span class="op">=</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add additional map formatting parameters to tiles url</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>tilejson_response <span class="op">=</span> requests.get(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    tiles_href,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Info to add to the tilejson response</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minzoom"</span>: <span class="dv">6</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"maxzoom"</span>: <span class="dv">12</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"assets"</span>: s30_vegetation_index_assets,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"expression"</span>: s30_vegetation_index_expression,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"rescale"</span>: s30_vegetation_index_rescaling,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"colormap_name"</span>: s30_vegetation_index_colormap</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>).json()</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(tilejson_response, indent<span class="op">=</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{
- "tilejson": "2.2.0",
- "name": "7743bcb31bff7151aff7e5508785fce1",
- "version": "1.0.0",
- "scheme": "xyz",
- "tiles": [
-  "https://staging-raster.delta-backend.com/mosaic/tiles/7743bcb31bff7151aff7e5508785fce1/WebMercatorQuad/{z}/{x}/{y}@1x?assets=B08&amp;assets=B04&amp;expression=%28B08-B04%29%2F%28B08%2BB04%29&amp;rescale=0%2C1&amp;colormap_name=rdylgn"
- ],
- "minzoom": 6,
- "maxzoom": 12,
- "bounds": [
-  -180.0,
-  -85.0511287798066,
-  180.0,
-  85.0511287798066
- ],
- "center": [
-  0.0,
-  0.0,
-  6
- ]
+  "tilejson": "2.2.0",
+  "name": "7743bcb31bff7151aff7e5508785fce1",
+  "version": "1.0.0",
+  "scheme": "xyz",
+  "tiles": [
+    "https://staging-raster.delta-backend.com/mosaic/tiles/7743bcb31bff7151aff7e5508785fce1/WebMercatorQuad/{z}/{x}/{y}@1x?assets=B08&amp;assets=B04&amp;expression=%28B08-B04%29%2F%28B08%2BB04%29&amp;rescale=0%2C1&amp;colormap_name=rdylgn"
+  ],
+  "minzoom": 6,
+  "maxzoom": 12,
+  "bounds": [
+    -180.0,
+    -85.0511287798066,
+    180.0,
+    85.0511287798066
+  ],
+  "center": [
+    0.0,
+    0.0,
+    6
+  ]
 }</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use bbox initial zoom and map</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up a map located w/in event bounds</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>zoom_start <span class="op">=</span> <span class="dv">11</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Map(</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span><span class="st">"OpenStreetMap"</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>((ida_bbox[<span class="dv">1</span>] <span class="op">+</span> ida_bbox[<span class="dv">3</span>]) <span class="op">/</span> <span class="dv">2</span>,(ida_bbox[<span class="dv">0</span>] <span class="op">+</span> ida_bbox[<span class="dv">2</span>]) <span class="op">/</span> <span class="dv">2</span>),</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    zoom_start<span class="op">=</span>zoom_start</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the formatted map layer</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>map_layer <span class="op">=</span> TileLayer(</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>tilejson_response[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"Mosaic"</span>,  </span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>map_layer.add_to(m)</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use bbox initial zoom and map</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up a map located w/in event bounds</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>zoom_start <span class="op">=</span> <span class="dv">11</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Map(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span><span class="st">"OpenStreetMap"</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>((ida_bbox[<span class="dv">1</span>] <span class="op">+</span> ida_bbox[<span class="dv">3</span>]) <span class="op">/</span> <span class="dv">2</span>,(ida_bbox[<span class="dv">0</span>] <span class="op">+</span> ida_bbox[<span class="dv">2</span>]) <span class="op">/</span> <span class="dv">2</span>),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    zoom_start<span class="op">=</span>zoom_start</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the formatted map layer</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>map_layer <span class="op">=</span> TileLayer(</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>tilejson_response[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"Mosaic"</span>,  </span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>map_layer.add_to(m)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
-<html>
-<head>
-    
+<head>    
     <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
     
         <script>
@@ -698,42 +734,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     
     <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
     <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
-    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js&quot;></script>
     <script src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;></script>
-    <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
+    <script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js&quot;></script>
     <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
     
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_4a93fb86aa0fc11004a82d0399807a01 {
+                #map_0a9d8ee49e4bc2230e1abffbf53cb7c2 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
                     left: 0.0%;
                     top: 0.0%;
                 }
-                .leaflet-container { font-size: 1rem; }
             </style>
         
 </head>
-<body>
+<body>    
     
-    
-            <div class=&quot;folium-map&quot; id=&quot;map_4a93fb86aa0fc11004a82d0399807a01&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_0a9d8ee49e4bc2230e1abffbf53cb7c2&quot; ></div>
         
 </body>
-<script>
+<script>    
     
-    
-            var map_4a93fb86aa0fc11004a82d0399807a01 = L.map(
-                &quot;map_4a93fb86aa0fc11004a82d0399807a01&quot;,
+            var map_0a9d8ee49e4bc2230e1abffbf53cb7c2 = L.map(
+                &quot;map_0a9d8ee49e4bc2230e1abffbf53cb7c2&quot;,
                 {
                     center: [30.210818000000003, -90.349537],
                     crs: L.CRS.EPSG3857,
@@ -747,251 +780,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
         
     
-            var tile_layer_a45c452b8f0e7af4b88a7f5b805b2ce3 = L.tileLayer(
+            var tile_layer_cafa8fd0c1c8467bfa398f4c60d973ca = L.tileLayer(
                 &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_4a93fb86aa0fc11004a82d0399807a01);
+                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            ).addTo(map_0a9d8ee49e4bc2230e1abffbf53cb7c2);
         
     
-            var tile_layer_38e1133128df43727a406131a77a69e9 = L.tileLayer(
+            var tile_layer_fb690339163e0a22f4c55aaaeaf41e56 = L.tileLayer(
                 &quot;https://staging-raster.delta-backend.com/mosaic/tiles/7743bcb31bff7151aff7e5508785fce1/WebMercatorQuad/{z}/{x}/{y}@1x?assets=B08\u0026assets=B04\u0026expression=%28B08-B04%29%2F%28B08%2BB04%29\u0026rescale=0%2C1\u0026colormap_name=rdylgn&quot;,
                 {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_4a93fb86aa0fc11004a82d0399807a01);
+            ).addTo(map_0a9d8ee49e4bc2230e1abffbf53cb7c2);
         
-</script>
-</html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
+</script>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
 </div>
 </div>
+
+
 </section>
-</section>
-<section id="l30-hurricane-maria-example" class="level2">
-<h2 class="anchored" data-anchor-id="l30-hurricane-maria-example">L30 Hurricane Maria Example</h2>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>collections_filter <span class="op">=</span> {</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"op"</span>: <span class="st">"="</span>, </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"args"</span> : [{ <span class="st">"property"</span>: <span class="st">"collection"</span> }, l30_collection_id]</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>spatial_filter <span class="op">=</span> {</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"op"</span>: <span class="st">"s_intersects"</span>,</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"args"</span>: [</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"property"</span>: <span class="st">"bbox"</span>}, maria_bbox</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>temporal_filter <span class="op">=</span> {</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"op"</span>: <span class="st">"t_intersects"</span>,</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"args"</span>: [</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        { <span class="st">"property"</span>: <span class="st">"datetime"</span> },</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>        { <span class="st">"interval"</span> : maria_temporal_range }</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Additional filters can be applied for other search criteria like &lt;= maximum eo:cloud_cover in item properties</span></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>cloud_filter <span class="op">=</span> {</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"op"</span>: <span class="st">"&lt;="</span>,</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"args"</span>: [</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"property"</span>: <span class="st">"eo:cloud_cover"</span>},</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>        <span class="dv">80</span></span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify cql2-json filter language in search body and add context for a summary of matched results</span></span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>search_body <span class="op">=</span> {</span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter-lang"</span>: <span class="st">"cql2-json"</span>,</span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"context"</span>: <span class="st">"on"</span>,</span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter"</span>: {</span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"op"</span>: <span class="st">"and"</span>,</span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"args"</span>: [</span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>            collections_filter,</span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>            temporal_filter,</span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>            cloud_filter</span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>        ]</span>
-<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Note this search body can also be used for a stac item search </span></span>
-<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>stac_items_response <span class="op">=</span> requests.post(</span>
-<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/search"</span>,</span>
-<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>search_body,</span>
-<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Check how many items were matched in searc</span></span>
-<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"search context:"</span>, stac_items_response[<span class="st">"context"</span>])</span>
-<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over search results to get an array of unique item datetimes</span></span>
-<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>datetimes <span class="op">=</span> []</span>
-<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> stac_items_response[<span class="st">"features"</span>]</span>
-<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>datetimes <span class="op">+=</span> [item[<span class="st">"properties"</span>][<span class="st">"datetime"</span>] <span class="cf">for</span> item <span class="kw">in</span> features]</span>
-<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>next_link <span class="op">=</span> <span class="bu">next</span>((link <span class="cf">for</span> link <span class="kw">in</span> stac_items_response[<span class="st">"links"</span>] <span class="cf">if</span> link[<span class="st">"rel"</span>] <span class="op">==</span> <span class="st">"next"</span>), <span class="va">None</span>)</span>
-<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> next_link:</span>
-<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a>    stac_items_response <span class="op">=</span> requests.post(</span>
-<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/search"</span>,</span>
-<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a>        json<span class="op">=</span>next_link[<span class="st">"body"</span>],</span>
-<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a>    ).json()</span>
-<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a>    features <span class="op">=</span> stac_items_response[<span class="st">"features"</span>]</span>
-<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a>    datetimes <span class="op">+=</span> [item[<span class="st">"properties"</span>][<span class="st">"datetime"</span>] <span class="cf">for</span> item <span class="kw">in</span> features]</span>
-<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a>    next_link <span class="op">=</span> <span class="bu">next</span>((link <span class="cf">for</span> link <span class="kw">in</span> stac_items_response[<span class="st">"links"</span>] <span class="cf">if</span> link[<span class="st">"rel"</span>] <span class="op">==</span> <span class="st">"next"</span>), <span class="va">False</span>)</span>
-<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a><span class="bu">sorted</span>(datetimes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>search context: {'limit': 10, 'matched': 9, 'returned': 9}</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>['2017-06-06T14:43:41.335694Z',
- '2017-06-22T14:43:47.156698Z',
- '2017-07-24T14:43:56.898518Z',
- '2017-08-09T14:44:03.584741Z',
- '2017-08-25T14:44:07.854507Z',
- '2017-09-26T14:44:14.813967Z',
- '2017-10-12T14:44:19.576858Z',
- '2017-11-13T14:44:17.834919Z',
- '2017-11-29T14:44:11.126689Z']</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Restricted date range </span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>restricted_temporal_filter <span class="op">=</span> {</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"op"</span>: <span class="st">"t_intersects"</span>,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"args"</span>: [</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        { <span class="st">"property"</span>: <span class="st">"datetime"</span> },</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        { <span class="st">"interval"</span> : [ <span class="st">"2017-10-11T00:00:00Z"</span>, <span class="st">"2017-10-13T00:00:00Z"</span>] }</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify cql2-json filter language in search body</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>search_body <span class="op">=</span> {</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter-lang"</span>: <span class="st">"cql2-json"</span>,</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter"</span>: {</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"op"</span>: <span class="st">"and"</span>,</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"args"</span>: [</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>            collections_filter,</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>            spatial_filter,</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>            restricted_temporal_filter</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>        ]</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>mosaic_response <span class="op">=</span> requests.post(</span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/mosaic/register"</span>,</span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>search_body,</span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up format for Map API url</span></span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Get base url for tiler from the register mosaic request</span></span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>tiles_href <span class="op">=</span> <span class="bu">next</span>(link[<span class="st">"href"</span>] <span class="cf">for</span> link <span class="kw">in</span> mosaic_response[<span class="st">"links"</span>] <span class="cf">if</span> link[<span class="st">"rel"</span>]<span class="op">==</span><span class="st">"tilejson"</span>)</span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Add additional map formatting parameters to tiles url</span></span>
-<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>tilejson_response <span class="op">=</span> requests.get(</span>
-<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>    tiles_href,</span>
-<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{</span>
-<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Info to add to the tilejson response</span></span>
-<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minzoom"</span>: <span class="dv">6</span>,</span>
-<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">"maxzoom"</span>: <span class="dv">12</span>,</span>
-<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"assets"</span>: l30_ndwi_assets,</span>
-<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"expression"</span>: l30_ndwi_expression,</span>
-<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"rescale"</span>: l30_ndwi_rescaling,</span>
-<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">"colormap_name"</span>: <span class="st">"viridis"</span></span>
-<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use bbox initial zoom and map</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up a map located w/in event bounds</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>zoom_start <span class="op">=</span> <span class="dv">11</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Map(</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span><span class="st">"OpenStreetMap"</span>,</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>((maria_bbox[<span class="dv">1</span>] <span class="op">+</span> maria_bbox[<span class="dv">3</span>]) <span class="op">/</span> <span class="dv">2</span>,(maria_bbox[<span class="dv">0</span>] <span class="op">+</span> maria_bbox[<span class="dv">2</span>]) <span class="op">/</span> <span class="dv">2</span>),</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    zoom_start<span class="op">=</span>zoom_start</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the formatted map layer</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>map_layer <span class="op">=</span> TileLayer(</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>tilejson_response[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"Mosaic"</span>,  </span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>map_layer.add_to(m)</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
-<div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
-<html>
-<head>
-    
-    <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
-    
-        <script>
-            L_NO_TOUCH = false;
-            L_DISABLE_3D = false;
-        </script>
-    
-    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
-    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
-    <script src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;></script>
-    <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
-    <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
-    
-            <meta name=&quot;viewport&quot; content=&quot;width=device-width,
-                initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
-            <style>
-                #map_4509ac2c8d579d7a95ab9c4a2a7c5244 {
-                    position: relative;
-                    width: 100.0%;
-                    height: 100.0%;
-                    left: 0.0%;
-                    top: 0.0%;
-                }
-                .leaflet-container { font-size: 1rem; }
-            </style>
-        
-</head>
-<body>
-    
-    
-            <div class=&quot;folium-map&quot; id=&quot;map_4509ac2c8d579d7a95ab9c4a2a7c5244&quot; ></div>
-        
-</body>
-<script>
-    
-    
-            var map_4509ac2c8d579d7a95ab9c4a2a7c5244 = L.map(
-                &quot;map_4509ac2c8d579d7a95ab9c4a2a7c5244&quot;,
-                {
-                    center: [18.464629000000002, -65.638847],
-                    crs: L.CRS.EPSG3857,
-                    zoom: 11,
-                    zoomControl: true,
-                    preferCanvas: false,
-                }
-            );
-
-            
-
-        
-    
-            var tile_layer_7a000e52eae2a03c4f38b3a8026799e0 = L.tileLayer(
-                &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_4509ac2c8d579d7a95ab9c4a2a7c5244);
-        
-    
-            var tile_layer_9f7b5f5b0b77dba82efe00a22a295963 = L.tileLayer(
-                &quot;https://staging-raster.delta-backend.com/mosaic/tiles/61809545320d5ea343d57453af06b818/WebMercatorQuad/{z}/{x}/{y}@1x?assets=B03\u0026assets=B05\u0026expression=%28B03-B05%29%2F%28B03%2BB05%29\u0026rescale=0%2C1\u0026colormap_name=viridis&quot;,
-                {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_4509ac2c8d579d7a95ab9c4a2a7c5244);
-        
-</script>
-</html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
-</div>
-</div>
-
-
 </section>
 
 </main> <!-- /main -->
@@ -1246,7 +1051,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../example-notebooks/timeseries-stac-api.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Time series using STAC API statistics endpoint</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Get timeseries from COGs</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
