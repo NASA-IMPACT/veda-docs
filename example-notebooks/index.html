@@ -279,7 +279,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#run" id="toc-run" class="nav-link active" data-scroll-target="#run">Run</a>
+  <ul class="collapse">
+  <li><a href="#run-outside-the-hub" id="toc-run-outside-the-hub" class="nav-link" data-scroll-target="#run-outside-the-hub">Run outside the Hub</a></li>
+  </ul></li>
+  <li><a href="#generate-a-run-on-veda-link" id="toc-generate-a-run-on-veda-link" class="nav-link" data-scroll-target="#generate-a-run-on-veda-link">Generate a “Run on VEDA” link</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/nasa-impact/veda-docs/edit/main/example-notebooks/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -301,6 +311,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<section id="run" class="level2">
+<h2 class="anchored" data-anchor-id="run">Run</h2>
+<p>Every notebook contains information about how to run it. Some can run on [mybinder]https://mybinder.org/) and all can run on the VEDA JupyterHub.</p>
+<p>See (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.</p>
+<section id="run-outside-the-hub" class="level3">
+<h3 class="anchored" data-anchor-id="run-outside-the-hub">Run outside the Hub</h3>
 <p>To run the notebooks locally, you can use a python <a href="https://docs.python.org/3/library/venv.html">virtual environment</a> and <a href="https://jupyter.org/">jupyter</a>.</p>
 <p>Use an underscore to prefix your virtual environment so quarto doesn’t render any contents of the virtual environment directory.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> venv _env</span>
@@ -308,13 +324,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip3</span> install <span class="at">-r</span> requirements</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> ipykernel install <span class="at">--user</span> <span class="at">--name</span><span class="op">=</span>_env</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> notebook</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>To execute the notebooks, render them in html and then view the result locally:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render <span class="at">--to</span> html</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">open</span> _site/index.html </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>To preview local changes live, you can use preview, however this will not re-run any code cells:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If the notebook needs access to protected data on S3, you will need to specifically get access. Please request access by emailing aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN).</p>
+</section>
+</section>
+<section id="generate-a-run-on-veda-link" class="level2">
+<h2 class="anchored" data-anchor-id="generate-a-run-on-veda-link">Generate a “Run on VEDA” link</h2>
+<p>We use <a href="https://hub.jupyter.org/nbgitpuller/"><code>nbgitpuller</code></a> links to open the VEDA JupyterHub with a particular notebook pulled in. These links have the form: <code>https://nasa-veda.2i2c.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&amp;urlpath=lab/tree/veda-docs/example-notebooks/open-and-plot.ipynb&amp;branch=main</code></p>
+<p>If you are writing a notebook and want to share it with others you can generate your own <code>nbgitpuller</code> link using this <a href="https://hub.jupyter.org/nbgitpuller/link?hub=https://nasa-veda.2i2c.cloud&amp;repo=https://github.com/NASA-impact/veda-docs&amp;branch=main&amp;app=jupyterlab">link generator</a>.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

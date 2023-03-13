@@ -53,7 +53,7 @@
     "href": "index.html",
     "title": "VEDA Documentation",
     "section": "",
-    "text": "This website provides documentation and example notebooks for the various APIs, datasets and analytics platforms maintained by NASA VEDA project. The intended audience is anyone who plans to use those backend systems.\nThis website is based off https://github.com/Openscapes/quarto-website-tutorial."
+    "text": "This website provides documentation and example notebooks for the various APIs, datasets and analytics platforms maintained by NASA VEDA project. The intended audience is anyone who plans to use those backend systems."
   },
   {
     "objectID": "index.html#what-is-veda",
@@ -522,7 +522,14 @@
     "href": "example-notebooks/index.html",
     "title": "Example Notebooks",
     "section": "",
-    "text": "To run the notebooks locally, you can use a python virtual environment and jupyter.\nUse an underscore to prefix your virtual environment so quarto doesn’t render any contents of the virtual environment directory.\npython3 -m venv _env\nsource _env/bin/activate\npip3 install -r requirements\npython3 -m ipykernel install --user --name=_env\njupyter notebook\nTo execute the notebooks, render them in html and then view the result locally:\nquarto render --to html\nopen _site/index.html \nTo preview local changes live, you can use preview, however this will not re-run any code cells:\nquarto preview"
+    "text": "Every notebook contains information about how to run it. Some can run on [mybinder]https://mybinder.org/) and all can run on the VEDA JupyterHub.\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\nTo run the notebooks locally, you can use a python virtual environment and jupyter.\nUse an underscore to prefix your virtual environment so quarto doesn’t render any contents of the virtual environment directory.\npython3 -m venv _env\nsource _env/bin/activate\npip3 install -r requirements\npython3 -m ipykernel install --user --name=_env\njupyter notebook\nIf the notebook needs access to protected data on S3, you will need to specifically get access. Please request access by emailing aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN)."
+  },
+  {
+    "objectID": "example-notebooks/index.html#generate-a-run-on-veda-link",
+    "href": "example-notebooks/index.html#generate-a-run-on-veda-link",
+    "title": "Example Notebooks",
+    "section": "Generate a “Run on VEDA” link",
+    "text": "Generate a “Run on VEDA” link\nWe use nbgitpuller links to open the VEDA JupyterHub with a particular notebook pulled in. These links have the form: https://nasa-veda.2i2c.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&urlpath=lab/tree/veda-docs/example-notebooks/open-and-plot.ipynb&branch=main\nIf you are writing a notebook and want to share it with others you can generate your own nbgitpuller link using this link generator."
   },
   {
     "objectID": "example-notebooks/wfs.html",
