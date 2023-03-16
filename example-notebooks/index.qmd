@@ -2,6 +2,14 @@
 title: Example Notebooks
 ---
 
+## Run
+
+Every notebook contains information about how to run it. Some can run on [mybinder]https://mybinder.org/) and all can run on the VEDA JupyterHub.
+
+See (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.
+
+### Run outside the Hub
+
 To run the notebooks locally, you can use a python [virtual environment](https://docs.python.org/3/library/venv.html) and [jupyter](https://jupyter.org/).
 
 Use an underscore to prefix your virtual environment so quarto doesn't render any contents of the virtual environment directory.
@@ -14,17 +22,11 @@ python3 -m ipykernel install --user --name=_env
 jupyter notebook
 ```
 
-To execute the notebooks, render them in html and then view the result locally:
+If the notebook needs access to protected data on S3, you will need to specifically get access. Please request access by emailing aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN).
 
-```bash
-quarto render --to html
-open _site/index.html 
-```
+## Generate a "Run on VEDA" link
 
-To preview local changes live, you can use preview, however this will not re-run any code cells:
+We use [`nbgitpuller`](https://hub.jupyter.org/nbgitpuller/) links to open the VEDA JupyterHub with a particular notebook pulled in. These links have the form: `https://nasa-veda.2i2c.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&urlpath=lab/tree/veda-docs/example-notebooks/open-and-plot.ipynb&branch=main`
 
-```bash
-quarto preview
-```
-
-
+If you are writing a notebook and want to share it with others you can generate your own `nbgitpuller` link using this
+[link generator](https://hub.jupyter.org/nbgitpuller/link?hub=https://nasa-veda.2i2c.cloud&repo=https://github.com/NASA-impact/veda-docs&branch=main&app=jupyterlab).
