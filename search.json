@@ -9,42 +9,42 @@
   {
     "objectID": "external-resources.html",
     "href": "external-resources.html",
-    "title": "External Resources",
+    "title": "Geospatial Cloud Computing and Analysis",
     "section": "",
-    "text": "This list is intended for (aspiring) scientists who want to get started with cloud-based, collaborative, open geospatial data analysis, or those looking to refresh their knowledge. It is by no means complete, but contains pointers to more elaborate resources. We anticipate this list to evolve as our platform and use cases evolve. Suggestions for additional resources or topics are highly welcome."
+    "text": "This list is intended for scientists who want to get started with cloud-based, collaborative, open geospatial data analysis, or those looking to refresh their knowledge. It is by no means complete, but contains pointers to more elaborate resources. We anticipate this list to evolve as our platform and use cases evolve. Suggestions for additional resources or topics are highly welcome."
   },
   {
     "objectID": "external-resources.html#master-the-basic-workflow-tools",
     "href": "external-resources.html#master-the-basic-workflow-tools",
-    "title": "External Resources",
+    "title": "Geospatial Cloud Computing and Analysis",
     "section": "Master the basic workflow tools",
     "text": "Master the basic workflow tools\n\nGit - for managing code versions\nConda - for managing dependencies\nJupyter - for running code"
   },
   {
     "objectID": "external-resources.html#take-a-course-or-read-a-book-on-geospatial-data-analysis",
     "href": "external-resources.html#take-a-course-or-read-a-book-on-geospatial-data-analysis",
-    "title": "External Resources",
+    "title": "Geospatial Cloud Computing and Analysis",
     "section": "Take a course or read a book on geospatial data analysis",
     "text": "Take a course or read a book on geospatial data analysis\n\nData Carpentry geospatial course\nUW course on Geospatial Data Analysis with Python\nGeographic data book - emphasis on vector data"
   },
   {
     "objectID": "external-resources.html#look-through-nicely-curated-lists-of-tools-and-resources",
     "href": "external-resources.html#look-through-nicely-curated-lists-of-tools-and-resources",
-    "title": "External Resources",
+    "title": "Geospatial Cloud Computing and Analysis",
     "section": "Look through nicely curated lists of tools and resources",
     "text": "Look through nicely curated lists of tools and resources\n\nProject Pythia - Pangeo’s education hub\nPlanetary Computer\nGeospatial Computing Platform library of training resources (by Python package)"
   },
   {
     "objectID": "external-resources.html#find-out-what-a-hack-week-is-and-see-how-they-teach-best-practice",
     "href": "external-resources.html#find-out-what-a-hack-week-is-and-see-how-they-teach-best-practice",
-    "title": "External Resources",
+    "title": "Geospatial Cloud Computing and Analysis",
     "section": "Find out what a Hack Week is and see how they teach best practice",
     "text": "Find out what a Hack Week is and see how they teach best practice\n\nUW GeoHackWeek\nUW OceanHackWeek"
   },
   {
     "objectID": "external-resources.html#stay-up-to-date-through-blogs",
     "href": "external-resources.html#stay-up-to-date-through-blogs",
-    "title": "External Resources",
+    "title": "Geospatial Cloud Computing and Analysis",
     "section": "Stay up-to-date through blogs",
     "text": "Stay up-to-date through blogs\n\nBlog series on latest trends and resources in geospatial - entry-level"
   },
@@ -548,16 +548,30 @@
   {
     "objectID": "example-notebooks/index.html",
     "href": "example-notebooks/index.html",
-    "title": "Example Notebooks",
+    "title": "Usage Examples",
     "section": "",
-    "text": "Every notebook contains information about how to run it. Some can run on [mybinder]https://mybinder.org/) and all can run on the VEDA JupyterHub.\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\nTo run the notebooks locally, you can use a python virtual environment and jupyter.\nUse an underscore to prefix your virtual environment so quarto doesn’t render any contents of the virtual environment directory.\npython3 -m venv _env\nsource _env/bin/activate\npip3 install -r requirements\npython3 -m ipykernel install --user --name=_env\njupyter notebook\nIf the notebook needs access to protected data on S3, you will need to specifically get access. Please request access by emailing aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN)."
+    "text": "The example notebooks are divided into three sections:\n\nQuickstarts: Notebooks to get you started quickly and help you become more familiar with cloud-native geospatial technologies.\nTutorials: Longer notebooks that walk through more advanced use cases and examples.\nDatasets: Notebooks that showcase a particular VEDA dataset and walk through an applied geospatial analyses."
   },
   {
-    "objectID": "example-notebooks/index.html#generate-a-run-on-veda-link",
-    "href": "example-notebooks/index.html#generate-a-run-on-veda-link",
-    "title": "Example Notebooks",
-    "section": "Generate a “Run on VEDA” link",
-    "text": "Generate a “Run on VEDA” link\nWe use nbgitpuller links to open the VEDA JupyterHub with a particular notebook pulled in. These links have the form: https://nasa-veda.2i2c.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&urlpath=lab/tree/veda-docs/example-notebooks/open-and-plot.ipynb&branch=main\nIf you are writing a notebook and want to share it with others you can generate your own nbgitpuller link using this link generator."
+    "objectID": "example-notebooks/index.html#choosing-the-right-data-access-route-for-your-needs",
+    "href": "example-notebooks/index.html#choosing-the-right-data-access-route-for-your-needs",
+    "title": "Usage Examples",
+    "section": "Choosing the right data access route for your needs",
+    "text": "Choosing the right data access route for your needs\nThe Quickstarts examples are further divided into two sections, which you can choose from depending on your data needs:\n\nAccessing the Data Directly: For when you want to access the raw data (e.g., to do a specific analysis). In this case, permissions are required to access the data (i.e., must be run on VEDA JupyterHub) and computation happens within the user’s instance (i.e., the user needs to think about instance size). This approach is suitable for use within notebooks. All examples provided in this section require VEDA JupyterHub access to run.\nUsing the Raster API: For when you want to show outputs to other people or do standard processing. No permissions required (i.e., notebooks can be run on mybinder). Additionally, the computation happens somehwere else (i.e., user does not have to think about instance size). Lastly, this approach is suitable for use within notebooks as well as web application frontends (e.g., like dataset discoveries). These notebook examples can be run on both VEDA JupyterHub, as well as outside of the Hub (see instructions below) and within mybinder."
+  },
+  {
+    "objectID": "example-notebooks/index.html#how-to-run",
+    "href": "example-notebooks/index.html#how-to-run",
+    "title": "Usage Examples",
+    "section": "How to run",
+    "text": "How to run\nEvery notebook contains information about how to run it. Some can run on mybinder and all can run on the VEDA JupyterHub. See VEDA Analytics JupyterHub Access for information about how to gain access.\n\nRunning outside of VEDA JupyterHub\nTo run the notebooks locally, you can use a python virtual environment and jupyter.\nUse an underscore to prefix your virtual environment so quarto doesn’t render any contents of the virtual environment directory.\npython3 -m venv _env\nsource _env/bin/activate\npip3 install -r requirements\npython3 -m ipykernel install --user --name=_env\njupyter notebook\nIf the notebook needs access to protected data on S3, you will need to specifically get access. Please request access by emailing aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN)."
+  },
+  {
+    "objectID": "example-notebooks/index.html#contributing-to-veda",
+    "href": "example-notebooks/index.html#contributing-to-veda",
+    "title": "Usage Examples",
+    "section": "Contributing to VEDA",
+    "text": "Contributing to VEDA\nContribution to VEDA’s documentation is always welcome. In order to share your notebook on VEDA’s JupyterHub, you’ll have to generate a link to allow for that functionality. You can find more details in the instructions below.\n\nGenerate a “Run on VEDA” link\nWe use nbgitpuller links to open the VEDA JupyterHub with a particular notebook pulled in. These links have the form: https://nasa-veda.2i2c.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&urlpath=lab/tree/veda-docs/example-notebooks/open-and-plot.ipynb&branch=main\nIf you are writing a notebook and want to share it with others you can generate your own nbgitpuller link using this link generator."
   },
   {
     "objectID": "example-notebooks/visualize-zarr.html",
