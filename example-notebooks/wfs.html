@@ -470,8 +470,8 @@ You should consider upgrading via the '/opt/conda/bin/python3.7 -m pip install -
 </div>
 <p>In addition to getting metadata about the data we can access the queryable fields. Each of these fields will represent a column in our dataframe.</p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>perm_q <span class="op">=</span> w.collection_queryables(<span class="st">'public.eis_fire_perimeter'</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>perm_q[<span class="st">'properties'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>perm_q <span class="op">=</span> w.collection_queryables(<span class="st">"public.eis_fire_perimeter"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>perm_q[<span class="st">"properties"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>{'wkb_geometry': {'$ref': 'https://geojson.org/schema/Geometry.json'},
  'ogc_fid': {'name': 'ogc_fid', 'type': 'number'},
@@ -503,9 +503,9 @@ You should consider upgrading via the '/opt/conda/bin/python3.7 -m pip install -
 <p>NOTE: The <code>limit</code> parameter desginates the maximum number of objects the query will return. The default limit is 10, so if we want to all of the fire perimeters within certain conditions, we need to make sure that the limit is large.</p>
 <div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Get the most recent fire perimeters, and 7 days before most recent fire perimeter</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>most_recent_time <span class="op">=</span>  <span class="bu">max</span>(<span class="op">*</span>perm[<span class="st">'extent'</span>][<span class="st">'temporal'</span>][<span class="st">'interval'</span>])</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>most_recent_time <span class="op">=</span> <span class="bu">max</span>(<span class="op">*</span>perm[<span class="st">"extent"</span>][<span class="st">"temporal"</span>][<span class="st">"interval"</span>])</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>now <span class="op">=</span> dt.datetime.strptime(most_recent_time, <span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">T%H:%M:%S+00:00"</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>last_week <span class="op">=</span> now <span class="op">-</span> dt.timedelta(weeks <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>last_week <span class="op">=</span> now <span class="op">-</span> dt.timedelta(weeks<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>last_week <span class="op">=</span> dt.datetime.strftime(last_week, <span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">T%H:%M:%S+00:00"</span>)</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Most Recent Time ="</span>, most_recent_time)</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Last week ="</span>, last_week)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -516,11 +516,11 @@ Last week = 2023-03-20T00:00:00+00:00</code></pre>
 </div>
 <div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>perm_results <span class="op">=</span> w.collection_items(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'public.eis_fire_perimeter'</span>,   <span class="co"># name of the dataset we want</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    bbox<span class="op">=</span>[<span class="st">'-106.8'</span>,<span class="st">'24.5'</span>,<span class="st">'-72.9'</span>,<span class="st">'37.3'</span>], <span class="co"># coodrinates of bounding box, </span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    datetime<span class="op">=</span>[last_week <span class="op">+</span> <span class="st">"/"</span> <span class="op">+</span> most_recent_time], <span class="co"># date range</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">=</span><span class="dv">1000</span>, <span class="co"># max number of items returned</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">filter</span><span class="op">=</span><span class="st">"farea&gt;5 AND duration&gt;2"</span> <span class="co"># additional filters based on queryable fields </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"public.eis_fire_perimeter"</span>,  <span class="co"># name of the dataset we want</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    bbox<span class="op">=</span>[<span class="st">"-106.8"</span>, <span class="st">"24.5"</span>, <span class="st">"-72.9"</span>, <span class="st">"37.3"</span>],  <span class="co"># coodrinates of bounding box,</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    datetime<span class="op">=</span>[last_week <span class="op">+</span> <span class="st">"/"</span> <span class="op">+</span> most_recent_time],  <span class="co"># date range</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">=</span><span class="dv">1000</span>,  <span class="co"># max number of items returned</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">filter</span><span class="op">=</span><span class="st">"farea&gt;5 AND duration&gt;2"</span>,  <span class="co"># additional filters based on queryable fields</span></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The result is a dictionary containing all of the data and some summary fields. We can look at the keys to see what all is in there.</p>
@@ -532,14 +532,14 @@ Last week = 2023-03-20T00:00:00+00:00</code></pre>
 </div>
 <p>For instance you can check the total number of matched items and make sure that it is equal to the number of returned items. This is how you know that the <code>limit</code> you defined above is high enough.</p>
 <div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>perm_results[<span class="st">'numberMatched'</span>] <span class="op">==</span> perm_results[<span class="st">"numberReturned"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>perm_results[<span class="st">"numberMatched"</span>] <span class="op">==</span> perm_results[<span class="st">"numberReturned"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>True</code></pre>
 </div>
 </div>
 <p>You can also access the data directly in the browser or in an HTTP GET call using the constructed link.</p>
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>perm_results[<span class="st">'links'</span>][<span class="dv">1</span>][<span class="st">'href'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>perm_results[<span class="st">"links"</span>][<span class="dv">1</span>][<span class="st">"href"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>'https://firenrt.delta-backend.com/collections/public.eis_fire_perimeter/items?bbox=-106.8%2C24.5%2C-72.9%2C37.3&amp;datetime=2023-03-20T00%3A00%3A00%2B00%3A00%2F2023-03-27T00%3A00%3A00%2B00%3A00&amp;limit=1000&amp;filter=farea%3E5+AND+duration%3E2'</code></pre>
 </div>
@@ -936,9 +936,9 @@ Last week = 2023-03-20T00:00:00+00:00</code></pre>
 <p>If we wanted to combine collections to make more informative analyses, we can use some of the same principles.</p>
 <p>First we’ll get the queryable fields, and the extents:</p>
 <div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fline_q <span class="op">=</span> w.collection_queryables(<span class="st">'public.eis_fire_fireline'</span>)</span>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>fline_q <span class="op">=</span> w.collection_queryables(<span class="st">"public.eis_fire_fireline"</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>fline_collection <span class="op">=</span> w.collection(<span class="st">"public.eis_fire_fireline"</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>fline_q[<span class="st">'properties'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>fline_q[<span class="st">"properties"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>{'wkb_geometry': {'$ref': 'https://geojson.org/schema/Geometry.json'},
  'ogc_fid': {'name': 'ogc_fid', 'type': 'number'},
@@ -952,23 +952,24 @@ Last week = 2023-03-20T00:00:00+00:00</code></pre>
 <p>Then we’ll use those fields to get most recent fire perimeters and fire lines.</p>
 <div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>perm_results <span class="op">=</span> w.collection_items(</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"public.eis_fire_perimeter"</span>,   </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"public.eis_fire_perimeter"</span>,</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    datetime<span class="op">=</span>most_recent_time,</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">=</span><span class="dv">1000</span>,   </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">=</span><span class="dv">1000</span>,</span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>perimeters <span class="op">=</span> gpd.GeoDataFrame.from_features(perm_results[<span class="st">'features'</span>])</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>perimeters <span class="op">=</span> gpd.GeoDataFrame.from_features(perm_results[<span class="st">"features"</span>])</span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co">## Get the most recent fire lines</span></span>
 <span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>perimeter_ids <span class="op">=</span> perimeters.fireid.unique()</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>perimeter_ids <span class="op">=</span> <span class="st">","</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, perimeter_ids)) </span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>perimeter_ids <span class="op">=</span> <span class="st">","</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, perimeter_ids))</span>
 <span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>fline_results <span class="op">=</span> w.collection_items(</span>
 <span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"public.eis_fire_fireline"</span>,</span>
 <span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    limit<span class="op">=</span><span class="dv">1000</span>,</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">filter</span><span class="op">=</span><span class="st">"fireid IN ("</span> <span class="op">+</span> perimeter_ids <span class="op">+</span> <span class="st">")"</span> <span class="co"># only the fires from the fire perimeter query above</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>fline <span class="op">=</span> gpd.GeoDataFrame.from_features(fline_results[<span class="st">'features'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">filter</span><span class="op">=</span><span class="st">"fireid IN ("</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> perimeter_ids</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> <span class="st">")"</span>,  <span class="co"># only the fires from the fire perimeter query above</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>fline <span class="op">=</span> gpd.GeoDataFrame.from_features(fline_results[<span class="st">"features"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="visualize" class="level3">
