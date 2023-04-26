@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.340">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,9 +20,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -49,43 +50,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -139,11 +110,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Calculate timeseries from COGs</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../example-notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item">Quickstarts</li><li class="breadcrumb-item"><a href="../example-notebooks/list-collections.html">Accessing the Data Directly</a></li><li class="breadcrumb-item"><a href="../example-notebooks/timeseries-rioxarray-stackstac.html">Calculate timeseries from COGs</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -151,127 +127,145 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="../images/Veda_logo_blue_no_text.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://www.earthdata.nasa.gov/esds/veda" title="earthdata.nasa.gov/esds/veda" class="sidebar-tool px-1"><i class="bi bi-info-circle"></i></a>
-    <a href="https://github.com/nasa-impact/veda-docs" title="Repository home" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="https://earthdata.nasa.gov/dashboard" title="VEDA Dashboard" class="sidebar-tool px-1"><i class="bi bi-binoculars"></i></a>
-  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+    <a href="https://www.earthdata.nasa.gov/esds/veda" title="earthdata.nasa.gov/esds/veda" class="quarto-navigation-tool px-1" aria-label="earthdata.nasa.gov/esds/veda"><i class="bi bi-info-circle"></i></a>
+    <a href="https://github.com/nasa-impact/veda-docs" title="Repository home" class="quarto-navigation-tool px-1" aria-label="Repository home"><i class="bi bi-github"></i></a>
+    <a href="https://earthdata.nasa.gov/dashboard" title="VEDA Dashboard" class="quarto-navigation-tool px-1" aria-label="VEDA Dashboard"><i class="bi bi-binoculars"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../veda-jh-access.html" class="sidebar-item-text sidebar-link">VEDA Analytics Platform and JupyterHub</a>
+  <a href="../veda-jh-access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VEDA Analytics Platform and JupyterHub</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../veda-apis.html" class="sidebar-item-text sidebar-link">VEDA APIs</a>
+  <a href="../veda-apis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VEDA APIs</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../example-notebooks/index.html" class="sidebar-item-text sidebar-link">Usage Examples</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a href="../example-notebooks/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Usage Examples</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Quickstarts</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Quickstarts</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Accessing the Data Directly</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Accessing the Data Directly</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth3 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/list-collections.html" class="sidebar-item-text sidebar-link">List STAC collections</a>
+  <a href="../example-notebooks/list-collections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">List STAC collections</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/open-and-plot.html" class="sidebar-item-text sidebar-link">Open and plot COGs</a>
+  <a href="../example-notebooks/open-and-plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Open and plot COGs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/timeseries-rioxarray-stackstac.html" class="sidebar-item-text sidebar-link active">Calculate timeseries from COGs</a>
+  <a href="../example-notebooks/timeseries-rioxarray-stackstac.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Calculate timeseries from COGs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/visualize-zarr.html" class="sidebar-item-text sidebar-link">Visualize zarr</a>
+  <a href="../example-notebooks/visualize-zarr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualize zarr</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/visualize-multiple-times.html" class="sidebar-item-text sidebar-link">Open and visualize COGs</a>
+  <a href="../example-notebooks/visualize-multiple-times.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Open and visualize COGs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/downsample-zarr.html" class="sidebar-item-text sidebar-link">Downsample zarr</a>
+  <a href="../example-notebooks/downsample-zarr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Downsample zarr</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/intake.html" class="sidebar-item-text sidebar-link">Searching VEDA STAC API and inspecting catalogs with intake</a>
+  <a href="../example-notebooks/intake.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Searching VEDA STAC API and inspecting catalogs with intake</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/wfs.html" class="sidebar-item-text sidebar-link">Get Fire Perimeters from an OGC API</a>
+  <a href="../example-notebooks/wfs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get Fire Perimeters from an OGC API</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">Using the Raster API</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">Using the Raster API</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/no2-map-plot.html" class="sidebar-item-text sidebar-link">Get map from COGs - NO2</a>
+  <a href="../example-notebooks/no2-map-plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get map from COGs - NO2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/timeseries-stac-api.html" class="sidebar-item-text sidebar-link">Get timeseries from COGs</a>
+  <a href="../example-notebooks/timeseries-stac-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get timeseries from COGs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/hls-visualization.html" class="sidebar-item-text sidebar-link">Get tiles from COGs</a>
+  <a href="../example-notebooks/hls-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get tiles from COGs</span></a>
   </div>
 </li>
       </ul>
@@ -280,45 +274,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">Tutorials</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/gif-generation.html" class="sidebar-item-text sidebar-link">GIF generation using the TiTiler /cog/crop endpoint</a>
+  <a href="../example-notebooks/gif-generation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GIF generation using the TiTiler /cog/crop endpoint</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">Datasets</a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Datasets</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/ocean-npp-timeseries-analysis.html" class="sidebar-item-text sidebar-link">Visualizing Ocean NPP time series for seasonal patterns</a>
+  <a href="../example-notebooks/ocean-npp-timeseries-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualizing Ocean NPP time series for seasonal patterns</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/nceo-biomass-statistics.html" class="sidebar-item-text sidebar-link">Visualizing NCEO Aboveground Woody Biomass 2017 prioritization areas</a>
+  <a href="../example-notebooks/nceo-biomass-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualizing NCEO Aboveground Woody Biomass 2017 prioritization areas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/volcano-so2-monitoring.html" class="sidebar-item-text sidebar-link">Monitoring Volcanic Sulfur Dioxide Emissions</a>
+  <a href="../example-notebooks/volcano-so2-monitoring.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Monitoring Volcanic Sulfur Dioxide Emissions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/air-quality-covid.html" class="sidebar-item-text sidebar-link">Air Quality and COVID-19</a>
+  <a href="../example-notebooks/air-quality-covid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Air Quality and COVID-19</span></a>
   </div>
 </li>
       </ul>
@@ -327,12 +328,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external-resources.html" class="sidebar-item-text sidebar-link">Geospatial Cloud Computing and Analysis</a>
+  <a href="../external-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Geospatial Cloud Computing and Analysis</span></a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -359,7 +362,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Calculate timeseries from COGs</h1>
+<h1 class="title">Calculate timeseries from COGs</h1>
 </div>
 
 <div>
@@ -855,142 +858,50 @@ Attributes:
     spec:        RasterSpec(epsg=4326.0, bounds=(-180.0, -90.0, 180.0, 90.0),...
     crs:         epsg:4326.0
     transform:   | 0.10, 0.00,-180.00|\n| 0.00,-0.10, 90.00|\n| 0.00, 0.00, 1...
-    resolution:  0.1</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'stackstac-0683303cbb3f9689a8e6286f8a3ad3a0'</div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 73</li><li><span class="xr-has-index">band</span>: 1</li><li><span class="xr-has-index">y</span>: 1800</li><li><span class="xr-has-index">x</span>: 3600</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-9e71d164-c110-4298-92c9-cd48de2a4291" class="xr-array-in" type="checkbox" checked=""><label for="section-9e71d164-c110-4298-92c9-cd48de2a4291" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>dask.array&lt;chunksize=(1, 1, 1024, 1024), meta=np.ndarray&gt;</span></div><div class="xr-array-data"><table>
-    <tbody><tr>
-        <td>
-            <table>
-                <thead>
-                    <tr>
-                        <td> </td>
-                        <th> Array </th>
-                        <th> Chunk </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                    <tr>
-                        <th> Bytes </th>
-                        <td> 3.52 GiB </td>
-                        <td> 8.00 MiB </td>
-                    </tr>
-                    
-                    <tr>
-                        <th> Shape </th>
-                        <td> (73, 1, 1800, 3600) </td>
-                        <td> (1, 1, 1024, 1024) </td>
-                    </tr>
-                    <tr>
-                        <th> Count </th>
-                        <td> 730 Tasks </td>
-                        <td> 584 Chunks </td>
-                    </tr>
-                    <tr>
-                    <th> Type </th>
-                    <td> float64 </td>
-                    <td> numpy.ndarray </td>
-                    </tr>
-                </tbody>
-            </table>
-        </td>
-        <td>
-        <svg width="382" height="124" style="stroke:rgb(0,0,0);stroke-width:1">
-
-  <!-- Horizontal lines -->
-  <line x1="0" y1="0" x2="29" y2="0" style="stroke-width:2"></line>
-  <line x1="0" y1="25" x2="29" y2="25" style="stroke-width:2"></line>
-
-  <!-- Vertical lines -->
-  <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line>
-  <line x1="0" y1="0" x2="0" y2="25"></line>
-  <line x1="1" y1="0" x2="1" y2="25"></line>
-  <line x1="2" y1="0" x2="2" y2="25"></line>
-  <line x1="3" y1="0" x2="3" y2="25"></line>
-  <line x1="4" y1="0" x2="4" y2="25"></line>
-  <line x1="5" y1="0" x2="5" y2="25"></line>
-  <line x1="5" y1="0" x2="5" y2="25"></line>
-  <line x1="7" y1="0" x2="7" y2="25"></line>
-  <line x1="7" y1="0" x2="7" y2="25"></line>
-  <line x1="8" y1="0" x2="8" y2="25"></line>
-  <line x1="9" y1="0" x2="9" y2="25"></line>
-  <line x1="10" y1="0" x2="10" y2="25"></line>
-  <line x1="11" y1="0" x2="11" y2="25"></line>
-  <line x1="12" y1="0" x2="12" y2="25"></line>
-  <line x1="13" y1="0" x2="13" y2="25"></line>
-  <line x1="14" y1="0" x2="14" y2="25"></line>
-  <line x1="15" y1="0" x2="15" y2="25"></line>
-  <line x1="16" y1="0" x2="16" y2="25"></line>
-  <line x1="17" y1="0" x2="17" y2="25"></line>
-  <line x1="17" y1="0" x2="17" y2="25"></line>
-  <line x1="18" y1="0" x2="18" y2="25"></line>
-  <line x1="19" y1="0" x2="19" y2="25"></line>
-  <line x1="20" y1="0" x2="20" y2="25"></line>
-  <line x1="21" y1="0" x2="21" y2="25"></line>
-  <line x1="22" y1="0" x2="22" y2="25"></line>
-  <line x1="23" y1="0" x2="23" y2="25"></line>
-  <line x1="24" y1="0" x2="24" y2="25"></line>
-  <line x1="25" y1="0" x2="25" y2="25"></line>
-  <line x1="26" y1="0" x2="26" y2="25"></line>
-  <line x1="27" y1="0" x2="27" y2="25"></line>
-  <line x1="27" y1="0" x2="27" y2="25"></line>
-  <line x1="29" y1="0" x2="29" y2="25" style="stroke-width:2"></line>
-
-  <!-- Colored Rectangle -->
-  <polygon points="0.0,0.0 29.10835206430147,0.0 29.10835206430147,25.412616514582485 0.0,25.412616514582485" style="fill:#8B4903A0;stroke-width:0"></polygon>
-
-  <!-- Text -->
-  <text x="14.554176" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">73</text>
-  <text x="49.108352" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,49.108352,12.706308)">1</text>
-
-
-  <!-- Horizontal lines -->
-  <line x1="99" y1="0" x2="113" y2="14" style="stroke-width:2"></line>
-  <line x1="99" y1="34" x2="113" y2="49"></line>
-  <line x1="99" y1="60" x2="113" y2="74" style="stroke-width:2"></line>
-
-  <!-- Vertical lines -->
-  <line x1="99" y1="0" x2="99" y2="60" style="stroke-width:2"></line>
-  <line x1="113" y1="14" x2="113" y2="74" style="stroke-width:2"></line>
-
-  <!-- Colored Rectangle -->
-  <polygon points="99.0,0.0 113.9485979497544,14.948597949754403 113.9485979497544,74.9485979497544 99.0,60.0" style="fill:#ECB172A0;stroke-width:0"></polygon>
-
-  <!-- Horizontal lines -->
-  <line x1="99" y1="0" x2="219" y2="0" style="stroke-width:2"></line>
-  <line x1="113" y1="14" x2="233" y2="14" style="stroke-width:2"></line>
-
-  <!-- Vertical lines -->
-  <line x1="99" y1="0" x2="113" y2="14" style="stroke-width:2"></line>
-  <line x1="133" y1="0" x2="148" y2="14"></line>
-  <line x1="167" y1="0" x2="182" y2="14"></line>
-  <line x1="201" y1="0" x2="216" y2="14"></line>
-  <line x1="219" y1="0" x2="233" y2="14" style="stroke-width:2"></line>
-
-  <!-- Colored Rectangle -->
-  <polygon points="99.0,0.0 219.0,0.0 233.9485979497544,14.948597949754403 113.9485979497544,14.948597949754403" style="fill:#ECB172A0;stroke-width:0"></polygon>
-
-  <!-- Horizontal lines -->
-  <line x1="113" y1="14" x2="233" y2="14" style="stroke-width:2"></line>
-  <line x1="113" y1="49" x2="233" y2="49"></line>
-  <line x1="113" y1="74" x2="233" y2="74" style="stroke-width:2"></line>
-
-  <!-- Vertical lines -->
-  <line x1="113" y1="14" x2="113" y2="74" style="stroke-width:2"></line>
-  <line x1="148" y1="14" x2="148" y2="74"></line>
-  <line x1="182" y1="14" x2="182" y2="74"></line>
-  <line x1="216" y1="14" x2="216" y2="74"></line>
-  <line x1="233" y1="14" x2="233" y2="74" style="stroke-width:2"></line>
-
-  <!-- Colored Rectangle -->
-  <polygon points="113.9485979497544,14.948597949754403 233.9485979497544,14.948597949754403 233.9485979497544,74.9485979497544 113.9485979497544,74.9485979497544" style="fill:#ECB172A0;stroke-width:0"></polygon>
-
-  <!-- Text -->
-  <text x="173.948598" y="94.948598" font-size="1.0rem" font-weight="100" text-anchor="middle">3600</text>
-  <text x="253.948598" y="44.948598" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,253.948598,44.948598)">1800</text>
-  <text x="96.474299" y="87.474299" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,96.474299,87.474299)">1</text>
-</svg>
-        </td>
-    </tr>
-</tbody></table></div></div></li><li class="xr-section-item"><input id="section-bb3650d3-4bb6-4eaf-ae2a-0e7e7adf749e" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-bb3650d3-4bb6-4eaf-ae2a-0e7e7adf749e" class="xr-section-summary">Coordinates: <span>(15)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U19</div><div class="xr-var-preview xr-preview">'2022-01-01T00:00:00' ... '2016-...</div><input id="attrs-479b5b02-b386-42d3-a082-714bc593a287" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-479b5b02-b386-42d3-a082-714bc593a287" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-744ab5cd-9f49-48ac-88e1-042348cfe76c" class="xr-var-data-in" type="checkbox"><label for="data-744ab5cd-9f49-48ac-88e1-042348cfe76c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-01T00:00:00', '2021-12-01T00:00:00', '2021-11-01T00:00:00',
+    resolution:  0.1</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'stackstac-0683303cbb3f9689a8e6286f8a3ad3a0'</div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 73</li><li><span class="xr-has-index">band</span>: 1</li><li><span class="xr-has-index">y</span>: 1800</li><li><span class="xr-has-index">x</span>: 3600</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-9e71d164-c110-4298-92c9-cd48de2a4291" class="xr-array-in" type="checkbox" checked=""><label for="section-9e71d164-c110-4298-92c9-cd48de2a4291" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>dask.array&lt;chunksize=(1, 1, 1024, 1024), meta=np.ndarray&gt;</span></div><div class="xr-array-data">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th></th>
+<th data-quarto-table-cell-role="th">Array</th>
+<th data-quarto-table-cell-role="th">Chunk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Bytes</td>
+<td>3.52 GiB</td>
+<td>8.00 MiB</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Shape</td>
+<td>(73, 1, 1800, 3600)</td>
+<td>(1, 1, 1024, 1024)</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Count</td>
+<td>730 Tasks</td>
+<td>584 Chunks</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Type</td>
+<td>float64</td>
+<td>numpy.ndarray</td>
+</tr>
+</tbody>
+</table></td>
+<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzgyIiBoZWlnaHQ9IjEyNCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjI5IiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIyNSIgeDI9IjI5IiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIyNSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjEiIHkxPSIwIiB4Mj0iMSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjIiIHkxPSIwIiB4Mj0iMiIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjMiIHkxPSIwIiB4Mj0iMyIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjQiIHkxPSIwIiB4Mj0iNCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjUiIHkxPSIwIiB4Mj0iNSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjUiIHkxPSIwIiB4Mj0iNSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjciIHkxPSIwIiB4Mj0iNyIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjciIHkxPSIwIiB4Mj0iNyIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjgiIHkxPSIwIiB4Mj0iOCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjkiIHkxPSIwIiB4Mj0iOSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjEwIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMTEiIHkxPSIwIiB4Mj0iMTEiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxMiIgeTE9IjAiIHgyPSIxMiIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMCIgeDI9IjEzIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMTQiIHkxPSIwIiB4Mj0iMTQiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNSIgeTE9IjAiIHgyPSIxNSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iMCIgeDI9IjE2IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSIwIiB4Mj0iMTciIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNyIgeTE9IjAiIHgyPSIxNyIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE4IiB5MT0iMCIgeDI9IjE4IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMTkiIHkxPSIwIiB4Mj0iMTkiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMCIgeTE9IjAiIHgyPSIyMCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjIxIiB5MT0iMCIgeDI9IjIxIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMjIiIHkxPSIwIiB4Mj0iMjIiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMyIgeTE9IjAiIHgyPSIyMyIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjI0IiB5MT0iMCIgeDI9IjI0IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMjUiIHkxPSIwIiB4Mj0iMjUiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIyNiIgeTE9IjAiIHgyPSIyNiIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjI3IiB5MT0iMCIgeDI9IjI3IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMjciIHkxPSIwIiB4Mj0iMjciIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIyOSIgeTE9IjAiIHgyPSIyOSIgeTI9IjI1IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjAuMCwwLjAgMjkuMTA4MzUyMDY0MzAxNDcsMC4wIDI5LjEwODM1MjA2NDMwMTQ3LDI1LjQxMjYxNjUxNDU4MjQ4NSAwLjAsMjUuNDEyNjE2NTE0NTgyNDg1IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBUZXh0IC0tPgogIDx0ZXh0IHg9IjE0LjU1NDE3NiIgeT0iNDUuNDEyNjE3IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+NzM8L3RleHQ+CiAgPHRleHQgeD0iNDkuMTA4MzUyIiB5PSIxMi43MDYzMDgiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgwLDQ5LjEwODM1MiwxMi43MDYzMDgpIj4xPC90ZXh0PgoKCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSI5OSIgeTE9IjAiIHgyPSIxMTMiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9Ijk5IiB5MT0iMzQiIHgyPSIxMTMiIHkyPSI0OSI+PC9saW5lPgogIDxsaW5lIHgxPSI5OSIgeTE9IjYwIiB4Mj0iMTEzIiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSI5OSIgeTE9IjAiIHgyPSI5OSIgeTI9IjYwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTEzIiB5MT0iMTQiIHgyPSIxMTMiIHkyPSI3NCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSI5OS4wLDAuMCAxMTMuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMTEzLjk0ODU5Nzk0OTc1NDQsNzQuOTQ4NTk3OTQ5NzU0NCA5OS4wLDYwLjAiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9Ijk5IiB5MT0iMCIgeDI9IjIxOSIgeTI9IjAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMTMiIHkxPSIxNCIgeDI9IjIzMyIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iOTkiIHkxPSIwIiB4Mj0iMTEzIiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMzMiIHkxPSIwIiB4Mj0iMTQ4IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMTY3IiB5MT0iMCIgeDI9IjE4MiIgeTI9IjE0Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjIwMSIgeTE9IjAiIHgyPSIyMTYiIHkyPSIxNCI+PC9saW5lPgogIDxsaW5lIHgxPSIyMTkiIHkxPSIwIiB4Mj0iMjMzIiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iOTkuMCwwLjAgMjE5LjAsMC4wIDIzMy45NDg1OTc5NDk3NTQ0LDE0Ljk0ODU5Nzk0OTc1NDQwMyAxMTMuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjExMyIgeTE9IjE0IiB4Mj0iMjMzIiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMTMiIHkxPSI0OSIgeDI9IjIzMyIgeTI9IjQ5Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjExMyIgeTE9Ijc0IiB4Mj0iMjMzIiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMTMiIHkxPSIxNCIgeDI9IjExMyIgeTI9Ijc0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTQ4IiB5MT0iMTQiIHgyPSIxNDgiIHkyPSI3NCI+PC9saW5lPgogIDxsaW5lIHgxPSIxODIiIHkxPSIxNCIgeDI9IjE4MiIgeTI9Ijc0Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjIxNiIgeTE9IjE0IiB4Mj0iMjE2IiB5Mj0iNzQiPjwvbGluZT4KICA8bGluZSB4MT0iMjMzIiB5MT0iMTQiIHgyPSIyMzMiIHkyPSI3NCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMTMuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjMzLjk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDIzMy45NDg1OTc5NDk3NTQ0LDc0Ljk0ODU5Nzk0OTc1NDQgMTEzLjk0ODU5Nzk0OTc1NDQsNzQuOTQ4NTk3OTQ5NzU0NCIgc3R5bGU9ImZpbGw6I0VDQjE3MkEwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gVGV4dCAtLT4KICA8dGV4dCB4PSIxNzMuOTQ4NTk4IiB5PSI5NC45NDg1OTgiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zNjAwPC90ZXh0PgogIDx0ZXh0IHg9IjI1My45NDg1OTgiIHk9IjQ0Ljk0ODU5OCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwyNTMuOTQ4NTk4LDQ0Ljk0ODU5OCkiPjE4MDA8L3RleHQ+CiAgPHRleHQgeD0iOTYuNDc0Mjk5IiB5PSI4Ny40NzQyOTkiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSg0NSw5Ni40NzQyOTksODcuNDc0Mjk5KSI+MTwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+</tr>
+</tbody>
+</table>
+</div></div></li><li class="xr-section-item"><input id="section-bb3650d3-4bb6-4eaf-ae2a-0e7e7adf749e" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-bb3650d3-4bb6-4eaf-ae2a-0e7e7adf749e" class="xr-section-summary">Coordinates: <span>(15)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U19</div><div class="xr-var-preview xr-preview">'2022-01-01T00:00:00' ... '2016-...</div><input id="attrs-479b5b02-b386-42d3-a082-714bc593a287" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-479b5b02-b386-42d3-a082-714bc593a287" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-744ab5cd-9f49-48ac-88e1-042348cfe76c" class="xr-var-data-in" type="checkbox"><label for="data-744ab5cd-9f49-48ac-88e1-042348cfe76c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-01T00:00:00', '2021-12-01T00:00:00', '2021-11-01T00:00:00',
        '2021-10-01T00:00:00', '2021-09-01T00:00:00', '2021-08-01T00:00:00',
        '2021-07-01T00:00:00', '2021-06-01T00:00:00', '2021-05-01T00:00:00',
        '2021-04-01T00:00:00', '2021-03-01T00:00:00', '2021-02-01T00:00:00',
@@ -1516,136 +1427,50 @@ Coordinates: (12/16)
     spatial_ref     int64 0
 Attributes:
     spec:        RasterSpec(epsg=4326.0, bounds=(-180.0, -90.0, 180.0, 90.0),...
-    resolution:  0.1</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'stackstac-0683303cbb3f9689a8e6286f8a3ad3a0'</div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 73</li><li><span class="xr-has-index">band</span>: 1</li><li><span class="xr-has-index">y</span>: 354</li><li><span class="xr-has-index">x</span>: 614</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-5b2690ad-7844-435a-b90c-7eb69ea9f354" class="xr-array-in" type="checkbox" checked=""><label for="section-5b2690ad-7844-435a-b90c-7eb69ea9f354" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>dask.array&lt;chunksize=(1, 1, 354, 535), meta=np.ndarray&gt;</span></div><div class="xr-array-data"><table>
-    <tbody><tr>
-        <td>
-            <table>
-                <thead>
-                    <tr>
-                        <td> </td>
-                        <th> Array </th>
-                        <th> Chunk </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                    <tr>
-                        <th> Bytes </th>
-                        <td> 121.06 MiB </td>
-                        <td> 1.44 MiB </td>
-                    </tr>
-                    
-                    <tr>
-                        <th> Shape </th>
-                        <td> (73, 1, 354, 614) </td>
-                        <td> (1, 1, 354, 535) </td>
-                    </tr>
-                    <tr>
-                        <th> Count </th>
-                        <td> 876 Tasks </td>
-                        <td> 146 Chunks </td>
-                    </tr>
-                    <tr>
-                    <th> Type </th>
-                    <td> float64 </td>
-                    <td> numpy.ndarray </td>
-                    </tr>
-                </tbody>
-            </table>
-        </td>
-        <td>
-        <svg width="402" height="134" style="stroke:rgb(0,0,0);stroke-width:1">
-
-  <!-- Horizontal lines -->
-  <line x1="0" y1="0" x2="39" y2="0" style="stroke-width:2"></line>
-  <line x1="0" y1="25" x2="39" y2="25" style="stroke-width:2"></line>
-
-  <!-- Vertical lines -->
-  <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line>
-  <line x1="1" y1="0" x2="1" y2="25"></line>
-  <line x1="2" y1="0" x2="2" y2="25"></line>
-  <line x1="3" y1="0" x2="3" y2="25"></line>
-  <line x1="4" y1="0" x2="4" y2="25"></line>
-  <line x1="5" y1="0" x2="5" y2="25"></line>
-  <line x1="7" y1="0" x2="7" y2="25"></line>
-  <line x1="8" y1="0" x2="8" y2="25"></line>
-  <line x1="9" y1="0" x2="9" y2="25"></line>
-  <line x1="10" y1="0" x2="10" y2="25"></line>
-  <line x1="11" y1="0" x2="11" y2="25"></line>
-  <line x1="13" y1="0" x2="13" y2="25"></line>
-  <line x1="14" y1="0" x2="14" y2="25"></line>
-  <line x1="15" y1="0" x2="15" y2="25"></line>
-  <line x1="16" y1="0" x2="16" y2="25"></line>
-  <line x1="18" y1="0" x2="18" y2="25"></line>
-  <line x1="19" y1="0" x2="19" y2="25"></line>
-  <line x1="20" y1="0" x2="20" y2="25"></line>
-  <line x1="22" y1="0" x2="22" y2="25"></line>
-  <line x1="23" y1="0" x2="23" y2="25"></line>
-  <line x1="24" y1="0" x2="24" y2="25"></line>
-  <line x1="25" y1="0" x2="25" y2="25"></line>
-  <line x1="27" y1="0" x2="27" y2="25"></line>
-  <line x1="28" y1="0" x2="28" y2="25"></line>
-  <line x1="29" y1="0" x2="29" y2="25"></line>
-  <line x1="30" y1="0" x2="30" y2="25"></line>
-  <line x1="31" y1="0" x2="31" y2="25"></line>
-  <line x1="33" y1="0" x2="33" y2="25"></line>
-  <line x1="34" y1="0" x2="34" y2="25"></line>
-  <line x1="35" y1="0" x2="35" y2="25"></line>
-  <line x1="36" y1="0" x2="36" y2="25"></line>
-  <line x1="37" y1="0" x2="37" y2="25"></line>
-  <line x1="39" y1="0" x2="39" y2="25" style="stroke-width:2"></line>
-
-  <!-- Colored Rectangle -->
-  <polygon points="0.0,0.0 39.53246640871678,0.0 39.53246640871678,25.412616514582485 0.0,25.412616514582485" style="fill:#8B4903A0;stroke-width:0"></polygon>
-
-  <!-- Text -->
-  <text x="19.766233" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">73</text>
-  <text x="59.532466" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,59.532466,12.706308)">1</text>
-
-
-  <!-- Horizontal lines -->
-  <line x1="109" y1="0" x2="123" y2="14" style="stroke-width:2"></line>
-  <line x1="109" y1="69" x2="123" y2="84" style="stroke-width:2"></line>
-
-  <!-- Vertical lines -->
-  <line x1="109" y1="0" x2="109" y2="69" style="stroke-width:2"></line>
-  <line x1="123" y1="14" x2="123" y2="84" style="stroke-width:2"></line>
-
-  <!-- Colored Rectangle -->
-  <polygon points="109.0,0.0 123.9485979497544,14.948597949754403 123.9485979497544,84.1342657021974 109.0,69.185667752443" style="fill:#ECB172A0;stroke-width:0"></polygon>
-
-  <!-- Horizontal lines -->
-  <line x1="109" y1="0" x2="229" y2="0" style="stroke-width:2"></line>
-  <line x1="123" y1="14" x2="243" y2="14" style="stroke-width:2"></line>
-
-  <!-- Vertical lines -->
-  <line x1="109" y1="0" x2="123" y2="14" style="stroke-width:2"></line>
-  <line x1="213" y1="0" x2="228" y2="14"></line>
-  <line x1="229" y1="0" x2="243" y2="14" style="stroke-width:2"></line>
-
-  <!-- Colored Rectangle -->
-  <polygon points="109.0,0.0 229.0,0.0 243.9485979497544,14.948597949754403 123.9485979497544,14.948597949754403" style="fill:#ECB172A0;stroke-width:0"></polygon>
-
-  <!-- Horizontal lines -->
-  <line x1="123" y1="14" x2="243" y2="14" style="stroke-width:2"></line>
-  <line x1="123" y1="84" x2="243" y2="84" style="stroke-width:2"></line>
-
-  <!-- Vertical lines -->
-  <line x1="123" y1="14" x2="123" y2="84" style="stroke-width:2"></line>
-  <line x1="228" y1="14" x2="228" y2="84"></line>
-  <line x1="243" y1="14" x2="243" y2="84" style="stroke-width:2"></line>
-
-  <!-- Colored Rectangle -->
-  <polygon points="123.9485979497544,14.948597949754403 243.9485979497544,14.948597949754403 243.9485979497544,84.1342657021974 123.9485979497544,84.1342657021974" style="fill:#ECB172A0;stroke-width:0"></polygon>
-
-  <!-- Text -->
-  <text x="183.948598" y="104.134266" font-size="1.0rem" font-weight="100" text-anchor="middle">614</text>
-  <text x="263.948598" y="49.541432" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,263.948598,49.541432)">354</text>
-  <text x="106.474299" y="96.659967" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,106.474299,96.659967)">1</text>
-</svg>
-        </td>
-    </tr>
-</tbody></table></div></div></li><li class="xr-section-item"><input id="section-217d7c6f-c5e7-4766-9aee-5ced952c011a" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-217d7c6f-c5e7-4766-9aee-5ced952c011a" class="xr-section-summary">Coordinates: <span>(16)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U19</div><div class="xr-var-preview xr-preview">'2022-01-01T00:00:00' ... '2016-...</div><input id="attrs-c2e023ad-e837-45f2-9852-6cbfeb9a5cc7" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-c2e023ad-e837-45f2-9852-6cbfeb9a5cc7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e5ada75e-5a8b-4a79-862f-33aae9f86846" class="xr-var-data-in" type="checkbox"><label for="data-e5ada75e-5a8b-4a79-862f-33aae9f86846" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-01T00:00:00', '2021-12-01T00:00:00', '2021-11-01T00:00:00',
+    resolution:  0.1</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'stackstac-0683303cbb3f9689a8e6286f8a3ad3a0'</div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 73</li><li><span class="xr-has-index">band</span>: 1</li><li><span class="xr-has-index">y</span>: 354</li><li><span class="xr-has-index">x</span>: 614</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-5b2690ad-7844-435a-b90c-7eb69ea9f354" class="xr-array-in" type="checkbox" checked=""><label for="section-5b2690ad-7844-435a-b90c-7eb69ea9f354" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>dask.array&lt;chunksize=(1, 1, 354, 535), meta=np.ndarray&gt;</span></div><div class="xr-array-data">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th></th>
+<th data-quarto-table-cell-role="th">Array</th>
+<th data-quarto-table-cell-role="th">Chunk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Bytes</td>
+<td>121.06 MiB</td>
+<td>1.44 MiB</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Shape</td>
+<td>(73, 1, 354, 614)</td>
+<td>(1, 1, 354, 535)</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Count</td>
+<td>876 Tasks</td>
+<td>146 Chunks</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Type</td>
+<td>float64</td>
+<td>numpy.ndarray</td>
+</tr>
+</tbody>
+</table></td>
+<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAyIiBoZWlnaHQ9IjEzNCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjM5IiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIyNSIgeDI9IjM5IiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIyNSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEiIHkxPSIwIiB4Mj0iMSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjIiIHkxPSIwIiB4Mj0iMiIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjMiIHkxPSIwIiB4Mj0iMyIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjQiIHkxPSIwIiB4Mj0iNCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjUiIHkxPSIwIiB4Mj0iNSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjciIHkxPSIwIiB4Mj0iNyIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjgiIHkxPSIwIiB4Mj0iOCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjkiIHkxPSIwIiB4Mj0iOSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjEwIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMTEiIHkxPSIwIiB4Mj0iMTEiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxMyIgeTE9IjAiIHgyPSIxMyIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE0IiB5MT0iMCIgeDI9IjE0IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMTUiIHkxPSIwIiB4Mj0iMTUiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNiIgeTE9IjAiIHgyPSIxNiIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE4IiB5MT0iMCIgeDI9IjE4IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMTkiIHkxPSIwIiB4Mj0iMTkiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMCIgeTE9IjAiIHgyPSIyMCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjIyIiB5MT0iMCIgeDI9IjIyIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIwIiB4Mj0iMjMiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjAiIHgyPSIyNCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjI1IiB5MT0iMCIgeDI9IjI1IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMjciIHkxPSIwIiB4Mj0iMjciIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIyOCIgeTE9IjAiIHgyPSIyOCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjI5IiB5MT0iMCIgeDI9IjI5IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMzAiIHkxPSIwIiB4Mj0iMzAiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIzMSIgeTE9IjAiIHgyPSIzMSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjMzIiB5MT0iMCIgeDI9IjMzIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMzQiIHkxPSIwIiB4Mj0iMzQiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjAiIHgyPSIzNSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjM2IiB5MT0iMCIgeDI9IjM2IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMzciIHkxPSIwIiB4Mj0iMzciIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIzOSIgeTE9IjAiIHgyPSIzOSIgeTI9IjI1IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjAuMCwwLjAgMzkuNTMyNDY2NDA4NzE2NzgsMC4wIDM5LjUzMjQ2NjQwODcxNjc4LDI1LjQxMjYxNjUxNDU4MjQ4NSAwLjAsMjUuNDEyNjE2NTE0NTgyNDg1IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBUZXh0IC0tPgogIDx0ZXh0IHg9IjE5Ljc2NjIzMyIgeT0iNDUuNDEyNjE3IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+NzM8L3RleHQ+CiAgPHRleHQgeD0iNTkuNTMyNDY2IiB5PSIxMi43MDYzMDgiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgwLDU5LjUzMjQ2NiwxMi43MDYzMDgpIj4xPC90ZXh0PgoKCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMDkiIHkxPSIwIiB4Mj0iMTIzIiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMDkiIHkxPSI2OSIgeDI9IjEyMyIgeTI9Ijg0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTA5IiB5MT0iMCIgeDI9IjEwOSIgeTI9IjY5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTIzIiB5MT0iMTQiIHgyPSIxMjMiIHkyPSI4NCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMDkuMCwwLjAgMTIzLjk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDEyMy45NDg1OTc5NDk3NTQ0LDg0LjEzNDI2NTcwMjE5NzQgMTA5LjAsNjkuMTg1NjY3NzUyNDQzIiBzdHlsZT0iZmlsbDojRUNCMTcyQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMDkiIHkxPSIwIiB4Mj0iMjI5IiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyMyIgeTE9IjE0IiB4Mj0iMjQzIiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMDkiIHkxPSIwIiB4Mj0iMTIzIiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIyMTMiIHkxPSIwIiB4Mj0iMjI4IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMjI5IiB5MT0iMCIgeDI9IjI0MyIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjEwOS4wLDAuMCAyMjkuMCwwLjAgMjQzLjk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDEyMy45NDg1OTc5NDk3NTQ0LDE0Ljk0ODU5Nzk0OTc1NDQwMyIgc3R5bGU9ImZpbGw6I0VDQjE3MkEwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gSG9yaXpvbnRhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTIzIiB5MT0iMTQiIHgyPSIyNDMiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEyMyIgeTE9Ijg0IiB4Mj0iMjQzIiB5Mj0iODQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMjMiIHkxPSIxNCIgeDI9IjEyMyIgeTI9Ijg0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMjI4IiB5MT0iMTQiIHgyPSIyMjgiIHkyPSI4NCI+PC9saW5lPgogIDxsaW5lIHgxPSIyNDMiIHkxPSIxNCIgeDI9IjI0MyIgeTI9Ijg0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjEyMy45NDg1OTc5NDk3NTQ0LDE0Ljk0ODU5Nzk0OTc1NDQwMyAyNDMuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjQzLjk0ODU5Nzk0OTc1NDQsODQuMTM0MjY1NzAyMTk3NCAxMjMuOTQ4NTk3OTQ5NzU0NCw4NC4xMzQyNjU3MDIxOTc0IiBzdHlsZT0iZmlsbDojRUNCMTcyQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBUZXh0IC0tPgogIDx0ZXh0IHg9IjE4My45NDg1OTgiIHk9IjEwNC4xMzQyNjYiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj42MTQ8L3RleHQ+CiAgPHRleHQgeD0iMjYzLjk0ODU5OCIgeT0iNDkuNTQxNDMyIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwLDI2My45NDg1OTgsNDkuNTQxNDMyKSI+MzU0PC90ZXh0PgogIDx0ZXh0IHg9IjEwNi40NzQyOTkiIHk9Ijk2LjY1OTk2NyIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDQ1LDEwNi40NzQyOTksOTYuNjU5OTY3KSI+MTwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+</tr>
+</tbody>
+</table>
+</div></div></li><li class="xr-section-item"><input id="section-217d7c6f-c5e7-4766-9aee-5ced952c011a" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-217d7c6f-c5e7-4766-9aee-5ced952c011a" class="xr-section-summary">Coordinates: <span>(16)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U19</div><div class="xr-var-preview xr-preview">'2022-01-01T00:00:00' ... '2016-...</div><input id="attrs-c2e023ad-e837-45f2-9852-6cbfeb9a5cc7" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-c2e023ad-e837-45f2-9852-6cbfeb9a5cc7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e5ada75e-5a8b-4a79-862f-33aae9f86846" class="xr-var-data-in" type="checkbox"><label for="data-e5ada75e-5a8b-4a79-862f-33aae9f86846" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-01T00:00:00', '2021-12-01T00:00:00', '2021-11-01T00:00:00',
        '2021-10-01T00:00:00', '2021-09-01T00:00:00', '2021-08-01T00:00:00',
        '2021-07-01T00:00:00', '2021-06-01T00:00:00', '2021-05-01T00:00:00',
        '2021-04-01T00:00:00', '2021-03-01T00:00:00', '2021-02-01T00:00:00',
@@ -1954,9 +1779,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -2021,6 +1860,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -2076,6 +2001,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">© CC-By NASA, 2022-2023</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
     <div class="nav-footer-right">This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</div>
   </div>
 </footer>
