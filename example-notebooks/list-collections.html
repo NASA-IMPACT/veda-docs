@@ -6,8 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Aimee Barciauskas">
-<meta name="dcterms.date" content="2022-12-26">
+<meta name="author" content="Aimee Barciauskas, Julia Signell">
+<meta name="dcterms.date" content="2023-05-01">
 <meta name="description" content="Programatically list all collections that are available on a particular STAC catalog">
 
 <title>VEDA Documentation - List STAC collections</title>
@@ -367,14 +367,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Aimee Barciauskas </p>
+             <p>Aimee Barciauskas, Julia Signell </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 26, 2022</p>
+      <p class="date">May 1, 2023</p>
     </div>
   </div>
   
@@ -393,7 +393,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="approach">Approach</h2>
 <ol type="1">
 <li>Use <code>pystac_client</code> to open the STAC catalog</li>
-<li>Walk through catalog and print the title of each collection</li>
+<li>Iterate over collections and print the title of each collection</li>
 </ol>
 </section>
 <section id="open-stac-catalog" class="level2">
@@ -408,21 +408,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="list-collections" class="level2">
 <h2 class="anchored" data-anchor-id="list-collections">List collections</h2>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> root, collections, items <span class="kw">in</span> catalog.walk():</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> collection <span class="kw">in</span> <span class="bu">sorted</span>(collections, key<span class="op">=</span><span class="kw">lambda</span> x: x.title):</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(collection.title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>collections <span class="op">=</span> <span class="bu">list</span>(catalog.get_collections())</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> collection <span class="kw">in</span> <span class="bu">sorted</span>(collections, key<span class="op">=</span><span class="kw">lambda</span> x: x.title):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(collection.title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
+
+0-100 cm Volumetric Soil Moisture (%)
+Active Fire Line
+Aerosol Optical Depth (AOD)
 Annual LAI maps for 2003 and 2021 (Bangladesh)
 Annual land cover maps for 2001 and 2020
 Black Marble 500m Nightlights Daily Dataset
 Black Marble High Definition Nightlights 1 band Dataset
 Black Marble High Definition Nightlights Monthly Dataset
+Burn Area Reflectance Classification for Thomas Fire
 CO₂ (Avg)
 CO₂ (Diff)
 Caldor Fire Behavior
 Caldor Fire Burn Severity
+Change in ET for 2020 fires using LIS outputs
+Change in transpiration for 2020 fires using LIS outputs
 ECCO sea-surface height change from 1992 to 2017
+Evapotranspiration - LIS 10km Global DA
+Fire Perimeters
 GEOGLAM Crop Monitor
 GRDI BUILT Constituent Raster
 GRDI CDR Constituent Raster
@@ -462,24 +471,40 @@ Gridded 2012 EPA Methane Emissions - Stationary Combustion
 Gridded 2012 EPA Methane Emissions - Stationary Combustion (monthly)
 Gridded 2012 EPA Methane Emissions - Surface Coal Mines
 Gridded 2012 EPA Methane Emissions - Underground Coal Mines
+Gross Primary Productivity - LIS 10km Global DA
+Gross Primary Productivity Trend - LIS 10km Global DA
+Groundwater Storage - LIS 10km Global DA
 HLSL30.002 Environmental Justice Events
 HLSS30.002 Environmental Justice Events
+Houston LST (Diff)
+Houston Land Cover
+Houston NDVI: decadal average
+Houston land surface temperature at night time - decadal average
+Houston land surface temperature during daytime - decadal average
 Hurricane Ida - Blue Tarps PlanetScope Image
 Hurricane Ida - Detected Blue Tarps
 ICESat-2 L4 Monthly Gridded Sea Ice Thickness (COGs)
 MTBS Burn Severity
+Maximum Fire Radiative Power for Thomas Fire
 NCEO Africa Aboveground Woody Biomass 2017
 NO₂
 NO₂ (Diff)
 OMI/Aura Sulfur Dioxide (SO2) Total Column L3 1 day Best Pixel in 0.25 degree x 0.25 degree V3 as Cloud-Optimized GeoTIFFs (COGs)
 OMI_trno2 - 0.10 x 0.10 Annual as Cloud-Optimized GeoTIFFs (COGs)
 Population Density Maps using satellite imagery built by Meta
+Projected changes to winter (January, February, and March) average daily air temperature
+Projected changes to winter (January, February, and March) average daily air temperature
+Projected changes to winter (January, February, and March) cumulative daily precipitation
+Projected changes to winter (January, February, and March) cumulative daily precipitation
 Projections of Snow Water Equivalent (SWE)
 Projections of Snow Water Equivalent (SWE) - SSP2-4.5
 Projections of Snow Water Equivalent (SWE) - SSP5-8.5
 Projections of Snow Water Equivalent (SWE) Losses - SSP2-4.5
 Projections of Snow Water Equivalent (SWE) Losses - SSP5-8.5
 Projections of Snow Water Equivalent (SWE) losses
+Selected Landsat 7 through 9 Surface Reflectance Scenes for the Pine Island Glacier
+Selected Landsat 7 through 9 Surface Reflectance Scenes for the Thwaites Glacier
+Snow Water Equivalent - LIS 10km Global DA
 Social Vulnerability Index (Household)
 Social Vulnerability Index (Household) (Masked)
 Social Vulnerability Index (Housing)
@@ -490,8 +515,17 @@ Social Vulnerability Index (Overall)
 Social Vulnerability Index (Overall) (Masked)
 Social Vulnerability Index (SocioEconomic)
 Social Vulnerability Index (SocioEconomic) (Masked)
+Stream network across the Contiguous United States
+Streamflow - LIS 10km Global DA
+Subsurface Runoff - LIS 10km Global DA
+Surface runoff - LIS 10km Global DA
 Terrestrial Water Storage (TWS) Anomalies
-Trend in Terrestrial Water Storage (TWS) Anomalies</code></pre>
+Terrestrial Water Storage - LIS 10km Global DA
+Terrestrial Water Storage Trend - LIS 10km Global DA
+Total Precipitation - LIS 10km Global DA
+Trend in Terrestrial Water Storage (TWS) Anomalies
+VIIRs Fire Detections
+disalexi-etsuppression</code></pre>
 </div>
 </div>
 </section>
