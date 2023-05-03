@@ -56,6 +56,62 @@
     "text": "Stay up-to-date through blogs\n\nBlog series on latest trends and resources in geospatial - entry-level"
   },
   {
+    "objectID": "example-notebooks/template-using-the-raster-api.html",
+    "href": "example-notebooks/template-using-the-raster-api.html",
+    "title": "Run this notebook",
+    "section": "",
+    "text": "This notebook is intended to act as a template for the example notebooks that use the raster API. These green cells should all be deleted and in several sections only one of the provided cells should be included in the notebook.\nYou can launch this notbook using mybinder, by clicking the button below."
+  },
+  {
+    "objectID": "example-notebooks/template-using-the-raster-api.html#approach",
+    "href": "example-notebooks/template-using-the-raster-api.html#approach",
+    "title": "Run this notebook",
+    "section": "Approach",
+    "text": "Approach\n\nlist a few steps that outline the approach\nyou will be taking in this notebook\n\n\n# include all your imports in this cell\nimport folium\nimport requests"
+  },
+  {
+    "objectID": "example-notebooks/template-using-the-raster-api.html#about-the-data",
+    "href": "example-notebooks/template-using-the-raster-api.html#about-the-data",
+    "title": "Run this notebook",
+    "section": "About the data",
+    "text": "About the data\nOptional description of the dataset."
+  },
+  {
+    "objectID": "example-notebooks/template-using-the-raster-api.html#declare-your-collection-of-interest",
+    "href": "example-notebooks/template-using-the-raster-api.html#declare-your-collection-of-interest",
+    "title": "Run this notebook",
+    "section": "Declare your collection of interest",
+    "text": "Declare your collection of interest\nYou can discover available collections the following ways:\n\nProgrammatically: see example in the list-collections.ipynb notebook\nJSON API: https://dev-stac.delta-backend.com/collections\nSTAC Browser: http://veda-dev-stac-browser.s3-website-us-west-2.amazonaws.com\n\n\nSTAC_API_URL = \"https://staging-stac.delta-backend.com\"\nRASTER_API_URL = \"https://staging-raster.delta-backend.com\"\n\ncollection_id = \n\n\nNext step is to get STAC objects from the STAC API. In some notebooks we get the collection and use all the items, and in others we search for specific items."
+  },
+  {
+    "objectID": "example-notebooks/template-using-the-raster-api.html#fetch-stac-collection",
+    "href": "example-notebooks/template-using-the-raster-api.html#fetch-stac-collection",
+    "title": "Run this notebook",
+    "section": "Fetch STAC collection",
+    "text": "Fetch STAC collection\nWe will use requests to fetch all the metadata about the collection of interest from STAC.\n\ncollection = requests.get(f\"{STAC_API_URL}/collections/{collection_id}\").json()\ncollection"
+  },
+  {
+    "objectID": "example-notebooks/template-using-the-raster-api.html#fetch-stac-item-for-a-particular-time",
+    "href": "example-notebooks/template-using-the-raster-api.html#fetch-stac-item-for-a-particular-time",
+    "title": "Run this notebook",
+    "section": "Fetch STAC item for a particular time",
+    "text": "Fetch STAC item for a particular time\nWe can use the search API to find the item that matches exactly our time of interest.\n\nresponse = requests.post(\n    f\"{STAC_API_URL}/search\",\n    json={\n        \"collections\": [collection_id],\n        \"query\": {\"datetime\": {\"eq\": \"2021-01-01T00:00:00\"}},\n        \"limit\": 100,\n    },\n).json()\nitems = response[\"features\"]\n\n\nThe next step is often to define an Area of Interest. Note that it is preferred to get large geojson objects directly from their source rather than storing them in this repository or inlining them in the notebook. Here is an example of what that might look like."
+  },
+  {
+    "objectID": "example-notebooks/template-using-the-raster-api.html#define-an-aoi",
+    "href": "example-notebooks/template-using-the-raster-api.html#define-an-aoi",
+    "title": "Run this notebook",
+    "section": "Define an AOI",
+    "text": "Define an AOI\nWe can fetch GeoJSON for metropolitan France and Corsica (excluding overseas territories) from an authoritative online source (https://gadm.org/download_country.html).\n\nresponse = requests.get(\n    \"https://geodata.ucdavis.edu/gadm/gadm4.1/json/gadm41_FRA_0.json\"\n)\n\n# If anything goes wrong with this request output error contents\nassert response.ok, response.text\n\nresult = response.json()\nprint(f\"There are {len(result['features'])} features in this collection\")\n\nThat is the geojson for a feature collection, but since there is only one feature in it we can grab just that.\n\naoi = result[\"features\"][0]\n\nLet’s take a look at this AOI on a map\n\nm = folium.Map(\n    location=[40, 0],\n    zoom_start=2,\n)\n\nfolium.GeoJson(aoi, name=\"AOI\").add_to(m)\nm\n\n\nWith the STAC object and optionally the AOI in hand, the next step is to do some analysis. The sections in the rest of the notebooks are totally up to you! Here is one idea though :)"
+  },
+  {
+    "objectID": "example-notebooks/template-using-the-raster-api.html#use-stactilejson.json-to-get-tiles",
+    "href": "example-notebooks/template-using-the-raster-api.html#use-stactilejson.json-to-get-tiles",
+    "title": "Run this notebook",
+    "section": "Use /stac/tilejson.json to get tiles",
+    "text": "Use /stac/tilejson.json to get tiles\nWe pass the item_id, collection id, and the rescale_values in to the RASTER API endpoint and get back a tile.\n\nrescale_values = collection[\"summaries\"][\"cog_default\"]\n\ntiles = requests.get(\n    f\"{RASTER_API_URL}/stac/tilejson.json?collection={collection_id}&item={item['id']}\"\n    \"&assets=cog_default\"\n    \"&color_formula=gamma+r+1.05&colormap_name=rdbu_r\"\n    f\"&rescale={rescale_values['min']},{rescale_values['max']}\",\n).json()\ntiles\n\nWith that tile url in hand we can create a simple visualization using folium.\n\nfolium.Map(\n    tiles=tiles[\"tiles\"][0],\n    attr=\"VEDA\",\n)"
+  },
+  {
     "objectID": "example-notebooks/wfs.html",
     "href": "example-notebooks/wfs.html",
     "title": "Get Fire Perimeters from an OGC API",
@@ -854,39 +910,102 @@
     "text": "Speed things up: parallelize computation with Dask\nWe can drastically reduce the time it takes to generate the timeseries, even with the complex AOI above, by parallelizing our code. The cogs/statistics API is powered by AWS Lambda which executes each request in a separate instance. This means the requests are highly scalable. Since each statistics request is for a single timestamp, we can request statistics for multiple timesteps concurrently, and greatly reduce the amount of time needed. We will demonstrate this by using the Dask.\n\nCreate a Dask client\nFirst we will create a Dask client. In this case we will use the threads on the same server that is running this jupyter notebook.\n\nimport dask.distributed\n\nclient = dask.distributed.Client()\n\n\n\nSubmit work\nWe will submit the generate_stats function for each item in our list and collect a list of futures. This will immediately kick off work in dask. We can then gather all the results.\n\n%%time\nfutures = [client.submit(generate_stats, item, france_aoi) for item in items]\nstats = client.gather(futures)\n\n2023-03-31 13:36:46,044 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:46,361 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:46,747 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:47,046 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:47,431 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:47,718 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:48,050 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:48,343 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:48,632 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:48,956 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:49,267 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:49,623 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:49,932 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:50,290 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:50,578 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:50,908 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:51,205 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:51,524 - distributed.utils_perf - WARNING - full garbage collections took 30% CPU time recently (threshold: 10%)\n2023-03-31 13:36:51,857 - distributed.utils_perf - WARNING - full garbage collections took 30% CPU time recently (threshold: 10%)\n2023-03-31 13:36:52,160 - distributed.utils_perf - WARNING - full garbage collections took 30% CPU time recently (threshold: 10%)\n2023-03-31 13:36:52,485 - distributed.utils_perf - WARNING - full garbage collections took 30% CPU time recently (threshold: 10%)\n2023-03-31 13:36:52,793 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:53,103 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:53,399 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:53,736 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:54,033 - distributed.utils_perf - WARNING - full garbage collections took 29% CPU time recently (threshold: 10%)\n2023-03-31 13:36:54,318 - distributed.utils_perf - WARNING - full garbage collections took 30% CPU time recently (threshold: 10%)\n2023-03-31 13:36:54,657 - distributed.utils_perf - WARNING - full garbage collections took 30% CPU time recently (threshold: 10%)\n\n\nCPU times: user 19.2 s, sys: 465 ms, total: 19.7 s\nWall time: 47.6 s\n\n\n\n\nClose the Dask client\nIt is good practice to close the client when you are done.\nclient.shutdown()\n\n\nAlternate approach\nIf you are familiar with the concurrent.futures library you can use that instead of Dask."
   },
   {
+    "objectID": "example-notebooks/template-accessing-the-data-directly.html",
+    "href": "example-notebooks/template-accessing-the-data-directly.html",
+    "title": "Run this notebook",
+    "section": "",
+    "text": "This notebook is intended to act as a template for the example notebooks that access the data directly. These green cells should all be deleted and in several sections only one of the provided cells should be included in the notebook.\nYou can launch this notebook in VEDA JupyterHub by clicking the link below.\nLaunch in VEDA JupyterHub (requires access)"
+  },
+  {
+    "objectID": "example-notebooks/template-accessing-the-data-directly.html#approach",
+    "href": "example-notebooks/template-accessing-the-data-directly.html#approach",
+    "title": "Run this notebook",
+    "section": "Approach",
+    "text": "Approach\n\nlist a few steps that outline the approach\nyou will be taking in this notebook\n\n\n# include all your imports in this cell\nimport folium\nimport requests\nimport stackstac\n\nfrom pystac_client import Client"
+  },
+  {
+    "objectID": "example-notebooks/template-accessing-the-data-directly.html#about-the-data",
+    "href": "example-notebooks/template-accessing-the-data-directly.html#about-the-data",
+    "title": "Run this notebook",
+    "section": "About the data",
+    "text": "About the data\nOptional description of the dataset."
+  },
+  {
+    "objectID": "example-notebooks/template-accessing-the-data-directly.html#declare-your-collection-of-interest",
+    "href": "example-notebooks/template-accessing-the-data-directly.html#declare-your-collection-of-interest",
+    "title": "Run this notebook",
+    "section": "Declare your collection of interest",
+    "text": "Declare your collection of interest\nYou can discover available collections the following ways:\n\nProgrammatically: see example in the list-collections.ipynb notebook\nJSON API: https://dev-stac.delta-backend.com/collections\nSTAC Browser: http://veda-dev-stac-browser.s3-website-us-west-2.amazonaws.com\n\n\nSTAC_API_URL = \"https://staging-stac.delta-backend.com\"\n\ncollection_id = \n\n\nNext step is to get STAC objects from the STAC API. We use pystac-client to do a search. Here is an some example of what that might look like."
+  },
+  {
+    "objectID": "example-notebooks/template-accessing-the-data-directly.html#discover-items-in-collection-for-region-and-time-of-interest",
+    "href": "example-notebooks/template-accessing-the-data-directly.html#discover-items-in-collection-for-region-and-time-of-interest",
+    "title": "Run this notebook",
+    "section": "Discover items in collection for region and time of interest",
+    "text": "Discover items in collection for region and time of interest\nUse pystac_client to search the STAC collection for a particular area of interest within specified datetime bounds.\n\nbbox = []\ndatetime = \"2000-01-01/2022-01-02\"\n\n\ncatalog = Client.open(STAC_API_URL)\n\nsearch = catalog.search(\n    bbox=bbox, datetime=datetime, collections=[collection_id], limit=1000\n)\nitems = list(search.items())\nprint(f\"Found {len(items)} items\")\n\n\nThe next step is often to define an Area of Interest. Note that it is preferred to get large geojson objects directly from their source rather than storing them in this repository or inlining them in the notebook. Here is an example of what that might look like."
+  },
+  {
+    "objectID": "example-notebooks/template-accessing-the-data-directly.html#define-an-aoi",
+    "href": "example-notebooks/template-accessing-the-data-directly.html#define-an-aoi",
+    "title": "Run this notebook",
+    "section": "Define an AOI",
+    "text": "Define an AOI\nWe can fetch GeoJSON from an authoritative online source for instance: https://gadm.org/download_country.html\n\nresponse = requests.get(\n    \"https://geodata.ucdavis.edu/gadm/gadm4.1/json/gadm41_FRA_0.json\"\n)\n\n# If anything goes wrong with this request output error contents\nassert response.ok, response.text\n\nresult = response.json()\nprint(f\"There are {len(result['features'])} features in this collection\")\n\nThat is the geojson for a feature collection, but since there is only one feature in it we can grab just that.\n\naoi = result[\"features\"][0]\n\n\nNext some notebooks read in the data. If you are using the raster API to trigger computation server side skip this section. Here is an example of reading the data in using stackstac and clipping using rasterio.\n\n\nm = folium.Map(\n    location=[40, 0],\n    zoom_start=2,\n)\n\nfolium.GeoJson(aoi, name=\"AOI\").add_to(m)\nm"
+  },
+  {
+    "objectID": "example-notebooks/template-accessing-the-data-directly.html#read-data",
+    "href": "example-notebooks/template-accessing-the-data-directly.html#read-data",
+    "title": "Run this notebook",
+    "section": "Read data",
+    "text": "Read data\nCreate an xarray.DataSet using stackstac\n\n# This is a workaround that is planning to move up into stackstac itself\nimport rasterio as rio\nimport boto3\n\ngdal_env = stackstac.DEFAULT_GDAL_ENV.updated(\n    always=dict(AWS_NO_SIGN_REQUEST=True, session=rio.session.AWSSession(boto3.Session())\n)\n\n\nda = stackstac.stack(search.item_collection(), gdal_env=gdal_env)\nda = da.assign_coords({\"time\": pd.to_datetime(da.start_datetime)})\nda"
+  },
+  {
+    "objectID": "example-notebooks/template-accessing-the-data-directly.html#clip-the-data-to-aoi",
+    "href": "example-notebooks/template-accessing-the-data-directly.html#clip-the-data-to-aoi",
+    "title": "Run this notebook",
+    "section": "Clip the data to AOI",
+    "text": "Clip the data to AOI\n\nsubset = da.rio.clip([aoi[\"geometry\"]])\nsubset\n\n\nWith the STAC object, and optionally the AOI and/or the data in hand, the next step is to do some analysis. The sections in the rest of the notebooks are totally up to you! Here is an idea though :)"
+  },
+  {
+    "objectID": "example-notebooks/template-accessing-the-data-directly.html#select-a-band-of-data",
+    "href": "example-notebooks/template-accessing-the-data-directly.html#select-a-band-of-data",
+    "title": "Run this notebook",
+    "section": "Select a band of data",
+    "text": "Select a band of data\nThere is just one band in this case, cog_default.\n\ndata_band = da.sel(band=\"cog_default\")"
+  },
+  {
+    "objectID": "example-notebooks/template-accessing-the-data-directly.html#compute-and-plot",
+    "href": "example-notebooks/template-accessing-the-data-directly.html#compute-and-plot",
+    "title": "Run this notebook",
+    "section": "Compute and plot",
+    "text": "Compute and plot\nCalculate the mean at each time across the whole dataset. Note this is the first time that the data is actually loaded.\n\n# Average over entire AOI for each month\nmeans = data_band.mean(dim=(\"x\", \"y\")).compute()\n\n\nmeans.plot()"
+  },
+  {
     "objectID": "example-notebooks/index.html",
     "href": "example-notebooks/index.html",
     "title": "Usage Examples",
     "section": "",
-    "text": "The example notebooks are divided into three sections:\n\nQuickstarts: Notebooks to get you started quickly and help you become more familiar with cloud-native geospatial technologies.\nTutorials: Longer notebooks that walk through more advanced use cases and examples.\nDatasets: Notebooks that showcase a particular VEDA dataset and walk through an applied geospatial analyses."
+    "text": "The example notebooks are divided into three sections:\n\nQuickstarts: Notebooks to get you started quickly and help you become more familiar with cloud-native geospatial technologies.\nTutorials: Longer notebooks that walk through more advanced use cases and examples.\nDatasets: Notebooks that showcase a particular VEDA dataset and walk through an applied geospatial analyses.\n\n\n\nThe Quickstarts examples are further divided into two sections, which you can choose from depending on your data needs:\n\nAccessing the Data Directly: For when you want to access the raw data (e.g., to do a specific analysis). In this case, permissions are required to access the data (i.e., must be run on VEDA JupyterHub) and computation happens within the user’s instance (i.e., the user needs to think about instance size). This approach is suitable for use within notebooks. All examples provided in this section require VEDA JupyterHub access to run.\nUsing the Raster API: For when you want to show outputs to other people or do standard processing. No permissions required (i.e., notebooks can be run on mybinder). Additionally, the computation happens somehwere else (i.e., user does not have to think about instance size). Lastly, this approach is suitable for use within notebooks as well as web application frontends (e.g., like dataset discoveries). These notebook examples can be run on both VEDA JupyterHub, as well as outside of the Hub (see instructions below) and within mybinder."
   },
   {
     "objectID": "example-notebooks/index.html#getting-started",
     "href": "example-notebooks/index.html#getting-started",
     "title": "Usage Examples",
     "section": "",
-    "text": "The example notebooks are divided into three sections:\n\nQuickstarts: Notebooks to get you started quickly and help you become more familiar with cloud-native geospatial technologies.\nTutorials: Longer notebooks that walk through more advanced use cases and examples.\nDatasets: Notebooks that showcase a particular VEDA dataset and walk through an applied geospatial analyses."
-  },
-  {
-    "objectID": "example-notebooks/index.html#choosing-the-right-data-access-route-for-your-needs",
-    "href": "example-notebooks/index.html#choosing-the-right-data-access-route-for-your-needs",
-    "title": "Usage Examples",
-    "section": "Choosing the right data access route for your needs",
-    "text": "Choosing the right data access route for your needs\nThe Quickstarts examples are further divided into two sections, which you can choose from depending on your data needs:\n\nAccessing the Data Directly: For when you want to access the raw data (e.g., to do a specific analysis). In this case, permissions are required to access the data (i.e., must be run on VEDA JupyterHub) and computation happens within the user’s instance (i.e., the user needs to think about instance size). This approach is suitable for use within notebooks. All examples provided in this section require VEDA JupyterHub access to run.\nUsing the Raster API: For when you want to show outputs to other people or do standard processing. No permissions required (i.e., notebooks can be run on mybinder). Additionally, the computation happens somehwere else (i.e., user does not have to think about instance size). Lastly, this approach is suitable for use within notebooks as well as web application frontends (e.g., like dataset discoveries). These notebook examples can be run on both VEDA JupyterHub, as well as outside of the Hub (see instructions below) and within mybinder."
+    "text": "The example notebooks are divided into three sections:\n\nQuickstarts: Notebooks to get you started quickly and help you become more familiar with cloud-native geospatial technologies.\nTutorials: Longer notebooks that walk through more advanced use cases and examples.\nDatasets: Notebooks that showcase a particular VEDA dataset and walk through an applied geospatial analyses.\n\n\n\nThe Quickstarts examples are further divided into two sections, which you can choose from depending on your data needs:\n\nAccessing the Data Directly: For when you want to access the raw data (e.g., to do a specific analysis). In this case, permissions are required to access the data (i.e., must be run on VEDA JupyterHub) and computation happens within the user’s instance (i.e., the user needs to think about instance size). This approach is suitable for use within notebooks. All examples provided in this section require VEDA JupyterHub access to run.\nUsing the Raster API: For when you want to show outputs to other people or do standard processing. No permissions required (i.e., notebooks can be run on mybinder). Additionally, the computation happens somehwere else (i.e., user does not have to think about instance size). Lastly, this approach is suitable for use within notebooks as well as web application frontends (e.g., like dataset discoveries). These notebook examples can be run on both VEDA JupyterHub, as well as outside of the Hub (see instructions below) and within mybinder."
   },
   {
     "objectID": "example-notebooks/index.html#how-to-run",
     "href": "example-notebooks/index.html#how-to-run",
     "title": "Usage Examples",
     "section": "How to run",
-    "text": "How to run\nEvery notebook contains information about how to run it. Some can run on mybinder and all can run on the VEDA JupyterHub. See VEDA Analytics JupyterHub Access for information about how to gain access.\n\nRunning outside of VEDA JupyterHub\nTo run the notebooks locally, you can use a python virtual environment and jupyter.\nUse an underscore to prefix your virtual environment so quarto doesn’t render any contents of the virtual environment directory.\npython3 -m venv _env\nsource _env/bin/activate\npip3 install -r requirements.txt\npython3 -m ipykernel install --user --name=_env\njupyter notebook\nIf the notebook needs access to protected data on S3, you will need to specifically get access. Please request access by emailing aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN)."
+    "text": "How to run\nEvery notebook contains information about how to run it. Some can run on mybinder and all can run on the VEDA JupyterHub. See VEDA Analytics JupyterHub Access for information about how to gain access.\n\nRunning outside of VEDA JupyterHub\nTo run the notebooks locally, you can use can install the Python packages (a virtual environment is recommended)\npip install -r requirements.txt\nOnce you have installed the packages you can run the notebooks using Jupyter.\njupyter lab\nIf the notebook needs access to protected data on S3, you will need to specifically get access. Please request access by emailing aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN)."
   },
   {
     "objectID": "example-notebooks/index.html#contributing-to-veda",
     "href": "example-notebooks/index.html#contributing-to-veda",
     "title": "Usage Examples",
     "section": "Contributing to VEDA",
-    "text": "Contributing to VEDA\nContribution to VEDA’s documentation is always welcome. In order to share your notebook on VEDA’s JupyterHub, you’ll have to generate a link to allow for that functionality. You can find more details in the instructions below.\n\nGenerate a “Run on VEDA” link\nWe use nbgitpuller links to open the VEDA JupyterHub with a particular notebook pulled in. These links have the form: https://nasa-veda.2i2c.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&urlpath=lab/tree/veda-docs/example-notebooks/open-and-plot.ipynb&branch=main\nIf you are writing a notebook and want to share it with others you can generate your own nbgitpuller link using this link generator."
+    "text": "Contributing to VEDA\nContribution to VEDA’s documentation is always welcome. You can add new notebooks by making a Pull Request on the veda-docs repository\nThere are two template notebooks in this directory titled: template-using-the-raster-api.ipynb and template-accessing-the-data-directly.ipynb that you can use as a starting place. Alternatively you can pull specific cells from that notebook into your own.\n\nStyle\n\nEach code cell should come after a markdown cell with some explanatory text. This is preferred over comments in the code cells.\nThe max header should be ##.\nOnly include imports that are needed for the notebook to run.\nWe don’t enforce any formatting, but periodically run black on all the notebooks. If you would like to run black yourself do pip install black[jupyter] and then black.\n\n\n\nRendering information\nThe first cell in every notebook is a raw cell that contains the following metadata for rendering.\n---\ntitle: Short title\ndescription: One sentence description\nauthor: Author Name\ndate: May 2, 2023\nexecute:\n  freeze: true\n---\nWe store evaluted notebooks in this repository. So before you commit your notebook, you should restart your kernel and run all cells in order.\n\n\nStandard sections\nTo give the notebooks a standard look and feel we typically include the following sections:\n\nRun this Notebook: The section explains how to run the notebook locally, on VEDA JupyterHub or on mybinder. There are several examples of what this section can look like in the template notebooks.\nApproach: List a few steps that outline the approach you be taking in this notebook.\nAbout the data: Optional description of the datatset\nDeclare your collection of interest: This section reiterates how you can discover which collections are available. You can copy the example of this section from one of the template notebooks.\n\nFrom then on the standard sections diverge depending on whether the notebook access the data directly or uses the raster API. Check the template notebooks for some ideas of common patterns.\n\n\nUsing complex geometries\nIf you are defining the AOI using a bounding box, you can include it in the text of the notebook, but for more complex geometries we prefer that the notebook access the geometry directly from a canonical source. You can check the template notebooks for exmples of this. If the complex geometry is not available online the VEDA team can help get it up in a public s3 bucket.\n\n\nAccessing the data\nTo present consistent best practices, we always access data via the STAC API. Often we use stackstac for this.\n\n\nGenerate “Launch in VEDA JupyterHub” link\nWe use nbgitpuller links to open the VEDA JupyterHub with a particular notebook pulled in. These links have the form: https://nasa-veda.2i2c.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&urlpath=lab/tree/veda-docs/example-notebooks/open-and-plot.ipynb&branch=main\nIf you are writing a notebook and want to share it with others you can generate your own nbgitpuller link using this link generator."
   },
   {
     "objectID": "example-notebooks/intake.html",
