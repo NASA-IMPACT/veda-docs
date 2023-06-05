@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>VEDA Documentation - Dashboard Content</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../external-resources.html" rel="next">
+<link href="../contributing/docs-and-notebooks.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../contributing/docs-and-notebooks.html">Contributing</a></li><li class="breadcrumb-item"><a href="../contributing/dashboard-content.html">Dashboard Content</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/Veda_logo_blue_no_text.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://www.earthdata.nasa.gov/esds/veda" title="earthdata.nasa.gov/esds/veda" class="quarto-navigation-tool px-1" aria-label="earthdata.nasa.gov/esds/veda"><i class="bi bi-info-circle"></i></a>
+    <a href="https://github.com/nasa-impact/veda-docs" title="Repository home" class="quarto-navigation-tool px-1" aria-label="Repository home"><i class="bi bi-github"></i></a>
+    <a href="https://earthdata.nasa.gov/dashboard" title="VEDA Dashboard" class="quarto-navigation-tool px-1" aria-label="VEDA Dashboard"><i class="bi bi-binoculars"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../veda-jh-access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">JupyterHub access</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../veda-apis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VEDA APIs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../example-notebooks/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Usage Examples</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+ <span class="menu-text">Quickstarts</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
+ <span class="menu-text">Accessing the Data Directly</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/list-collections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">List STAC collections</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/open-and-plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Open and plot COGs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/timeseries-rioxarray-stackstac.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calculate timeseries from COGs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/visualize-zarr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualize zarr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/visualize-multiple-times.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Open and visualize COGs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/downsample-zarr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Downsample zarr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/intake.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Searching VEDA STAC API and inspecting catalogs with intake</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/wfs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get Fire Perimeters from an OGC API</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+ <span class="menu-text">Using the Raster API</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/no2-map-plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get map from COGs - NO2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/timeseries-stac-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get timeseries from COGs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/hls-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get tiles from COGs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/gif-generation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GIF generation using the TiTiler /cog/crop endpoint</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Datasets</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/ocean-npp-timeseries-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualizing Ocean NPP time series for seasonal patterns</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/nceo-biomass-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualizing NCEO Aboveground Woody Biomass 2017 prioritization areas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/volcano-so2-monitoring.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Monitoring Volcanic Sulfur Dioxide Emissions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../example-notebooks/air-quality-covid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Air Quality and COVID-19</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text">Contributing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../contributing/docs-and-notebooks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Docs and example notebooks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../contributing/dashboard-content.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Dashboard Content</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../external-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">External resources</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data-content-preparation" id="toc-data-content-preparation" class="nav-link active" data-scroll-target="#data-content-preparation">1/3 Data &amp; Content Preparation</a>
+  <ul class="collapse">
+  <li><a href="#key-steps" id="toc-key-steps" class="nav-link" data-scroll-target="#key-steps">Key Steps</a></li>
+  </ul></li>
+  <li><a href="#dataset-ingestion" id="toc-dataset-ingestion" class="nav-link" data-scroll-target="#dataset-ingestion">2/3 Dataset Ingestion</a>
+  <ul class="collapse">
+  <li><a href="#key-steps-1" id="toc-key-steps-1" class="nav-link" data-scroll-target="#key-steps-1">Key Steps</a></li>
+  </ul></li>
+  <li><a href="#sec-dataset-configuration" id="toc-sec-dataset-configuration" class="nav-link" data-scroll-target="#sec-dataset-configuration">3/3 Dataset Configuration</a>
+  <ul class="collapse">
+  <li><a href="#key-steps-2" id="toc-key-steps-2" class="nav-link" data-scroll-target="#key-steps-2">Key Steps</a></li>
+  </ul></li>
+  <li><a href="#sec-discovery-configuration" id="toc-sec-discovery-configuration" class="nav-link" data-scroll-target="#sec-discovery-configuration">3/3 Discovery Configuration</a>
+  <ul class="collapse">
+  <li><a href="#key-steps-3" id="toc-key-steps-3" class="nav-link" data-scroll-target="#key-steps-3">Key Steps</a></li>
+  </ul></li>
+  <li><a href="#sec-video-walkthrough" id="toc-sec-video-walkthrough" class="nav-link" data-scroll-target="#sec-video-walkthrough">Video Walkthrough</a>
+  <ul class="collapse">
+  <li><a href="#setting-up-github-codespaces" id="toc-setting-up-github-codespaces" class="nav-link" data-scroll-target="#setting-up-github-codespaces">Setting up github codespaces</a></li>
+  <li><a href="#creating-a-discovery" id="toc-creating-a-discovery" class="nav-link" data-scroll-target="#creating-a-discovery">Creating a discovery</a></li>
+  </ul></li>
+  <li><a href="#appendix---useful-links" id="toc-appendix---useful-links" class="nav-link" data-scroll-target="#appendix---useful-links">Appendix - Useful Links</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/nasa-impact/veda-docs/edit/main/contributing/dashboard-content.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Dashboard Content</h1>
+<p class="subtitle lead">Workflow from data ingestion to Discovery publication in the <a href="https://www.earthdata.nasa.gov/dashboard/">VEDA Dashboard</a></p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This guide explains how to publish content in the <a href="https://www.earthdata.nasa.gov/dashboard/">VEDA Dashboard</a>, the graphical user interface for exploring NASA Earth Data datasets and science stories <a href="https://github.com/NASA-IMPACT/veda-ui">VEDA UI</a>.</p>
+<p><strong>⛑ Help us help you!</strong></p>
+<p>This is a living document and will be updated as the content creation process is improved. If you find any error or sections that are not clear enough please let us know.</p>
+<p>This document is intended to be an overview of the ingestion and configuration process for VEDA. By following this document, you should have a good understanding of how to start from having an idea for some content to show on the VEDA Dashboard all the way to having your data and content appear in the production version of the VEDA Dashboard. Detailed technical documentation for each of the steps is available on GitHub and other places, links provided in the Appendix below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://res.cloudinary.com/almanac/image/upload/v1677625006/workspace_portal_uploads/ytqfutploltfjrnaslyx.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Workflow diagram</figcaption>
+</figure>
+</div>
+<section id="data-content-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="data-content-preparation">1/3 Data &amp; Content Preparation</h2>
+<p>This is an important step before ingesting or configuring anything within VEDA. This will set you up for success in later steps.</p>
+<section id="key-steps" class="level3">
+<h3 class="anchored" data-anchor-id="key-steps">Key Steps</h3>
+<p>🧑‍💻 Collaborate with partners familiar with the data context, to draft the necessary content.</p>
+<p>For <strong>Discoveries</strong>, the required content is:</p>
+<ol type="1">
+<li><p>Text for the actual story itself</p></li>
+<li><p>Identify any visuals you would like to include, whether that be images, charts, maps, or other</p></li>
+</ol>
+<ol type="a">
+<li><p>If maps, identify which dataset and layer you would like to show and whether that is included in VEDA</p>
+<p>⚠️ If the dataset is not yet included in VEDA you’ll have to provide information about it and configure it as explained below.</p></li>
+<li><p>If charts, gather the relevant data to build the chart. A csv file is the most common, but json is also supported</p></li>
+</ol>
+<ol start="3" type="1">
+<li><p>A cover image for the dataset as it will appear in the Dashboard</p></li>
+<li><p>A title and short description/sub-title (5-10 words) for the Discovery</p></li>
+</ol>
+<p>Once you have all data needed for a discovery jump to <a href="#sec-discovery-configuration">Section&nbsp;4</a>.</p>
+<p>For <strong>Datasets</strong>, the required content is:</p>
+<ol type="1">
+<li><p>A descriptive overview of the dataset, how it came to exist, who maintains it, and how it should be used</p></li>
+<li><p>Short descriptions for each layer that you will want to reveal within VEDA (an example of this would be CO2 mean vs CO2 difference) for users to explore on a map</p></li>
+<li><p>A cover image for the dataset as it will appear in the Dashboard</p></li>
+<li><p>Any other relevant metadata you might want included</p></li>
+<li><p>For any datasets that need to be ingested, convert data to Cloud-Optimized GeoTIFFs (COGs)</p>
+<ol type="1">
+<li><p>This is currently the only format supported in the VEDA Dashboard. More formats to come in the future.</p></li>
+<li><p>See below for details on how to generate COGs</p></li>
+</ol></li>
+</ol>
+<p>Once you have all data needed for a dataset jump to <a href="#sec-dataset-configuration">Section&nbsp;3</a>.</p>
+<section id="nb-create-sane-cloud-optimized-geotiffs-cogs" class="level4">
+<h4 class="anchored" data-anchor-id="nb-create-sane-cloud-optimized-geotiffs-cogs">NB: Create sane Cloud-Optimized GeoTIFFs (COGs)</h4>
+<p>We often encounter issues like missing or wrong <code>nodata</code> value, missing coordinate-reference system, missing or wrong overviews - polluted by fill values or not conserving class values in categorical data, empty files, or artifacts in the data.</p>
+<p>Discovering these issues early on (ideally before upload to our buckets) can save us all a lot of time.</p>
+<p>A command-line tool for creating and validating COGs is&nbsp;<code>rio-cogeo</code>. Their docs have a&nbsp;<a href="https://cogeotiff.github.io/rio-cogeo/Is_it_a_COG/">guide on preparing COGs</a>, too.</p>
+<ol type="1">
+<li><p>If your raster contains empty pixels, make sure the&nbsp;<code>nodata</code>&nbsp;value is set correctly (check with&nbsp;<code>rio cogeo info</code>). The&nbsp;<code>nodata</code>&nbsp;value needs to be set&nbsp;<strong>before cloud-optimizing the raster</strong>, so overviews are computed from real data pixels only. Pro-tip: For floating-point rasters, using&nbsp;<code>NaN</code>&nbsp;for flagging empty pixels helps to avoid roundoff errors later on.</p>
+<p>You can set the <code>nodata</code> flag on a GeoTIFF&nbsp;<strong>in-place</strong>&nbsp;with:</p>
+<pre><code>rio edit_info --nodata 255 /path/to/file.tif</code></pre>
+<p>or in Python with</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rasterio.<span class="bu">open</span>(<span class="st">"/path/to/file.tif"</span>, <span class="st">"r+"</span>) <span class="im">as</span> ds:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    ds.nodata <span class="op">=</span> <span class="dv">255</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that this only changes the <em>flag</em>. If you want to change the actual value you use in the data, you need to create a new copy of the file where you change the pixel values.</p></li>
+<li><p>Make sure the <strong>coordinate reference system</strong> is embedded in the COG (check with&nbsp;<code>rio cogeo info</code>)</p></li>
+<li><p>When creating the COG, use the right&nbsp;<code>resampling</code>&nbsp;method for <strong>overviews</strong>, for example&nbsp;<code>average</code>&nbsp;for continuous / floating point data and&nbsp;<code>mode</code>&nbsp;for categorical / integer.</p>
+<pre><code>rio cogeo create --overview-resampling "mode" /path/to/input.tif /path/to/output.tif</code></pre></li>
+</ol>
+</section>
+<section id="nb-name-your-files-correctly" class="level4">
+<h4 class="anchored" data-anchor-id="nb-name-your-files-correctly">NB: Name your files correctly</h4>
+<p>Make sure that the data filename contains the datetime associated with the file in the following format: All the datetime values in the file should be preceded by the&nbsp;<code>_</code>&nbsp;underscore character. Some examples are shown below:</p>
+<p><strong>Single datetime</strong></p>
+<ul>
+<li><p>Year data:&nbsp;<code>nightlights_2012.tif</code>,&nbsp;<code>nightlights_2012-yearly.tif</code></p></li>
+<li><p>Month data:&nbsp;<code>nightlights_201201.tif</code>,&nbsp;<code>nightlights_2012-01_monthly.tif</code></p></li>
+<li><p>Day data:&nbsp;<code>nightlights_20120101day.tif</code>,&nbsp;<code>nightlights_2012-01-01_day.tif</code></p></li>
+</ul>
+<p><strong>Datetime range</strong></p>
+<ul>
+<li><p>Year data:&nbsp;<code>nightlights_2012_2014.tif</code>,&nbsp;<code>nightlights_2012_year_2015.tif</code></p></li>
+<li><p>Month data:&nbsp;<code>nightlights_201201_201205.tif</code>,&nbsp;<code>nightlights_2012-01_month_2012-06_data.tif</code></p></li>
+<li><p>Day data:&nbsp;<code>nightlights_20120101day_20121221.tif</code>,&nbsp;<code>nightlights_2012-01-01_to_2012-12-31_day.tif</code></p></li>
+</ul>
+<p><strong>Note that the date/datetime value is always preceded by an</strong>&nbsp;<code>_</code>&nbsp;(underscore).</p>
+</section>
+</section>
+</section>
+<section id="dataset-ingestion" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-ingestion">2/3 Dataset Ingestion</h2>
+<p>If you have data that is not currently represented in VEDA then it will have to be ingested into the backend before being able to configure the Dashboard.</p>
+<section id="key-steps-1" class="level3">
+<h3 class="anchored" data-anchor-id="key-steps-1">Key Steps</h3>
+<ol type="1">
+<li><p>Upload to the VEDA data store</p></li>
+<li><p>Once you have the COGs, obtain permission to upload them to the veda-data-store-staging bucket.</p></li>
+<li><p>Upload the data to a sensible location inside the bucket.</p></li>
+<li><p>Example: <code>s3://veda-data-store-staging/&lt;collection-id&gt;/</code>​</p></li>
+<li><p>Create dataset definitions</p></li>
+<li><p>The next step is to divide all the data into logical collections. A collection is basically what it sounds like, a collection of data files that share the same properties like the data it’s measuring, the periodicity, the spatial region, etc. Examples no2-mean and no2-diff should be two different collections because one measures the mean and the other the diff. no2-monthly and no2-yearly should be different because the periodicity is different.</p></li>
+<li><p>Once you’ve logically grouped the datasets into collections, create dataset definitions for each of these collections. The data definition is a JSON file that contains some metadata of the dataset and information on how to discover these datasets in the s3 bucket. An example is shown below:</p>
+<p>lis-global-da-evap.json</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a> <span class="dt">"collection"</span><span class="fu">:</span> <span class="st">"lis-global-da-evap"</span><span class="fu">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a> <span class="dt">"title"</span><span class="fu">:</span> <span class="st">"Evapotranspiration - LIS 10km Global DA"</span><span class="fu">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a> <span class="dt">"description"</span><span class="fu">:</span> <span class="st">"Gridded total evapotranspiration (in kg m-2 s-1) from 10km global LIS with assimilation"</span><span class="fu">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a> <span class="dt">"license"</span><span class="fu">:</span> <span class="st">"CC0-1.0"</span><span class="fu">,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a> <span class="dt">"is_periodic"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a> <span class="dt">"time_density"</span><span class="fu">:</span> <span class="st">"day"</span><span class="fu">,</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a> <span class="dt">"spatial_extent"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>     <span class="dt">"xmin"</span><span class="fu">:</span> <span class="fl">-179.95</span><span class="fu">,</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>     <span class="dt">"ymin"</span><span class="fu">:</span> <span class="fl">-59.45</span><span class="fu">,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>     <span class="dt">"xmax"</span><span class="fu">:</span> <span class="fl">179.95</span><span class="fu">,</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>     <span class="dt">"ymax"</span><span class="fu">:</span> <span class="fl">83.55</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a> <span class="fu">},</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a> <span class="dt">"temporal_extent"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>     <span class="dt">"startdate"</span><span class="fu">:</span> <span class="st">"2002-08-02T00:00:00Z"</span><span class="fu">,</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>     <span class="dt">"enddate"</span><span class="fu">:</span> <span class="st">"2021-12-01T00:00:00Z"</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a> <span class="fu">},</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a> <span class="dt">"sample_files"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>     <span class="st">"s3://veda-data-store-staging/EIS/COG/LIS_GLOBAL_DA/Evap/LIS_Evap_200208020000.d01.cog.tif"</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a> <span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a> <span class="dt">"discovery_items"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>     <span class="fu">{</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>     <span class="dt">"discovery"</span><span class="fu">:</span> <span class="st">"s3"</span><span class="fu">,</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>     <span class="dt">"cogify"</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>     <span class="dt">"upload"</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>     <span class="dt">"dry_run"</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>     <span class="dt">"prefix"</span><span class="fu">:</span> <span class="st">"EIS/COG/LIS_GLOBAL_DA/Evap/"</span><span class="fu">,</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>     <span class="dt">"bucket"</span><span class="fu">:</span> <span class="st">"veda-data-store-staging"</span><span class="fu">,</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>     <span class="dt">"filename_regex"</span><span class="fu">:</span> <span class="st">"(.*)LIS_Evap_(.*).tif$"</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>     <span class="fu">}</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a> <span class="ot">]</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a> <span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ol>
+<p>For a detailed description of what each of these fields means, visit <a href="https://github.com/NASA-IMPACT/veda-stac-ingestor/blob/documentation/ingestion-process/API_usage.md#field-description">here</a>.</p>
+<p>3. Once the dataset definitions are created, send them to the VEDA team for publication.</p>
+</section>
+</section>
+<section id="sec-dataset-configuration" class="level2">
+<h2 class="anchored" data-anchor-id="sec-dataset-configuration">3/3 Dataset Configuration</h2>
+<p>Once you have ingested a dataset into the VEDA backend, you will need to configure the Dashboard.</p>
+<section id="key-steps-2" class="level3">
+<h3 class="anchored" data-anchor-id="key-steps-2">Key Steps</h3>
+<ol type="1">
+<li><p>With the new dataset ingested, configure the dashboard to show this dataset using the <a href="https://visex.netlify.app/admin/#/collections/dataset">VEDA Configuration UI</a>.</p></li>
+<li><p>For more detailed instructions on this tool, visit <a href="https://github.com/NASA-IMPACT/veda-config/blob/develop/docs/NETLIFY_CMS.md">documentation within Github</a>.</p></li>
+<li><p>After successfully configuring and previewing your dataset through the Configuration UI, your dataset configuration will still needs to be reviewed and confirmed by somebody on the VEDA team. Send an email to <a href="mailto:veda@uah.edu">veda@uah.edu</a> with information about your dataset and a request for review.</p></li>
+</ol>
+</section>
+</section>
+<section id="sec-discovery-configuration" class="level2">
+<h2 class="anchored" data-anchor-id="sec-discovery-configuration">3/3 Discovery Configuration</h2>
+<p>By this point, you should have a few things:</p>
+<ol type="1">
+<li><p>A draft of a Discovery that you want to show in VEDA</p></li>
+<li><p>Necessary datasets identified, and ideally already ingested in to VEDA</p></li>
+<li><p>Images, csv files, or any other supporting assets prepared</p></li>
+</ol>
+<p>🧑‍🏫 We recommend you follow the <a href="#">video walkthrough</a> on how to setup a virtual environment to facilitate discovery creation.</p>
+<section id="key-steps-3" class="level3">
+<h3 class="anchored" data-anchor-id="key-steps-3">Key Steps</h3>
+<ol type="1">
+<li><p>Go to the <a href="https://github.com/NASA-IMPACT/veda-config">veda-config</a> repo in Github</p></li>
+<li><p>If using a local environment:</p>
+<ol type="1">
+<li><p>Familiarize yourself with the <a href="https://github.com/NASA-IMPACT/veda-config/blob/develop/docs/SETUP.md">Setup</a> and <a href="https://github.com/NASA-IMPACT/veda-config/blob/develop/docs/CONFIGURATION.md">Configuration</a> sections of the documentation</p></li>
+<li><p>Using your local environment, create a branch for your Discovery</p></li>
+<li><p>Following the guidelines outlined in the <a href="https://github.com/NASA-IMPACT/veda-config/blob/develop/docs/CONTENT.md">Content</a> section of the Github documentation, create your discovery mdx file</p></li>
+<li><p>Add relevant files and assets as needed</p></li>
+<li><p>Push your branch and create a pull request in Github</p></li>
+</ol></li>
+<li><p>If configuring through Github</p>
+<ol type="1">
+<li><p>Create a new branch for the discovery</p>
+<img src="https://res.cloudinary.com/almanac/image/upload/v1678300216/workspace_portal_uploads/hw7elccu5sil1sy2qu4c.png" class="img-fluid" alt="Branching on GitHub">
+<p>Following the guidelines outlined in the <a href="https://github.com/NASA-IMPACT/veda-config/blob/develop/docs/CONTENT.md">Content</a> section of the Github documentation, create your discovery mdx file</p></li>
+<li><p>Add relevant files and assets as needed</p></li>
+<li><p>Commit your changes and open a Pull Request</p></li>
+</ol></li>
+<li><p>Once the pull request is created, you will be able to see a preview of the Discovery in a Netlify box under the Conversation tab of the pull request</p>
+<img src="https://res.cloudinary.com/almanac/image/upload/v1677706325/workspace_portal_uploads/saevbqahnjlybjiftqfr.png" class="img-fluid" alt="Netlify preview in GitHub Pull Request">
+<p>🍀 You don’t have to fully finish your Discovery all in one go. Every time you make a commit the preview will be regenerated with your changes (takes about 3 minutes).</p></li>
+<li><p>Once you feel good about the Discovery, add the VEDA team as reviewers to your pull request</p>
+<ol type="1">
+<li><p>If you know who you want to review, add them</p></li>
+<li><p>Otherwise, here as some good GitHub handles to start with: <span class="citation" data-cites="hanbyul-here">@hanbyul-here</span>, <span class="citation" data-cites="danielfdsilva">@danielfdsilva</span>, <span class="citation" data-cites="aboydnw">@aboydnw</span></p></li>
+</ol></li>
+<li><p>Paste a comment in the pull request with any additional information, such as any goal dates for publishing this discovery or any outstanding questions you have</p></li>
+<li><p>Once the pull request is merged, the files will still need to be pushed to production. Coordinate with Anthony Boyd on this production push</p></li>
+</ol>
+</section>
+</section>
+<section id="sec-video-walkthrough" class="level2">
+<h2 class="anchored" data-anchor-id="sec-video-walkthrough">Video Walkthrough</h2>
+<section id="setting-up-github-codespaces" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-github-codespaces">Setting up github codespaces</h3>
+<p>Codespaces will allow you to have a development environment in the cloud without the need to setup anything on your local machine. <a href="https://drive.google.com/file/d/1u2hkokW3ZDmrjYNkg10OgWU0-nNtHpJ6/view">VIDEO</a></p>
+</section>
+<section id="creating-a-discovery" class="level3">
+<h3 class="anchored" data-anchor-id="creating-a-discovery">Creating a discovery</h3>
+<p>Walkthrough of how to use github codespaces to create a discovery. From creating the needed files to the Pull Request that will eventually get the content published. <a href="https://drive.google.com/file/d/1Jkbt2csXntPPe8G5TBGic9UYZsj2rgW3/view">VIDEO</a></p>
+</section>
+</section>
+<section id="appendix---useful-links" class="level2">
+<h2 class="anchored" data-anchor-id="appendix---useful-links">Appendix - Useful Links</h2>
+<ul>
+<li><a href="https://almanac.io/handbook/veda-product-development-documentation-I3UwKo/data-ingestion-guide-JuxFFfPT0WlGJJ1MWjE0tXrIFq2bppkv">Dataset ingest in almanac</a></li>
+<li><a href="https://github.com/Earth-Information-System/veda-data-processing">Data processing from EIS</a></li>
+<li><a href="https://github.com/NASA-IMPACT/veda-data-pipelines">VEDA data pipelines in github</a></li>
+<li><a href="https://github.com/NASA-IMPACT/veda-config">VEDA config in github</a></li>
+<li><a href="https://docs.google.com/document/d/13go47lheeIU2kQqoZo4DVwLWJBEQp25S61vQz-a4T9A/edit">Alexey’s notes on helpful tips</a></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../contributing/docs-and-notebooks.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Docs and example notebooks</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../external-resources.html" class="pagination-link">
+        <span class="nav-page-text">External resources</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© CC-By NASA, 2022-2023</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>

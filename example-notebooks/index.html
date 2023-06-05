@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.361">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -92,7 +92,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -112,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../example-notebooks/index.html">Usage Examples</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -149,7 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../veda-jh-access.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">VEDA Analytics Platform and JupyterHub</span></a>
+ <span class="menu-text">JupyterHub access</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -320,10 +321,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text">Contributing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../contributing/docs-and-notebooks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Docs and example notebooks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../contributing/dashboard-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dashboard Content</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../external-resources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Geospatial Cloud Computing and Analysis</span></a>
+ <span class="menu-text">External resources</span></a>
   </div>
 </li>
     </ul>
@@ -344,15 +368,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#running-outside-of-veda-jupyterhub" id="toc-running-outside-of-veda-jupyterhub" class="nav-link" data-scroll-target="#running-outside-of-veda-jupyterhub">Running outside of VEDA JupyterHub</a></li>
   </ul></li>
-  <li><a href="#contributing-to-veda" id="toc-contributing-to-veda" class="nav-link" data-scroll-target="#contributing-to-veda">Contributing to VEDA</a>
-  <ul class="collapse">
-  <li><a href="#style" id="toc-style" class="nav-link" data-scroll-target="#style">Style</a></li>
-  <li><a href="#rendering-information" id="toc-rendering-information" class="nav-link" data-scroll-target="#rendering-information">Rendering information</a></li>
-  <li><a href="#standard-sections" id="toc-standard-sections" class="nav-link" data-scroll-target="#standard-sections">Standard sections</a></li>
-  <li><a href="#using-complex-geometries" id="toc-using-complex-geometries" class="nav-link" data-scroll-target="#using-complex-geometries">Using complex geometries</a></li>
-  <li><a href="#accessing-the-data" id="toc-accessing-the-data" class="nav-link" data-scroll-target="#accessing-the-data">Accessing the data</a></li>
-  <li><a href="#generate-launch-in-veda-jupyterhub-link" id="toc-generate-launch-in-veda-jupyterhub-link" class="nav-link" data-scroll-target="#generate-launch-in-veda-jupyterhub-link">Generate “Launch in VEDA JupyterHub” link</a></li>
-  </ul></li>
+  <li><a href="#how-to-contribute" id="toc-how-to-contribute" class="nav-link" data-scroll-target="#how-to-contribute">How to contribute</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/nasa-impact/veda-docs/edit/main/example-notebooks/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -405,58 +421,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If the notebook needs access to protected data on S3, you will need to specifically get access. Please request access by emailing aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN).</p>
 </section>
 </section>
-<section id="contributing-to-veda" class="level2">
-<h2 class="anchored" data-anchor-id="contributing-to-veda">Contributing to VEDA</h2>
-<p>Contribution to VEDA’s documentation is always welcome. You can add new notebooks by making a <a href="https://github.com/NASA-IMPACT/veda-docs/compare">Pull Request on the veda-docs repository</a></p>
-<p>There are two template notebooks in this directory titled: <code>template-using-the-raster-api.ipynb</code> and <code>template-accessing-the-data-directly.ipynb</code> that you can use as a starting place. Alternatively you can pull specific cells from that notebook into your own.</p>
-<section id="style" class="level3">
-<h3 class="anchored" data-anchor-id="style">Style</h3>
-<ul>
-<li>Each code cell should come after a markdown cell with some explanatory text. This is preferred over comments in the code cells.</li>
-<li>The max header should be <code>##</code>.</li>
-<li>Only include imports that are needed for the notebook to run.</li>
-<li>We don’t enforce any formatting, but periodically run black on all the notebooks. If you would like to run black yourself do <code>pip install black[jupyter]</code> and then <code>black</code>.</li>
-</ul>
-</section>
-<section id="rendering-information" class="level3">
-<h3 class="anchored" data-anchor-id="rendering-information">Rendering information</h3>
-<p>The first cell in every notebook is a raw cell that contains the following metadata for rendering.</p>
-<pre><code>---
-title: Short title
-description: One sentence description
-author: Author Name
-date: May 2, 2023
-execute:
-  freeze: true
----</code></pre>
-<p>We store evaluted notebooks in this repository. So before you commit your notebook, you should restart your kernel and run all cells in order.</p>
-</section>
-<section id="standard-sections" class="level3">
-<h3 class="anchored" data-anchor-id="standard-sections">Standard sections</h3>
-<p>To give the notebooks a standard look and feel we typically include the following sections:</p>
-<ul>
-<li><strong>Run this Notebook</strong>: The section explains how to run the notebook locally, on VEDA JupyterHub or on <a href="https://mybinder.org/">mybinder</a>. There are several examples of what this section can look like in the template notebooks.</li>
-<li><strong>Approach</strong>: List a few steps that outline the approach you be taking in this notebook.</li>
-<li><strong>About the data</strong>: Optional description of the datatset</li>
-<li><strong>Declare your collection of interest</strong>: This section reiterates how you can discover which collections are available. You can copy the example of this section from one of the template notebooks.</li>
-</ul>
-<p>From then on the standard sections diverge depending on whether the notebook access the data directly or uses the raster API. Check the template notebooks for some ideas of common patterns.</p>
-</section>
-<section id="using-complex-geometries" class="level3">
-<h3 class="anchored" data-anchor-id="using-complex-geometries">Using complex geometries</h3>
-<p>If you are defining the AOI using a bounding box, you can include it in the text of the notebook, but for more complex geometries we prefer that the notebook access the geometry directly from a canonical source. You can check the template notebooks for exmples of this. If the complex geometry is not available online the VEDA team can help get it up in a public s3 bucket.</p>
-</section>
-<section id="accessing-the-data" class="level3">
-<h3 class="anchored" data-anchor-id="accessing-the-data">Accessing the data</h3>
-<p>To present consistent best practices, we always access data via the STAC API. Often we use <code>stackstac</code> for this.</p>
-</section>
-<section id="generate-launch-in-veda-jupyterhub-link" class="level3">
-<h3 class="anchored" data-anchor-id="generate-launch-in-veda-jupyterhub-link">Generate “Launch in VEDA JupyterHub” link</h3>
-<p>We use <a href="https://hub.jupyter.org/nbgitpuller/"><code>nbgitpuller</code></a> links to open the VEDA JupyterHub with a particular notebook pulled in. These links have the form: <code>https://nasa-veda.2i2c.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&amp;urlpath=lab/tree/veda-docs/example-notebooks/open-and-plot.ipynb&amp;branch=main</code></p>
-<p>If you are writing a notebook and want to share it with others you can generate your own <code>nbgitpuller</code> link using this <a href="https://hub.jupyter.org/nbgitpuller/link?hub=https://nasa-veda.2i2c.cloud&amp;repo=https://github.com/NASA-impact/veda-docs&amp;branch=main&amp;app=jupyterlab">link generator</a>.</p>
+<section id="how-to-contribute" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-contribute">How to contribute</h2>
+<p>Please refer to the <a href="../contributing/docs-and-notebooks.html">notebook style guide in these docs</a>.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
