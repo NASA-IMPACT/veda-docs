@@ -1,6 +1,6 @@
 ---
 title: "Dashboard Content"
-subtitle: "Workflow from data ingestion to Discovery publication in the [VEDA Dashboard](https://www.earthdata.nasa.gov/dashboard/)"
+subtitle: "From Data Ingestion to Discovery publication in the [VEDA Dashboard](https://www.earthdata.nasa.gov/dashboard/)"
 ---
 
 This guide explains how to publish content in the [VEDA Dashboard](https://www.earthdata.nasa.gov/dashboard/), the graphical user interface
@@ -13,11 +13,18 @@ This is a living document and will be updated as the content creation process is
 
 This document is intended to be an overview of the ingestion and configuration process for VEDA. By following this document, you should have a good understanding of how to start from having an idea for some content to show on the VEDA Dashboard all the way to having your data and content appear in the production version of the VEDA Dashboard. Detailed technical documentation for each of the steps is available on GitHub and other places, links provided in the Appendix below.
 
-  
-![Workflow diagram](https://res.cloudinary.com/almanac/image/upload/v1677625006/workspace_portal_uploads/ytqfutploltfjrnaslyx.png)
 
+```{mermaid}
+flowchart LR
+    A(Data & Content Prep) --> B{Is the data already in VEDA?}
+    B -->|No| C[<a href='./dataset-ingestion.qmd'>Dataset Ingestion</a>]
+    C --> E
+    B -->|Yes| E{Do you have a story?}
+    E -->|Yes| D[<a href='./discovery-configuration.qmd'> Discovery Configuration</a>]
+    E -->|No| F[<a href='./dataset-configuration.qmd'> Dataset Configuration</a>]
+```
 
-## 1/3 Data & Content Preparation
+## Data & Content Preparation
 
 This is an important step before ingesting or configuring anything within VEDA. This will set you up for success in later steps.
 
@@ -26,255 +33,32 @@ This is an important step before ingesting or configuring anything within VEDA. 
 
 🧑‍💻 Collaborate with partners familiar with the data context, to draft the necessary content.
 
-  
+
 For **Discoveries**, the required content is:
 
 1.  Text for the actual story itself
-    
-2.  Identify any visuals you would like to include, whether that be images, charts, maps, or other
-    
-   a. If maps, identify which dataset and layer you would like to show and whether that is included in VEDA
-    
-      ⚠️ If the dataset is not yet included in VEDA you'll have to provide information about it and configure it as explained below.
-    
-   b. If charts, gather the relevant data to build the chart. A csv file is the most common, but json is also supported
-    
-3.  A cover image for the dataset as it will appear in the Dashboard
-    
-4.  A title and short description/sub-title (5-10 words) for the Discovery 
+2.  Any visuals you would like to include, whether that be images, charts, maps, or other
 
-Once you have all data needed for a discovery jump to @sec-discovery-configuration.
+    a. If maps, identify which dataset and layer you would like to show and whether that is included in VEDA. (⚠️ If the dataset is not yet included in VEDA you'll have to provide information about it and configure it as explained below).
+
+    b. If charts, gather the relevant data to build the chart. A csv file is the most common, but json is also supported
+
+3.  A cover image for the dataset as it will appear in the Dashboard
+4.  A title and short description/sub-title (5-10 words) for the Discovery
+
+Next step: [Discovery Configuration](./discovery-configuration.qmd).
 
 
 For **Datasets**, the required content is:
 
 1. A descriptive overview of the dataset, how it came to exist, who maintains it, and how it should be used
-    
-2. Short descriptions for each layer that you will want to reveal within VEDA (an example of this would be CO2 mean vs CO2 difference) for users to explore on a map
-    
+2. Short descriptions for each layer that you will want to reveal within VEDA (an example of this would be "CO2 mean vs CO2 difference") for users to explore on a map
 3. A cover image for the dataset as it will appear in the Dashboard
-    
 4. Any other relevant metadata you might want included
-    
-5. For any datasets that need to be ingested, convert data to Cloud-Optimized GeoTIFFs (COGs)
-    
-   1. This is currently the only format supported in the VEDA Dashboard. More formats to come in the future.
-    
-   1. See below for details on how to generate COGs
-    
+    https://nasa-impact.github.io/veda-docs/contributing/dashboard-content.html
+5. For any datasets that need to be ingested, convert data to Cloud-Optimized GeoTIFFs (COGs) (⚠️ This is currently the only format supported in the VEDA Dashboard. More formats to come in the future)
 
-Once you have all data needed for a dataset jump to @sec-dataset-configuration.
-
-
-#### NB: Create sane Cloud-Optimized GeoTIFFs (COGs)
-
-We often encounter issues like missing or wrong `nodata` value, missing coordinate-reference system, missing or wrong overviews - polluted by fill values or not conserving class values in categorical data, empty files, or artifacts in the data.
-
-Discovering these issues early on (ideally before upload to our buckets) can save us all a lot of time.
-
-A command-line tool for creating and validating COGs is `rio-cogeo`. Their docs have a [guide on preparing COGs](https://cogeotiff.github.io/rio-cogeo/Is_it_a_COG/), too.
-
-1.  If your raster contains empty pixels, make sure the `nodata` value is set correctly (check with `rio cogeo info`). The `nodata` value needs to be set **before cloud-optimizing the raster**, so overviews are computed from real data pixels only. Pro-tip: For floating-point rasters, using `NaN` for flagging empty pixels helps to avoid roundoff errors later on.
-    
-    You can set the `nodata` flag on a GeoTIFF **in-place** with:
-    
-    ```    
-    rio edit_info --nodata 255 /path/to/file.tif
-    ```
-    
-    or in Python with
-    
-    ```python
-    import rasterio
-    
-    with rasterio.open("/path/to/file.tif", "r+") as ds:
-        ds.nodata = 255
-    ```
-
-    Note that this only changes the _flag_. If you want to change the actual value you use in the data, you need to create a new copy of the file where you change the pixel values.
-    
-2.  Make sure the **coordinate reference system** is embedded in the COG (check with `rio cogeo info`)
-    
-3.  When creating the COG, use the right `resampling` method for **overviews**, for example `average` for continuous / floating point data and `mode` for categorical / integer.
-    
-    ```
-    rio cogeo create --overview-resampling "mode" /path/to/input.tif /path/to/output.tif
-    ```
-
-
-#### NB: Name your files correctly
-
-Make sure that the data filename contains the datetime associated with the file in the following format: All the datetime values in the file should be preceded by the `_` underscore character. Some examples are shown below:
-
-**Single datetime**
-
-*   Year data: `nightlights_2012.tif`, `nightlights_2012-yearly.tif`
-    
-*   Month data: `nightlights_201201.tif`, `nightlights_2012-01_monthly.tif`
-    
-*   Day data: `nightlights_20120101day.tif`, `nightlights_2012-01-01_day.tif`
-    
-
-**Datetime range**
-
-*   Year data: `nightlights_2012_2014.tif`, `nightlights_2012_year_2015.tif`
-    
-*   Month data: `nightlights_201201_201205.tif`, `nightlights_2012-01_month_2012-06_data.tif`
-    
-*   Day data: `nightlights_20120101day_20121221.tif`, `nightlights_2012-01-01_to_2012-12-31_day.tif`
-    
-
-**Note that the date/datetime value is always preceded by an** `_` (underscore).
-
-## 2/3 Dataset Ingestion
-
-If you have data that is not currently represented in VEDA then it will have to be ingested into the backend before being able to configure the Dashboard.
-
-### Key Steps
-
-1. Upload to the VEDA data store
-    
-2. Once you have the COGs, obtain permission to upload them to the veda-data-store-staging bucket.
-    
-3. Upload the data to a sensible location inside the bucket.
-    
-4. Example: `s3://veda-data-store-staging/<collection-id>/`​
-    
-5. Create dataset definitions
-    
-6. The next step is to divide all the data into logical collections. A collection is basically what it sounds like, a collection of data files that share the same properties like the data it's measuring, the periodicity, the spatial region, etc. Examples no2-mean and no2-diff should be two different collections because one measures the mean and the other the diff. no2-monthly and no2-yearly should be different because the periodicity is different.
-    
-7. Once you've logically grouped the datasets into collections, create dataset definitions for each of these collections. The data definition is a JSON file that contains some metadata of the dataset and information on how to discover these datasets in the s3 bucket. An example is shown below:
-
-   lis-global-da-evap.json  
-    
-   ```json
-    {
-    "collection": "lis-global-da-evap",
-    "title": "Evapotranspiration - LIS 10km Global DA",
-    "description": "Gridded total evapotranspiration (in kg m-2 s-1) from 10km global LIS with assimilation",
-    "license": "CC0-1.0",
-    "is_periodic": true,
-    "time_density": "day",
-    "spatial_extent": {
-        "xmin": -179.95,
-        "ymin": -59.45,
-        "xmax": 179.95,
-        "ymax": 83.55
-    },
-    "temporal_extent": {
-        "startdate": "2002-08-02T00:00:00Z",
-        "enddate": "2021-12-01T00:00:00Z"
-    },
-    "sample_files": [
-        "s3://veda-data-store-staging/EIS/COG/LIS_GLOBAL_DA/Evap/LIS_Evap_200208020000.d01.cog.tif"
-    ],
-    "discovery_items": [
-        {
-        "discovery": "s3",
-        "cogify": false,
-        "upload": false,
-        "dry_run": false,
-        "prefix": "EIS/COG/LIS_GLOBAL_DA/Evap/",
-        "bucket": "veda-data-store-staging",
-        "filename_regex": "(.*)LIS_Evap_(.*).tif$"
-        }
-    ]
-    }
-    ```
-
-For a detailed description of what each of these fields means, visit [here](https://github.com/NASA-IMPACT/veda-stac-ingestor/blob/documentation/ingestion-process/API_usage.md#field-description).
-
-3\. Once the dataset definitions are created, send them to the VEDA team for publication.
-
-  
-
-## 3/3 Dataset Configuration {#sec-dataset-configuration}
-
-Once you have ingested a dataset into the VEDA backend, you will need to configure the Dashboard.
-
-### Key Steps
-
-1.  With the new dataset ingested, configure the dashboard to show this dataset using the [VEDA Configuration UI](https://visex.netlify.app/admin/#/collections/dataset).
-    
-2.  For more detailed instructions on this tool, visit [documentation within Github](https://github.com/NASA-IMPACT/veda-config/blob/develop/docs/NETLIFY_CMS.md).
-    
-3.  After successfully configuring and previewing your dataset through the Configuration UI, your dataset configuration will still needs to be reviewed and confirmed by somebody on the VEDA team. Send an email to [veda@uah.edu](mailto:veda@uah.edu) with information about your dataset and a request for review.
-    
-
-
-## 3/3 Discovery Configuration {#sec-discovery-configuration}
-
-By this point, you should have a few things:
-
-1.  A draft of a Discovery that you want to show in VEDA
-    
-2.  Necessary datasets identified, and ideally already ingested in to VEDA
-    
-3.  Images, csv files, or any other supporting assets prepared
-    
-
-🧑‍🏫 We recommend you follow the [video walkthrough](#) on how to setup a virtual environment to facilitate discovery creation.
-
-### Key Steps
-
-1. Go to the [veda-config](https://github.com/NASA-IMPACT/veda-config) repo in Github
-    
-2. If using a local environment:
-    
-    1. Familiarize yourself with the [Setup](https://github.com/NASA-IMPACT/veda-config/blob/develop/docs/SETUP.md) and [Configuration](https://github.com/NASA-IMPACT/veda-config/blob/develop/docs/CONFIGURATION.md) sections of the documentation
-    
-    2. Using your local environment, create a branch for your Discovery
-    
-    3. Following the guidelines outlined in the [Content](https://github.com/NASA-IMPACT/veda-config/blob/develop/docs/CONTENT.md) section of the Github documentation, create your discovery mdx file
-    
-    4. Add relevant files and assets as needed
-    
-    5. Push your branch and create a pull request in Github
-    
-3. If configuring through Github
-    
-    1. Create a new branch for the discovery
-    
-       ![Branching on GitHub](https://res.cloudinary.com/almanac/image/upload/v1678300216/workspace_portal_uploads/hw7elccu5sil1sy2qu4c.png)
-    
-       Following the guidelines outlined in the [Content](https://github.com/NASA-IMPACT/veda-config/blob/develop/docs/CONTENT.md) section of the Github documentation, create your discovery mdx file
-    
-    2. Add relevant files and assets as needed
-    
-    3.  Commit your changes and open a Pull Request
-
-    
-4. Once the pull request is created, you will be able to see a preview of the Discovery in a Netlify box under the Conversation tab of the pull request
-      
-    
-    ![Netlify preview in GitHub Pull Request](https://res.cloudinary.com/almanac/image/upload/v1677706325/workspace_portal_uploads/saevbqahnjlybjiftqfr.png)
-    
-    🍀 You don't have to fully finish your Discovery all in one go. Every time you make a commit the preview will be regenerated with your changes (takes about 3 minutes).
-    
-5. Once you feel good about the Discovery, add the VEDA team as reviewers to your pull request
-    
-    1. If you know who you want to review, add them
-    
-    2. Otherwise, here as some good GitHub handles to start with: @hanbyul-here, @danielfdsilva, @aboydnw
-    
-6. Paste a comment in the pull request with any additional information, such as any goal dates for publishing this discovery or any outstanding questions you have
-    
-7. Once the pull request is merged, the files will still need to be pushed to production. Coordinate with Anthony Boyd on this production push
-
-  
-
-## Video Walkthrough {#sec-video-walkthrough}
-
-### Setting up github codespaces
-
-Codespaces will allow you to have a development environment in the cloud without the need to setup anything on your local machine. [VIDEO](https://drive.google.com/file/d/1u2hkokW3ZDmrjYNkg10OgWU0-nNtHpJ6/view)
-
-### Creating a discovery
-
-Walkthrough of how to use github codespaces to create a discovery. From creating the needed files to the Pull Request that will eventually get the content published. [VIDEO](https://drive.google.com/file/d/1Jkbt2csXntPPe8G5TBGic9UYZsj2rgW3/view)
-
-  
+Next step: If your data is already in VEDA go to [Dataset Configuration](./dataset-configuration.qmd). Otherwise go to [Dataset Ingestion](./dataset-ingestion.qmd).
 
 ## Appendix - Useful Links
 
