@@ -1,5 +1,6 @@
 ---
-title: Docs and example notebooks
+title: Example Notebook Submission
+subtitle: Conventions for Jupyter notebooks
 ---
 
 Contribution to VEDA's documentation is always welcome - just open a [Pull Request on the veda-docs repository](https://github.com/NASA-IMPACT/veda-docs).
@@ -22,7 +23,7 @@ There are two template notebooks in this directory titled: `template-using-the-r
 
 ### Rendering information
 
-The first cell in every notebook is a raw cell that contains the following metadata for rendering.
+The first cell in every notebook is a raw cell that contains the following metadata for rendering with our site builder [Quarto](https://quarto.org/).
 
 ```
 ---
@@ -55,9 +56,26 @@ From then on the standard sections diverge depending on whether the notebook acc
 If you are defining the AOI using a bounding box, you can include it in the text of the notebook, but for more complex geometries we prefer that the notebook access the geometry directly from a canonical source. You can check the template notebooks for exmples of this. If the complex geometry is not available online the VEDA team can help get it up in a public s3 bucket.
 
 
-### Accessing the data
+### Recommended librarires
+
+#### Mapping + Visualization
+
+* [folium](https://github.com/python-visualization/folium): folium adds Leaflet.js support to python projects for visualizing data in a map.
+* [holoviz](https://holoviz.org/): High-level tools that make it easier to apply Python plotting libraries to your data.
+* [ipyleaflet](https://ipyleaflet.readthedocs.io/en/latest/): Interactive maps in the Jupyter notebook. ipyleaflet is built on ipywidgets allowing for bidirectional communication between front- and backends (learn more: [Interactive GIS in Jupyter with ipyleaflet](https://blog.jupyter.org/interactive-gis-in-jupyter-with-ipyleaflet-52f9657fa7a)).
+
+
+#### Using STAC for cataloging data
 
 To present consistent best practices, we always access data via the STAC API. Often we use `stackstac` for this.
+
+* [pystac](https://pystac.readthedocs.io/): PySTAC is a library for creating SpatioTemporal Asset Catalogs (STAC) in Python 3.
+* [pystac-client](https://github.com/stac-utils/pystac-client): A Python client for working with STAC Catalogs and APIs.
+
+#### Analyzing data
+
+* [rioxarray](https://corteva.github.io/rioxarray/stable/): rasterio xarray extension
+* [stackstac](https://stackstac.readthedocs.io/): stackstac.stack turns a STAC collection into a lazy xarray.DataArray, backed by dask.
 
 
 ### Generate "Launch in VEDA JupyterHub" link
