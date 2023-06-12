@@ -1190,20 +1190,6 @@
     "text": "Use /stac/tilejson.json to get tiles\nWe pass the item_id, collection id, and the rescale_values in to the RASTER API endpoint and get back a tile.\n\nrescale_values = collection[\"summaries\"][\"cog_default\"]\n\ntiles = requests.get(\n    f\"{RASTER_API_URL}/stac/tilejson.json?collection={collection_id}&item={item['id']}\"\n    \"&assets=cog_default\"\n    \"&color_formula=gamma+r+1.05&colormap_name=rdbu_r\"\n    f\"&rescale={rescale_values['min']},{rescale_values['max']}\",\n).json()\ntiles\n\nWith that tile url in hand we can create a simple visualization using folium.\n\nfolium.Map(\n    tiles=tiles[\"tiles\"][0],\n    attr=\"VEDA\",\n)"
   },
   {
-    "objectID": "veda-jh-access.html",
-    "href": "veda-jh-access.html",
-    "title": "JupyterHub access",
-    "section": "",
-    "text": "JupyterHub enables you to analyze massive archives of Earth science data in the cloud in an interactive environment that alleviates the complexities of managing compute resources (virtual machines, roles and permissions, etc).\nUsers affiliated with the VEDA project can get access to a dedicated JupyterHub environment, provided in collaboration with 2i2c: nasa-veda.2i2c.cloud"
-  },
-  {
-    "objectID": "veda-jh-access.html#getting-access-to-vedas-jupyterhub-environment",
-    "href": "veda-jh-access.html#getting-access-to-vedas-jupyterhub-environment",
-    "title": "JupyterHub access",
-    "section": "Getting access to VEDA’s JupyterHub environment",
-    "text": "Getting access to VEDA’s JupyterHub environment\nAccess to the VEDA notebook environment is currently on an as-need basis. If you are a user afficiliated with VEDA, you can gain access by following these steps:\n\nMake sure you have a Github Account. Take note of your Github username\nSend an email to the VEDA team (veda@uah.edu) asking for access to the VEDA notebook environment. Please include your Github username. They will invite you through Github to join the VEDA Analytics Github Team. Please watch your email for the invite.\nOnce you accepted the invitation, you should be able to go to https://nasa-veda.2i2c.cloud/ and login via your Github credentials."
-  },
-  {
     "objectID": "external-resources.html",
     "href": "external-resources.html",
     "title": "External resources",
@@ -1248,37 +1234,44 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "VEDA Analytics User Documentation",
+    "title": "VEDA User Documentation",
     "section": "",
-    "text": "NASA’s Visualization, Exploration, and Data Analysis (VEDA) project promotes open science with Earth data, supporting the full circle of science communication and publication, exploration of the scientific methods and statistics behind results, and new cloud-enabled scientific analytics and automated data production.\nThese pages provide selected documentation for onboarding users to cloud-enabled open science with Earth data in a coding environment.\nFor data visualization and exploration in a graphical user interface, visit the VEDA Dashboard that presents datasets and stories produced by the NASA scientific community."
+    "text": "NASA’s Visualization, Exploration, and Data Analysis (VEDA) project promotes open science with Earth data, supporting the full circle of science communication and publication, exploration of the scientific methods and statistics behind results, and new cloud-enabled scientific analytics and automated data production.\nThese pages provide documentation for onboarding users to cloud-enabled open science with Earth data, from computing and API usage to publication on the VEDA Dashboard."
   },
   {
     "objectID": "index.html#welcome",
     "href": "index.html#welcome",
-    "title": "VEDA Analytics User Documentation",
+    "title": "VEDA User Documentation",
     "section": "",
-    "text": "NASA’s Visualization, Exploration, and Data Analysis (VEDA) project promotes open science with Earth data, supporting the full circle of science communication and publication, exploration of the scientific methods and statistics behind results, and new cloud-enabled scientific analytics and automated data production.\nThese pages provide selected documentation for onboarding users to cloud-enabled open science with Earth data in a coding environment.\nFor data visualization and exploration in a graphical user interface, visit the VEDA Dashboard that presents datasets and stories produced by the NASA scientific community."
-  },
-  {
-    "objectID": "index.html#interactive-and-collaborative-data-science-environments",
-    "href": "index.html#interactive-and-collaborative-data-science-environments",
-    "title": "VEDA Analytics User Documentation",
-    "section": "Interactive and Collaborative Data Science Environments",
-    "text": "Interactive and Collaborative Data Science Environments\nVEDA promotes the use of JupyterHub environments for interactive data science. Users affiliated with VEDA can get access to a dedicated JupyterHub service. Please find instructions for requesting access on the VEDA JupyterHub Access page.\nIf you are a scientist affiliated with NASA projects such as EIS and MAAP, you can also keep using the resources provided by these projects.\nThrough the use of open-source technology, we make sure our services are interoperable and exchangeable."
-  },
-  {
-    "objectID": "index.html#resources-for-open-source-data-science",
-    "href": "index.html#resources-for-open-source-data-science",
-    "title": "VEDA Analytics User Documentation",
-    "section": "Resources for Open-Source Data Science",
-    "text": "Resources for Open-Source Data Science\nIf you are just getting started with geospatial data science (in Python) or want to learn more, you may find the Collection of External Resources useful.\nTo learn from examples, see the VEDA Example Notebooks - examples of open-source data science using VEDA services."
+    "text": "NASA’s Visualization, Exploration, and Data Analysis (VEDA) project promotes open science with Earth data, supporting the full circle of science communication and publication, exploration of the scientific methods and statistics behind results, and new cloud-enabled scientific analytics and automated data production.\nThese pages provide documentation for onboarding users to cloud-enabled open science with Earth data, from computing and API usage to publication on the VEDA Dashboard."
   },
   {
     "objectID": "index.html#data-services",
     "href": "index.html#data-services",
-    "title": "VEDA Analytics User Documentation",
+    "title": "VEDA User Documentation",
     "section": "Data Services",
-    "text": "Data Services\nIn VEDA’s open-source science environment, datasets can be discovered and accessed via open-standard data services such as a Spatio Temporal Asset Catalog (STAC) and WMTS map tiles APIs. Here is an overview of the API endpoints. Detailed docs to follow."
+    "text": "Data Services\nIn VEDA’s open-source science environment, datasets can be discovered and accessed via open-standard data services such as a Spatio Temporal Asset Catalog (STAC) and WMTS map tiles APIs. Here is an overview of the API endpoints."
+  },
+  {
+    "objectID": "index.html#resources-for-open-source-data-science",
+    "href": "index.html#resources-for-open-source-data-science",
+    "title": "VEDA User Documentation",
+    "section": "Resources for Open-Source Data Science",
+    "text": "Resources for Open-Source Data Science\nIf you are just getting started with geospatial data science (in Python) or want to learn more, you may find the Collection of External Resources useful.\nTo learn from examples, see the VEDA Example Notebooks - examples of open-source data science using VEDA services.\nSelected user groups can also get access to a VEDA-provided JupyterHub service."
+  },
+  {
+    "objectID": "index.html#contributing",
+    "href": "index.html#contributing",
+    "title": "VEDA User Documentation",
+    "section": "Contributing",
+    "text": "Contributing\nContributions of data, stories, and example code are open to all users affiliated with the project. We strive to make the process as easy as possible. Please see the docs on Contributing."
+  },
+  {
+    "objectID": "contributing/index.html",
+    "href": "contributing/index.html",
+    "title": "Contributing",
+    "section": "",
+    "text": "Please see the sections below for documentation on\n\nDataset ingestion into the VEDA data store and STAC\nConfiguration of Dataset information pages and Discoveries on the VEDA Dashboard\nExample notebooks that illustrate the use of datasets or compute methods"
   },
   {
     "objectID": "contributing/dataset-ingestion/index.html",
@@ -1388,35 +1381,35 @@
   {
     "objectID": "contributing/docs-and-notebooks.html",
     "href": "contributing/docs-and-notebooks.html",
-    "title": "Docs and example notebooks",
+    "title": "Example Notebook Submission",
     "section": "",
     "text": "Contribution to VEDA’s documentation is always welcome - just open a Pull Request on the veda-docs repository.\nPlease note that this documentation site is rendered using Quarto, which adds a small set of configuration options on top of vanilla Markdown and Jupyter Notebooks."
   },
   {
     "objectID": "contributing/docs-and-notebooks.html#notebook-author-guidelines",
     "href": "contributing/docs-and-notebooks.html#notebook-author-guidelines",
-    "title": "Docs and example notebooks",
+    "title": "Example Notebook Submission",
     "section": "Notebook Author Guidelines",
-    "text": "Notebook Author Guidelines\nThere are two template notebooks in this directory titled: template-using-the-raster-api.ipynb and template-accessing-the-data-directly.ipynb that you can use as a starting place. Alternatively you can pull specific cells from that notebook into your own.\n\nStyle\n\nEach code cell should come after a markdown cell with some explanatory text. This is preferred over comments in the code cells.\nThe max header should be ##.\nOnly include imports that are needed for the notebook to run.\nWe don’t enforce any formatting, but periodically run black on all the notebooks. If you would like to run black yourself do pip install black[jupyter] and then black.\n\n\n\nRendering information\nThe first cell in every notebook is a raw cell that contains the following metadata for rendering.\n---\ntitle: Short title\ndescription: One sentence description\nauthor: Author Name\ndate: May 2, 2023\nexecute:\n  freeze: true\n---\nWe store evaluted notebooks in this repository. So before you commit your notebook, you should restart your kernel and run all cells in order.\n\n\nStandard sections\nTo give the notebooks a standard look and feel we typically include the following sections:\n\nRun this Notebook: The section explains how to run the notebook locally, on VEDA JupyterHub or on mybinder. There are several examples of what this section can look like in the template notebooks.\nApproach: List a few steps that outline the approach you be taking in this notebook.\nAbout the data: Optional description of the datatset\nDeclare your collection of interest: This section reiterates how you can discover which collections are available. You can copy the example of this section from one of the template notebooks.\n\nFrom then on the standard sections diverge depending on whether the notebook access the data directly or uses the raster API. Check the template notebooks for some ideas of common patterns.\n\n\nUsing complex geometries\nIf you are defining the AOI using a bounding box, you can include it in the text of the notebook, but for more complex geometries we prefer that the notebook access the geometry directly from a canonical source. You can check the template notebooks for exmples of this. If the complex geometry is not available online the VEDA team can help get it up in a public s3 bucket.\n\n\nAccessing the data\nTo present consistent best practices, we always access data via the STAC API. Often we use stackstac for this.\n\n\nGenerate “Launch in VEDA JupyterHub” link\nWe use nbgitpuller links to open the VEDA JupyterHub with a particular notebook pulled in. These links have the form: https://nasa-veda.2i2c.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&urlpath=lab/tree/veda-docs/example-notebooks/open-and-plot.ipynb&branch=main\nIf you are writing a notebook and want to share it with others you can generate your own nbgitpuller link using this link generator."
+    "text": "Notebook Author Guidelines\nThere are two template notebooks in this directory titled: template-using-the-raster-api.ipynb and template-accessing-the-data-directly.ipynb that you can use as a starting place. Alternatively you can pull specific cells from that notebook into your own.\n\nStyle\n\nEach code cell should come after a markdown cell with some explanatory text. This is preferred over comments in the code cells.\nThe max header should be ##.\nOnly include imports that are needed for the notebook to run.\nWe don’t enforce any formatting, but periodically run black on all the notebooks. If you would like to run black yourself do pip install black[jupyter] and then black.\n\n\n\nRendering information\nThe first cell in every notebook is a raw cell that contains the following metadata for rendering with our site builder Quarto.\n---\ntitle: Short title\ndescription: One sentence description\nauthor: Author Name\ndate: May 2, 2023\nexecute:\n  freeze: true\n---\nWe store evaluted notebooks in this repository. So before you commit your notebook, you should restart your kernel and run all cells in order.\n\n\nStandard sections\nTo give the notebooks a standard look and feel we typically include the following sections:\n\nRun this Notebook: The section explains how to run the notebook locally, on VEDA JupyterHub or on mybinder. There are several examples of what this section can look like in the template notebooks.\nApproach: List a few steps that outline the approach you be taking in this notebook.\nAbout the data: Optional description of the datatset\nDeclare your collection of interest: This section reiterates how you can discover which collections are available. You can copy the example of this section from one of the template notebooks.\n\nFrom then on the standard sections diverge depending on whether the notebook access the data directly or uses the raster API. Check the template notebooks for some ideas of common patterns.\n\n\nUsing complex geometries\nIf you are defining the AOI using a bounding box, you can include it in the text of the notebook, but for more complex geometries we prefer that the notebook access the geometry directly from a canonical source. You can check the template notebooks for exmples of this. If the complex geometry is not available online the VEDA team can help get it up in a public s3 bucket.\n\n\nRecommended librarires\n\nMapping + Visualization\n\nfolium: folium adds Leaflet.js support to python projects for visualizing data in a map.\nholoviz: High-level tools that make it easier to apply Python plotting libraries to your data.\nipyleaflet: Interactive maps in the Jupyter notebook. ipyleaflet is built on ipywidgets allowing for bidirectional communication between front- and backends (learn more: Interactive GIS in Jupyter with ipyleaflet).\n\n\n\nUsing STAC for cataloging data\nTo present consistent best practices, we always access data via the STAC API. Often we use stackstac for this.\n\npystac: PySTAC is a library for creating SpatioTemporal Asset Catalogs (STAC) in Python 3.\npystac-client: A Python client for working with STAC Catalogs and APIs.\n\n\n\nAnalyzing data\n\nrioxarray: rasterio xarray extension\nstackstac: stackstac.stack turns a STAC collection into a lazy xarray.DataArray, backed by dask.\n\n\n\n\nGenerate “Launch in VEDA JupyterHub” link\nWe use nbgitpuller links to open the VEDA JupyterHub with a particular notebook pulled in. These links have the form: https://nasa-veda.2i2c.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&urlpath=lab/tree/veda-docs/example-notebooks/open-and-plot.ipynb&branch=main\nIf you are writing a notebook and want to share it with others you can generate your own nbgitpuller link using this link generator."
   },
   {
     "objectID": "contributing/dashboard-configuration/index.html",
     "href": "contributing/dashboard-configuration/index.html",
-    "title": "Dashboard Content",
+    "title": "Dashboard Configuration",
     "section": "",
     "text": "This guide explains how to publish content in the VEDA Dashboard, the graphical user interface for exploring NASA Earth Data datasets and science stories VEDA UI.\nBy following this document, you should have a good understanding of how to start from having an idea for some content to show on the VEDA Dashboard all the way to having your data and content appear in the production version of the VEDA Dashboard. Detailed technical documentation for each of the steps is available on GitHub and other places, links provided in the Appendix below.\nflowchart LR\n    A(Data & Content Prep) --&gt; B{Is the data already in VEDA?}\n    B --&gt;|No| C[Go to Dataset Ingestion]\n    C --&gt; E\n    B --&gt;|Yes| E{Do you have a story?}\n    E --&gt;|Yes| D[Go to Discovery Configuration]\n    E --&gt;|No| F[Go to Dataset Configuration]\n    click C \"../dataset-ingestion/index.html\" \"Docs on Dataset Ingestion\" _blank\n    click D \"./discovery-configuration.html\" \"Docs on Discovery Configuration\" _blank\n    click F \"./dataset-configuration.html\" \"Docs on Dataset Configuration\" _blank"
   },
   {
     "objectID": "contributing/dashboard-configuration/index.html#data-content-preparation",
     "href": "contributing/dashboard-configuration/index.html#data-content-preparation",
-    "title": "Dashboard Content",
+    "title": "Dashboard Configuration",
     "section": "Data & Content Preparation",
     "text": "Data & Content Preparation\nThis is an important step before ingesting or configuring anything within VEDA. This will set you up for success in later steps.\n\nKey Steps\n🧑‍💻 Collaborate with partners familiar with the data context, to draft the necessary content.\nFor Discoveries, the required content is:\n\nText for the actual story itself\nAny visuals you would like to include, whether that be images, charts, maps, or other\n\nIf maps, identify which dataset and layer you would like to show and whether that is included in VEDA. (⚠️ If the dataset is not yet included in VEDA you’ll have to provide information about it and configure it as explained below).\nIf charts, gather the relevant data to build the chart. A csv file is the most common, but json is also supported\n\nA cover image for the dataset as it will appear in the Dashboard\nA title and short description/sub-title (5-10 words) for the Discovery\n\nNext step: Discovery Configuration.\nFor Datasets, the required content is:\n\nA descriptive overview of the dataset, how it came to exist, who maintains it, and how it should be used\nShort descriptions for each layer that you will want to reveal within VEDA (an example of this would be “CO2 mean vs CO2 difference”) for users to explore on a map\nA cover image for the dataset as it will appear in the Dashboard\nAny other relevant metadata you might want included https://nasa-impact.github.io/veda-docs/contributing/dashboard-content.html\nFor any datasets that need to be ingested, convert data to Cloud-Optimized GeoTIFFs (COGs) (⚠️ This is currently the only format supported in the VEDA Dashboard. More formats to come in the future)\n\nNext step: If your data is already in VEDA go to Dataset Configuration. Otherwise go to Dataset Ingestion."
   },
   {
     "objectID": "contributing/dashboard-configuration/index.html#useful-links",
     "href": "contributing/dashboard-configuration/index.html#useful-links",
-    "title": "Dashboard Content",
+    "title": "Dashboard Configuration",
     "section": "Useful Links",
     "text": "Useful Links\n\nContent repository for the VEDA Dashboard - veda-config\nData processing from EIS\nAlexey’s notes on helpful tips"
   },
@@ -1442,24 +1435,87 @@
     "text": "Video Walkthrough\n\nSetting up github codespaces\nCodespaces will allow you to have a development environment in the cloud without the need to setup anything on your local machine. VIDEO\n\n\nCreating a discovery\nWalkthrough of how to use github codespaces to create a discovery. From creating the needed files to the Pull Request that will eventually get the content published. VIDEO"
   },
   {
-    "objectID": "veda-apis.html",
-    "href": "veda-apis.html",
-    "title": "VEDA APIs",
+    "objectID": "services/dashboard.html",
+    "href": "services/dashboard.html",
+    "title": "Dashboard",
     "section": "",
-    "text": "The VEDA API source code is currently stored in a private repository: veda-backend, but is based off eoAPI.\nThe browser is based off https://github.com/radiantearth/stac-browser."
+    "text": "The VEDA Dashboard is a publishing platform for results of scientific analysis of Earth data at NASA, in the form of Dataset information pages (“Datasets”) and stories (“Discoveries”)."
   },
   {
-    "objectID": "veda-apis.html#tools",
-    "href": "veda-apis.html#tools",
-    "title": "VEDA APIs",
-    "section": "Tools",
-    "text": "Tools\nWe recommend the following tools for working with STAC and VEDA datasets.\n\nMapping + Visualization\n\nfolium: folium adds Leaflet.js support to python projects for visualizing data in a map.\nholoviz: High-level tools that make it easier to apply Python plotting libraries to your data.\nipyleaflet: Interactive maps in the Jupyter notebook. ipyleaflet is built on ipywidgets allowing for bidirectional communication between front- and backends (learn more: Interactive GIS in Jupyter with ipyleaflet).\n\n\n\nUsing STAC for cataloging data\n\npystac: PySTAC is a library for creating SpatioTemporal Asset Catalogs (STAC) in Python 3.\npystac-client: A Python client for working with STAC Catalogs and APIs.\n\n\n\nAnalyzing data\n\nrioxarray: rasterio xarray extension\nstackstac: stackstac.stack turns a STAC collection into a lazy xarray.DataArray, backed by dask."
+    "objectID": "services/dashboard.html#contributing",
+    "href": "services/dashboard.html#contributing",
+    "title": "Dashboard",
+    "section": "Contributing",
+    "text": "Contributing\nPlease see our docs on Dashboard Configuration."
   },
   {
-    "objectID": "veda-apis.html#environments",
-    "href": "veda-apis.html#environments",
-    "title": "VEDA APIs",
+    "objectID": "services/apis.html",
+    "href": "services/apis.html",
+    "title": "APIs",
+    "section": "",
+    "text": "Most of the VEDA APIs are hosted out of a single project (veda-backend) that combines multiple standalone services."
+  },
+  {
+    "objectID": "services/apis.html#environments",
+    "href": "services/apis.html#environments",
+    "title": "APIs",
     "section": "Environments",
-    "text": "Environments\n\nProduction: COMING SOON\n\n\nStaging (maintenance will be announced):\n\nSTAC browser: veda-staging-stac-browser\nSTAC API (metadata): https://staging-stac.delta-backend.com/docs\nList collections: https://staging-stac.delta-backend.com/collections\nRaster API (tiling): https://staging-raster.delta-backend.com/docs\nSTAC viewer (experimental): https://staging-stac.delta-backend.com/index.html\n\n\n\nDevelopment, aka Dev (experimental work, expected downtime)\n\nSTAC browser: veda-dev-stac-browser\nSTAC API (metadata): https://dev-stac.delta-backend.com/docs\nList collections: https://dev-stac.delta-backend.com/collections\nRaster API (tiling): https://dev-raster.delta-backend.com/docs\nSTAC viewer (experimental): https://dev-stac.delta-backend.com/index.html"
+    "text": "Environments\nWhile some of our services are already very mature, VEDA is currently in the build-up phase. Therefore, we do not yet have a production environment for users. Maintenance on the staging environment will be announced internally and selected known stakeholders will be informed of any larger changes.\n\nProduction (stable): Coming soon\n\n\nStaging (maintenance will be announced):\n\nSTAC browser: veda-staging-stac-browser\nSTAC API (metadata): https://staging-stac.delta-backend.com/docs\nList collections: https://staging-stac.delta-backend.com/collections\nRaster API (tiling): https://staging-raster.delta-backend.com/docs\nSTAC viewer (experimental): https://staging-stac.delta-backend.com/index.html\n\n\n\nDevelopment, aka Dev (experimental work, expected downtime)\n\nSTAC browser: veda-dev-stac-browser\nSTAC API (metadata): https://dev-stac.delta-backend.com/docs\nList collections: https://dev-stac.delta-backend.com/collections\nRaster API (tiling): https://dev-raster.delta-backend.com/docs\nSTAC viewer (experimental): https://dev-stac.delta-backend.com/index.html"
+  },
+  {
+    "objectID": "services/jupyterhub.html",
+    "href": "services/jupyterhub.html",
+    "title": "JupyterHub",
+    "section": "",
+    "text": "VEDA promotes the use of JupyterHub environments for interactive data science. JupyterHub enables you to analyze massive archives of Earth science data in the cloud in an interactive environment that alleviates the complexities of managing compute resources (virtual machines, roles and permissions, etc).\nUsers affiliated with VEDA can get access to a dedicated JupyterHub service, provided in collaboration with 2i2c: nasa-veda.2i2c.cloud. Please find instructions for requesting access below.\nIf you are a scientist affiliated with NASA projects such as EIS and MAAP, you can also keep using the resources provided by these projects.\nThrough the use of open-source technology, we make sure our services are interoperable and exchangeable."
+  },
+  {
+    "objectID": "services/jupyterhub.html#getting-access-to-vedas-jupyterhub-environment",
+    "href": "services/jupyterhub.html#getting-access-to-vedas-jupyterhub-environment",
+    "title": "JupyterHub",
+    "section": "Getting access to VEDA’s JupyterHub environment",
+    "text": "Getting access to VEDA’s JupyterHub environment\nAccess to the VEDA notebook environment is currently on an as-need basis. If you are a user afficiliated with VEDA, you can gain access by following these steps:\n\nMake sure you have a Github Account. Take note of your Github username\nSend an email to the VEDA team (veda@uah.edu) asking for access to the VEDA notebook environment. Please include your Github username. They will invite you through Github to join the VEDA Analytics Github Team. Please watch your email for the invite.\nOnce you accepted the invitation, you should be able to go to https://nasa-veda.2i2c.cloud/ and login via your Github credentials."
+  },
+  {
+    "objectID": "services/jupyterhub.html#example-notebooks",
+    "href": "services/jupyterhub.html#example-notebooks",
+    "title": "JupyterHub",
+    "section": "Example notebooks",
+    "text": "Example notebooks\nThis documentation site provides example notebooks on how to load and analyze Earth data an interactive cloud computing environment."
+  },
+  {
+    "objectID": "services/index.html",
+    "href": "services/index.html",
+    "title": "Services",
+    "section": "",
+    "text": "The VEDA ecosystem of services provides a platform data products hosted in the VEDA data store and exposed via the VEDA Spatio-Temporal Asset Catalog (STAC).\nThe docs (this site) provide information about best practice in cloud-based Earth data science and platform-specific details about how to use and contribute information on VEDA."
+  },
+  {
+    "objectID": "services/data-store.html",
+    "href": "services/data-store.html",
+    "title": "VEDA Data Store",
+    "section": "",
+    "text": "The VEDA Data Store consists of cloud object storage (AWS S3 in us-west-2) and a central Spatio-Temporal Asset Catalog (STAC) that exposes the datasets."
+  },
+  {
+    "objectID": "services/data-store.html#dataset-selection",
+    "href": "services/data-store.html#dataset-selection",
+    "title": "VEDA Data Store",
+    "section": "Dataset selection",
+    "text": "Dataset selection\nThe VEDA Data Store is meant for\n\nNovel datasets produced by NASA Earth data scientists to be presented on the VEDA Dashboard or shared with other science users on VEDA, but not (yet) suited for publication in one of the EOSDIS Distributed Active Archive Centers (DAAC)\nNon-authoritative cloud-optimized versions of Datasets from a DAAC\nOther datasets that do not have an authoritative, cloud-optimized source, to be published or used within the VEDA platform"
+  },
+  {
+    "objectID": "services/data-store.html#browsing-the-data-store",
+    "href": "services/data-store.html#browsing-the-data-store",
+    "title": "VEDA Data Store",
+    "section": "Browsing the Data Store",
+    "text": "Browsing the Data Store\nThe main public interface is the STAC browser and many APIs are exposed that provide access to the data using various protocols.\n\nSTAC browser: veda-staging-stac-browser"
+  },
+  {
+    "objectID": "services/data-store.html#contributing-data",
+    "href": "services/data-store.html#contributing-data",
+    "title": "VEDA Data Store",
+    "section": "Contributing data",
+    "text": "Contributing data\nThe process of data ingestion into the VEDA Data Store is under active development.\nPlease see our docs on dataset ingestion."
   }
 ]

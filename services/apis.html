@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="">
 
-<title>VEDA Documentation - Run this notebook</title>
+<title>VEDA Documentation - APIs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -64,6 +29,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../services/jupyterhub.html" rel="next">
+<link href="../services/dashboard.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -109,7 +76,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Run this notebook</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../services/index.html">Services</a></li><li class="breadcrumb-item"><a href="../services/apis.html">APIs</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -163,7 +130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../services/apis.html" class="sidebar-item-text sidebar-link">
+  <a href="../services/apis.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">APIs</span></a>
   </div>
 </li>
@@ -428,22 +395,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#approach" id="toc-approach" class="nav-link active" data-scroll-target="#approach">Approach</a></li>
-  <li><a href="#about-the-data" id="toc-about-the-data" class="nav-link" data-scroll-target="#about-the-data">About the data</a></li>
-  <li><a href="#declare-your-collection-of-interest" id="toc-declare-your-collection-of-interest" class="nav-link" data-scroll-target="#declare-your-collection-of-interest">Declare your collection of interest</a></li>
-  <li><a href="#fetch-stac-collection" id="toc-fetch-stac-collection" class="nav-link" data-scroll-target="#fetch-stac-collection">Fetch STAC collection</a></li>
-  <li><a href="#fetch-stac-item-for-a-particular-time" id="toc-fetch-stac-item-for-a-particular-time" class="nav-link" data-scroll-target="#fetch-stac-item-for-a-particular-time">Fetch STAC item for a particular time</a></li>
-  <li><a href="#define-an-aoi" id="toc-define-an-aoi" class="nav-link" data-scroll-target="#define-an-aoi">Define an AOI</a></li>
-  <li><a href="#use-stactilejson.json-to-get-tiles" id="toc-use-stactilejson.json-to-get-tiles" class="nav-link" data-scroll-target="#use-stactilejson.json-to-get-tiles">Use <code>/stac/tilejson.json</code> to get tiles</a></li>
+  <li><a href="#environments" id="toc-environments" class="nav-link active" data-scroll-target="#environments">Environments</a>
+  <ul class="collapse">
+  <li><a href="#production-stable-coming-soon" id="toc-production-stable-coming-soon" class="nav-link" data-scroll-target="#production-stable-coming-soon">Production (stable): Coming soon</a></li>
+  <li><a href="#staging-maintenance-will-be-announced" id="toc-staging-maintenance-will-be-announced" class="nav-link" data-scroll-target="#staging-maintenance-will-be-announced">Staging (maintenance will be announced):</a></li>
+  <li><a href="#development-aka-dev-experimental-work-expected-downtime" id="toc-development-aka-dev-experimental-work-expected-downtime" class="nav-link" data-scroll-target="#development-aka-dev-experimental-work-expected-downtime">Development, aka Dev (experimental work, expected downtime)</a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/nasa-impact/veda-docs/blob/main/example-notebooks/template-using-the-raster-api.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/nasa-impact/veda-docs/edit/main/services/apis.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Run this notebook</h1>
+<h1 class="title">APIs</h1>
+<p class="subtitle lead">Application Programming Interfaces (APIs) provided by VEDA</p>
 </div>
 
 
@@ -451,12 +418,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Month day, year</p>
-    </div>
-  </div>
   
     
   </div>
@@ -464,132 +425,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<div class="alert alert-block alert-success">
-<pre><code>This notebook is intended to act as a template for the example notebooks that use the raster API. These green cells should all be deleted and in several sections only one of the provided cells should be included in the notebook.</code></pre>
-</div>
-<div class="alert alert-block alert-success">
-<p>Update the link in the following section.</p>
-</div>
-<p>You can launch this notbook using mybinder, by clicking the button below.</p>
-<p><a href="https://mybinder.org/v2/gh/NASA-IMPACT/veda-docs/HEAD?labpath=example-notebooks%2Ftemplate.ipynb"> <img src="https://mybinder.org/badge_logo.svg" alt="Binder" title="A cute binder" width="150"> </a></p>
-<div class="alert alert-block alert-success">
-<p>Fill in the text in <em>italics</em> in the following cells</p>
-</div>
-<section id="approach" class="level2">
-<h2 class="anchored" data-anchor-id="approach">Approach</h2>
-<ol type="1">
-<li><em>list a few steps that outline the approach</em></li>
-<li><em>you will be taking in this notebook</em></li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># include all your imports in this cell</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>Most of the VEDA APIs are hosted out of a single project (<a href="https://github.com/NASA-IMPACT/veda-backend">veda-backend</a>) that combines multiple standalone services.</p>
+<section id="environments" class="level2">
+<h2 class="anchored" data-anchor-id="environments">Environments</h2>
+<p>While some of our services are already very mature, VEDA is currently in the build-up phase. Therefore, we do not yet have a production environment for users. Maintenance on the staging environment will be announced internally and selected known stakeholders will be informed of any larger changes.</p>
+<section id="production-stable-coming-soon" class="level3">
+<h3 class="anchored" data-anchor-id="production-stable-coming-soon">Production (stable): Coming soon</h3>
 </section>
-<section id="about-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="about-the-data">About the data</h2>
-<p><em>Optional description of the dataset.</em></p>
-</section>
-<section id="declare-your-collection-of-interest" class="level2">
-<h2 class="anchored" data-anchor-id="declare-your-collection-of-interest">Declare your collection of interest</h2>
-<p>You can discover available collections the following ways:</p>
+<section id="staging-maintenance-will-be-announced" class="level3">
+<h3 class="anchored" data-anchor-id="staging-maintenance-will-be-announced">Staging (maintenance will be announced):</h3>
 <ul>
-<li>Programmatically: see example in the <code>list-collections.ipynb</code> notebook</li>
-<li>JSON API: https://dev-stac.delta-backend.com/collections</li>
-<li>STAC Browser: http://veda-dev-stac-browser.s3-website-us-west-2.amazonaws.com</li>
+<li>STAC browser: <a href="http://veda-staging-stac-browser.s3-website-us-west-2.amazonaws.com/">veda-staging-stac-browser</a></li>
+<li>STAC API (metadata): <a href="https://staging-stac.delta-backend.com/docs">https://staging-stac.delta-backend.com/docs</a></li>
+<li>List collections: <a href="https://staging-stac.delta-backend.com/collections">https://staging-stac.delta-backend.com/collections</a></li>
+<li>Raster API (tiling): <a href="https://staging-raster.delta-backend.com/docs">https://staging-raster.delta-backend.com/docs</a></li>
+<li>STAC viewer (experimental): <a href="https://staging-stac.delta-backend.com/index.html">https://staging-stac.delta-backend.com/index.html</a></li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://staging-stac.delta-backend.com"</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://staging-raster.delta-backend.com"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="alert alert-block alert-success">
-<p>Next step is to get STAC objects from the STAC API. In some notebooks we get the collection and use all the items, and in others we search for specific items.</p>
-</div>
 </section>
-<section id="fetch-stac-collection" class="level2">
-<h2 class="anchored" data-anchor-id="fetch-stac-collection">Fetch STAC collection</h2>
-<p>We will use <code>requests</code> to fetch all the metadata about the collection of interest from STAC.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span>).json()</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="fetch-stac-item-for-a-particular-time" class="level2">
-<h2 class="anchored" data-anchor-id="fetch-stac-item-for-a-particular-time">Fetch STAC item for a particular time</h2>
-<p>We can use the search API to find the item that matches exactly our time of interest.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.post(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/search"</span>,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>{</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"collections"</span>: [collection_id],</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"query"</span>: {<span class="st">"datetime"</span>: {<span class="st">"eq"</span>: <span class="st">"2021-01-01T00:00:00"</span>}},</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"limit"</span>: <span class="dv">100</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> response[<span class="st">"features"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="alert alert-block alert-success">
-<p>The next step is often to define an Area of Interest. Note that it is preferred to get large geojson objects directly from their source rather than storing them in this repository or inlining them in the notebook. Here is an example of what that might look like.</p>
-</div>
-</section>
-<section id="define-an-aoi" class="level2">
-<h2 class="anchored" data-anchor-id="define-an-aoi">Define an AOI</h2>
-<p>We can fetch GeoJSON for metropolitan France and Corsica (excluding overseas territories) from an authoritative online source (https://gadm.org/download_country.html).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://geodata.ucdavis.edu/gadm/gadm4.1/json/gadm41_FRA_0.json"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># If anything goes wrong with this request output error contents</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> response.ok, response.text</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> response.json()</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"There are </span><span class="sc">{</span><span class="bu">len</span>(result[<span class="st">'features'</span>])<span class="sc">}</span><span class="ss"> features in this collection"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>That is the geojson for a feature collection, but since there is only one feature in it we can grab just that.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>aoi <span class="op">=</span> result[<span class="st">"features"</span>][<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Let’s take a look at this AOI on a map</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.Map(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>[<span class="dv">40</span>, <span class="dv">0</span>],</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    zoom_start<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>folium.GeoJson(aoi, name<span class="op">=</span><span class="st">"AOI"</span>).add_to(m)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="alert alert-block alert-success">
-<p>With the STAC object and optionally the AOI in hand, the next step is to do some analysis. The sections in the rest of the notebooks are totally up to you! Here is one idea though :)</p>
-</div>
-</section>
-<section id="use-stactilejson.json-to-get-tiles" class="level2">
-<h2 class="anchored" data-anchor-id="use-stactilejson.json-to-get-tiles">Use <code>/stac/tilejson.json</code> to get tiles</h2>
-<p>We pass the item_id, collection id, and the <code>rescale_values</code> in to the RASTER API endpoint and get back a tile.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rescale_values <span class="op">=</span> collection[<span class="st">"summaries"</span>][<span class="st">"cog_default"</span>]</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>tiles <span class="op">=</span> requests.get(</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>item[<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=rdbu_r"</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>tiles</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>With that tile url in hand we can create a simple visualization using <code>folium</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>folium.Map(</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>tiles[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"VEDA"</span>,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="development-aka-dev-experimental-work-expected-downtime" class="level3">
+<h3 class="anchored" data-anchor-id="development-aka-dev-experimental-work-expected-downtime">Development, aka Dev (experimental work, expected downtime)</h3>
+<ul>
+<li>STAC browser: <a href="http://veda-dev-stac-browser.s3-website-us-west-2.amazonaws.com/">veda-dev-stac-browser</a></li>
+<li>STAC API (metadata): <a href="https://dev-stac.delta-backend.com/docs">https://dev-stac.delta-backend.com/docs</a></li>
+<li>List collections: <a href="https://dev-stac.delta-backend.com/collections">https://dev-stac.delta-backend.com/collections</a></li>
+<li>Raster API (tiling): <a href="https://dev-raster.delta-backend.com/docs">https://dev-raster.delta-backend.com/docs</a></li>
+<li>STAC viewer (experimental): <a href="https://dev-stac.delta-backend.com/index.html">https://dev-stac.delta-backend.com/index.html</a></li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -941,6 +805,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../services/dashboard.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Dashboard</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../services/jupyterhub.html" class="pagination-link">
+        <span class="nav-page-text">JupyterHub</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
