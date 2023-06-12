@@ -8,23 +8,14 @@ in the cloud-optimized file formats [Cloud-Optimized GeoTIFF (COG)](https://www.
 from the original datafiles without copies or multiple versions.
 
 
-## High-level steps
+## Steps for ingesting a dataset
 
-For dataset ingestion, generally four steps are required:
-
-1. Transform datasets to conform with cloud-optimized file formats
-2. Upload files to storage (may be skipped, if data is cloud-optimized and in `us-west-2`)
-3. Create compliant metadata records for our STAC
-4. Load those records into the VEDA STAC
-
-
-## What do you need to do?
-
-Depending on the capacity of the dataset provider, some of the steps can be completed by the VEDA team on request.
-
-For every dataset ingest, please [open a dedicated Pull Request in the veda-data-pipelines repository](https://github.com/NASA-IMPACT/veda-data-pipelines/issues/new?assignees=&labels=dataset&template=add-new-dataset-simple.md&title=Add+%3Cdataset+title%3E).
+For dataset ingestion, generally four steps are required. Depending on the capacity of the dataset provider, some of the steps can be completed by the VEDA team on request.
 
 Complete as many steps of the process as you have capacity or authorization to. Please see the guides below on
 
-1. How to prepare files and upload them to the VEDA data store - [Docs on file preparation](./file-preparation.qmd)
-2. How to create metadata records and submit them to the catalog - [Docs on catalog ingestion](./catalog-ingestion.qmd)
+0. Open a dedicated [pull request in the veda-data-pipelines repository](https://github.com/NASA-IMPACT/veda-data-pipelines/issues/new?assignees=&labels=dataset&template=add-new-dataset-simple.md&title=Add+%3Cdataset+title%3E)
+1. Transform datasets to conform with cloud-optimized file formats - see [file preparation](./file-preparation.qmd)
+2. Upload files to storage (may be skipped, if data is cloud-optimized and in `us-west-2`)
+3. Create compliant metadata records for our STAC - see conventions for STAC [collections](./stac-collection-conventions.qmd) and [items](./stac-item-conventions.qmd)
+4. Load those records into the VEDA STAC - see [catalog ingestion](./catalog-ingestion.qmd)
