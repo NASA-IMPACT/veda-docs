@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="">
 
-<title>VEDA Documentation - Run this notebook</title>
+<title>VEDA Documentation - STAC item conventions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,23 +57,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../contributing/dashboard-configuration/index.html" rel="next">
+<link href="../../contributing/dataset-ingestion/stac-collection-conventions.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -97,7 +98,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar docked">
@@ -109,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Run this notebook</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../contributing/docs-and-notebooks.html">Contributing</a></li><li class="breadcrumb-item"><a href="../../contributing/dataset-ingestion/index.html">Dataset Ingestion</a></li><li class="breadcrumb-item"><a href="../../contributing/dataset-ingestion/stac-item-conventions.html">STAC item conventions</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -123,8 +124,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../images/Veda_logo_blue_no_text.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/Veda_logo_blue_no_text.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://www.earthdata.nasa.gov/esds/veda" title="earthdata.nasa.gov/esds/veda" class="quarto-navigation-tool px-1" aria-label="earthdata.nasa.gov/esds/veda"><i class="bi bi-info-circle"></i></a>
@@ -142,25 +143,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../veda-jh-access.html" class="sidebar-item-text sidebar-link">
+  <a href="../../veda-jh-access.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">JupyterHub access</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../veda-apis.html" class="sidebar-item-text sidebar-link">
+  <a href="../../veda-apis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">VEDA APIs</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../example-notebooks/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../example-notebooks/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Usage Examples</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -187,49 +188,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/list-collections.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/list-collections.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">List STAC collections</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/open-and-plot.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/open-and-plot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Open and plot COGs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/timeseries-rioxarray-stackstac.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/timeseries-rioxarray-stackstac.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Calculate timeseries from COGs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/visualize-zarr.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/visualize-zarr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualize zarr</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/visualize-multiple-times.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/visualize-multiple-times.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Open and visualize COGs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/downsample-zarr.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/downsample-zarr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Downsample zarr</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/intake.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/intake.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Searching VEDA STAC API and inspecting catalogs with intake</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/wfs.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/wfs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Get Fire Perimeters from an OGC API</span></a>
   </div>
 </li>
@@ -246,19 +247,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/no2-map-plot.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/no2-map-plot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Get map from COGs - NO2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/timeseries-stac-api.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/timeseries-stac-api.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Get timeseries from COGs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/hls-visualization.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/hls-visualization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Get tiles from COGs</span></a>
   </div>
 </li>
@@ -277,7 +278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/gif-generation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/gif-generation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GIF generation using the TiTiler /cog/crop endpoint</span></a>
   </div>
 </li>
@@ -294,25 +295,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/ocean-npp-timeseries-analysis.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/ocean-npp-timeseries-analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizing Ocean NPP time series for seasonal patterns</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/nceo-biomass-statistics.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/nceo-biomass-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizing NCEO Aboveground Woody Biomass 2017 prioritization areas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/volcano-so2-monitoring.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/volcano-so2-monitoring.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Monitoring Volcanic Sulfur Dioxide Emissions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../example-notebooks/air-quality-covid.html" class="sidebar-item-text sidebar-link">
+  <a href="../../example-notebooks/air-quality-covid.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Air Quality and COVID-19</span></a>
   </div>
 </li>
@@ -331,40 +332,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contributing/docs-and-notebooks.html" class="sidebar-item-text sidebar-link">
+  <a href="../../contributing/docs-and-notebooks.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Docs and example notebooks</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../contributing/dataset-ingestion/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../contributing/dataset-ingestion/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dataset Ingestion</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contributing/dataset-ingestion/file-preparation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../contributing/dataset-ingestion/file-preparation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">File preparation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contributing/dataset-ingestion/catalog-ingestion.html" class="sidebar-item-text sidebar-link">
+  <a href="../../contributing/dataset-ingestion/catalog-ingestion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Catalog Ingestion</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contributing/dataset-ingestion/stac-collection-conventions.html" class="sidebar-item-text sidebar-link">
+  <a href="../../contributing/dataset-ingestion/stac-collection-conventions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">STAC collection conventions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contributing/dataset-ingestion/stac-item-conventions.html" class="sidebar-item-text sidebar-link">
+  <a href="../../contributing/dataset-ingestion/stac-item-conventions.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">STAC item conventions</span></a>
   </div>
 </li>
@@ -372,7 +373,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../contributing/dashboard-configuration/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../contributing/dashboard-configuration/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dashboard Content</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -381,13 +382,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contributing/dashboard-configuration/dataset-configuration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../contributing/dashboard-configuration/dataset-configuration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dataset Configuration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contributing/dashboard-configuration/discovery-configuration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../contributing/dashboard-configuration/discovery-configuration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Discovery Configuration</span></a>
   </div>
 </li>
@@ -397,7 +398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../external-resources.html" class="sidebar-item-text sidebar-link">
+  <a href="../../external-resources.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">External resources</span></a>
   </div>
 </li>
@@ -411,26 +412,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#inside-the-hub" id="toc-inside-the-hub" class="nav-link active" data-scroll-target="#inside-the-hub">Inside the Hub</a></li>
-  <li><a href="#outside-the-hub" id="toc-outside-the-hub" class="nav-link" data-scroll-target="#outside-the-hub">Outside the Hub</a></li>
-  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a></li>
-  <li><a href="#about-the-data" id="toc-about-the-data" class="nav-link" data-scroll-target="#about-the-data">About the data</a></li>
-  <li><a href="#declare-your-collection-of-interest" id="toc-declare-your-collection-of-interest" class="nav-link" data-scroll-target="#declare-your-collection-of-interest">Declare your collection of interest</a></li>
-  <li><a href="#discover-items-in-collection-for-region-and-time-of-interest" id="toc-discover-items-in-collection-for-region-and-time-of-interest" class="nav-link" data-scroll-target="#discover-items-in-collection-for-region-and-time-of-interest">Discover items in collection for region and time of interest</a></li>
-  <li><a href="#define-an-aoi" id="toc-define-an-aoi" class="nav-link" data-scroll-target="#define-an-aoi">Define an AOI</a></li>
-  <li><a href="#read-data" id="toc-read-data" class="nav-link" data-scroll-target="#read-data">Read data</a></li>
-  <li><a href="#clip-the-data-to-aoi" id="toc-clip-the-data-to-aoi" class="nav-link" data-scroll-target="#clip-the-data-to-aoi">Clip the data to AOI</a></li>
-  <li><a href="#select-a-band-of-data" id="toc-select-a-band-of-data" class="nav-link" data-scroll-target="#select-a-band-of-data">Select a band of data</a></li>
-  <li><a href="#compute-and-plot" id="toc-compute-and-plot" class="nav-link" data-scroll-target="#compute-and-plot">Compute and plot</a></li>
+  <li><a href="#rio-stac-conventions-for-generating-stac-items" id="toc-rio-stac-conventions-for-generating-stac-items" class="nav-link active" data-scroll-target="#rio-stac-conventions-for-generating-stac-items">Rio-stac conventions for generating STAC Items</a></li>
+  <li><a href="#data-provenance-convention" id="toc-data-provenance-convention" class="nav-link" data-scroll-target="#data-provenance-convention">Data provenance convention</a></li>
+  <li><a href="#stac-item-validation-convention" id="toc-stac-item-validation-convention" class="nav-link" data-scroll-target="#stac-item-validation-convention">STAC Item validation convention</a></li>
+  <li><a href="#convention-for-default-map-layer-assets-for-spectral-data" id="toc-convention-for-default-map-layer-assets-for-spectral-data" class="nav-link" data-scroll-target="#convention-for-default-map-layer-assets-for-spectral-data">Convention for default map layer assets for spectral data</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/nasa-impact/veda-docs/blob/main/example-notebooks/template-accessing-the-data-directly.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/nasa-impact/veda-docs/edit/main/contributing/dataset-ingestion/stac-item-conventions.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Run this notebook</h1>
+<h1 class="title">STAC item conventions</h1>
+<p class="subtitle lead">Tooling and format to use when creating STAC items for VEDA</p>
 </div>
 
 
@@ -438,12 +433,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">Month day, year</p>
-    </div>
-  </div>
   
     
   </div>
@@ -451,165 +440,96 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<div class="alert alert-block alert-success">
-<pre><code>This notebook is intended to act as a template for the example notebooks that access the data directly. These green cells should all be deleted and in several sections only one of the provided cells should be included in the notebook.</code></pre>
-</div>
-<div class="alert alert-block alert-success">
-<p>Update the link in the following section.</p>
-</div>
-<p>You can launch this notebook in VEDA JupyterHub by clicking the link below.</p>
-<p><a href="https://nasa-veda.2i2c.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&amp;urlpath=lab/tree/veda-docs/example-notebooks/template.ipynb&amp;branch=main">Launch in VEDA JupyterHub (requires access)</a></p>
-<details>
-<summary>
-Learn more
-</summary>
-<section id="inside-the-hub" class="level3">
-<h3 class="anchored" data-anchor-id="inside-the-hub">Inside the Hub</h3>
-<p>This notebook was written on the VEDA JupyterHub and as such is designed to be run on a jupyterhub which is associated with an AWS IAM role which has been granted permissions to the VEDA data store via its bucket policy. The instance used provided 16GB of RAM.</p>
-<p>See (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.</p>
+<p>Copied from <a href="https://github.com/NASA-IMPACT/veda-backend/issues/28"><code>veda-backend#28</code></a></p>
+<p>This document defines a set of conventions for generating STAC Items consistently for the VEDA Dashboard UI and future API users. Ultimately, these represent the minimum metadata API users can expect from the backend.</p>
+<section id="rio-stac-conventions-for-generating-stac-items" class="level2">
+<h2 class="anchored" data-anchor-id="rio-stac-conventions-for-generating-stac-items">Rio-stac conventions for generating STAC Items</h2>
+<p>All of our current ingestion plans will use <a href="https://developmentseed.org/rio-stac/">rio-stac</a> to generate item metadata for COGs so the notes below are organized around the input parameters of the <a href="https://developmentseed.org/rio-stac/api/rio_stac/stac/#create_stac_item">create_stac_item</a> method.</p>
+<p><strong>example rio-stac python usage</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> rio_stac.stac.create_stac_item(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">id</span> <span class="op">=</span> item_id,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  source <span class="op">=</span> <span class="ss">f"s3://</span><span class="sc">{</span>obj<span class="sc">.</span>bucket_name<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>obj<span class="sc">.</span>key<span class="sc">}</span><span class="ss">"</span>, </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  collection <span class="op">=</span> collection_id, </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  input_datetime <span class="op">=</span> <span class="op">&lt;</span>datetime.datetime<span class="op">&gt;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  with_proj <span class="op">=</span> <span class="va">True</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  with_raster <span class="op">=</span> <span class="va">True</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  asset_name <span class="op">=</span> <span class="st">"cog_default"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  asset_roles <span class="op">=</span> [<span class="st">"data"</span>, <span class="st">"layer"</span>],</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  asset_media_type <span class="op">=</span> <span class="st">"image/tiff; application=geotiff; profile=cloud-optimized"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Rio-stac create item parameter recommendations</strong> These recommendations are for generating STAC Item metadata for collections intended for the dasboard and may not be applicable to all ARCO collections.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th><strong>Recommendations</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>id</strong></td>
+<td>(1) When STAC Item metadata is generated from a COG file, strip the full file extension from the filename for the item id. (2) When ids are not unique across collections, append the collection id to the item id. For example the no2-monthly and no2-monthly-diff COGs are stored with unique bucket prefixes but within the prefix all the filenames are the same, so the collection id is appended: <code>OMI_trno2_0.10x0.10_201604_Col3_V4</code> → <code>OMI_trno2_0.10x0.10_201604_Col3_V4-no2-monthly</code>).</td>
+</tr>
+<tr class="even">
+<td><strong>with_proj</strong></td>
+<td><code>True</code>. Generate projection extension metadata for the item for future ARCO datastore users.</td>
+</tr>
+<tr class="odd">
+<td><strong>with_raster</strong></td>
+<td><code>True</code>. This will generate gdal statistics for every band in the COG—we use these to get the range of values for the full collection.</td>
+</tr>
+<tr class="even">
+<td><strong>asset_name</strong></td>
+<td>A meaningful asset name for the default cloud optimized asset to be displayed on a map. <code>cog_default</code> is a placeholder—we need to choose and commit to an asset name for all collections. If not set, will default to <code>asset</code>. * TODO Decision: For items with many assets we should ingest all with appropriate keys and duplicate one preferred display asset as the default cog. We should be considering <a href="https://github.com/stac-utils/titiler-pgstac/issues/30">metadata conventions in pgstac-titiler</a></td>
+</tr>
+<tr class="odd">
+<td><strong>asset_roles</strong></td>
+<td><code>["data", "layer"]</code> data is an appropriate role, we may also choose to add something like layer to indicate that the asset is optimized to be used as a map layer (<a href="https://github.com/radiantearth/stac-api-spec/blob/master/stac-spec/item-spec/item-spec.md#asset-role-types">stac specification for asset roles</a>).</td>
+</tr>
+<tr class="even">
+<td><strong>asset_media_type</strong></td>
+<td><code>"image/tiff; application=geotiff; profile=cloud-optimized</code> (<a href="https://github.com/radiantearth/stac-api-spec/blob/master/stac-spec/best-practices.md#working-with-media-types">stac best practices for asset media type</a>).</td>
+</tr>
+<tr class="odd">
+<td><strong>properties</strong></td>
+<td>CMIP6: TODO, CMR: TODO if we don’t store links to the original data, downstream users are not going to be able to pair STAC records with the versioned parent data in CMR</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="outside-the-hub" class="level3">
-<h3 class="anchored" data-anchor-id="outside-the-hub">Outside the Hub</h3>
-<p>The data is in a protected bucket. Please request access by emailing aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN). The team will help you configure the cognito client.</p>
-<p>You should then run:</p>
-<pre><code>%run -i 'cognito_login.py'</code></pre>
-</section></details>
-<div class="alert alert-block alert-success">
-<p>Fill in the text in <em>italics</em> in the following cells</p>
-</div>
-
-<section id="approach" class="level2">
-<h2 class="anchored" data-anchor-id="approach">Approach</h2>
-<ol type="1">
-<li><em>list a few steps that outline the approach</em></li>
-<li><em>you will be taking in this notebook</em></li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># include all your imports in this cell</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> stackstac</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="data-provenance-convention" class="level2">
+<h2 class="anchored" data-anchor-id="data-provenance-convention">Data provenance convention</h2>
+<p>When adding STAC items that were derived from previously published data (such as CMR records), there are multiple ways to preserve the linkage between the item and the more complete source metadata. We should provide at a minimum metadata assets for any items derived from previously published data. Here are three examples from HLS:</p>
+<p><strong>metadata are assets</strong> The CMR properties question in the table above (how to refer the STAC Item to it’s CMR source metadata) could instead be solved by adding a metadata asset. This does not require creating a new extension for CMR, it just involves creating an asset from the CMR granule metadata which should be in the event context for CMR search driven ingests. The example below is from <a href="https://lpdaac.usgs.gov/resources/e-learning/getting-started-with-cloud-native-harmonized-landsat-sentinel-2-hls-data-in-r/">documentation for using HLS cloud optimized data</a>.</p>
+<pre><code>"assets": {
+  "metadata": {
+    "href": "https://cmr.earthdata.nasa.gov/search/concepts/G2099379244-LPCLOUD.xml",
+    "type": "application/xml"
+    },
+    "thumbnail": { ...}
+}</code></pre>
+<p><strong>stac-spec <a href="https://github.com/stac-extensions/scientific">scieintific extension</a></strong></p>
+<pre><code>"properties": {
+   "sci:doi": "10.5067/HLS/HLSS30.002",
+   ...
+}</code></pre>
+<p><strong>Item links to metadata</strong> Use a <code>cite-as</code> Item link to the DOI for the source data.</p>
+<pre><code>"links": [
+  {
+    "rel": "cite-as",
+    "href": "https://doi.org/10.5067/HLS/HLSS30.002"
+  },
+  ...
+]</code></pre>
 </section>
-<section id="about-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="about-the-data">About the data</h2>
-<p><em>Optional description of the dataset.</em></p>
+<section id="stac-item-validation-convention" class="level2">
+<h2 class="anchored" data-anchor-id="stac-item-validation-convention">STAC Item validation convention</h2>
+<p>We are producing <a href="https://pystac.readthedocs.io/en/stable/api/item.html">pystac.items</a> with rio-stac’s create_stac_item method and we should validate them before publishing them to s3. Testing found that it is possible to produce structurally sound but invalid STAC Items with create_stac_item.</p>
+<p>The built in pystac validator on the pystac.item returned by create_stac_item can be used to easily validate the metadata—<code>item.validate()</code> will raise an exception for invalid metadata. Pystac does need to be <a href="https://pystac.readthedocs.io/en/stable/api.html?highlight=validation#validation">installed with the appropriate dependencies for validation</a>.</p>
 </section>
-<section id="declare-your-collection-of-interest" class="level2">
-<h2 class="anchored" data-anchor-id="declare-your-collection-of-interest">Declare your collection of interest</h2>
-<p>You can discover available collections the following ways:</p>
-<ul>
-<li>Programmatically: see example in the <code>list-collections.ipynb</code> notebook</li>
-<li>JSON API: https://dev-stac.delta-backend.com/collections</li>
-<li>STAC Browser: http://veda-dev-stac-browser.s3-website-us-west-2.amazonaws.com</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://staging-stac.delta-backend.com"</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="alert alert-block alert-success">
-<p>Next step is to get STAC objects from the STAC API. We use <code>pystac-client</code> to do a search. Here is an some example of what that might look like.</p>
-</div>
-</section>
-<section id="discover-items-in-collection-for-region-and-time-of-interest" class="level2">
-<h2 class="anchored" data-anchor-id="discover-items-in-collection-for-region-and-time-of-interest">Discover items in collection for region and time of interest</h2>
-<p>Use <code>pystac_client</code> to search the STAC collection for a particular area of interest within specified datetime bounds.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> []</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>datetime <span class="op">=</span> <span class="st">"2000-01-01/2022-01-02"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>catalog <span class="op">=</span> Client.<span class="bu">open</span>(STAC_API_URL)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> catalog.search(</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    bbox<span class="op">=</span>bbox, datetime<span class="op">=</span>datetime, collections<span class="op">=</span>[collection_id], limit<span class="op">=</span><span class="dv">1000</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(search.items())</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Found </span><span class="sc">{</span><span class="bu">len</span>(items)<span class="sc">}</span><span class="ss"> items"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="alert alert-block alert-success">
-<p>The next step is often to define an Area of Interest. Note that it is preferred to get large geojson objects directly from their source rather than storing them in this repository or inlining them in the notebook. Here is an example of what that might look like.</p>
-</div>
-</section>
-<section id="define-an-aoi" class="level2">
-<h2 class="anchored" data-anchor-id="define-an-aoi">Define an AOI</h2>
-<p><em>We can fetch GeoJSON from an authoritative online source for instance: https://gadm.org/download_country.html</em></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://geodata.ucdavis.edu/gadm/gadm4.1/json/gadm41_FRA_0.json"</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># If anything goes wrong with this request output error contents</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> response.ok, response.text</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> response.json()</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"There are </span><span class="sc">{</span><span class="bu">len</span>(result[<span class="st">'features'</span>])<span class="sc">}</span><span class="ss"> features in this collection"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>That is the geojson for a feature collection, but since there is only one feature in it we can grab just that.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>aoi <span class="op">=</span> result[<span class="st">"features"</span>][<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="alert alert-block alert-success">
-<p>Next some notebooks read in the data. If you are using the raster API to trigger computation server side skip this section. Here is an example of reading the data in using <code>stackstac</code> and clipping using <code>rasterio</code>.</p>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.Map(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>[<span class="dv">40</span>, <span class="dv">0</span>],</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    zoom_start<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>folium.GeoJson(aoi, name<span class="op">=</span><span class="st">"AOI"</span>).add_to(m)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="read-data" class="level2">
-<h2 class="anchored" data-anchor-id="read-data">Read data</h2>
-<p>Create an <code>xarray.DataSet</code> using <code>stackstac</code></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a workaround that is planning to move up into stackstac itself</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>gdal_env <span class="op">=</span> stackstac.DEFAULT_GDAL_ENV.updated(</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    always<span class="op">=</span><span class="bu">dict</span>(AWS_NO_SIGN_REQUEST<span class="op">=</span><span class="va">True</span>, session<span class="op">=</span>rio.session.AWSSession(boto3.Session())</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>da <span class="op">=</span> stackstac.stack(search.item_collection(), gdal_env<span class="op">=</span>gdal_env)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>da <span class="op">=</span> da.assign_coords({<span class="st">"time"</span>: pd.to_datetime(da.start_datetime)})</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>da</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="clip-the-data-to-aoi" class="level2">
-<h2 class="anchored" data-anchor-id="clip-the-data-to-aoi">Clip the data to AOI</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>subset <span class="op">=</span> da.rio.clip([aoi[<span class="st">"geometry"</span>]])</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>subset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="alert alert-block alert-success">
-<p>With the STAC object, and optionally the AOI and/or the data in hand, the next step is to do some analysis. The sections in the rest of the notebooks are totally up to you! Here is an idea though :)</p>
-</div>
-</section>
-<section id="select-a-band-of-data" class="level2">
-<h2 class="anchored" data-anchor-id="select-a-band-of-data">Select a band of data</h2>
-<p>There is just one band in this case, <code>cog_default</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data_band <span class="op">=</span> da.sel(band<span class="op">=</span><span class="st">"cog_default"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="compute-and-plot" class="level2">
-<h2 class="anchored" data-anchor-id="compute-and-plot">Compute and plot</h2>
-<p>Calculate the mean at each time across the whole dataset. Note this is the first time that the data is actually loaded.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average over entire AOI for each month</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> data_band.mean(dim<span class="op">=</span>(<span class="st">"x"</span>, <span class="st">"y"</span>)).compute()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>means.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="convention-for-default-map-layer-assets-for-spectral-data" class="level2">
+<h2 class="anchored" data-anchor-id="convention-for-default-map-layer-assets-for-spectral-data">Convention for default map layer assets for spectral data</h2>
+<p>Many of the collections for the dashboard have a clear default map layer asset that we can name <code>cog_default</code>. This convention does not map as well to spectral data with many assets (B01, B02,…). A preferred band asset could be duplicated to define a default map layer asset to be consistent but this needs to be decided.</p>
 
 
 </section>
@@ -963,6 +883,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../contributing/dataset-ingestion/stac-collection-conventions.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">STAC collection conventions</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../contributing/dashboard-configuration/index.html" class="pagination-link">
+        <span class="nav-page-text">Dashboard Content</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
