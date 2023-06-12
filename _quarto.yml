@@ -13,7 +13,7 @@ website:
     left: "&copy; CC-By NASA, 2022-2023"
 
   sidebar:
-    logo: "images/Veda_logo_blue_no_text.png"
+    logo: "https://visex.netlify.app/graphics/nasa-veda-logo-pos.svg"
     pinned: true
     align: center
     tools:
@@ -33,14 +33,17 @@ website:
     contents:
       - href: index.qmd
         text: Welcome
-      - veda-jh-access.qmd
-      - veda-apis.qmd
+      - section: services/index.qmd
+        contents:
+          - services/dashboard.qmd
+          - services/apis.qmd
+          - services/jupyterhub.qmd
       - section: example-notebooks/index.qmd
         contents:
           - section: Quickstarts
-            contents: 
+            contents:
               - section: Accessing the Data Directly
-                contents: 
+                contents:
                   - example-notebooks/list-collections.ipynb
                   - example-notebooks/open-and-plot.ipynb
                   - example-notebooks/timeseries-rioxarray-stackstac.ipynb
@@ -55,7 +58,7 @@ website:
                   - example-notebooks/timeseries-stac-api.ipynb
                   - example-notebooks/hls-visualization.ipynb
           - section: Tutorials
-            contents: 
+            contents:
               - example-notebooks/gif-generation.ipynb
           - section: Datasets
             contents:
@@ -63,10 +66,19 @@ website:
               - example-notebooks/nceo-biomass-statistics.ipynb
               - example-notebooks/volcano-so2-monitoring.ipynb
               - example-notebooks/air-quality-covid.ipynb
-      - section: Contributing
+      - section: contributing/index.qmd
         contents:
           - contributing/docs-and-notebooks.qmd
-          - contributing/dashboard-content.qmd
+          - section: contributing/dataset-ingestion/index.qmd
+            contents:
+              - contributing/dataset-ingestion/file-preparation.qmd
+              - contributing/dataset-ingestion/catalog-ingestion.qmd
+              - contributing/dataset-ingestion/stac-collection-conventions.qmd
+              - contributing/dataset-ingestion/stac-item-conventions.qmd
+          - section: contributing/dashboard-configuration/index.qmd
+            contents:
+              - contributing/dashboard-configuration/dataset-configuration.qmd
+              - contributing/dashboard-configuration/discovery-configuration.qmd
       - external-resources.qmd
 format:
   html:
@@ -78,7 +90,5 @@ format:
     css: styles.css
     toc: true
     toc-depth: 3
-
-
 filters:
   - quarto
