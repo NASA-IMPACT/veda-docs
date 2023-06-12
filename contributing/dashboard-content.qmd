@@ -17,11 +17,14 @@ This document is intended to be an overview of the ingestion and configuration p
 ```{mermaid}
 flowchart LR
     A(Data & Content Prep) --> B{Is the data already in VEDA?}
-    B -->|No| C[<a href='./dataset-ingestion.qmd'>Dataset Ingestion</a>]
+    B -->|No| C[Go to Dataset Ingestion]
     C --> E
     B -->|Yes| E{Do you have a story?}
-    E -->|Yes| D[<a href='./discovery-configuration.qmd'> Discovery Configuration</a>]
-    E -->|No| F[<a href='./dataset-configuration.qmd'> Dataset Configuration</a>]
+    E -->|Yes| D[Go to Discovery Configuration]
+    E -->|No| F[Go to Dataset Configuration]
+    click C "./dataset-ingestion.html" "Docs on Dataset Ingestion" _blank
+    click D "./discovery-configuration.html" "Docs on Discovery Configuration" _blank
+    click F "./dataset-configuration.html" "Docs on Dataset Configuration" _blank
 ```
 
 ## Data & Content Preparation
