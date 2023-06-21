@@ -7,7 +7,7 @@ If you are updating an existing notebook feel free to delete the sections below
 This notebook shows ...
 
 ## What type of example is this?
-_Choose one of the following and delete the rest ([read more](https://nasa-impact.github.io/veda-docs/example-notebooks))_
+_Choose one of the following and delete the rest ([read more](https://nasa-impact.github.io/veda-docs/notebooks))_
 
 Quickstart: Accessing the Data Directly
 Quickstart: Using the Raster API
@@ -15,7 +15,7 @@ Tutorial
 Dataset
 
 ## Checklist
-_The following checklist ensures that our notebooks are internally consistent ([read more](https://nasa-impact.github.io/veda-docs/example-notebooks/#contributing-to-veda))_
+_The following checklist ensures that our notebooks are internally consistent ([read more](https://nasa-impact.github.io/veda-docs/contributing/doc-and-notebooks))_
 
 - [ ] The first cell contains the rendering information with author and data
 - [ ] The notebook has a **Run this Notebook** section (with filename in link)
