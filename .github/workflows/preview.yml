@@ -6,6 +6,8 @@ on:
     types:
       - opened
       - reopened
+      # If you push a new commit to the HEAD ref of a pull request then this "synchronize" event will be triggered.
+      # This is because the system is syncing the pull requests with the latest changes. This will NOT trigger if the base ref is updated
       - synchronized
 
 concurrency: preview-${{ github.ref }}
