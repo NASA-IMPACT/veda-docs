@@ -1,10 +1,7 @@
 # .github/workflows/preview.yml
 name: Deploy PR previews
 
-on:
-  pull_request:
-    types:
-      - opened
+on: pull_request
 
 concurrency: preview-${{ github.ref }}
 
@@ -30,3 +27,5 @@ jobs:
 
       - name: Deploy preview
         uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: _site
