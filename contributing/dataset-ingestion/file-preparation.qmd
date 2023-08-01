@@ -13,7 +13,21 @@ We often encounter issues like missing or wrong `nodata` value, missing coordina
 
 Discovering these issues early on (ideally before upload to our buckets) can save us all a lot of time.
 
-A command-line tool for creating and validating COGs is [`rio-cogeo`](https://cogeotiff.github.io/rio-cogeo/). The docs have a [guide on preparing COGs](https://cogeotiff.github.io/rio-cogeo/Is_it_a_COG/), too.
+A command-line tool for creating and validating COGs is [`rio-cogeo`](https://cogeotiff.github.io/rio-cogeo/). The `rio-cogeo` documentation is a great starting reference point and have a very helpful [guide on preparing COGs](https://cogeotiff.github.io/rio-cogeo/Is_it_a_COG/), too.
+
+0. To inspect and validate your raster dataset use the following  
+
+   ```bash
+   rio cogeo info /path/to/file.tif
+   ```
+
+   This will allow you to explore the size in rows and lines, understand the data type (e.g., byte, float, etc.), and verify how `NoData` is defined. Once you have explored the COG's definitions you can validate it by using the following commands: 
+
+      ```bash
+   rio cogeo validate /path/to/file.tif
+   ```
+
+   COG validation can be used to identify if any errors are found. The following steps can be used to resolve any errors. 
 
 1. If your raster contains empty pixels, make sure the `nodata` value is set correctly (check with `rio cogeo info`). The `nodata` value needs to be set **before cloud-optimizing the raster**, so overviews are computed from real data pixels only. Pro-tip: For floating-point rasters, using `NaN` for flagging nodata helps avoid roundoff errors later on.
 
@@ -35,7 +49,7 @@ A command-line tool for creating and validating COGs is [`rio-cogeo`](https://co
    Note that this only changes the _flag_. If you want to change the actual value you have in the data, you need to create a new copy of the file where you change the pixel values.
 
 2. Make sure the  **coordinate reference system** is embedded in the COG (check with `rio cogeo info`)
-3. When creating the COG, use the right `resampling` method for **overviews**, for example `average` for continuous / floating point data and `mode` for categorical / integer.
+3. When creating the COG, use the most appropriate `resampling` method for **overviews**. For example, use `average` for continuous / floating point data and `mode` for categorical / integer.
 
     ```bash
     rio cogeo create --overview-resampling "mode" /path/to/input.tif /path/to/output.tif

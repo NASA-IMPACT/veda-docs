@@ -3,7 +3,7 @@ title: "Dataset Ingestion"
 subtitle: "Guide to ingesting and publishing data to the VEDA data store & STAC API"
 ---
 
-VEDA uses a centralized [Spatio-Temporal Asset Catalog (STAC)](https://stacspec.org/) for data dissemination and prefers to hosts datasets in cloud-object storage ([AWS S3](https://aws.amazon.com/s3/) in the region `us-west-2`)
+VEDA uses a centralized [Spatio-Temporal Asset Catalog (STAC)](https://stacspec.org/) for data dissemination and prefers to host datasets in cloud-object storage ([AWS S3](https://aws.amazon.com/s3/) in the region `us-west-2`)
 in the cloud-optimized file formats [Cloud-Optimized GeoTIFF (COG)](https://www.cogeo.org/) and [Zarr](https://zarr.dev/), which enables viewing and efficient access in the cloud directly
 from the original datafiles without copies or multiple versions.
 
@@ -12,7 +12,9 @@ from the original datafiles without copies or multiple versions.
 
 For dataset ingestion, generally four steps are required. Depending on the capacity of the dataset provider, some of the steps can be completed by the VEDA team on request.
 
-Complete as many steps of the process as you have capacity or authorization to. Please see the guides below on
+The data ingestion process requires Cognito credentials (username and password). In order to retrieve these credentials, you'll need to contact a member of the VEDA Data Services Team (email: veda@uah.edu) who can set up an account and credentials for you. The first time you log in using the Cognito Client, you will be prompted to set a new password.
+
+Complete as many steps of the process as you have capacity or authorization to. Please see the guides below on: 
 
 0. Open a dedicated [pull request in the veda-data-pipelines repository](https://github.com/NASA-IMPACT/veda-data-pipelines/issues/new?assignees=&labels=dataset&template=add-new-dataset-simple.md&title=Add+%3Cdataset+title%3E)
 1. Transform datasets to conform with cloud-optimized file formats - see [file preparation](./file-preparation.qmd)
