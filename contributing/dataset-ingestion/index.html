@@ -466,11 +466,12 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>VEDA uses a centralized <a href="https://stacspec.org/">Spatio-Temporal Asset Catalog (STAC)</a> for data dissemination and prefers to hosts datasets in cloud-object storage (<a href="https://aws.amazon.com/s3/">AWS S3</a> in the region <code>us-west-2</code>) in the cloud-optimized file formats <a href="https://www.cogeo.org/">Cloud-Optimized GeoTIFF (COG)</a> and <a href="https://zarr.dev/">Zarr</a>, which enables viewing and efficient access in the cloud directly from the original datafiles without copies or multiple versions.</p>
+<p>VEDA uses a centralized <a href="https://stacspec.org/">Spatio-Temporal Asset Catalog (STAC)</a> for data dissemination and prefers to host datasets in cloud-object storage (<a href="https://aws.amazon.com/s3/">AWS S3</a> in the region <code>us-west-2</code>) in the cloud-optimized file formats <a href="https://www.cogeo.org/">Cloud-Optimized GeoTIFF (COG)</a> and <a href="https://zarr.dev/">Zarr</a>, which enables viewing and efficient access in the cloud directly from the original datafiles without copies or multiple versions.</p>
 <section id="steps-for-ingesting-a-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="steps-for-ingesting-a-dataset">Steps for ingesting a dataset</h2>
 <p>For dataset ingestion, generally four steps are required. Depending on the capacity of the dataset provider, some of the steps can be completed by the VEDA team on request.</p>
-<p>Complete as many steps of the process as you have capacity or authorization to. Please see the guides below on</p>
+<p>The data ingestion process requires Cognito credentials (username and password). In order to retrieve these credentials, you’ll need to contact a member of the VEDA Data Services Team (email: veda@uah.edu) who can set up an account and credentials for you. The first time you log in using the Cognito Client, you will be prompted to set a new password.</p>
+<p>Complete as many steps of the process as you have capacity or authorization to. Please see the guides below on:</p>
 <ol start="0" type="1">
 <li>Open a dedicated <a href="https://github.com/NASA-IMPACT/veda-data-pipelines/issues/new?assignees=&amp;labels=dataset&amp;template=add-new-dataset-simple.md&amp;title=Add+%3Cdataset+title%3E">pull request in the veda-data-pipelines repository</a></li>
 <li>Transform datasets to conform with cloud-optimized file formats - see <a href="../../contributing/dataset-ingestion/file-preparation.html">file preparation</a></li>
