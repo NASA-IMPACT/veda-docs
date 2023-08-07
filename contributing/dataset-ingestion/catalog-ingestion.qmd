@@ -5,9 +5,9 @@ subtitle: "How to load metadata with our STAC API"
 
 ## STEP III: Create dataset definitions
 
-The next step is to divide all the data into logical collections. A collection is basically what it sounds like, a collection of data files that share the same properties like, the data it's measuring, the periodicity, the spatial region, etc. Examples no2-mean and no2-diff should be two different collections, because one measures the mean and the other the diff. no2-monthly and no2-yearly should be different because the periodicity is different.
+The next step is to divide all the data into logical collections. A collection is basically what it sounds like, a collection of data files that share the same properties like, the data it's measuring, the periodicity, the spatial region, etc. For example, current VEDA datasets like `no2-mean` and `no2-diff` should be two different collections, because one measures the mean levels of nitrogen dioxide and the other the differences in observed levels. Likewise, datasets like `no2-monthly` and `no2-yearly` should be different because the periodicity is different.
 
-Once you've logically grouped the datasets into collections, create dataset definitions for each of these collections. The data definition is a json file that contains some metadata of the dataset and information on how to discover these datasets in the s3 bucket. An example is shown below:
+Once you have logically grouped the datasets into collections, you will need to create dataset definitions for each of these collections. The data definition is a json file that contains some metadata of the dataset and information on how to discover these datasets in the s3 bucket. An example is shown below:
 
 `lis-global-da-evap.json`
 
@@ -80,7 +80,7 @@ The following table describes what each of these fields mean:
 </details>
 
 
-> Note: The steps after this are technical, so at this point the scientists can send the json to the VEDAteam and they'll handle the publication process.
+> Note: The steps after this are technical, so at this point open a PR on the [veda-data](https://github.com/NASA-IMPACT/veda-data) GitHub repository and a member of the VEDA team will handle the publication process.
 
 
 
@@ -96,7 +96,7 @@ To use the VEDA Ingestion API to schedule ingestion/publication of the data foll
 
 ### 1. Obtain credentials from a VEDA team member
 
-Ask a VEDA team member to create credentials (username and password) for VEDA auth.
+Ask a VEDA team member to create `Cognito` credentials (username and password) for VEDA authentication.
 
 ### 2. Export username and password
 
