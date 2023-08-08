@@ -328,7 +328,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../contributing/docs-and-notebooks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Example Notebook Submission</span></a>
+ <span class="menu-text">Usage Example Notebook Submission</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
@@ -471,14 +471,16 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="steps-for-ingesting-a-dataset">Steps for ingesting a dataset</h2>
 <p>For dataset ingestion, generally four steps are required. Depending on the capacity of the dataset provider, some of the steps can be completed by the VEDA team on request.</p>
 <p>The data ingestion process requires <code>Cognito</code> credentials (username and password). In order to retrieve these credentials, you’ll need to contact a member of the VEDA Data Services Team at <a href="mailto:veda@uah.edu">veda@uah.edu</a> who can set up an account and credentials for you. The first time you log in using the <code>Cognito Client</code>, you will be prompted to set a new password.</p>
-<p>Complete as many steps of the process as you have capacity or authorization to. Please see the guides below on:</p>
+<p>Complete as many steps of the process as you have capacity or authorization to. Please follow the steps and guides outlined below:</p>
 <ol start="0" type="1">
-<li>Open a dedicated <a href="https://github.com/NASA-IMPACT/veda-data-pipelines/issues/new?assignees=&amp;labels=dataset&amp;template=add-new-dataset-simple.md&amp;title=Add+%3Cdataset+title%3E">pull request in the veda-data-pipelines repository</a></li>
+<li>Open a dedicated <a href="https://github.com/NASA-IMPACT/veda-data">pull request in the veda-data repository</a>. Please read through these docs fully first as you they will help supply the information required to complete the PR. Use this <a href="https://github.com/NASA-IMPACT/veda-data/issues/new?assignees=&amp;labels=dataset&amp;projects=&amp;template=new-dataset.yaml&amp;title=New+Dataset%3A+%3Cdataset+title%3E">“new dataset” template to open a new issue and get started</a>.</li>
 <li>Transform datasets to conform with cloud-optimized file formats - see <a href="../../contributing/dataset-ingestion/file-preparation.html">file preparation</a></li>
 <li>Upload files to storage (may be skipped, if data is cloud-optimized and in <code>us-west-2</code>)</li>
-<li>Create compliant metadata records for our STAC - see <a href="../../notebooks/veda-operations/stac-collection-creation.html">example</a> and <a href="../../contributing/dataset-ingestion/stac-collection-conventions.html">conventions</a> for STAC collections and <a href="../../notebooks/veda-operations/stac-item-creation.html">example</a> and <a href="../../contributing/dataset-ingestion/stac-item-conventions.html">conventions</a> for STAC items.</li>
 <li>Load those records into the VEDA STAC - see <a href="../../contributing/dataset-ingestion/catalog-ingestion.html">catalog ingestion</a></li>
 </ol>
+<p>For a walk through of the full process outlined above, please refer to this <a href="https://github.com/NASA-IMPACT/veda-data/blob/main/transformation-scripts/example-template/example-geoglam-ingest.ipynb">example notebook</a>. This notebook uses the <code>GEOGLAM June 2023</code> dataset as an example, but please use this as a guide for the ingestion process (and required dataset defintions), replacing the GEOGLAM dataset with your own.</p>
+<p>Stuck on how to develop compliant metadata records for your dataset? Checkout the following notebooks and resources to help provide you with the STAC metadata required to <a href="https://nasa-impact.github.io/veda-docs/contributing/dataset-ingestion/catalog-ingestion.html">create the dataset definitions needed for catalog ingestion</a>.<br>
+* How to create STAC Collections - see this <a href="../../notebooks/veda-operations/stac-collection-creation.html">example notebook</a> and related STAC <a href="../../contributing/dataset-ingestion/stac-collection-conventions.html">conventions</a> * How to create STAC Items - see this <a href="../../notebooks/veda-operations/stac-item-creation.html">example notebook</a> and <a href="../../contributing/dataset-ingestion/stac-item-conventions.html">conventions</a>s.</p>
 
 
 </section>
@@ -835,7 +837,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../../contributing/docs-and-notebooks.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Example Notebook Submission</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Usage Example Notebook Submission</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
