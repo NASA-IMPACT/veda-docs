@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="TiTiler has a method to calculate zonal statistics of gridded / raster data across an area of interest. This notebook is to validate that method for a dataset in geographic coordinates, the most common coordinate reference system for climate datasets (often NetCDF/Zarr, here transformed to cloud-optimized GeoTIFF).">
+<meta name="description" content="Validating the VEDA API for zonal statistics against a known geographical coordinates formula">
 
-<title>VEDA Documentation - Validation of TiTiler API for grid cell area-weighted zonal averages</title>
+<title>VEDA Documentation - Calculating accurate zonal statistics with varying grid cell / pixel area</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,6 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../notebooks/datasets/ocean-npp-timeseries-analysis.html" rel="next">
+<link href="../../notebooks/tutorials/stac_ipyleaflet.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -109,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Validation of TiTiler API for grid cell area-weighted zonal averages</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item"><a href="../../notebooks/tutorials/gif-generation.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../notebooks/tutorials/zonal-statistics-validation.html">Calculating accurate zonal statistics with varying grid cell / pixel area</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -285,13 +287,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
  <span class="menu-text">Tutorials</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notebooks/tutorials/gif-generation.html" class="sidebar-item-text sidebar-link">
@@ -314,6 +316,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../notebooks/tutorials/stac_ipyleaflet.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using the stac_ipyleaflet mapping library</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/tutorials/zonal-statistics-validation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Calculating accurate zonal statistics with varying grid cell / pixel area</span></a>
   </div>
 </li>
       </ul>
@@ -498,19 +506,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#compute-zonal-averages-using-titiler-api" id="toc-compute-zonal-averages-using-titiler-api" class="nav-link" data-scroll-target="#compute-zonal-averages-using-titiler-api">Compute zonal averages using TiTiler API</a></li>
   <li><a href="#compare-all-methods-against-the-xarray-computed-weighted-average" id="toc-compare-all-methods-against-the-xarray-computed-weighted-average" class="nav-link" data-scroll-target="#compare-all-methods-against-the-xarray-computed-weighted-average">Compare all methods against the xarray-computed weighted average</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/nasa-impact/veda-docs/blob/main/notebooks/tutorials/zonal-statistics-titiler-validation.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/nasa-impact/veda-docs/blob/main/notebooks/tutorials/zonal-statistics-validation.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Validation of TiTiler API for grid cell area-weighted zonal averages</h1>
+<h1 class="title">Calculating accurate zonal statistics with varying grid cell / pixel area</h1>
 </div>
 
 <div>
   <div class="description">
-    TiTiler has a method to calculate zonal statistics of gridded / raster data across an area of interest. This notebook is to validate that method for a dataset in geographic coordinates, the most common coordinate reference system for climate datasets (often NetCDF/Zarr, here transformed to cloud-optimized GeoTIFF).
+    Validating the VEDA API for zonal statistics against a known geographical coordinates formula
   </div>
 </div>
 
@@ -746,7 +754,7 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 <div class="cell" data-tags="[]" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df.plot(ylabel<span class="op">=</span><span class="ss">f"average </span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss">"</span>, title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="zonal-statistics-titiler-validation_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
+<p><img src="zonal-statistics-validation_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -757,7 +765,7 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Grid cell area (m²)"</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Latitude"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="zonal-statistics-titiler-validation_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
+<p><img src="zonal-statistics-validation_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -827,7 +835,7 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>df_all.plot(title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>, ax<span class="op">=</span>ax) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="zonal-statistics-titiler-validation_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
+<p><img src="zonal-statistics-validation_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="19">
@@ -846,7 +854,7 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 <span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"average calculated with different methods"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="zonal-statistics-titiler-validation_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
+<p><img src="zonal-statistics-validation_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="20">
@@ -870,7 +878,7 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 <span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>df_rmse <span class="op">=</span> df_rmse.set_index(<span class="st">"algorithm"</span>)</span>
 <span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>df_rmse.plot.barh(xlabel<span class="op">=</span><span class="st">"RMSE wrt average_weighted"</span>, title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="zonal-statistics-titiler-validation_files/figure-html/cell-22-output-1.png" class="img-fluid"></p>
+<p><img src="zonal-statistics-validation_files/figure-html/cell-22-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 
@@ -1226,6 +1234,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../notebooks/tutorials/stac_ipyleaflet.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Using the stac_ipyleaflet mapping library</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../notebooks/datasets/ocean-npp-timeseries-analysis.html" class="pagination-link">
+        <span class="nav-page-text">Visualizing Ocean NPP time series for seasonal patterns</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
