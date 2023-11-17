@@ -744,7 +744,7 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 <span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>        </span>
 <span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>        lat_vals <span class="op">=</span> xds.y.values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>100%|██████████| 15/15 [00:07&lt;00:00,  1.91it/s]</code></pre>
+<pre><code>100%|██████████| 15/15 [00:07&lt;00:00,  1.90it/s]</code></pre>
 </div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="10">
@@ -771,114 +771,118 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 </section>
 <section id="compute-zonal-averages-using-titiler-api" class="level2">
 <h2 class="anchored" data-anchor-id="compute-zonal-averages-using-titiler-api">Compute zonal averages using TiTiler API</h2>
+<p>We make use of the option on TiTiler to reproject the data subset to an equal-area projection (<a href="https://proj.org/en/9.3/operations/projections/cea.html">Equal Area Cylindrical</a>) before computing the statistics.</p>
 <div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_stats(item, geojson, asset_name, params<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> params <span class="kw">or</span> {}</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> requests.post(</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/cog/statistics"</span>,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        params<span class="op">=</span>{</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"url"</span>: item.assets[asset_name].href,</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>            <span class="op">**</span>params</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        json<span class="op">=</span>geojson,</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    result.raise_for_status()</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    result_data <span class="op">=</span> result.json()</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">**</span>result_data[<span class="st">"features"</span>][<span class="dv">0</span>][<span class="st">"properties"</span>][<span class="st">"statistics"</span>][<span class="st">"b1"</span>],</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"start_datetime"</span>: item.properties[<span class="st">"start_datetime"</span>],</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>WORKING_PROJECTION <span class="op">=</span> <span class="st">"+proj=cea"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>timeseries_titiler_noproj <span class="op">=</span> []</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>timeseries_titiler_proj <span class="op">=</span> []</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> tqdm.tqdm(items):</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate stats with and without reprojection</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    stats_noproj <span class="op">=</span> generate_stats(item, AOI, ASSET_NAME)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    stats_proj <span class="op">=</span> generate_stats(item, AOI, ASSET_NAME, params<span class="op">=</span>{<span class="st">"dst_crs"</span>: <span class="st">"+proj=cea"</span>})</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    timeseries_titiler_noproj.append(stats_noproj)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    timeseries_titiler_proj.append(stats_proj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>100%|██████████| 15/15 [00:06&lt;00:00,  2.16it/s]</code></pre>
-</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_stats(item, geojson, asset_name, params<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> params <span class="kw">or</span> {}</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> requests.post(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/cog/statistics"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        params<span class="op">=</span>{</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"url"</span>: item.assets[asset_name].href,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>            <span class="op">**</span>params</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        json<span class="op">=</span>geojson,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    result.raise_for_status()</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    result_data <span class="op">=</span> result.json()</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">**</span>result_data[<span class="st">"features"</span>][<span class="dv">0</span>][<span class="st">"properties"</span>][<span class="st">"statistics"</span>][<span class="st">"b1"</span>],</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"start_datetime"</span>: item.properties[<span class="st">"start_datetime"</span>],</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _to_dataframe(stats):</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame(stats)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df[[<span class="st">"start_datetime"</span>, <span class="st">"mean"</span>]]</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.set_index(<span class="st">"start_datetime"</span>)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    df.index <span class="op">=</span> pd.to_datetime(df.index)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>timeseries_titiler_noproj <span class="op">=</span> []</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>timeseries_titiler_proj <span class="op">=</span> []</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> tqdm.tqdm(items):</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate stats with and without reprojection</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    stats_noproj <span class="op">=</span> generate_stats(item, AOI, ASSET_NAME)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    stats_proj <span class="op">=</span> generate_stats(item, AOI, ASSET_NAME, params<span class="op">=</span>{<span class="st">"dst_crs"</span>: WORKING_PROJECTION})</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    timeseries_titiler_noproj.append(stats_noproj)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    timeseries_titiler_proj.append(stats_proj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>100%|██████████| 15/15 [00:15&lt;00:00,  1.04s/it]</code></pre>
+</div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df_titiler_proj <span class="op">=</span> _to_dataframe(timeseries_titiler_proj)[<span class="st">"mean"</span>]</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df_titiler_noproj <span class="op">=</span> _to_dataframe(timeseries_titiler_noproj)[<span class="st">"mean"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _to_dataframe(stats):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame(stats)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df[[<span class="st">"start_datetime"</span>, <span class="st">"mean"</span>]]</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.set_index(<span class="st">"start_datetime"</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    df.index <span class="op">=</span> pd.to_datetime(df.index)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df_titiler_proj <span class="op">=</span> _to_dataframe(timeseries_titiler_proj)[<span class="st">"mean"</span>]</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df_titiler_noproj <span class="op">=</span> _to_dataframe(timeseries_titiler_noproj)[<span class="st">"mean"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="compare-all-methods-against-the-xarray-computed-weighted-average" class="level2">
 <h2 class="anchored" data-anchor-id="compare-all-methods-against-the-xarray-computed-weighted-average">Compare all methods against the xarray-computed weighted average</h2>
-<div class="cell" data-tags="[]" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df_all <span class="op">=</span> df.copy()</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df_all[<span class="st">"average_titiler_noproj"</span>] <span class="op">=</span> df_titiler_noproj</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>df_all[<span class="st">"average_titiler_proj"</span>] <span class="op">=</span> df_titiler_proj</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div class="cell" data-tags="[]" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure()</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.gca()</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>ax.set_prop_cycle(</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    linestyle<span class="op">=</span>[<span class="st">'-'</span>, <span class="st">'--'</span>, <span class="st">'-.'</span>, <span class="st">':'</span>],</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span>[<span class="st">"#e41a1c"</span>, <span class="st">"#377eb8"</span>, <span class="st">"#4daf4a"</span>, <span class="st">"#984ea3"</span>],</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    marker<span class="op">=</span>[<span class="st">'.'</span>, <span class="st">'o'</span>, <span class="st">'x'</span>, <span class="st">'*'</span>]</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>df_all.plot(title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>, ax<span class="op">=</span>ax) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="zonal-statistics-validation_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
-</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df_all <span class="op">=</span> df.copy()</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>df_all[<span class="st">"average_titiler_noproj"</span>] <span class="op">=</span> df_titiler_noproj</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>df_all[<span class="st">"average_titiler_proj"</span>] <span class="op">=</span> df_titiler_proj</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure()</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.gca()</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>ax.plot(df_all[<span class="st">"average_weighted"</span>], df_all[<span class="st">"average_weighted"</span>], color<span class="op">=</span><span class="st">"grey"</span>)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key, style <span class="kw">in</span> {</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_titiler_proj"</span>: <span class="bu">dict</span>(c<span class="op">=</span><span class="st">"#e41a1c"</span>),</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_unweighted"</span>: <span class="bu">dict</span>(c<span class="op">=</span><span class="st">"#377eb8"</span>),</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_titiler_noproj"</span>: <span class="bu">dict</span>(c<span class="op">=</span><span class="st">"#984ea3"</span>, marker<span class="op">=</span><span class="st">"x"</span>, s<span class="op">=</span><span class="dv">100</span>)</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>}.items():</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    df_all.plot.scatter(<span class="st">"average_weighted"</span>, key, ax<span class="op">=</span>ax, label<span class="op">=</span>key, <span class="op">**</span>style)</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"average calculated with different methods"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>ax.set_prop_cycle(</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    linestyle<span class="op">=</span>[<span class="st">'-'</span>, <span class="st">'--'</span>, <span class="st">'-.'</span>, <span class="st">':'</span>],</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span>[<span class="st">"#e41a1c"</span>, <span class="st">"#377eb8"</span>, <span class="st">"#4daf4a"</span>, <span class="st">"#984ea3"</span>],</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    marker<span class="op">=</span>[<span class="st">'.'</span>, <span class="st">'o'</span>, <span class="st">'x'</span>, <span class="st">'*'</span>]</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>df_all.plot(title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>, ax<span class="op">=</span>ax) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="zonal-statistics-validation_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rmse(a, b):</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        np.mean(</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>            (a <span class="op">-</span> b) <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure()</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.gca()</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>ax.plot(df_all[<span class="st">"average_weighted"</span>], df_all[<span class="st">"average_weighted"</span>], color<span class="op">=</span><span class="st">"grey"</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key, style <span class="kw">in</span> {</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_titiler_proj"</span>: <span class="bu">dict</span>(c<span class="op">=</span><span class="st">"#e41a1c"</span>),</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_unweighted"</span>: <span class="bu">dict</span>(c<span class="op">=</span><span class="st">"#377eb8"</span>),</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_titiler_noproj"</span>: <span class="bu">dict</span>(c<span class="op">=</span><span class="st">"#984ea3"</span>, marker<span class="op">=</span><span class="st">"x"</span>, s<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>}.items():</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    df_all.plot.scatter(<span class="st">"average_weighted"</span>, key, ax<span class="op">=</span>ax, label<span class="op">=</span>key, <span class="op">**</span>style)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"average calculated with different methods"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="zonal-statistics-validation_files/figure-html/cell-21-output-1.png" class="img-fluid"></p>
+</div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>keys <span class="op">=</span> [<span class="st">"average_unweighted"</span>, <span class="st">"average_titiler_noproj"</span>, <span class="st">"average_titiler_proj"</span>]</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>df_rmse <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"algorithm"</span>: keys,</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"average"</span>: [rmse(df_all[key], df_all[<span class="st">"average_weighted"</span>]) <span class="cf">for</span> key <span class="kw">in</span> keys]</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    }    </span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>df_rmse <span class="op">=</span> df_rmse.set_index(<span class="st">"algorithm"</span>)</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>df_rmse.plot.barh(xlabel<span class="op">=</span><span class="st">"RMSE wrt average_weighted"</span>, title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rmse(a, b):</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        np.mean(</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>            (a <span class="op">-</span> b) <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>keys <span class="op">=</span> [<span class="st">"average_unweighted"</span>, <span class="st">"average_titiler_noproj"</span>, <span class="st">"average_titiler_proj"</span>]</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>df_rmse <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"algorithm"</span>: keys,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"average"</span>: [rmse(df_all[key], df_all[<span class="st">"average_weighted"</span>]) <span class="cf">for</span> key <span class="kw">in</span> keys]</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    }    </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>df_rmse <span class="op">=</span> df_rmse.set_index(<span class="st">"algorithm"</span>)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>df_rmse.plot.barh(xlabel<span class="op">=</span><span class="st">"RMSE wrt average_weighted"</span>, title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="zonal-statistics-validation_files/figure-html/cell-22-output-1.png" class="img-fluid"></p>
+<p><img src="zonal-statistics-validation_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 
