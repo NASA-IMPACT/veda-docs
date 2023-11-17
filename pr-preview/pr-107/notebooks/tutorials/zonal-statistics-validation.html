@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Validating the VEDA API for zonal statistics against a known geographical coordinates formula">
 
-<title>VEDA Documentation - Comparison of zonal statistics with / without grid-cell area weighting</title>
+<title>VEDA Documentation - Calculating accurate zonal statistics with varying grid cell / pixel area</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item"><a href="../../notebooks/tutorials/gif-generation.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../notebooks/tutorials/zonal-statistics-validation.html">Comparison of zonal statistics with / without grid-cell area weighting</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item"><a href="../../notebooks/tutorials/gif-generation.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../notebooks/tutorials/zonal-statistics-validation.html">Calculating accurate zonal statistics with varying grid cell / pixel area</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -320,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notebooks/tutorials/zonal-statistics-validation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Comparison of zonal statistics with / without grid-cell area weighting</span></a>
+ <span class="menu-text">Calculating accurate zonal statistics with varying grid cell / pixel area</span></a>
   </div>
 </li>
       </ul>
@@ -487,16 +488,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#load-dataset-from-ghgc-stac-catalog" id="toc-load-dataset-from-ghgc-stac-catalog" class="nav-link active" data-scroll-target="#load-dataset-from-ghgc-stac-catalog">Load dataset from GHGC STAC catalog</a></li>
-  <li><a href="#inspect-the-first-item" id="toc-inspect-the-first-item" class="nav-link" data-scroll-target="#inspect-the-first-item">Inspect the first item</a></li>
-  <li><a href="#save-a-netcdf-copy-of-the-item" id="toc-save-a-netcdf-copy-of-the-item" class="nav-link" data-scroll-target="#save-a-netcdf-copy-of-the-item">Save a NetCDF copy of the item</a></li>
-  <li><a href="#load-cdo-to-compute-grid-area" id="toc-load-cdo-to-compute-grid-area" class="nav-link" data-scroll-target="#load-cdo-to-compute-grid-area">Load CDO to compute grid area</a></li>
-  <li><a href="#compute-area-with-spherical-coordinate-formula" id="toc-compute-area-with-spherical-coordinate-formula" class="nav-link" data-scroll-target="#compute-area-with-spherical-coordinate-formula">Compute area with spherical coordinate formula</a></li>
+  <li><a href="#run-this-notebook" id="toc-run-this-notebook" class="nav-link active" data-scroll-target="#run-this-notebook">Run this notebook</a>
+  <ul class="collapse">
+  <li><a href="#inside-the-hub" id="toc-inside-the-hub" class="nav-link" data-scroll-target="#inside-the-hub">Inside the Hub</a></li>
+  <li><a href="#outside-the-hub" id="toc-outside-the-hub" class="nav-link" data-scroll-target="#outside-the-hub">Outside the Hub</a></li>
+  </ul></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a>
+  <ul class="collapse">
+  <li><a href="#motivation" id="toc-motivation" class="nav-link" data-scroll-target="#motivation">Motivation</a></li>
+  <li><a href="#in-this-notebook" id="toc-in-this-notebook" class="nav-link" data-scroll-target="#in-this-notebook">In this notebook</a></li>
+  </ul></li>
+  <li><a href="#load-and-inspect-dataset-from-ghgc-stac-catalog" id="toc-load-and-inspect-dataset-from-ghgc-stac-catalog" class="nav-link" data-scroll-target="#load-and-inspect-dataset-from-ghgc-stac-catalog">Load and inspect dataset from GHGC STAC catalog</a></li>
+  <li><a href="#define-formula-for-grid-cell-area-for-geographic-coordinates" id="toc-define-formula-for-grid-cell-area-for-geographic-coordinates" class="nav-link" data-scroll-target="#define-formula-for-grid-cell-area-for-geographic-coordinates">Define formula for grid cell area for geographic coordinates</a></li>
+  <li><a href="#define-a-geometry-to-average-over" id="toc-define-a-geometry-to-average-over" class="nav-link" data-scroll-target="#define-a-geometry-to-average-over">Define a geometry to average over</a></li>
   <li><a href="#compute-averages-with-xarray" id="toc-compute-averages-with-xarray" class="nav-link" data-scroll-target="#compute-averages-with-xarray">Compute averages with Xarray</a></li>
-  <li><a href="#compute-averages-using-titiler" id="toc-compute-averages-using-titiler" class="nav-link" data-scroll-target="#compute-averages-using-titiler">Compute averages using TiTiler</a></li>
-  <li><a href="#rio-tiler-with-reprojection-to-equal-area-projection" id="toc-rio-tiler-with-reprojection-to-equal-area-projection" class="nav-link" data-scroll-target="#rio-tiler-with-reprojection-to-equal-area-projection">Rio Tiler with reprojection to equal-area projection</a></li>
-  <li><a href="#rasterio-warpedvrt-and-mask.mask" id="toc-rasterio-warpedvrt-and-mask.mask" class="nav-link" data-scroll-target="#rasterio-warpedvrt-and-mask.mask">Rasterio WarpedVRT and mask.mask</a></li>
-  <li><a href="#compare-all-methods-together" id="toc-compare-all-methods-together" class="nav-link" data-scroll-target="#compare-all-methods-together">Compare all methods together</a></li>
+  <li><a href="#plot-grid-cell-area-as-a-function-of-latitude" id="toc-plot-grid-cell-area-as-a-function-of-latitude" class="nav-link" data-scroll-target="#plot-grid-cell-area-as-a-function-of-latitude">Plot grid cell area as a function of latitude</a></li>
+  <li><a href="#compute-zonal-averages-using-titiler-api" id="toc-compute-zonal-averages-using-titiler-api" class="nav-link" data-scroll-target="#compute-zonal-averages-using-titiler-api">Compute zonal averages using TiTiler API</a></li>
+  <li><a href="#compare-all-methods-against-the-xarray-computed-weighted-average" id="toc-compare-all-methods-against-the-xarray-computed-weighted-average" class="nav-link" data-scroll-target="#compare-all-methods-against-the-xarray-computed-weighted-average">Compare all methods against the xarray-computed weighted average</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/nasa-impact/veda-docs/blob/main/notebooks/tutorials/zonal-statistics-validation.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -505,13 +513,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Comparison of zonal statistics with / without grid-cell area weighting</h1>
+<h1 class="title">Calculating accurate zonal statistics with varying grid cell / pixel area</h1>
 </div>
 
+<div>
+  <div class="description">
+    Validating the VEDA API for zonal statistics against a known geographical coordinates formula
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jonas Sølvsteen </p>
+          </div>
+  </div>
     
   
     
@@ -520,8 +539,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<section id="run-this-notebook" class="level2">
+<h2 class="anchored" data-anchor-id="run-this-notebook">Run this notebook</h2>
+<p>You can launch this notebook in VEDA JupyterHub by clicking the link below.</p>
+<p><a href="https://nasa-veda.2i2c.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&amp;urlpath=lab/tree/veda-docs/notebooks/tutorials/zonal-statistics-titiler-validation.ipynb&amp;branch=main">Launch in VEDA JupyterHub (requires access)</a></p>
+<details>
+<summary>
+Learn more
+</summary>
+<section id="inside-the-hub" class="level3">
+<h3 class="anchored" data-anchor-id="inside-the-hub">Inside the Hub</h3>
+<p>This notebook was written on the VEDA JupyterHub and as such is designed to be run on a jupyterhub which is associated with an AWS IAM role which has been granted permissions to the VEDA data store via its bucket policy. The instance used provided 16GB of RAM.</p>
+<p>See (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.</p>
+</section>
+<section id="outside-the-hub" class="level3">
+<h3 class="anchored" data-anchor-id="outside-the-hub">Outside the Hub</h3>
+<p>The data is in a protected bucket. Please request access by emailng aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN). The team will help you configure the cognito client.</p>
+<p>You should then run:</p>
+<pre><code>%run -i 'cognito_login.py'</code></pre>
+</section></details>
+</section>
+
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">Approach</h2>
+<section id="motivation" class="level3">
+<h3 class="anchored" data-anchor-id="motivation">Motivation</h3>
+<p>The VEDA backend (via TiTiler) provides an API endpoint for computing zonal statistics (average, standard deviation, and other metrics over a geographic subset) across gridded (raster) data such as satellite imagery or climate datasets.</p>
+<p>Some statistics, such as average, median, standard deviation, or percentiles are sensitive to differences in grid cell / pixel sizes: when some grid cells are (in metric units) have a larger area than others, the values in these cells will be under-represented. Grid cell sizes depends on the grid / projection of the data.</p>
+<p>Varying grid cell sizes is common for climate datasets that are stored on a grid in geographic coordinates (lat/lon), for example a 0.1 degree by 0.1 degree global grid. Here, grid cell size will decrease from low to high latitudes. Computing averages over large spans of latitude will result in statistics where values closer to the poles are strongly over-represented.</p>
+<p>To avoid this inaccuracy in zonal statistics computed with our API, we introduced a method to reproject the source data to an equal-area projection as an intermediate step in calculating statistics.</p>
+<p>Note: this reprojection is not needed for example for accurate zonal statistics on a Sentinel-2 scene, using the Military Grid Reference System (MGRS) and a Mercator (UTM) projection. Here, pixel areas are the same across the scene in the native projection.</p>
+</section>
+<section id="in-this-notebook" class="level3">
+<h3 class="anchored" data-anchor-id="in-this-notebook">In this notebook</h3>
+<p>This notebook presents a validation of VEDA’s API for zonal statistics against a known way to compute area-weighted averages for gridded datasets on a regular lat/lon grid.</p>
+<p>For illustration, we choose a real dataset from the VEDA data catalog and a subsetting area that spans a large latitude range.</p>
+<p>The figures below show the average calculated over that area of interest with the different methods, for comparison.</p>
 <div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install pystac_client</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>pip install pystac_client</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Requirement already satisfied: pystac_client in /srv/conda/envs/notebook/lib/python3.10/site-packages (0.7.2)
 Requirement already satisfied: requests&gt;=2.28.2 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pystac_client) (2.31.0)
@@ -539,578 +594,292 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tqdm</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rioxarray</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<section id="load-dataset-from-ghgc-stac-catalog" class="level2">
-<h2 class="anchored" data-anchor-id="load-dataset-from-ghgc-stac-catalog">Load dataset from GHGC STAC catalog</h2>
-<div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"http://ghg.center/api/stac"</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://ghg.center/api/raster"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>COLLECTION_ID <span class="op">=</span> <span class="st">"casagfed-carbonflux-monthgrid-v3"</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>ASSET_NAME <span class="op">=</span> <span class="st">"npp"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li>https://ghg-demo.netlify.app/data-catalog/casagfed-carbonflux-monthgrid-v3/explore?projection=equirectangular%7C%7C&amp;basemapid=light&amp;datetime=2017-12-01T00%3A00%3A00.000Z&amp;position=19.6041%7C-2.2691%7C4.67</li>
-<li>https://us-ghg-center.github.io/ghgc-docs/user_data_notebooks/casagfed-carbonflux-monthgrid-v3_User_Notebook.html</li>
-</ul>
-<div class="cell" data-tags="[]" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>catalog <span class="op">=</span> Client.<span class="bu">open</span>(STAC_API_URL)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> catalog.get_collection(COLLECTION_ID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tqdm</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio.crs</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rioxarray</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="inspect-the-first-item" class="level2">
-<h2 class="anchored" data-anchor-id="inspect-the-first-item">Inspect the first item</h2>
-<div class="cell" data-tags="[]" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> <span class="bu">next</span>(<span class="bu">iter</span>(collection.get_all_items()))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>item_uri <span class="op">=</span> item.assets[ASSET_NAME].href</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="load-and-inspect-dataset-from-ghgc-stac-catalog" class="level2">
+<h2 class="anchored" data-anchor-id="load-and-inspect-dataset-from-ghgc-stac-catalog">Load and inspect dataset from GHGC STAC catalog</h2>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"http://ghg.center/api/stac"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://ghg.center/api/raster"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>COLLECTION_ID <span class="op">=</span> <span class="st">"casagfed-carbonflux-monthgrid-v3"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ASSET_NAME <span class="op">=</span> <span class="st">"npp"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>catalog <span class="op">=</span> Client.<span class="bu">open</span>(STAC_API_URL)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> catalog.get_collection(COLLECTION_ID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(collection.get_all_items())[:<span class="dv">15</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rasterio.<span class="bu">open</span>(item_uri) <span class="im">as</span> ds:</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ds.profile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rasterio.<span class="bu">open</span>(items[<span class="dv">0</span>].assets[ASSET_NAME].href) <span class="im">as</span> ds:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ds.profile)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> ds.crs <span class="op">==</span> rasterio.crs.CRS.from_epsg(<span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'driver': 'GTiff', 'dtype': 'float32', 'nodata': None, 'width': 720, 'height': 360, 'count': 1, 'crs': CRS.from_epsg(4326), 'transform': Affine(0.5, 0.0, -180.0,
        0.0, -0.5, 90.0), 'blockxsize': 512, 'blockysize': 512, 'tiled': True, 'compress': 'lzw', 'interleave': 'band'}</code></pre>
 </div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> xr.open_dataset(item_uri, engine<span class="op">=</span><span class="st">"rasterio"</span>) <span class="im">as</span> xds:</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(xds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;xarray.Dataset&gt;
-Dimensions:      (band: 1, x: 720, y: 360)
-Coordinates:
-  * band         (band) int64 1
-  * x            (x) float64 -179.8 -179.2 -178.8 -178.2 ... 178.8 179.2 179.8
-  * y            (y) float64 89.75 89.25 88.75 88.25 ... -88.75 -89.25 -89.75
-    spatial_ref  int64 ...
-Data variables:
-    band_data    (band, y, x) float32 ...</code></pre>
-</div>
+</section>
+<section id="define-formula-for-grid-cell-area-for-geographic-coordinates" class="level2">
+<h2 class="anchored" data-anchor-id="define-formula-for-grid-cell-area-for-geographic-coordinates">Define formula for grid cell area for geographic coordinates</h2>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _get_unique_diff(arr):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> np.ndim(arr) <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    deltas <span class="op">=</span> np.diff(arr)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> np.allclose(deltas, deltas[<span class="dv">0</span>]):    </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"The spacing in the array is not uniform: </span><span class="sc">{</span><span class="bu">list</span>(np.unique(deltas))<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> deltas[<span class="dv">0</span>]</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> grid_cell_area(lat):</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">    https://www.mathworks.com/matlabcentral/answers/447847-how-to-calculate-the-area-of-each-grid-cell</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">    https://gis.stackexchange.com/a/28156</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get lat spacing asserting it is uniform</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    dlat <span class="op">=</span> _get_unique_diff(lat)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate cell edge lat</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    lat_edge <span class="op">=</span> lat <span class="op">-</span> dlat <span class="op">/</span> <span class="fl">2.</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># radius of Earth in meters</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    R_e <span class="op">=</span> <span class="fl">6371e3</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate cell area as a function of latitude</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> R_e <span class="op">**</span> <span class="dv">2</span> <span class="op">*</span> (np.sin(np.radians(lat_edge <span class="op">+</span> dlat)) <span class="op">-</span> np.sin(np.radians(lat_edge))) <span class="op">*</span> np.radians(dlat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="save-a-netcdf-copy-of-the-item" class="level2">
-<h2 class="anchored" data-anchor-id="save-a-netcdf-copy-of-the-item">Save a NetCDF copy of the item</h2>
+<section id="define-a-geometry-to-average-over" class="level2">
+<h2 class="anchored" data-anchor-id="define-a-geometry-to-average-over">Define a geometry to average over</h2>
 <div class="cell" data-tags="[]" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> xr.open_dataset(item_uri, engine<span class="op">=</span><span class="st">"rasterio"</span>).rename({<span class="st">"x"</span>: <span class="st">"lon"</span>, <span class="st">"y"</span>: <span class="st">"lat"</span>}) <span class="im">as</span> xds:</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    xds[<span class="st">"lon"</span>].attrs.update({<span class="st">"long_name"</span>: <span class="st">"longitude"</span>, <span class="st">"units"</span>: <span class="st">"degrees_east"</span>})</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    xds[<span class="st">"lat"</span>].attrs.update({<span class="st">"long_name"</span>: <span class="st">"latitude"</span>, <span class="st">"units"</span>: <span class="st">"degrees_north"</span>})</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> xds[<span class="st">"lat"</span>].values[<span class="dv">0</span>] <span class="op">&gt;</span> xds[<span class="st">"lat"</span>].values[<span class="op">-</span><span class="dv">1</span>]:</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        xds <span class="op">=</span> xds.isel(lat<span class="op">=</span><span class="bu">slice</span>(<span class="va">None</span>, <span class="va">None</span>, <span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    xds.to_netcdf(<span class="st">"sample.nc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>AOI_NAME <span class="op">=</span> <span class="st">"Americas south to north"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>AOI <span class="op">=</span> {</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"type"</span>: <span class="st">"FeatureCollection"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"features"</span>: [</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"type"</span>: <span class="st">"Feature"</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"properties"</span>: {},</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"geometry"</span>: {</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"coordinates"</span>: [</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>          [</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>            [</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="dv">115</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>              <span class="dv">82</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>            ],</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>            [</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="dv">115</span>,</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="dv">82</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>            ],</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>            [</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="dv">43</span>,</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="dv">82</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>            ],</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>            [</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="dv">43</span>,</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>              <span class="dv">82</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>            ],</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>            [</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="dv">115</span>,</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>              <span class="dv">82</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>          ]</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>        ],</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"type"</span>: <span class="st">"Polygon"</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="load-cdo-to-compute-grid-area" class="level2">
-<h2 class="anchored" data-anchor-id="load-cdo-to-compute-grid-area">Load CDO to compute grid area</h2>
-<pre><code>conda install -n notebook -c conda-forge cdo
-cdo gridarea infile outfile</code></pre>
-<p>https://code.mpimet.mpg.de/boards/1/topics/6998</p>
-<p>Btw, the code is here: https://github.com/AZed/cdo/blob/214cb1461beba2dba9848e393427d34f403caec4/src/Gridcell.c#L138</p>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!conda install -n notebook -c conda-forge cdo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="compute-averages-with-xarray" class="level2">
+<h2 class="anchored" data-anchor-id="compute-averages-with-xarray">Compute averages with Xarray</h2>
+<div class="cell" data-tags="[]" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>timeseries <span class="op">=</span> {</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"start_datetime"</span>: [],</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_weighted"</span>: [],</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_unweighted"</span>: []</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> tqdm.tqdm(items):</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    item_uri <span class="op">=</span> item.assets[ASSET_NAME].href</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> xr.open_dataset(item_uri, engine<span class="op">=</span><span class="st">"rasterio"</span>) <span class="im">as</span> xds:</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># calculate area as a function of latitude</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        area_lat <span class="op">=</span> grid_cell_area(xds.y.values)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        area_lat_2d <span class="op">=</span> np.ones((<span class="bu">len</span>(xds.y), <span class="bu">len</span>(xds.x))) <span class="op">*</span> area_lat[:, np.newaxis]</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        xds[<span class="st">"area"</span>] <span class="op">=</span> xr.DataArray(area_lat_2d, dims<span class="op">=</span>(<span class="st">"y"</span>, <span class="st">"x"</span>))</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># clip to geometry</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        xds_clip <span class="op">=</span> xds.rio.clip([AOI[<span class="st">"features"</span>][<span class="dv">0</span>][<span class="st">"geometry"</span>]])</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># get data arrays</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> xds_clip[<span class="st">"band_data"</span>].isel(band<span class="op">=</span><span class="dv">0</span>).to_masked_array()</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>        weights <span class="op">=</span> xds_clip[<span class="st">"area"</span>].to_masked_array()</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        weights.mask <span class="op">=</span> data.mask</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># calculate averages</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>        average_weighted <span class="op">=</span> (data <span class="op">*</span> weights).<span class="bu">sum</span>() <span class="op">/</span> weights.<span class="bu">sum</span>()</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>        average_unweighted <span class="op">=</span> data.mean()</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>        timeseries[<span class="st">"average_weighted"</span>].append(average_weighted)</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>        timeseries[<span class="st">"average_unweighted"</span>].append(average_unweighted)</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>        timeseries[<span class="st">"start_datetime"</span>].append(item.properties[<span class="st">"start_datetime"</span>])</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>        lat_vals <span class="op">=</span> xds.y.values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>100%|██████████| 15/15 [00:07&lt;00:00,  1.91it/s]</code></pre>
+</div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!cdo gridarea "sample.nc" "area.nc"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(timeseries).set_index(<span class="st">"start_datetime"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df.index <span class="op">=</span> pd.to_datetime(df.index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> xr.open_dataset(<span class="st">"area.nc"</span>) <span class="im">as</span> ds:</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    area_cdo <span class="op">=</span> ds[<span class="st">"cell_area"</span>].values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df.plot(ylabel<span class="op">=</span><span class="ss">f"average </span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss">"</span>, title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="zonal-statistics-validation_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
+</div>
 </div>
 </section>
-<section id="compute-area-with-spherical-coordinate-formula" class="level2">
-<h2 class="anchored" data-anchor-id="compute-area-with-spherical-coordinate-formula">Compute area with spherical coordinate formula</h2>
-<div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _get_unique_diff(arr):</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> np.ndim(arr) <span class="op">==</span> <span class="dv">1</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    deltas <span class="op">=</span> np.unique(np.diff(arr))</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> <span class="bu">len</span>(deltas) <span class="op">==</span> <span class="dv">1</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> deltas[<span class="dv">0</span>]</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> spherical_grid_cell_area(lat):</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">    https://www.mathworks.com/matlabcentral/answers/447847-how-to-calculate-the-area-of-each-grid-cell</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">    https://gis.stackexchange.com/a/28156</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    dlat <span class="op">=</span> _get_unique_diff(lat)</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> dlat <span class="op">&gt;</span> <span class="dv">0</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    lat_south <span class="op">=</span> lat <span class="op">-</span> dlat <span class="op">/</span> <span class="fl">2.</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    R_e <span class="op">=</span> <span class="fl">6371e3</span> <span class="co"># Radius of Earth in meters</span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    area_lat <span class="op">=</span> R_e <span class="op">**</span> <span class="dv">2</span> <span class="op">*</span> (np.sin(np.radians(lat_south <span class="op">+</span> dlat)) <span class="op">-</span> np.sin(np.radians(lat_south))) <span class="op">*</span> np.radians(dlat)</span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> area_lat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="plot-grid-cell-area-as-a-function-of-latitude" class="level2">
+<h2 class="anchored" data-anchor-id="plot-grid-cell-area-as-a-function-of-latitude">Plot grid cell area as a function of latitude</h2>
+<div class="cell" data-tags="[]" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plt.plot(lat_vals, area_lat_2d[:, <span class="dv">0</span>])</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Grid cell area (m²)"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Latitude"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="zonal-statistics-validation_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>area_lat <span class="op">=</span> spherical_grid_cell_area(xds.lat.values)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>area_lat_2d <span class="op">=</span> np.ones((<span class="bu">len</span>(xds.lat), <span class="bu">len</span>(xds.lon))) <span class="op">*</span> area_lat[:, np.newaxis]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="compute-zonal-averages-using-titiler-api" class="level2">
+<h2 class="anchored" data-anchor-id="compute-zonal-averages-using-titiler-api">Compute zonal averages using TiTiler API</h2>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_stats(item, geojson, asset_name, params<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> params <span class="kw">or</span> {}</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> requests.post(</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/cog/statistics"</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        params<span class="op">=</span>{</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"url"</span>: item.assets[asset_name].href,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>            <span class="op">**</span>params</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        json<span class="op">=</span>geojson,</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    result.raise_for_status()</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    result_data <span class="op">=</span> result.json()</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">**</span>result_data[<span class="st">"features"</span>][<span class="dv">0</span>][<span class="st">"properties"</span>][<span class="st">"statistics"</span>][<span class="st">"b1"</span>],</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"start_datetime"</span>: item.properties[<span class="st">"start_datetime"</span>],</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_coord_specs(arr):</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> np.ndim(arr) <span class="op">==</span> <span class="dv">1</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    delta <span class="op">=</span> _get_unique_diff(arr)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ((arr[<span class="dv">0</span>] <span class="op">-</span> delta <span class="op">/</span> <span class="dv">2</span>), (arr[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> delta <span class="op">/</span> <span class="dv">2</span>), <span class="bu">len</span>(arr))</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> surfaceAreaGrid(lat_specs, lon_specs):</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Construct a 2D array (nlat, nlon) where each element is the surface area of the corresponding grid in square meters.</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">    lat_specs is a tuple, (starting latitude, ending latitude, latitude divisions)</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co">    lon_specs is a tuple, (starting longitude, ending longitude, longitude divisions)</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co">    Example: surfaceAreaGrid((-30,60,45), (20,80,120)) should return a (45,120) array with the surface areas of the</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co">    (2 degree lat x 0.5 degree lon) cells in square meters.</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    lat_beg, lat_end, lat_div <span class="op">=</span> lat_specs</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    lon_beg, lon_end, lon_div <span class="op">=</span> lon_specs</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    R_e <span class="op">=</span> <span class="fl">6371000.0</span> <span class="co"># Radius of Earth in meters</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    dLon <span class="op">=</span> (np.pi <span class="op">/</span> <span class="fl">180.</span>) <span class="op">*</span> (lon_end <span class="op">-</span> lon_beg) <span class="op">/</span> lon_div</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    dS <span class="op">=</span> np.zeros((lat_div<span class="op">+</span><span class="dv">1</span>, lon_div), np.float64)</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    Lats <span class="op">=</span> (np.pi <span class="op">/</span> <span class="fl">180.</span>) <span class="op">*</span> np.linspace(lat_beg, lat_end, lat_div<span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, lat <span class="kw">in</span> <span class="bu">enumerate</span>(Lats):</span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>        dS[i] <span class="op">=</span> R_e <span class="op">*</span> R_e <span class="op">*</span> dLon <span class="op">*</span> np.sin(lat)</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>    dS <span class="op">=</span> np.diff(dS, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dS</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>timeseries_titiler_noproj <span class="op">=</span> []</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>timeseries_titiler_proj <span class="op">=</span> []</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> tqdm.tqdm(items):</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate stats with and without reprojection</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    stats_noproj <span class="op">=</span> generate_stats(item, AOI, ASSET_NAME)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    stats_proj <span class="op">=</span> generate_stats(item, AOI, ASSET_NAME, params<span class="op">=</span>{<span class="st">"dst_crs"</span>: <span class="st">"+proj=cea"</span>})</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    timeseries_titiler_noproj.append(stats_noproj)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    timeseries_titiler_proj.append(stats_proj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>100%|██████████| 15/15 [00:06&lt;00:00,  2.16it/s]</code></pre>
+</div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>lat_specs <span class="op">=</span> get_coord_specs(xds.lat.values)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>lon_specs <span class="op">=</span> get_coord_specs(xds.lon.values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _to_dataframe(stats):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame(stats)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df[[<span class="st">"start_datetime"</span>, <span class="st">"mean"</span>]]</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.set_index(<span class="st">"start_datetime"</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    df.index <span class="op">=</span> pd.to_datetime(df.index)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>lon_beg, lon_end, lon_div <span class="op">=</span> lon_specs</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((lon_end <span class="op">-</span> lon_beg) <span class="op">/</span> lon_div)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>0.5</code></pre>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df_titiler_proj <span class="op">=</span> _to_dataframe(timeseries_titiler_proj)[<span class="st">"mean"</span>]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df_titiler_noproj <span class="op">=</span> _to_dataframe(timeseries_titiler_noproj)[<span class="st">"mean"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
+</section>
+<section id="compare-all-methods-against-the-xarray-computed-weighted-average" class="level2">
+<h2 class="anchored" data-anchor-id="compare-all-methods-against-the-xarray-computed-weighted-average">Compare all methods against the xarray-computed weighted average</h2>
 <div class="cell" data-tags="[]" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>area_sourish <span class="op">=</span> surfaceAreaGrid(lat_specs, lon_specs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df_all <span class="op">=</span> df.copy()</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df_all[<span class="st">"average_titiler_noproj"</span>] <span class="op">=</span> df_titiler_noproj</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>df_all[<span class="st">"average_titiler_proj"</span>] <span class="op">=</span> df_titiler_proj</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>lat <span class="op">=</span> xds.lat.values</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>plt.plot(lat, area_lat_2d[:, <span class="dv">0</span>], <span class="st">"x"</span>, label<span class="op">=</span><span class="st">"Spherical coords"</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>plt.plot(lat, area_sourish[:, <span class="dv">0</span>], <span class="st">".-"</span>, label<span class="op">=</span><span class="st">"Sourish's subroutine"</span>)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>plt.plot(lat, area_cdo[:, <span class="dv">0</span>], <span class="st">"--"</span>, label<span class="op">=</span><span class="st">"CDO"</span>)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Grid cell area (m²)"</span>)</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Latitude"</span>)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>plt.legend() <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure()</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.gca()</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>ax.set_prop_cycle(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    linestyle<span class="op">=</span>[<span class="st">'-'</span>, <span class="st">'--'</span>, <span class="st">'-.'</span>, <span class="st">':'</span>],</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span>[<span class="st">"#e41a1c"</span>, <span class="st">"#377eb8"</span>, <span class="st">"#4daf4a"</span>, <span class="st">"#984ea3"</span>],</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    marker<span class="op">=</span>[<span class="st">'.'</span>, <span class="st">'o'</span>, <span class="st">'x'</span>, <span class="st">'*'</span>]</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>df_all.plot(title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>, ax<span class="op">=</span>ax) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="zonal-statistics-validation_files/figure-html/cell-19-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell" data-tags="[]" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>AOI_NAME <span class="op">=</span> <span class="st">"Democratic Republic of Congo (bbox)"</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>AOI <span class="op">=</span> {</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"type"</span>: <span class="st">"FeatureCollection"</span>,</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"features"</span>: [</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"type"</span>: <span class="st">"Feature"</span>,</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"properties"</span>: {},</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"geometry"</span>: {</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"coordinates"</span>: [</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>          [</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>              <span class="fl">12.2105</span>,</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="fl">13.4584</span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>            ],</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>              <span class="fl">31.2804</span>,</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="fl">13.4584</span></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>            ],</span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>              <span class="fl">31.2804</span>,</span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>              <span class="fl">5.3753</span></span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>            ],</span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>              <span class="fl">12.2105</span>,</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>              <span class="fl">5.3753</span></span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>            ],</span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>              <span class="fl">12.2105</span>,</span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="fl">13.4584</span></span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>            ]</span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>          ]</span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>        ],</span>
-<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"type"</span>: <span class="st">"Polygon"</span></span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>AOI_NAME <span class="op">=</span> <span class="st">"the whole globe"</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>AOI <span class="op">=</span> {</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"type"</span>: <span class="st">"FeatureCollection"</span>,</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"features"</span>: [</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"type"</span>: <span class="st">"Feature"</span>,</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"properties"</span>: {},</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"geometry"</span>: {</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"coordinates"</span>: [</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>          [</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="dv">180</span>,</span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="dv">89</span></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>            ],</span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>              <span class="dv">180</span>,</span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="dv">89</span></span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>            ],</span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>              <span class="dv">180</span>,</span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>              <span class="dv">89</span></span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>            ],</span>
-<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="dv">180</span>,</span>
-<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>              <span class="dv">89</span></span>
-<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>            ],</span>
-<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>            [</span>
-<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="dv">180</span>,</span>
-<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>              <span class="op">-</span><span class="dv">89</span></span>
-<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>            ]</span>
-<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>          ]</span>
-<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>        ],</span>
-<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"type"</span>: <span class="st">"Polygon"</span></span>
-<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a>  ]</span>
-<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>LIMIT_ITEMS <span class="op">=</span> <span class="dv">15</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="compute-averages-with-xarray" class="level2">
-<h2 class="anchored" data-anchor-id="compute-averages-with-xarray">Compute averages with Xarray</h2>
-<div class="cell" data-tags="[]" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>area_northup <span class="op">=</span> area_cdo[::<span class="op">-</span><span class="dv">1</span>, :]</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>timeseries <span class="op">=</span> {</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"start_datetime"</span>: [],</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_weighted"</span>: [],</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_simple"</span>: []</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, item <span class="kw">in</span> <span class="bu">enumerate</span>(tqdm.tqdm(collection.get_all_items())):</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    item_uri <span class="op">=</span> item.assets[ASSET_NAME].href</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> xr.open_dataset(item_uri, engine<span class="op">=</span><span class="st">"rasterio"</span>) <span class="im">as</span> xds:</span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>        xds[<span class="st">"area"</span>] <span class="op">=</span> xr.DataArray(area_northup, dims<span class="op">=</span>(<span class="st">"y"</span>, <span class="st">"x"</span>))</span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>        xds_clip <span class="op">=</span> xds.rio.clip([AOI[<span class="st">"features"</span>][<span class="dv">0</span>][<span class="st">"geometry"</span>]])</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> xds_clip[<span class="st">"band_data"</span>].isel(band<span class="op">=</span><span class="dv">0</span>).to_masked_array()</span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>        weights <span class="op">=</span> xds_clip[<span class="st">"area"</span>].to_masked_array()</span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>        weights.mask <span class="op">=</span> data.mask</span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>        timeseries[<span class="st">"average_weighted"</span>].append((data <span class="op">*</span> weights).<span class="bu">sum</span>() <span class="op">/</span> weights.<span class="bu">sum</span>())</span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>        timeseries[<span class="st">"average_simple"</span>].append(data.mean())</span>
-<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>        timeseries[<span class="st">"start_datetime"</span>].append(item.properties[<span class="st">"start_datetime"</span>])</span>
-<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&gt;=</span> LIMIT_ITEMS:</span>
-<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>15it [00:06,  2.47it/s]</code></pre>
-</div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="47">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(timeseries).set_index(<span class="st">"start_datetime"</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>df.index <span class="op">=</span> pd.to_datetime(df.index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df.plot(title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure()</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.gca()</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>ax.plot(df_all[<span class="st">"average_weighted"</span>], df_all[<span class="st">"average_weighted"</span>], color<span class="op">=</span><span class="st">"grey"</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key, style <span class="kw">in</span> {</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_titiler_proj"</span>: <span class="bu">dict</span>(c<span class="op">=</span><span class="st">"#e41a1c"</span>),</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_unweighted"</span>: <span class="bu">dict</span>(c<span class="op">=</span><span class="st">"#377eb8"</span>),</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_titiler_noproj"</span>: <span class="bu">dict</span>(c<span class="op">=</span><span class="st">"#984ea3"</span>, marker<span class="op">=</span><span class="st">"x"</span>, s<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>}.items():</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    df_all.plot.scatter(<span class="st">"average_weighted"</span>, key, ax<span class="op">=</span>ax, label<span class="op">=</span>key, <span class="op">**</span>style)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"average calculated with different methods"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="zonal-statistics-validation_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
+<p><img src="zonal-statistics-validation_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-</section>
-<section id="compute-averages-using-titiler" class="level2">
-<h2 class="anchored" data-anchor-id="compute-averages-using-titiler">Compute averages using TiTiler</h2>
-<div class="cell" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_stats(item, geojson, asset_name):</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> requests.post(</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/cog/statistics"</span>,</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        params<span class="op">=</span>{<span class="st">"url"</span>: item.assets[asset_name].href},</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        json<span class="op">=</span>geojson,</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    result.raise_for_status()</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    result_data <span class="op">=</span> result.json()</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">**</span>result_data[<span class="st">"features"</span>][<span class="dv">0</span>][<span class="st">"properties"</span>][<span class="st">"statistics"</span>][<span class="st">"b1"</span>],</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"start_datetime"</span>: item.properties[<span class="st">"start_datetime"</span>],</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rmse(a, b):</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        np.mean(</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>            (a <span class="op">-</span> b) <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>timeseries_titiler <span class="op">=</span> []</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, item <span class="kw">in</span> <span class="bu">enumerate</span>(tqdm.tqdm(collection.get_all_items())):</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    timeseries_titiler.append(</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>        generate_stats(item, AOI, ASSET_NAME)</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&gt;=</span> LIMIT_ITEMS:</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>15it [00:03,  3.79it/s]</code></pre>
-</div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df_ti <span class="op">=</span> pd.DataFrame(timeseries_titiler)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>df_ti <span class="op">=</span> df_ti[[<span class="st">"start_datetime"</span>, <span class="st">"mean"</span>]]</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>df_ti <span class="op">=</span> df_ti.set_index(<span class="st">"start_datetime"</span>)</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>df_ti.index <span class="op">=</span> pd.to_datetime(df_ti.index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="52">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df_ti.plot(title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>keys <span class="op">=</span> [<span class="st">"average_unweighted"</span>, <span class="st">"average_titiler_noproj"</span>, <span class="st">"average_titiler_proj"</span>]</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>df_rmse <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"algorithm"</span>: keys,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"average"</span>: [rmse(df_all[key], df_all[<span class="st">"average_weighted"</span>]) <span class="cf">for</span> key <span class="kw">in</span> keys]</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    }    </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>df_rmse <span class="op">=</span> df_rmse.set_index(<span class="st">"algorithm"</span>)</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>df_rmse.plot.barh(xlabel<span class="op">=</span><span class="st">"RMSE wrt average_weighted"</span>, title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="zonal-statistics-validation_files/figure-html/cell-29-output-1.png" class="img-fluid"></p>
+<p><img src="zonal-statistics-validation_files/figure-html/cell-22-output-1.png" class="img-fluid"></p>
 </div>
-</div>
-</section>
-<section id="rio-tiler-with-reprojection-to-equal-area-projection" class="level2">
-<h2 class="anchored" data-anchor-id="rio-tiler-with-reprojection-to-equal-area-projection">Rio Tiler with reprojection to equal-area projection</h2>
-<div class="cell" data-tags="[]" data-execution_count="53">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install rio<span class="op">-</span>tiler</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Requirement already satisfied: rio-tiler in /srv/conda/envs/notebook/lib/python3.10/site-packages (6.2.5)
-Requirement already satisfied: attrs in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rio-tiler) (23.1.0)
-Requirement already satisfied: cachetools in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rio-tiler) (5.3.1)
-Requirement already satisfied: color-operations in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rio-tiler) (0.1.1)
-Requirement already satisfied: httpx in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rio-tiler) (0.24.1)
-Requirement already satisfied: morecantile&lt;6.0,&gt;=5.0 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rio-tiler) (5.0.0)
-Requirement already satisfied: numexpr in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rio-tiler) (2.8.7)
-Requirement already satisfied: numpy in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rio-tiler) (1.24.4)
-Requirement already satisfied: pydantic~=2.0 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rio-tiler) (2.4.2)
-Requirement already satisfied: pystac&gt;=0.5.4 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rio-tiler) (1.8.1)
-Requirement already satisfied: rasterio&gt;=1.3.0 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rio-tiler) (1.3.8)
-Requirement already satisfied: pyproj~=3.1 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from morecantile&lt;6.0,&gt;=5.0-&gt;rio-tiler) (3.6.0)
-Requirement already satisfied: annotated-types&gt;=0.4.0 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pydantic~=2.0-&gt;rio-tiler) (0.6.0)
-Requirement already satisfied: pydantic-core==2.10.1 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pydantic~=2.0-&gt;rio-tiler) (2.10.1)
-Requirement already satisfied: typing-extensions&gt;=4.6.1 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pydantic~=2.0-&gt;rio-tiler) (4.7.1)
-Requirement already satisfied: python-dateutil&gt;=2.7.0 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pystac&gt;=0.5.4-&gt;rio-tiler) (2.8.2)
-Requirement already satisfied: affine in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rasterio&gt;=1.3.0-&gt;rio-tiler) (2.4.0)
-Requirement already satisfied: certifi in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rasterio&gt;=1.3.0-&gt;rio-tiler) (2023.5.7)
-Requirement already satisfied: click&gt;=4.0 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rasterio&gt;=1.3.0-&gt;rio-tiler) (8.1.3)
-Requirement already satisfied: cligj&gt;=0.5 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rasterio&gt;=1.3.0-&gt;rio-tiler) (0.7.2)
-Requirement already satisfied: snuggs&gt;=1.4.1 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rasterio&gt;=1.3.0-&gt;rio-tiler) (1.4.7)
-Requirement already satisfied: click-plugins in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rasterio&gt;=1.3.0-&gt;rio-tiler) (1.1.1)
-Requirement already satisfied: setuptools in /srv/conda/envs/notebook/lib/python3.10/site-packages (from rasterio&gt;=1.3.0-&gt;rio-tiler) (68.0.0)
-Requirement already satisfied: httpcore&lt;0.18.0,&gt;=0.15.0 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from httpx-&gt;rio-tiler) (0.17.3)
-Requirement already satisfied: idna in /srv/conda/envs/notebook/lib/python3.10/site-packages (from httpx-&gt;rio-tiler) (3.4)
-Requirement already satisfied: sniffio in /srv/conda/envs/notebook/lib/python3.10/site-packages (from httpx-&gt;rio-tiler) (1.3.0)
-Requirement already satisfied: h11&lt;0.15,&gt;=0.13 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from httpcore&lt;0.18.0,&gt;=0.15.0-&gt;httpx-&gt;rio-tiler) (0.14.0)
-Requirement already satisfied: anyio&lt;5.0,&gt;=3.0 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from httpcore&lt;0.18.0,&gt;=0.15.0-&gt;httpx-&gt;rio-tiler) (3.7.0)
-Requirement already satisfied: six&gt;=1.5 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from python-dateutil&gt;=2.7.0-&gt;pystac&gt;=0.5.4-&gt;rio-tiler) (1.16.0)
-Requirement already satisfied: pyparsing&gt;=2.1.6 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from snuggs&gt;=1.4.1-&gt;rasterio&gt;=1.3.0-&gt;rio-tiler) (3.1.0)
-Requirement already satisfied: exceptiongroup in /srv/conda/envs/notebook/lib/python3.10/site-packages (from anyio&lt;5.0,&gt;=3.0-&gt;httpcore&lt;0.18.0,&gt;=0.15.0-&gt;httpx-&gt;rio-tiler) (1.1.2)</code></pre>
-</div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="54">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rio_tiler.io <span class="im">import</span> Reader</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio.enums</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_stats_rio_titiler(item, geojson, asset_name, dst_crs<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> Reader(item.assets[asset_name].href) <span class="im">as</span> src:</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>        feature <span class="op">=</span> geojson[<span class="st">"features"</span>][<span class="dv">0</span>][<span class="st">"geometry"</span>]</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> dst_crs <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>            dst_crs <span class="op">=</span> src.crs</span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> src.feature(feature, dst_crs<span class="op">=</span>dst_crs)<span class="co">#, vrt_options={"resampling": rasterio.enums.Resampling.bilinear})</span></span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get the coverage % array</span></span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>        coverage_array <span class="op">=</span> data.get_coverage_array(</span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>            feature,</span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>        stats <span class="op">=</span> data.statistics(</span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>            coverage<span class="op">=</span>coverage_array,</span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>        )       </span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
-<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>        <span class="op">**</span>stats[<span class="st">"b1"</span>].model_dump(exclude_none<span class="op">=</span><span class="va">True</span>),</span>
-<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"start_datetime"</span>: item.properties[<span class="st">"start_datetime"</span>],</span>
-<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="97">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://proj.org/en/9.3/operations/projections/cea.html</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>WORKING_CRS <span class="op">=</span> rasterio.crs.CRS.from_proj4(<span class="st">"+proj=cea"</span>)</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co">#WORKING_CRS = rasterio.crs.CRS.from_epsg(9835)</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>AOI_GEOM <span class="op">=</span> AOI[<span class="st">"features"</span>][<span class="dv">0</span>][<span class="st">"geometry"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="rasterio-warpedvrt-and-mask.mask" class="level2">
-<h2 class="anchored" data-anchor-id="rasterio-warpedvrt-and-mask.mask">Rasterio WarpedVRT and mask.mask</h2>
-<div class="cell" data-tags="[]" data-execution_count="98">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio.vrt</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio.mask</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio.warp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="99">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>timeseries_vrt <span class="op">=</span> {</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"start_datetime"</span>: [],</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_rasterio_warped"</span>: [],</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_rasterio_original"</span>: []</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, item <span class="kw">in</span> <span class="bu">enumerate</span>(tqdm.tqdm(collection.get_all_items())):</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> rasterio.<span class="bu">open</span>(item.assets[ASSET_NAME].href) <span class="im">as</span> ds:</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>        data_original <span class="op">=</span> ds.read(<span class="dv">1</span>, masked<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>        data_original_masked, _ <span class="op">=</span> rasterio.mask.mask(ds, [AOI_GEOM], crop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> rasterio.vrt.WarpedVRT(ds, crs<span class="op">=</span>WORKING_CRS) <span class="im">as</span> vrt:</span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>            data_warped <span class="op">=</span> vrt.read(<span class="dv">1</span>, masked<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>            geom_transformed <span class="op">=</span> rasterio.warp.transform_geom(src_crs<span class="op">=</span>rasterio.crs.CRS.from_epsg(<span class="dv">4326</span>), dst_crs<span class="op">=</span>WORKING_CRS, geom<span class="op">=</span>AOI_GEOM)</span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>            data_warped_masked, _ <span class="op">=</span> rasterio.mask.mask(vrt, [geom_transformed], crop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>            timeseries_vrt[<span class="st">"average_rasterio_warped"</span>].append(data_warped_masked.mean())</span>
-<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>            timeseries_vrt[<span class="st">"average_rasterio_original"</span>].append(data_original_masked.mean())</span>
-<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>            timeseries_vrt[<span class="st">"start_datetime"</span>].append(item.properties[<span class="st">"start_datetime"</span>])</span>
-<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&gt;=</span> LIMIT_ITEMS:</span>
-<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>15it [00:05,  2.89it/s]</code></pre>
-</div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="100">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>df_vrt <span class="op">=</span> pd.DataFrame(timeseries_vrt)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>df_vrt <span class="op">=</span> df_vrt.set_index(<span class="st">"start_datetime"</span>)</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>df_vrt.index <span class="op">=</span> pd.to_datetime(df_ti.index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="101">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>timeseries_rio_tiler <span class="op">=</span> []</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, item <span class="kw">in</span> <span class="bu">enumerate</span>(tqdm.tqdm(collection.get_all_items())):</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    timeseries_rio_tiler.append(</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>        generate_stats_rio_titiler(item, AOI, ASSET_NAME, dst_crs<span class="op">=</span>WORKING_CRS)</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&gt;=</span> LIMIT_ITEMS:</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>15it [00:06,  2.19it/s]</code></pre>
-</div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="102">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>df_rio <span class="op">=</span> pd.DataFrame(timeseries_rio_tiler)</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>df_rio <span class="op">=</span> df_rio[[<span class="st">"start_datetime"</span>, <span class="st">"mean"</span>]]</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>df_rio <span class="op">=</span> df_rio.set_index(<span class="st">"start_datetime"</span>)</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>df_rio.index <span class="op">=</span> pd.to_datetime(df_rio.index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="compare-all-methods-together" class="level2">
-<h2 class="anchored" data-anchor-id="compare-all-methods-together">Compare all methods together</h2>
-<div class="cell" data-tags="[]" data-execution_count="103">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>df_all <span class="op">=</span> df.copy()</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>df_all[<span class="st">"average_titiler"</span>] <span class="op">=</span> df_ti[<span class="st">"mean"</span>]</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>df_all[<span class="st">"average_rio_tiler"</span>] <span class="op">=</span> df_rio[<span class="st">"mean"</span>]</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>df_all[<span class="st">"average_rasterio_warped"</span>] <span class="op">=</span> df_vrt[<span class="st">"average_rasterio_warped"</span>]</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>df_all[<span class="st">"average_rasterio_original"</span>] <span class="op">=</span> df_vrt[<span class="st">"average_rasterio_original"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="104">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df_all.plot(figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">8</span>), title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="zonal-statistics-validation_files/figure-html/cell-39-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="105">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure()</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.gca()</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key, style <span class="kw">in</span> {</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_rasterio_warped"</span>: <span class="st">"#e41a1c"</span>,</span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_rio_tiler"</span>: <span class="st">"#377eb8"</span>,</span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_rasterio_original"</span>: <span class="st">"#4daf4a"</span>,</span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_titiler"</span>: <span class="st">"#984ea3"</span></span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>}.items():</span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    df_all.plot.scatter(<span class="st">"average_weighted"</span>, key, ax<span class="op">=</span>ax, c<span class="op">=</span>style, label<span class="op">=</span>key)</span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>ax.plot(df_all[<span class="st">"average_weighted"</span>], df_all[<span class="st">"average_weighted"</span>], color<span class="op">=</span><span class="st">"grey"</span>)</span>
-<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"average calculated with different methods"</span>) <span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="zonal-statistics-validation_files/figure-html/cell-40-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<p>RMSE of Rasterio WarpedVRT with <code>cea</code> intermediate projection</p>
-<div class="cell" data-tags="[]" data-execution_count="106">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>np.sqrt(np.<span class="bu">sum</span>((df_all[<span class="st">"average_weighted"</span>] <span class="op">-</span> df_all[<span class="st">"average_rasterio_warped"</span>])<span class="op">**</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="106">
-<pre><code>0.00020784969225849924</code></pre>
-</div>
-</div>
-<p>RMSE of rio-tiler method with <code>cea</code> intermediate projection with manually calculated weighted average</p>
-<div class="cell" data-tags="[]" data-execution_count="107">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>np.sqrt(np.<span class="bu">sum</span>((df_all[<span class="st">"average_weighted"</span>] <span class="op">-</span> df_all[<span class="st">"average_rio_tiler"</span>])<span class="op">**</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="107">
-<pre><code>7.405373514196028e-05</code></pre>
-</div>
-</div>
-<p>RMSE of Rasterio mask.mask with unweighted average on Xarray</p>
-<div class="cell" data-tags="[]" data-execution_count="108">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>np.sqrt(np.<span class="bu">sum</span>((df_all[<span class="st">"average_simple"</span>] <span class="op">-</span> df_all[<span class="st">"average_rasterio_original"</span>])<span class="op">**</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="108">
-<pre><code>6.407064432400065e-10</code></pre>
-</div>
-</div>
-<p>RMSE of TiTiler (no reprojection, API-calculated) with unweighted average on Xarray</p>
-<div class="cell" data-tags="[]" data-execution_count="109">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>np.sqrt(np.<span class="bu">sum</span>((df_all[<span class="st">"average_simple"</span>] <span class="op">-</span> df_all[<span class="st">"average_titiler"</span>])<span class="op">**</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="109">
-<pre><code>0.0</code></pre>
-</div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="114">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>crs <span class="op">=</span> rasterio.crs.CRS.from_proj4(<span class="st">"+proj=cea"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-tags="[]" data-execution_count="115">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>crs.to_epsg()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rio_tiler.io</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio.crs</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> rio_tiler.io.Reader(URI) <span class="im">as</span> src:</span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> src.feature(FEATURE, dst_crs<span class="op">=</span>rasterio.crs.CRS.from_proj4(<span class="st">"+proj=cea"</span>))</span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    coverage_array <span class="op">=</span> data.get_coverage_array(</span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>        FEATURE,</span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> data.statistics(</span>
-<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>        coverage<span class="op">=</span>coverage_array,</span>
-<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>    )       </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
