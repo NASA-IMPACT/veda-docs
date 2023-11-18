@@ -6,6 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Aimee Barciauskas">
+<meta name="dcterms.date" content="2023-11-17">
+<meta name="description" content="Tutorial for data providers who want to create a kerchunk reference for NetCDF files.">
 
 <title>VEDA Documentation - Generate Kerchunk Reference from CMIP6 NetCDF files</title>
 <style>
@@ -502,7 +505,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#step-1-setup" id="toc-step-1-setup" class="nav-link active" data-scroll-target="#step-1-setup">Step 1: Setup</a></li>
+  <li><a href="#run-this-notebook" id="toc-run-this-notebook" class="nav-link active" data-scroll-target="#run-this-notebook">Run this notebook</a>
+  <ul class="collapse">
+  <li><a href="#inside-the-hub" id="toc-inside-the-hub" class="nav-link" data-scroll-target="#inside-the-hub">Inside the Hub</a></li>
+  <li><a href="#outside-the-hub" id="toc-outside-the-hub" class="nav-link" data-scroll-target="#outside-the-hub">Outside the Hub</a></li>
+  </ul></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a></li>
+  <li><a href="#step-1-setup" id="toc-step-1-setup" class="nav-link" data-scroll-target="#step-1-setup">Step 1: Setup</a></li>
   <li><a href="#step-2-initiate-file-systems-for-reading-and-temporary-writing" id="toc-step-2-initiate-file-systems-for-reading-and-temporary-writing" class="nav-link" data-scroll-target="#step-2-initiate-file-systems-for-reading-and-temporary-writing">Step 2: Initiate file systems for reading and (temporary) writing</a></li>
   <li><a href="#step-3-discover-files-from-s3" id="toc-step-3-discover-files-from-s3" class="nav-link" data-scroll-target="#step-3-discover-files-from-s3">Step 3: Discover files from S3</a></li>
   <li><a href="#step-4-define-some-functions-for-creating-and-storing-kerchunk-reference-files-for-single-files" id="toc-step-4-define-some-functions-for-creating-and-storing-kerchunk-reference-files-for-single-files" class="nav-link" data-scroll-target="#step-4-define-some-functions-for-creating-and-storing-kerchunk-reference-files-for-single-files">Step 4: Define some functions for creating and storing Kerchunk reference files for single files</a></li>
@@ -523,11 +532,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 class="title">Generate Kerchunk Reference from CMIP6 NetCDF files</h1>
 </div>
 
+<div>
+  <div class="description">
+    Tutorial for data providers who want to create a kerchunk reference for NetCDF files.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Aimee Barciauskas </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 17, 2023</p>
+    </div>
+  </div>
   
     
   </div>
@@ -535,8 +561,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<section id="run-this-notebook" class="level2">
+<h2 class="anchored" data-anchor-id="run-this-notebook">Run this notebook</h2>
+<p>You can launch this notebook in VEDA JupyterHub by clicking the link below.</p>
+<p><a href="https://nasa-veda.2i2c.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&amp;urlpath=lab/tree/veda-docs//notebooks/veda-operations/generate-cmip6-kerchunk-historical.ipynb&amp;branch=main">Launch in VEDA JupyterHub (requires access)</a></p>
+<details>
+<summary>
+Learn more
+</summary>
+<section id="inside-the-hub" class="level3">
+<h3 class="anchored" data-anchor-id="inside-the-hub">Inside the Hub</h3>
+<p>This notebook was written on a VEDA JupyterHub instance</p>
+<p>See (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.</p>
+</section>
+<section id="outside-the-hub" class="level3">
+<h3 class="anchored" data-anchor-id="outside-the-hub">Outside the Hub</h3>
+<p>You are welcome to run this anywhere you like (Note: alternatively you can run this on https://daskhub.veda.smce.nasa.gov/, MAAP, locally, …), just make sure that the data is accessible, or get in contact with the VEDA team to enable access.</p>
+</section></details>
+</section>
+
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">Approach</h2>
 <p>This notebook demonstrates how to create a <a href="https://fsspec.github.io/kerchunk/">kerchunk</a> reference for the <a href="https://registry.opendata.aws/nex-gddp-cmip6/">AWS Open Data Registry of NASA Earth Exchange Global Daily Downscaled Projections (NEX-GDDP-CMIP6)</a> NetCDF files on S3. Because the NetCDF files are publicly avaialble, this notebook should be runnable in any environment with the imported libraries, up until the last step where the kerchunk reference file is stored in the veda-data-store-staging S3 bucket, as that is a protected bucket.</p>
 <p>To see how to publish a kerchunk reference to a STAC collection, see the <a href="../../notebooks/veda-operations/publish-cmip6-kerchunk-stac.html">Publishing a CMIP6 Kerchunk Reference to STAC</a> notebook.</p>
+</section>
 <section id="step-1-setup" class="level2">
 <h2 class="anchored" data-anchor-id="step-1-setup">Step 1: Setup</h2>
 <p>Import necessary libraries and define some variables for which CMIP6 variable and model we will create references for.</p>
