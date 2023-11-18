@@ -6,6 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Aimee Barciauskas">
+<meta name="dcterms.date" content="2023-11-17">
+<meta name="description" content="Tutorial for data providers who want to create a kerchunk reference for NetCDF files.">
 
 <title>VEDA Documentation - Publishing a CMIP6 Kerchunk Reference to STAC</title>
 <style>
@@ -499,7 +502,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#step-1-install-and-import-necessary-libraries" id="toc-step-1-install-and-import-necessary-libraries" class="nav-link active" data-scroll-target="#step-1-install-and-import-necessary-libraries">Step 1: Install and import necessary libraries</a></li>
+  <li><a href="#run-this-notebook" id="toc-run-this-notebook" class="nav-link active" data-scroll-target="#run-this-notebook">Run this notebook</a>
+  <ul class="collapse">
+  <li><a href="#inside-the-hub" id="toc-inside-the-hub" class="nav-link" data-scroll-target="#inside-the-hub">Inside the Hub</a></li>
+  <li><a href="#outside-the-hub" id="toc-outside-the-hub" class="nav-link" data-scroll-target="#outside-the-hub">Outside the Hub</a></li>
+  </ul></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a></li>
+  <li><a href="#step-1-install-and-import-necessary-libraries" id="toc-step-1-install-and-import-necessary-libraries" class="nav-link" data-scroll-target="#step-1-install-and-import-necessary-libraries">Step 1: Install and import necessary libraries</a></li>
   <li><a href="#step-2-open-the-dataset-with-xarray" id="toc-step-2-open-the-dataset-with-xarray" class="nav-link" data-scroll-target="#step-2-open-the-dataset-with-xarray">Step 2: Open the dataset with <code>xarray</code></a></li>
   <li><a href="#step-3-generate-stac-metadata" id="toc-step-3-generate-stac-metadata" class="nav-link" data-scroll-target="#step-3-generate-stac-metadata">Step 3: Generate STAC metadata</a></li>
   <li><a href="#final-step---publish-the-collection" id="toc-final-step---publish-the-collection" class="nav-link" data-scroll-target="#final-step---publish-the-collection">Final Step - Publish the collection</a></li>
@@ -514,11 +523,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 class="title">Publishing a CMIP6 Kerchunk Reference to STAC</h1>
 </div>
 
+<div>
+  <div class="description">
+    Tutorial for data providers who want to create a kerchunk reference for NetCDF files.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Aimee Barciauskas </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 17, 2023</p>
+    </div>
+  </div>
   
     
   </div>
@@ -526,17 +552,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<section id="run-this-notebook" class="level2">
+<h2 class="anchored" data-anchor-id="run-this-notebook">Run this notebook</h2>
+<p>You can launch this notebook in VEDA JupyterHub by clicking the link below.</p>
+<p><a href="https://nasa-veda.2i2c.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&amp;urlpath=lab/tree/veda-docs/notebooks/veda-operations/publish-cmip6-kerchunk-stac.ipynb&amp;branch=main">Launch in VEDA JupyterHub (requires access)</a></p>
+<details>
+<summary>
+Learn more
+</summary>
+<section id="inside-the-hub" class="level3">
+<h3 class="anchored" data-anchor-id="inside-the-hub">Inside the Hub</h3>
+<p>This notebook was written on a VEDA JupyterHub instance</p>
+<p>See (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.</p>
+</section>
+<section id="outside-the-hub" class="level3">
+<h3 class="anchored" data-anchor-id="outside-the-hub">Outside the Hub</h3>
+<p>You are welcome to run this anywhere you like (Note: alternatively you can run this on https://daskhub.veda.smce.nasa.gov/, MAAP, locally, …), just make sure that the data is accessible, or get in contact with the VEDA team to enable access.</p>
+</section></details>
+</section>
+
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">Approach</h2>
 <p>This notebook creates STAC collection metadata for a CMIP6 Kerchunk Reference File which has already been generated and stored in S3.</p>
 <p>This notebook serves as documentation for the publication of the CMIP6 kerchunk reference. It is not expected to generalize for arbitrary Zarr datasets but may be a helpful example. It was run on the <a href="https://nasa-impact.github.io/veda-docs/services/jupyterhub.html">VEDA JupyterHub</a> and since <code>veda-data-store-staging</code> is a protected bucket it is not expected to work in an environment without access to that bucket.</p>
+</section>
 <section id="step-1-install-and-import-necessary-libraries" class="level2">
 <h2 class="anchored" data-anchor-id="step-1-install-and-import-necessary-libraries">Step 1: Install and import necessary libraries</h2>
 <div class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!pip install xstac</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pystac</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> s3fs</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xstac</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fsspec</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> s3fs</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xstac</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fsspec</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="step-2-open-the-dataset-with-xarray" class="level2">

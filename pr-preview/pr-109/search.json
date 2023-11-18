@@ -949,14 +949,28 @@
     "href": "notebooks/veda-operations/publish-cmip6-kerchunk-stac.html",
     "title": "Publishing a CMIP6 Kerchunk Reference to STAC",
     "section": "",
-    "text": "This notebook creates STAC collection metadata for a CMIP6 Kerchunk Reference File which has already been generated and stored in S3.\nThis notebook serves as documentation for the publication of the CMIP6 kerchunk reference. It is not expected to generalize for arbitrary Zarr datasets but may be a helpful example. It was run on the VEDA JupyterHub and since veda-data-store-staging is a protected bucket it is not expected to work in an environment without access to that bucket."
+    "text": "You can launch this notebook in VEDA JupyterHub by clicking the link below.\nLaunch in VEDA JupyterHub (requires access)\n\n\nLearn more\n\n\n\nThis notebook was written on a VEDA JupyterHub instance\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\n\nYou are welcome to run this anywhere you like (Note: alternatively you can run this on https://daskhub.veda.smce.nasa.gov/, MAAP, locally, …), just make sure that the data is accessible, or get in contact with the VEDA team to enable access."
+  },
+  {
+    "objectID": "notebooks/veda-operations/publish-cmip6-kerchunk-stac.html#run-this-notebook",
+    "href": "notebooks/veda-operations/publish-cmip6-kerchunk-stac.html#run-this-notebook",
+    "title": "Publishing a CMIP6 Kerchunk Reference to STAC",
+    "section": "",
+    "text": "You can launch this notebook in VEDA JupyterHub by clicking the link below.\nLaunch in VEDA JupyterHub (requires access)\n\n\nLearn more\n\n\n\nThis notebook was written on a VEDA JupyterHub instance\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\n\nYou are welcome to run this anywhere you like (Note: alternatively you can run this on https://daskhub.veda.smce.nasa.gov/, MAAP, locally, …), just make sure that the data is accessible, or get in contact with the VEDA team to enable access."
+  },
+  {
+    "objectID": "notebooks/veda-operations/publish-cmip6-kerchunk-stac.html#approach",
+    "href": "notebooks/veda-operations/publish-cmip6-kerchunk-stac.html#approach",
+    "title": "Publishing a CMIP6 Kerchunk Reference to STAC",
+    "section": "Approach",
+    "text": "Approach\nThis notebook creates STAC collection metadata for a CMIP6 Kerchunk Reference File which has already been generated and stored in S3.\nThis notebook serves as documentation for the publication of the CMIP6 kerchunk reference. It is not expected to generalize for arbitrary Zarr datasets but may be a helpful example. It was run on the VEDA JupyterHub and since veda-data-store-staging is a protected bucket it is not expected to work in an environment without access to that bucket."
   },
   {
     "objectID": "notebooks/veda-operations/publish-cmip6-kerchunk-stac.html#step-1-install-and-import-necessary-libraries",
     "href": "notebooks/veda-operations/publish-cmip6-kerchunk-stac.html#step-1-install-and-import-necessary-libraries",
     "title": "Publishing a CMIP6 Kerchunk Reference to STAC",
     "section": "Step 1: Install and import necessary libraries",
-    "text": "Step 1: Install and import necessary libraries\n\n#!pip install xstac\nimport pystac\nimport s3fs\nimport xstac\nimport fsspec\nimport xarray as xr"
+    "text": "Step 1: Install and import necessary libraries\n\n#!pip install xstac\nimport pystac\nimport requests\nimport s3fs\nimport xstac\nimport fsspec\nimport xarray as xr"
   },
   {
     "objectID": "notebooks/veda-operations/publish-cmip6-kerchunk-stac.html#step-2-open-the-dataset-with-xarray",
