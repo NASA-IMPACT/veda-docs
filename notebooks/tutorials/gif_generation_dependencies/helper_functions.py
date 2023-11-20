@@ -33,7 +33,7 @@ def get_image(
 ):
 
     response = requests.post(
-        f"{RASTER_API_URL}/cog/crop",
+        f"{RASTER_API_URL}/cog/feature",
         params={
             "format": image_format,
             "height": image_height,
@@ -188,7 +188,7 @@ def generate_frame(
     dir_path,
     image_format="png",
     overlay=None,
-    additional_cog_crop_args={},
+    additional_cog_feature_args={},
     image_height=512,
     image_width=512,
 ):
@@ -215,7 +215,7 @@ def generate_frame(
                 item,
                 geojson=aoi,
                 image_format=image_format,
-                additional_args=additional_cog_crop_args,
+                additional_args=additional_cog_feature_args,
                 image_height=image_height,
                 image_width=image_width,
             )
