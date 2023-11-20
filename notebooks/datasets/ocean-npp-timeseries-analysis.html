@@ -302,7 +302,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notebooks/tutorials/gif-generation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">GIF generation using the TiTiler /cog/crop endpoint</span></a>
+ <span class="menu-text">GIF generation using the TiTiler /cog/feature endpoint</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -581,11 +581,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="querying-the-stac-api" class="level2">
 <h2 class="anchored" data-anchor-id="querying-the-stac-api">Querying the STAC API</h2>
-<div class="cell" data-execution_count="1">
+<div class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> folium <span class="im">import</span> Map, TileLayer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="2">
+<div class="cell" data-tags="[]" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Provife STAC and RASTER API endpoints</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://staging-stac.delta-backend.com"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://staging-raster.delta-backend.com"</span></span>
@@ -593,7 +593,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Declare collection of interest - Ocean NPP</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>collection_name <span class="op">=</span> <span class="st">"MO_NPP_npp_vgpm"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="3">
+<div class="cell" data-tags="[]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fetch STAC collection</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_name<span class="sc">}</span><span class="ss">"</span>).json()</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -613,9 +613,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    'type': 'application/json',
    'href': 'https://staging-stac.delta-backend.com/collections/MO_NPP_npp_vgpm'}],
  'title': '',
- 'extent': {'spatial': {'bbox': [[-180, -90, 180, 90]]},
-  'temporal': {'interval': [['2020-01-01T00:00:00Z',
-     '2020-12-12T23:59:59Z']]}},
+ 'extent': {'spatial': {'bbox': [[-180.0000050868518,
+     -90.00000508655744,
+     180.0000050868518,
+     89.9999974571629]]},
+  'temporal': {'interval': [['2020-01-01 00:00:00+00',
+     '2020-12-31 00:00:00+00']]}},
  'license': 'MIT',
  'summaries': {'datetime': ['2020-01-01T00:00:00Z', '2020-12-01T00:00:00Z'],
   'cog_default': {'max': 34561.35546875, 'min': 14.516647338867188}},
@@ -630,14 +633,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  'dashboard:time_density': 'month'}</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-tags="[]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify frequency of data available</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>collection[<span class="st">"dashboard:time_density"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>'month'</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="5">
+<div class="cell" data-tags="[]" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get collection summary</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>collection[<span class="st">"summaries"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -646,7 +649,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Great, we can explore the year 2020 time series. Let’s create a bounding box to explore the Walvis Bay area of interest (AOI) in Namibia</p>
-<div class="cell" data-execution_count="6">
+<div class="cell" data-tags="[]" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Walvis Bay, Namibia</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>walvis_bay_aoi <span class="op">=</span> {</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"type"</span>: <span class="st">"Feature"</span>,</span>
@@ -666,7 +669,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s visualize the AOI we have just created using <code>folium</code></p>
-<div class="cell" data-execution_count="7">
+<div class="cell" data-tags="[]" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We'll plug in the coordinates for a location</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># central to the study area and a reasonable zoom level</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -711,7 +714,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_938e28da7e5b4b8a1ee978809d38c69a {
+                #map_3b3c95d636bac6203c6f91b92c37c4e5 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -725,14 +728,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_938e28da7e5b4b8a1ee978809d38c69a&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_3b3c95d636bac6203c6f91b92c37c4e5&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_938e28da7e5b4b8a1ee978809d38c69a = L.map(
-                &quot;map_938e28da7e5b4b8a1ee978809d38c69a&quot;,
+            var map_3b3c95d636bac6203c6f91b92c37c4e5 = L.map(
+                &quot;map_3b3c95d636bac6203c6f91b92c37c4e5&quot;,
                 {
                     center: [-22.42146, 14.268801],
                     crs: L.CRS.EPSG3857,
@@ -746,28 +749,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_d0acc5683dec7c86b51c953dc48c510d = L.tileLayer(
+            var tile_layer_8e0c1ad509ab7bd83651d46f9ecb4b15 = L.tileLayer(
                 &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_938e28da7e5b4b8a1ee978809d38c69a);
+            ).addTo(map_3b3c95d636bac6203c6f91b92c37c4e5);
         
     
 
-        function geo_json_311ef7f8b309e5a1221775356928232b_onEachFeature(feature, layer) {
+        function geo_json_a1368500c367accf9da7a054d240b1fb_onEachFeature(feature, layer) {
             layer.on({
             });
         };
-        var geo_json_311ef7f8b309e5a1221775356928232b = L.geoJson(null, {
-                onEachFeature: geo_json_311ef7f8b309e5a1221775356928232b_onEachFeature,
+        var geo_json_a1368500c367accf9da7a054d240b1fb = L.geoJson(null, {
+                onEachFeature: geo_json_a1368500c367accf9da7a054d240b1fb_onEachFeature,
             
         });
 
-        function geo_json_311ef7f8b309e5a1221775356928232b_add (data) {
-            geo_json_311ef7f8b309e5a1221775356928232b
+        function geo_json_a1368500c367accf9da7a054d240b1fb_add (data) {
+            geo_json_a1368500c367accf9da7a054d240b1fb
                 .addData(data)
-                .addTo(map_938e28da7e5b4b8a1ee978809d38c69a);
+                .addTo(map_3b3c95d636bac6203c6f91b92c37c4e5);
         }
-            geo_json_311ef7f8b309e5a1221775356928232b_add({&quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.686159004559698, -21.700046934333145], [13.686159004559698, -23.241974326585833], [14.753560168039911, -23.241974326585833], [14.753560168039911, -21.700046934333145], [13.686159004559698, -21.700046934333145]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;properties&quot;: {}, &quot;type&quot;: &quot;Feature&quot;});
+            geo_json_a1368500c367accf9da7a054d240b1fb_add({&quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.686159004559698, -21.700046934333145], [13.686159004559698, -23.241974326585833], [14.753560168039911, -23.241974326585833], [14.753560168039911, -21.700046934333145], [13.686159004559698, -21.700046934333145]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;properties&quot;: {}, &quot;type&quot;: &quot;Feature&quot;});
 
         
 </script>
@@ -775,7 +778,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Returning back to our STAC API requests, let’s check how many total items are available.</p>
-<div class="cell" data-execution_count="8">
+<div class="cell" data-tags="[]" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check total number of items available</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> requests.get(</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_name<span class="sc">}</span><span class="ss">/items?limit=100"</span></span>
@@ -786,7 +789,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>This makes sense is our collection is monthly, so we should have 12 total items.</p>
-<div class="cell" data-execution_count="9">
+<div class="cell" data-tags="[]" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explore one item to see what it contains</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>items[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
@@ -872,7 +875,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Now that we have explored the collection metadata by querying the STAC API, we can use the RASTER API to access the data itself.</p>
-<div class="cell" data-execution_count="10">
+<div class="cell" data-tags="[]" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the bounding box should be passed to the geojson param as a geojson Feature or FeatureCollection</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_stats(item, geojson):</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> requests.post(</span>
@@ -885,55 +888,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"start_datetime"</span>: item[<span class="st">"properties"</span>][<span class="st">"start_datetime"</span>],</span>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="11">
+<div class="cell" data-tags="[]" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> [generate_stats(item, walvis_bay_aoi) <span class="cf">for</span> item <span class="kw">in</span> items]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 813 ms, sys: 42.7 ms, total: 856 ms
-Wall time: 13.2 s</code></pre>
+<pre><code>CPU times: user 210 ms, sys: 7.79 ms, total: 218 ms
+Wall time: 4.71 s</code></pre>
 </div>
 </div>
 <p>With the function provided above, we can generate statistics for our AOI. In the example below, we’ll explore sample statistics available from one of the tiles.</p>
-<div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>stats[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>stats[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>{'statistics': {'1': {'min': 2288.525146484375,
-   'max': 19800.787109375,
-   'mean': 4803.135537190083,
-   'count': 605.0,
-   'sum': 2905897.0,
-   'std': 2175.5772113693283,
-   'median': 4171.0107421875,
-   'majority': 4321.17041015625,
-   'minority': 2288.525146484375,
-   'unique': 595.0,
-   'histogram': [[282.0, 207.0, 73.0, 22.0, 11.0, 1.0, 3.0, 1.0, 0.0, 5.0],
-    [2288.525146484375,
-     4039.75146484375,
-     5790.9775390625,
-     7542.20361328125,
-     9293.4296875,
-     11044.65625,
-     12795.8828125,
-     14547.1083984375,
-     16298.3349609375,
-     18049.560546875,
-     19800.787109375]],
-   'valid_percent': 62.89,
-   'masked_pixels': 357.0,
-   'valid_pixels': 605.0,
-   'percentile_98': 10588.860703124998,
-   'percentile_2': 2742.223876953125}},
- 'start_datetime': '2020-12-01T00:00:00'}</code></pre>
+<pre><code>{'statistics': {'b1': {'min': 3040.676025390625,
+   'max': 20105.990234375,
+   'mean': 7803.8864,
+   'count': 962.0,
+   'sum': 4877429.0,
+   'std': 3784.444606105174,
+   'median': 6578.16162109375,
+   'majority': 8848.3544921875,
+   'minority': 3040.676025390625,
+   'unique': 615.0,
+   'histogram': [[149.0, 154.0, 91.0, 76.0, 50.0, 37.0, 24.0, 26.0, 10.0, 8.0],
+    [3040.676025390625,
+     4747.20751953125,
+     6453.73876953125,
+     8160.2705078125,
+     9866.8017578125,
+     11573.3330078125,
+     13279.8642578125,
+     14986.3955078125,
+     16692.927734375,
+     18399.458984375,
+     20105.990234375]],
+   'valid_percent': 64.97,
+   'masked_pixels': 337.0,
+   'valid_pixels': 625.0,
+   'percentile_2': 3439.763544921875,
+   'percentile_98': 17349.302734374993}},
+ 'start_datetime': '2020-11-01T00:00:00'}</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="13">
+<div class="cell" data-tags="[]" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> clean_stats(stats_json) <span class="op">-&gt;</span> pd.DataFrame:</span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.json_normalize(stats_json)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    df.columns <span class="op">=</span> [col.replace(<span class="st">"statistics.1."</span>, <span class="st">""</span>) <span class="cf">for</span> col <span class="kw">in</span> df.columns]</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    df.columns <span class="op">=</span> [col.replace(<span class="st">"statistics.b1."</span>, <span class="st">""</span>) <span class="cf">for</span> col <span class="kw">in</span> df.columns]</span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"date"</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">"start_datetime"</span>])</span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
@@ -944,7 +947,7 @@ Wall time: 13.2 s</code></pre>
 <section id="visualizing-the-data-as-a-time-series" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-the-data-as-a-time-series">Visualizing the Data as a Time Series</h2>
 <p>We can now explore the full Ocean NPP time series available (January-December 2020) for the Walvis Bay area of Namibia. We can plot the data set using the code below:</p>
-<div class="cell" data-execution_count="14">
+<div class="cell" data-tags="[]" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">10</span>))</span>
@@ -1027,7 +1030,7 @@ Wall time: 13.2 s</code></pre>
  'center': [0.0, -3.814697265625e-06, 0]}</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="18">
+<div class="cell" data-tags="[]" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use bbox initial zoom and map</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up a map located w/in event bounds</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
@@ -1077,7 +1080,7 @@ Wall time: 13.2 s</code></pre>
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_b0d0262655f2bc92bcd6952018f50ebe {
+                #map_db299edc604d10a1c78d7e25edee2b84 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1091,14 +1094,14 @@ Wall time: 13.2 s</code></pre>
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_b0d0262655f2bc92bcd6952018f50ebe&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_db299edc604d10a1c78d7e25edee2b84&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_b0d0262655f2bc92bcd6952018f50ebe = L.map(
-                &quot;map_b0d0262655f2bc92bcd6952018f50ebe&quot;,
+            var map_db299edc604d10a1c78d7e25edee2b84 = L.map(
+                &quot;map_db299edc604d10a1c78d7e25edee2b84&quot;,
                 {
                     center: [-22.42146, 14.268801],
                     crs: L.CRS.EPSG3857,
@@ -1112,16 +1115,16 @@ Wall time: 13.2 s</code></pre>
 
         
     
-            var tile_layer_a339e6ce49608b306564fe205fcef4ef = L.tileLayer(
+            var tile_layer_09aa193cf1b184b31d3ee33ae547ddae = L.tileLayer(
                 &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_b0d0262655f2bc92bcd6952018f50ebe);
+            ).addTo(map_db299edc604d10a1c78d7e25edee2b84);
         
     
-            var tile_layer_5bb609c6b77c3c0c17762fb74148aa5c = L.tileLayer(
+            var tile_layer_17de38b3d75630e999de2a818f1e56dd = L.tileLayer(
                 &quot;https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm\u0026item=A_202010.L3m_MO_NPP_npp_vgpm_4km\u0026assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=viridis\u0026rescale=14.516647338867188%2C34561.35546875&quot;,
                 {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_b0d0262655f2bc92bcd6952018f50ebe);
+            ).addTo(map_db299edc604d10a1c78d7e25edee2b84);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -1173,8 +1176,8 @@ Wall time: 13.2 s</code></pre>
 <span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> <span class="bu">reversed</span>(items):</span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    image_bytes <span class="op">=</span> requests.post(</span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/cog/crop"</span>,</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.post(</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/cog/feature"</span>,</span>
 <span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>        params<span class="op">=</span>{</span>
 <span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">"format"</span>: <span class="st">"png"</span>,</span>
 <span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"height"</span>: <span class="dv">512</span>,</span>
@@ -1184,14 +1187,16 @@ Wall time: 13.2 s</code></pre>
 <span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"colormap_name"</span>: <span class="st">"viridis"</span>,</span>
 <span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>        },</span>
 <span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>        json<span class="op">=</span>walvis_bay_aoi,</span>
-<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>    ).content</span>
-<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># formating the datetime to make for easier reading</span></span>
-<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>    datetime_str <span class="op">=</span> item[<span class="st">"properties"</span>][<span class="st">"start_datetime"</span>]</span>
-<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>    datetime_object <span class="op">=</span> datetime.strptime(datetime_str, <span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">T%H:%M:%S"</span>)</span>
-<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(datetime_object.strftime(<span class="st">"%B %Y"</span>))</span>
-<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>    display(Image(image_bytes, height<span class="op">=</span><span class="dv">512</span>, width<span class="op">=</span><span class="dv">512</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> response.ok, response.text</span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>    image_bytes <span class="op">=</span> response.content</span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># formating the datetime to make for easier reading</span></span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>    datetime_str <span class="op">=</span> item[<span class="st">"properties"</span>][<span class="st">"start_datetime"</span>]</span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>    datetime_object <span class="op">=</span> datetime.strptime(datetime_str, <span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">T%H:%M:%S"</span>)</span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(datetime_object.strftime(<span class="st">"%B %Y"</span>))</span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>    display(Image(image_bytes, height<span class="op">=</span><span class="dv">512</span>, width<span class="op">=</span><span class="dv">512</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>January 2020
 February 2020

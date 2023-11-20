@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2022-08-30">
 <meta name="description" content="This notebook demonstrates how to generate a timeseries using STAC API statistics endpoints.">
 
-<title>VEDA Documentation - GIF generation using the TiTiler /cog/crop endpoint</title>
+<title>VEDA Documentation - GIF generation using the TiTiler /cog/feature endpoint</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item"><a href="../../notebooks/tutorials/gif-generation.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../notebooks/tutorials/gif-generation.html">GIF generation using the TiTiler /cog/crop endpoint</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item"><a href="../../notebooks/tutorials/gif-generation.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../notebooks/tutorials/gif-generation.html">GIF generation using the TiTiler /cog/feature endpoint</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -299,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notebooks/tutorials/gif-generation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">GIF generation using the TiTiler /cog/crop endpoint</span></a>
+ <span class="menu-text">GIF generation using the TiTiler /cog/feature endpoint</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -502,13 +502,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#gif-generation-using-the-titiler-cogcrop-endpoint" id="toc-gif-generation-using-the-titiler-cogcrop-endpoint" class="nav-link active" data-scroll-target="#gif-generation-using-the-titiler-cogcrop-endpoint">GIF generation using the TiTiler /cog/crop endpoint</a>
+  <li><a href="#gif-generation-using-the-titiler-cogfeature-endpoint" id="toc-gif-generation-using-the-titiler-cogfeature-endpoint" class="nav-link active" data-scroll-target="#gif-generation-using-the-titiler-cogfeature-endpoint">GIF generation using the TiTiler /cog/feature endpoint</a>
   <ul class="collapse">
   <li><a href="#import-relevant-libraries" id="toc-import-relevant-libraries" class="nav-link" data-scroll-target="#import-relevant-libraries">Import relevant libraries</a></li>
   <li><a href="#define-global-variables" id="toc-define-global-variables" class="nav-link" data-scroll-target="#define-global-variables">Define global variables</a></li>
   <li><a href="#define-an-aoi-to-crop-the-cog-data" id="toc-define-an-aoi-to-crop-the-cog-data" class="nav-link" data-scroll-target="#define-an-aoi-to-crop-the-cog-data">Define an AOI to crop the COG data</a></li>
   <li><a href="#search-stac-api-for-available-data" id="toc-search-stac-api-for-available-data" class="nav-link" data-scroll-target="#search-stac-api-for-available-data">Search STAC API for available data</a></li>
-  <li><a href="#the-cogcrop-endpoint" id="toc-the-cogcrop-endpoint" class="nav-link" data-scroll-target="#the-cogcrop-endpoint">The /cog/crop endpoint</a>
+  <li><a href="#the-cogfeature-endpoint" id="toc-the-cogfeature-endpoint" class="nav-link" data-scroll-target="#the-cogfeature-endpoint">The /cog/feature endpoint</a>
   <ul class="collapse">
   <li><a href="#get-visualization-parameters" id="toc-get-visualization-parameters" class="nav-link" data-scroll-target="#get-visualization-parameters">Get visualization parameters:</a></li>
   <li><a href="#generate-a-png" id="toc-generate-a-png" class="nav-link" data-scroll-target="#generate-a-png">Generate a PNG!</a></li>
@@ -533,7 +533,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">GIF generation using the TiTiler /cog/crop endpoint</h1>
+<h1 class="title">GIF generation using the TiTiler /cog/feature endpoint</h1>
 </div>
 
 <div>
@@ -565,10 +565,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="gif-generation-using-the-titiler-cogcrop-endpoint" class="level1">
-<h1>GIF generation using the TiTiler /cog/crop endpoint</h1>
-<p>This notebook demonstrates how to use the <code>cog/crop</code> endpoint to generate GIFs from data in the VEDA API.</p>
-<p>The overall process will be: 1. Use the STAC API to gather a list of STAC Items which will each become on frame in our gif 2. Query the <code>/cog/crop</code> endpoint with the asset URL and a geojson geometry 3. Stack all of the generated images into a animated GIF</p>
+<section id="gif-generation-using-the-titiler-cogfeature-endpoint" class="level1">
+<h1>GIF generation using the TiTiler /cog/feature endpoint</h1>
+<p>This notebook demonstrates how to use the <code>cog/feature</code> endpoint to generate GIFs from data in the VEDA API.</p>
+<p>The overall process will be: 1. Use the STAC API to gather a list of STAC Items which will each become on frame in our gif 2. Query the <code>/cog/feater</code> endpoint with the asset URL and a geojson geometry 3. Stack all of the generated images into a animated GIF</p>
 <section id="import-relevant-libraries" class="level2">
 <h2 class="anchored" data-anchor-id="import-relevant-libraries">Import relevant libraries</h2>
 <div class="cell">
@@ -650,8 +650,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Dates available: </span><span class="sc">{</span>dates[:<span class="dv">5</span>]<span class="sc">}</span><span class="ss"> ... </span><span class="sc">{</span>dates[<span class="op">-</span><span class="dv">5</span>:]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="the-cogcrop-endpoint" class="level2">
-<h2 class="anchored" data-anchor-id="the-cogcrop-endpoint">The /cog/crop endpoint</h2>
+<section id="the-cogfeature-endpoint" class="level2">
+<h2 class="anchored" data-anchor-id="the-cogfeature-endpoint">The /cog/feature endpoint</h2>
 <p>The endpoint accepts the following parameters, among others: - format (tif, jpeg, webp, etc) - height and width - url (for the COG file to extract data from)</p>
 <p>And any other visualization parameters specific to that dataset (eg: rescale and color_map values)</p>
 <section id="get-visualization-parameters" class="level3">
@@ -670,7 +670,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get PNG bytes from API</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.post(</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/cog/crop"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/cog/feature"</span>,</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"format"</span>: <span class="st">"png"</span>,</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"height"</span>: <span class="dv">512</span>,</span>
@@ -774,7 +774,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        france_aoi,</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        tmpdirname,</span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        image_format<span class="op">=</span><span class="st">"tif"</span>,</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        additional_cog_crop_args<span class="op">=</span>{</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        additional_cog_feature_args<span class="op">=</span>{</span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"rescale"</span>: <span class="ss">f"</span><span class="sc">{</span>COG_DEFAULT[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>COG_DEFAULT[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
 <span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"colormap_name"</span>: <span class="st">"viridis"</span>,</span>
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        },</span>
@@ -798,7 +798,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    tmpdirname.name,</span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    image_format<span class="op">=</span><span class="st">"tif"</span>,</span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    overlay<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    additional_cog_crop_args<span class="op">=</span>{</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    additional_cog_feature_args<span class="op">=</span>{</span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"rescale"</span>: <span class="ss">f"</span><span class="sc">{</span>COG_DEFAULT[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>COG_DEFAULT[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"colormap_name"</span>: <span class="st">"viridis"</span>,</span>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    },</span>
