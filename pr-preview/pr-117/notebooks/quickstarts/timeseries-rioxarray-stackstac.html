@@ -1,0 +1,2379 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Aimee Barciauskas, Julia Signell">
+<meta name="dcterms.date" content="2023-02-01">
+<meta name="description" content="Demonstrates how to aggregate COGs using pystac_client, rioxarray, and stackstac">
+
+<title>VEDA Documentation - Calculate timeseries from COGs</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../notebooks/quickstarts/visualize-zarr.html" rel="next">
+<link href="../../notebooks/quickstarts/open-and-plot.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item">Quickstarts</li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/list-collections.html">Accessing the Data Directly</a></li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/timeseries-rioxarray-stackstac.html">Calculate timeseries from COGs</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="https://visex.netlify.app/graphics/nasa-veda-logo-pos.svg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://www.earthdata.nasa.gov/esds/veda" title="earthdata.nasa.gov/esds/veda" class="quarto-navigation-tool px-1" aria-label="earthdata.nasa.gov/esds/veda"><i class="bi bi-info-circle"></i></a>
+    <a href="https://github.com/nasa-impact/veda-docs" title="Repository home" class="quarto-navigation-tool px-1" aria-label="Repository home"><i class="bi bi-github"></i></a>
+    <a href="https://earthdata.nasa.gov/dashboard" title="VEDA Dashboard" class="quarto-navigation-tool px-1" aria-label="VEDA Dashboard"><i class="bi bi-binoculars"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../services/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Services</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../services/dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dashboard</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../services/apis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">APIs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../services/jupyterhub.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">JupyterHub</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../notebooks/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Usage Examples</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Quickstarts</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Accessing the Data Directly</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth3 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/quickstarts/list-collections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">List STAC collections</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/quickstarts/open-and-plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Open and plot COGs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/quickstarts/timeseries-rioxarray-stackstac.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Calculate timeseries from COGs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/quickstarts/visualize-zarr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualize zarr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/quickstarts/visualize-multiple-times.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Open and visualize COGs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/quickstarts/downsample-zarr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Downsample zarr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/quickstarts/intake.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Searching VEDA STAC API and inspecting catalogs with intake</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/quickstarts/download-assets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download STAC assets</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Using the Raster API</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/quickstarts/no2-map-plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get map from COGs - NO2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/quickstarts/timeseries-stac-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get timeseries from COGs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/quickstarts/hls-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get tiles from COGs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/tutorials/gif-generation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GIF generation using the TiTiler /cog/feature endpoint</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/tutorials/netcdf-to-cog-cmip6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Converting NetCDF to COG (CMIP6)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/tutorials/mapping-fires.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get Fire Perimeters from an OGC API</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/tutorials/stac_ipyleaflet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using the stac_ipyleaflet mapping library</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/tutorials/zonal-statistics-validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calculating accurate zonal statistics with varying grid cell / pixel area</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">Datasets</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/ocean-npp-timeseries-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualizing Ocean NPP time series for seasonal patterns</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/nceo-biomass-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualizing NCEO Aboveground Woody Biomass 2017 prioritization areas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/volcano-so2-monitoring.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Monitoring Volcanic Sulfur Dioxide Emissions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/datasets/air-quality-covid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Air Quality and COVID-19</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../contributing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Contributing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributing/docs-and-notebooks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Usage Example Notebook Submission</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../contributing/dataset-ingestion/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dataset Ingestion</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributing/dataset-ingestion/file-preparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">File preparation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributing/dataset-ingestion/catalog-ingestion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Catalog Ingestion</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/veda-operations/generate-cmip6-kerchunk-historical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generate Kerchunk Reference from CMIP6 NetCDF files</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+ <span class="menu-text">STAC Collection Creation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributing/dataset-ingestion/stac-collection-conventions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">STAC collection conventions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/veda-operations/stac-collection-creation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">STAC Collection Creation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/veda-operations/publish-cmip6-kerchunk-stac.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Publishing a CMIP6 Kerchunk Reference to STAC</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+ <span class="menu-text">STAC Item Creation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributing/dataset-ingestion/stac-item-conventions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">STAC item conventions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../notebooks/veda-operations/stac-item-creation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">STAC Item Creation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../contributing/dashboard-configuration/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dashboard Configuration</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributing/dashboard-configuration/dataset-configuration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dataset Configuration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributing/dashboard-configuration/discovery-configuration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Discovery Configuration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../external-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">External resources</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#run-this-notebook" id="toc-run-this-notebook" class="nav-link active" data-scroll-target="#run-this-notebook">Run this notebook</a>
+  <ul class="collapse">
+  <li><a href="#inside-the-hub" id="toc-inside-the-hub" class="nav-link" data-scroll-target="#inside-the-hub">Inside the Hub</a></li>
+  <li><a href="#outside-the-hub" id="toc-outside-the-hub" class="nav-link" data-scroll-target="#outside-the-hub">Outside the Hub</a></li>
+  </ul></li>
+  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a></li>
+  <li><a href="#declare-your-collection-of-interest" id="toc-declare-your-collection-of-interest" class="nav-link" data-scroll-target="#declare-your-collection-of-interest">Declare your collection of interest</a></li>
+  <li><a href="#discover-items-in-collection-for-region-and-time-of-interest" id="toc-discover-items-in-collection-for-region-and-time-of-interest" class="nav-link" data-scroll-target="#discover-items-in-collection-for-region-and-time-of-interest">Discover items in collection for region and time of interest</a></li>
+  <li><a href="#read-data" id="toc-read-data" class="nav-link" data-scroll-target="#read-data">Read data</a></li>
+  <li><a href="#clip-the-data-to-the-bounding-box-for-china" id="toc-clip-the-data-to-the-bounding-box-for-china" class="nav-link" data-scroll-target="#clip-the-data-to-the-bounding-box-for-china">Clip the data to the bounding box for China</a></li>
+  <li><a href="#select-a-band-of-data" id="toc-select-a-band-of-data" class="nav-link" data-scroll-target="#select-a-band-of-data">Select a band of data</a></li>
+  <li><a href="#aggregate-the-data" id="toc-aggregate-the-data" class="nav-link" data-scroll-target="#aggregate-the-data">Aggregate the data</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.dev/nasa-impact/veda-docs/blob/main/notebooks/quickstarts/timeseries-rioxarray-stackstac.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item">Quickstarts</li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/list-collections.html">Accessing the Data Directly</a></li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/timeseries-rioxarray-stackstac.html">Calculate timeseries from COGs</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Calculate timeseries from COGs</h1>
+</div>
+
+<div>
+  <div class="description">
+    Demonstrates how to aggregate COGs using <code>pystac_client</code>, <code>rioxarray</code>, and <code>stackstac</code>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Aimee Barciauskas, Julia Signell </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 1, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="run-this-notebook" class="level2">
+<h2 class="anchored" data-anchor-id="run-this-notebook">Run this notebook</h2>
+<p>You can launch this notebook in VEDA JupyterHub by clicking the link below.</p>
+<p><a href="https://nasa-veda.2i2c.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&amp;urlpath=lab/tree/veda-docs/notebooks/quickstarts/timeseries-rioxarray-stackstac.ipynb&amp;branch=main">Launch in VEDA JupyterHub (requires access)</a></p>
+<details>
+<summary>
+Learn more
+</summary>
+<section id="inside-the-hub" class="level3">
+<h3 class="anchored" data-anchor-id="inside-the-hub">Inside the Hub</h3>
+<p>This notebook was written on the VEDA JupyterHub and as such is designed to be run on a jupyterhub which is associated with an AWS IAM role which has been granted permissions to the VEDA data store via its bucket policy. The instance used provided 16GB of RAM.</p>
+<p>See (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.</p>
+</section>
+<section id="outside-the-hub" class="level3">
+<h3 class="anchored" data-anchor-id="outside-the-hub">Outside the Hub</h3>
+<p>The data is in a protected bucket. Please request access by emailng aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN). The team will help you configure the cognito client.</p>
+<p>You should then run:</p>
+<pre><code>%run -i 'cognito_login.py'</code></pre>
+</section></details>
+</section>
+
+<section id="approach" class="level2">
+<h2 class="anchored" data-anchor-id="approach">Approach</h2>
+<ol type="1">
+<li>Use <code>pystac_client</code> to open the STAC catalog and retrieve the items in the collection</li>
+<li>Use <code>stackstac</code> to create an <code>xarray</code> dataset containing all the items cropped to AOI</li>
+<li>Calculate the mean for each timestep over the AOI</li>
+</ol>
+<div id="aadabf9e" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> stackstac</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rioxarray  <span class="co"># noqa</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="declare-your-collection-of-interest" class="level2">
+<h2 class="anchored" data-anchor-id="declare-your-collection-of-interest">Declare your collection of interest</h2>
+<p>You can discover available collections the following ways:</p>
+<ul>
+<li>Programmatically: see example in the <code>list-collections.ipynb</code> notebook</li>
+<li>JSON API: https://staging-stac.delta-backend.com/collections</li>
+<li>STAC Browser: http://veda-staging-stac-browser.s3-website-us-west-2.amazonaws.com</li>
+</ul>
+<div id="b0b2f0c2-b734-493d-ab3e-47ec65de0da5" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://staging-stac.delta-backend.com/"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> <span class="st">"no2-monthly"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="discover-items-in-collection-for-region-and-time-of-interest" class="level2">
+<h2 class="anchored" data-anchor-id="discover-items-in-collection-for-region-and-time-of-interest">Discover items in collection for region and time of interest</h2>
+<p>Use <code>pystac_client</code> to search the STAC collection for a particular area of interest within specified datetime bounds.</p>
+<div id="cbc79250-9ebe-4ab2-b200-07e2d5262113" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>china_bbox <span class="op">=</span> [</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="fl">73.675</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="fl">18.198</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fl">135.026</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fl">53.459</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>datetime <span class="op">=</span> <span class="st">"2000-01-01/2022-01-02"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8efe9b34" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>catalog <span class="op">=</span> Client.<span class="bu">open</span>(STAC_API_URL)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> catalog.search(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    bbox<span class="op">=</span>china_bbox, datetime<span class="op">=</span>datetime, collections<span class="op">=</span>[collection], limit<span class="op">=</span><span class="dv">1000</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(search.items())</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Found </span><span class="sc">{</span><span class="bu">len</span>(items)<span class="sc">}</span><span class="ss"> items"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Found 73 items</code></pre>
+</div>
+</div>
+</section>
+<section id="read-data" class="level2">
+<h2 class="anchored" data-anchor-id="read-data">Read data</h2>
+<p>Create an <code>xarray.DataSet</code> using <code>stackstac</code></p>
+<div id="a8ec1e87-5a4d-4ac8-9130-bf16ddb22296" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a workaround that is planning to move up into stackstac itself</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>session <span class="op">=</span> rio.session.AWSSession(boto3.Session())</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>gdal_env <span class="op">=</span> stackstac.DEFAULT_GDAL_ENV.updated(</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    always<span class="op">=</span><span class="bu">dict</span>(session<span class="op">=</span>rio.session.AWSSession(boto3.Session()))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cfcde367-f977-4bb4-b2ce-14f3271af7f1" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>da <span class="op">=</span> stackstac.stack(search.get_all_items(), gdal_env<span class="op">=</span>gdal_env)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>da <span class="op">=</span> da.assign_coords({<span class="st">"time"</span>: da.start_datetime})</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>da</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewbox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewbox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.DataArray 'stackstac-0683303cbb3f9689a8e6286f8a3ad3a0' (time: 73,
+                                                                band: 1,
+                                                                y: 1800, x: 3600)&gt;
+dask.array&lt;fetch_raster_window, shape=(73, 1, 1800, 3600), dtype=float64, chunksize=(1, 1, 1024, 1024), chunktype=numpy.ndarray&gt;
+Coordinates: (12/15)
+  * time            (time) &lt;U19 '2022-01-01T00:00:00' ... '2016-01-01T00:00:00'
+    id              (time) &lt;U37 'OMI_trno2_0.10x0.10_202201_Col3_V4.nc' ... '...
+  * band            (band) &lt;U11 'cog_default'
+  * x               (x) float64 -180.0 -179.9 -179.8 ... 179.7 179.8 179.9
+  * y               (y) float64 90.0 89.9 89.8 89.7 ... -89.6 -89.7 -89.8 -89.9
+    proj:geometry   object {'type': 'Polygon', 'coordinates': [[[-180.0, -90....
+    ...              ...
+    end_datetime    (time) &lt;U19 '2022-01-31T00:00:00' ... '2016-01-31T00:00:00'
+    proj:epsg       float64 4.326e+03
+    proj:bbox       object {180.0, -180.0, 90.0, -90.0}
+    description     &lt;U47 'Cloud optimized default layer to display on map'
+    title           &lt;U17 'Default COG Layer'
+    epsg            float64 4.326e+03
+Attributes:
+    spec:        RasterSpec(epsg=4326.0, bounds=(-180.0, -90.0, 180.0, 90.0),...
+    crs:         epsg:4326.0
+    transform:   | 0.10, 0.00,-180.00|\n| 0.00,-0.10, 90.00|\n| 0.00, 0.00, 1...
+    resolution:  0.1</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'stackstac-0683303cbb3f9689a8e6286f8a3ad3a0'</div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 73</li><li><span class="xr-has-index">band</span>: 1</li><li><span class="xr-has-index">y</span>: 1800</li><li><span class="xr-has-index">x</span>: 3600</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-9e71d164-c110-4298-92c9-cd48de2a4291" class="xr-array-in" type="checkbox" checked=""><label for="section-9e71d164-c110-4298-92c9-cd48de2a4291" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>dask.array&lt;chunksize=(1, 1, 1024, 1024), meta=np.ndarray&gt;</span></div><div class="xr-array-data">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th></th>
+<th data-quarto-table-cell-role="th">Array</th>
+<th data-quarto-table-cell-role="th">Chunk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Bytes</td>
+<td>3.52 GiB</td>
+<td>8.00 MiB</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Shape</td>
+<td>(73, 1, 1800, 3600)</td>
+<td>(1, 1, 1024, 1024)</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Count</td>
+<td>730 Tasks</td>
+<td>584 Chunks</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Type</td>
+<td>float64</td>
+<td>numpy.ndarray</td>
+</tr>
+</tbody>
+</table></td>
+<td><svg width="382" height="124" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="29" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="29" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="0" y1="0" x2="0" y2="25"></line> <line x1="1" y1="0" x2="1" y2="25"></line> <line x1="2" y1="0" x2="2" y2="25"></line> <line x1="3" y1="0" x2="3" y2="25"></line> <line x1="4" y1="0" x2="4" y2="25"></line> <line x1="5" y1="0" x2="5" y2="25"></line> <line x1="5" y1="0" x2="5" y2="25"></line> <line x1="7" y1="0" x2="7" y2="25"></line> <line x1="7" y1="0" x2="7" y2="25"></line> <line x1="8" y1="0" x2="8" y2="25"></line> <line x1="9" y1="0" x2="9" y2="25"></line> <line x1="10" y1="0" x2="10" y2="25"></line> <line x1="11" y1="0" x2="11" y2="25"></line> <line x1="12" y1="0" x2="12" y2="25"></line> <line x1="13" y1="0" x2="13" y2="25"></line> <line x1="14" y1="0" x2="14" y2="25"></line> <line x1="15" y1="0" x2="15" y2="25"></line> <line x1="16" y1="0" x2="16" y2="25"></line> <line x1="17" y1="0" x2="17" y2="25"></line> <line x1="17" y1="0" x2="17" y2="25"></line> <line x1="18" y1="0" x2="18" y2="25"></line> <line x1="19" y1="0" x2="19" y2="25"></line> <line x1="20" y1="0" x2="20" y2="25"></line> <line x1="21" y1="0" x2="21" y2="25"></line> <line x1="22" y1="0" x2="22" y2="25"></line> <line x1="23" y1="0" x2="23" y2="25"></line> <line x1="24" y1="0" x2="24" y2="25"></line> <line x1="25" y1="0" x2="25" y2="25"></line> <line x1="26" y1="0" x2="26" y2="25"></line> <line x1="27" y1="0" x2="27" y2="25"></line> <line x1="27" y1="0" x2="27" y2="25"></line> <line x1="29" y1="0" x2="29" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 29.10835206430147,0.0 29.10835206430147,25.412616514582485 0.0,25.412616514582485" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Text --> <text x="14.554176" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">73</text> <text x="49.108352" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,49.108352,12.706308)">1</text> <!-- Horizontal lines --> <line x1="99" y1="0" x2="113" y2="14" style="stroke-width:2"></line> <line x1="99" y1="34" x2="113" y2="49"></line> <line x1="99" y1="60" x2="113" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="99" y1="0" x2="99" y2="60" style="stroke-width:2"></line> <line x1="113" y1="14" x2="113" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="99.0,0.0 113.9485979497544,14.948597949754403 113.9485979497544,74.9485979497544 99.0,60.0" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="99" y1="0" x2="219" y2="0" style="stroke-width:2"></line> <line x1="113" y1="14" x2="233" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="99" y1="0" x2="113" y2="14" style="stroke-width:2"></line> <line x1="133" y1="0" x2="148" y2="14"></line> <line x1="167" y1="0" x2="182" y2="14"></line> <line x1="201" y1="0" x2="216" y2="14"></line> <line x1="219" y1="0" x2="233" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="99.0,0.0 219.0,0.0 233.9485979497544,14.948597949754403 113.9485979497544,14.948597949754403" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="113" y1="14" x2="233" y2="14" style="stroke-width:2"></line> <line x1="113" y1="49" x2="233" y2="49"></line> <line x1="113" y1="74" x2="233" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="113" y1="14" x2="113" y2="74" style="stroke-width:2"></line> <line x1="148" y1="14" x2="148" y2="74"></line> <line x1="182" y1="14" x2="182" y2="74"></line> <line x1="216" y1="14" x2="216" y2="74"></line> <line x1="233" y1="14" x2="233" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="113.9485979497544,14.948597949754403 233.9485979497544,14.948597949754403 233.9485979497544,74.9485979497544 113.9485979497544,74.9485979497544" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="173.948598" y="94.948598" font-size="1.0rem" font-weight="100" text-anchor="middle">3600</text> <text x="253.948598" y="44.948598" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,253.948598,44.948598)">1800</text> <text x="96.474299" y="87.474299" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,96.474299,87.474299)">1</text>
+</svg></td>
+</tr>
+</tbody>
+</table>
+</div></div></li><li class="xr-section-item"><input id="section-bb3650d3-4bb6-4eaf-ae2a-0e7e7adf749e" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-bb3650d3-4bb6-4eaf-ae2a-0e7e7adf749e" class="xr-section-summary">Coordinates: <span>(15)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U19</div><div class="xr-var-preview xr-preview">'2022-01-01T00:00:00' ... '2016-...</div><input id="attrs-479b5b02-b386-42d3-a082-714bc593a287" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-479b5b02-b386-42d3-a082-714bc593a287" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-744ab5cd-9f49-48ac-88e1-042348cfe76c" class="xr-var-data-in" type="checkbox"><label for="data-744ab5cd-9f49-48ac-88e1-042348cfe76c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-01T00:00:00', '2021-12-01T00:00:00', '2021-11-01T00:00:00',
+       '2021-10-01T00:00:00', '2021-09-01T00:00:00', '2021-08-01T00:00:00',
+       '2021-07-01T00:00:00', '2021-06-01T00:00:00', '2021-05-01T00:00:00',
+       '2021-04-01T00:00:00', '2021-03-01T00:00:00', '2021-02-01T00:00:00',
+       '2021-01-01T00:00:00', '2020-12-01T00:00:00', '2020-11-01T00:00:00',
+       '2020-10-01T00:00:00', '2020-09-01T00:00:00', '2020-08-01T00:00:00',
+       '2020-07-01T00:00:00', '2020-06-01T00:00:00', '2020-05-01T00:00:00',
+       '2020-04-01T00:00:00', '2020-03-01T00:00:00', '2020-02-01T00:00:00',
+       '2020-01-01T00:00:00', '2019-12-01T00:00:00', '2019-11-01T00:00:00',
+       '2019-10-01T00:00:00', '2019-09-01T00:00:00', '2019-08-01T00:00:00',
+       '2019-07-01T00:00:00', '2019-06-01T00:00:00', '2019-05-01T00:00:00',
+       '2019-04-01T00:00:00', '2019-03-01T00:00:00', '2019-02-01T00:00:00',
+       '2019-01-01T00:00:00', '2018-12-01T00:00:00', '2018-11-01T00:00:00',
+       '2018-10-01T00:00:00', '2018-09-01T00:00:00', '2018-08-01T00:00:00',
+       '2018-07-01T00:00:00', '2018-06-01T00:00:00', '2018-05-01T00:00:00',
+       '2018-04-01T00:00:00', '2018-03-01T00:00:00', '2018-02-01T00:00:00',
+       '2018-01-01T00:00:00', '2017-12-01T00:00:00', '2017-11-01T00:00:00',
+       '2017-10-01T00:00:00', '2017-09-01T00:00:00', '2017-08-01T00:00:00',
+       '2017-07-01T00:00:00', '2017-06-01T00:00:00', '2017-05-01T00:00:00',
+       '2017-04-01T00:00:00', '2017-03-01T00:00:00', '2017-02-01T00:00:00',
+       '2017-01-01T00:00:00', '2016-12-01T00:00:00', '2016-11-01T00:00:00',
+       '2016-10-01T00:00:00', '2016-09-01T00:00:00', '2016-08-01T00:00:00',
+       '2016-07-01T00:00:00', '2016-06-01T00:00:00', '2016-05-01T00:00:00',
+       '2016-04-01T00:00:00', '2016-03-01T00:00:00', '2016-02-01T00:00:00',
+       '2016-01-01T00:00:00'], dtype='&lt;U19')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>id</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U37</div><div class="xr-var-preview xr-preview">'OMI_trno2_0.10x0.10_202201_Col3...</div><input id="attrs-0d6a4b63-0577-461b-bee6-afce050b8dd1" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-0d6a4b63-0577-461b-bee6-afce050b8dd1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-570cb432-a5b3-469b-be0f-ae064bc43982" class="xr-var-data-in" type="checkbox"><label for="data-570cb432-a5b3-469b-be0f-ae064bc43982" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['OMI_trno2_0.10x0.10_202201_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202112_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202111_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202110_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202109_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202108_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202107_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202106_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202105_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202104_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202103_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202102_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202101_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202012_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202011_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202010_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202009_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202008_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202007_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202006_Col3_V4.nc',
+...
+       'OMI_trno2_0.10x0.10_201708_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201707_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201706_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201705_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201704_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201703_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201702_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201701_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201612_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201611_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201610_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201609_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201608_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201607_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201606_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201605_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201604_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201603_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201602_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201601_Col3_V4.nc'], dtype='&lt;U37')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">band</span></div><div class="xr-var-dims">(band)</div><div class="xr-var-dtype">&lt;U11</div><div class="xr-var-preview xr-preview">'cog_default'</div><input id="attrs-0349cc34-8776-4a8c-b076-5c0d4a817992" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-0349cc34-8776-4a8c-b076-5c0d4a817992" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5d17d303-3a01-40b2-a888-42a69e02fee9" class="xr-var-data-in" type="checkbox"><label for="data-5d17d303-3a01-40b2-a888-42a69e02fee9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['cog_default'], dtype='&lt;U11')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-180.0 -179.9 ... 179.8 179.9</div><input id="attrs-048efb65-a775-4e44-ab7f-33d277175151" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-048efb65-a775-4e44-ab7f-33d277175151" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e20b8b9d-8fda-4d46-bc1c-58f97decf783" class="xr-var-data-in" type="checkbox"><label for="data-e20b8b9d-8fda-4d46-bc1c-58f97decf783" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([-180. , -179.9, -179.8, ...,  179.7,  179.8,  179.9])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">90.0 89.9 89.8 ... -89.8 -89.9</div><input id="attrs-4e6d16f8-ea12-466a-bf48-758935046021" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-4e6d16f8-ea12-466a-bf48-758935046021" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3a4c15db-518d-412c-b72e-2beaf9a2111a" class="xr-var-data-in" type="checkbox"><label for="data-3a4c15db-518d-412c-b72e-2beaf9a2111a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([ 90. ,  89.9,  89.8, ..., -89.7, -89.8, -89.9])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:geometry</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{'type': 'Polygon', 'coordinates...</div><input id="attrs-c7ebfbd6-10d7-41c7-8429-f40752f73986" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-c7ebfbd6-10d7-41c7-8429-f40752f73986" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8b683b90-aa1f-4ca9-a6e2-64beae0a31ca" class="xr-var-data-in" type="checkbox"><label for="data-8b683b90-aa1f-4ca9-a6e2-64beae0a31ca" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({'type': 'Polygon', 'coordinates': [[[-180.0, -90.0], [180.0, -90.0], [180.0, 90.0], [-180.0, 90.0], [-180.0, -90.0]]]},
+      dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:transform</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{0.1, 0.0, -0.1, 1.0, -180.0, 90.0}</div><input id="attrs-afd87a88-25aa-4b02-ae71-88c36c7f4771" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-afd87a88-25aa-4b02-ae71-88c36c7f4771" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-65fe5d50-e5c8-4a21-826f-84840bbcbe4c" class="xr-var-data-in" type="checkbox"><label for="data-65fe5d50-e5c8-4a21-826f-84840bbcbe4c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({0.1, 0.0, -0.1, 1.0, -180.0, 90.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:shape</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{1800.0, 3600.0}</div><input id="attrs-e8886008-0e35-49bf-9fe8-6e1e45e9b2b5" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-e8886008-0e35-49bf-9fe8-6e1e45e9b2b5" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-45c80aae-c340-46bc-bb9f-212bcc2c4512" class="xr-var-data-in" type="checkbox"><label for="data-45c80aae-c340-46bc-bb9f-212bcc2c4512" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({1800.0, 3600.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>start_datetime</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U19</div><div class="xr-var-preview xr-preview">'2022-01-01T00:00:00' ... '2016-...</div><input id="attrs-8950c925-710d-4a28-b0d0-7e13f41b1595" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-8950c925-710d-4a28-b0d0-7e13f41b1595" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-39ef2b52-f69d-4b0e-b3b7-99730c34559a" class="xr-var-data-in" type="checkbox"><label for="data-39ef2b52-f69d-4b0e-b3b7-99730c34559a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-01T00:00:00', '2021-12-01T00:00:00',
+       '2021-11-01T00:00:00', '2021-10-01T00:00:00',
+       '2021-09-01T00:00:00', '2021-08-01T00:00:00',
+       '2021-07-01T00:00:00', '2021-06-01T00:00:00',
+       '2021-05-01T00:00:00', '2021-04-01T00:00:00',
+       '2021-03-01T00:00:00', '2021-02-01T00:00:00',
+       '2021-01-01T00:00:00', '2020-12-01T00:00:00',
+       '2020-11-01T00:00:00', '2020-10-01T00:00:00',
+       '2020-09-01T00:00:00', '2020-08-01T00:00:00',
+       '2020-07-01T00:00:00', '2020-06-01T00:00:00',
+       '2020-05-01T00:00:00', '2020-04-01T00:00:00',
+       '2020-03-01T00:00:00', '2020-02-01T00:00:00',
+       '2020-01-01T00:00:00', '2019-12-01T00:00:00',
+       '2019-11-01T00:00:00', '2019-10-01T00:00:00',
+       '2019-09-01T00:00:00', '2019-08-01T00:00:00',
+       '2019-07-01T00:00:00', '2019-06-01T00:00:00',
+       '2019-05-01T00:00:00', '2019-04-01T00:00:00',
+       '2019-03-01T00:00:00', '2019-02-01T00:00:00',
+       '2019-01-01T00:00:00', '2018-12-01T00:00:00',
+       '2018-11-01T00:00:00', '2018-10-01T00:00:00',
+       '2018-09-01T00:00:00', '2018-08-01T00:00:00',
+       '2018-07-01T00:00:00', '2018-06-01T00:00:00',
+       '2018-05-01T00:00:00', '2018-04-01T00:00:00',
+       '2018-03-01T00:00:00', '2018-02-01T00:00:00',
+       '2018-01-01T00:00:00', '2017-12-01T00:00:00',
+       '2017-11-01T00:00:00', '2017-10-01T00:00:00',
+       '2017-09-01T00:00:00', '2017-08-01T00:00:00',
+       '2017-07-01T00:00:00', '2017-06-01T00:00:00',
+       '2017-05-01T00:00:00', '2017-04-01T00:00:00',
+       '2017-03-01T00:00:00', '2017-02-01T00:00:00',
+       '2017-01-01T00:00:00', '2016-12-01T00:00:00',
+       '2016-11-01T00:00:00', '2016-10-01T00:00:00',
+       '2016-09-01T00:00:00', '2016-08-01T00:00:00',
+       '2016-07-01T00:00:00', '2016-06-01T00:00:00',
+       '2016-05-01T00:00:00', '2016-04-01T00:00:00',
+       '2016-03-01T00:00:00', '2016-02-01T00:00:00',
+       '2016-01-01T00:00:00'], dtype='&lt;U19')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>end_datetime</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U19</div><div class="xr-var-preview xr-preview">'2022-01-31T00:00:00' ... '2016-...</div><input id="attrs-bb13890a-1919-4d47-8c8e-ca8fb0670d02" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-bb13890a-1919-4d47-8c8e-ca8fb0670d02" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-93068ca4-6dfb-4694-bd3e-cf36f34278ab" class="xr-var-data-in" type="checkbox"><label for="data-93068ca4-6dfb-4694-bd3e-cf36f34278ab" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-31T00:00:00', '2021-12-31T00:00:00',
+       '2021-11-30T00:00:00', '2021-10-31T00:00:00',
+       '2021-09-30T00:00:00', '2021-08-31T00:00:00',
+       '2021-07-31T00:00:00', '2021-06-30T00:00:00',
+       '2021-05-31T00:00:00', '2021-04-30T00:00:00',
+       '2021-03-31T00:00:00', '2021-02-28T00:00:00',
+       '2021-01-31T00:00:00', '2020-12-31T00:00:00',
+       '2020-11-30T00:00:00', '2020-10-31T00:00:00',
+       '2020-09-30T00:00:00', '2020-08-31T00:00:00',
+       '2020-07-31T00:00:00', '2020-06-30T00:00:00',
+       '2020-05-31T00:00:00', '2020-04-30T00:00:00',
+       '2020-03-31T00:00:00', '2020-02-29T00:00:00',
+       '2020-01-31T00:00:00', '2019-12-31T00:00:00',
+       '2019-11-30T00:00:00', '2019-10-31T00:00:00',
+       '2019-09-30T00:00:00', '2019-08-31T00:00:00',
+       '2019-07-31T00:00:00', '2019-06-30T00:00:00',
+       '2019-05-31T00:00:00', '2019-04-30T00:00:00',
+       '2019-03-31T00:00:00', '2019-02-28T00:00:00',
+       '2019-01-31T00:00:00', '2018-12-31T00:00:00',
+       '2018-11-30T00:00:00', '2018-10-31T00:00:00',
+       '2018-09-30T00:00:00', '2018-08-31T00:00:00',
+       '2018-07-31T00:00:00', '2018-06-30T00:00:00',
+       '2018-05-31T00:00:00', '2018-04-30T00:00:00',
+       '2018-03-31T00:00:00', '2018-02-28T00:00:00',
+       '2018-01-31T00:00:00', '2017-12-31T00:00:00',
+       '2017-11-30T00:00:00', '2017-10-31T00:00:00',
+       '2017-09-30T00:00:00', '2017-08-31T00:00:00',
+       '2017-07-31T00:00:00', '2017-06-30T00:00:00',
+       '2017-05-31T00:00:00', '2017-04-30T00:00:00',
+       '2017-03-31T00:00:00', '2017-02-28T00:00:00',
+       '2017-01-31T00:00:00', '2016-12-31T00:00:00',
+       '2016-11-30T00:00:00', '2016-10-31T00:00:00',
+       '2016-09-30T00:00:00', '2016-08-31T00:00:00',
+       '2016-07-31T00:00:00', '2016-06-30T00:00:00',
+       '2016-05-31T00:00:00', '2016-04-30T00:00:00',
+       '2016-03-31T00:00:00', '2016-02-29T00:00:00',
+       '2016-01-31T00:00:00'], dtype='&lt;U19')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:epsg</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">4.326e+03</div><input id="attrs-96c4f5a9-6905-4be1-a8b9-19e4aa40161d" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-96c4f5a9-6905-4be1-a8b9-19e4aa40161d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d3c89c03-347b-4f5d-9066-086ef9e1281b" class="xr-var-data-in" type="checkbox"><label for="data-d3c89c03-347b-4f5d-9066-086ef9e1281b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(4326.)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:bbox</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{180.0, -180.0, 90.0, -90.0}</div><input id="attrs-2a66603a-0d6d-475c-bfbf-fcbba853e40d" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-2a66603a-0d6d-475c-bfbf-fcbba853e40d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f07247ec-5ee8-4983-8b1c-6ddeee2bdf3f" class="xr-var-data-in" type="checkbox"><label for="data-f07247ec-5ee8-4983-8b1c-6ddeee2bdf3f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({180.0, -180.0, 90.0, -90.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>description</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U47</div><div class="xr-var-preview xr-preview">'Cloud optimized default layer t...</div><input id="attrs-fc42fe40-92ca-4111-b1d8-7f0d0c93e02a" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-fc42fe40-92ca-4111-b1d8-7f0d0c93e02a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d08f2e7b-f80b-4e88-90f7-6249585d458a" class="xr-var-data-in" type="checkbox"><label for="data-d08f2e7b-f80b-4e88-90f7-6249585d458a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('Cloud optimized default layer to display on map', dtype='&lt;U47')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>title</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U17</div><div class="xr-var-preview xr-preview">'Default COG Layer'</div><input id="attrs-b157167c-0d53-45c2-90a9-2007bc5c13a5" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-b157167c-0d53-45c2-90a9-2007bc5c13a5" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-de54a561-9dd3-42ad-afe3-d55215563f1f" class="xr-var-data-in" type="checkbox"><label for="data-de54a561-9dd3-42ad-afe3-d55215563f1f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('Default COG Layer', dtype='&lt;U17')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>epsg</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">4.326e+03</div><input id="attrs-6f263dde-a486-4ff9-b166-1c0a66f6f505" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-6f263dde-a486-4ff9-b166-1c0a66f6f505" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-63c7a525-9a99-4fe7-8b29-ad290c1b0542" class="xr-var-data-in" type="checkbox"><label for="data-63c7a525-9a99-4fe7-8b29-ad290c1b0542" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(4326.)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-95997ce6-865a-4149-b90c-fa8d9ca2fb68" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-95997ce6-865a-4149-b90c-fa8d9ca2fb68" class="xr-section-summary">Attributes: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>spec :</span></dt><dd>RasterSpec(epsg=4326.0, bounds=(-180.0, -90.0, 180.0, 90.0), resolutions_xy=(0.1, 0.1))</dd><dt><span>crs :</span></dt><dd>epsg:4326.0</dd><dt><span>transform :</span></dt><dd>| 0.10, 0.00,-180.00|
+| 0.00,-0.10, 90.00|
+| 0.00, 0.00, 1.00|</dd><dt><span>resolution :</span></dt><dd>0.1</dd></dl></div></li></ul></div></div>
+</div>
+</div>
+</section>
+<section id="clip-the-data-to-the-bounding-box-for-china" class="level2">
+<h2 class="anchored" data-anchor-id="clip-the-data-to-the-bounding-box-for-china">Clip the data to the bounding box for China</h2>
+<div id="92bed8e4-dcf0-4226-8d1c-7ca66460ac52" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset to Bounding Box for China</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>subset <span class="op">=</span> da.rio.clip_box(<span class="op">*</span>china_bbox)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>subset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/srv/conda/envs/notebook/lib/python3.9/site-packages/rasterio/windows.py:310: RasterioDeprecationWarning: The height, width, and precision parameters are unused, deprecated, and will be removed in 2.0.0.
+  warnings.warn(</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewbox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewbox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.DataArray 'stackstac-0683303cbb3f9689a8e6286f8a3ad3a0' (time: 73,
+                                                                band: 1,
+                                                                y: 354, x: 614)&gt;
+dask.array&lt;getitem, shape=(73, 1, 354, 614), dtype=float64, chunksize=(1, 1, 354, 535), chunktype=numpy.ndarray&gt;
+Coordinates: (12/16)
+  * time            (time) &lt;U19 '2022-01-01T00:00:00' ... '2016-01-01T00:00:00'
+    id              (time) &lt;U37 'OMI_trno2_0.10x0.10_202201_Col3_V4.nc' ... '...
+  * band            (band) &lt;U11 'cog_default'
+  * x               (x) float64 73.7 73.8 73.9 74.0 ... 134.7 134.8 134.9 135.0
+  * y               (y) float64 53.5 53.4 53.3 53.2 53.1 ... 18.5 18.4 18.3 18.2
+    proj:geometry   object {'type': 'Polygon', 'coordinates': [[[-180.0, -90....
+    ...              ...
+    proj:epsg       float64 4.326e+03
+    proj:bbox       object {90.0, 180.0, -90.0, -180.0}
+    description     &lt;U47 'Cloud optimized default layer to display on map'
+    title           &lt;U17 'Default COG Layer'
+    epsg            float64 4.326e+03
+    spatial_ref     int64 0
+Attributes:
+    spec:        RasterSpec(epsg=4326.0, bounds=(-180.0, -90.0, 180.0, 90.0),...
+    resolution:  0.1</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'stackstac-0683303cbb3f9689a8e6286f8a3ad3a0'</div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 73</li><li><span class="xr-has-index">band</span>: 1</li><li><span class="xr-has-index">y</span>: 354</li><li><span class="xr-has-index">x</span>: 614</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-5b2690ad-7844-435a-b90c-7eb69ea9f354" class="xr-array-in" type="checkbox" checked=""><label for="section-5b2690ad-7844-435a-b90c-7eb69ea9f354" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>dask.array&lt;chunksize=(1, 1, 354, 535), meta=np.ndarray&gt;</span></div><div class="xr-array-data">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th></th>
+<th data-quarto-table-cell-role="th">Array</th>
+<th data-quarto-table-cell-role="th">Chunk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Bytes</td>
+<td>121.06 MiB</td>
+<td>1.44 MiB</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Shape</td>
+<td>(73, 1, 354, 614)</td>
+<td>(1, 1, 354, 535)</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Count</td>
+<td>876 Tasks</td>
+<td>146 Chunks</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Type</td>
+<td>float64</td>
+<td>numpy.ndarray</td>
+</tr>
+</tbody>
+</table></td>
+<td><svg width="402" height="134" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="39" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="39" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="1" y1="0" x2="1" y2="25"></line> <line x1="2" y1="0" x2="2" y2="25"></line> <line x1="3" y1="0" x2="3" y2="25"></line> <line x1="4" y1="0" x2="4" y2="25"></line> <line x1="5" y1="0" x2="5" y2="25"></line> <line x1="7" y1="0" x2="7" y2="25"></line> <line x1="8" y1="0" x2="8" y2="25"></line> <line x1="9" y1="0" x2="9" y2="25"></line> <line x1="10" y1="0" x2="10" y2="25"></line> <line x1="11" y1="0" x2="11" y2="25"></line> <line x1="13" y1="0" x2="13" y2="25"></line> <line x1="14" y1="0" x2="14" y2="25"></line> <line x1="15" y1="0" x2="15" y2="25"></line> <line x1="16" y1="0" x2="16" y2="25"></line> <line x1="18" y1="0" x2="18" y2="25"></line> <line x1="19" y1="0" x2="19" y2="25"></line> <line x1="20" y1="0" x2="20" y2="25"></line> <line x1="22" y1="0" x2="22" y2="25"></line> <line x1="23" y1="0" x2="23" y2="25"></line> <line x1="24" y1="0" x2="24" y2="25"></line> <line x1="25" y1="0" x2="25" y2="25"></line> <line x1="27" y1="0" x2="27" y2="25"></line> <line x1="28" y1="0" x2="28" y2="25"></line> <line x1="29" y1="0" x2="29" y2="25"></line> <line x1="30" y1="0" x2="30" y2="25"></line> <line x1="31" y1="0" x2="31" y2="25"></line> <line x1="33" y1="0" x2="33" y2="25"></line> <line x1="34" y1="0" x2="34" y2="25"></line> <line x1="35" y1="0" x2="35" y2="25"></line> <line x1="36" y1="0" x2="36" y2="25"></line> <line x1="37" y1="0" x2="37" y2="25"></line> <line x1="39" y1="0" x2="39" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 39.53246640871678,0.0 39.53246640871678,25.412616514582485 0.0,25.412616514582485" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Text --> <text x="19.766233" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">73</text> <text x="59.532466" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,59.532466,12.706308)">1</text> <!-- Horizontal lines --> <line x1="109" y1="0" x2="123" y2="14" style="stroke-width:2"></line> <line x1="109" y1="69" x2="123" y2="84" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="109" y1="0" x2="109" y2="69" style="stroke-width:2"></line> <line x1="123" y1="14" x2="123" y2="84" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="109.0,0.0 123.9485979497544,14.948597949754403 123.9485979497544,84.1342657021974 109.0,69.185667752443" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="109" y1="0" x2="229" y2="0" style="stroke-width:2"></line> <line x1="123" y1="14" x2="243" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="109" y1="0" x2="123" y2="14" style="stroke-width:2"></line> <line x1="213" y1="0" x2="228" y2="14"></line> <line x1="229" y1="0" x2="243" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="109.0,0.0 229.0,0.0 243.9485979497544,14.948597949754403 123.9485979497544,14.948597949754403" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="123" y1="14" x2="243" y2="14" style="stroke-width:2"></line> <line x1="123" y1="84" x2="243" y2="84" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="123" y1="14" x2="123" y2="84" style="stroke-width:2"></line> <line x1="228" y1="14" x2="228" y2="84"></line> <line x1="243" y1="14" x2="243" y2="84" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="123.9485979497544,14.948597949754403 243.9485979497544,14.948597949754403 243.9485979497544,84.1342657021974 123.9485979497544,84.1342657021974" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="183.948598" y="104.134266" font-size="1.0rem" font-weight="100" text-anchor="middle">614</text> <text x="263.948598" y="49.541432" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,263.948598,49.541432)">354</text> <text x="106.474299" y="96.659967" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,106.474299,96.659967)">1</text>
+</svg></td>
+</tr>
+</tbody>
+</table>
+</div></div></li><li class="xr-section-item"><input id="section-217d7c6f-c5e7-4766-9aee-5ced952c011a" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-217d7c6f-c5e7-4766-9aee-5ced952c011a" class="xr-section-summary">Coordinates: <span>(16)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U19</div><div class="xr-var-preview xr-preview">'2022-01-01T00:00:00' ... '2016-...</div><input id="attrs-c2e023ad-e837-45f2-9852-6cbfeb9a5cc7" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-c2e023ad-e837-45f2-9852-6cbfeb9a5cc7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e5ada75e-5a8b-4a79-862f-33aae9f86846" class="xr-var-data-in" type="checkbox"><label for="data-e5ada75e-5a8b-4a79-862f-33aae9f86846" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-01T00:00:00', '2021-12-01T00:00:00', '2021-11-01T00:00:00',
+       '2021-10-01T00:00:00', '2021-09-01T00:00:00', '2021-08-01T00:00:00',
+       '2021-07-01T00:00:00', '2021-06-01T00:00:00', '2021-05-01T00:00:00',
+       '2021-04-01T00:00:00', '2021-03-01T00:00:00', '2021-02-01T00:00:00',
+       '2021-01-01T00:00:00', '2020-12-01T00:00:00', '2020-11-01T00:00:00',
+       '2020-10-01T00:00:00', '2020-09-01T00:00:00', '2020-08-01T00:00:00',
+       '2020-07-01T00:00:00', '2020-06-01T00:00:00', '2020-05-01T00:00:00',
+       '2020-04-01T00:00:00', '2020-03-01T00:00:00', '2020-02-01T00:00:00',
+       '2020-01-01T00:00:00', '2019-12-01T00:00:00', '2019-11-01T00:00:00',
+       '2019-10-01T00:00:00', '2019-09-01T00:00:00', '2019-08-01T00:00:00',
+       '2019-07-01T00:00:00', '2019-06-01T00:00:00', '2019-05-01T00:00:00',
+       '2019-04-01T00:00:00', '2019-03-01T00:00:00', '2019-02-01T00:00:00',
+       '2019-01-01T00:00:00', '2018-12-01T00:00:00', '2018-11-01T00:00:00',
+       '2018-10-01T00:00:00', '2018-09-01T00:00:00', '2018-08-01T00:00:00',
+       '2018-07-01T00:00:00', '2018-06-01T00:00:00', '2018-05-01T00:00:00',
+       '2018-04-01T00:00:00', '2018-03-01T00:00:00', '2018-02-01T00:00:00',
+       '2018-01-01T00:00:00', '2017-12-01T00:00:00', '2017-11-01T00:00:00',
+       '2017-10-01T00:00:00', '2017-09-01T00:00:00', '2017-08-01T00:00:00',
+       '2017-07-01T00:00:00', '2017-06-01T00:00:00', '2017-05-01T00:00:00',
+       '2017-04-01T00:00:00', '2017-03-01T00:00:00', '2017-02-01T00:00:00',
+       '2017-01-01T00:00:00', '2016-12-01T00:00:00', '2016-11-01T00:00:00',
+       '2016-10-01T00:00:00', '2016-09-01T00:00:00', '2016-08-01T00:00:00',
+       '2016-07-01T00:00:00', '2016-06-01T00:00:00', '2016-05-01T00:00:00',
+       '2016-04-01T00:00:00', '2016-03-01T00:00:00', '2016-02-01T00:00:00',
+       '2016-01-01T00:00:00'], dtype='&lt;U19')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>id</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U37</div><div class="xr-var-preview xr-preview">'OMI_trno2_0.10x0.10_202201_Col3...</div><input id="attrs-184c25da-c4b4-4270-ab70-67cf5e6eebcd" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-184c25da-c4b4-4270-ab70-67cf5e6eebcd" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1dcc5ad9-9a62-4d9b-ab92-91bb7cb11140" class="xr-var-data-in" type="checkbox"><label for="data-1dcc5ad9-9a62-4d9b-ab92-91bb7cb11140" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['OMI_trno2_0.10x0.10_202201_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202112_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202111_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202110_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202109_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202108_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202107_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202106_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202105_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202104_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202103_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202102_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202101_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202012_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202011_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202010_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202009_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202008_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202007_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_202006_Col3_V4.nc',
+...
+       'OMI_trno2_0.10x0.10_201708_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201707_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201706_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201705_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201704_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201703_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201702_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201701_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201612_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201611_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201610_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201609_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201608_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201607_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201606_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201605_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201604_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201603_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201602_Col3_V4.nc',
+       'OMI_trno2_0.10x0.10_201601_Col3_V4.nc'], dtype='&lt;U37')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">band</span></div><div class="xr-var-dims">(band)</div><div class="xr-var-dtype">&lt;U11</div><div class="xr-var-preview xr-preview">'cog_default'</div><input id="attrs-112894d8-bd82-4784-9635-43ef68654464" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-112894d8-bd82-4784-9635-43ef68654464" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8ef18786-b237-47e3-ad7a-e71c4fd26540" class="xr-var-data-in" type="checkbox"><label for="data-8ef18786-b237-47e3-ad7a-e71c4fd26540" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['cog_default'], dtype='&lt;U11')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">73.7 73.8 73.9 ... 134.9 135.0</div><input id="attrs-f1ff02e5-37d4-4075-b9ca-fc2637105105" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f1ff02e5-37d4-4075-b9ca-fc2637105105" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-769bd6cc-a782-4686-add7-4148fb263e64" class="xr-var-data-in" type="checkbox"><label for="data-769bd6cc-a782-4686-add7-4148fb263e64" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>X</dd><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class="xr-var-data"><pre>array([ 73.7,  73.8,  73.9, ..., 134.8, 134.9, 135. ])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">53.5 53.4 53.3 ... 18.4 18.3 18.2</div><input id="attrs-0bdeeaf8-165e-4497-85da-4b723d6e857a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-0bdeeaf8-165e-4497-85da-4b723d6e857a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9436dacc-704b-4217-a72a-8cbfdc2577ca" class="xr-var-data-in" type="checkbox"><label for="data-9436dacc-704b-4217-a72a-8cbfdc2577ca" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>Y</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class="xr-var-data"><pre>array([53.5, 53.4, 53.3, ..., 18.4, 18.3, 18.2])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:geometry</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{'type': 'Polygon', 'coordinates...</div><input id="attrs-f330410c-9ee5-422b-b43a-e69fc8a19072" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-f330410c-9ee5-422b-b43a-e69fc8a19072" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-293c547f-a203-40f9-bb43-8b4de49ccbfc" class="xr-var-data-in" type="checkbox"><label for="data-293c547f-a203-40f9-bb43-8b4de49ccbfc" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({'type': 'Polygon', 'coordinates': [[[-180.0, -90.0], [180.0, -90.0], [180.0, 90.0], [-180.0, 90.0], [-180.0, -90.0]]]},
+      dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:transform</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{0.1, 0.0, 1.0, -0.1, -180.0, 90.0}</div><input id="attrs-7624e01f-7c00-4dc1-884b-9fcc54b97e22" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-7624e01f-7c00-4dc1-884b-9fcc54b97e22" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-01a585cc-62c4-42fe-baf7-58663c2253b0" class="xr-var-data-in" type="checkbox"><label for="data-01a585cc-62c4-42fe-baf7-58663c2253b0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({0.1, 0.0, 1.0, -0.1, -180.0, 90.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:shape</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{1800.0, 3600.0}</div><input id="attrs-9de7dfb4-87c4-4213-af50-967e2c6324c1" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-9de7dfb4-87c4-4213-af50-967e2c6324c1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9b34684e-face-4237-9b1b-d2b57d03cb04" class="xr-var-data-in" type="checkbox"><label for="data-9b34684e-face-4237-9b1b-d2b57d03cb04" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({1800.0, 3600.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>start_datetime</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U19</div><div class="xr-var-preview xr-preview">'2022-01-01T00:00:00' ... '2016-...</div><input id="attrs-d8202c54-963a-4b46-85da-a0fe7f905d5e" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-d8202c54-963a-4b46-85da-a0fe7f905d5e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-49ea0b71-4831-46e3-99db-44ca920024d3" class="xr-var-data-in" type="checkbox"><label for="data-49ea0b71-4831-46e3-99db-44ca920024d3" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-01T00:00:00', '2021-12-01T00:00:00',
+       '2021-11-01T00:00:00', '2021-10-01T00:00:00',
+       '2021-09-01T00:00:00', '2021-08-01T00:00:00',
+       '2021-07-01T00:00:00', '2021-06-01T00:00:00',
+       '2021-05-01T00:00:00', '2021-04-01T00:00:00',
+       '2021-03-01T00:00:00', '2021-02-01T00:00:00',
+       '2021-01-01T00:00:00', '2020-12-01T00:00:00',
+       '2020-11-01T00:00:00', '2020-10-01T00:00:00',
+       '2020-09-01T00:00:00', '2020-08-01T00:00:00',
+       '2020-07-01T00:00:00', '2020-06-01T00:00:00',
+       '2020-05-01T00:00:00', '2020-04-01T00:00:00',
+       '2020-03-01T00:00:00', '2020-02-01T00:00:00',
+       '2020-01-01T00:00:00', '2019-12-01T00:00:00',
+       '2019-11-01T00:00:00', '2019-10-01T00:00:00',
+       '2019-09-01T00:00:00', '2019-08-01T00:00:00',
+       '2019-07-01T00:00:00', '2019-06-01T00:00:00',
+       '2019-05-01T00:00:00', '2019-04-01T00:00:00',
+       '2019-03-01T00:00:00', '2019-02-01T00:00:00',
+       '2019-01-01T00:00:00', '2018-12-01T00:00:00',
+       '2018-11-01T00:00:00', '2018-10-01T00:00:00',
+       '2018-09-01T00:00:00', '2018-08-01T00:00:00',
+       '2018-07-01T00:00:00', '2018-06-01T00:00:00',
+       '2018-05-01T00:00:00', '2018-04-01T00:00:00',
+       '2018-03-01T00:00:00', '2018-02-01T00:00:00',
+       '2018-01-01T00:00:00', '2017-12-01T00:00:00',
+       '2017-11-01T00:00:00', '2017-10-01T00:00:00',
+       '2017-09-01T00:00:00', '2017-08-01T00:00:00',
+       '2017-07-01T00:00:00', '2017-06-01T00:00:00',
+       '2017-05-01T00:00:00', '2017-04-01T00:00:00',
+       '2017-03-01T00:00:00', '2017-02-01T00:00:00',
+       '2017-01-01T00:00:00', '2016-12-01T00:00:00',
+       '2016-11-01T00:00:00', '2016-10-01T00:00:00',
+       '2016-09-01T00:00:00', '2016-08-01T00:00:00',
+       '2016-07-01T00:00:00', '2016-06-01T00:00:00',
+       '2016-05-01T00:00:00', '2016-04-01T00:00:00',
+       '2016-03-01T00:00:00', '2016-02-01T00:00:00',
+       '2016-01-01T00:00:00'], dtype='&lt;U19')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>end_datetime</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U19</div><div class="xr-var-preview xr-preview">'2022-01-31T00:00:00' ... '2016-...</div><input id="attrs-c36f3746-7b9c-4b51-8aef-b28916dec393" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-c36f3746-7b9c-4b51-8aef-b28916dec393" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f0ac0898-b56a-42a5-af3d-bacd7013e9af" class="xr-var-data-in" type="checkbox"><label for="data-f0ac0898-b56a-42a5-af3d-bacd7013e9af" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-31T00:00:00', '2021-12-31T00:00:00',
+       '2021-11-30T00:00:00', '2021-10-31T00:00:00',
+       '2021-09-30T00:00:00', '2021-08-31T00:00:00',
+       '2021-07-31T00:00:00', '2021-06-30T00:00:00',
+       '2021-05-31T00:00:00', '2021-04-30T00:00:00',
+       '2021-03-31T00:00:00', '2021-02-28T00:00:00',
+       '2021-01-31T00:00:00', '2020-12-31T00:00:00',
+       '2020-11-30T00:00:00', '2020-10-31T00:00:00',
+       '2020-09-30T00:00:00', '2020-08-31T00:00:00',
+       '2020-07-31T00:00:00', '2020-06-30T00:00:00',
+       '2020-05-31T00:00:00', '2020-04-30T00:00:00',
+       '2020-03-31T00:00:00', '2020-02-29T00:00:00',
+       '2020-01-31T00:00:00', '2019-12-31T00:00:00',
+       '2019-11-30T00:00:00', '2019-10-31T00:00:00',
+       '2019-09-30T00:00:00', '2019-08-31T00:00:00',
+       '2019-07-31T00:00:00', '2019-06-30T00:00:00',
+       '2019-05-31T00:00:00', '2019-04-30T00:00:00',
+       '2019-03-31T00:00:00', '2019-02-28T00:00:00',
+       '2019-01-31T00:00:00', '2018-12-31T00:00:00',
+       '2018-11-30T00:00:00', '2018-10-31T00:00:00',
+       '2018-09-30T00:00:00', '2018-08-31T00:00:00',
+       '2018-07-31T00:00:00', '2018-06-30T00:00:00',
+       '2018-05-31T00:00:00', '2018-04-30T00:00:00',
+       '2018-03-31T00:00:00', '2018-02-28T00:00:00',
+       '2018-01-31T00:00:00', '2017-12-31T00:00:00',
+       '2017-11-30T00:00:00', '2017-10-31T00:00:00',
+       '2017-09-30T00:00:00', '2017-08-31T00:00:00',
+       '2017-07-31T00:00:00', '2017-06-30T00:00:00',
+       '2017-05-31T00:00:00', '2017-04-30T00:00:00',
+       '2017-03-31T00:00:00', '2017-02-28T00:00:00',
+       '2017-01-31T00:00:00', '2016-12-31T00:00:00',
+       '2016-11-30T00:00:00', '2016-10-31T00:00:00',
+       '2016-09-30T00:00:00', '2016-08-31T00:00:00',
+       '2016-07-31T00:00:00', '2016-06-30T00:00:00',
+       '2016-05-31T00:00:00', '2016-04-30T00:00:00',
+       '2016-03-31T00:00:00', '2016-02-29T00:00:00',
+       '2016-01-31T00:00:00'], dtype='&lt;U19')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:epsg</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">4.326e+03</div><input id="attrs-ad35e000-9906-4599-afee-ecfda91b5eb3" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-ad35e000-9906-4599-afee-ecfda91b5eb3" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-02680aa3-309b-4b9a-8729-e9ef2d4f352d" class="xr-var-data-in" type="checkbox"><label for="data-02680aa3-309b-4b9a-8729-e9ef2d4f352d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(4326.)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:bbox</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{90.0, 180.0, -90.0, -180.0}</div><input id="attrs-0d04c1e9-6807-43c9-99d3-d58ce571e061" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-0d04c1e9-6807-43c9-99d3-d58ce571e061" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e95dbee7-4d45-4d41-9741-4ef746618b15" class="xr-var-data-in" type="checkbox"><label for="data-e95dbee7-4d45-4d41-9741-4ef746618b15" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({90.0, 180.0, -90.0, -180.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>description</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U47</div><div class="xr-var-preview xr-preview">'Cloud optimized default layer t...</div><input id="attrs-aa1f889c-a44f-4a03-8e7e-1d5328ce64c3" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-aa1f889c-a44f-4a03-8e7e-1d5328ce64c3" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0e02b81d-144d-46bc-8c14-55fea3ba3b52" class="xr-var-data-in" type="checkbox"><label for="data-0e02b81d-144d-46bc-8c14-55fea3ba3b52" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('Cloud optimized default layer to display on map', dtype='&lt;U47')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>title</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U17</div><div class="xr-var-preview xr-preview">'Default COG Layer'</div><input id="attrs-0110ef45-06a1-4169-8269-f5ee5c628454" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-0110ef45-06a1-4169-8269-f5ee5c628454" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-06608f43-3cbc-4146-be6d-ed2e506db570" class="xr-var-data-in" type="checkbox"><label for="data-06608f43-3cbc-4146-be6d-ed2e506db570" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('Default COG Layer', dtype='&lt;U17')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>epsg</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">4.326e+03</div><input id="attrs-71187c22-2ff6-472c-8ffd-593c4f09c49e" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-71187c22-2ff6-472c-8ffd-593c4f09c49e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7c400b9e-e022-4b24-b490-7f3a24aaa613" class="xr-var-data-in" type="checkbox"><label for="data-7c400b9e-e022-4b24-b490-7f3a24aaa613" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(4326.)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>spatial_ref</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">0</div><input id="attrs-414f2fc0-5cb7-4f1e-8ffe-00773159519b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-414f2fc0-5cb7-4f1e-8ffe-00773159519b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-057ff8cb-e948-4527-a27b-237af9654414" class="xr-var-data-in" type="checkbox"><label for="data-057ff8cb-e948-4527-a27b-237af9654414" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>crs_wkt :</span></dt><dd>GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>semi_minor_axis :</span></dt><dd>6356752.314245179</dd><dt><span>inverse_flattening :</span></dt><dd>298.257223563</dd><dt><span>reference_ellipsoid_name :</span></dt><dd>WGS 84</dd><dt><span>longitude_of_prime_meridian :</span></dt><dd>0.0</dd><dt><span>prime_meridian_name :</span></dt><dd>Greenwich</dd><dt><span>geographic_crs_name :</span></dt><dd>WGS 84</dd><dt><span>grid_mapping_name :</span></dt><dd>latitude_longitude</dd><dt><span>spatial_ref :</span></dt><dd>GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]</dd><dt><span>GeoTransform :</span></dt><dd>73.65000000000002 0.09999999999999998 0.0 53.55 0.0 -0.09999999999999999</dd></dl></div><div class="xr-var-data"><pre>array(0)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-b55d7d9b-d38f-4f66-a2b2-04ffc0685662" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-b55d7d9b-d38f-4f66-a2b2-04ffc0685662" class="xr-section-summary">Attributes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>spec :</span></dt><dd>RasterSpec(epsg=4326.0, bounds=(-180.0, -90.0, 180.0, 90.0), resolutions_xy=(0.1, 0.1))</dd><dt><span>resolution :</span></dt><dd>0.1</dd></dl></div></li></ul></div></div>
+</div>
+</div>
+</section>
+<section id="select-a-band-of-data" class="level2">
+<h2 class="anchored" data-anchor-id="select-a-band-of-data">Select a band of data</h2>
+<p>There is just one band in this case, <code>cog_default</code>.</p>
+<div id="be794df9" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select the band default</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>data_band <span class="op">=</span> da.sel(band<span class="op">=</span><span class="st">"cog_default"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="aggregate-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="aggregate-the-data">Aggregate the data</h2>
+<p>Calculate the mean at each time across the whole dataset. Note this is the first time that the data is actually loaded.</p>
+<div id="ab7632e9-ea71-482d-b8f6-7c987f20fdfa" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average over entire spatial bounding box for each month</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> data_band.mean(dim<span class="op">=</span>(<span class="st">"x"</span>, <span class="st">"y"</span>)).compute()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="b39bf4ae-1f5d-4e07-ba5c-2837cdb13999" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>means.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="timeseries-rioxarray-stackstac_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../notebooks/quickstarts/open-and-plot.html" class="pagination-link  aria-label=" open="" and="" plot="" cogs"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Open and plot COGs</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../notebooks/quickstarts/visualize-zarr.html" class="pagination-link" aria-label="Visualize zarr">
+        <span class="nav-page-text">Visualize zarr</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© CC-By NASA, 2022-2023</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/nasa-impact/veda-docs/blob/main/notebooks/quickstarts/timeseries-rioxarray-stackstac.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
