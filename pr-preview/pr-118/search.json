@@ -1420,326 +1420,124 @@
     ]
   },
   {
-    "objectID": "notebooks/tutorials/ghg-zonal-statistics-validation.html",
-    "href": "notebooks/tutorials/ghg-zonal-statistics-validation.html",
+    "objectID": "notebooks/tutorials/zonal-statistics-validation.html",
+    "href": "notebooks/tutorials/zonal-statistics-validation.html",
     "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
     "section": "",
-    "text": "You can launch this notebook in VEDA JupyterHub by clicking the link below.\nLaunch in VEDA JupyterHub (requires access)\n\n\nLearn more\n\n\n\nThis notebook was written on the VEDA JupyterHub and as such is designed to be run on a jupyterhub which is associated with an AWS IAM role which has been granted permissions to the VEDA data store via its bucket policy. The instance used provided 16GB of RAM.\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\n\nThe data is in a protected bucket. Please request access by emailng aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN). The team will help you configure the cognito client.\nYou should then run:\n%run -i 'cognito_login.py'"
+    "text": "You can launch this notebook in VEDA JupyterHub by clicking the link below.\nLaunch in VEDA JupyterHub (requires access)\n\n\nLearn more\n\n\n\nThis notebook was written on the VEDA JupyterHub and as such is designed to be run on a jupyterhub which is associated with an AWS IAM role which has been granted permissions to the VEDA data store via its bucket policy. The instance used provided 16GB of RAM.\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\n\nThe data is in a protected bucket. Please request access by emailng aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN). The team will help you configure the cognito client.\nYou should then run:\n%run -i 'cognito_login.py'",
+    "crumbs": [
+      "Usage Examples",
+      "Tutorials",
+      "Calculating accurate zonal statistics with varying grid cell / pixel area"
+    ]
   },
   {
-    "objectID": "notebooks/tutorials/ghg-zonal-statistics-validation.html#run-this-notebook",
-    "href": "notebooks/tutorials/ghg-zonal-statistics-validation.html#run-this-notebook",
+    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#run-this-notebook",
+    "href": "notebooks/tutorials/zonal-statistics-validation.html#run-this-notebook",
     "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
     "section": "",
-    "text": "You can launch this notebook in VEDA JupyterHub by clicking the link below.\nLaunch in VEDA JupyterHub (requires access)\n\n\nLearn more\n\n\n\nThis notebook was written on the VEDA JupyterHub and as such is designed to be run on a jupyterhub which is associated with an AWS IAM role which has been granted permissions to the VEDA data store via its bucket policy. The instance used provided 16GB of RAM.\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\n\nThe data is in a protected bucket. Please request access by emailng aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN). The team will help you configure the cognito client.\nYou should then run:\n%run -i 'cognito_login.py'"
+    "text": "You can launch this notebook in VEDA JupyterHub by clicking the link below.\nLaunch in VEDA JupyterHub (requires access)\n\n\nLearn more\n\n\n\nThis notebook was written on the VEDA JupyterHub and as such is designed to be run on a jupyterhub which is associated with an AWS IAM role which has been granted permissions to the VEDA data store via its bucket policy. The instance used provided 16GB of RAM.\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\n\nThe data is in a protected bucket. Please request access by emailng aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN). The team will help you configure the cognito client.\nYou should then run:\n%run -i 'cognito_login.py'",
+    "crumbs": [
+      "Usage Examples",
+      "Tutorials",
+      "Calculating accurate zonal statistics with varying grid cell / pixel area"
+    ]
   },
   {
-    "objectID": "notebooks/tutorials/ghg-zonal-statistics-validation.html#approach",
-    "href": "notebooks/tutorials/ghg-zonal-statistics-validation.html#approach",
+    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#approach",
+    "href": "notebooks/tutorials/zonal-statistics-validation.html#approach",
     "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
     "section": "Approach",
-    "text": "Approach\n\nMotivation\nThe VEDA backend (via TiTiler) provides an API endpoint for computing zonal statistics (average, standard deviation, and other metrics over a geographic subset) across gridded (raster) data such as satellite imagery or climate datasets.\nSome statistics, such as average, median, standard deviation, or percentiles are sensitive to differences in grid cell / pixel sizes: when some grid cells are (in metric units) have a larger area than others, the values in these cells will be under-represented. Grid cell sizes depends on the grid / projection of the data.\nVarying grid cell sizes is common for climate datasets that are stored on a grid in geographic coordinates (lat/lon), for example a 0.1 degree by 0.1 degree global grid. Here, grid cell size will decrease from low to high latitudes. Computing averages over large spans of latitude will result in statistics where values closer to the poles are strongly over-represented.\nTo avoid this inaccuracy in zonal statistics computed with our API, we introduced a method to reproject the source data to an equal-area projection as an intermediate step in calculating statistics.\nNote: this reprojection is not needed for example for accurate zonal statistics on a Sentinel-2 scene, using the Military Grid Reference System (MGRS) and a Mercator (UTM) projection. Here, pixel areas are the same across the scene in the native projection.\n\n\nIn this notebook\nThis notebook presents a validation of VEDA’s API for zonal statistics against a known way to compute area-weighted averages for gridded datasets on a regular lat/lon grid.\nFor illustration, we choose a real dataset from the VEDA data catalog and a subsetting area that spans a large latitude range.\nThe figures below show the average calculated over that area of interest with the different methods, for comparison.\n\n%pip install pystac_client\n\nRequirement already satisfied: pystac_client in /srv/conda/envs/notebook/lib/python3.10/site-packages (0.7.2)\nRequirement already satisfied: requests&gt;=2.28.2 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pystac_client) (2.31.0)\nRequirement already satisfied: pystac[validation]&gt;=1.7.2 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pystac_client) (1.8.1)\nRequirement already satisfied: python-dateutil&gt;=2.8.2 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pystac_client) (2.8.2)\nRequirement already satisfied: jsonschema&gt;=4.0.1 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pystac[validation]&gt;=1.7.2-&gt;pystac_client) (4.17.3)\nRequirement already satisfied: six&gt;=1.5 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from python-dateutil&gt;=2.8.2-&gt;pystac_client) (1.16.0)\nRequirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from requests&gt;=2.28.2-&gt;pystac_client) (3.1.0)\nRequirement already satisfied: idna&lt;4,&gt;=2.5 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from requests&gt;=2.28.2-&gt;pystac_client) (3.4)\nRequirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from requests&gt;=2.28.2-&gt;pystac_client) (1.26.15)\nRequirement already satisfied: certifi&gt;=2017.4.17 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from requests&gt;=2.28.2-&gt;pystac_client) (2023.5.7)\nRequirement already satisfied: attrs&gt;=17.4.0 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from jsonschema&gt;=4.0.1-&gt;pystac[validation]&gt;=1.7.2-&gt;pystac_client) (23.1.0)\nRequirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,&gt;=0.14.0 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from jsonschema&gt;=4.0.1-&gt;pystac[validation]&gt;=1.7.2-&gt;pystac_client) (0.19.3)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\nimport json\nimport tqdm\nimport requests\nimport rasterio\nimport rasterio.crs\nimport xarray as xr\nimport rioxarray\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom pystac_client import Client"
+    "text": "Approach\n\nMotivation\nThe VEDA backend (via TiTiler) provides an API endpoint for computing zonal statistics (average, standard deviation, and other metrics over a geographic subset) across gridded (raster) data such as satellite imagery or climate datasets.\nSome statistics, such as average, median, standard deviation, or percentiles are sensitive to differences in grid cell / pixel sizes: when some grid cells are (in metric units) have a larger area than others, the values in these cells will be under-represented. Grid cell sizes depends on the grid / projection of the data.\nVarying grid cell sizes is common for climate datasets that are stored on a grid in geographic coordinates (lat/lon), for example a 0.1 degree by 0.1 degree global grid. Here, grid cell size will decrease from low to high latitudes. Computing averages over large spans of latitude will result in statistics where values closer to the poles are strongly over-represented.\nTo avoid this inaccuracy in zonal statistics computed with our API, we introduced a method to reproject the source data to an equal-area projection as an intermediate step in calculating statistics.\nNote: this reprojection is not needed for example for accurate zonal statistics on a Sentinel-2 scene, using the Military Grid Reference System (MGRS) and a Mercator (UTM) projection. Here, pixel areas are the same across the scene in the native projection.\n\n\nIn this notebook\nThis notebook presents a validation of VEDA’s API for zonal statistics against a known way to compute area-weighted averages for gridded datasets on a regular lat/lon grid.\nFor illustration, we choose a real dataset from the VEDA data catalog and a subsetting area that spans a large latitude range.\nThe figures below show the average calculated over that area of interest with the different methods, for comparison.\n\n%pip install pystac_client\n\nRequirement already satisfied: pystac_client in /srv/conda/envs/notebook/lib/python3.10/site-packages (0.7.2)\nRequirement already satisfied: requests&gt;=2.28.2 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pystac_client) (2.31.0)\nRequirement already satisfied: pystac[validation]&gt;=1.7.2 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pystac_client) (1.8.1)\nRequirement already satisfied: python-dateutil&gt;=2.8.2 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pystac_client) (2.8.2)\nRequirement already satisfied: jsonschema&gt;=4.0.1 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pystac[validation]&gt;=1.7.2-&gt;pystac_client) (4.17.3)\nRequirement already satisfied: six&gt;=1.5 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from python-dateutil&gt;=2.8.2-&gt;pystac_client) (1.16.0)\nRequirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from requests&gt;=2.28.2-&gt;pystac_client) (3.1.0)\nRequirement already satisfied: idna&lt;4,&gt;=2.5 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from requests&gt;=2.28.2-&gt;pystac_client) (3.4)\nRequirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from requests&gt;=2.28.2-&gt;pystac_client) (1.26.15)\nRequirement already satisfied: certifi&gt;=2017.4.17 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from requests&gt;=2.28.2-&gt;pystac_client) (2023.5.7)\nRequirement already satisfied: attrs&gt;=17.4.0 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from jsonschema&gt;=4.0.1-&gt;pystac[validation]&gt;=1.7.2-&gt;pystac_client) (23.1.0)\nRequirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,&gt;=0.14.0 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from jsonschema&gt;=4.0.1-&gt;pystac[validation]&gt;=1.7.2-&gt;pystac_client) (0.19.3)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\nimport tqdm\nimport requests\nimport rasterio\nimport rasterio.crs\nimport xarray as xr\nimport rioxarray\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom pystac_client import Client",
+    "crumbs": [
+      "Usage Examples",
+      "Tutorials",
+      "Calculating accurate zonal statistics with varying grid cell / pixel area"
+    ]
   },
   {
-    "objectID": "notebooks/tutorials/ghg-zonal-statistics-validation.html#formula-for-grid-cell-area-for-geographic-coordinates",
-    "href": "notebooks/tutorials/ghg-zonal-statistics-validation.html#formula-for-grid-cell-area-for-geographic-coordinates",
+    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#load-and-inspect-dataset-from-ghgc-stac-catalog",
+    "href": "notebooks/tutorials/zonal-statistics-validation.html#load-and-inspect-dataset-from-ghgc-stac-catalog",
     "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
-    "section": "Formula for grid cell area for geographic coordinates",
-    "text": "Formula for grid cell area for geographic coordinates\n\ndef _get_unique_diff(arr):\n    assert np.ndim(arr) == 1\n    deltas = np.diff(arr)\n    \n    if not np.allclose(deltas, deltas[0]):    \n        raise ValueError(f\"The spacing in the array is not uniform: {list(np.unique(deltas))}\")\n    return deltas[0]\n\n\ndef grid_cell_area(lat):\n    \"\"\"\n    https://www.mathworks.com/matlabcentral/answers/447847-how-to-calculate-the-area-of-each-grid-cell\n    https://gis.stackexchange.com/a/28156\n    \"\"\"\n    # get lat spacing asserting it is uniform\n    dlat = _get_unique_diff(lat)\n    \n    # calculate cell edge lat\n    lat_edge = lat - dlat / 2.\n    \n    # radius of Earth in meters\n    R_e = 6371e3\n    \n    # calculate cell area as a function of latitude\n    return R_e ** 2 * (np.sin(np.radians(lat_edge + dlat)) - np.sin(np.radians(lat_edge))) * np.radians(dlat)"
+    "section": "Load and inspect dataset from GHGC STAC catalog",
+    "text": "Load and inspect dataset from GHGC STAC catalog\n\nSTAC_API_URL = \"http://ghg.center/api/stac\"\nRASTER_API_URL = \"https://ghg.center/api/raster\"\n\nCOLLECTION_ID = \"casagfed-carbonflux-monthgrid-v3\"\nASSET_NAME = \"npp\"\n\n\ncatalog = Client.open(STAC_API_URL)\ncollection = catalog.get_collection(COLLECTION_ID)\n\n\nitems = list(collection.get_all_items())[:15]\n\n\nwith rasterio.open(items[0].assets[ASSET_NAME].href) as ds:\n    print(ds.profile)\n    \n    assert ds.crs == rasterio.crs.CRS.from_epsg(4326)\n\n{'driver': 'GTiff', 'dtype': 'float32', 'nodata': None, 'width': 720, 'height': 360, 'count': 1, 'crs': CRS.from_epsg(4326), 'transform': Affine(0.5, 0.0, -180.0,\n       0.0, -0.5, 90.0), 'blockxsize': 512, 'blockysize': 512, 'tiled': True, 'compress': 'lzw', 'interleave': 'band'}",
+    "crumbs": [
+      "Usage Examples",
+      "Tutorials",
+      "Calculating accurate zonal statistics with varying grid cell / pixel area"
+    ]
   },
   {
-    "objectID": "notebooks/tutorials/ghg-zonal-statistics-validation.html#function-for-zonal-averages-using-titiler-api",
-    "href": "notebooks/tutorials/ghg-zonal-statistics-validation.html#function-for-zonal-averages-using-titiler-api",
+    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#define-formula-for-grid-cell-area-for-geographic-coordinates",
+    "href": "notebooks/tutorials/zonal-statistics-validation.html#define-formula-for-grid-cell-area-for-geographic-coordinates",
     "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
-    "section": "Function for zonal averages using TiTiler API",
-    "text": "Function for zonal averages using TiTiler API\nWe make use of the option on TiTiler to reproject the data subset to an equal-area projection (Equal Area Cylindrical) before computing the statistics.\n\nWORKING_PROJECTION = \"+proj=cea\"\n\ndef generate_stats(item, geojson, asset_name, params=None):\n    params = params or {}\n    result = requests.post(\n        f\"{RASTER_API_URL}/cog/statistics\",\n        params={\n            \"url\": item.assets[asset_name].href,\n            **params\n        },\n        json=geojson,\n    )\n    result.raise_for_status()\n    result_data = result.json()\n    return {\n        **result_data[\"features\"][0][\"properties\"][\"statistics\"][\"b1\"],\n        datetime_key: item.properties[datetime_key],\n    }"
+    "section": "Define formula for grid cell area for geographic coordinates",
+    "text": "Define formula for grid cell area for geographic coordinates\n\ndef _get_unique_diff(arr):\n    assert np.ndim(arr) == 1\n    deltas = np.diff(arr)\n    \n    if not np.allclose(deltas, deltas[0]):    \n        raise ValueError(f\"The spacing in the array is not uniform: {list(np.unique(deltas))}\")\n    return deltas[0]\n\n\ndef grid_cell_area(lat):\n    \"\"\"\n    https://www.mathworks.com/matlabcentral/answers/447847-how-to-calculate-the-area-of-each-grid-cell\n    https://gis.stackexchange.com/a/28156\n    \"\"\"\n    # get lat spacing asserting it is uniform\n    dlat = _get_unique_diff(lat)\n    \n    # calculate cell edge lat\n    lat_edge = lat - dlat / 2.\n    \n    # radius of Earth in meters\n    R_e = 6371e3\n    \n    # calculate cell area as a function of latitude\n    return R_e ** 2 * (np.sin(np.radians(lat_edge + dlat)) - np.sin(np.radians(lat_edge))) * np.radians(dlat)",
+    "crumbs": [
+      "Usage Examples",
+      "Tutorials",
+      "Calculating accurate zonal statistics with varying grid cell / pixel area"
+    ]
   },
   {
-    "objectID": "notebooks/tutorials/ghg-zonal-statistics-validation.html#function-for-averages-with-xarray",
-    "href": "notebooks/tutorials/ghg-zonal-statistics-validation.html#function-for-averages-with-xarray",
+    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#define-a-geometry-to-average-over",
+    "href": "notebooks/tutorials/zonal-statistics-validation.html#define-a-geometry-to-average-over",
     "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
-    "section": "Function for averages with Xarray",
-    "text": "Function for averages with Xarray\n\ndef compute_averages_xarray(item_uri, aoi, nodata=None):\n    with xr.open_dataset(item_uri, engine=\"rasterio\") as xds:\n        timeseries[datetime_key].append(item.properties[datetime_key])        \n        \n        # calculate area as a function of latitude\n        area_lat = grid_cell_area(xds.y.values)\n        area_lat_2d = np.ones((len(xds.y), len(xds.x))) * area_lat[:, np.newaxis]\n        xds[\"area\"] = xr.DataArray(area_lat_2d, dims=(\"y\", \"x\"))\n        \n        # clip to geometry\n        xds_clip = xds.rio.clip([aoi[\"features\"][0][\"geometry\"]])\n        \n        # get data arrays\n        data_clipped = xds_clip[\"band_data\"].isel(band=0)\n        if nodata:\n            data = data_clipped.where(data_clipped != nodata, np.nan).to_masked_array()\n        else:\n            data = data_clipped.to_masked_array()\n        weights = xds_clip[\"area\"].to_masked_array()\n        weights.mask = data.mask\n        \n        # calculate averages\n        average_unweighted = data.mean()\n        average_weighted = (data * weights).sum() / weights.sum()\n    return average_unweighted, average_weighted\n    \n\n\ndef rmse(a, b):\n    return np.sqrt(\n        np.mean(\n            (a - b) ** 2\n        )\n    )"
+    "section": "Define a geometry to average over",
+    "text": "Define a geometry to average over\n\nAOI_NAME = \"Americas south to north\"\n\nAOI = {\n  \"type\": \"FeatureCollection\",\n  \"features\": [\n    {\n      \"type\": \"Feature\",\n      \"properties\": {},\n      \"geometry\": {\n        \"coordinates\": [\n          [\n            [\n              -115,\n              82\n            ],\n            [\n              -115,\n              -82\n            ],\n            [\n              -43,\n              -82\n            ],\n            [\n              -43,\n              82\n            ],\n            [\n              -115,\n              82\n            ]\n          ]\n        ],\n        \"type\": \"Polygon\"\n      }\n    }\n  ]\n}",
+    "crumbs": [
+      "Usage Examples",
+      "Tutorials",
+      "Calculating accurate zonal statistics with varying grid cell / pixel area"
+    ]
   },
   {
-    "objectID": "notebooks/tutorials/ghg-zonal-statistics-validation.html#compare-all-methods-against-the-xarray-computed-weighted-average",
-    "href": "notebooks/tutorials/ghg-zonal-statistics-validation.html#compare-all-methods-against-the-xarray-computed-weighted-average",
+    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#compute-averages-with-xarray",
+    "href": "notebooks/tutorials/zonal-statistics-validation.html#compute-averages-with-xarray",
+    "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
+    "section": "Compute averages with Xarray",
+    "text": "Compute averages with Xarray\n\ntimeseries = {\n    \"start_datetime\": [],\n    \"average_weighted\": [],\n    \"average_unweighted\": []\n}\n\nfor item in tqdm.tqdm(items):\n    item_uri = item.assets[ASSET_NAME].href\n\n    with xr.open_dataset(item_uri, engine=\"rasterio\") as xds:\n        \n        # calculate area as a function of latitude\n        area_lat = grid_cell_area(xds.y.values)\n        area_lat_2d = np.ones((len(xds.y), len(xds.x))) * area_lat[:, np.newaxis]\n        xds[\"area\"] = xr.DataArray(area_lat_2d, dims=(\"y\", \"x\"))\n        \n        # clip to geometry\n        xds_clip = xds.rio.clip([AOI[\"features\"][0][\"geometry\"]])\n        \n        # get data arrays\n        data = xds_clip[\"band_data\"].isel(band=0).to_masked_array()\n        weights = xds_clip[\"area\"].to_masked_array()\n        weights.mask = data.mask\n        \n        # calculate averages\n        average_weighted = (data * weights).sum() / weights.sum()\n        average_unweighted = data.mean()\n        \n        timeseries[\"average_weighted\"].append(average_weighted)\n        timeseries[\"average_unweighted\"].append(average_unweighted)\n        timeseries[\"start_datetime\"].append(item.properties[\"start_datetime\"])\n        \n        lat_vals = xds.y.values\n\n100%|██████████| 15/15 [00:07&lt;00:00,  1.90it/s]\n\n\n\ndf = pd.DataFrame(timeseries).set_index(\"start_datetime\")\ndf.index = pd.to_datetime(df.index)\n\n\ndf.plot(ylabel=f\"average {ASSET_NAME}\", title=f\"{ASSET_NAME} averaged over {AOI_NAME}\") ;",
+    "crumbs": [
+      "Usage Examples",
+      "Tutorials",
+      "Calculating accurate zonal statistics with varying grid cell / pixel area"
+    ]
+  },
+  {
+    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#plot-grid-cell-area-as-a-function-of-latitude",
+    "href": "notebooks/tutorials/zonal-statistics-validation.html#plot-grid-cell-area-as-a-function-of-latitude",
+    "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
+    "section": "Plot grid cell area as a function of latitude",
+    "text": "Plot grid cell area as a function of latitude\n\nplt.plot(lat_vals, area_lat_2d[:, 0])\nplt.ylabel(\"Grid cell area (m²)\")\nplt.xlabel(\"Latitude\") ;",
+    "crumbs": [
+      "Usage Examples",
+      "Tutorials",
+      "Calculating accurate zonal statistics with varying grid cell / pixel area"
+    ]
+  },
+  {
+    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#compute-zonal-averages-using-titiler-api",
+    "href": "notebooks/tutorials/zonal-statistics-validation.html#compute-zonal-averages-using-titiler-api",
+    "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
+    "section": "Compute zonal averages using TiTiler API",
+    "text": "Compute zonal averages using TiTiler API\nWe make use of the option on TiTiler to reproject the data subset to an equal-area projection (Equal Area Cylindrical) before computing the statistics.\n\nWORKING_PROJECTION = \"+proj=cea\"\n\n\ndef generate_stats(item, geojson, asset_name, params=None):\n    params = params or {}\n    result = requests.post(\n        f\"{RASTER_API_URL}/cog/statistics\",\n        params={\n            \"url\": item.assets[asset_name].href,\n            **params\n        },\n        json=geojson,\n    )\n    result.raise_for_status()\n    result_data = result.json()\n    return {\n        **result_data[\"features\"][0][\"properties\"][\"statistics\"][\"b1\"],\n        \"start_datetime\": item.properties[\"start_datetime\"],\n    }\n\n\ntimeseries_titiler_noproj = []\ntimeseries_titiler_proj = []\n\nfor item in tqdm.tqdm(items):\n    # generate stats with and without reprojection\n    stats_noproj = generate_stats(item, AOI, ASSET_NAME)\n    stats_proj = generate_stats(item, AOI, ASSET_NAME, params={\"dst_crs\": WORKING_PROJECTION})\n\n    timeseries_titiler_noproj.append(stats_noproj)\n    timeseries_titiler_proj.append(stats_proj)\n\n100%|██████████| 15/15 [00:15&lt;00:00,  1.04s/it]\n\n\n\ndef _to_dataframe(stats):\n    df = pd.DataFrame(stats)\n    df = df[[\"start_datetime\", \"mean\"]]\n    df = df.set_index(\"start_datetime\")\n    df.index = pd.to_datetime(df.index)\n    return df\n\n\ndf_titiler_proj = _to_dataframe(timeseries_titiler_proj)[\"mean\"]\ndf_titiler_noproj = _to_dataframe(timeseries_titiler_noproj)[\"mean\"]",
+    "crumbs": [
+      "Usage Examples",
+      "Tutorials",
+      "Calculating accurate zonal statistics with varying grid cell / pixel area"
+    ]
+  },
+  {
+    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#compare-all-methods-against-the-xarray-computed-weighted-average",
+    "href": "notebooks/tutorials/zonal-statistics-validation.html#compare-all-methods-against-the-xarray-computed-weighted-average",
     "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
     "section": "Compare all methods against the xarray-computed weighted average",
-    "text": "Compare all methods against the xarray-computed weighted average\n\nfor test_dataset in test_datasets:\n    fig = plt.figure()\n    ax = fig.gca()\n\n    ax.set_prop_cycle(\n        linestyle=['-', '--', '-.', ':'],\n        color=[\"#e41a1c\", \"#377eb8\", \"#4daf4a\", \"#984ea3\"],\n        marker=['.', 'o', 'x', '*']\n    )\n\n    dfs[test_dataset['collection_id']].plot(title=f\"{test_dataset['asset_name']} averaged over {test_dataset['aoi_name']}\", ax=ax) ;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfor test_dataset in test_datasets:\n    df = dfs[test_dataset['collection_id']]\n    fig = plt.figure()\n    ax = fig.gca()\n\n    ax.plot(df[\"average_xr_weighted\"], df[\"average_xr_weighted\"], color=\"grey\")\n\n    for key, style in {\n        \"average_titiler_proj\": dict(c=\"#e41a1c\"),\n        \"average_xr_unweighted\": dict(c=\"#377eb8\"),\n        \"average_titiler_noproj\": dict(c=\"#984ea3\", marker=\"x\", s=100)\n    }.items():\n        df.plot.scatter(\"average_xr_weighted\", key, ax=ax, label=key, **style)\n\n    ax.set_title(f\"{test_dataset['asset_name']} averaged over {test_dataset['aoi_name']}\")\n    ax.set_ylabel(\"average calculated with different methods\") ;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nkeys = [\"average_xr_unweighted\", \"average_titiler_noproj\", \"average_titiler_proj\"]\n\nfor test_dataset in test_datasets:\n    df = dfs[test_dataset['collection_id']]\n    df_rmse = pd.DataFrame(\n        {\n            \"algorithm\": keys,\n            \"average\": [rmse(df[key], df[\"average_xr_weighted\"]) for key in keys]\n        }    \n    )\n\n    df_rmse = df_rmse.set_index(\"algorithm\")\n    df_rmse.plot.barh(xlabel=\"RMSE wrt average_weighted\", title=f\"{test_dataset['asset_name']} averaged over {test_dataset['aoi_name']}\") ;"
-  },
-  {
-    "objectID": "notebooks/tutorials/netcdf-to-cog-cmip6.html",
-    "href": "notebooks/tutorials/netcdf-to-cog-cmip6.html",
-    "title": "Converting NetCDF to COG (CMIP6)",
-    "section": "",
-    "text": "You can launch this notbook using mybinder, by clicking the button below.",
+    "text": "Compare all methods against the xarray-computed weighted average\n\ndf_all = df.copy()\ndf_all[\"average_titiler_noproj\"] = df_titiler_noproj\ndf_all[\"average_titiler_proj\"] = df_titiler_proj\n\n\nfig = plt.figure()\nax = fig.gca()\n\nax.set_prop_cycle(\n    linestyle=['-', '--', '-.', ':'],\n    color=[\"#e41a1c\", \"#377eb8\", \"#4daf4a\", \"#984ea3\"],\n    marker=['.', 'o', 'x', '*']\n)\ndf_all.plot(title=f\"{ASSET_NAME} averaged over {AOI_NAME}\", ax=ax) ;\n\n\n\n\n\n\n\n\n\nfig = plt.figure()\nax = fig.gca()\n\nax.plot(df_all[\"average_weighted\"], df_all[\"average_weighted\"], color=\"grey\")\n\nfor key, style in {\n    \"average_titiler_proj\": dict(c=\"#e41a1c\"),\n    \"average_unweighted\": dict(c=\"#377eb8\"),\n    \"average_titiler_noproj\": dict(c=\"#984ea3\", marker=\"x\", s=100)\n}.items():\n    df_all.plot.scatter(\"average_weighted\", key, ax=ax, label=key, **style)\n\nax.set_title(f\"{ASSET_NAME} averaged over {AOI_NAME}\")\nax.set_ylabel(\"average calculated with different methods\") ;\n\n\n\n\n\n\n\n\n\ndef rmse(a, b):\n    return np.sqrt(\n        np.mean(\n            (a - b) ** 2\n        )\n    )\n\n\nkeys = [\"average_unweighted\", \"average_titiler_noproj\", \"average_titiler_proj\"]\n\ndf_rmse = pd.DataFrame(\n    {\n        \"algorithm\": keys,\n        \"average\": [rmse(df_all[key], df_all[\"average_weighted\"]) for key in keys]\n    }    \n)\n\ndf_rmse = df_rmse.set_index(\"algorithm\")\ndf_rmse.plot.barh(xlabel=\"RMSE wrt average_weighted\", title=f\"{ASSET_NAME} averaged over {AOI_NAME}\") ;",
     "crumbs": [
       "Usage Examples",
       "Tutorials",
-      "Converting NetCDF to COG (CMIP6)"
+      "Calculating accurate zonal statistics with varying grid cell / pixel area"
     ]
-  },
-  {
-    "objectID": "notebooks/tutorials/netcdf-to-cog-cmip6.html#approach",
-    "href": "notebooks/tutorials/netcdf-to-cog-cmip6.html#approach",
-    "title": "Converting NetCDF to COG (CMIP6)",
-    "section": "Approach",
-    "text": "Approach\nCloud-optimized GeoTIFF (COG) is a geospatial raster (image) data format optimized for on-the-fly analytics and visualization of raster data in cloud applications.\nConverting NetCDF (climate data) to COG can be relevant when the data should be included in GIS or web map applications.\nThis tutorial shows how this conversion can be done using Xarray and rioxarray, in-memory, avoiding temporary files on-disk.\n\nStep-by-step guide to conversion from NetCDF to Cloud-Optimized GeoTIFF\nCombined workflow including upload to S3",
-    "crumbs": [
-      "Usage Examples",
-      "Tutorials",
-      "Converting NetCDF to COG (CMIP6)"
-    ]
-  },
-  {
-    "objectID": "notebooks/tutorials/netcdf-to-cog-cmip6.html#step-by-step",
-    "href": "notebooks/tutorials/netcdf-to-cog-cmip6.html#step-by-step",
-    "title": "Converting NetCDF to COG (CMIP6)",
-    "section": "Step by step",
-    "text": "Step by step\n\nStep 0 - Installs and imports\n\n!pip install s3fs h5netcdf --quiet\n\n\nimport boto3\nimport s3fs\nimport rioxarray\nimport rasterio\nimport rio_cogeo.cogeo\nimport xarray as xr\nfrom rasterio.io import MemoryFile\n\n\n\nStep 1 - Inspect source NetCDF\n\nSOURCE_URI = 'cmip6-staging/Sample/FWI/Yearly/MME/MME50_historical_fwi_metrics_yearly_2014.nc'\n\n\nfs = s3fs.S3FileSystem()\nfileobj = fs.open(SOURCE_URI)\nds = xr.open_dataset(fileobj, engine=\"h5netcdf\")\nds\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&lt;xarray.Dataset&gt;\nDimensions:  (lat: 600, lon: 1440)\nCoordinates:\n  * lat      (lat) float64 -59.88 -59.62 -59.38 -59.12 ... 89.38 89.62 89.88\n  * lon      (lon) float64 0.125 0.375 0.625 0.875 ... 359.1 359.4 359.6 359.9\nData variables: (12/13)\n    FFMC     (lat, lon) float32 ...\n    DMC      (lat, lon) float32 ...\n    DC       (lat, lon) float32 ...\n    ISI      (lat, lon) float32 ...\n    BUI      (lat, lon) float32 ...\n    FWI      (lat, lon) float32 ...\n    ...       ...\n    FWI_N30  (lat, lon) uint16 ...\n    FWI_N45  (lat, lon) uint16 ...\n    FWI_P25  (lat, lon) float32 ...\n    FWI_P50  (lat, lon) float32 ...\n    FWI_P75  (lat, lon) float32 ...\n    FWI_P95  (lat, lon) float32 ...xarray.DatasetDimensions:lat: 600lon: 1440Coordinates: (2)lat(lat)float64-59.88 -59.62 ... 89.62 89.88units :degrees_northstandard_name :latitudelong_name :latitudeaxis :Yarray([-59.875, -59.625, -59.375, ...,  89.375,  89.625,  89.875])lon(lon)float640.125 0.375 0.625 ... 359.6 359.9units :degrees_eaststandard_name :longitudelong_name :longitudeaxis :Xarray([1.25000e-01, 3.75000e-01, 6.25000e-01, ..., 3.59375e+02, 3.59625e+02,\n       3.59875e+02])Data variables: (13)FFMC(lat, lon)float32...[864000 values with dtype=float32]DMC(lat, lon)float32...[864000 values with dtype=float32]DC(lat, lon)float32...[864000 values with dtype=float32]ISI(lat, lon)float32...[864000 values with dtype=float32]BUI(lat, lon)float32...[864000 values with dtype=float32]FWI(lat, lon)float32...[864000 values with dtype=float32]FWI_N15(lat, lon)uint16...[864000 values with dtype=uint16]FWI_N30(lat, lon)uint16...[864000 values with dtype=uint16]FWI_N45(lat, lon)uint16...[864000 values with dtype=uint16]FWI_P25(lat, lon)float32...[864000 values with dtype=float32]FWI_P50(lat, lon)float32...[864000 values with dtype=float32]FWI_P75(lat, lon)float32...[864000 values with dtype=float32]FWI_P95(lat, lon)float32...[864000 values with dtype=float32]Indexes: (2)latPandasIndexPandasIndex(Float64Index([-59.875, -59.625, -59.375, -59.125, -58.875, -58.625, -58.375,\n              -58.125, -57.875, -57.625,\n              ...\n               87.625,  87.875,  88.125,  88.375,  88.625,  88.875,  89.125,\n               89.375,  89.625,  89.875],\n             dtype='float64', name='lat', length=600))lonPandasIndexPandasIndex(Float64Index([  0.125,   0.375,   0.625,   0.875,   1.125,   1.375,   1.625,\n                1.875,   2.125,   2.375,\n              ...\n              357.625, 357.875, 358.125, 358.375, 358.625, 358.875, 359.125,\n              359.375, 359.625, 359.875],\n             dtype='float64', name='lon', length=1440))Attributes: (0)\n\n\n\n\nStep 2 - Select data variable\nThe NetCDF contains several data variables. We pick the first one for demo.\n\nVARIABLE_NAME = \"FFMC\"\n\n\nda = ds[VARIABLE_NAME]\n\n\nda.plot();\n\n\n\n\n\n\n\n\n\nda.encoding\n\n{'chunksizes': None,\n 'fletcher32': False,\n 'shuffle': False,\n 'source': '&lt;File-like object S3FileSystem, cmip6-staging/Sample/FWI/Yearly/MME/MME50_historical_fwi_metrics_yearly_2014.nc&gt;',\n 'original_shape': (600, 1440),\n 'dtype': dtype('&lt;f4'),\n '_FillValue': nan}\n\n\n\n\nStep 3. Conform to raster data conventions\nCommon practice in NetCDF lat/lon data the first grid cell is the south-west corner, i.e. latitude and longitude axes increase along the array dimensions.\nCommon practice in raster formats like GeoTIFF is that the y-axis (latitude in this case) decreases from origin, i.e. the first pixel is the north-west corner.\nWe can reverse the latitude dimension like this:\n\nda = da.isel(lat=slice(None, None, -1))\nda.lat\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&lt;xarray.DataArray 'lat' (lat: 600)&gt;\narray([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875])\nCoordinates:\n  * lat      (lat) float64 89.88 89.62 89.38 89.12 ... -59.38 -59.62 -59.88\nAttributes:\n    units:          degrees_north\n    standard_name:  latitude\n    long_name:      latitude\n    axis:           Yxarray.DataArray'lat'lat: 60089.88 89.62 89.38 89.12 88.88 ... -58.88 -59.12 -59.38 -59.62 -59.88array([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875])Coordinates: (1)lat(lat)float6489.88 89.62 89.38 ... -59.62 -59.88units :degrees_northstandard_name :latitudelong_name :latitudeaxis :Yarray([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875])Indexes: (1)latPandasIndexPandasIndex(Float64Index([ 89.875,  89.625,  89.375,  89.125,  88.875,  88.625,  88.375,\n               88.125,  87.875,  87.625,\n              ...\n              -57.625, -57.875, -58.125, -58.375, -58.625, -58.875, -59.125,\n              -59.375, -59.625, -59.875],\n             dtype='float64', name='lat', length=600))Attributes: (4)units :degrees_northstandard_name :latitudelong_name :latitudeaxis :Y\n\n\nWe would also like the longitude axis to range from -180 to 180 degrees east, instead of 0 to 360 degrees east (matter of taste, not convention).\n\nda = da.assign_coords(lon=(((da.lon + 180) % 360) - 180)).sortby(\"lon\")\nda.lon\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&lt;xarray.DataArray 'lon' (lon: 1440)&gt;\narray([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875])\nCoordinates:\n  * lon      (lon) float64 -179.9 -179.6 -179.4 -179.1 ... 179.4 179.6 179.9xarray.DataArray'lon'lon: 1440-179.9 -179.6 -179.4 -179.1 -178.9 ... 178.9 179.1 179.4 179.6 179.9array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875])Coordinates: (1)lon(lon)float64-179.9 -179.6 ... 179.6 179.9array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875])Indexes: (1)lonPandasIndexPandasIndex(Float64Index([-179.875, -179.625, -179.375, -179.125, -178.875, -178.625,\n              -178.375, -178.125, -177.875, -177.625,\n              ...\n               177.625,  177.875,  178.125,  178.375,  178.625,  178.875,\n               179.125,  179.375,  179.625,  179.875],\n             dtype='float64', name='lon', length=1440))Attributes: (0)\n\n\nCheck that the data still looks right, just rotated along x-axis:\n\nda.plot();\n\n\n\n\n\n\n\n\nNow we need to set raster data attributes which are missing from the NetCDF, to help rio-xarray infer the raster information\n\nda.rio.set_spatial_dims(\"lon\", \"lat\", inplace=True)\nda.rio.write_crs(\"epsg:4326\", inplace=True)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&lt;xarray.DataArray 'FFMC' (lat: 600, lon: 1440)&gt;\n[864000 values with dtype=float32]\nCoordinates:\n  * lat          (lat) float64 89.88 89.62 89.38 89.12 ... -59.38 -59.62 -59.88\n  * lon          (lon) float64 -179.9 -179.6 -179.4 -179.1 ... 179.4 179.6 179.9\n    spatial_ref  int64 0xarray.DataArray'FFMC'lat: 600lon: 1440...[864000 values with dtype=float32]Coordinates: (3)lat(lat)float6489.88 89.62 89.38 ... -59.62 -59.88units :degrees_northstandard_name :latitudelong_name :latitudeaxis :Yarray([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875])lon(lon)float64-179.9 -179.6 ... 179.6 179.9array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875])spatial_ref()int640crs_wkt :GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]semi_major_axis :6378137.0semi_minor_axis :6356752.314245179inverse_flattening :298.257223563reference_ellipsoid_name :WGS 84longitude_of_prime_meridian :0.0prime_meridian_name :Greenwichgeographic_crs_name :WGS 84grid_mapping_name :latitude_longitudespatial_ref :GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]array(0)Indexes: (2)latPandasIndexPandasIndex(Float64Index([ 89.875,  89.625,  89.375,  89.125,  88.875,  88.625,  88.375,\n               88.125,  87.875,  87.625,\n              ...\n              -57.625, -57.875, -58.125, -58.375, -58.625, -58.875, -59.125,\n              -59.375, -59.625, -59.875],\n             dtype='float64', name='lat', length=600))lonPandasIndexPandasIndex(Float64Index([-179.875, -179.625, -179.375, -179.125, -178.875, -178.625,\n              -178.375, -178.125, -177.875, -177.625,\n              ...\n               177.625,  177.875,  178.125,  178.375,  178.625,  178.875,\n               179.125,  179.375,  179.625,  179.875],\n             dtype='float64', name='lon', length=1440))Attributes: (0)\n\n\nCheck CRS\n\nda.rio.crs\n\nCRS.from_epsg(4326)\n\n\nCheck affine image transform:\na = width of a pixel\nb = row rotation (typically zero)\nc = x-coordinate of the upper-left corner of the upper-left pixel\nd = column rotation (typically zero)\ne = height of a pixel (typically negative)\nf = y-coordinate of the of the upper-left corner of the upper-left pixel\n\nda.rio.transform()\n\nAffine(0.25, 0.0, -180.0,\n       0.0, -0.25, 90.0)\n\n\n\n\nStep 4 - Write to COG and validate in-memory\nFor the demonstration here, we do not write the file to disk but to a memory file which can be validated and uploaded in-memory\nGeoTIFFs / COGs can be tuned for performance. Here are some defaults we found to work well (check out this blog post for detail).\n\nCOG_PROFILE = {\n    \"driver\": \"COG\",\n    \"compress\": \"DEFLATE\",\n    \"predictor\": 2\n}\n\n\nwith MemoryFile() as memfile:\n    da.rio.to_raster(memfile.name, **COG_PROFILE)\n    \n    cog_valid = rio_cogeo.cogeo.cog_validate(memfile.name)[0]\n\ncog_valid\n\nTrue",
-    "crumbs": [
-      "Usage Examples",
-      "Tutorials",
-      "Converting NetCDF to COG (CMIP6)"
-    ]
-  },
-  {
-    "objectID": "notebooks/tutorials/netcdf-to-cog-cmip6.html#combined-workflow-from-conversion-to-upload",
-    "href": "notebooks/tutorials/netcdf-to-cog-cmip6.html#combined-workflow-from-conversion-to-upload",
-    "title": "Converting NetCDF to COG (CMIP6)",
-    "section": "Combined workflow from conversion to upload",
-    "text": "Combined workflow from conversion to upload\n\nSOURCE_URI = 'cmip6-staging/Sample/FWI/Yearly/MME/MME50_historical_fwi_metrics_yearly_2014.nc'\n\n\nVARIABLE_NAME = \"FFMC\"\n\n\nCOG_PROFILE = {\n    \"driver\": \"COG\",\n    \"compress\": \"DEFLATE\",\n    \"predictor\": 2\n}\n\n\nDESTINATION_BUCKET = None\nDESTINATION_KEY = None\n\n\nfs = s3fs.S3FileSystem()\nwith fs.open(SOURCE_URI) as fileobj:\n    with xr.open_dataset(fileobj, engine=\"h5netcdf\") as ds:\n\n        # Read individual metric into data array (only one time in yearly NetCDFs)\n        da = ds[VARIABLE_NAME]\n\n        # Realign the x dimension to -180 origin for dataset\n        da = da.assign_coords(lon=(((da.lon + 180) % 360) - 180)).sortby(\"lon\")\n\n        # Reverse the DataArray's y dimension to comply with raster common practice\n        if da.lat.values[-1] &gt; da.lat.values[0]:\n            da = da.isel(lat=slice(None, None, -1))\n\n        # Set raster attributes\n        da.rio.set_spatial_dims(\"lon\", \"lat\")\n        da.rio.write_crs(\"epsg:4326\", inplace=True)\n\n        with MemoryFile() as memfile:\n            da.rio.to_raster(memfile.name, **COG_PROFILE)\n\n            # Validate COG in-memory\n            cog_valid = rio_cogeo.cogeo.cog_validate(memfile.name)[0]\n            if not cog_valid:\n                raise RuntimeError(\"COG validation failed.\")\n            \n            # Upload to S3\n            if DESTINATION_BUCKET is not None:\n                client = boto3.client(\"s3\")\n                r = client.put_object(\n                    Body=memfile,\n                    Bucket=DESTINATION_BUCKET,\n                    Key=DESTINATION_KEY,\n                )\n                if r[\"ResponseMetadata\"][\"HTTPStatusCode\"] != 200:\n                    raise RuntimeError(\"Upload failed.\")",
-    "crumbs": [
-      "Usage Examples",
-      "Tutorials",
-      "Converting NetCDF to COG (CMIP6)"
-    ]
-  },
-  {
-    "objectID": "services/jupyterhub.html",
-    "href": "services/jupyterhub.html",
-    "title": "JupyterHub",
-    "section": "",
-    "text": "VEDA promotes the use of JupyterHub environments for interactive data science. JupyterHub enables you to analyze massive archives of Earth science data in the cloud in an interactive environment that alleviates the complexities of managing compute resources (virtual machines, roles and permissions, etc).\nUsers affiliated with VEDA can get access to a dedicated JupyterHub service, provided in collaboration with 2i2c: nasa-veda.2i2c.cloud. Please find instructions for requesting access below.\nIf you are a scientist affiliated with NASA projects such as EIS and MAAP, you can also keep using the resources provided by these projects.\nThrough the use of open-source technology, we make sure our services are interoperable and exchangeable.",
-    "crumbs": [
-      "Services",
-      "JupyterHub"
-    ]
-  },
-  {
-    "objectID": "services/jupyterhub.html#getting-access-to-vedas-jupyterhub-environment",
-    "href": "services/jupyterhub.html#getting-access-to-vedas-jupyterhub-environment",
-    "title": "JupyterHub",
-    "section": "Getting access to VEDA’s JupyterHub environment",
-    "text": "Getting access to VEDA’s JupyterHub environment\nAccess to the VEDA notebook environment is currently on an as-need basis. If you are a user afficiliated with VEDA, you can gain access by following these steps:\n\nMake sure you have a Github Account. Take note of your Github username\nSend an email to the VEDA team (veda@uah.edu) asking for access to the VEDA notebook environment. Please include your Github username. They will invite you through Github to join the VEDA Analytics Github Team. Please watch your email for the invite.\nOnce you accepted the invitation, you should be able to go to https://nasa-veda.2i2c.cloud/ and login via your Github credentials.",
-    "crumbs": [
-      "Services",
-      "JupyterHub"
-    ]
-  },
-  {
-    "objectID": "services/jupyterhub.html#instructory-notebooks",
-    "href": "services/jupyterhub.html#instructory-notebooks",
-    "title": "JupyterHub",
-    "section": "Instructory notebooks",
-    "text": "Instructory notebooks\nThis documentation site provides Jupyter notebooks on how to load and analyze Earth data an interactive cloud computing environment.",
-    "crumbs": [
-      "Services",
-      "JupyterHub"
-    ]
-  },
-  {
-    "objectID": "services/apis.html",
-    "href": "services/apis.html",
-    "title": "APIs",
-    "section": "",
-    "text": "Most of the VEDA APIs are hosted out of a single project (veda-backend) that combines multiple standalone services.",
-    "crumbs": [
-      "Services",
-      "APIs"
-    ]
-  },
-  {
-    "objectID": "services/apis.html#environments",
-    "href": "services/apis.html#environments",
-    "title": "APIs",
-    "section": "Environments",
-    "text": "Environments\nWhile some of our services are already very mature, VEDA is currently in the build-up phase. Therefore, we do not yet have a production environment for users. Maintenance on the staging environment will be announced internally and selected known stakeholders will be informed of any larger changes.\n\nProduction (stable): Coming soon\n\n\nStaging (maintenance will be announced):\n\nSTAC browser: veda-staging-stac-browser\nSTAC API (metadata): https://staging-stac.delta-backend.com/docs\nList collections: https://staging-stac.delta-backend.com/collections\nRaster API (tiling): https://staging-raster.delta-backend.com/docs\nSTAC viewer (experimental): https://staging-stac.delta-backend.com/index.html\n\n\n\nDevelopment, aka Dev (experimental work, expected downtime)\n\nSTAC browser: veda-dev-stac-browser (temporarily hosted by radiantearth.github.io)\nSTAC API (metadata): https://dev.delta-backend.com/api/stac/docs\nList collections: https://dev.delta-backend.com/api/stac/collections\nRaster API (tiling): https://dev.delta-backend.com/api/raster/docs\nSTAC viewer (experimental): https://dev.delta-backend.com/api/stac/index.html",
-    "crumbs": [
-      "Services",
-      "APIs"
-    ]
-  },
-  {
-    "objectID": "services/index.html",
-    "href": "services/index.html",
-    "title": "Services",
-    "section": "",
-    "text": "The VEDA ecosystem of services provides a platform data products hosted in the VEDA data store and exposed via the VEDA Spatio-Temporal Asset Catalog (STAC).\nThe docs (this site) provide information about best practice in cloud-based Earth data science and platform-specific details about how to use and contribute information on VEDA.",
-    "crumbs": [
-      "Services"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "VEDA User Documentation",
-    "section": "",
-    "text": "VEDA (Visualization, Exploration and Data Analysis) is an innovative platform empowering researchers to explore and analyze Earth science data in the cloud. By combining interactive storytelling with open science principles, VEDA enables researchers to engage new audiences and share their analysis results effectively.\nDeveloped through a collaboration between NASA IMPACT, Development Seed, University of Alabama in Huntsville, Element 84, Indiana University, International Interactive Computing Collaboration (2i2c), Earth Science Data and Information System (ESDIS) Project, NASA Science Managed Cloud Environment (SMCE), and NASA Mission Cloud Platform (MCP), VEDA significantly reduces the barriers to accessing Earth science data and the computational resources needed for exploring and processing the petabyte-scale Earth data archives in the cloud. VEDA’s achievement exemplifies the core principles of NASA’s Open-Source Science Initiative (OSSI), showcasing commitment to promoting transparent, accessible, and collaborative scientific research.\nRead more about the history of VEDA in this blog post.\nThese pages provide documentation for onboarding users to cloud-enabled open science with Earth data, from computing and API usage to publication on the VEDA Dashboard.",
-    "crumbs": [
-      "Welcome"
-    ]
-  },
-  {
-    "objectID": "index.html#welcome",
-    "href": "index.html#welcome",
-    "title": "VEDA User Documentation",
-    "section": "",
-    "text": "VEDA (Visualization, Exploration and Data Analysis) is an innovative platform empowering researchers to explore and analyze Earth science data in the cloud. By combining interactive storytelling with open science principles, VEDA enables researchers to engage new audiences and share their analysis results effectively.\nDeveloped through a collaboration between NASA IMPACT, Development Seed, University of Alabama in Huntsville, Element 84, Indiana University, International Interactive Computing Collaboration (2i2c), Earth Science Data and Information System (ESDIS) Project, NASA Science Managed Cloud Environment (SMCE), and NASA Mission Cloud Platform (MCP), VEDA significantly reduces the barriers to accessing Earth science data and the computational resources needed for exploring and processing the petabyte-scale Earth data archives in the cloud. VEDA’s achievement exemplifies the core principles of NASA’s Open-Source Science Initiative (OSSI), showcasing commitment to promoting transparent, accessible, and collaborative scientific research.\nRead more about the history of VEDA in this blog post.\nThese pages provide documentation for onboarding users to cloud-enabled open science with Earth data, from computing and API usage to publication on the VEDA Dashboard.",
-    "crumbs": [
-      "Welcome"
-    ]
-  },
-  {
-    "objectID": "index.html#data-services",
-    "href": "index.html#data-services",
-    "title": "VEDA User Documentation",
-    "section": "Data Services",
-    "text": "Data Services\nIn VEDA’s open-source science environment, datasets can be discovered and accessed via open-standard data services such as a Spatio Temporal Asset Catalog (STAC) and WMTS map tiles APIs. Here is an overview of the API endpoints.",
-    "crumbs": [
-      "Welcome"
-    ]
-  },
-  {
-    "objectID": "index.html#resources-for-open-source-data-science",
-    "href": "index.html#resources-for-open-source-data-science",
-    "title": "VEDA User Documentation",
-    "section": "Resources for Open-Source Data Science",
-    "text": "Resources for Open-Source Data Science\nIf you are just getting started with geospatial data science (in Python) or want to learn more, you may find the Collection of External Resources useful.\nTo learn from examples, see the VEDA Example Notebooks - examples of open-source data science using VEDA services.\nSelected user groups can also get access to a VEDA-provided JupyterHub service.",
-    "crumbs": [
-      "Welcome"
-    ]
-  },
-  {
-    "objectID": "index.html#contributing",
-    "href": "index.html#contributing",
-    "title": "VEDA User Documentation",
-    "section": "Contributing",
-    "text": "Contributing\nContributions of data, stories, and example code are open to all users affiliated with the project. We strive to make the process as easy as possible. Please see the docs on Contributing.",
-    "crumbs": [
-      "Welcome"
-    ]
-  },
-  {
-    "objectID": "external-resources.html",
-    "href": "external-resources.html",
-    "title": "External resources",
-    "section": "",
-    "text": "This list is intended for scientists who want to get started with cloud-based, collaborative, open geospatial data analysis, or those looking to refresh their knowledge. It is by no means complete, but contains pointers to more elaborate resources. We anticipate this list to evolve as our platform and use cases evolve. Suggestions for additional resources or topics are highly welcome.",
-    "crumbs": [
-      "External resources"
-    ]
-  },
-  {
-    "objectID": "external-resources.html#master-the-basic-workflow-tools",
-    "href": "external-resources.html#master-the-basic-workflow-tools",
-    "title": "External resources",
-    "section": "Master the basic workflow tools",
-    "text": "Master the basic workflow tools\n\nGit - for managing code versions\nConda - for managing dependencies\nJupyter - for running code",
-    "crumbs": [
-      "External resources"
-    ]
-  },
-  {
-    "objectID": "external-resources.html#take-a-course-or-read-a-book-on-geospatial-data-analysis",
-    "href": "external-resources.html#take-a-course-or-read-a-book-on-geospatial-data-analysis",
-    "title": "External resources",
-    "section": "Take a course or read a book on geospatial data analysis",
-    "text": "Take a course or read a book on geospatial data analysis\n\nData Carpentry geospatial course\nUW course on Geospatial Data Analysis with Python\nGeographic data book - emphasis on vector data",
-    "crumbs": [
-      "External resources"
-    ]
-  },
-  {
-    "objectID": "external-resources.html#look-through-nicely-curated-lists-of-tools-and-resources",
-    "href": "external-resources.html#look-through-nicely-curated-lists-of-tools-and-resources",
-    "title": "External resources",
-    "section": "Look through nicely curated lists of tools and resources",
-    "text": "Look through nicely curated lists of tools and resources\n\nNASA Openscapes Earthdata Cloud Cookbook\nCryoCloud JupyterBook\nProject Pythia - Pangeo’s education hub\nPlanetary Computer\nGeospatial Computing Platform library of training resources (by Python package)",
-    "crumbs": [
-      "External resources"
-    ]
-  },
-  {
-    "objectID": "external-resources.html#find-out-what-a-hack-week-is-and-see-how-they-teach-best-practice",
-    "href": "external-resources.html#find-out-what-a-hack-week-is-and-see-how-they-teach-best-practice",
-    "title": "External resources",
-    "section": "Find out what a Hack Week is and see how they teach best practice",
-    "text": "Find out what a Hack Week is and see how they teach best practice\n\nUW GeoHackWeek\nUW OceanHackWeek",
-    "crumbs": [
-      "External resources"
-    ]
-  },
-  {
-    "objectID": "external-resources.html#stay-up-to-date-through-blogs",
-    "href": "external-resources.html#stay-up-to-date-through-blogs",
-    "title": "External resources",
-    "section": "Stay up-to-date through blogs",
-    "text": "Stay up-to-date through blogs\n\nBlog series on latest trends and resources in geospatial - entry-level",
-    "crumbs": [
-      "External resources"
-    ]
-  },
-  {
-    "objectID": "services/dashboard.html",
-    "href": "services/dashboard.html",
-    "title": "Dashboard",
-    "section": "",
-    "text": "The VEDA Dashboard is a publishing platform for results of scientific analysis of Earth data at NASA, in the form of Dataset information pages (“Datasets”) and stories (“Discoveries”).",
-    "crumbs": [
-      "Services",
-      "Dashboard"
-    ]
-  },
-  {
-    "objectID": "services/dashboard.html#contributing",
-    "href": "services/dashboard.html#contributing",
-    "title": "Dashboard",
-    "section": "Contributing",
-    "text": "Contributing\nPlease see our docs on Dashboard Configuration.",
-    "crumbs": [
-      "Services",
-      "Dashboard"
-    ]
-  },
-  {
-    "objectID": "services/data-store.html",
-    "href": "services/data-store.html",
-    "title": "VEDA Data Store",
-    "section": "",
-    "text": "The VEDA Data Store consists of cloud object storage (AWS S3 in us-west-2) and a central Spatio-Temporal Asset Catalog (STAC) that exposes the datasets."
-  },
-  {
-    "objectID": "services/data-store.html#dataset-selection",
-    "href": "services/data-store.html#dataset-selection",
-    "title": "VEDA Data Store",
-    "section": "Dataset selection",
-    "text": "Dataset selection\nThe VEDA Data Store is meant for\n\nNovel datasets produced by NASA Earth data scientists to be presented on the VEDA Dashboard or shared with other science users on VEDA, but not (yet) suited for publication in one of the EOSDIS Distributed Active Archive Centers (DAAC)\nNon-authoritative cloud-optimized versions of Datasets from a DAAC\nOther datasets that do not have an authoritative, cloud-optimized source, to be published or used within the VEDA platform"
-  },
-  {
-    "objectID": "services/data-store.html#browsing-the-data-store",
-    "href": "services/data-store.html#browsing-the-data-store",
-    "title": "VEDA Data Store",
-    "section": "Browsing the Data Store",
-    "text": "Browsing the Data Store\nThe main public interface is the STAC browser and many APIs are exposed that provide access to the data using various protocols.\n\nSTAC browser: veda-staging-stac-browser"
-  },
-  {
-    "objectID": "services/data-store.html#contributing-data",
-    "href": "services/data-store.html#contributing-data",
-    "title": "VEDA Data Store",
-    "section": "Contributing data",
-    "text": "Contributing data\nThe process of data ingestion into the VEDA Data Store is under active development.\nPlease see our docs on dataset ingestion."
   },
   {
     "objectID": "notebooks/tutorials/gif-generation.html",
@@ -1886,123 +1684,276 @@
     ]
   },
   {
-    "objectID": "notebooks/tutorials/zonal-statistics-validation.html",
-    "href": "notebooks/tutorials/zonal-statistics-validation.html",
-    "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
+    "objectID": "services/data-store.html",
+    "href": "services/data-store.html",
+    "title": "VEDA Data Store",
     "section": "",
-    "text": "You can launch this notebook in VEDA JupyterHub by clicking the link below.\nLaunch in VEDA JupyterHub (requires access)\n\n\nLearn more\n\n\n\nThis notebook was written on the VEDA JupyterHub and as such is designed to be run on a jupyterhub which is associated with an AWS IAM role which has been granted permissions to the VEDA data store via its bucket policy. The instance used provided 16GB of RAM.\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\n\nThe data is in a protected bucket. Please request access by emailng aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN). The team will help you configure the cognito client.\nYou should then run:\n%run -i 'cognito_login.py'",
+    "text": "The VEDA Data Store consists of cloud object storage (AWS S3 in us-west-2) and a central Spatio-Temporal Asset Catalog (STAC) that exposes the datasets."
+  },
+  {
+    "objectID": "services/data-store.html#dataset-selection",
+    "href": "services/data-store.html#dataset-selection",
+    "title": "VEDA Data Store",
+    "section": "Dataset selection",
+    "text": "Dataset selection\nThe VEDA Data Store is meant for\n\nNovel datasets produced by NASA Earth data scientists to be presented on the VEDA Dashboard or shared with other science users on VEDA, but not (yet) suited for publication in one of the EOSDIS Distributed Active Archive Centers (DAAC)\nNon-authoritative cloud-optimized versions of Datasets from a DAAC\nOther datasets that do not have an authoritative, cloud-optimized source, to be published or used within the VEDA platform"
+  },
+  {
+    "objectID": "services/data-store.html#browsing-the-data-store",
+    "href": "services/data-store.html#browsing-the-data-store",
+    "title": "VEDA Data Store",
+    "section": "Browsing the Data Store",
+    "text": "Browsing the Data Store\nThe main public interface is the STAC browser and many APIs are exposed that provide access to the data using various protocols.\n\nSTAC browser: veda-staging-stac-browser"
+  },
+  {
+    "objectID": "services/data-store.html#contributing-data",
+    "href": "services/data-store.html#contributing-data",
+    "title": "VEDA Data Store",
+    "section": "Contributing data",
+    "text": "Contributing data\nThe process of data ingestion into the VEDA Data Store is under active development.\nPlease see our docs on dataset ingestion."
+  },
+  {
+    "objectID": "services/dashboard.html",
+    "href": "services/dashboard.html",
+    "title": "Dashboard",
+    "section": "",
+    "text": "The VEDA Dashboard is a publishing platform for results of scientific analysis of Earth data at NASA, in the form of Dataset information pages (“Datasets”) and stories (“Discoveries”).",
     "crumbs": [
-      "Usage Examples",
-      "Tutorials",
-      "Calculating accurate zonal statistics with varying grid cell / pixel area"
+      "Services",
+      "Dashboard"
     ]
   },
   {
-    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#run-this-notebook",
-    "href": "notebooks/tutorials/zonal-statistics-validation.html#run-this-notebook",
-    "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
-    "section": "",
-    "text": "You can launch this notebook in VEDA JupyterHub by clicking the link below.\nLaunch in VEDA JupyterHub (requires access)\n\n\nLearn more\n\n\n\nThis notebook was written on the VEDA JupyterHub and as such is designed to be run on a jupyterhub which is associated with an AWS IAM role which has been granted permissions to the VEDA data store via its bucket policy. The instance used provided 16GB of RAM.\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\n\nThe data is in a protected bucket. Please request access by emailng aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN). The team will help you configure the cognito client.\nYou should then run:\n%run -i 'cognito_login.py'",
+    "objectID": "services/dashboard.html#contributing",
+    "href": "services/dashboard.html#contributing",
+    "title": "Dashboard",
+    "section": "Contributing",
+    "text": "Contributing\nPlease see our docs on Dashboard Configuration.",
     "crumbs": [
-      "Usage Examples",
-      "Tutorials",
-      "Calculating accurate zonal statistics with varying grid cell / pixel area"
+      "Services",
+      "Dashboard"
     ]
   },
   {
-    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#approach",
-    "href": "notebooks/tutorials/zonal-statistics-validation.html#approach",
-    "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
+    "objectID": "external-resources.html",
+    "href": "external-resources.html",
+    "title": "External resources",
+    "section": "",
+    "text": "This list is intended for scientists who want to get started with cloud-based, collaborative, open geospatial data analysis, or those looking to refresh their knowledge. It is by no means complete, but contains pointers to more elaborate resources. We anticipate this list to evolve as our platform and use cases evolve. Suggestions for additional resources or topics are highly welcome.",
+    "crumbs": [
+      "External resources"
+    ]
+  },
+  {
+    "objectID": "external-resources.html#master-the-basic-workflow-tools",
+    "href": "external-resources.html#master-the-basic-workflow-tools",
+    "title": "External resources",
+    "section": "Master the basic workflow tools",
+    "text": "Master the basic workflow tools\n\nGit - for managing code versions\nConda - for managing dependencies\nJupyter - for running code",
+    "crumbs": [
+      "External resources"
+    ]
+  },
+  {
+    "objectID": "external-resources.html#take-a-course-or-read-a-book-on-geospatial-data-analysis",
+    "href": "external-resources.html#take-a-course-or-read-a-book-on-geospatial-data-analysis",
+    "title": "External resources",
+    "section": "Take a course or read a book on geospatial data analysis",
+    "text": "Take a course or read a book on geospatial data analysis\n\nData Carpentry geospatial course\nUW course on Geospatial Data Analysis with Python\nGeographic data book - emphasis on vector data",
+    "crumbs": [
+      "External resources"
+    ]
+  },
+  {
+    "objectID": "external-resources.html#look-through-nicely-curated-lists-of-tools-and-resources",
+    "href": "external-resources.html#look-through-nicely-curated-lists-of-tools-and-resources",
+    "title": "External resources",
+    "section": "Look through nicely curated lists of tools and resources",
+    "text": "Look through nicely curated lists of tools and resources\n\nNASA Openscapes Earthdata Cloud Cookbook\nCryoCloud JupyterBook\nProject Pythia - Pangeo’s education hub\nPlanetary Computer\nGeospatial Computing Platform library of training resources (by Python package)",
+    "crumbs": [
+      "External resources"
+    ]
+  },
+  {
+    "objectID": "external-resources.html#find-out-what-a-hack-week-is-and-see-how-they-teach-best-practice",
+    "href": "external-resources.html#find-out-what-a-hack-week-is-and-see-how-they-teach-best-practice",
+    "title": "External resources",
+    "section": "Find out what a Hack Week is and see how they teach best practice",
+    "text": "Find out what a Hack Week is and see how they teach best practice\n\nUW GeoHackWeek\nUW OceanHackWeek",
+    "crumbs": [
+      "External resources"
+    ]
+  },
+  {
+    "objectID": "external-resources.html#stay-up-to-date-through-blogs",
+    "href": "external-resources.html#stay-up-to-date-through-blogs",
+    "title": "External resources",
+    "section": "Stay up-to-date through blogs",
+    "text": "Stay up-to-date through blogs\n\nBlog series on latest trends and resources in geospatial - entry-level",
+    "crumbs": [
+      "External resources"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "VEDA User Documentation",
+    "section": "",
+    "text": "VEDA (Visualization, Exploration and Data Analysis) is an innovative platform empowering researchers to explore and analyze Earth science data in the cloud. By combining interactive storytelling with open science principles, VEDA enables researchers to engage new audiences and share their analysis results effectively.\nDeveloped through a collaboration between NASA IMPACT, Development Seed, University of Alabama in Huntsville, Element 84, Indiana University, International Interactive Computing Collaboration (2i2c), Earth Science Data and Information System (ESDIS) Project, NASA Science Managed Cloud Environment (SMCE), and NASA Mission Cloud Platform (MCP), VEDA significantly reduces the barriers to accessing Earth science data and the computational resources needed for exploring and processing the petabyte-scale Earth data archives in the cloud. VEDA’s achievement exemplifies the core principles of NASA’s Open-Source Science Initiative (OSSI), showcasing commitment to promoting transparent, accessible, and collaborative scientific research.\nRead more about the history of VEDA in this blog post.\nThese pages provide documentation for onboarding users to cloud-enabled open science with Earth data, from computing and API usage to publication on the VEDA Dashboard.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "VEDA User Documentation",
+    "section": "",
+    "text": "VEDA (Visualization, Exploration and Data Analysis) is an innovative platform empowering researchers to explore and analyze Earth science data in the cloud. By combining interactive storytelling with open science principles, VEDA enables researchers to engage new audiences and share their analysis results effectively.\nDeveloped through a collaboration between NASA IMPACT, Development Seed, University of Alabama in Huntsville, Element 84, Indiana University, International Interactive Computing Collaboration (2i2c), Earth Science Data and Information System (ESDIS) Project, NASA Science Managed Cloud Environment (SMCE), and NASA Mission Cloud Platform (MCP), VEDA significantly reduces the barriers to accessing Earth science data and the computational resources needed for exploring and processing the petabyte-scale Earth data archives in the cloud. VEDA’s achievement exemplifies the core principles of NASA’s Open-Source Science Initiative (OSSI), showcasing commitment to promoting transparent, accessible, and collaborative scientific research.\nRead more about the history of VEDA in this blog post.\nThese pages provide documentation for onboarding users to cloud-enabled open science with Earth data, from computing and API usage to publication on the VEDA Dashboard.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#data-services",
+    "href": "index.html#data-services",
+    "title": "VEDA User Documentation",
+    "section": "Data Services",
+    "text": "Data Services\nIn VEDA’s open-source science environment, datasets can be discovered and accessed via open-standard data services such as a Spatio Temporal Asset Catalog (STAC) and WMTS map tiles APIs. Here is an overview of the API endpoints.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#resources-for-open-source-data-science",
+    "href": "index.html#resources-for-open-source-data-science",
+    "title": "VEDA User Documentation",
+    "section": "Resources for Open-Source Data Science",
+    "text": "Resources for Open-Source Data Science\nIf you are just getting started with geospatial data science (in Python) or want to learn more, you may find the Collection of External Resources useful.\nTo learn from examples, see the VEDA Example Notebooks - examples of open-source data science using VEDA services.\nSelected user groups can also get access to a VEDA-provided JupyterHub service.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#contributing",
+    "href": "index.html#contributing",
+    "title": "VEDA User Documentation",
+    "section": "Contributing",
+    "text": "Contributing\nContributions of data, stories, and example code are open to all users affiliated with the project. We strive to make the process as easy as possible. Please see the docs on Contributing.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "services/index.html",
+    "href": "services/index.html",
+    "title": "Services",
+    "section": "",
+    "text": "The VEDA ecosystem of services provides a platform data products hosted in the VEDA data store and exposed via the VEDA Spatio-Temporal Asset Catalog (STAC).\nThe docs (this site) provide information about best practice in cloud-based Earth data science and platform-specific details about how to use and contribute information on VEDA.",
+    "crumbs": [
+      "Services"
+    ]
+  },
+  {
+    "objectID": "services/apis.html",
+    "href": "services/apis.html",
+    "title": "APIs",
+    "section": "",
+    "text": "Most of the VEDA APIs are hosted out of a single project (veda-backend) that combines multiple standalone services.",
+    "crumbs": [
+      "Services",
+      "APIs"
+    ]
+  },
+  {
+    "objectID": "services/apis.html#environments",
+    "href": "services/apis.html#environments",
+    "title": "APIs",
+    "section": "Environments",
+    "text": "Environments\nWhile some of our services are already very mature, VEDA is currently in the build-up phase. Therefore, we do not yet have a production environment for users. Maintenance on the staging environment will be announced internally and selected known stakeholders will be informed of any larger changes.\n\nProduction (stable): Coming soon\n\n\nStaging (maintenance will be announced):\n\nSTAC browser: veda-staging-stac-browser\nSTAC API (metadata): https://staging-stac.delta-backend.com/docs\nList collections: https://staging-stac.delta-backend.com/collections\nRaster API (tiling): https://staging-raster.delta-backend.com/docs\nSTAC viewer (experimental): https://staging-stac.delta-backend.com/index.html\n\n\n\nDevelopment, aka Dev (experimental work, expected downtime)\n\nSTAC browser: veda-dev-stac-browser (temporarily hosted by radiantearth.github.io)\nSTAC API (metadata): https://dev.delta-backend.com/api/stac/docs\nList collections: https://dev.delta-backend.com/api/stac/collections\nRaster API (tiling): https://dev.delta-backend.com/api/raster/docs\nSTAC viewer (experimental): https://dev.delta-backend.com/api/stac/index.html",
+    "crumbs": [
+      "Services",
+      "APIs"
+    ]
+  },
+  {
+    "objectID": "services/jupyterhub.html",
+    "href": "services/jupyterhub.html",
+    "title": "JupyterHub",
+    "section": "",
+    "text": "VEDA promotes the use of JupyterHub environments for interactive data science. JupyterHub enables you to analyze massive archives of Earth science data in the cloud in an interactive environment that alleviates the complexities of managing compute resources (virtual machines, roles and permissions, etc).\nUsers affiliated with VEDA can get access to a dedicated JupyterHub service, provided in collaboration with 2i2c: nasa-veda.2i2c.cloud. Please find instructions for requesting access below.\nIf you are a scientist affiliated with NASA projects such as EIS and MAAP, you can also keep using the resources provided by these projects.\nThrough the use of open-source technology, we make sure our services are interoperable and exchangeable.",
+    "crumbs": [
+      "Services",
+      "JupyterHub"
+    ]
+  },
+  {
+    "objectID": "services/jupyterhub.html#getting-access-to-vedas-jupyterhub-environment",
+    "href": "services/jupyterhub.html#getting-access-to-vedas-jupyterhub-environment",
+    "title": "JupyterHub",
+    "section": "Getting access to VEDA’s JupyterHub environment",
+    "text": "Getting access to VEDA’s JupyterHub environment\nAccess to the VEDA notebook environment is currently on an as-need basis. If you are a user afficiliated with VEDA, you can gain access by following these steps:\n\nMake sure you have a Github Account. Take note of your Github username\nSend an email to the VEDA team (veda@uah.edu) asking for access to the VEDA notebook environment. Please include your Github username. They will invite you through Github to join the VEDA Analytics Github Team. Please watch your email for the invite.\nOnce you accepted the invitation, you should be able to go to https://nasa-veda.2i2c.cloud/ and login via your Github credentials.",
+    "crumbs": [
+      "Services",
+      "JupyterHub"
+    ]
+  },
+  {
+    "objectID": "services/jupyterhub.html#instructory-notebooks",
+    "href": "services/jupyterhub.html#instructory-notebooks",
+    "title": "JupyterHub",
+    "section": "Instructory notebooks",
+    "text": "Instructory notebooks\nThis documentation site provides Jupyter notebooks on how to load and analyze Earth data an interactive cloud computing environment.",
+    "crumbs": [
+      "Services",
+      "JupyterHub"
+    ]
+  },
+  {
+    "objectID": "notebooks/tutorials/netcdf-to-cog-cmip6.html",
+    "href": "notebooks/tutorials/netcdf-to-cog-cmip6.html",
+    "title": "Converting NetCDF to COG (CMIP6)",
+    "section": "",
+    "text": "You can launch this notbook using mybinder, by clicking the button below.",
+    "crumbs": [
+      "Usage Examples",
+      "Tutorials",
+      "Converting NetCDF to COG (CMIP6)"
+    ]
+  },
+  {
+    "objectID": "notebooks/tutorials/netcdf-to-cog-cmip6.html#approach",
+    "href": "notebooks/tutorials/netcdf-to-cog-cmip6.html#approach",
+    "title": "Converting NetCDF to COG (CMIP6)",
     "section": "Approach",
-    "text": "Approach\n\nMotivation\nThe VEDA backend (via TiTiler) provides an API endpoint for computing zonal statistics (average, standard deviation, and other metrics over a geographic subset) across gridded (raster) data such as satellite imagery or climate datasets.\nSome statistics, such as average, median, standard deviation, or percentiles are sensitive to differences in grid cell / pixel sizes: when some grid cells are (in metric units) have a larger area than others, the values in these cells will be under-represented. Grid cell sizes depends on the grid / projection of the data.\nVarying grid cell sizes is common for climate datasets that are stored on a grid in geographic coordinates (lat/lon), for example a 0.1 degree by 0.1 degree global grid. Here, grid cell size will decrease from low to high latitudes. Computing averages over large spans of latitude will result in statistics where values closer to the poles are strongly over-represented.\nTo avoid this inaccuracy in zonal statistics computed with our API, we introduced a method to reproject the source data to an equal-area projection as an intermediate step in calculating statistics.\nNote: this reprojection is not needed for example for accurate zonal statistics on a Sentinel-2 scene, using the Military Grid Reference System (MGRS) and a Mercator (UTM) projection. Here, pixel areas are the same across the scene in the native projection.\n\n\nIn this notebook\nThis notebook presents a validation of VEDA’s API for zonal statistics against a known way to compute area-weighted averages for gridded datasets on a regular lat/lon grid.\nFor illustration, we choose a real dataset from the VEDA data catalog and a subsetting area that spans a large latitude range.\nThe figures below show the average calculated over that area of interest with the different methods, for comparison.\n\n%pip install pystac_client\n\nRequirement already satisfied: pystac_client in /srv/conda/envs/notebook/lib/python3.10/site-packages (0.7.2)\nRequirement already satisfied: requests&gt;=2.28.2 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pystac_client) (2.31.0)\nRequirement already satisfied: pystac[validation]&gt;=1.7.2 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pystac_client) (1.8.1)\nRequirement already satisfied: python-dateutil&gt;=2.8.2 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pystac_client) (2.8.2)\nRequirement already satisfied: jsonschema&gt;=4.0.1 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from pystac[validation]&gt;=1.7.2-&gt;pystac_client) (4.17.3)\nRequirement already satisfied: six&gt;=1.5 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from python-dateutil&gt;=2.8.2-&gt;pystac_client) (1.16.0)\nRequirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from requests&gt;=2.28.2-&gt;pystac_client) (3.1.0)\nRequirement already satisfied: idna&lt;4,&gt;=2.5 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from requests&gt;=2.28.2-&gt;pystac_client) (3.4)\nRequirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from requests&gt;=2.28.2-&gt;pystac_client) (1.26.15)\nRequirement already satisfied: certifi&gt;=2017.4.17 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from requests&gt;=2.28.2-&gt;pystac_client) (2023.5.7)\nRequirement already satisfied: attrs&gt;=17.4.0 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from jsonschema&gt;=4.0.1-&gt;pystac[validation]&gt;=1.7.2-&gt;pystac_client) (23.1.0)\nRequirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,&gt;=0.14.0 in /srv/conda/envs/notebook/lib/python3.10/site-packages (from jsonschema&gt;=4.0.1-&gt;pystac[validation]&gt;=1.7.2-&gt;pystac_client) (0.19.3)\nNote: you may need to restart the kernel to use updated packages.\n\n\n\nimport tqdm\nimport requests\nimport rasterio\nimport rasterio.crs\nimport xarray as xr\nimport rioxarray\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom pystac_client import Client",
+    "text": "Approach\nCloud-optimized GeoTIFF (COG) is a geospatial raster (image) data format optimized for on-the-fly analytics and visualization of raster data in cloud applications.\nConverting NetCDF (climate data) to COG can be relevant when the data should be included in GIS or web map applications.\nThis tutorial shows how this conversion can be done using Xarray and rioxarray, in-memory, avoiding temporary files on-disk.\n\nStep-by-step guide to conversion from NetCDF to Cloud-Optimized GeoTIFF\nCombined workflow including upload to S3",
     "crumbs": [
       "Usage Examples",
       "Tutorials",
-      "Calculating accurate zonal statistics with varying grid cell / pixel area"
+      "Converting NetCDF to COG (CMIP6)"
     ]
   },
   {
-    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#load-and-inspect-dataset-from-ghgc-stac-catalog",
-    "href": "notebooks/tutorials/zonal-statistics-validation.html#load-and-inspect-dataset-from-ghgc-stac-catalog",
-    "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
-    "section": "Load and inspect dataset from GHGC STAC catalog",
-    "text": "Load and inspect dataset from GHGC STAC catalog\n\nSTAC_API_URL = \"http://ghg.center/api/stac\"\nRASTER_API_URL = \"https://ghg.center/api/raster\"\n\nCOLLECTION_ID = \"casagfed-carbonflux-monthgrid-v3\"\nASSET_NAME = \"npp\"\n\n\ncatalog = Client.open(STAC_API_URL)\ncollection = catalog.get_collection(COLLECTION_ID)\n\n\nitems = list(collection.get_all_items())[:15]\n\n\nwith rasterio.open(items[0].assets[ASSET_NAME].href) as ds:\n    print(ds.profile)\n    \n    assert ds.crs == rasterio.crs.CRS.from_epsg(4326)\n\n{'driver': 'GTiff', 'dtype': 'float32', 'nodata': None, 'width': 720, 'height': 360, 'count': 1, 'crs': CRS.from_epsg(4326), 'transform': Affine(0.5, 0.0, -180.0,\n       0.0, -0.5, 90.0), 'blockxsize': 512, 'blockysize': 512, 'tiled': True, 'compress': 'lzw', 'interleave': 'band'}",
+    "objectID": "notebooks/tutorials/netcdf-to-cog-cmip6.html#step-by-step",
+    "href": "notebooks/tutorials/netcdf-to-cog-cmip6.html#step-by-step",
+    "title": "Converting NetCDF to COG (CMIP6)",
+    "section": "Step by step",
+    "text": "Step by step\n\nStep 0 - Installs and imports\n\n!pip install s3fs h5netcdf --quiet\n\n\nimport boto3\nimport s3fs\nimport rioxarray\nimport rasterio\nimport rio_cogeo.cogeo\nimport xarray as xr\nfrom rasterio.io import MemoryFile\n\n\n\nStep 1 - Inspect source NetCDF\n\nSOURCE_URI = 'cmip6-staging/Sample/FWI/Yearly/MME/MME50_historical_fwi_metrics_yearly_2014.nc'\n\n\nfs = s3fs.S3FileSystem()\nfileobj = fs.open(SOURCE_URI)\nds = xr.open_dataset(fileobj, engine=\"h5netcdf\")\nds\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&lt;xarray.Dataset&gt;\nDimensions:  (lat: 600, lon: 1440)\nCoordinates:\n  * lat      (lat) float64 -59.88 -59.62 -59.38 -59.12 ... 89.38 89.62 89.88\n  * lon      (lon) float64 0.125 0.375 0.625 0.875 ... 359.1 359.4 359.6 359.9\nData variables: (12/13)\n    FFMC     (lat, lon) float32 ...\n    DMC      (lat, lon) float32 ...\n    DC       (lat, lon) float32 ...\n    ISI      (lat, lon) float32 ...\n    BUI      (lat, lon) float32 ...\n    FWI      (lat, lon) float32 ...\n    ...       ...\n    FWI_N30  (lat, lon) uint16 ...\n    FWI_N45  (lat, lon) uint16 ...\n    FWI_P25  (lat, lon) float32 ...\n    FWI_P50  (lat, lon) float32 ...\n    FWI_P75  (lat, lon) float32 ...\n    FWI_P95  (lat, lon) float32 ...xarray.DatasetDimensions:lat: 600lon: 1440Coordinates: (2)lat(lat)float64-59.88 -59.62 ... 89.62 89.88units :degrees_northstandard_name :latitudelong_name :latitudeaxis :Yarray([-59.875, -59.625, -59.375, ...,  89.375,  89.625,  89.875])lon(lon)float640.125 0.375 0.625 ... 359.6 359.9units :degrees_eaststandard_name :longitudelong_name :longitudeaxis :Xarray([1.25000e-01, 3.75000e-01, 6.25000e-01, ..., 3.59375e+02, 3.59625e+02,\n       3.59875e+02])Data variables: (13)FFMC(lat, lon)float32...[864000 values with dtype=float32]DMC(lat, lon)float32...[864000 values with dtype=float32]DC(lat, lon)float32...[864000 values with dtype=float32]ISI(lat, lon)float32...[864000 values with dtype=float32]BUI(lat, lon)float32...[864000 values with dtype=float32]FWI(lat, lon)float32...[864000 values with dtype=float32]FWI_N15(lat, lon)uint16...[864000 values with dtype=uint16]FWI_N30(lat, lon)uint16...[864000 values with dtype=uint16]FWI_N45(lat, lon)uint16...[864000 values with dtype=uint16]FWI_P25(lat, lon)float32...[864000 values with dtype=float32]FWI_P50(lat, lon)float32...[864000 values with dtype=float32]FWI_P75(lat, lon)float32...[864000 values with dtype=float32]FWI_P95(lat, lon)float32...[864000 values with dtype=float32]Indexes: (2)latPandasIndexPandasIndex(Float64Index([-59.875, -59.625, -59.375, -59.125, -58.875, -58.625, -58.375,\n              -58.125, -57.875, -57.625,\n              ...\n               87.625,  87.875,  88.125,  88.375,  88.625,  88.875,  89.125,\n               89.375,  89.625,  89.875],\n             dtype='float64', name='lat', length=600))lonPandasIndexPandasIndex(Float64Index([  0.125,   0.375,   0.625,   0.875,   1.125,   1.375,   1.625,\n                1.875,   2.125,   2.375,\n              ...\n              357.625, 357.875, 358.125, 358.375, 358.625, 358.875, 359.125,\n              359.375, 359.625, 359.875],\n             dtype='float64', name='lon', length=1440))Attributes: (0)\n\n\n\n\nStep 2 - Select data variable\nThe NetCDF contains several data variables. We pick the first one for demo.\n\nVARIABLE_NAME = \"FFMC\"\n\n\nda = ds[VARIABLE_NAME]\n\n\nda.plot();\n\n\n\n\n\n\n\n\n\nda.encoding\n\n{'chunksizes': None,\n 'fletcher32': False,\n 'shuffle': False,\n 'source': '&lt;File-like object S3FileSystem, cmip6-staging/Sample/FWI/Yearly/MME/MME50_historical_fwi_metrics_yearly_2014.nc&gt;',\n 'original_shape': (600, 1440),\n 'dtype': dtype('&lt;f4'),\n '_FillValue': nan}\n\n\n\n\nStep 3. Conform to raster data conventions\nCommon practice in NetCDF lat/lon data the first grid cell is the south-west corner, i.e. latitude and longitude axes increase along the array dimensions.\nCommon practice in raster formats like GeoTIFF is that the y-axis (latitude in this case) decreases from origin, i.e. the first pixel is the north-west corner.\nWe can reverse the latitude dimension like this:\n\nda = da.isel(lat=slice(None, None, -1))\nda.lat\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&lt;xarray.DataArray 'lat' (lat: 600)&gt;\narray([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875])\nCoordinates:\n  * lat      (lat) float64 89.88 89.62 89.38 89.12 ... -59.38 -59.62 -59.88\nAttributes:\n    units:          degrees_north\n    standard_name:  latitude\n    long_name:      latitude\n    axis:           Yxarray.DataArray'lat'lat: 60089.88 89.62 89.38 89.12 88.88 ... -58.88 -59.12 -59.38 -59.62 -59.88array([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875])Coordinates: (1)lat(lat)float6489.88 89.62 89.38 ... -59.62 -59.88units :degrees_northstandard_name :latitudelong_name :latitudeaxis :Yarray([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875])Indexes: (1)latPandasIndexPandasIndex(Float64Index([ 89.875,  89.625,  89.375,  89.125,  88.875,  88.625,  88.375,\n               88.125,  87.875,  87.625,\n              ...\n              -57.625, -57.875, -58.125, -58.375, -58.625, -58.875, -59.125,\n              -59.375, -59.625, -59.875],\n             dtype='float64', name='lat', length=600))Attributes: (4)units :degrees_northstandard_name :latitudelong_name :latitudeaxis :Y\n\n\nWe would also like the longitude axis to range from -180 to 180 degrees east, instead of 0 to 360 degrees east (matter of taste, not convention).\n\nda = da.assign_coords(lon=(((da.lon + 180) % 360) - 180)).sortby(\"lon\")\nda.lon\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&lt;xarray.DataArray 'lon' (lon: 1440)&gt;\narray([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875])\nCoordinates:\n  * lon      (lon) float64 -179.9 -179.6 -179.4 -179.1 ... 179.4 179.6 179.9xarray.DataArray'lon'lon: 1440-179.9 -179.6 -179.4 -179.1 -178.9 ... 178.9 179.1 179.4 179.6 179.9array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875])Coordinates: (1)lon(lon)float64-179.9 -179.6 ... 179.6 179.9array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875])Indexes: (1)lonPandasIndexPandasIndex(Float64Index([-179.875, -179.625, -179.375, -179.125, -178.875, -178.625,\n              -178.375, -178.125, -177.875, -177.625,\n              ...\n               177.625,  177.875,  178.125,  178.375,  178.625,  178.875,\n               179.125,  179.375,  179.625,  179.875],\n             dtype='float64', name='lon', length=1440))Attributes: (0)\n\n\nCheck that the data still looks right, just rotated along x-axis:\n\nda.plot();\n\n\n\n\n\n\n\n\nNow we need to set raster data attributes which are missing from the NetCDF, to help rio-xarray infer the raster information\n\nda.rio.set_spatial_dims(\"lon\", \"lat\", inplace=True)\nda.rio.write_crs(\"epsg:4326\", inplace=True)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n&lt;xarray.DataArray 'FFMC' (lat: 600, lon: 1440)&gt;\n[864000 values with dtype=float32]\nCoordinates:\n  * lat          (lat) float64 89.88 89.62 89.38 89.12 ... -59.38 -59.62 -59.88\n  * lon          (lon) float64 -179.9 -179.6 -179.4 -179.1 ... 179.4 179.6 179.9\n    spatial_ref  int64 0xarray.DataArray'FFMC'lat: 600lon: 1440...[864000 values with dtype=float32]Coordinates: (3)lat(lat)float6489.88 89.62 89.38 ... -59.62 -59.88units :degrees_northstandard_name :latitudelong_name :latitudeaxis :Yarray([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875])lon(lon)float64-179.9 -179.6 ... 179.6 179.9array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875])spatial_ref()int640crs_wkt :GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]semi_major_axis :6378137.0semi_minor_axis :6356752.314245179inverse_flattening :298.257223563reference_ellipsoid_name :WGS 84longitude_of_prime_meridian :0.0prime_meridian_name :Greenwichgeographic_crs_name :WGS 84grid_mapping_name :latitude_longitudespatial_ref :GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]array(0)Indexes: (2)latPandasIndexPandasIndex(Float64Index([ 89.875,  89.625,  89.375,  89.125,  88.875,  88.625,  88.375,\n               88.125,  87.875,  87.625,\n              ...\n              -57.625, -57.875, -58.125, -58.375, -58.625, -58.875, -59.125,\n              -59.375, -59.625, -59.875],\n             dtype='float64', name='lat', length=600))lonPandasIndexPandasIndex(Float64Index([-179.875, -179.625, -179.375, -179.125, -178.875, -178.625,\n              -178.375, -178.125, -177.875, -177.625,\n              ...\n               177.625,  177.875,  178.125,  178.375,  178.625,  178.875,\n               179.125,  179.375,  179.625,  179.875],\n             dtype='float64', name='lon', length=1440))Attributes: (0)\n\n\nCheck CRS\n\nda.rio.crs\n\nCRS.from_epsg(4326)\n\n\nCheck affine image transform:\na = width of a pixel\nb = row rotation (typically zero)\nc = x-coordinate of the upper-left corner of the upper-left pixel\nd = column rotation (typically zero)\ne = height of a pixel (typically negative)\nf = y-coordinate of the of the upper-left corner of the upper-left pixel\n\nda.rio.transform()\n\nAffine(0.25, 0.0, -180.0,\n       0.0, -0.25, 90.0)\n\n\n\n\nStep 4 - Write to COG and validate in-memory\nFor the demonstration here, we do not write the file to disk but to a memory file which can be validated and uploaded in-memory\nGeoTIFFs / COGs can be tuned for performance. Here are some defaults we found to work well (check out this blog post for detail).\n\nCOG_PROFILE = {\n    \"driver\": \"COG\",\n    \"compress\": \"DEFLATE\",\n    \"predictor\": 2\n}\n\n\nwith MemoryFile() as memfile:\n    da.rio.to_raster(memfile.name, **COG_PROFILE)\n    \n    cog_valid = rio_cogeo.cogeo.cog_validate(memfile.name)[0]\n\ncog_valid\n\nTrue",
     "crumbs": [
       "Usage Examples",
       "Tutorials",
-      "Calculating accurate zonal statistics with varying grid cell / pixel area"
+      "Converting NetCDF to COG (CMIP6)"
     ]
   },
   {
-    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#define-formula-for-grid-cell-area-for-geographic-coordinates",
-    "href": "notebooks/tutorials/zonal-statistics-validation.html#define-formula-for-grid-cell-area-for-geographic-coordinates",
-    "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
-    "section": "Define formula for grid cell area for geographic coordinates",
-    "text": "Define formula for grid cell area for geographic coordinates\n\ndef _get_unique_diff(arr):\n    assert np.ndim(arr) == 1\n    deltas = np.diff(arr)\n    \n    if not np.allclose(deltas, deltas[0]):    \n        raise ValueError(f\"The spacing in the array is not uniform: {list(np.unique(deltas))}\")\n    return deltas[0]\n\n\ndef grid_cell_area(lat):\n    \"\"\"\n    https://www.mathworks.com/matlabcentral/answers/447847-how-to-calculate-the-area-of-each-grid-cell\n    https://gis.stackexchange.com/a/28156\n    \"\"\"\n    # get lat spacing asserting it is uniform\n    dlat = _get_unique_diff(lat)\n    \n    # calculate cell edge lat\n    lat_edge = lat - dlat / 2.\n    \n    # radius of Earth in meters\n    R_e = 6371e3\n    \n    # calculate cell area as a function of latitude\n    return R_e ** 2 * (np.sin(np.radians(lat_edge + dlat)) - np.sin(np.radians(lat_edge))) * np.radians(dlat)",
+    "objectID": "notebooks/tutorials/netcdf-to-cog-cmip6.html#combined-workflow-from-conversion-to-upload",
+    "href": "notebooks/tutorials/netcdf-to-cog-cmip6.html#combined-workflow-from-conversion-to-upload",
+    "title": "Converting NetCDF to COG (CMIP6)",
+    "section": "Combined workflow from conversion to upload",
+    "text": "Combined workflow from conversion to upload\n\nSOURCE_URI = 'cmip6-staging/Sample/FWI/Yearly/MME/MME50_historical_fwi_metrics_yearly_2014.nc'\n\n\nVARIABLE_NAME = \"FFMC\"\n\n\nCOG_PROFILE = {\n    \"driver\": \"COG\",\n    \"compress\": \"DEFLATE\",\n    \"predictor\": 2\n}\n\n\nDESTINATION_BUCKET = None\nDESTINATION_KEY = None\n\n\nfs = s3fs.S3FileSystem()\nwith fs.open(SOURCE_URI) as fileobj:\n    with xr.open_dataset(fileobj, engine=\"h5netcdf\") as ds:\n\n        # Read individual metric into data array (only one time in yearly NetCDFs)\n        da = ds[VARIABLE_NAME]\n\n        # Realign the x dimension to -180 origin for dataset\n        da = da.assign_coords(lon=(((da.lon + 180) % 360) - 180)).sortby(\"lon\")\n\n        # Reverse the DataArray's y dimension to comply with raster common practice\n        if da.lat.values[-1] &gt; da.lat.values[0]:\n            da = da.isel(lat=slice(None, None, -1))\n\n        # Set raster attributes\n        da.rio.set_spatial_dims(\"lon\", \"lat\")\n        da.rio.write_crs(\"epsg:4326\", inplace=True)\n\n        with MemoryFile() as memfile:\n            da.rio.to_raster(memfile.name, **COG_PROFILE)\n\n            # Validate COG in-memory\n            cog_valid = rio_cogeo.cogeo.cog_validate(memfile.name)[0]\n            if not cog_valid:\n                raise RuntimeError(\"COG validation failed.\")\n            \n            # Upload to S3\n            if DESTINATION_BUCKET is not None:\n                client = boto3.client(\"s3\")\n                r = client.put_object(\n                    Body=memfile,\n                    Bucket=DESTINATION_BUCKET,\n                    Key=DESTINATION_KEY,\n                )\n                if r[\"ResponseMetadata\"][\"HTTPStatusCode\"] != 200:\n                    raise RuntimeError(\"Upload failed.\")",
     "crumbs": [
       "Usage Examples",
       "Tutorials",
-      "Calculating accurate zonal statistics with varying grid cell / pixel area"
-    ]
-  },
-  {
-    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#define-a-geometry-to-average-over",
-    "href": "notebooks/tutorials/zonal-statistics-validation.html#define-a-geometry-to-average-over",
-    "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
-    "section": "Define a geometry to average over",
-    "text": "Define a geometry to average over\n\nAOI_NAME = \"Americas south to north\"\n\nAOI = {\n  \"type\": \"FeatureCollection\",\n  \"features\": [\n    {\n      \"type\": \"Feature\",\n      \"properties\": {},\n      \"geometry\": {\n        \"coordinates\": [\n          [\n            [\n              -115,\n              82\n            ],\n            [\n              -115,\n              -82\n            ],\n            [\n              -43,\n              -82\n            ],\n            [\n              -43,\n              82\n            ],\n            [\n              -115,\n              82\n            ]\n          ]\n        ],\n        \"type\": \"Polygon\"\n      }\n    }\n  ]\n}",
-    "crumbs": [
-      "Usage Examples",
-      "Tutorials",
-      "Calculating accurate zonal statistics with varying grid cell / pixel area"
-    ]
-  },
-  {
-    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#compute-averages-with-xarray",
-    "href": "notebooks/tutorials/zonal-statistics-validation.html#compute-averages-with-xarray",
-    "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
-    "section": "Compute averages with Xarray",
-    "text": "Compute averages with Xarray\n\ntimeseries = {\n    \"start_datetime\": [],\n    \"average_weighted\": [],\n    \"average_unweighted\": []\n}\n\nfor item in tqdm.tqdm(items):\n    item_uri = item.assets[ASSET_NAME].href\n\n    with xr.open_dataset(item_uri, engine=\"rasterio\") as xds:\n        \n        # calculate area as a function of latitude\n        area_lat = grid_cell_area(xds.y.values)\n        area_lat_2d = np.ones((len(xds.y), len(xds.x))) * area_lat[:, np.newaxis]\n        xds[\"area\"] = xr.DataArray(area_lat_2d, dims=(\"y\", \"x\"))\n        \n        # clip to geometry\n        xds_clip = xds.rio.clip([AOI[\"features\"][0][\"geometry\"]])\n        \n        # get data arrays\n        data = xds_clip[\"band_data\"].isel(band=0).to_masked_array()\n        weights = xds_clip[\"area\"].to_masked_array()\n        weights.mask = data.mask\n        \n        # calculate averages\n        average_weighted = (data * weights).sum() / weights.sum()\n        average_unweighted = data.mean()\n        \n        timeseries[\"average_weighted\"].append(average_weighted)\n        timeseries[\"average_unweighted\"].append(average_unweighted)\n        timeseries[\"start_datetime\"].append(item.properties[\"start_datetime\"])\n        \n        lat_vals = xds.y.values\n\n100%|██████████| 15/15 [00:07&lt;00:00,  1.90it/s]\n\n\n\ndf = pd.DataFrame(timeseries).set_index(\"start_datetime\")\ndf.index = pd.to_datetime(df.index)\n\n\ndf.plot(ylabel=f\"average {ASSET_NAME}\", title=f\"{ASSET_NAME} averaged over {AOI_NAME}\") ;",
-    "crumbs": [
-      "Usage Examples",
-      "Tutorials",
-      "Calculating accurate zonal statistics with varying grid cell / pixel area"
-    ]
-  },
-  {
-    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#plot-grid-cell-area-as-a-function-of-latitude",
-    "href": "notebooks/tutorials/zonal-statistics-validation.html#plot-grid-cell-area-as-a-function-of-latitude",
-    "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
-    "section": "Plot grid cell area as a function of latitude",
-    "text": "Plot grid cell area as a function of latitude\n\nplt.plot(lat_vals, area_lat_2d[:, 0])\nplt.ylabel(\"Grid cell area (m²)\")\nplt.xlabel(\"Latitude\") ;",
-    "crumbs": [
-      "Usage Examples",
-      "Tutorials",
-      "Calculating accurate zonal statistics with varying grid cell / pixel area"
-    ]
-  },
-  {
-    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#compute-zonal-averages-using-titiler-api",
-    "href": "notebooks/tutorials/zonal-statistics-validation.html#compute-zonal-averages-using-titiler-api",
-    "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
-    "section": "Compute zonal averages using TiTiler API",
-    "text": "Compute zonal averages using TiTiler API\nWe make use of the option on TiTiler to reproject the data subset to an equal-area projection (Equal Area Cylindrical) before computing the statistics.\n\nWORKING_PROJECTION = \"+proj=cea\"\n\n\ndef generate_stats(item, geojson, asset_name, params=None):\n    params = params or {}\n    result = requests.post(\n        f\"{RASTER_API_URL}/cog/statistics\",\n        params={\n            \"url\": item.assets[asset_name].href,\n            **params\n        },\n        json=geojson,\n    )\n    result.raise_for_status()\n    result_data = result.json()\n    return {\n        **result_data[\"features\"][0][\"properties\"][\"statistics\"][\"b1\"],\n        \"start_datetime\": item.properties[\"start_datetime\"],\n    }\n\n\ntimeseries_titiler_noproj = []\ntimeseries_titiler_proj = []\n\nfor item in tqdm.tqdm(items):\n    # generate stats with and without reprojection\n    stats_noproj = generate_stats(item, AOI, ASSET_NAME)\n    stats_proj = generate_stats(item, AOI, ASSET_NAME, params={\"dst_crs\": WORKING_PROJECTION})\n\n    timeseries_titiler_noproj.append(stats_noproj)\n    timeseries_titiler_proj.append(stats_proj)\n\n100%|██████████| 15/15 [00:15&lt;00:00,  1.04s/it]\n\n\n\ndef _to_dataframe(stats):\n    df = pd.DataFrame(stats)\n    df = df[[\"start_datetime\", \"mean\"]]\n    df = df.set_index(\"start_datetime\")\n    df.index = pd.to_datetime(df.index)\n    return df\n\n\ndf_titiler_proj = _to_dataframe(timeseries_titiler_proj)[\"mean\"]\ndf_titiler_noproj = _to_dataframe(timeseries_titiler_noproj)[\"mean\"]",
-    "crumbs": [
-      "Usage Examples",
-      "Tutorials",
-      "Calculating accurate zonal statistics with varying grid cell / pixel area"
-    ]
-  },
-  {
-    "objectID": "notebooks/tutorials/zonal-statistics-validation.html#compare-all-methods-against-the-xarray-computed-weighted-average",
-    "href": "notebooks/tutorials/zonal-statistics-validation.html#compare-all-methods-against-the-xarray-computed-weighted-average",
-    "title": "Calculating accurate zonal statistics with varying grid cell / pixel area",
-    "section": "Compare all methods against the xarray-computed weighted average",
-    "text": "Compare all methods against the xarray-computed weighted average\n\ndf_all = df.copy()\ndf_all[\"average_titiler_noproj\"] = df_titiler_noproj\ndf_all[\"average_titiler_proj\"] = df_titiler_proj\n\n\nfig = plt.figure()\nax = fig.gca()\n\nax.set_prop_cycle(\n    linestyle=['-', '--', '-.', ':'],\n    color=[\"#e41a1c\", \"#377eb8\", \"#4daf4a\", \"#984ea3\"],\n    marker=['.', 'o', 'x', '*']\n)\ndf_all.plot(title=f\"{ASSET_NAME} averaged over {AOI_NAME}\", ax=ax) ;\n\n\n\n\n\n\n\n\n\nfig = plt.figure()\nax = fig.gca()\n\nax.plot(df_all[\"average_weighted\"], df_all[\"average_weighted\"], color=\"grey\")\n\nfor key, style in {\n    \"average_titiler_proj\": dict(c=\"#e41a1c\"),\n    \"average_unweighted\": dict(c=\"#377eb8\"),\n    \"average_titiler_noproj\": dict(c=\"#984ea3\", marker=\"x\", s=100)\n}.items():\n    df_all.plot.scatter(\"average_weighted\", key, ax=ax, label=key, **style)\n\nax.set_title(f\"{ASSET_NAME} averaged over {AOI_NAME}\")\nax.set_ylabel(\"average calculated with different methods\") ;\n\n\n\n\n\n\n\n\n\ndef rmse(a, b):\n    return np.sqrt(\n        np.mean(\n            (a - b) ** 2\n        )\n    )\n\n\nkeys = [\"average_unweighted\", \"average_titiler_noproj\", \"average_titiler_proj\"]\n\ndf_rmse = pd.DataFrame(\n    {\n        \"algorithm\": keys,\n        \"average\": [rmse(df_all[key], df_all[\"average_weighted\"]) for key in keys]\n    }    \n)\n\ndf_rmse = df_rmse.set_index(\"algorithm\")\ndf_rmse.plot.barh(xlabel=\"RMSE wrt average_weighted\", title=f\"{ASSET_NAME} averaged over {AOI_NAME}\") ;",
-    "crumbs": [
-      "Usage Examples",
-      "Tutorials",
-      "Calculating accurate zonal statistics with varying grid cell / pixel area"
+      "Converting NetCDF to COG (CMIP6)"
     ]
   },
   {
