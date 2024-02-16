@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -25,7 +25,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
@@ -85,7 +85,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -94,13 +100,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
@@ -113,12 +120,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item">Quickstarts</li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/list-collections.html">Accessing the Data Directly</a></li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/visualize-multiple-times.html">Open and visualize COGs</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item">Quickstarts</li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/list-collections.html">Accessing the Data Directly</a></li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/visualize-multiple-times.html">Open and visualize COGs</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -128,15 +135,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../../index.html" class="sidebar-logo-link">
       <img src="https://visex.netlify.app/graphics/nasa-veda-logo-pos.svg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://www.earthdata.nasa.gov/esds/veda" rel="" title="earthdata.nasa.gov/esds/veda" class="quarto-navigation-tool px-1" aria-label="earthdata.nasa.gov/esds/veda"><i class="bi bi-info-circle"></i></a>
-    <a href="https://github.com/nasa-impact/veda-docs" rel="" title="Repository home" class="quarto-navigation-tool px-1" aria-label="Repository home"><i class="bi bi-github"></i></a>
-    <a href="https://earthdata.nasa.gov/dashboard" rel="" title="VEDA Dashboard" class="quarto-navigation-tool px-1" aria-label="VEDA Dashboard"><i class="bi bi-binoculars"></i></a>
+    <a href="https://www.earthdata.nasa.gov/esds/veda" title="earthdata.nasa.gov/esds/veda" class="quarto-navigation-tool px-1" aria-label="earthdata.nasa.gov/esds/veda"><i class="bi bi-info-circle"></i></a>
+    <a href="https://github.com/nasa-impact/veda-docs" title="Repository home" class="quarto-navigation-tool px-1" aria-label="Repository home"><i class="bi bi-github"></i></a>
+    <a href="https://earthdata.nasa.gov/dashboard" title="VEDA Dashboard" class="quarto-navigation-tool px-1" aria-label="VEDA Dashboard"><i class="bi bi-binoculars"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
@@ -498,7 +505,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -519,12 +526,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#select-a-band-of-data" id="toc-select-a-band-of-data" class="nav-link" data-scroll-target="#select-a-band-of-data">Select a band of data</a></li>
   <li><a href="#compute-and-plot" id="toc-compute-and-plot" class="nav-link" data-scroll-target="#compute-and-plot">Compute and plot</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/nasa-impact/veda-docs/blob/main/notebooks/quickstarts/visualize-multiple-times.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.dev/nasa-impact/veda-docs/blob/main/notebooks/quickstarts/visualize-multiple-times.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item">Quickstarts</li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/list-collections.html">Accessing the Data Directly</a></li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/visualize-multiple-times.html">Open and visualize COGs</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Open and visualize COGs</h1>
 </div>
@@ -556,7 +563,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <section id="run-this-notebook" class="level2">
 <h2 class="anchored" data-anchor-id="run-this-notebook">Run this notebook</h2>
@@ -587,7 +596,7 @@ Learn more
 <li>Use <code>rioxarray</code> to crop data to AOI</li>
 <li>Use <code>hvplot</code> to render the COG at every timestep</li>
 </ol>
-<div class="cell" data-execution_count="1">
+<div id="cda30054-6411-47f5-b532-eff774647e59" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -596,7 +605,6 @@ Learn more
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hvplot.xarray  <span class="co"># noqa</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cartopy <span class="im">import</span> crs <span class="im">as</span> ccrs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-
 <script type="application/javascript">
 (function(root) {
   function now() {
@@ -2522,7 +2530,7 @@ if (window.Jupyter !== undefined) {
 <li>JSON API: https://staging-stac.delta-backend.com/collections</li>
 <li>STAC Browser: http://veda-staging-stac-browser.s3-website-us-west-2.amazonaws.com</li>
 </ul>
-<div class="cell" data-execution_count="2">
+<div id="cccb57ce-a4bc-4a24-acdc-12f92c2c1304" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://staging-stac.delta-backend.com/"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"no2-monthly"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -2530,7 +2538,7 @@ if (window.Jupyter !== undefined) {
 <section id="discover-items-in-collection-for-region-and-time-of-interest" class="level2">
 <h2 class="anchored" data-anchor-id="discover-items-in-collection-for-region-and-time-of-interest">Discover items in collection for region and time of interest</h2>
 <p>Use <code>pystac_client</code> to search the STAC collection for a particular area of interest within specified datetime bounds.</p>
-<div class="cell" data-execution_count="3">
+<div id="53041bcf-98b3-40da-b1d7-793c7243ab62" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>catalog <span class="op">=</span> Client.<span class="bu">open</span>(STAC_API_URL)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> catalog.search(collections<span class="op">=</span>[collection_id], sortby<span class="op">=</span><span class="st">"start_datetime"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(search.items())</span>
@@ -2543,7 +2551,7 @@ if (window.Jupyter !== undefined) {
 <section id="define-an-aoi" class="level2">
 <h2 class="anchored" data-anchor-id="define-an-aoi">Define an AOI</h2>
 <p>We can fetch GeoJSON for metropolitan France and Corsica (excluding overseas territories) from an authoritative online source (https://gadm.org/download_country.html).</p>
-<div class="cell" data-execution_count="4">
+<div id="cbc14e3d-92ef-4e42-8df9-57e09c56b469" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"https://geodata.ucdavis.edu/gadm/gadm4.1/json/gadm41_FRA_0.json"</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -2558,14 +2566,14 @@ if (window.Jupyter !== undefined) {
 </div>
 </div>
 <p>That is the geojson for a feature collection, but since there is only one feature in it we can grab just that.</p>
-<div class="cell" data-execution_count="5">
+<div id="ce373c4e-39fd-4921-8368-3ea81e3d1bab" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>france_aoi <span class="op">=</span> result[<span class="st">"features"</span>][<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="read-data" class="level2">
 <h2 class="anchored" data-anchor-id="read-data">Read data</h2>
 <p>Create an <code>xarray.DataSet</code> using <code>stackstac</code></p>
-<div class="cell" data-execution_count="6">
+<div id="02861a07-7cf4-4426-aa2c-aea5f10e67a3" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a workaround that is planning to move up into stackstac itself</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
@@ -2574,12 +2582,12 @@ if (window.Jupyter !== undefined) {
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    always<span class="op">=</span><span class="bu">dict</span>(session<span class="op">=</span>rio.session.AWSSession(boto3.Session()))</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="7">
+<div id="63322407-16d3-471a-9cac-3716a7bd33e1" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>da <span class="op">=</span> stackstac.stack(search.item_collection(), gdal_env<span class="op">=</span>gdal_env)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>da <span class="op">=</span> da.assign_coords({<span class="st">"time"</span>: pd.to_datetime(da.start_datetime)})</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>da</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
-
+<div>
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -3002,7 +3010,9 @@ Attributes:
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzgyIiBoZWlnaHQ9IjEyNCIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjI5IiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIyNSIgeDI9IjI5IiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIyNSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjEiIHkxPSIwIiB4Mj0iMSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjIiIHkxPSIwIiB4Mj0iMiIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjMiIHkxPSIwIiB4Mj0iMyIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjQiIHkxPSIwIiB4Mj0iNCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjUiIHkxPSIwIiB4Mj0iNSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjYiIHkxPSIwIiB4Mj0iNiIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjciIHkxPSIwIiB4Mj0iNyIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjgiIHkxPSIwIiB4Mj0iOCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjkiIHkxPSIwIiB4Mj0iOSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjkiIHkxPSIwIiB4Mj0iOSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjExIiB5MT0iMCIgeDI9IjExIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMTIiIHkxPSIwIiB4Mj0iMTIiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxMiIgeTE9IjAiIHgyPSIxMiIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjEzIiB5MT0iMCIgeDI9IjEzIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMTQiIHkxPSIwIiB4Mj0iMTQiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNSIgeTE9IjAiIHgyPSIxNSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE2IiB5MT0iMCIgeDI9IjE2IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMTciIHkxPSIwIiB4Mj0iMTciIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjAiIHgyPSIxOCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE5IiB5MT0iMCIgeDI9IjE5IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMjAiIHkxPSIwIiB4Mj0iMjAiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjAiIHgyPSIyMSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjIyIiB5MT0iMCIgeDI9IjIyIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMjMiIHkxPSIwIiB4Mj0iMjMiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjAiIHgyPSIyNCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjI0IiB5MT0iMCIgeDI9IjI0IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMjUiIHkxPSIwIiB4Mj0iMjUiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIyNyIgeTE9IjAiIHgyPSIyNyIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjI3IiB5MT0iMCIgeDI9IjI3IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMjgiIHkxPSIwIiB4Mj0iMjgiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIyOSIgeTE9IjAiIHgyPSIyOSIgeTI9IjI1IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjAuMCwwLjAgMjkuOTEwMjg2OTc2NjM5MzIsMC4wIDI5LjkxMDI4Njk3NjYzOTMyLDI1LjQxMjYxNjUxNDU4MjQ4NSAwLjAsMjUuNDEyNjE2NTE0NTgyNDg1IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBUZXh0IC0tPgogIDx0ZXh0IHg9IjE0Ljk1NTE0MyIgeT0iNDUuNDEyNjE3IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+ODQ8L3RleHQ+CiAgPHRleHQgeD0iNDkuOTEwMjg3IiB5PSIxMi43MDYzMDgiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgwLDQ5LjkxMDI4NywxMi43MDYzMDgpIj4xPC90ZXh0PgoKCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSI5OSIgeTE9IjAiIHgyPSIxMTMiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9Ijk5IiB5MT0iMzQiIHgyPSIxMTMiIHkyPSI0OSI+PC9saW5lPgogIDxsaW5lIHgxPSI5OSIgeTE9IjYwIiB4Mj0iMTEzIiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSI5OSIgeTE9IjAiIHgyPSI5OSIgeTI9IjYwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTEzIiB5MT0iMTQiIHgyPSIxMTMiIHkyPSI3NCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSI5OS4wLDAuMCAxMTMuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMTEzLjk0ODU5Nzk0OTc1NDQsNzQuOTQ4NTk3OTQ5NzU0NCA5OS4wLDYwLjAiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9Ijk5IiB5MT0iMCIgeDI9IjIxOSIgeTI9IjAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMTMiIHkxPSIxNCIgeDI9IjIzMyIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iOTkiIHkxPSIwIiB4Mj0iMTEzIiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMzMiIHkxPSIwIiB4Mj0iMTQ4IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMTY3IiB5MT0iMCIgeDI9IjE4MiIgeTI9IjE0Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjIwMSIgeTE9IjAiIHgyPSIyMTYiIHkyPSIxNCI+PC9saW5lPgogIDxsaW5lIHgxPSIyMTkiIHkxPSIwIiB4Mj0iMjMzIiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iOTkuMCwwLjAgMjE5LjAsMC4wIDIzMy45NDg1OTc5NDk3NTQ0LDE0Ljk0ODU5Nzk0OTc1NDQwMyAxMTMuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMiIHN0eWxlPSJmaWxsOiNFQ0IxNzJBMDtzdHJva2Utd2lkdGg6MCI+PC9wb2x5Z29uPgoKICA8IS0tIEhvcml6b250YWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjExMyIgeTE9IjE0IiB4Mj0iMjMzIiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMTMiIHkxPSI0OSIgeDI9IjIzMyIgeTI9IjQ5Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjExMyIgeTE9Ijc0IiB4Mj0iMjMzIiB5Mj0iNzQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMTMiIHkxPSIxNCIgeDI9IjExMyIgeTI9Ijc0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTQ4IiB5MT0iMTQiIHgyPSIxNDgiIHkyPSI3NCI+PC9saW5lPgogIDxsaW5lIHgxPSIxODIiIHkxPSIxNCIgeDI9IjE4MiIgeTI9Ijc0Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjIxNiIgeTE9IjE0IiB4Mj0iMjE2IiB5Mj0iNzQiPjwvbGluZT4KICA8bGluZSB4MT0iMjMzIiB5MT0iMTQiIHgyPSIyMzMiIHkyPSI3NCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMTMuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjMzLjk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDIzMy45NDg1OTc5NDk3NTQ0LDc0Ljk0ODU5Nzk0OTc1NDQgMTEzLjk0ODU5Nzk0OTc1NDQsNzQuOTQ4NTk3OTQ5NzU0NCIgc3R5bGU9ImZpbGw6I0VDQjE3MkEwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gVGV4dCAtLT4KICA8dGV4dCB4PSIxNzMuOTQ4NTk4IiB5PSI5NC45NDg1OTgiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4zNjAwPC90ZXh0PgogIDx0ZXh0IHg9IjI1My45NDg1OTgiIHk9IjQ0Ljk0ODU5OCIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCwyNTMuOTQ4NTk4LDQ0Ljk0ODU5OCkiPjE4MDA8L3RleHQ+CiAgPHRleHQgeD0iOTYuNDc0Mjk5IiB5PSI4Ny40NzQyOTkiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSg0NSw5Ni40NzQyOTksODcuNDc0Mjk5KSI+MTwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+<td><svg width="382" height="124" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="29" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="29" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="0" y1="0" x2="0" y2="25"></line> <line x1="1" y1="0" x2="1" y2="25"></line> <line x1="2" y1="0" x2="2" y2="25"></line> <line x1="3" y1="0" x2="3" y2="25"></line> <line x1="4" y1="0" x2="4" y2="25"></line> <line x1="5" y1="0" x2="5" y2="25"></line> <line x1="6" y1="0" x2="6" y2="25"></line> <line x1="7" y1="0" x2="7" y2="25"></line> <line x1="8" y1="0" x2="8" y2="25"></line> <line x1="9" y1="0" x2="9" y2="25"></line> <line x1="9" y1="0" x2="9" y2="25"></line> <line x1="11" y1="0" x2="11" y2="25"></line> <line x1="12" y1="0" x2="12" y2="25"></line> <line x1="12" y1="0" x2="12" y2="25"></line> <line x1="13" y1="0" x2="13" y2="25"></line> <line x1="14" y1="0" x2="14" y2="25"></line> <line x1="15" y1="0" x2="15" y2="25"></line> <line x1="16" y1="0" x2="16" y2="25"></line> <line x1="17" y1="0" x2="17" y2="25"></line> <line x1="18" y1="0" x2="18" y2="25"></line> <line x1="19" y1="0" x2="19" y2="25"></line> <line x1="20" y1="0" x2="20" y2="25"></line> <line x1="21" y1="0" x2="21" y2="25"></line> <line x1="22" y1="0" x2="22" y2="25"></line> <line x1="23" y1="0" x2="23" y2="25"></line> <line x1="24" y1="0" x2="24" y2="25"></line> <line x1="24" y1="0" x2="24" y2="25"></line> <line x1="25" y1="0" x2="25" y2="25"></line> <line x1="27" y1="0" x2="27" y2="25"></line> <line x1="27" y1="0" x2="27" y2="25"></line> <line x1="28" y1="0" x2="28" y2="25"></line> <line x1="29" y1="0" x2="29" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 29.91028697663932,0.0 29.91028697663932,25.412616514582485 0.0,25.412616514582485" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Text --> <text x="14.955143" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">84</text> <text x="49.910287" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,49.910287,12.706308)">1</text> <!-- Horizontal lines --> <line x1="99" y1="0" x2="113" y2="14" style="stroke-width:2"></line> <line x1="99" y1="34" x2="113" y2="49"></line> <line x1="99" y1="60" x2="113" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="99" y1="0" x2="99" y2="60" style="stroke-width:2"></line> <line x1="113" y1="14" x2="113" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="99.0,0.0 113.9485979497544,14.948597949754403 113.9485979497544,74.9485979497544 99.0,60.0" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="99" y1="0" x2="219" y2="0" style="stroke-width:2"></line> <line x1="113" y1="14" x2="233" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="99" y1="0" x2="113" y2="14" style="stroke-width:2"></line> <line x1="133" y1="0" x2="148" y2="14"></line> <line x1="167" y1="0" x2="182" y2="14"></line> <line x1="201" y1="0" x2="216" y2="14"></line> <line x1="219" y1="0" x2="233" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="99.0,0.0 219.0,0.0 233.9485979497544,14.948597949754403 113.9485979497544,14.948597949754403" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="113" y1="14" x2="233" y2="14" style="stroke-width:2"></line> <line x1="113" y1="49" x2="233" y2="49"></line> <line x1="113" y1="74" x2="233" y2="74" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="113" y1="14" x2="113" y2="74" style="stroke-width:2"></line> <line x1="148" y1="14" x2="148" y2="74"></line> <line x1="182" y1="14" x2="182" y2="74"></line> <line x1="216" y1="14" x2="216" y2="74"></line> <line x1="233" y1="14" x2="233" y2="74" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="113.9485979497544,14.948597949754403 233.9485979497544,14.948597949754403 233.9485979497544,74.9485979497544 113.9485979497544,74.9485979497544" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="173.948598" y="94.948598" font-size="1.0rem" font-weight="100" text-anchor="middle">3600</text> <text x="253.948598" y="44.948598" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,253.948598,44.948598)">1800</text> <text x="96.474299" y="87.474299" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,96.474299,87.474299)">1</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
@@ -3213,14 +3223,15 @@ Attributes:
 | 0.00, 0.00, 1.00|</dd><dt><span>resolution :</span></dt><dd>0.1</dd></dl></div></li></ul></div></div>
 </div>
 </div>
+</div>
 </section>
 <section id="clip-the-data-to-aoi" class="level2">
 <h2 class="anchored" data-anchor-id="clip-the-data-to-aoi">Clip the data to AOI</h2>
-<div class="cell" data-execution_count="8">
+<div id="d5bc853e-dfa2-4b23-b6c0-f48d89823713" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>subset <span class="op">=</span> da.rio.clip([france_aoi[<span class="st">"geometry"</span>]])</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>subset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
-
+<div>
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -3641,7 +3652,9 @@ Attributes:
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDY0IiBoZWlnaHQ9IjE0NiIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjcwIiB5Mj0iMCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjAiIHkxPSIyNSIgeDI9IjcwIiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIyNSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjEiIHkxPSIwIiB4Mj0iMSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjQiIHkxPSIwIiB4Mj0iNCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjUiIHkxPSIwIiB4Mj0iNSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjgiIHkxPSIwIiB4Mj0iOCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjEwIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMTIiIHkxPSIwIiB4Mj0iMTIiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxNSIgeTE9IjAiIHgyPSIxNSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjE3IiB5MT0iMCIgeDI9IjE3IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMTkiIHkxPSIwIiB4Mj0iMTkiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIyMSIgeTE9IjAiIHgyPSIyMSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjIzIiB5MT0iMCIgeDI9IjIzIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMjYiIHkxPSIwIiB4Mj0iMjYiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIyOCIgeTE9IjAiIHgyPSIyOCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjMwIiB5MT0iMCIgeDI9IjMwIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMzIiIHkxPSIwIiB4Mj0iMzIiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjAiIHgyPSIzNSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjM2IiB5MT0iMCIgeDI9IjM2IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMzkiIHkxPSIwIiB4Mj0iMzkiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSI0MSIgeTE9IjAiIHgyPSI0MSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjQzIiB5MT0iMCIgeDI9IjQzIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iNDYiIHkxPSIwIiB4Mj0iNDYiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSI0NyIgeTE9IjAiIHgyPSI0NyIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjUwIiB5MT0iMCIgeDI9IjUwIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iNTIiIHkxPSIwIiB4Mj0iNTIiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSI1NCIgeTE9IjAiIHgyPSI1NCIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjU3IiB5MT0iMCIgeDI9IjU3IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iNTgiIHkxPSIwIiB4Mj0iNTgiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSI2MSIgeTE9IjAiIHgyPSI2MSIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjYzIiB5MT0iMCIgeDI9IjYzIiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iNjUiIHkxPSIwIiB4Mj0iNjUiIHkyPSIyNSI+PC9saW5lPgogIDxsaW5lIHgxPSI2NyIgeTE9IjAiIHgyPSI2NyIgeTI9IjI1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjcwIiB5MT0iMCIgeDI9IjcwIiB5Mj0iMjUiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iMC4wLDAuMCA3MC40ODk1MTA0ODk1MTA1LDAuMCA3MC40ODk1MTA0ODk1MTA1LDI1LjQxMjYxNjUxNDU4MjQ4NSAwLjAsMjUuNDEyNjE2NTE0NTgyNDg1IiBzdHlsZT0iZmlsbDojOEI0OTAzQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBUZXh0IC0tPgogIDx0ZXh0IHg9IjM1LjI0NDc1NSIgeT0iNDUuNDEyNjE3IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+ODQ8L3RleHQ+CiAgPHRleHQgeD0iOTAuNDg5NTEwIiB5PSIxMi43MDYzMDgiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB0cmFuc2Zvcm09InJvdGF0ZSgwLDkwLjQ4OTUxMCwxMi43MDYzMDgpIj4xPC90ZXh0PgoKCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxNDAiIHkxPSIwIiB4Mj0iMTU0IiB5Mj0iMTQiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxNDAiIHkxPSI4MSIgeDI9IjE1NCIgeTI9Ijk2IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTQwIiB5MT0iMCIgeDI9IjE0MCIgeTI9IjgxIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTU0IiB5MT0iMTQiIHgyPSIxNTQiIHkyPSI5NiIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxNDAuMCwwLjAgMTU0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDE1NC45NDg1OTc5NDk3NTQ0LDk2LjM0NzE5OTM0ODM1NTggMTQwLjAsODEuMzk4NjAxMzk4NjAxNCIgc3R5bGU9ImZpbGw6I0VDQjE3MkEwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gSG9yaXpvbnRhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTQwIiB5MT0iMCIgeDI9IjI2MCIgeTI9IjAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxNTQiIHkxPSIxNCIgeDI9IjI3NCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTQwIiB5MT0iMCIgeDI9IjE1NCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMjYwIiB5MT0iMCIgeDI9IjI3NCIgeTI9IjE0IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBDb2xvcmVkIFJlY3RhbmdsZSAtLT4KICA8cG9seWdvbiBwb2ludHM9IjE0MC4wLDAuMCAyNjAuMCwwLjAgMjc0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDE1NC45NDg1OTc5NDk3NTQ0LDE0Ljk0ODU5Nzk0OTc1NDQwMyIgc3R5bGU9ImZpbGw6I0VDQjE3MkEwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gSG9yaXpvbnRhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTU0IiB5MT0iMTQiIHgyPSIyNzQiIHkyPSIxNCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE1NCIgeTE9Ijk2IiB4Mj0iMjc0IiB5Mj0iOTYiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIFZlcnRpY2FsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxNTQiIHkxPSIxNCIgeDI9IjE1NCIgeTI9Ijk2IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMjc0IiB5MT0iMTQiIHgyPSIyNzQiIHkyPSI5NiIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxNTQuOTQ4NTk3OTQ5NzU0NCwxNC45NDg1OTc5NDk3NTQ0MDMgMjc0Ljk0ODU5Nzk0OTc1NDQsMTQuOTQ4NTk3OTQ5NzU0NDAzIDI3NC45NDg1OTc5NDk3NTQ0LDk2LjM0NzE5OTM0ODM1NTggMTU0Ljk0ODU5Nzk0OTc1NDQsOTYuMzQ3MTk5MzQ4MzU1OCIgc3R5bGU9ImZpbGw6I0VDQjE3MkEwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gVGV4dCAtLT4KICA8dGV4dCB4PSIyMTQuOTQ4NTk4IiB5PSIxMTYuMzQ3MTk5IiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+MTQzPC90ZXh0PgogIDx0ZXh0IHg9IjI5NC45NDg1OTgiIHk9IjU1LjY0Nzg5OSIgZm9udC1zaXplPSIxLjByZW0iIGZvbnQtd2VpZ2h0PSIxMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKDAsMjk0Ljk0ODU5OCw1NS42NDc4OTkpIj45NzwvdGV4dD4KICA8dGV4dCB4PSIxMzcuNDc0Mjk5IiB5PSIxMDguODcyOTAwIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoNDUsMTM3LjQ3NDI5OSwxMDguODcyOTAwKSI+MTwvdGV4dD4KPC9zdmc+" class="img-fluid"></td>
+<td><svg width="464" height="146" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="70" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="70" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="1" y1="0" x2="1" y2="25"></line> <line x1="4" y1="0" x2="4" y2="25"></line> <line x1="5" y1="0" x2="5" y2="25"></line> <line x1="8" y1="0" x2="8" y2="25"></line> <line x1="10" y1="0" x2="10" y2="25"></line> <line x1="12" y1="0" x2="12" y2="25"></line> <line x1="15" y1="0" x2="15" y2="25"></line> <line x1="17" y1="0" x2="17" y2="25"></line> <line x1="19" y1="0" x2="19" y2="25"></line> <line x1="21" y1="0" x2="21" y2="25"></line> <line x1="23" y1="0" x2="23" y2="25"></line> <line x1="26" y1="0" x2="26" y2="25"></line> <line x1="28" y1="0" x2="28" y2="25"></line> <line x1="30" y1="0" x2="30" y2="25"></line> <line x1="32" y1="0" x2="32" y2="25"></line> <line x1="35" y1="0" x2="35" y2="25"></line> <line x1="36" y1="0" x2="36" y2="25"></line> <line x1="39" y1="0" x2="39" y2="25"></line> <line x1="41" y1="0" x2="41" y2="25"></line> <line x1="43" y1="0" x2="43" y2="25"></line> <line x1="46" y1="0" x2="46" y2="25"></line> <line x1="47" y1="0" x2="47" y2="25"></line> <line x1="50" y1="0" x2="50" y2="25"></line> <line x1="52" y1="0" x2="52" y2="25"></line> <line x1="54" y1="0" x2="54" y2="25"></line> <line x1="57" y1="0" x2="57" y2="25"></line> <line x1="58" y1="0" x2="58" y2="25"></line> <line x1="61" y1="0" x2="61" y2="25"></line> <line x1="63" y1="0" x2="63" y2="25"></line> <line x1="65" y1="0" x2="65" y2="25"></line> <line x1="67" y1="0" x2="67" y2="25"></line> <line x1="70" y1="0" x2="70" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 70.4895104895105,0.0 70.4895104895105,25.412616514582485 0.0,25.412616514582485" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Text --> <text x="35.244755" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">84</text> <text x="90.489510" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,90.489510,12.706308)">1</text> <!-- Horizontal lines --> <line x1="140" y1="0" x2="154" y2="14" style="stroke-width:2"></line> <line x1="140" y1="81" x2="154" y2="96" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="140" y1="0" x2="140" y2="81" style="stroke-width:2"></line> <line x1="154" y1="14" x2="154" y2="96" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="140.0,0.0 154.9485979497544,14.948597949754403 154.9485979497544,96.3471993483558 140.0,81.3986013986014" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="140" y1="0" x2="260" y2="0" style="stroke-width:2"></line> <line x1="154" y1="14" x2="274" y2="14" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="140" y1="0" x2="154" y2="14" style="stroke-width:2"></line> <line x1="260" y1="0" x2="274" y2="14" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="140.0,0.0 260.0,0.0 274.9485979497544,14.948597949754403 154.9485979497544,14.948597949754403" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="154" y1="14" x2="274" y2="14" style="stroke-width:2"></line> <line x1="154" y1="96" x2="274" y2="96" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="154" y1="14" x2="154" y2="96" style="stroke-width:2"></line> <line x1="274" y1="14" x2="274" y2="96" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="154.9485979497544,14.948597949754403 274.9485979497544,14.948597949754403 274.9485979497544,96.3471993483558 154.9485979497544,96.3471993483558" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="214.948598" y="116.347199" font-size="1.0rem" font-weight="100" text-anchor="middle">143</text> <text x="294.948598" y="55.647899" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,294.948598,55.647899)">97</text> <text x="137.474299" y="108.872900" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,137.474299,108.872900)">1</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
@@ -3893,18 +3906,19 @@ Attributes:
              dtype='float64', name='y'))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-4533b16d-dd5b-47ba-b63e-82b473eb7de0" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-4533b16d-dd5b-47ba-b63e-82b473eb7de0" class="xr-section-summary">Attributes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>spec :</span></dt><dd>RasterSpec(epsg=4326.0, bounds=(-180.0, -90.0, 180.0, 90.0), resolutions_xy=(0.1, 0.1))</dd><dt><span>resolution :</span></dt><dd>0.1</dd></dl></div></li></ul></div></div>
 </div>
 </div>
+</div>
 </section>
 <section id="select-a-band-of-data" class="level2">
 <h2 class="anchored" data-anchor-id="select-a-band-of-data">Select a band of data</h2>
 <p>There is just one band in this case, <code>cog_default</code>.</p>
-<div class="cell" data-execution_count="9">
+<div id="a0ccf48d-e3d0-4e28-97e2-ee41cbcc8b4c" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data_band <span class="op">=</span> subset.sel(band<span class="op">=</span><span class="st">"cog_default"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="compute-and-plot" class="level2">
 <h2 class="anchored" data-anchor-id="compute-and-plot">Compute and plot</h2>
 <p>So far we have just been setting up a calculation lazily in Dask. Now we can trigger computation using <code>.compute()</code>.</p>
-<div class="cell" data-execution_count="10">
+<div id="d51de58a-bc7f-45d3-b7a3-7399c2fc55dc" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>image_stack <span class="op">=</span> data_band.compute()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -3913,7 +3927,7 @@ Attributes:
 Wall time: 9.73 s</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="11">
+<div id="38da4bc7-387f-42f6-ac09-17a0901b28db" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the 2% and 98% percentiles for min and max bounds of color</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>vmin, vmax <span class="op">=</span> image_stack.quantile(<span class="fl">0.02</span>).item(), image_stack.quantile(<span class="fl">0.98</span>).item()</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4024,6 +4038,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
   }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
   const toggleColorMode = (alternate) => {
     // Switch the stylesheets
     const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
@@ -4090,13 +4131,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -4175,10 +4218,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -4188,8 +4230,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -4202,6 +4253,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -4245,6 +4415,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -4270,6 +4441,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -4331,12 +4528,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../notebooks/quickstarts/visualize-zarr.html" class="pagination-link">
+      <a href="../../notebooks/quickstarts/visualize-zarr.html" class="pagination-link" aria-label="Visualize zarr">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Visualize zarr</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../notebooks/quickstarts/downsample-zarr.html" class="pagination-link">
+      <a href="../../notebooks/quickstarts/downsample-zarr.html" class="pagination-link" aria-label="Downsample zarr">
         <span class="nav-page-text">Downsample zarr</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -4344,13 +4541,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© CC-By NASA, 2022-2023</div>   
+    <div class="nav-footer-left">
+<p>© CC-By NASA, 2022-2023</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right">This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/nasa-impact/veda-docs/blob/main/notebooks/quickstarts/visualize-multiple-times.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
   </div>
 </footer>
+
 
 
 

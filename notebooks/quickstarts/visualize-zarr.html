@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -25,7 +25,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
@@ -85,7 +85,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -94,13 +100,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
 }</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
@@ -113,12 +120,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item">Quickstarts</li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/list-collections.html">Accessing the Data Directly</a></li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/visualize-zarr.html">Visualize zarr</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item">Quickstarts</li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/list-collections.html">Accessing the Data Directly</a></li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/visualize-zarr.html">Visualize zarr</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -128,15 +135,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../../index.html" class="sidebar-logo-link">
       <img src="https://visex.netlify.app/graphics/nasa-veda-logo-pos.svg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
-    <a href="https://www.earthdata.nasa.gov/esds/veda" rel="" title="earthdata.nasa.gov/esds/veda" class="quarto-navigation-tool px-1" aria-label="earthdata.nasa.gov/esds/veda"><i class="bi bi-info-circle"></i></a>
-    <a href="https://github.com/nasa-impact/veda-docs" rel="" title="Repository home" class="quarto-navigation-tool px-1" aria-label="Repository home"><i class="bi bi-github"></i></a>
-    <a href="https://earthdata.nasa.gov/dashboard" rel="" title="VEDA Dashboard" class="quarto-navigation-tool px-1" aria-label="VEDA Dashboard"><i class="bi bi-binoculars"></i></a>
+    <a href="https://www.earthdata.nasa.gov/esds/veda" title="earthdata.nasa.gov/esds/veda" class="quarto-navigation-tool px-1" aria-label="earthdata.nasa.gov/esds/veda"><i class="bi bi-info-circle"></i></a>
+    <a href="https://github.com/nasa-impact/veda-docs" title="Repository home" class="quarto-navigation-tool px-1" aria-label="Repository home"><i class="bi bi-github"></i></a>
+    <a href="https://earthdata.nasa.gov/dashboard" title="VEDA Dashboard" class="quarto-navigation-tool px-1" aria-label="VEDA Dashboard"><i class="bi bi-binoculars"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
@@ -498,7 +505,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -517,12 +524,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#read-from-zarr-to-xarray" id="toc-read-from-zarr-to-xarray" class="nav-link" data-scroll-target="#read-from-zarr-to-xarray">Read from zarr to xarray</a></li>
   <li><a href="#plot-data" id="toc-plot-data" class="nav-link" data-scroll-target="#plot-data">Plot data</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/nasa-impact/veda-docs/blob/main/notebooks/quickstarts/visualize-zarr.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.dev/nasa-impact/veda-docs/blob/main/notebooks/quickstarts/visualize-zarr.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item">Quickstarts</li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/list-collections.html">Accessing the Data Directly</a></li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/visualize-zarr.html">Visualize zarr</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Visualize zarr</h1>
 </div>
@@ -554,7 +561,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <section id="run-this-notebook" class="level2">
 <h2 class="anchored" data-anchor-id="run-this-notebook">Run this notebook</h2>
@@ -588,11 +597,10 @@ Learn more
 <h2 class="anchored" data-anchor-id="about-the-data">About the data</h2>
 <p>This is the Gridded Daily OCO-2 Carbon Dioxide assimilated dataset. More information can be found at: <a href="https://catalog.data.gov/dataset/oco-2-geos-level-3-daily-0-5x0-625-assimilated-co2-v10r-oco2-geos-l3co2-day-at-ges-disc-72b15">OCO-2 GEOS Level 3 daily, 0.5x0.625 assimilated CO2 V10r (OCO2_GEOS_L3CO2_DAY)</a></p>
 <p>The data has been converted to zarr format and published to the development version of the VEDA STAC Catalog.</p>
-<div class="cell" data-tags="[]" data-execution_count="1">
+<div id="a0fac22c-8704-4ee8-9288-1c7a7eb4fcdc" class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> intake</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hvplot.xarray  <span class="co"># noqa</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-
 <script type="application/javascript">
 (function(root) {
   function now() {
@@ -1143,7 +1151,7 @@ if (window.Jupyter !== undefined) {
 <li>JSON API: https://staging-stac.delta-backend.com/collections</li>
 <li>STAC Browser: http://veda-staging-stac-browser.s3-website-us-west-2.amazonaws.com</li>
 </ul>
-<div class="cell" data-tags="[]" data-execution_count="2">
+<div id="501ff16f-de0a-4ba6-826b-42c5048f054b" class="cell" data-tags="[]" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://staging-stac.delta-backend.com/"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"oco2-geos-l3-daily"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1151,7 +1159,7 @@ if (window.Jupyter !== undefined) {
 <section id="get-stac-collection" class="level2">
 <h2 class="anchored" data-anchor-id="get-stac-collection">Get STAC collection</h2>
 <p>Use <code>intake</code> to get the entire STAC collection.</p>
-<div class="cell" data-scrolled="true" data-tags="[]" data-execution_count="3">
+<div id="7a47c8c3-31b7-4428-9855-4579ae0a1d80" class="cell" data-scrolled="true" data-tags="[]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> intake.open_stac_collection(<span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1281,13 +1289,13 @@ if (window.Jupyter !== undefined) {
 <section id="read-from-zarr-to-xarray" class="level2">
 <h2 class="anchored" data-anchor-id="read-from-zarr-to-xarray">Read from zarr to xarray</h2>
 <p>Intake lets you go straight from the asset to an xarray dataset backed by a dask array.</p>
-<div class="cell" data-tags="[]" data-execution_count="4">
+<div id="b52706ee-2288-49ce-b30a-dcb6e001665d" class="cell" data-tags="[]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>source <span class="op">=</span> collection.get_asset(<span class="st">"zarr"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> source.to_dask()</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
-
+<div>
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -1713,10 +1721,15 @@ Attributes: (12/25)
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTczIiBoZWlnaHQ9IjE2MSIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIxMSIgeDI9IjgwIiB5Mj0iODEiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIyMiIgeDI9IjgwIiB5Mj0iOTMiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIzMyIgeDI9IjgwIiB5Mj0iMTA0Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjEwIiB5MT0iNDAiIHgyPSI4MCIgeTI9IjExMSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjEwIiB5Mj0iNDAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMiIgeTE9IjIiIHgyPSIxMiIgeTI9IjQzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE1IiB5MT0iNSIgeDI9IjE1IiB5Mj0iNDYiPjwvbGluZT4KICA8bGluZSB4MT0iMTgiIHkxPSI4IiB4Mj0iMTgiIHkyPSI0OCI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSI1NCI+PC9saW5lPgogIDxsaW5lIHgxPSIyNiIgeTE9IjE2IiB4Mj0iMjYiIHkyPSI1NyI+PC9saW5lPgogIDxsaW5lIHgxPSIyOSIgeTE9IjE5IiB4Mj0iMjkiIHkyPSI2MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjI1IiB4Mj0iMzUiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSIzOCIgeTE9IjI4IiB4Mj0iMzgiIHkyPSI2OCI+PC9saW5lPgogIDxsaW5lIHgxPSI0MSIgeTE9IjMxIiB4Mj0iNDEiIHkyPSI3MSI+PC9saW5lPgogIDxsaW5lIHgxPSI0NiIgeTE9IjM2IiB4Mj0iNDYiIHkyPSI3NyI+PC9saW5lPgogIDxsaW5lIHgxPSI0OSIgeTE9IjM5IiB4Mj0iNDkiIHkyPSI4MCI+PC9saW5lPgogIDxsaW5lIHgxPSI1MiIgeTE9IjQyIiB4Mj0iNTIiIHkyPSI4MiI+PC9saW5lPgogIDxsaW5lIHgxPSI1OCIgeTE9IjQ4IiB4Mj0iNTgiIHkyPSI4OCI+PC9saW5lPgogIDxsaW5lIHgxPSI2MCIgeTE9IjUwIiB4Mj0iNjAiIHkyPSI5MSI+PC9saW5lPgogIDxsaW5lIHgxPSI2MyIgeTE9IjUzIiB4Mj0iNjMiIHkyPSI5NCI+PC9saW5lPgogIDxsaW5lIHgxPSI2OSIgeTE9IjU5IiB4Mj0iNjkiIHkyPSI5OSI+PC9saW5lPgogIDxsaW5lIHgxPSI3MiIgeTE9IjYyIiB4Mj0iNzIiIHkyPSIxMDIiPjwvbGluZT4KICA8bGluZSB4MT0iNzQiIHkxPSI2NCIgeDI9Ijc0IiB5Mj0iMTA1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjExMSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCA4MC41ODgyMzUyOTQxMTc2NSw3MC41ODgyMzUyOTQxMTc2NSA4MC41ODgyMzUyOTQxMTc2NSwxMTEuMTA5NDY4NzY2NTc3NDEgMTAuMCw0MC41MjEyMzM0NzI0NTk3NSIgc3R5bGU9ImZpbGw6IzhCNDkwM0EwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gSG9yaXpvbnRhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iNTIiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTIiIHkxPSIyIiB4Mj0iNTUiIHkyPSIyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE1IiB5MT0iNSIgeDI9IjU4IiB5Mj0iNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSI2MSIgeTI9IjgiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjY2IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMjYiIHkxPSIxNiIgeDI9IjY5IiB5Mj0iMTYiPjwvbGluZT4KICA8bGluZSB4MT0iMjkiIHkxPSIxOSIgeDI9IjcyIiB5Mj0iMTkiPjwvbGluZT4KICA8bGluZSB4MT0iMzUiIHkxPSIyNSIgeDI9Ijc3IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMzgiIHkxPSIyOCIgeDI9IjgwIiB5Mj0iMjgiPjwvbGluZT4KICA8bGluZSB4MT0iNDEiIHkxPSIzMSIgeDI9IjgzIiB5Mj0iMzEiPjwvbGluZT4KICA8bGluZSB4MT0iNDYiIHkxPSIzNiIgeDI9Ijg5IiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iNDkiIHkxPSIzOSIgeDI9IjkyIiB5Mj0iMzkiPjwvbGluZT4KICA8bGluZSB4MT0iNTIiIHkxPSI0MiIgeDI9Ijk0IiB5Mj0iNDIiPjwvbGluZT4KICA8bGluZSB4MT0iNTgiIHkxPSI0OCIgeDI9IjEwMCIgeTI9IjQ4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjYwIiB5MT0iNTAiIHgyPSIxMDMiIHkyPSI1MCI+PC9saW5lPgogIDxsaW5lIHgxPSI2MyIgeTE9IjUzIiB4Mj0iMTA2IiB5Mj0iNTMiPjwvbGluZT4KICA8bGluZSB4MT0iNjkiIHkxPSI1OSIgeDI9IjExMSIgeTI9IjU5Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjcyIiB5MT0iNjIiIHgyPSIxMTQiIHkyPSI2MiI+PC9saW5lPgogIDxsaW5lIHgxPSI3NCIgeTE9IjY0IiB4Mj0iMTE3IiB5Mj0iNjQiPjwvbGluZT4KICA8bGluZSB4MT0iODAiIHkxPSI3MCIgeDI9IjEyMyIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iODAiIHkyPSI3MCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE3IiB5MT0iMCIgeDI9Ijg3IiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIwIiB4Mj0iOTUiIHkyPSI3MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzMiIgeTE9IjAiIHgyPSIxMDIiIHkyPSI3MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzOSIgeTE9IjAiIHgyPSIxMTAiIHkyPSI3MCI+PC9saW5lPgogIDxsaW5lIHgxPSI0NiIgeTE9IjAiIHgyPSIxMTciIHkyPSI3MCI+PC9saW5lPgogIDxsaW5lIHgxPSI1MiIgeTE9IjAiIHgyPSIxMjMiIHkyPSI3MCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCA1Mi41ODYxNDgwNTQ5MjY3MjQsMC4wIDEyMy4xNzQzODMzNDkwNDQzOCw3MC41ODgyMzUyOTQxMTc2NSA4MC41ODgyMzUyOTQxMTc2NSw3MC41ODgyMzUyOTQxMTc2NSIgc3R5bGU9ImZpbGw6IzhCNDkwM0EwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gSG9yaXpvbnRhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iODAiIHkxPSI3MCIgeDI9IjEyMyIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iODAiIHkxPSI4MSIgeDI9IjEyMyIgeTI9IjgxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjgwIiB5MT0iOTMiIHgyPSIxMjMiIHkyPSI5MyI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjEwNCIgeDI9IjEyMyIgeTI9IjEwNCI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjExMSIgeDI9IjEyMyIgeTI9IjExMSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjExMSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9Ijg3IiB5MT0iNzAiIHgyPSI4NyIgeTI9IjExMSI+PC9saW5lPgogIDxsaW5lIHgxPSI5NSIgeTE9IjcwIiB4Mj0iOTUiIHkyPSIxMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMTAyIiB5MT0iNzAiIHgyPSIxMDIiIHkyPSIxMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMTEwIiB5MT0iNzAiIHgyPSIxMTAiIHkyPSIxMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMTE3IiB5MT0iNzAiIHgyPSIxMTciIHkyPSIxMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMTIzIiB5MT0iNzAiIHgyPSIxMjMiIHkyPSIxMTEiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iODAuNTg4MjM1Mjk0MTE3NjUsNzAuNTg4MjM1Mjk0MTE3NjUgMTIzLjE3NDM4MzM0OTA0NDM4LDcwLjU4ODIzNTI5NDExNzY1IDEyMy4xNzQzODMzNDkwNDQzOCwxMTEuMTA5NDY4NzY2NTc3NDEgODAuNTg4MjM1Mjk0MTE3NjUsMTExLjEwOTQ2ODc2NjU3NzQxIiBzdHlsZT0iZmlsbDojRUNCMTcyQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBUZXh0IC0tPgogIDx0ZXh0IHg9IjEwMS44ODEzMDkiIHk9IjEzMS4xMDk0NjkiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj41NzY8L3RleHQ+CiAgPHRleHQgeD0iMTQzLjE3NDM4MyIgeT0iOTAuODQ4ODUyIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwLDE0My4xNzQzODMsOTAuODQ4ODUyKSI+MzYxPC90ZXh0PgogIDx0ZXh0IHg9IjM1LjI5NDExOCIgeT0iOTUuODE1MzUxIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoNDUsMzUuMjk0MTE4LDk1LjgxNTM1MSkiPjI1MDA8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="173" height="161" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="10" y1="11" x2="80" y2="81"></line> <line x1="10" y1="22" x2="80" y2="93"></line> <line x1="10" y1="33" x2="80" y2="104"></line> <line x1="10" y1="40" x2="80" y2="111" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="40" style="stroke-width:2"></line> <line x1="12" y1="2" x2="12" y2="43"></line> <line x1="15" y1="5" x2="15" y2="46"></line> <line x1="18" y1="8" x2="18" y2="48"></line> <line x1="24" y1="14" x2="24" y2="54"></line> <line x1="26" y1="16" x2="26" y2="57"></line> <line x1="29" y1="19" x2="29" y2="60"></line> <line x1="35" y1="25" x2="35" y2="65"></line> <line x1="38" y1="28" x2="38" y2="68"></line> <line x1="41" y1="31" x2="41" y2="71"></line> <line x1="46" y1="36" x2="46" y2="77"></line> <line x1="49" y1="39" x2="49" y2="80"></line> <line x1="52" y1="42" x2="52" y2="82"></line> <line x1="58" y1="48" x2="58" y2="88"></line> <line x1="60" y1="50" x2="60" y2="91"></line> <line x1="63" y1="53" x2="63" y2="94"></line> <line x1="69" y1="59" x2="69" y2="99"></line> <line x1="72" y1="62" x2="72" y2="102"></line> <line x1="74" y1="64" x2="74" y2="105"></line> <line x1="80" y1="70" x2="80" y2="111" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 80.58823529411765,70.58823529411765 80.58823529411765,111.10946876657741 10.0,40.52123347245975" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="52" y2="0" style="stroke-width:2"></line> <line x1="12" y1="2" x2="55" y2="2"></line> <line x1="15" y1="5" x2="58" y2="5"></line> <line x1="18" y1="8" x2="61" y2="8"></line> <line x1="24" y1="14" x2="66" y2="14"></line> <line x1="26" y1="16" x2="69" y2="16"></line> <line x1="29" y1="19" x2="72" y2="19"></line> <line x1="35" y1="25" x2="77" y2="25"></line> <line x1="38" y1="28" x2="80" y2="28"></line> <line x1="41" y1="31" x2="83" y2="31"></line> <line x1="46" y1="36" x2="89" y2="36"></line> <line x1="49" y1="39" x2="92" y2="39"></line> <line x1="52" y1="42" x2="94" y2="42"></line> <line x1="58" y1="48" x2="100" y2="48"></line> <line x1="60" y1="50" x2="103" y2="50"></line> <line x1="63" y1="53" x2="106" y2="53"></line> <line x1="69" y1="59" x2="111" y2="59"></line> <line x1="72" y1="62" x2="114" y2="62"></line> <line x1="74" y1="64" x2="117" y2="64"></line> <line x1="80" y1="70" x2="123" y2="70" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="17" y1="0" x2="87" y2="70"></line> <line x1="24" y1="0" x2="95" y2="70"></line> <line x1="32" y1="0" x2="102" y2="70"></line> <line x1="39" y1="0" x2="110" y2="70"></line> <line x1="46" y1="0" x2="117" y2="70"></line> <line x1="52" y1="0" x2="123" y2="70" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 52.586148054926724,0.0 123.17438334904438,70.58823529411765 80.58823529411765,70.58823529411765" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="80" y1="70" x2="123" y2="70" style="stroke-width:2"></line> <line x1="80" y1="81" x2="123" y2="81"></line> <line x1="80" y1="93" x2="123" y2="93"></line> <line x1="80" y1="104" x2="123" y2="104"></line> <line x1="80" y1="111" x2="123" y2="111" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="80" y1="70" x2="80" y2="111" style="stroke-width:2"></line> <line x1="87" y1="70" x2="87" y2="111"></line> <line x1="95" y1="70" x2="95" y2="111"></line> <line x1="102" y1="70" x2="102" y2="111"></line> <line x1="110" y1="70" x2="110" y2="111"></line> <line x1="117" y1="70" x2="117" y2="111"></line> <line x1="123" y1="70" x2="123" y2="111" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="80.58823529411765,70.58823529411765 123.17438334904438,70.58823529411765 123.17438334904438,111.10946876657741 80.58823529411765,111.10946876657741" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="101.881309" y="131.109469" font-size="1.0rem" font-weight="100" text-anchor="middle">576</text> <text x="143.174383" y="90.848852" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,143.174383,90.848852)">361</text> <text x="35.294118" y="95.815351" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,35.294118,95.815351)">2500</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
+</div>
+</li>
+<li class="xr-var-item">
 <div class="xr-var-name">
 <span>XCO2PREC</span>
 </div>
@@ -1729,7 +1742,18 @@ float64
 <div class="xr-var-preview xr-preview">
 dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
 </div>
-<img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWZpbGUtdGV4dDIiPjx1c2UgeGxpbms6aHJlZj0iI2ljb24tZmlsZS10ZXh0MiI+PC91c2U+PC9zdmc+" class="icon xr-icon-file-text2 img-fluid"><img src="data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiB4ci1pY29uLWRhdGFiYXNlIj48dXNlIHhsaW5rOmhyZWY9IiNpY29uLWRhdGFiYXNlIj48L3VzZT48L3N2Zz4=" class="icon xr-icon-database img-fluid">
+<input id="attrs-ce34dce2-d117-42b8-a6af-058a22a3ea7f" class="xr-var-attrs-in" type="checkbox">
+<label for="attrs-ce34dce2-d117-42b8-a6af-058a22a3ea7f" title="Show/Hide attributes">
+<svg class="icon xr-icon-file-text2">
+<use href="#icon-file-text2"></use>
+</svg>
+</label>
+<input id="data-584c96c1-0836-401d-b606-bcedac3256e2" class="xr-var-data-in" type="checkbox">
+<label for="data-584c96c1-0836-401d-b606-bcedac3256e2" title="Show/Hide data repr">
+<svg class="icon xr-icon-database">
+<use href="#icon-database"></use>
+</svg>
+</label>
 <div class="xr-var-attrs">
 <dl>
 <dt><span>long_name :</span></dt>
@@ -1779,12 +1803,14 @@ mol CO2/mol dry
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTczIiBoZWlnaHQ9IjE2MSIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIxMSIgeDI9IjgwIiB5Mj0iODEiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIyMiIgeDI9IjgwIiB5Mj0iOTMiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIzMyIgeDI9IjgwIiB5Mj0iMTA0Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjEwIiB5MT0iNDAiIHgyPSI4MCIgeTI9IjExMSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjEwIiB5Mj0iNDAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMiIgeTE9IjIiIHgyPSIxMiIgeTI9IjQzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE1IiB5MT0iNSIgeDI9IjE1IiB5Mj0iNDYiPjwvbGluZT4KICA8bGluZSB4MT0iMTgiIHkxPSI4IiB4Mj0iMTgiIHkyPSI0OCI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSI1NCI+PC9saW5lPgogIDxsaW5lIHgxPSIyNiIgeTE9IjE2IiB4Mj0iMjYiIHkyPSI1NyI+PC9saW5lPgogIDxsaW5lIHgxPSIyOSIgeTE9IjE5IiB4Mj0iMjkiIHkyPSI2MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjI1IiB4Mj0iMzUiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSIzOCIgeTE9IjI4IiB4Mj0iMzgiIHkyPSI2OCI+PC9saW5lPgogIDxsaW5lIHgxPSI0MSIgeTE9IjMxIiB4Mj0iNDEiIHkyPSI3MSI+PC9saW5lPgogIDxsaW5lIHgxPSI0NiIgeTE9IjM2IiB4Mj0iNDYiIHkyPSI3NyI+PC9saW5lPgogIDxsaW5lIHgxPSI0OSIgeTE9IjM5IiB4Mj0iNDkiIHkyPSI4MCI+PC9saW5lPgogIDxsaW5lIHgxPSI1MiIgeTE9IjQyIiB4Mj0iNTIiIHkyPSI4MiI+PC9saW5lPgogIDxsaW5lIHgxPSI1OCIgeTE9IjQ4IiB4Mj0iNTgiIHkyPSI4OCI+PC9saW5lPgogIDxsaW5lIHgxPSI2MCIgeTE9IjUwIiB4Mj0iNjAiIHkyPSI5MSI+PC9saW5lPgogIDxsaW5lIHgxPSI2MyIgeTE9IjUzIiB4Mj0iNjMiIHkyPSI5NCI+PC9saW5lPgogIDxsaW5lIHgxPSI2OSIgeTE9IjU5IiB4Mj0iNjkiIHkyPSI5OSI+PC9saW5lPgogIDxsaW5lIHgxPSI3MiIgeTE9IjYyIiB4Mj0iNzIiIHkyPSIxMDIiPjwvbGluZT4KICA8bGluZSB4MT0iNzQiIHkxPSI2NCIgeDI9Ijc0IiB5Mj0iMTA1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjExMSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCA4MC41ODgyMzUyOTQxMTc2NSw3MC41ODgyMzUyOTQxMTc2NSA4MC41ODgyMzUyOTQxMTc2NSwxMTEuMTA5NDY4NzY2NTc3NDEgMTAuMCw0MC41MjEyMzM0NzI0NTk3NSIgc3R5bGU9ImZpbGw6IzhCNDkwM0EwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gSG9yaXpvbnRhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iNTIiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTIiIHkxPSIyIiB4Mj0iNTUiIHkyPSIyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE1IiB5MT0iNSIgeDI9IjU4IiB5Mj0iNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSI2MSIgeTI9IjgiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjY2IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMjYiIHkxPSIxNiIgeDI9IjY5IiB5Mj0iMTYiPjwvbGluZT4KICA8bGluZSB4MT0iMjkiIHkxPSIxOSIgeDI9IjcyIiB5Mj0iMTkiPjwvbGluZT4KICA8bGluZSB4MT0iMzUiIHkxPSIyNSIgeDI9Ijc3IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMzgiIHkxPSIyOCIgeDI9IjgwIiB5Mj0iMjgiPjwvbGluZT4KICA8bGluZSB4MT0iNDEiIHkxPSIzMSIgeDI9IjgzIiB5Mj0iMzEiPjwvbGluZT4KICA8bGluZSB4MT0iNDYiIHkxPSIzNiIgeDI9Ijg5IiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iNDkiIHkxPSIzOSIgeDI9IjkyIiB5Mj0iMzkiPjwvbGluZT4KICA8bGluZSB4MT0iNTIiIHkxPSI0MiIgeDI9Ijk0IiB5Mj0iNDIiPjwvbGluZT4KICA8bGluZSB4MT0iNTgiIHkxPSI0OCIgeDI9IjEwMCIgeTI9IjQ4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjYwIiB5MT0iNTAiIHgyPSIxMDMiIHkyPSI1MCI+PC9saW5lPgogIDxsaW5lIHgxPSI2MyIgeTE9IjUzIiB4Mj0iMTA2IiB5Mj0iNTMiPjwvbGluZT4KICA8bGluZSB4MT0iNjkiIHkxPSI1OSIgeDI9IjExMSIgeTI9IjU5Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjcyIiB5MT0iNjIiIHgyPSIxMTQiIHkyPSI2MiI+PC9saW5lPgogIDxsaW5lIHgxPSI3NCIgeTE9IjY0IiB4Mj0iMTE3IiB5Mj0iNjQiPjwvbGluZT4KICA8bGluZSB4MT0iODAiIHkxPSI3MCIgeDI9IjEyMyIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iODAiIHkyPSI3MCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE3IiB5MT0iMCIgeDI9Ijg3IiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIwIiB4Mj0iOTUiIHkyPSI3MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzMiIgeTE9IjAiIHgyPSIxMDIiIHkyPSI3MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzOSIgeTE9IjAiIHgyPSIxMTAiIHkyPSI3MCI+PC9saW5lPgogIDxsaW5lIHgxPSI0NiIgeTE9IjAiIHgyPSIxMTciIHkyPSI3MCI+PC9saW5lPgogIDxsaW5lIHgxPSI1MiIgeTE9IjAiIHgyPSIxMjMiIHkyPSI3MCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCA1Mi41ODYxNDgwNTQ5MjY3MjQsMC4wIDEyMy4xNzQzODMzNDkwNDQzOCw3MC41ODgyMzUyOTQxMTc2NSA4MC41ODgyMzUyOTQxMTc2NSw3MC41ODgyMzUyOTQxMTc2NSIgc3R5bGU9ImZpbGw6IzhCNDkwM0EwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gSG9yaXpvbnRhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iODAiIHkxPSI3MCIgeDI9IjEyMyIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iODAiIHkxPSI4MSIgeDI9IjEyMyIgeTI9IjgxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjgwIiB5MT0iOTMiIHgyPSIxMjMiIHkyPSI5MyI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjEwNCIgeDI9IjEyMyIgeTI9IjEwNCI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjExMSIgeDI9IjEyMyIgeTI9IjExMSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjExMSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9Ijg3IiB5MT0iNzAiIHgyPSI4NyIgeTI9IjExMSI+PC9saW5lPgogIDxsaW5lIHgxPSI5NSIgeTE9IjcwIiB4Mj0iOTUiIHkyPSIxMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMTAyIiB5MT0iNzAiIHgyPSIxMDIiIHkyPSIxMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMTEwIiB5MT0iNzAiIHgyPSIxMTAiIHkyPSIxMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMTE3IiB5MT0iNzAiIHgyPSIxMTciIHkyPSIxMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMTIzIiB5MT0iNzAiIHgyPSIxMjMiIHkyPSIxMTEiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iODAuNTg4MjM1Mjk0MTE3NjUsNzAuNTg4MjM1Mjk0MTE3NjUgMTIzLjE3NDM4MzM0OTA0NDM4LDcwLjU4ODIzNTI5NDExNzY1IDEyMy4xNzQzODMzNDkwNDQzOCwxMTEuMTA5NDY4NzY2NTc3NDEgODAuNTg4MjM1Mjk0MTE3NjUsMTExLjEwOTQ2ODc2NjU3NzQxIiBzdHlsZT0iZmlsbDojRUNCMTcyQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBUZXh0IC0tPgogIDx0ZXh0IHg9IjEwMS44ODEzMDkiIHk9IjEzMS4xMDk0NjkiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj41NzY8L3RleHQ+CiAgPHRleHQgeD0iMTQzLjE3NDM4MyIgeT0iOTAuODQ4ODUyIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwLDE0My4xNzQzODMsOTAuODQ4ODUyKSI+MzYxPC90ZXh0PgogIDx0ZXh0IHg9IjM1LjI5NDExOCIgeT0iOTUuODE1MzUxIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoNDUsMzUuMjk0MTE4LDk1LjgxNTM1MSkiPjI1MDA8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="173" height="161" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="10" y1="11" x2="80" y2="81"></line> <line x1="10" y1="22" x2="80" y2="93"></line> <line x1="10" y1="33" x2="80" y2="104"></line> <line x1="10" y1="40" x2="80" y2="111" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="40" style="stroke-width:2"></line> <line x1="12" y1="2" x2="12" y2="43"></line> <line x1="15" y1="5" x2="15" y2="46"></line> <line x1="18" y1="8" x2="18" y2="48"></line> <line x1="24" y1="14" x2="24" y2="54"></line> <line x1="26" y1="16" x2="26" y2="57"></line> <line x1="29" y1="19" x2="29" y2="60"></line> <line x1="35" y1="25" x2="35" y2="65"></line> <line x1="38" y1="28" x2="38" y2="68"></line> <line x1="41" y1="31" x2="41" y2="71"></line> <line x1="46" y1="36" x2="46" y2="77"></line> <line x1="49" y1="39" x2="49" y2="80"></line> <line x1="52" y1="42" x2="52" y2="82"></line> <line x1="58" y1="48" x2="58" y2="88"></line> <line x1="60" y1="50" x2="60" y2="91"></line> <line x1="63" y1="53" x2="63" y2="94"></line> <line x1="69" y1="59" x2="69" y2="99"></line> <line x1="72" y1="62" x2="72" y2="102"></line> <line x1="74" y1="64" x2="74" y2="105"></line> <line x1="80" y1="70" x2="80" y2="111" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 80.58823529411765,70.58823529411765 80.58823529411765,111.10946876657741 10.0,40.52123347245975" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="52" y2="0" style="stroke-width:2"></line> <line x1="12" y1="2" x2="55" y2="2"></line> <line x1="15" y1="5" x2="58" y2="5"></line> <line x1="18" y1="8" x2="61" y2="8"></line> <line x1="24" y1="14" x2="66" y2="14"></line> <line x1="26" y1="16" x2="69" y2="16"></line> <line x1="29" y1="19" x2="72" y2="19"></line> <line x1="35" y1="25" x2="77" y2="25"></line> <line x1="38" y1="28" x2="80" y2="28"></line> <line x1="41" y1="31" x2="83" y2="31"></line> <line x1="46" y1="36" x2="89" y2="36"></line> <line x1="49" y1="39" x2="92" y2="39"></line> <line x1="52" y1="42" x2="94" y2="42"></line> <line x1="58" y1="48" x2="100" y2="48"></line> <line x1="60" y1="50" x2="103" y2="50"></line> <line x1="63" y1="53" x2="106" y2="53"></line> <line x1="69" y1="59" x2="111" y2="59"></line> <line x1="72" y1="62" x2="114" y2="62"></line> <line x1="74" y1="64" x2="117" y2="64"></line> <line x1="80" y1="70" x2="123" y2="70" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="17" y1="0" x2="87" y2="70"></line> <line x1="24" y1="0" x2="95" y2="70"></line> <line x1="32" y1="0" x2="102" y2="70"></line> <line x1="39" y1="0" x2="110" y2="70"></line> <line x1="46" y1="0" x2="117" y2="70"></line> <line x1="52" y1="0" x2="123" y2="70" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 52.586148054926724,0.0 123.17438334904438,70.58823529411765 80.58823529411765,70.58823529411765" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="80" y1="70" x2="123" y2="70" style="stroke-width:2"></line> <line x1="80" y1="81" x2="123" y2="81"></line> <line x1="80" y1="93" x2="123" y2="93"></line> <line x1="80" y1="104" x2="123" y2="104"></line> <line x1="80" y1="111" x2="123" y2="111" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="80" y1="70" x2="80" y2="111" style="stroke-width:2"></line> <line x1="87" y1="70" x2="87" y2="111"></line> <line x1="95" y1="70" x2="95" y2="111"></line> <line x1="102" y1="70" x2="102" y2="111"></line> <line x1="110" y1="70" x2="110" y2="111"></line> <line x1="117" y1="70" x2="117" y2="111"></line> <line x1="123" y1="70" x2="123" y2="111" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="80.58823529411765,70.58823529411765 123.17438334904438,70.58823529411765 123.17438334904438,111.10946876657741 80.58823529411765,111.10946876657741" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="101.881309" y="131.109469" font-size="1.0rem" font-weight="100" text-anchor="middle">576</text> <text x="143.174383" y="90.848852" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,143.174383,90.848852)">361</text> <text x="35.294118" y="95.815351" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,35.294118,95.815351)">2500</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
 </div>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-00a6e36a-9ed1-487a-878f-e697086b1c79" class="xr-section-summary-in" type="checkbox"><label for="section-00a6e36a-9ed1-487a-878f-e697086b1c79" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-64231e57-b29a-4d05-94b2-58b0dddd3baf" class="xr-index-data-in" type="checkbox"><label for="index-64231e57-b29a-4d05-94b2-58b0dddd3baf" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-90.0, -89.5, -89.0, -88.5, -88.0, -87.5, -87.0, -86.5, -86.0, -85.5,
+</li></ul></div></li></ul></div><li class="xr-section-item"><input id="section-00a6e36a-9ed1-487a-878f-e697086b1c79" class="xr-section-summary-in" type="checkbox"><label for="section-00a6e36a-9ed1-487a-878f-e697086b1c79" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-64231e57-b29a-4d05-94b2-58b0dddd3baf" class="xr-index-data-in" type="checkbox"><label for="index-64231e57-b29a-4d05-94b2-58b0dddd3baf" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-90.0, -89.5, -89.0, -88.5, -88.0, -87.5, -87.0, -86.5, -86.0, -85.5,
        ...
         85.5,  86.0,  86.5,  87.0,  87.5,  88.0,  88.5,  89.0,  89.5,  90.0],
       dtype='float64', name='lat', length=361))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>lon</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-7b8aad31-c867-46b0-8ac1-8511e574d424" class="xr-index-data-in" type="checkbox"><label for="index-7b8aad31-c867-46b0-8ac1-8511e574d424" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([  -180.0, -179.375,  -178.75, -178.125,   -177.5, -176.875,  -176.25,
@@ -1803,14 +1829,15 @@ mol CO2/mol dry
                '2021-10-30 12:00:00', '2021-10-31 12:00:00',
                '2021-11-01 12:00:00', '2021-11-02 12:00:00',
                '2021-11-03 12:00:00', '2021-11-04 12:00:00'],
-              dtype='datetime64[ns]', name='time', length=2500, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-02efa61f-64f2-47de-ad43-1b84b1990b2f" class="xr-section-summary-in" type="checkbox"><label for="section-02efa61f-64f2-47de-ad43-1b84b1990b2f" class="xr-section-summary">Attributes: <span>(25)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>BuildId :</span></dt><dd>B10.2.06</dd><dt><span>Contact :</span></dt><dd>Brad Weir (brad.weir@nasa.gov)</dd><dt><span>Conventions :</span></dt><dd>CF-1</dd><dt><span>DataResolution :</span></dt><dd>0.5x0.625</dd><dt><span>EastBoundingCoordinate :</span></dt><dd>179.375</dd><dt><span>Format :</span></dt><dd>NetCDF-4/HDF-5</dd><dt><span>History :</span></dt><dd>Original file generated: Tue Mar 15 12:02:48 2022 GMT</dd><dt><span>IdentifierProductDOI :</span></dt><dd>10.5067/Y9M4NM9MPCGH</dd><dt><span>IdentifierProductDOIAuthority :</span></dt><dd>http://doi.org/</dd><dt><span>Institution :</span></dt><dd>NASA GSFC Global Modeling and Assimilation Office and OCO-2 Project, Jet Propulsion Laboratory</dd><dt><span>LatitudeResolution :</span></dt><dd>0.5</dd><dt><span>LongName :</span></dt><dd>OCO-2 GEOS Level 3 daily, 0.5x0.625 assimilated CO2</dd><dt><span>LongitudeResolution :</span></dt><dd>0.625</dd><dt><span>NorthBoundingCoordinate :</span></dt><dd>90.0</dd><dt><span>ProductionDateTime :</span></dt><dd>2022-03-15T12:02:48Z</dd><dt><span>RangeBeginningDate :</span></dt><dd>2017-08-01</dd><dt><span>RangeBeginningTime :</span></dt><dd>00:00:00.000000</dd><dt><span>RangeEndingDate :</span></dt><dd>2017-08-01</dd><dt><span>RangeEndingTime :</span></dt><dd>23:59:99.999999</dd><dt><span>ShortName :</span></dt><dd>OCO2_GEOS_L3CO2_DAY_10r</dd><dt><span>SouthBoundingCoordinate :</span></dt><dd>-90.0</dd><dt><span>SpatialCoverage :</span></dt><dd>global</dd><dt><span>Title :</span></dt><dd>OCO-2 GEOS Level 3 daily, 0.5x0.625 assimilated CO2</dd><dt><span>VersionID :</span></dt><dd>V10r</dd><dt><span>WestBoundingCoordinate :</span></dt><dd>-180.0</dd></dl></div></li></ul></div></div>
+              dtype='datetime64[ns]', name='time', length=2500, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-02efa61f-64f2-47de-ad43-1b84b1990b2f" class="xr-section-summary-in" type="checkbox"><label for="section-02efa61f-64f2-47de-ad43-1b84b1990b2f" class="xr-section-summary">Attributes: <span>(25)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>BuildId :</span></dt><dd>B10.2.06</dd><dt><span>Contact :</span></dt><dd>Brad Weir (brad.weir@nasa.gov)</dd><dt><span>Conventions :</span></dt><dd>CF-1</dd><dt><span>DataResolution :</span></dt><dd>0.5x0.625</dd><dt><span>EastBoundingCoordinate :</span></dt><dd>179.375</dd><dt><span>Format :</span></dt><dd>NetCDF-4/HDF-5</dd><dt><span>History :</span></dt><dd>Original file generated: Tue Mar 15 12:02:48 2022 GMT</dd><dt><span>IdentifierProductDOI :</span></dt><dd>10.5067/Y9M4NM9MPCGH</dd><dt><span>IdentifierProductDOIAuthority :</span></dt><dd>http://doi.org/</dd><dt><span>Institution :</span></dt><dd>NASA GSFC Global Modeling and Assimilation Office and OCO-2 Project, Jet Propulsion Laboratory</dd><dt><span>LatitudeResolution :</span></dt><dd>0.5</dd><dt><span>LongName :</span></dt><dd>OCO-2 GEOS Level 3 daily, 0.5x0.625 assimilated CO2</dd><dt><span>LongitudeResolution :</span></dt><dd>0.625</dd><dt><span>NorthBoundingCoordinate :</span></dt><dd>90.0</dd><dt><span>ProductionDateTime :</span></dt><dd>2022-03-15T12:02:48Z</dd><dt><span>RangeBeginningDate :</span></dt><dd>2017-08-01</dd><dt><span>RangeBeginningTime :</span></dt><dd>00:00:00.000000</dd><dt><span>RangeEndingDate :</span></dt><dd>2017-08-01</dd><dt><span>RangeEndingTime :</span></dt><dd>23:59:99.999999</dd><dt><span>ShortName :</span></dt><dd>OCO2_GEOS_L3CO2_DAY_10r</dd><dt><span>SouthBoundingCoordinate :</span></dt><dd>-90.0</dd><dt><span>SpatialCoverage :</span></dt><dd>global</dd><dt><span>Title :</span></dt><dd>OCO-2 GEOS Level 3 daily, 0.5x0.625 assimilated CO2</dd><dt><span>VersionID :</span></dt><dd>V10r</dd><dt><span>WestBoundingCoordinate :</span></dt><dd>-180.0</dd></dl></div></li></div></div>
 </div>
 </div>
+</section></main></div>
 <p>In <code>xarray</code> you can inspect just one data variable using dot notation:</p>
-<div class="cell" data-tags="[]" data-execution_count="5">
+<div id="0b96ec71-5246-4f62-a21d-385c73b89bff" class="cell" data-tags="[]" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ds.XCO2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-
+<div>
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -2219,7 +2246,9 @@ Attributes:
 </tr>
 </tbody>
 </table></td>
-<td><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTczIiBoZWlnaHQ9IjE2MSIgc3R5bGU9InN0cm9rZTpyZ2IoMCwwLDApO3N0cm9rZS13aWR0aDoxIj4KCiAgPCEtLSBIb3Jpem9udGFsIGxpbmVzIC0tPgogIDxsaW5lIHgxPSIxMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIxMSIgeDI9IjgwIiB5Mj0iODEiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIyMiIgeDI9IjgwIiB5Mj0iOTMiPjwvbGluZT4KICA8bGluZSB4MT0iMTAiIHkxPSIzMyIgeDI9IjgwIiB5Mj0iMTA0Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjEwIiB5MT0iNDAiIHgyPSI4MCIgeTI9IjExMSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjEwIiB5MT0iMCIgeDI9IjEwIiB5Mj0iNDAiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgogIDxsaW5lIHgxPSIxMiIgeTE9IjIiIHgyPSIxMiIgeTI9IjQzIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE1IiB5MT0iNSIgeDI9IjE1IiB5Mj0iNDYiPjwvbGluZT4KICA8bGluZSB4MT0iMTgiIHkxPSI4IiB4Mj0iMTgiIHkyPSI0OCI+PC9saW5lPgogIDxsaW5lIHgxPSIyNCIgeTE9IjE0IiB4Mj0iMjQiIHkyPSI1NCI+PC9saW5lPgogIDxsaW5lIHgxPSIyNiIgeTE9IjE2IiB4Mj0iMjYiIHkyPSI1NyI+PC9saW5lPgogIDxsaW5lIHgxPSIyOSIgeTE9IjE5IiB4Mj0iMjkiIHkyPSI2MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzNSIgeTE9IjI1IiB4Mj0iMzUiIHkyPSI2NSI+PC9saW5lPgogIDxsaW5lIHgxPSIzOCIgeTE9IjI4IiB4Mj0iMzgiIHkyPSI2OCI+PC9saW5lPgogIDxsaW5lIHgxPSI0MSIgeTE9IjMxIiB4Mj0iNDEiIHkyPSI3MSI+PC9saW5lPgogIDxsaW5lIHgxPSI0NiIgeTE9IjM2IiB4Mj0iNDYiIHkyPSI3NyI+PC9saW5lPgogIDxsaW5lIHgxPSI0OSIgeTE9IjM5IiB4Mj0iNDkiIHkyPSI4MCI+PC9saW5lPgogIDxsaW5lIHgxPSI1MiIgeTE9IjQyIiB4Mj0iNTIiIHkyPSI4MiI+PC9saW5lPgogIDxsaW5lIHgxPSI1OCIgeTE9IjQ4IiB4Mj0iNTgiIHkyPSI4OCI+PC9saW5lPgogIDxsaW5lIHgxPSI2MCIgeTE9IjUwIiB4Mj0iNjAiIHkyPSI5MSI+PC9saW5lPgogIDxsaW5lIHgxPSI2MyIgeTE9IjUzIiB4Mj0iNjMiIHkyPSI5NCI+PC9saW5lPgogIDxsaW5lIHgxPSI2OSIgeTE9IjU5IiB4Mj0iNjkiIHkyPSI5OSI+PC9saW5lPgogIDxsaW5lIHgxPSI3MiIgeTE9IjYyIiB4Mj0iNzIiIHkyPSIxMDIiPjwvbGluZT4KICA8bGluZSB4MT0iNzQiIHkxPSI2NCIgeDI9Ijc0IiB5Mj0iMTA1Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjExMSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCA4MC41ODgyMzUyOTQxMTc2NSw3MC41ODgyMzUyOTQxMTc2NSA4MC41ODgyMzUyOTQxMTc2NSwxMTEuMTA5NDY4NzY2NTc3NDEgMTAuMCw0MC41MjEyMzM0NzI0NTk3NSIgc3R5bGU9ImZpbGw6IzhCNDkwM0EwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gSG9yaXpvbnRhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iNTIiIHkyPSIwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iMTIiIHkxPSIyIiB4Mj0iNTUiIHkyPSIyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE1IiB5MT0iNSIgeDI9IjU4IiB5Mj0iNSI+PC9saW5lPgogIDxsaW5lIHgxPSIxOCIgeTE9IjgiIHgyPSI2MSIgeTI9IjgiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIxNCIgeDI9IjY2IiB5Mj0iMTQiPjwvbGluZT4KICA8bGluZSB4MT0iMjYiIHkxPSIxNiIgeDI9IjY5IiB5Mj0iMTYiPjwvbGluZT4KICA8bGluZSB4MT0iMjkiIHkxPSIxOSIgeDI9IjcyIiB5Mj0iMTkiPjwvbGluZT4KICA8bGluZSB4MT0iMzUiIHkxPSIyNSIgeDI9Ijc3IiB5Mj0iMjUiPjwvbGluZT4KICA8bGluZSB4MT0iMzgiIHkxPSIyOCIgeDI9IjgwIiB5Mj0iMjgiPjwvbGluZT4KICA8bGluZSB4MT0iNDEiIHkxPSIzMSIgeDI9IjgzIiB5Mj0iMzEiPjwvbGluZT4KICA8bGluZSB4MT0iNDYiIHkxPSIzNiIgeDI9Ijg5IiB5Mj0iMzYiPjwvbGluZT4KICA8bGluZSB4MT0iNDkiIHkxPSIzOSIgeDI9IjkyIiB5Mj0iMzkiPjwvbGluZT4KICA8bGluZSB4MT0iNTIiIHkxPSI0MiIgeDI9Ijk0IiB5Mj0iNDIiPjwvbGluZT4KICA8bGluZSB4MT0iNTgiIHkxPSI0OCIgeDI9IjEwMCIgeTI9IjQ4Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjYwIiB5MT0iNTAiIHgyPSIxMDMiIHkyPSI1MCI+PC9saW5lPgogIDxsaW5lIHgxPSI2MyIgeTE9IjUzIiB4Mj0iMTA2IiB5Mj0iNTMiPjwvbGluZT4KICA8bGluZSB4MT0iNjkiIHkxPSI1OSIgeDI9IjExMSIgeTI9IjU5Ij48L2xpbmU+CiAgPGxpbmUgeDE9IjcyIiB5MT0iNjIiIHgyPSIxMTQiIHkyPSI2MiI+PC9saW5lPgogIDxsaW5lIHgxPSI3NCIgeTE9IjY0IiB4Mj0iMTE3IiB5Mj0iNjQiPjwvbGluZT4KICA8bGluZSB4MT0iODAiIHkxPSI3MCIgeDI9IjEyMyIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KCiAgPCEtLSBWZXJ0aWNhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iMTAiIHkxPSIwIiB4Mj0iODAiIHkyPSI3MCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9IjE3IiB5MT0iMCIgeDI9Ijg3IiB5Mj0iNzAiPjwvbGluZT4KICA8bGluZSB4MT0iMjQiIHkxPSIwIiB4Mj0iOTUiIHkyPSI3MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzMiIgeTE9IjAiIHgyPSIxMDIiIHkyPSI3MCI+PC9saW5lPgogIDxsaW5lIHgxPSIzOSIgeTE9IjAiIHgyPSIxMTAiIHkyPSI3MCI+PC9saW5lPgogIDxsaW5lIHgxPSI0NiIgeTE9IjAiIHgyPSIxMTciIHkyPSI3MCI+PC9saW5lPgogIDxsaW5lIHgxPSI1MiIgeTE9IjAiIHgyPSIxMjMiIHkyPSI3MCIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gQ29sb3JlZCBSZWN0YW5nbGUgLS0+CiAgPHBvbHlnb24gcG9pbnRzPSIxMC4wLDAuMCA1Mi41ODYxNDgwNTQ5MjY3MjQsMC4wIDEyMy4xNzQzODMzNDkwNDQzOCw3MC41ODgyMzUyOTQxMTc2NSA4MC41ODgyMzUyOTQxMTc2NSw3MC41ODgyMzUyOTQxMTc2NSIgc3R5bGU9ImZpbGw6IzhCNDkwM0EwO3N0cm9rZS13aWR0aDowIj48L3BvbHlnb24+CgogIDwhLS0gSG9yaXpvbnRhbCBsaW5lcyAtLT4KICA8bGluZSB4MT0iODAiIHkxPSI3MCIgeDI9IjEyMyIgeTI9IjcwIiBzdHlsZT0ic3Ryb2tlLXdpZHRoOjIiPjwvbGluZT4KICA8bGluZSB4MT0iODAiIHkxPSI4MSIgeDI9IjEyMyIgeTI9IjgxIj48L2xpbmU+CiAgPGxpbmUgeDE9IjgwIiB5MT0iOTMiIHgyPSIxMjMiIHkyPSI5MyI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjEwNCIgeDI9IjEyMyIgeTI9IjEwNCI+PC9saW5lPgogIDxsaW5lIHgxPSI4MCIgeTE9IjExMSIgeDI9IjEyMyIgeTI9IjExMSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CgogIDwhLS0gVmVydGljYWwgbGluZXMgLS0+CiAgPGxpbmUgeDE9IjgwIiB5MT0iNzAiIHgyPSI4MCIgeTI9IjExMSIgc3R5bGU9InN0cm9rZS13aWR0aDoyIj48L2xpbmU+CiAgPGxpbmUgeDE9Ijg3IiB5MT0iNzAiIHgyPSI4NyIgeTI9IjExMSI+PC9saW5lPgogIDxsaW5lIHgxPSI5NSIgeTE9IjcwIiB4Mj0iOTUiIHkyPSIxMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMTAyIiB5MT0iNzAiIHgyPSIxMDIiIHkyPSIxMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMTEwIiB5MT0iNzAiIHgyPSIxMTAiIHkyPSIxMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMTE3IiB5MT0iNzAiIHgyPSIxMTciIHkyPSIxMTEiPjwvbGluZT4KICA8bGluZSB4MT0iMTIzIiB5MT0iNzAiIHgyPSIxMjMiIHkyPSIxMTEiIHN0eWxlPSJzdHJva2Utd2lkdGg6MiI+PC9saW5lPgoKICA8IS0tIENvbG9yZWQgUmVjdGFuZ2xlIC0tPgogIDxwb2x5Z29uIHBvaW50cz0iODAuNTg4MjM1Mjk0MTE3NjUsNzAuNTg4MjM1Mjk0MTE3NjUgMTIzLjE3NDM4MzM0OTA0NDM4LDcwLjU4ODIzNTI5NDExNzY1IDEyMy4xNzQzODMzNDkwNDQzOCwxMTEuMTA5NDY4NzY2NTc3NDEgODAuNTg4MjM1Mjk0MTE3NjUsMTExLjEwOTQ2ODc2NjU3NzQxIiBzdHlsZT0iZmlsbDojRUNCMTcyQTA7c3Ryb2tlLXdpZHRoOjAiPjwvcG9seWdvbj4KCiAgPCEtLSBUZXh0IC0tPgogIDx0ZXh0IHg9IjEwMS44ODEzMDkiIHk9IjEzMS4xMDk0NjkiIGZvbnQtc2l6ZT0iMS4wcmVtIiBmb250LXdlaWdodD0iMTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj41NzY8L3RleHQ+CiAgPHRleHQgeD0iMTQzLjE3NDM4MyIgeT0iOTAuODQ4ODUyIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoLTkwLDE0My4xNzQzODMsOTAuODQ4ODUyKSI+MzYxPC90ZXh0PgogIDx0ZXh0IHg9IjM1LjI5NDExOCIgeT0iOTUuODE1MzUxIiBmb250LXNpemU9IjEuMHJlbSIgZm9udC13ZWlnaHQ9IjEwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgdHJhbnNmb3JtPSJyb3RhdGUoNDUsMzUuMjk0MTE4LDk1LjgxNTM1MSkiPjI1MDA8L3RleHQ+Cjwvc3ZnPg==" class="img-fluid"></td>
+<td><svg width="173" height="161" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="10" y1="11" x2="80" y2="81"></line> <line x1="10" y1="22" x2="80" y2="93"></line> <line x1="10" y1="33" x2="80" y2="104"></line> <line x1="10" y1="40" x2="80" y2="111" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="40" style="stroke-width:2"></line> <line x1="12" y1="2" x2="12" y2="43"></line> <line x1="15" y1="5" x2="15" y2="46"></line> <line x1="18" y1="8" x2="18" y2="48"></line> <line x1="24" y1="14" x2="24" y2="54"></line> <line x1="26" y1="16" x2="26" y2="57"></line> <line x1="29" y1="19" x2="29" y2="60"></line> <line x1="35" y1="25" x2="35" y2="65"></line> <line x1="38" y1="28" x2="38" y2="68"></line> <line x1="41" y1="31" x2="41" y2="71"></line> <line x1="46" y1="36" x2="46" y2="77"></line> <line x1="49" y1="39" x2="49" y2="80"></line> <line x1="52" y1="42" x2="52" y2="82"></line> <line x1="58" y1="48" x2="58" y2="88"></line> <line x1="60" y1="50" x2="60" y2="91"></line> <line x1="63" y1="53" x2="63" y2="94"></line> <line x1="69" y1="59" x2="69" y2="99"></line> <line x1="72" y1="62" x2="72" y2="102"></line> <line x1="74" y1="64" x2="74" y2="105"></line> <line x1="80" y1="70" x2="80" y2="111" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 80.58823529411765,70.58823529411765 80.58823529411765,111.10946876657741 10.0,40.52123347245975" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="52" y2="0" style="stroke-width:2"></line> <line x1="12" y1="2" x2="55" y2="2"></line> <line x1="15" y1="5" x2="58" y2="5"></line> <line x1="18" y1="8" x2="61" y2="8"></line> <line x1="24" y1="14" x2="66" y2="14"></line> <line x1="26" y1="16" x2="69" y2="16"></line> <line x1="29" y1="19" x2="72" y2="19"></line> <line x1="35" y1="25" x2="77" y2="25"></line> <line x1="38" y1="28" x2="80" y2="28"></line> <line x1="41" y1="31" x2="83" y2="31"></line> <line x1="46" y1="36" x2="89" y2="36"></line> <line x1="49" y1="39" x2="92" y2="39"></line> <line x1="52" y1="42" x2="94" y2="42"></line> <line x1="58" y1="48" x2="100" y2="48"></line> <line x1="60" y1="50" x2="103" y2="50"></line> <line x1="63" y1="53" x2="106" y2="53"></line> <line x1="69" y1="59" x2="111" y2="59"></line> <line x1="72" y1="62" x2="114" y2="62"></line> <line x1="74" y1="64" x2="117" y2="64"></line> <line x1="80" y1="70" x2="123" y2="70" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="80" y2="70" style="stroke-width:2"></line> <line x1="17" y1="0" x2="87" y2="70"></line> <line x1="24" y1="0" x2="95" y2="70"></line> <line x1="32" y1="0" x2="102" y2="70"></line> <line x1="39" y1="0" x2="110" y2="70"></line> <line x1="46" y1="0" x2="117" y2="70"></line> <line x1="52" y1="0" x2="123" y2="70" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 52.586148054926724,0.0 123.17438334904438,70.58823529411765 80.58823529411765,70.58823529411765" style="fill:#8B4903A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="80" y1="70" x2="123" y2="70" style="stroke-width:2"></line> <line x1="80" y1="81" x2="123" y2="81"></line> <line x1="80" y1="93" x2="123" y2="93"></line> <line x1="80" y1="104" x2="123" y2="104"></line> <line x1="80" y1="111" x2="123" y2="111" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="80" y1="70" x2="80" y2="111" style="stroke-width:2"></line> <line x1="87" y1="70" x2="87" y2="111"></line> <line x1="95" y1="70" x2="95" y2="111"></line> <line x1="102" y1="70" x2="102" y2="111"></line> <line x1="110" y1="70" x2="110" y2="111"></line> <line x1="117" y1="70" x2="117" y2="111"></line> <line x1="123" y1="70" x2="123" y2="111" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="80.58823529411765,70.58823529411765 123.17438334904438,70.58823529411765 123.17438334904438,111.10946876657741 80.58823529411765,111.10946876657741" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="101.881309" y="131.109469" font-size="1.0rem" font-weight="100" text-anchor="middle">576</text> <text x="143.174383" y="90.848852" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,143.174383,90.848852)">361</text> <text x="35.294118" y="95.815351" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,35.294118,95.815351)">2500</text>
+</svg></td>
 </tr>
 </tbody>
 </table>
@@ -2248,11 +2277,12 @@ Attributes:
               dtype='datetime64[ns]', name='time', length=2500, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-7acca5b4-1661-4640-a2ca-ba17c83ca4f7" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-7acca5b4-1661-4640-a2ca-ba17c83ca4f7" class="xr-section-summary">Attributes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Assimilated dry-air column average CO2 daily mean</dd><dt><span>units :</span></dt><dd>mol CO2/mol dry</dd></dl></div></li></ul></div></div>
 </div>
 </div>
-</section>
+</div>
+
 <section id="plot-data" class="level2">
-<h2 class="anchored" data-anchor-id="plot-data">Plot data</h2>
+<h2 data-anchor-id="plot-data">Plot data</h2>
 <p>We can plot the XCO2 variable as an interactive map (with date slider) using <code>hvplot</code>.</p>
-<div class="cell" data-tags="[]" data-execution_count="6">
+<div id="ab65eb4a-6cca-4233-84e5-681d6e0124e4" class="cell" data-tags="[]" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ds.XCO2.hvplot(</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"lon"</span>,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"lat"</span>,</span>
@@ -2342,7 +2372,7 @@ Attributes:
 
 </section>
 
-</main> <!-- /main -->
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -2384,6 +2414,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -2452,13 +2509,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -2537,10 +2596,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -2550,8 +2608,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -2564,6 +2631,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -2607,6 +2793,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2632,6 +2819,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -2693,26 +2906,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../notebooks/quickstarts/timeseries-rioxarray-stackstac.html" class="pagination-link">
+      <a href="../../notebooks/quickstarts/timeseries-rioxarray-stackstac.html" class="pagination-link" aria-label="Calculate timeseries from COGs">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Calculate timeseries from COGs</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../notebooks/quickstarts/visualize-multiple-times.html" class="pagination-link">
+      <a href="../../notebooks/quickstarts/visualize-multiple-times.html" class="pagination-link" aria-label="Open and visualize COGs">
         <span class="nav-page-text">Open and visualize COGs</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
-</div> <!-- /content -->
+ <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© CC-By NASA, 2022-2023</div>   
+    <div class="nav-footer-left">
+<p>© CC-By NASA, 2022-2023</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
-    </div>
-    <div class="nav-footer-right">This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/nasa-impact/veda-docs/blob/main/notebooks/quickstarts/visualize-zarr.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
   </div>
 </footer>
+
 
 
 
