@@ -614,7 +614,7 @@ Requirement already satisfied: pyrsistent!=0.17.0,!=0.17.1,!=0.17.2,&gt;=0.14.0 
 Note: you may need to restart the kernel to use updated packages.</code></pre>
 </div>
 </div>
-<div id="cell-4" class="cell" data-execution_count="2">
+<div id="cell-4" class="cell" data-tags="[]" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tqdm</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio</span>
@@ -630,18 +630,18 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 </section>
 <section id="load-and-inspect-dataset-from-ghgc-stac-catalog" class="level2">
 <h2 class="anchored" data-anchor-id="load-and-inspect-dataset-from-ghgc-stac-catalog">Load and inspect dataset from GHGC STAC catalog</h2>
-<div id="cell-6" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"http://ghg.center/api/stac"</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://ghg.center/api/raster"</span></span>
+<div id="cell-6" class="cell" data-tags="[]" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://staging-stac.delta-backend.com/"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://staging-raster.delta-backend.com/"</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>COLLECTION_ID <span class="op">=</span> <span class="st">"casagfed-carbonflux-monthgrid-v3"</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ASSET_NAME <span class="op">=</span> <span class="st">"npp"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>COLLECTION_ID <span class="op">=</span> <span class="st">"MO_NPP_npp_vgpm"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ASSET_NAME <span class="op">=</span> <span class="st">"cog_default"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-7" class="cell" data-tags="[]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>catalog <span class="op">=</span> Client.<span class="bu">open</span>(STAC_API_URL)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> catalog.get_collection(COLLECTION_ID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="5">
+<div id="cell-8" class="cell" data-tags="[]" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(collection.get_all_items())[:<span class="dv">15</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-9" class="cell" data-tags="[]" data-execution_count="6">
@@ -650,14 +650,14 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> ds.crs <span class="op">==</span> rasterio.crs.CRS.from_epsg(<span class="dv">4326</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>{'driver': 'GTiff', 'dtype': 'float32', 'nodata': None, 'width': 720, 'height': 360, 'count': 1, 'crs': CRS.from_epsg(4326), 'transform': Affine(0.5, 0.0, -180.0,
-       0.0, -0.5, 90.0), 'blockxsize': 512, 'blockysize': 512, 'tiled': True, 'compress': 'lzw', 'interleave': 'band'}</code></pre>
+<pre><code>{'driver': 'GTiff', 'dtype': 'float32', 'nodata': -32767.0, 'width': 8640, 'height': 4320, 'count': 1, 'crs': CRS.from_epsg(4326), 'transform': Affine(0.041666667844178655, 0.0, -180.0000050868518,
+       0.0, -0.04166666725549082, 89.9999974571629), 'blockxsize': 512, 'blockysize': 512, 'tiled': True, 'compress': 'deflate', 'interleave': 'band'}</code></pre>
 </div>
 </div>
 </section>
 <section id="define-formula-for-grid-cell-area-for-geographic-coordinates" class="level2">
 <h2 class="anchored" data-anchor-id="define-formula-for-grid-cell-area-for-geographic-coordinates">Define formula for grid cell area for geographic coordinates</h2>
-<div id="cell-11" class="cell" data-execution_count="7">
+<div id="cell-11" class="cell" data-tags="[]" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _get_unique_diff(arr):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> np.ndim(arr) <span class="op">==</span> <span class="dv">1</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    deltas <span class="op">=</span> np.diff(arr)</span>
@@ -765,7 +765,7 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 <span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>        </span>
 <span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>        lat_vals <span class="op">=</span> xds.y.values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>100%|██████████| 15/15 [00:07&lt;00:00,  1.90it/s]</code></pre>
+<pre><code>100%|██████████| 12/12 [00:51&lt;00:00,  4.27s/it]</code></pre>
 </div>
 </div>
 <div id="cell-16" class="cell" data-tags="[]" data-execution_count="10">
@@ -801,10 +801,10 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 <section id="compute-zonal-averages-using-titiler-api" class="level2">
 <h2 class="anchored" data-anchor-id="compute-zonal-averages-using-titiler-api">Compute zonal averages using TiTiler API</h2>
 <p>We make use of the option on TiTiler to reproject the data subset to an equal-area projection (<a href="https://proj.org/en/9.3/operations/projections/cea.html">Equal Area Cylindrical</a>) before computing the statistics.</p>
-<div id="cell-21" class="cell" data-execution_count="13">
+<div id="cell-21" class="cell" data-tags="[]" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>WORKING_PROJECTION <span class="op">=</span> <span class="st">"+proj=cea"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="14">
+<div id="cell-22" class="cell" data-tags="[]" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_stats(item, geojson, asset_name, params<span class="op">=</span><span class="va">None</span>):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> params <span class="kw">or</span> {}</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> requests.post(</span>
@@ -834,7 +834,7 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    timeseries_titiler_noproj.append(stats_noproj)</span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    timeseries_titiler_proj.append(stats_proj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>100%|██████████| 15/15 [00:15&lt;00:00,  1.04s/it]</code></pre>
+<pre><code>100%|██████████| 12/12 [03:05&lt;00:00, 15.47s/it]</code></pre>
 </div>
 </div>
 <div id="cell-24" class="cell" data-tags="[]" data-execution_count="16">
