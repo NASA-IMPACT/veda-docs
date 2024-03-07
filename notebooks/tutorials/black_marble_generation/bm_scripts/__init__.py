@@ -390,15 +390,15 @@ class LandsatUtils:
                     
                 local_path = "outputs/temp/" + dir.split('/')[-2] + "QA_PIXEL.TIF"
                 if not os.path.exists(local_path):
-                    self.download_landsat_band(dir, "QA_PIXEL", local_path)
+                    self.download_landsat_band(dir, "QA_PIXEL", local_path, ignore_qf)
                 pixel_files.append(local_path)
                 local_path = "outputs/temp/" + dir.split('/')[-2] + "QA_RADSAT.TIF"
                 if not os.path.exists(local_path):
-                    self.download_landsat_band(dir, "QA_RADSAT", local_path)
+                    self.download_landsat_band(dir, "QA_RADSAT", local_path, ignore_qf)
                 radsat_files.append(local_path)
                 local_path = "outputs/temp/" + dir.split('/')[-2] + "QA_AEROSOL.TIF"
                 if not os.path.exists(local_path):
-                    self.download_landsat_band(dir, "QA_AEROSOL", local_path)
+                    self.download_landsat_band(dir, "QA_AEROSOL", local_path, ignore_qf)
                 aerosol_files.append(local_path)
         return downloaded_files, pixel_files, radsat_files, aerosol_files
 
