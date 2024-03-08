@@ -1,0 +1,31 @@
+title: API integration
+subtitle: How to make use of our APIs in external applications
+---
+
+## WMTS and XYZ
+
+### UI for single tile layers
+
+As you can see from our [API docs](apis.qmd), our raster API provides [WMTS](https://www.ogc.org/standard/wmts/) and XYZ tiles for public consumption.
+
+For any layer you are seeing in the VEDA dataset Explorer, you can retrieve the tile URL:
+
+![VEDA Dashboard Exploration API grab](api-integration-wmts-xyz-from-exploration.png)
+
+And paste that into any client that loads these tiles, like QGIS, ArcGIS, Leaflet, even online tools such as [geojson.io](https://geojson.io) or [felt.com](https://felt.com).
+
+### STAC for layer timeseries
+
+If you want to integrate tile layer time series into your application, you will need to fetch the information about
+which time steps exist and what the layer URLs are from our Spatio Tempoeral Asset Catalog (STAC) API (see [API docs](apis.qmd)).
+
+That is because, unfortunately, neither XYZ nor WMTS have time series capabilities (unlike good old [WMS](https://www.ogc.org/standard/wms/), which our services do not provide, though).
+
+You can see how to retrieve time steps and tile layer URLs from these tutorial Python notebooks (mostly REST API calls):
+
+1. [Using /stac/tilejson.json with STAC collection and item IDs](../notebooks/datasets/ocean-npp-timeseries-analysis.qmd#visualizing-the-raster-imagery)
+2. [Creating layers from filters and mosaics (advanced)](../notebooks/quickstarts/hls-visualization.qmd)
+
+It comes down to querying for STAC items (timesteps) and then asking the Raster API for `tilejson.json` specifications for the items you are interested in.
+
+Once you retrieved the WMTS or XYZ layer URLs this way, you can use them seamlessly with all mapping clients.
