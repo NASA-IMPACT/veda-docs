@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.551">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -478,6 +478,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#staging-maintenance-will-be-announced" id="toc-staging-maintenance-will-be-announced" class="nav-link" data-scroll-target="#staging-maintenance-will-be-announced">Staging (maintenance will be announced):</a></li>
   <li><a href="#development-aka-dev-experimental-work-expected-downtime" id="toc-development-aka-dev-experimental-work-expected-downtime" class="nav-link" data-scroll-target="#development-aka-dev-experimental-work-expected-downtime">Development, aka Dev (experimental work, expected downtime)</a></li>
   </ul></li>
+  <li><a href="#using-tile-layers-in-external-services" id="toc-using-tile-layers-in-external-services" class="nav-link" data-scroll-target="#using-tile-layers-in-external-services">Using tile layers in external services</a>
+  <ul class="collapse">
+  <li><a href="#ui-for-single-tile-layers" id="toc-ui-for-single-tile-layers" class="nav-link" data-scroll-target="#ui-for-single-tile-layers">UI for single tile layers</a></li>
+  <li><a href="#stac-for-layer-timeseries" id="toc-stac-for-layer-timeseries" class="nav-link" data-scroll-target="#stac-for-layer-timeseries">STAC for layer timeseries</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/services/apis.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -530,6 +535,33 @@ ul.task-list li input[type="checkbox"] {
 <li>Raster API (tiling): <a href="https://dev.openveda.cloud/api/raster/docs">https://dev.openveda.cloud/api/raster/docs</a></li>
 <li>STAC viewer (experimental): <a href="https://dev.openveda.cloud/api/stac/index.html">https://dev.openveda.cloud/api/stac/index.html</a></li>
 </ul>
+</section>
+</section>
+<section id="using-tile-layers-in-external-services" class="level2">
+<h2 class="anchored" data-anchor-id="using-tile-layers-in-external-services">Using tile layers in external services</h2>
+<section id="ui-for-single-tile-layers" class="level3">
+<h3 class="anchored" data-anchor-id="ui-for-single-tile-layers">UI for single tile layers</h3>
+<p>As you can see from our API docs referenced above, our raster API provides <a href="https://www.ogc.org/standard/wmts/">WMTS</a> and XYZ tiles for public consumption.</p>
+<p>For any layer you are seeing in the VEDA dataset Explorer, you can retrieve the tile URL:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="api-integration-wmts-xyz-from-exploration.png" class="img-fluid figure-img"></p>
+<figcaption>VEDA Dashboard Exploration API grab</figcaption>
+</figure>
+</div>
+<p>And paste that into any client that loads these tiles, like QGIS, ArcGIS, Leaflet, even online tools such as <a href="https://geojson.io">geojson.io</a> or <a href="https://felt.com">felt.com</a>.</p>
+</section>
+<section id="stac-for-layer-timeseries" class="level3">
+<h3 class="anchored" data-anchor-id="stac-for-layer-timeseries">STAC for layer timeseries</h3>
+<p>If you want to integrate tile layer time series into your application, you will need to fetch the information about which time steps exist and what the layer URLs are from our Spatio Tempoeral Asset Catalog (STAC) API (see above).</p>
+<p>That is because, unfortunately, neither XYZ nor WMTS have time series capabilities (unlike good old <a href="https://www.ogc.org/standard/wms/">WMS</a>, which our services do not provide, though).</p>
+<p>You can see how to retrieve time steps and tile layer URLs from these tutorial Python notebooks (mostly REST API calls):</p>
+<ol type="1">
+<li><a href="../notebooks/datasets/ocean-npp-timeseries-analysis.qmd#visualizing-the-raster-imagery">Using /stac/tilejson.json with STAC collection and item IDs</a></li>
+<li><a href="../notebooks/quickstarts/hls-visualization.qmd">Creating layers from filters and mosaics (advanced)</a></li>
+</ol>
+<p>It comes down to querying for STAC items (timesteps) and then asking the Raster API for <code>tilejson.json</code> specifications for the items you are interested in.</p>
+<p>Once you retrieved the WMTS or XYZ layer URLs this way, you can use them seamlessly with all mapping clients.</p>
 
 
 </section>
@@ -759,6 +791,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/nasa-impact\.github\.io\/veda-docs");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -793,7 +843,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
