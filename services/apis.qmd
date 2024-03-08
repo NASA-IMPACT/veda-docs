@@ -30,11 +30,11 @@ Maintenance on the staging environment will be announced internally and selected
 * STAC viewer (experimental): [https://dev.openveda.cloud/api/stac/index.html](https://dev.openveda.cloud/api/stac/index.html)
 
 
-## Integration into external services
+## Using tile layers in external services
 
 ### UI for single tile layers
 
-As you can see from our [API docs](apis.qmd), our raster API provides [WMTS](https://www.ogc.org/standard/wmts/) and XYZ tiles for public consumption.
+As you can see from our API docs referenced above, our raster API provides [WMTS](https://www.ogc.org/standard/wmts/) and XYZ tiles for public consumption.
 
 For any layer you are seeing in the VEDA dataset Explorer, you can retrieve the tile URL:
 
@@ -45,7 +45,7 @@ And paste that into any client that loads these tiles, like QGIS, ArcGIS, Leafle
 ### STAC for layer timeseries
 
 If you want to integrate tile layer time series into your application, you will need to fetch the information about
-which time steps exist and what the layer URLs are from our Spatio Tempoeral Asset Catalog (STAC) API (see [API docs](apis.qmd)).
+which time steps exist and what the layer URLs are from our Spatio Tempoeral Asset Catalog (STAC) API (see above).
 
 That is because, unfortunately, neither XYZ nor WMTS have time series capabilities (unlike good old [WMS](https://www.ogc.org/standard/wms/), which our services do not provide, though).
 
