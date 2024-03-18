@@ -5,11 +5,7 @@ Learn more about this project [https://www.earthdata.nasa.gov/esds/veda](https:/
 
 ## Contributing
 
-This site is rendered using [Quarto](https://quarto.org/), which comes with various developer/contributor resources.
-
-The gist: download the package from their [Get Started](https://quarto.org/docs/get-started/) page and `quarto build` locally to preview your changes
-and open a Pull Request on this repository.
-
+For info on contributing documentation to VEDA see: https://nasa-impact.github.io/veda-docs/contributing/
 
 ## License
 

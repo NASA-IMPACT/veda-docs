@@ -40,7 +40,15 @@ execute:
 ---
 ```
 
-We store evaluted notebooks in this repository. So before you commit your notebook, you should restart your kernel and run all cells in order.
+### Running notebooks
+
+We store evaluated notebooks in this repository. So before you commit your notebook, you should restart your kernel and run all cells in order.
+
+Normally we run the notebooks on [VEDA JupyterHub](https://hub.openveda.cloud).
+
+To run the notebooks with a new image, use the JupyterHub image selection interface and under "Custom Image" type in the address to the public ecr image with the full tag sha. 
+
+Something like: public.ecr.aws/nasa-veda/pangeo-notebook:60b023fba2ca5f9e19d285c245987e368e27c0ea626b65777b204cec14b697c7
 
 
 ### Standard sections
@@ -49,7 +57,7 @@ To give the notebooks a standard look and feel we typically include the followin
 
 - **Run this Notebook**: The section explains how to run the notebook locally, on VEDA JupyterHub or on [mybinder](https://mybinder.org/). There are several examples of what this section can look like in the template notebooks.
 - **Approach**: List a few steps that outline the approach you be taking in this notebook.
-- **About the data**: Optional description of the datatset
+- **About the data**: Optional description of the dataset
 - **Declare your collection of interest**: This section reiterates how you can discover which collections are available. You can copy the example of this section from one of the template notebooks.
 
 From then on the standard sections diverge depending on whether the notebook access the data directly or uses the raster API. Check the template notebooks for some ideas of common patterns.
@@ -57,10 +65,10 @@ From then on the standard sections diverge depending on whether the notebook acc
 
 ### Using complex geometries
 
-If you are defining the AOI using a bounding box, you can include it in the text of the notebook, but for more complex geometries we prefer that the notebook access the geometry directly from a canonical source. You can check the template notebooks for exmples of this. If the complex geometry is not available online the VEDA team can help get it up in a public s3 bucket.
+If you are defining the AOI using a bounding box, you can include it in the text of the notebook, but for more complex geometries we prefer that the notebook access the geometry directly from a canonical source. You can check the template notebooks for examples of this. If the complex geometry is not available online the VEDA team can help get it up in a public s3 bucket.
 
 
-### Recommended librarires
+### Recommended libraries
 
 #### Mapping + Visualization
 
@@ -71,7 +79,7 @@ If you are defining the AOI using a bounding box, you can include it in the text
 
 #### Using STAC for cataloging data
 
-To present consistent best practices, we always access data via the STAC API. Often we use `stackstac` for this.
+To present consistent best practices, we always access data via the STAC API.
 
 * [pystac](https://pystac.readthedocs.io/): PySTAC is a library for creating SpatioTemporal Asset Catalogs (STAC) in Python 3.
 * [pystac-client](https://github.com/stac-utils/pystac-client): A Python client for working with STAC Catalogs and APIs.
