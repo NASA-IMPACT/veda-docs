@@ -476,9 +476,10 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#style" id="toc-style" class="nav-link" data-scroll-target="#style">Style</a></li>
   <li><a href="#rendering-information" id="toc-rendering-information" class="nav-link" data-scroll-target="#rendering-information">Rendering information</a></li>
+  <li><a href="#running-notebooks" id="toc-running-notebooks" class="nav-link" data-scroll-target="#running-notebooks">Running notebooks</a></li>
   <li><a href="#standard-sections" id="toc-standard-sections" class="nav-link" data-scroll-target="#standard-sections">Standard sections</a></li>
   <li><a href="#using-complex-geometries" id="toc-using-complex-geometries" class="nav-link" data-scroll-target="#using-complex-geometries">Using complex geometries</a></li>
-  <li><a href="#recommended-librarires" id="toc-recommended-librarires" class="nav-link" data-scroll-target="#recommended-librarires">Recommended librarires</a></li>
+  <li><a href="#recommended-libraries" id="toc-recommended-libraries" class="nav-link" data-scroll-target="#recommended-libraries">Recommended libraries</a></li>
   <li><a href="#generate-launch-in-veda-jupyterhub-link" id="toc-generate-launch-in-veda-jupyterhub-link" class="nav-link" data-scroll-target="#generate-launch-in-veda-jupyterhub-link">Generate “Launch in VEDA JupyterHub” link</a></li>
   </ul></li>
   </ul>
@@ -534,7 +535,13 @@ date: May 2, 2023
 execute:
   freeze: true
 ---</code></pre>
-<p>We store evaluted notebooks in this repository. So before you commit your notebook, you should restart your kernel and run all cells in order.</p>
+</section>
+<section id="running-notebooks" class="level3">
+<h3 class="anchored" data-anchor-id="running-notebooks">Running notebooks</h3>
+<p>We store evaluated notebooks in this repository. So before you commit your notebook, you should restart your kernel and run all cells in order.</p>
+<p>Normally we run the notebooks on <a href="https://hub.openveda.cloud">VEDA JupyterHub</a>.</p>
+<p>To run the notebooks with a new image, use the JupyterHub image selection interface and under “Custom Image” type in the address to the public ecr image with the full tag sha.</p>
+<p>Something like: public.ecr.aws/nasa-veda/pangeo-notebook:60b023fba2ca5f9e19d285c245987e368e27c0ea626b65777b204cec14b697c7</p>
 </section>
 <section id="standard-sections" class="level3">
 <h3 class="anchored" data-anchor-id="standard-sections">Standard sections</h3>
@@ -542,17 +549,17 @@ execute:
 <ul>
 <li><strong>Run this Notebook</strong>: The section explains how to run the notebook locally, on VEDA JupyterHub or on <a href="https://mybinder.org/">mybinder</a>. There are several examples of what this section can look like in the template notebooks.</li>
 <li><strong>Approach</strong>: List a few steps that outline the approach you be taking in this notebook.</li>
-<li><strong>About the data</strong>: Optional description of the datatset</li>
+<li><strong>About the data</strong>: Optional description of the dataset</li>
 <li><strong>Declare your collection of interest</strong>: This section reiterates how you can discover which collections are available. You can copy the example of this section from one of the template notebooks.</li>
 </ul>
 <p>From then on the standard sections diverge depending on whether the notebook access the data directly or uses the raster API. Check the template notebooks for some ideas of common patterns.</p>
 </section>
 <section id="using-complex-geometries" class="level3">
 <h3 class="anchored" data-anchor-id="using-complex-geometries">Using complex geometries</h3>
-<p>If you are defining the AOI using a bounding box, you can include it in the text of the notebook, but for more complex geometries we prefer that the notebook access the geometry directly from a canonical source. You can check the template notebooks for exmples of this. If the complex geometry is not available online the VEDA team can help get it up in a public s3 bucket.</p>
+<p>If you are defining the AOI using a bounding box, you can include it in the text of the notebook, but for more complex geometries we prefer that the notebook access the geometry directly from a canonical source. You can check the template notebooks for examples of this. If the complex geometry is not available online the VEDA team can help get it up in a public s3 bucket.</p>
 </section>
-<section id="recommended-librarires" class="level3">
-<h3 class="anchored" data-anchor-id="recommended-librarires">Recommended librarires</h3>
+<section id="recommended-libraries" class="level3">
+<h3 class="anchored" data-anchor-id="recommended-libraries">Recommended libraries</h3>
 <section id="mapping-visualization" class="level4">
 <h4 class="anchored" data-anchor-id="mapping-visualization">Mapping + Visualization</h4>
 <ul>
@@ -563,7 +570,7 @@ execute:
 </section>
 <section id="using-stac-for-cataloging-data" class="level4">
 <h4 class="anchored" data-anchor-id="using-stac-for-cataloging-data">Using STAC for cataloging data</h4>
-<p>To present consistent best practices, we always access data via the STAC API. Often we use <code>stackstac</code> for this.</p>
+<p>To present consistent best practices, we always access data via the STAC API.</p>
 <ul>
 <li><a href="https://pystac.readthedocs.io/">pystac</a>: PySTAC is a library for creating SpatioTemporal Asset Catalogs (STAC) in Python 3.</li>
 <li><a href="https://github.com/stac-utils/pystac-client">pystac-client</a>: A Python client for working with STAC Catalogs and APIs.</li>
