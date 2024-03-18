@@ -641,15 +641,31 @@ Learn more
 <style>
 .pystac-summary {
     cursor: pointer;
-    display:list-item;
+    display: list-item;
+    list-style: revert;
+    margin-bottom: 0 !important;
+
+    .pystac-l {
+        padding-left: 0.5em;
+        color: rgb(64, 128, 128);
+        font-style: italic;
+    }
 }
-.pystac-key {
+.pystac-row {
+    overflow-wrap: break-word;
+    padding-left: .825em;
+
+    .pystac-k {
+        display: inline-block;
+        margin: 0px 0.5em 0px 0px;
+    }
+    .pystac-v {
+        color: rgb(186, 33, 33);
+    }
+}
+.pystac-k {
     color: rgb(0, 128, 0);
     font-weight: 700;
-}
-.pystac-key-value {
-    display: inline-block;
-    margin: 0px 0.5em 0px 0px;
 }
 </style>
 <div class="jp-RenderedJSON jp-mod-trusted jp-OutputArea-output">
@@ -658,51 +674,48 @@ Learn more
             
                 
                     
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">type</span>
-            <span style="color: rgb(186, 33, 33);">"FeatureCollection"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"FeatureCollection"</span>
         </li>
     
                 
             
                 
                     <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">features</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 1 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">features</span><span class="pystac-l">[] 1 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-key">0</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">0</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">type</span>
-            <span style="color: rgb(186, 33, 33);">"Feature"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"Feature"</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">stac_version</span>
-            <span style="color: rgb(186, 33, 33);">"1.0.0"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">stac_version</span>
+            <span class="pystac-v">"1.0.0"</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">id</span>
-            <span style="color: rgb(186, 33, 33);">"bs_to_save"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">id</span>
+            <span class="pystac-v">"bs_to_save"</span>
         </li>
     
             
@@ -710,23 +723,20 @@ Learn more
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-key">properties</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">properties</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">proj:bbox</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 4 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">proj:bbox</span><span class="pystac-l">[] 4 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">707933.4475195253</span>
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">707933.4475195253</span>
         </li>
     
             
@@ -737,9 +747,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">4271224.262587059</span>
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">4271224.262587059</span>
         </li>
     
             
@@ -750,9 +760,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">2</span>
-            <span style="color: rgb(186, 33, 33);">767213.4475195253</span>
+        <li class="pystac-row">
+            <span class="pystac-k">2</span>
+            <span class="pystac-v">767213.4475195253</span>
         </li>
     
             
@@ -763,9 +773,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">3</span>
-            <span style="color: rgb(186, 33, 33);">4309054.262587059</span>
+        <li class="pystac-row">
+            <span class="pystac-k">3</span>
+            <span class="pystac-v">4309054.262587059</span>
         </li>
     
             
@@ -777,27 +787,24 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">proj:epsg</span>
-            <span style="color: rgb(186, 33, 33);">26910.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">proj:epsg</span>
+            <span class="pystac-v">26910.0</span>
         </li>
     
             
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">proj:shape</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 2 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">proj:shape</span><span class="pystac-l">[] 2 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">1261.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">1261.0</span>
         </li>
     
             
@@ -808,9 +815,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">1976.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">1976.0</span>
         </li>
     
             
@@ -822,9 +829,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">end_datetime</span>
-            <span style="color: rgb(186, 33, 33);">"2021-10-21T12:00:00+00:00"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">end_datetime</span>
+            <span class="pystac-v">"2021-10-21T12:00:00+00:00"</span>
         </li>
     
             
@@ -832,50 +839,41 @@ Learn more
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-key">proj:geometry</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">proj:geometry</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">type</span>
-            <span style="color: rgb(186, 33, 33);">"Polygon"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"Polygon"</span>
         </li>
     
             
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">coordinates</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 1 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">coordinates</span><span class="pystac-l">[] 1 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">0</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 5 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">0</span><span class="pystac-l">[] 5 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">0</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 2 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">0</span><span class="pystac-l">[] 2 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">707933.4475195253</span>
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">707933.4475195253</span>
         </li>
     
             
@@ -886,9 +884,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">4271224.262587059</span>
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">4271224.262587059</span>
         </li>
     
             
@@ -904,18 +902,15 @@ Learn more
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">1</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 2 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">1</span><span class="pystac-l">[] 2 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">767213.4475195253</span>
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">767213.4475195253</span>
         </li>
     
             
@@ -926,49 +921,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">4271224.262587059</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-    </details></li>
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">2</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 2 items</span>
-        </summary>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">767213.4475195253</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">4309054.262587059</span>
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">4271224.262587059</span>
         </li>
     
             
@@ -984,18 +939,15 @@ Learn more
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">3</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 2 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">2</span><span class="pystac-l">[] 2 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">707933.4475195253</span>
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">767213.4475195253</span>
         </li>
     
             
@@ -1006,9 +958,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">4309054.262587059</span>
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">4309054.262587059</span>
         </li>
     
             
@@ -1024,18 +976,15 @@ Learn more
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">4</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 2 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">3</span><span class="pystac-l">[] 2 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">707933.4475195253</span>
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">707933.4475195253</span>
         </li>
     
             
@@ -1046,9 +995,46 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">4271224.262587059</span>
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">4309054.262587059</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">4</span><span class="pystac-l">[] 2 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">707933.4475195253</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">4271224.262587059</span>
         </li>
     
             
@@ -1075,18 +1061,15 @@ Learn more
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">proj:transform</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 9 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">proj:transform</span><span class="pystac-l">[] 9 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">30.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">30.0</span>
         </li>
     
             
@@ -1097,9 +1080,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">0.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">0.0</span>
         </li>
     
             
@@ -1110,9 +1093,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">2</span>
-            <span style="color: rgb(186, 33, 33);">707933.4475195253</span>
+        <li class="pystac-row">
+            <span class="pystac-k">2</span>
+            <span class="pystac-v">707933.4475195253</span>
         </li>
     
             
@@ -1123,9 +1106,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">3</span>
-            <span style="color: rgb(186, 33, 33);">0.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">3</span>
+            <span class="pystac-v">0.0</span>
         </li>
     
             
@@ -1136,9 +1119,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">4</span>
-            <span style="color: rgb(186, 33, 33);">-30.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">4</span>
+            <span class="pystac-v">-30.0</span>
         </li>
     
             
@@ -1149,9 +1132,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">5</span>
-            <span style="color: rgb(186, 33, 33);">4309054.262587059</span>
+        <li class="pystac-row">
+            <span class="pystac-k">5</span>
+            <span class="pystac-v">4309054.262587059</span>
         </li>
     
             
@@ -1162,9 +1145,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">6</span>
-            <span style="color: rgb(186, 33, 33);">0.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">6</span>
+            <span class="pystac-v">0.0</span>
         </li>
     
             
@@ -1175,9 +1158,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">7</span>
-            <span style="color: rgb(186, 33, 33);">0.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">7</span>
+            <span class="pystac-v">0.0</span>
         </li>
     
             
@@ -1188,9 +1171,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">8</span>
-            <span style="color: rgb(186, 33, 33);">1.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">8</span>
+            <span class="pystac-v">1.0</span>
         </li>
     
             
@@ -1202,18 +1185,18 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">start_datetime</span>
-            <span style="color: rgb(186, 33, 33);">"2021-08-15T00:00:00+00:00"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">start_datetime</span>
+            <span class="pystac-v">"2021-08-15T00:00:00+00:00"</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">datetime</span>
-            <span style="color: rgb(186, 33, 33);">None</span>
+        <li class="pystac-row">
+            <span class="pystac-k">datetime</span>
+            <span class="pystac-v">None</span>
         </li>
     
             
@@ -1226,50 +1209,41 @@ Learn more
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-key">geometry</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">geometry</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">type</span>
-            <span style="color: rgb(186, 33, 33);">"Polygon"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"Polygon"</span>
         </li>
     
             
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">coordinates</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 1 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">coordinates</span><span class="pystac-l">[] 1 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">0</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 5 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">0</span><span class="pystac-l">[] 5 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">0</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 2 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">0</span><span class="pystac-l">[] 2 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">-120.61338752166166</span>
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">-120.61338752166166</span>
         </li>
     
             
@@ -1280,9 +1254,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">38.56515924781838</span>
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">38.56515924781838</span>
         </li>
     
             
@@ -1298,18 +1272,15 @@ Learn more
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">1</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 2 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">1</span><span class="pystac-l">[] 2 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">-119.93378864679858</span>
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">-119.93378864679858</span>
         </li>
     
             
@@ -1320,49 +1291,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">38.549319926107025</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-    </details></li>
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">2</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 2 items</span>
-        </summary>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">-119.91919400099995</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">38.88974438210656</span>
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">38.549319926107025</span>
         </li>
     
             
@@ -1378,18 +1309,15 @@ Learn more
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">3</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 2 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">2</span><span class="pystac-l">[] 2 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">-120.60201903270269</span>
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">-119.91919400099995</span>
         </li>
     
             
@@ -1400,9 +1328,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">38.90577651328637</span>
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">38.88974438210656</span>
         </li>
     
             
@@ -1418,18 +1346,15 @@ Learn more
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">4</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 2 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">3</span><span class="pystac-l">[] 2 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">-120.61338752166166</span>
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">-120.60201903270269</span>
         </li>
     
             
@@ -1440,9 +1365,46 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">38.56515924781838</span>
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">38.90577651328637</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">4</span><span class="pystac-l">[] 2 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">-120.61338752166166</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">38.56515924781838</span>
         </li>
     
             
@@ -1469,10 +1431,142 @@ Learn more
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">links</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 0 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">links</span><span class="pystac-l">[] 3 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">0</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"collection"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://staging-stac.delta-backend.com/collections/caldor-fire-burn-severity"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">1</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"parent"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://staging-stac.delta-backend.com/collections/caldor-fire-burn-severity"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">2</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"root"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://staging-stac.delta-backend.com/"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"veda-stac"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
         
     </details></li>
             
@@ -1480,107 +1574,104 @@ Learn more
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-key">assets</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">assets</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-key">cog_default</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">cog_default</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">href</span>
-            <span style="color: rgb(186, 33, 33);">"/home/jovyan/veda-docs/notebooks/quickstarts/data/bs_to_save/bs_to_save.tif"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"/home/jovyan/veda-docs/notebooks/quickstarts/data/bs_to_save/bs_to_save.tif"</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">type</span>
-            <span style="color: rgb(186, 33, 33);">"image/tiff; application=geotiff; profile=cloud-optimized"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"image/tiff; application=geotiff; profile=cloud-optimized"</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">title</span>
-            <span style="color: rgb(186, 33, 33);">"Default COG Layer"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Default COG Layer"</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">description</span>
-            <span style="color: rgb(186, 33, 33);">"Cloud optimized default layer to display on map"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">description</span>
+            <span class="pystac-v">"Cloud optimized default layer to display on map"</span>
         </li>
     
             
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">raster:bands</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 1 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">raster:bands</span><span class="pystac-l">[] 1 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-key">0</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">0</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">scale</span>
-            <span style="color: rgb(186, 33, 33);">1.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">scale</span>
+            <span class="pystac-v">1.0</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">nodata</span>
-            <span style="color: rgb(186, 33, 33);">255.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">nodata</span>
+            <span class="pystac-v">255.0</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">offset</span>
-            <span style="color: rgb(186, 33, 33);">0.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">offset</span>
+            <span class="pystac-v">0.0</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">sampling</span>
-            <span style="color: rgb(186, 33, 33);">"area"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">sampling</span>
+            <span class="pystac-v">"area"</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">data_type</span>
-            <span style="color: rgb(186, 33, 33);">"float64"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">data_type</span>
+            <span class="pystac-v">"float64"</span>
         </li>
     
             
@@ -1588,50 +1679,47 @@ Learn more
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-key">histogram</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">histogram</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">max</span>
-            <span style="color: rgb(186, 33, 33);">4.209886074066162</span>
+        <li class="pystac-row">
+            <span class="pystac-k">max</span>
+            <span class="pystac-v">4.209886074066162</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">min</span>
-            <span style="color: rgb(186, 33, 33);">0.8347156643867493</span>
+        <li class="pystac-row">
+            <span class="pystac-k">min</span>
+            <span class="pystac-v">0.8347156643867493</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">count</span>
-            <span style="color: rgb(186, 33, 33);">11.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">count</span>
+            <span class="pystac-v">11.0</span>
         </li>
     
             
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">buckets</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 10 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">buckets</span><span class="pystac-l">[] 10 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">3869.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">3869.0</span>
         </li>
     
             
@@ -1642,9 +1730,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">5601.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">5601.0</span>
         </li>
     
             
@@ -1655,9 +1743,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">2</span>
-            <span style="color: rgb(186, 33, 33);">13118.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">2</span>
+            <span class="pystac-v">13118.0</span>
         </li>
     
             
@@ -1668,9 +1756,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">3</span>
-            <span style="color: rgb(186, 33, 33);">64022.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">3</span>
+            <span class="pystac-v">64022.0</span>
         </li>
     
             
@@ -1681,9 +1769,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">4</span>
-            <span style="color: rgb(186, 33, 33);">25216.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">4</span>
+            <span class="pystac-v">25216.0</span>
         </li>
     
             
@@ -1694,9 +1782,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">5</span>
-            <span style="color: rgb(186, 33, 33);">23602.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">5</span>
+            <span class="pystac-v">23602.0</span>
         </li>
     
             
@@ -1707,9 +1795,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">6</span>
-            <span style="color: rgb(186, 33, 33);">65527.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">6</span>
+            <span class="pystac-v">65527.0</span>
         </li>
     
             
@@ -1720,9 +1808,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">7</span>
-            <span style="color: rgb(186, 33, 33);">15846.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">7</span>
+            <span class="pystac-v">15846.0</span>
         </li>
     
             
@@ -1733,9 +1821,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">8</span>
-            <span style="color: rgb(186, 33, 33);">12513.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">8</span>
+            <span class="pystac-v">12513.0</span>
         </li>
     
             
@@ -1746,9 +1834,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">9</span>
-            <span style="color: rgb(186, 33, 33);">19199.0</span>
+        <li class="pystac-row">
+            <span class="pystac-k">9</span>
+            <span class="pystac-v">19199.0</span>
         </li>
     
             
@@ -1766,50 +1854,50 @@ Learn more
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-key">statistics</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">statistics</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">mean</span>
-            <span style="color: rgb(186, 33, 33);">2.651540032771221</span>
+        <li class="pystac-row">
+            <span class="pystac-k">mean</span>
+            <span class="pystac-v">2.651540032771221</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">stddev</span>
-            <span style="color: rgb(186, 33, 33);">0.7138142662108937</span>
+        <li class="pystac-row">
+            <span class="pystac-k">stddev</span>
+            <span class="pystac-v">0.7138142662108937</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">maximum</span>
-            <span style="color: rgb(186, 33, 33);">4.209886074066162</span>
+        <li class="pystac-row">
+            <span class="pystac-k">maximum</span>
+            <span class="pystac-v">4.209886074066162</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">minimum</span>
-            <span style="color: rgb(186, 33, 33);">0.8347156643867493</span>
+        <li class="pystac-row">
+            <span class="pystac-k">minimum</span>
+            <span class="pystac-v">0.8347156643867493</span>
         </li>
     
             
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">valid_percent</span>
-            <span style="color: rgb(186, 33, 33);">37.10832974961774</span>
+        <li class="pystac-row">
+            <span class="pystac-k">valid_percent</span>
+            <span class="pystac-v">37.10832974961774</span>
         </li>
     
             
@@ -1831,18 +1919,15 @@ Learn more
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">roles</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 2 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">roles</span><span class="pystac-l">[] 2 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">"data"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">"data"</span>
         </li>
     
             
@@ -1853,9 +1938,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">"layer"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">"layer"</span>
         </li>
     
             
@@ -1877,18 +1962,15 @@ Learn more
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">bbox</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 4 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">bbox</span><span class="pystac-l">[] 4 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">-120.61338752166166</span>
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">-120.61338752166166</span>
         </li>
     
             
@@ -1899,9 +1981,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">38.549319926107025</span>
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">38.549319926107025</span>
         </li>
     
             
@@ -1912,9 +1994,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">2</span>
-            <span style="color: rgb(186, 33, 33);">-119.91919400099995</span>
+        <li class="pystac-row">
+            <span class="pystac-k">2</span>
+            <span class="pystac-v">-119.91919400099995</span>
         </li>
     
             
@@ -1925,9 +2007,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">3</span>
-            <span style="color: rgb(186, 33, 33);">38.90577651328637</span>
+        <li class="pystac-row">
+            <span class="pystac-k">3</span>
+            <span class="pystac-v">38.90577651328637</span>
         </li>
     
             
@@ -1939,18 +2021,15 @@ Learn more
         
             
                 <li><details>
-        <summary class="pystac-summary">
-            <span class="pystac-key">stac_extensions</span>
-            <span style="padding-left: 0.5em; color: rgb(64, 128, 128); font-style: italic;">[] 2 items</span>
-        </summary>
+        <summary class="pystac-summary"><span class="pystac-k">stac_extensions</span><span class="pystac-l">[] 2 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">0</span>
-            <span style="color: rgb(186, 33, 33);">"https://stac-extensions.github.io/projection/v1.0.0/schema.json"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">"https://stac-extensions.github.io/projection/v1.0.0/schema.json"</span>
         </li>
     
             
@@ -1961,9 +2040,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">1</span>
-            <span style="color: rgb(186, 33, 33);">"https://stac-extensions.github.io/raster/v1.1.0/schema.json"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">"https://stac-extensions.github.io/raster/v1.1.0/schema.json"</span>
         </li>
     
             
@@ -1975,9 +2054,9 @@ Learn more
         
             
                 
-        <li style="overflow-wrap: break-word; padding-left: 2.125em; text-indent: -0.5em;">
-            <span class="pystac-key pystac-key-value">collection</span>
-            <span style="color: rgb(186, 33, 33);">"caldor-fire-burn-severity"</span>
+        <li class="pystac-row">
+            <span class="pystac-k">collection</span>
+            <span class="pystac-v">"caldor-fire-burn-severity"</span>
         </li>
     
             
@@ -2006,11 +2085,9 @@ Learn more
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span><span class="bu">zip</span> <span class="op">-</span>r data.<span class="bu">zip</span> data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>updating: data/ (stored 0%)
-updating: data/item-collection.json (deflated 72%)
+updating: data/item-collection.json (deflated 74%)
 updating: data/bs_to_save/ (stored 0%)
-updating: data/bs_to_save/bs_to_save.tif (deflated 16%)
-  adding: data/.ipynb_checkpoints/ (stored 0%)
-  adding: data/.ipynb_checkpoints/item-collection-checkpoint.json (deflated 72%)</code></pre>
+updating: data/bs_to_save/bs_to_save.tif (deflated 16%)</code></pre>
 </div>
 </div>
 <p>Then right click on the the zipped file in the Jupyter file browser and select “Download”</p>
