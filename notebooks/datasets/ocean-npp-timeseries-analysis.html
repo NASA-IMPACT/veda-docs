@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.551">
+<meta name="generator" content="quarto-1.4.552">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -626,9 +626,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
      -90.00000508655744,
      180.0000050868518,
      89.9999974571629]]},
-  'temporal': {'interval': [['2020-01-01 00:00:00+00',
-     '2020-12-31 00:00:00+00']]}},
+  'temporal': {'interval': [['2020-01-01T00:00:00+00:00',
+     '2020-12-31T00:00:00+00:00']]}},
  'license': 'MIT',
+ 'renders': {'dashboard': {'title': 'VEDA Dashboard Render Parameters',
+   'assets': ['cog_default'],
+   'rescale': [[0, 1500]],
+   'colormap_name': 'jet'}},
+ 'providers': [{'url': 'https://www.earthdata.nasa.gov/dashboard/',
+   'name': 'NASA VEDA',
+   'roles': ['host']}],
  'summaries': {'datetime': ['2020-01-01T00:00:00Z', '2020-12-01T00:00:00Z'],
   'cog_default': {'max': 34561.35546875, 'min': 14.516647338867188}},
  'description': 'Ocean Net Primary Production (NPP): https://oceancolor.gsfc.nasa.gov/atbd/npp/',
@@ -637,7 +644,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    'title': 'Default COG Layer',
    'description': 'Cloud optimized default layer to display on map'}},
  'stac_version': '1.0.0',
- 'stac_extensions': [],
+ 'stac_extensions': ['https://stac-extensions.github.io/render/v1.0.0/schema.json',
+  'https://stac-extensions.github.io/item-assets/v1.0.0/schema.json'],
  'dashboard:is_periodic': True,
  'dashboard:time_density': 'month'}</code></pre>
 </div>
@@ -710,7 +718,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
     <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
-    <script src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;></script>
+    <script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;></script>
     <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
     <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
@@ -723,7 +731,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_3b3c95d636bac6203c6f91b92c37c4e5 {
+                #map_83d6a2049dd223ea40ef4ec8ece0348e {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -737,14 +745,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_3b3c95d636bac6203c6f91b92c37c4e5&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_83d6a2049dd223ea40ef4ec8ece0348e&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_3b3c95d636bac6203c6f91b92c37c4e5 = L.map(
-                &quot;map_3b3c95d636bac6203c6f91b92c37c4e5&quot;,
+            var map_83d6a2049dd223ea40ef4ec8ece0348e = L.map(
+                &quot;map_83d6a2049dd223ea40ef4ec8ece0348e&quot;,
                 {
                     center: [-22.42146, 14.268801],
                     crs: L.CRS.EPSG3857,
@@ -758,29 +766,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_8e0c1ad509ab7bd83651d46f9ecb4b15 = L.tileLayer(
-                &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_3b3c95d636bac6203c6f91b92c37c4e5);
+            var tile_layer_882b134f65a03a111791cbda5e1e6aa5 = L.tileLayer(
+                &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
+                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            );
+        
+    
+            tile_layer_882b134f65a03a111791cbda5e1e6aa5.addTo(map_83d6a2049dd223ea40ef4ec8ece0348e);
         
     
 
-        function geo_json_a1368500c367accf9da7a054d240b1fb_onEachFeature(feature, layer) {
+        function geo_json_e5877b636069d3c23ef207b3999daf74_onEachFeature(feature, layer) {
             layer.on({
             });
         };
-        var geo_json_a1368500c367accf9da7a054d240b1fb = L.geoJson(null, {
-                onEachFeature: geo_json_a1368500c367accf9da7a054d240b1fb_onEachFeature,
+        var geo_json_e5877b636069d3c23ef207b3999daf74 = L.geoJson(null, {
+                onEachFeature: geo_json_e5877b636069d3c23ef207b3999daf74_onEachFeature,
             
         });
 
-        function geo_json_a1368500c367accf9da7a054d240b1fb_add (data) {
-            geo_json_a1368500c367accf9da7a054d240b1fb
-                .addData(data)
-                .addTo(map_3b3c95d636bac6203c6f91b92c37c4e5);
+        function geo_json_e5877b636069d3c23ef207b3999daf74_add (data) {
+            geo_json_e5877b636069d3c23ef207b3999daf74
+                .addData(data);
         }
-            geo_json_a1368500c367accf9da7a054d240b1fb_add({&quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.686159004559698, -21.700046934333145], [13.686159004559698, -23.241974326585833], [14.753560168039911, -23.241974326585833], [14.753560168039911, -21.700046934333145], [13.686159004559698, -21.700046934333145]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;properties&quot;: {}, &quot;type&quot;: &quot;Feature&quot;});
+            geo_json_e5877b636069d3c23ef207b3999daf74_add({&quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.686159004559698, -21.700046934333145], [13.686159004559698, -23.241974326585833], [14.753560168039911, -23.241974326585833], [14.753560168039911, -21.700046934333145], [13.686159004559698, -21.700046934333145]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;properties&quot;: {}, &quot;type&quot;: &quot;Feature&quot;});
 
+        
+    
+            geo_json_e5877b636069d3c23ef207b3999daf74.addTo(map_83d6a2049dd223ea40ef4ec8ece0348e);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -819,7 +832,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    'href': 'https://staging-stac.delta-backend.com/'},
   {'rel': 'self',
    'type': 'application/geo+json',
-   'href': 'https://staging-stac.delta-backend.com/collections/MO_NPP_npp_vgpm/items/A_202012.L3m_MO_NPP_npp_vgpm_4km'}],
+   'href': 'https://staging-stac.delta-backend.com/collections/MO_NPP_npp_vgpm/items/A_202012.L3m_MO_NPP_npp_vgpm_4km'},
+  {'title': 'Map of Item',
+   'href': 'https://3hwvk17uek.execute-api.us-west-2.amazonaws.com/stac/map?collection=MO_NPP_npp_vgpm&amp;item=A_202012.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;rescale=0%2C1500&amp;colormap_name=jet',
+   'rel': 'preview',
+   'type': 'text/html'}],
  'assets': {'cog_default': {'href': 's3://veda-data-store-staging/MO_NPP_npp_vgpm/A_202012.L3m_MO_NPP_npp_vgpm_4km.tif',
    'type': 'image/tiff; application=geotiff; profile=cloud-optimized',
    'roles': ['data', 'layer'],
@@ -847,7 +864,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       'stddev': 450.1186820854004,
       'maximum': 18305.302734375,
       'minimum': 20.69771957397461,
-      'valid_percent': 43.29719543457031}}]}},
+      'valid_percent': 43.29719543457031}}]},
+  'rendered_preview': {'title': 'Rendered preview',
+   'href': 'https://3hwvk17uek.execute-api.us-west-2.amazonaws.com/stac/preview.png?collection=MO_NPP_npp_vgpm&amp;item=A_202012.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;rescale=0%2C1500&amp;colormap_name=jet',
+   'rel': 'preview',
+   'roles': ['overview'],
+   'type': 'image/png'}},
  'geometry': {'type': 'Polygon',
   'coordinates': [[[-180.0000050868518, -90.00000508655744],
     [180.0000050868518, -90.00000508655744],
@@ -884,25 +906,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Now that we have explored the collection metadata by querying the STAC API, we can use the RASTER API to access the data itself.</p>
+<p>NOTE: The RASTER_API expects AOI as a <code>Feature</code> or a <code>FeatureCollection</code>. The datatype of the input matches the datatype of the output. So if you use a <code>FeatureCollection</code> as input, you will get back a <code>FeatureCollection</code>.</p>
 <div id="cell-20" class="cell" data-tags="[]" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the bounding box should be passed to the geojson param as a geojson Feature or FeatureCollection</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_stats(item, geojson):</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> requests.post(</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/cog/statistics"</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        params<span class="op">=</span>{<span class="st">"url"</span>: item[<span class="st">"assets"</span>][<span class="st">"cog_default"</span>][<span class="st">"href"</span>]},</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        json<span class="op">=</span>geojson,</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    ).json()</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">**</span>result[<span class="st">"properties"</span>],</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"start_datetime"</span>: item[<span class="st">"properties"</span>][<span class="st">"start_datetime"</span>],</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_stats(item, aoi):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">""" Generate statistics for a particular item and AOI</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span><span class="al">NOTE</span><span class="co">: This function assumes that the AOI is a geojson `Feature`.</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> requests.post(</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/cog/statistics"</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        params<span class="op">=</span>{<span class="st">"url"</span>: item[<span class="st">"assets"</span>][<span class="st">"cog_default"</span>][<span class="st">"href"</span>]},</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        json<span class="op">=</span>aoi,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    ).json()</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">**</span>result[<span class="st">"properties"</span>],</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"start_datetime"</span>: item[<span class="st">"properties"</span>][<span class="st">"start_datetime"</span>],</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-21" class="cell" data-tags="[]" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> [generate_stats(item, walvis_bay_aoi) <span class="cf">for</span> item <span class="kw">in</span> items]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 210 ms, sys: 7.79 ms, total: 218 ms
-Wall time: 4.71 s</code></pre>
+<pre><code>CPU times: user 153 ms, sys: 13.9 ms, total: 167 ms
+Wall time: 9.62 s</code></pre>
 </div>
 </div>
 <p>With the function provided above, we can generate statistics for our AOI. In the example below, we’ll explore sample statistics available from one of the tiles.</p>
@@ -1080,7 +1107,7 @@ Wall time: 4.71 s</code></pre>
     <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
     <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
-    <script src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;></script>
+    <script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;></script>
     <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
     <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
@@ -1093,7 +1120,7 @@ Wall time: 4.71 s</code></pre>
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_db299edc604d10a1c78d7e25edee2b84 {
+                #map_c3d6dd843a646e5596f0bcf4460842d1 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1107,14 +1134,14 @@ Wall time: 4.71 s</code></pre>
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_db299edc604d10a1c78d7e25edee2b84&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_c3d6dd843a646e5596f0bcf4460842d1&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_db299edc604d10a1c78d7e25edee2b84 = L.map(
-                &quot;map_db299edc604d10a1c78d7e25edee2b84&quot;,
+            var map_c3d6dd843a646e5596f0bcf4460842d1 = L.map(
+                &quot;map_c3d6dd843a646e5596f0bcf4460842d1&quot;,
                 {
                     center: [-22.42146, 14.268801],
                     crs: L.CRS.EPSG3857,
@@ -1128,16 +1155,22 @@ Wall time: 4.71 s</code></pre>
 
         
     
-            var tile_layer_09aa193cf1b184b31d3ee33ae547ddae = L.tileLayer(
-                &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_db299edc604d10a1c78d7e25edee2b84);
+            var tile_layer_3b859ad6b6769bab7dbe593a6c5ab9b6 = L.tileLayer(
+                &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
+                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            );
         
     
-            var tile_layer_17de38b3d75630e999de2a818f1e56dd = L.tileLayer(
+            tile_layer_3b859ad6b6769bab7dbe593a6c5ab9b6.addTo(map_c3d6dd843a646e5596f0bcf4460842d1);
+        
+    
+            var tile_layer_0be324fa674fd2b605bcc550367a3f99 = L.tileLayer(
                 &quot;https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm\u0026item=A_202010.L3m_MO_NPP_npp_vgpm_4km\u0026assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=viridis\u0026rescale=14.516647338867188%2C34561.35546875&quot;,
                 {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_db299edc604d10a1c78d7e25edee2b84);
+            );
+        
+    
+            tile_layer_0be324fa674fd2b605bcc550367a3f99.addTo(map_c3d6dd843a646e5596f0bcf4460842d1);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
