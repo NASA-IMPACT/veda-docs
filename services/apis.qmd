@@ -16,19 +16,19 @@ Maintenance on the staging environment will be announced internally and selected
 ### Staging (maintenance will be announced):
 
 * STAC browser: [veda-staging-stac-browser](http://veda-staging-stac-browser.s3-website-us-west-2.amazonaws.com/)
-* STAC API (metadata): [https://staging-stac.delta-backend.com/docs](https://staging-stac.delta-backend.com/docs)
-* List collections: [https://staging-stac.delta-backend.com/collections](https://staging-stac.delta-backend.com/collections)
-* Raster API (tiling): [https://staging-raster.delta-backend.com/docs](https://staging-raster.delta-backend.com/docs)
-* STAC viewer (experimental): [https://staging-stac.delta-backend.com/index.html](https://staging-stac.delta-backend.com/index.html)
+* STAC API (metadata): [staging-stac.delta-backend.com/docs](https://staging-stac.delta-backend.com/docs)
+* List collections: [staging-stac.delta-backend.com/collections](https://staging-stac.delta-backend.com/collections)
+* Raster API (map tiles and timeseries): [staging-raster.delta-backend.com/docs](https://staging-raster.delta-backend.com/docs)
+* Features API (vector data): [firenrt.delta-backend.com](https://firenrt.delta-backend.com) - see also the [usage tutorial](../notebooks/tutorials/mapping-fires.html)
+* STAC viewer (experimental): [staging-stac.delta-backend.com](https://staging-stac.delta-backend.com/index.html)
 
 ### Development, aka Dev (experimental work, expected downtime)
 
 * STAC browser: [veda-dev-stac-browser](https://dev.openveda.cloud/)
-* STAC API (metadata): [https://dev.openveda.cloud/api/stac/docs](https://dev.openveda.cloud/api/stac/docs)
-* List collections: [https://dev.openveda.cloud/api/stac/collections](https://dev.openveda.cloud/api/stac/collections)
-* Raster API (tiling): [https://dev.openveda.cloud/api/raster/docs](https://dev.openveda.cloud/api/raster/docs)
-* STAC viewer (experimental): [https://dev.openveda.cloud/api/stac/index.html](https://dev.openveda.cloud/api/stac/index.html)
-
+* STAC API (metadata): [dev.openveda.cloud/api/stac/docs](https://dev.openveda.cloud/api/stac/docs)
+* List collections: [dev.openveda.cloud/api/stac/collections](https://dev.openveda.cloud/api/stac/collections)
+* Raster API (map tiles and timeseries): [https://dev.openveda.cloud/api/raster/docs](dev.openveda.cloud/api/raster/docs)
+* STAC viewer (experimental): [https://dev.openveda.cloud/api/stac/index.html](dev.openveda.cloud/api/stac/)
 
 ## Using tile layers in external services
 
@@ -51,8 +51,8 @@ That is because, unfortunately, neither XYZ nor WMTS have time series capabiliti
 
 You can see how to retrieve time steps and tile layer URLs from these tutorial Python notebooks (mostly REST API calls):
 
-1. [Using /stac/tilejson.json with STAC collection and item IDs](../notebooks/datasets/ocean-npp-timeseries-analysis.qmd#visualizing-the-raster-imagery)
-2. [Creating layers from filters and mosaics (advanced)](../notebooks/quickstarts/hls-visualization.qmd)
+1. [Using /stac/tilejson.json with STAC collection and item IDs](../notebooks/datasets/ocean-npp-timeseries-analysis.html#visualizing-the-raster-imagery)
+2. [Creating layers from filters and mosaics (advanced)](../notebooks/quickstarts/hls-visualization.html)
 
 It comes down to querying for STAC items (timesteps) and then asking the Raster API for `tilejson.json` specifications for the items you are interested in.
 
