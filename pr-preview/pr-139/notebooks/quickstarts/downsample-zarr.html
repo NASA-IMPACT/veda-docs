@@ -5120,7 +5120,7 @@ Attributes:
 <section id="strategy-2-coarsen-spatial-resolution-of-the-data" class="level2">
 <h2 data-anchor-id="strategy-2-coarsen-spatial-resolution-of-the-data">Strategy 2: Coarsen spatial resolution of the data</h2>
 <p>Below, we coarsen the spatial resolution of the data by a factor of 4 in the x and 2 in the y. These values were chosen because they can be used with the <code>exact</code> boundary argument as the dimensions size is a multiple of these values.</p>
-<p>You can also coarsen by datetime, using the same strategy as below but replacing <code>easting_m</code> and <code>northing_m</code> with <code>datetime</code>. If <code>{datetime: n}</code> is the value given to the <code>dim</code> argument, this would create a mean of the soil moisture average for <code>n</code> days.</p>
+<p>You can also coarsen by datetime, using the same strategy as below but replacing <code>easting_m</code> and <code>northing_m</code> with <code>datetime</code>. If <code>{datetime: n}</code> is the value given to the <code>dim</code> argument, this would create a <code>mean</code> of the soil moisture average for <code>n</code> days.</p>
 <p>Once the data has been coarsened, again it is reprojected for map visualization and then visualized.</p>
 <div id="a9b36296-bc8d-4395-a861-5332582f6ca2" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>coarsened <span class="op">=</span> soil_moisture.coarsen(dim<span class="op">=</span>{<span class="st">"easting_m"</span>: <span class="dv">4</span>, <span class="st">"northing_m"</span>: <span class="dv">2</span>}).mean()</span>
