@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -508,7 +508,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#step-i-prepare-the-data" id="toc-step-i-prepare-the-data" class="nav-link active" data-scroll-target="#step-i-prepare-the-data">STEP I: Prepare the data</a>
   <ul class="collapse">
-  <li><a href="#create-sane-cloud-optimized-geotiffs-cogs" id="toc-create-sane-cloud-optimized-geotiffs-cogs" class="nav-link" data-scroll-target="#create-sane-cloud-optimized-geotiffs-cogs">Create sane Cloud-Optimized GeoTIFFs (COGs)</a></li>
+  <li><a href="#create-proper-cloud-optimized-geotiffs-cogs" id="toc-create-proper-cloud-optimized-geotiffs-cogs" class="nav-link" data-scroll-target="#create-proper-cloud-optimized-geotiffs-cogs">Create proper Cloud-Optimized GeoTIFFs (COGs)</a></li>
   <li><a href="#name-your-files-correctly" id="toc-name-your-files-correctly" class="nav-link" data-scroll-target="#name-your-files-correctly">Name your files correctly</a></li>
   </ul></li>
   <li><a href="#step-ii-upload-to-the-veda-data-store" id="toc-step-ii-upload-to-the-veda-data-store" class="nav-link" data-scroll-target="#step-ii-upload-to-the-veda-data-store">STEP II: Upload to the VEDA data store</a></li>
@@ -541,8 +541,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="step-i-prepare-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="step-i-prepare-the-data">STEP I: Prepare the data</h2>
 <p>VEDA supports inclusion of cloud optimized GeoTIFFs (COGs) to its data store.</p>
-<section id="create-sane-cloud-optimized-geotiffs-cogs" class="level3">
-<h3 class="anchored" data-anchor-id="create-sane-cloud-optimized-geotiffs-cogs">Create sane Cloud-Optimized GeoTIFFs (COGs)</h3>
+<section id="create-proper-cloud-optimized-geotiffs-cogs" class="level3">
+<h3 class="anchored" data-anchor-id="create-proper-cloud-optimized-geotiffs-cogs">Create proper Cloud-Optimized GeoTIFFs (COGs)</h3>
 <p>We often encounter issues like missing or wrong <code>nodata</code> value, missing coordinate-reference system, missing or wrong overviews - polluted by fill values or not conserving class values in categorical data, empty files, or artifacts in the data.</p>
 <p>Discovering these issues early on (ideally before upload to our buckets) can save us all a lot of time.</p>
 <p>A command-line tool for creating and validating COGs is <a href="https://cogeotiff.github.io/rio-cogeo/"><code>rio-cogeo</code></a>. The <code>rio-cogeo</code> documentation is a great starting reference point and have a very helpful <a href="https://cogeotiff.github.io/rio-cogeo/Is_it_a_COG/">guide on preparing COGs</a>, too.</p>
