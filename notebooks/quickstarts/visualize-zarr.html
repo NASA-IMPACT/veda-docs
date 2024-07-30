@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.55">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2023-03-09">
 <meta name="description" content="Demonstrates reading a zarr store from the VEDA STAC catalog using intake and visualizing the data using hvplot">
 
-<title>VEDA Documentation - Visualize zarr</title>
+<title>Visualize zarr – VEDA Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -36,7 +36,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -120,13 +120,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item">Quickstarts</li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/list-collections.html">Accessing the Data Directly</a></li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/visualize-zarr.html">Visualize zarr</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -164,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../services/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Services</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -193,25 +193,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../notebooks/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Usage Examples</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Quickstarts</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Accessing the Data Directly</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -268,9 +268,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
  <span class="menu-text">Using the Raster API</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -299,9 +299,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
  <span class="menu-text">Tutorials</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -340,9 +340,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
  <span class="menu-text">Datasets</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -379,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../contributing/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Contributing</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -394,7 +394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../contributing/dataset-ingestion/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dataset Ingestion</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -419,9 +419,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
  <span class="menu-text">STAC Collection Creation</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -448,9 +448,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
  <span class="menu-text">STAC Item Creation</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -475,7 +475,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../contributing/dashboard-configuration/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dashboard Configuration</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -1798,46 +1798,7 @@ Attributes: (12/25)
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>XCO2PREC</span>
-</div>
-<div class="xr-var-dims">
-(time, lat, lon)
-</div>
-<div class="xr-var-dtype">
-float64
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-817faa2b-70e2-46f3-a84a-e943dab245a5" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-817faa2b-70e2-46f3-a84a-e943dab245a5" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-6743fb87-2151-467c-9a9e-12306df83d68" class="xr-var-data-in" type="checkbox">
-<label for="data-6743fb87-2151-467c-9a9e-12306df83d68" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-Precision of dry-air column average CO2 daily mean from Desroziers et al. (2005) diagnostic
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-mol CO2/mol dry
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>XCO2PREC</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-817faa2b-70e2-46f3-a84a-e943dab245a5" class="xr-var-attrs-in" type="checkbox"><label for="attrs-817faa2b-70e2-46f3-a84a-e943dab245a5" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6743fb87-2151-467c-9a9e-12306df83d68" class="xr-var-data-in" type="checkbox"><label for="data-6743fb87-2151-467c-9a9e-12306df83d68" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Precision of dry-air column average CO2 daily mean from Desroziers et al. (2005) diagnostic</dd><dt><span>units :</span></dt><dd>mol CO2/mol dry</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -1880,8 +1841,7 @@ mol CO2/mol dry
 </tr>
 </tbody>
 </table>
-</div>
-</li></ul></div></li></ul></div><li class="xr-section-item"><input id="section-46071cb3-5db5-404b-9c86-1e8e931e193b" class="xr-section-summary-in" type="checkbox"><label for="section-46071cb3-5db5-404b-9c86-1e8e931e193b" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-1b75b0b5-e461-4d84-947f-d8184da6b258" class="xr-index-data-in" type="checkbox"><label for="index-1b75b0b5-e461-4d84-947f-d8184da6b258" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-90.0, -89.5, -89.0, -88.5, -88.0, -87.5, -87.0, -86.5, -86.0, -85.5,
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-46071cb3-5db5-404b-9c86-1e8e931e193b" class="xr-section-summary-in" type="checkbox"><label for="section-46071cb3-5db5-404b-9c86-1e8e931e193b" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-1b75b0b5-e461-4d84-947f-d8184da6b258" class="xr-index-data-in" type="checkbox"><label for="index-1b75b0b5-e461-4d84-947f-d8184da6b258" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-90.0, -89.5, -89.0, -88.5, -88.0, -87.5, -87.0, -86.5, -86.0, -85.5,
        ...
         85.5,  86.0,  86.5,  87.0,  87.5,  88.0,  88.5,  89.0,  89.5,  90.0],
       dtype='float64', name='lat', length=361))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>lon</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-d77a4ff9-0873-494b-81a1-f74125f70222" class="xr-index-data-in" type="checkbox"><label for="index-d77a4ff9-0873-494b-81a1-f74125f70222" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([  -180.0, -179.375,  -178.75, -178.125,   -177.5, -176.875,  -176.25,
@@ -1900,9 +1860,9 @@ mol CO2/mol dry
                '2021-10-30 12:00:00', '2021-10-31 12:00:00',
                '2021-11-01 12:00:00', '2021-11-02 12:00:00',
                '2021-11-03 12:00:00', '2021-11-04 12:00:00'],
-              dtype='datetime64[ns]', name='time', length=2500, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-3b29f22f-bef5-4d00-9ba1-c583fff7e3e2" class="xr-section-summary-in" type="checkbox"><label for="section-3b29f22f-bef5-4d00-9ba1-c583fff7e3e2" class="xr-section-summary">Attributes: <span>(25)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>BuildId :</span></dt><dd>B10.2.06</dd><dt><span>Contact :</span></dt><dd>Brad Weir (brad.weir@nasa.gov)</dd><dt><span>Conventions :</span></dt><dd>CF-1</dd><dt><span>DataResolution :</span></dt><dd>0.5x0.625</dd><dt><span>EastBoundingCoordinate :</span></dt><dd>179.375</dd><dt><span>Format :</span></dt><dd>NetCDF-4/HDF-5</dd><dt><span>History :</span></dt><dd>Original file generated: Tue Mar 15 12:02:48 2022 GMT</dd><dt><span>IdentifierProductDOI :</span></dt><dd>10.5067/Y9M4NM9MPCGH</dd><dt><span>IdentifierProductDOIAuthority :</span></dt><dd>http://doi.org/</dd><dt><span>Institution :</span></dt><dd>NASA GSFC Global Modeling and Assimilation Office and OCO-2 Project, Jet Propulsion Laboratory</dd><dt><span>LatitudeResolution :</span></dt><dd>0.5</dd><dt><span>LongName :</span></dt><dd>OCO-2 GEOS Level 3 daily, 0.5x0.625 assimilated CO2</dd><dt><span>LongitudeResolution :</span></dt><dd>0.625</dd><dt><span>NorthBoundingCoordinate :</span></dt><dd>90.0</dd><dt><span>ProductionDateTime :</span></dt><dd>2022-03-15T12:02:48Z</dd><dt><span>RangeBeginningDate :</span></dt><dd>2017-08-01</dd><dt><span>RangeBeginningTime :</span></dt><dd>00:00:00.000000</dd><dt><span>RangeEndingDate :</span></dt><dd>2017-08-01</dd><dt><span>RangeEndingTime :</span></dt><dd>23:59:99.999999</dd><dt><span>ShortName :</span></dt><dd>OCO2_GEOS_L3CO2_DAY_10r</dd><dt><span>SouthBoundingCoordinate :</span></dt><dd>-90.0</dd><dt><span>SpatialCoverage :</span></dt><dd>global</dd><dt><span>Title :</span></dt><dd>OCO-2 GEOS Level 3 daily, 0.5x0.625 assimilated CO2</dd><dt><span>VersionID :</span></dt><dd>V10r</dd><dt><span>WestBoundingCoordinate :</span></dt><dd>-180.0</dd></dl></div></li></div></div>
+              dtype='datetime64[ns]', name='time', length=2500, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-3b29f22f-bef5-4d00-9ba1-c583fff7e3e2" class="xr-section-summary-in" type="checkbox"><label for="section-3b29f22f-bef5-4d00-9ba1-c583fff7e3e2" class="xr-section-summary">Attributes: <span>(25)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>BuildId :</span></dt><dd>B10.2.06</dd><dt><span>Contact :</span></dt><dd>Brad Weir (brad.weir@nasa.gov)</dd><dt><span>Conventions :</span></dt><dd>CF-1</dd><dt><span>DataResolution :</span></dt><dd>0.5x0.625</dd><dt><span>EastBoundingCoordinate :</span></dt><dd>179.375</dd><dt><span>Format :</span></dt><dd>NetCDF-4/HDF-5</dd><dt><span>History :</span></dt><dd>Original file generated: Tue Mar 15 12:02:48 2022 GMT</dd><dt><span>IdentifierProductDOI :</span></dt><dd>10.5067/Y9M4NM9MPCGH</dd><dt><span>IdentifierProductDOIAuthority :</span></dt><dd>http://doi.org/</dd><dt><span>Institution :</span></dt><dd>NASA GSFC Global Modeling and Assimilation Office and OCO-2 Project, Jet Propulsion Laboratory</dd><dt><span>LatitudeResolution :</span></dt><dd>0.5</dd><dt><span>LongName :</span></dt><dd>OCO-2 GEOS Level 3 daily, 0.5x0.625 assimilated CO2</dd><dt><span>LongitudeResolution :</span></dt><dd>0.625</dd><dt><span>NorthBoundingCoordinate :</span></dt><dd>90.0</dd><dt><span>ProductionDateTime :</span></dt><dd>2022-03-15T12:02:48Z</dd><dt><span>RangeBeginningDate :</span></dt><dd>2017-08-01</dd><dt><span>RangeBeginningTime :</span></dt><dd>00:00:00.000000</dd><dt><span>RangeEndingDate :</span></dt><dd>2017-08-01</dd><dt><span>RangeEndingTime :</span></dt><dd>23:59:99.999999</dd><dt><span>ShortName :</span></dt><dd>OCO2_GEOS_L3CO2_DAY_10r</dd><dt><span>SouthBoundingCoordinate :</span></dt><dd>-90.0</dd><dt><span>SpatialCoverage :</span></dt><dd>global</dd><dt><span>Title :</span></dt><dd>OCO-2 GEOS Level 3 daily, 0.5x0.625 assimilated CO2</dd><dt><span>VersionID :</span></dt><dd>V10r</dd><dt><span>WestBoundingCoordinate :</span></dt><dd>-180.0</dd></dl></div></li></ul></div></div>
 </div>
-</section></main></div>
+</div>
 <p>In <code>xarray</code> you can inspect just one data variable using dot notation:</p>
 <div id="0b96ec71-5246-4f62-a21d-385c73b89bff" class="cell" data-tags="[]" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ds.XCO2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2346,9 +2306,9 @@ Attributes:
               dtype='datetime64[ns]', name='time', length=2500, freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-5b141962-b793-404d-a68f-e792b201377b" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-5b141962-b793-404d-a68f-e792b201377b" class="xr-section-summary">Attributes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Assimilated dry-air column average CO2 daily mean</dd><dt><span>units :</span></dt><dd>mol CO2/mol dry</dd></dl></div></li></ul></div></div>
 </div>
 </div>
-
+</section>
 <section id="plot-data" class="level2">
-<h2 data-anchor-id="plot-data">Plot data</h2>
+<h2 class="anchored" data-anchor-id="plot-data">Plot data</h2>
 <p>We can plot the XCO2 variable as an interactive map (with date slider) using <code>hvplot</code>.</p>
 <div id="ab65eb4a-6cca-4233-84e5-681d6e0124e4" class="cell" data-tags="[]" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ds.XCO2.hvplot(</span>
@@ -2439,7 +2399,7 @@ Attributes:
 
 </section>
 
- <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -2619,18 +2579,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2662,7 +2611,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/nasa-impact\.github\.io\/veda-docs");
@@ -2670,7 +2641,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -3005,7 +2976,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav>
- <!-- /content -->
+</div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">

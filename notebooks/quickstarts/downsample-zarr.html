@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.55">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2023-01-03">
 <meta name="description" content="Demonstrates downsampling zarr using xarray and dask with data from SMAP">
 
-<title>VEDA Documentation - Downsample zarr</title>
+<title>Downsample zarr – VEDA Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -36,7 +36,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -120,13 +120,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples</a></li><li class="breadcrumb-item">Quickstarts</li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/list-collections.html">Accessing the Data Directly</a></li><li class="breadcrumb-item"><a href="../../notebooks/quickstarts/downsample-zarr.html">Downsample zarr</a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -164,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../services/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Services</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -193,25 +193,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../notebooks/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Usage Examples</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Quickstarts</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Accessing the Data Directly</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -268,9 +268,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
  <span class="menu-text">Using the Raster API</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -299,9 +299,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
  <span class="menu-text">Tutorials</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -340,9 +340,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
  <span class="menu-text">Datasets</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -379,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../contributing/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Contributing</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -394,7 +394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../contributing/dataset-ingestion/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dataset Ingestion</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -419,9 +419,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
  <span class="menu-text">STAC Collection Creation</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -448,9 +448,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false">
  <span class="menu-text">STAC Item Creation</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -475,7 +475,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../contributing/dashboard-configuration/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dashboard Configuration</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -1726,50 +1726,7 @@ Data variables: (12/26)
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>albedo_pm</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-e7106a4c-7899-478a-a357-9498d8086e50" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-e7106a4c-7899-478a-a357-9498d8086e50" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-e8bdddbd-4044-463a-a3c3-3c8ce78f5352" class="xr-var-data-in" type="checkbox">
-<label for="data-e8bdddbd-4044-463a-a3c3-3c8ce78f5352" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-Diffuse reflecting power of the Earth&amp;apos;s surface used in DCA retrievals within the grid cell.
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-1.0
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>albedo_pm</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-e7106a4c-7899-478a-a357-9498d8086e50" class="xr-var-attrs-in" type="checkbox"><label for="attrs-e7106a4c-7899-478a-a357-9498d8086e50" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e8bdddbd-4044-463a-a3c3-3c8ce78f5352" class="xr-var-data-in" type="checkbox"><label for="data-e8bdddbd-4044-463a-a3c3-3c8ce78f5352" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Diffuse reflecting power of the Earth&amp;apos;s surface used in DCA retrievals within the grid cell.</dd><dt><span>valid_max :</span></dt><dd>1.0</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -1812,50 +1769,7 @@ Diffuse reflecting power of the Earth&amp;apos;s surface used in DCA retrievals 
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>bulk_density</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-69df1e06-270c-4041-83ef-0f4e751f0b71" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-69df1e06-270c-4041-83ef-0f4e751f0b71" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-37722822-9612-427f-8c4d-c0d8d23e5522" class="xr-var-data-in" type="checkbox">
-<label for="data-37722822-9612-427f-8c4d-c0d8d23e5522" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-A unitless value that is indicative of aggregated bulk_density within the 36 km grid cell.
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-2.6500000953674316
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>bulk_density</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-69df1e06-270c-4041-83ef-0f4e751f0b71" class="xr-var-attrs-in" type="checkbox"><label for="attrs-69df1e06-270c-4041-83ef-0f4e751f0b71" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-37722822-9612-427f-8c4d-c0d8d23e5522" class="xr-var-data-in" type="checkbox"><label for="data-37722822-9612-427f-8c4d-c0d8d23e5522" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>A unitless value that is indicative of aggregated bulk_density within the 36 km grid cell.</dd><dt><span>valid_max :</span></dt><dd>2.6500000953674316</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -1898,50 +1812,7 @@ A unitless value that is indicative of aggregated bulk_density within the 36 km 
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>bulk_density_pm</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-2e9e0c08-b49d-467d-a8d8-0e005e581934" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-2e9e0c08-b49d-467d-a8d8-0e005e581934" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-0b79c1b4-bd8a-41d6-890a-fc1344edff22" class="xr-var-data-in" type="checkbox">
-<label for="data-0b79c1b4-bd8a-41d6-890a-fc1344edff22" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-A unitless value that is indicative of aggregated bulk density within the 36 km grid cell.
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-2.6500000953674316
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>bulk_density_pm</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-2e9e0c08-b49d-467d-a8d8-0e005e581934" class="xr-var-attrs-in" type="checkbox"><label for="attrs-2e9e0c08-b49d-467d-a8d8-0e005e581934" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0b79c1b4-bd8a-41d6-890a-fc1344edff22" class="xr-var-data-in" type="checkbox"><label for="data-0b79c1b4-bd8a-41d6-890a-fc1344edff22" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>A unitless value that is indicative of aggregated bulk density within the 36 km grid cell.</dd><dt><span>valid_max :</span></dt><dd>2.6500000953674316</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -1984,50 +1855,7 @@ A unitless value that is indicative of aggregated bulk density within the 36 km 
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>clay_fraction</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-30b16a2b-b432-4e9d-8113-f63d3c589192" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-30b16a2b-b432-4e9d-8113-f63d3c589192" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-1bf21dc8-6c41-4c27-866a-e47a7f6d1ab3" class="xr-var-data-in" type="checkbox">
-<label for="data-1bf21dc8-6c41-4c27-866a-e47a7f6d1ab3" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-A unitless value that is indicative of aggregated clay fraction within the 36 km grid cell.
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-1.0
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>clay_fraction</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-30b16a2b-b432-4e9d-8113-f63d3c589192" class="xr-var-attrs-in" type="checkbox"><label for="attrs-30b16a2b-b432-4e9d-8113-f63d3c589192" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1bf21dc8-6c41-4c27-866a-e47a7f6d1ab3" class="xr-var-data-in" type="checkbox"><label for="data-1bf21dc8-6c41-4c27-866a-e47a7f6d1ab3" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>A unitless value that is indicative of aggregated clay fraction within the 36 km grid cell.</dd><dt><span>valid_max :</span></dt><dd>1.0</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -2070,50 +1898,7 @@ A unitless value that is indicative of aggregated clay fraction within the 36 km
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>clay_fraction_pm</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-505a16a4-3ce7-497c-a690-64998f3d6eb7" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-505a16a4-3ce7-497c-a690-64998f3d6eb7" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-7c9dd54f-bfbb-4bd4-8748-beab560a04d0" class="xr-var-data-in" type="checkbox">
-<label for="data-7c9dd54f-bfbb-4bd4-8748-beab560a04d0" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-A unitless value that is indicative of aggregated clay fraction within the 36 km grid cell.
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-1.0
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>clay_fraction_pm</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-505a16a4-3ce7-497c-a690-64998f3d6eb7" class="xr-var-attrs-in" type="checkbox"><label for="attrs-505a16a4-3ce7-497c-a690-64998f3d6eb7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7c9dd54f-bfbb-4bd4-8748-beab560a04d0" class="xr-var-data-in" type="checkbox"><label for="data-7c9dd54f-bfbb-4bd4-8748-beab560a04d0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>A unitless value that is indicative of aggregated clay fraction within the 36 km grid cell.</dd><dt><span>valid_max :</span></dt><dd>1.0</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -2156,50 +1941,7 @@ A unitless value that is indicative of aggregated clay fraction within the 36 km
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>freeze_thaw_fraction</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-f0490fcb-9b9b-477f-8bd0-a00bf942966f" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-f0490fcb-9b9b-477f-8bd0-a00bf942966f" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-b9845c0b-b10f-4d9a-b21e-c759d1262a4d" class="xr-var-data-in" type="checkbox">
-<label for="data-b9845c0b-b10f-4d9a-b21e-c759d1262a4d" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-Fraction of the 36 km grid cell that is denoted as frozen. Based on binary flag that specifies freeze thaw conditions in each of the component 3 km grid cells.
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-1.0
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>freeze_thaw_fraction</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-f0490fcb-9b9b-477f-8bd0-a00bf942966f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f0490fcb-9b9b-477f-8bd0-a00bf942966f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b9845c0b-b10f-4d9a-b21e-c759d1262a4d" class="xr-var-data-in" type="checkbox"><label for="data-b9845c0b-b10f-4d9a-b21e-c759d1262a4d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Fraction of the 36 km grid cell that is denoted as frozen.  Based on binary flag that specifies freeze thaw conditions in each of the component 3 km grid cells.</dd><dt><span>valid_max :</span></dt><dd>1.0</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -2242,50 +1984,7 @@ Fraction of the 36 km grid cell that is denoted as frozen. Based on binary flag 
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>freeze_thaw_fraction_pm</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-eb724651-7bed-4544-9cd2-cb14a20f5437" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-eb724651-7bed-4544-9cd2-cb14a20f5437" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-d10dae42-a6d5-4696-9591-b89653f68e9c" class="xr-var-data-in" type="checkbox">
-<label for="data-d10dae42-a6d5-4696-9591-b89653f68e9c" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-Fraction of the 36 km grid cell that is denoted as frozen. Based on binary flag that specifies freeze thaw conditions in each of the component 3 km grid cells.
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-1.0
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>freeze_thaw_fraction_pm</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-eb724651-7bed-4544-9cd2-cb14a20f5437" class="xr-var-attrs-in" type="checkbox"><label for="attrs-eb724651-7bed-4544-9cd2-cb14a20f5437" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d10dae42-a6d5-4696-9591-b89653f68e9c" class="xr-var-data-in" type="checkbox"><label for="data-d10dae42-a6d5-4696-9591-b89653f68e9c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Fraction of the 36 km grid cell that is denoted as frozen.  Based on binary flag that specifies freeze thaw conditions in each of the component 3 km grid cells.</dd><dt><span>valid_max :</span></dt><dd>1.0</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -2328,50 +2027,7 @@ Fraction of the 36 km grid cell that is denoted as frozen. Based on binary flag 
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>grid_surface_status</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-b4e8075d-3c27-468e-bb28-98d8d720d64e" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-b4e8075d-3c27-468e-bb28-98d8d720d64e" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-1749cbf1-a958-4a78-adda-8d64d164dc74" class="xr-var-data-in" type="checkbox">
-<label for="data-1749cbf1-a958-4a78-adda-8d64d164dc74" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-Indicates if the grid point lies on land (0) or water (1).
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-1
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>grid_surface_status</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-b4e8075d-3c27-468e-bb28-98d8d720d64e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b4e8075d-3c27-468e-bb28-98d8d720d64e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1749cbf1-a958-4a78-adda-8d64d164dc74" class="xr-var-data-in" type="checkbox"><label for="data-1749cbf1-a958-4a78-adda-8d64d164dc74" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Indicates if the grid point lies on land (0) or water (1).</dd><dt><span>valid_max :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -2414,50 +2070,7 @@ Indicates if the grid point lies on land (0) or water (1).
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>grid_surface_status_pm</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-e386acd0-139d-4f60-9f0f-ec7df17b6270" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-e386acd0-139d-4f60-9f0f-ec7df17b6270" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-4812c143-48be-49d3-a8c1-db6240bb3699" class="xr-var-data-in" type="checkbox">
-<label for="data-4812c143-48be-49d3-a8c1-db6240bb3699" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-Indicates if the grid point lies on land (0) or water (1).
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-1
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>grid_surface_status_pm</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-e386acd0-139d-4f60-9f0f-ec7df17b6270" class="xr-var-attrs-in" type="checkbox"><label for="attrs-e386acd0-139d-4f60-9f0f-ec7df17b6270" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4812c143-48be-49d3-a8c1-db6240bb3699" class="xr-var-data-in" type="checkbox"><label for="data-4812c143-48be-49d3-a8c1-db6240bb3699" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Indicates if the grid point lies on land (0) or water (1).</dd><dt><span>valid_max :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -2500,50 +2113,7 @@ Indicates if the grid point lies on land (0) or water (1).
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>radar_water_body_fraction</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-343f2694-256e-49e8-8e19-e165d6bb4e31" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-343f2694-256e-49e8-8e19-e165d6bb4e31" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-7d7734b0-4e01-4c7a-8c33-67417ae295df" class="xr-var-data-in" type="checkbox">
-<label for="data-7d7734b0-4e01-4c7a-8c33-67417ae295df" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-The fraction of the area of the 36 km grid cell that is covered by water based on the radar detection algorithm.
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-1.0
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>radar_water_body_fraction</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-343f2694-256e-49e8-8e19-e165d6bb4e31" class="xr-var-attrs-in" type="checkbox"><label for="attrs-343f2694-256e-49e8-8e19-e165d6bb4e31" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7d7734b0-4e01-4c7a-8c33-67417ae295df" class="xr-var-data-in" type="checkbox"><label for="data-7d7734b0-4e01-4c7a-8c33-67417ae295df" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>The fraction of the area of the 36 km grid cell that is covered by water based on the radar detection algorithm.</dd><dt><span>valid_max :</span></dt><dd>1.0</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -2586,50 +2156,7 @@ The fraction of the area of the 36 km grid cell that is covered by water based o
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>radar_water_body_fraction_pm</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-4cb9dfe6-4461-4bd0-9576-b03a6b2388ce" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-4cb9dfe6-4461-4bd0-9576-b03a6b2388ce" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-2d000e38-0376-4f8a-b877-abb977447206" class="xr-var-data-in" type="checkbox">
-<label for="data-2d000e38-0376-4f8a-b877-abb977447206" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-The fraction of the area of the 36 km grid cell that is covered by water based on the radar detection algorithm.
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-1.0
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>radar_water_body_fraction_pm</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-4cb9dfe6-4461-4bd0-9576-b03a6b2388ce" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4cb9dfe6-4461-4bd0-9576-b03a6b2388ce" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2d000e38-0376-4f8a-b877-abb977447206" class="xr-var-data-in" type="checkbox"><label for="data-2d000e38-0376-4f8a-b877-abb977447206" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>The fraction of the area of the 36 km grid cell that is covered by water based on the radar detection algorithm.</dd><dt><span>valid_max :</span></dt><dd>1.0</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -2672,50 +2199,7 @@ The fraction of the area of the 36 km grid cell that is covered by water based o
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>retrieval_qual_flag</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-455d8a53-33c2-4c47-9141-80186423bc73" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-455d8a53-33c2-4c47-9141-80186423bc73" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-12872a86-1c8c-4c7a-883b-13614d1d8af7" class="xr-var-data-in" type="checkbox">
-<label for="data-12872a86-1c8c-4c7a-883b-13614d1d8af7" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>flag_masks :</span></dt>
-<dd>
-1s, 2s, 4s, 8s
-</dd>
-<dt><span>flag_meanings :</span></dt>
-<dd>
-Retrieval_recommended Retrieval_attempted Retrieval_success FT_retrieval_success
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-Bit flags that record the conditions and the quality of the DCA retrieval algorithms that generate soil moisture for the grid cell.
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>retrieval_qual_flag</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-455d8a53-33c2-4c47-9141-80186423bc73" class="xr-var-attrs-in" type="checkbox"><label for="attrs-455d8a53-33c2-4c47-9141-80186423bc73" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-12872a86-1c8c-4c7a-883b-13614d1d8af7" class="xr-var-data-in" type="checkbox"><label for="data-12872a86-1c8c-4c7a-883b-13614d1d8af7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>flag_masks :</span></dt><dd>1s, 2s, 4s, 8s</dd><dt><span>flag_meanings :</span></dt><dd>Retrieval_recommended Retrieval_attempted Retrieval_success FT_retrieval_success</dd><dt><span>long_name :</span></dt><dd>Bit flags that record the conditions and the quality of the DCA retrieval algorithms that generate soil moisture for the grid cell.</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -2758,50 +2242,7 @@ Bit flags that record the conditions and the quality of the DCA retrieval algori
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>retrieval_qual_flag_pm</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-67cd6ff2-68ef-4a0a-b244-fbe85696dc7b" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-67cd6ff2-68ef-4a0a-b244-fbe85696dc7b" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-14751781-5d36-42bd-89b8-7d3b64dceefb" class="xr-var-data-in" type="checkbox">
-<label for="data-14751781-5d36-42bd-89b8-7d3b64dceefb" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>flag_masks :</span></dt>
-<dd>
-1s, 2s, 4s, 8s
-</dd>
-<dt><span>flag_meanings :</span></dt>
-<dd>
-Retrieval_recommended Retrieval_attempted Retrieval_success FT_retrieval_success
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-Bit flags that record the conditions and the quality of the DCA retrieval algorithms that generate soil moisture for the grid cell.
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>retrieval_qual_flag_pm</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-67cd6ff2-68ef-4a0a-b244-fbe85696dc7b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-67cd6ff2-68ef-4a0a-b244-fbe85696dc7b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-14751781-5d36-42bd-89b8-7d3b64dceefb" class="xr-var-data-in" type="checkbox"><label for="data-14751781-5d36-42bd-89b8-7d3b64dceefb" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>flag_masks :</span></dt><dd>1s, 2s, 4s, 8s</dd><dt><span>flag_meanings :</span></dt><dd>Retrieval_recommended Retrieval_attempted Retrieval_success FT_retrieval_success</dd><dt><span>long_name :</span></dt><dd>Bit flags that record the conditions and the quality of the DCA retrieval algorithms that generate soil moisture for the grid cell.</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -2844,50 +2285,7 @@ Bit flags that record the conditions and the quality of the DCA retrieval algori
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>roughness_coefficient</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-5f57dbb5-f694-4fc6-bc0b-9a104885c205" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-5f57dbb5-f694-4fc6-bc0b-9a104885c205" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-b958bace-d08e-4869-94e3-9f991851218e" class="xr-var-data-in" type="checkbox">
-<label for="data-b958bace-d08e-4869-94e3-9f991851218e" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-A unitless value that is indicative of bare soil roughness used in DCA within the 36 km grid cell.
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-1.0
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>roughness_coefficient</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-5f57dbb5-f694-4fc6-bc0b-9a104885c205" class="xr-var-attrs-in" type="checkbox"><label for="attrs-5f57dbb5-f694-4fc6-bc0b-9a104885c205" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b958bace-d08e-4869-94e3-9f991851218e" class="xr-var-data-in" type="checkbox"><label for="data-b958bace-d08e-4869-94e3-9f991851218e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>A unitless value that is indicative of bare soil roughness used in DCA within the 36 km grid cell.</dd><dt><span>valid_max :</span></dt><dd>1.0</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -2930,50 +2328,7 @@ A unitless value that is indicative of bare soil roughness used in DCA within th
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>roughness_coefficient_pm</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-c1a8ccb8-6a53-49e4-8b57-d3c9a8cc3d91" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-c1a8ccb8-6a53-49e4-8b57-d3c9a8cc3d91" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-93abe08e-8e74-4b5f-b60c-debc8415a3d5" class="xr-var-data-in" type="checkbox">
-<label for="data-93abe08e-8e74-4b5f-b60c-debc8415a3d5" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-A unitless value that is indicative of bare soil roughness used in DCA retrievals within the 36 km grid cell.
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-1.0
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>roughness_coefficient_pm</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-c1a8ccb8-6a53-49e4-8b57-d3c9a8cc3d91" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c1a8ccb8-6a53-49e4-8b57-d3c9a8cc3d91" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-93abe08e-8e74-4b5f-b60c-debc8415a3d5" class="xr-var-data-in" type="checkbox"><label for="data-93abe08e-8e74-4b5f-b60c-debc8415a3d5" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>A unitless value that is indicative of bare soil roughness used in DCA retrievals within the 36 km grid cell.</dd><dt><span>valid_max :</span></dt><dd>1.0</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -3016,54 +2371,7 @@ A unitless value that is indicative of bare soil roughness used in DCA retrieval
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>soil_moisture</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-43d4acb6-59a2-475c-ad28-a3b4805bab90" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-43d4acb6-59a2-475c-ad28-a3b4805bab90" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-d2132e11-fc66-4b29-ba8c-a569e131ecac" class="xr-var-data-in" type="checkbox">
-<label for="data-d2132e11-fc66-4b29-ba8c-a569e131ecac" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-Representative DCA soil moisture measurement for the Earth based grid cell.
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-cm**3/cm**3
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-0.5
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.019999999552965164
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>soil_moisture</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-43d4acb6-59a2-475c-ad28-a3b4805bab90" class="xr-var-attrs-in" type="checkbox"><label for="attrs-43d4acb6-59a2-475c-ad28-a3b4805bab90" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d2132e11-fc66-4b29-ba8c-a569e131ecac" class="xr-var-data-in" type="checkbox"><label for="data-d2132e11-fc66-4b29-ba8c-a569e131ecac" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Representative DCA soil moisture measurement for the Earth based grid cell.</dd><dt><span>units :</span></dt><dd>cm**3/cm**3</dd><dt><span>valid_max :</span></dt><dd>0.5</dd><dt><span>valid_min :</span></dt><dd>0.019999999552965164</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -3106,54 +2414,7 @@ cm**3/cm**3
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>soil_moisture_error</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-b0bf1e89-39da-4271-8f3e-5be8ebbb7195" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-b0bf1e89-39da-4271-8f3e-5be8ebbb7195" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-7d8855d7-d908-4aef-a049-27d1d9f0deb5" class="xr-var-data-in" type="checkbox">
-<label for="data-7d8855d7-d908-4aef-a049-27d1d9f0deb5" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-Net uncertainty measure of soil moisture measure for the Earth based grid cell. - Calculation method is TBD.
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-cm**3/cm**3
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-0.20000000298023224
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>soil_moisture_error</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-b0bf1e89-39da-4271-8f3e-5be8ebbb7195" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b0bf1e89-39da-4271-8f3e-5be8ebbb7195" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7d8855d7-d908-4aef-a049-27d1d9f0deb5" class="xr-var-data-in" type="checkbox"><label for="data-7d8855d7-d908-4aef-a049-27d1d9f0deb5" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Net uncertainty measure of soil moisture measure for the Earth based grid cell. - Calculation method is TBD.</dd><dt><span>units :</span></dt><dd>cm**3/cm**3</dd><dt><span>valid_max :</span></dt><dd>0.20000000298023224</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -3196,54 +2457,7 @@ cm**3/cm**3
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>soil_moisture_error_pm</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-aff0b0e4-e0ca-40fe-9c2e-65d11566794f" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-aff0b0e4-e0ca-40fe-9c2e-65d11566794f" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-6469ebb3-b099-49e9-81be-b5e0e3ca29cd" class="xr-var-data-in" type="checkbox">
-<label for="data-6469ebb3-b099-49e9-81be-b5e0e3ca29cd" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-Net uncertainty measure of soil moisture measure for the Earth based grid cell. - Calculation method is TBD.
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-cm**3/cm**3
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-0.20000000298023224
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>soil_moisture_error_pm</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-aff0b0e4-e0ca-40fe-9c2e-65d11566794f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-aff0b0e4-e0ca-40fe-9c2e-65d11566794f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6469ebb3-b099-49e9-81be-b5e0e3ca29cd" class="xr-var-data-in" type="checkbox"><label for="data-6469ebb3-b099-49e9-81be-b5e0e3ca29cd" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Net uncertainty measure of soil moisture measure for the Earth based grid cell. - Calculation method is TBD.</dd><dt><span>units :</span></dt><dd>cm**3/cm**3</dd><dt><span>valid_max :</span></dt><dd>0.20000000298023224</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -3286,54 +2500,7 @@ cm**3/cm**3
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>soil_moisture_pm</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-bac1c94e-fff5-4447-8ae6-5459a66ae119" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-bac1c94e-fff5-4447-8ae6-5459a66ae119" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-ba9fe699-7d1b-4c27-9291-345cb3b78f69" class="xr-var-data-in" type="checkbox">
-<label for="data-ba9fe699-7d1b-4c27-9291-345cb3b78f69" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-Representative DCA soil moisture measurement for the Earth based grid cell.
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-cm**3/cm**3
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-0.5
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.019999999552965164
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>soil_moisture_pm</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-bac1c94e-fff5-4447-8ae6-5459a66ae119" class="xr-var-attrs-in" type="checkbox"><label for="attrs-bac1c94e-fff5-4447-8ae6-5459a66ae119" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ba9fe699-7d1b-4c27-9291-345cb3b78f69" class="xr-var-data-in" type="checkbox"><label for="data-ba9fe699-7d1b-4c27-9291-345cb3b78f69" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Representative DCA soil moisture measurement for the Earth based grid cell.</dd><dt><span>units :</span></dt><dd>cm**3/cm**3</dd><dt><span>valid_max :</span></dt><dd>0.5</dd><dt><span>valid_min :</span></dt><dd>0.019999999552965164</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -3376,50 +2543,7 @@ cm**3/cm**3
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>static_water_body_fraction</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-b92aa882-a224-4f03-8e75-d7ef9345693d" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-b92aa882-a224-4f03-8e75-d7ef9345693d" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-404f7596-ed9f-4348-a1fb-e4fc2dc8360a" class="xr-var-data-in" type="checkbox">
-<label for="data-404f7596-ed9f-4348-a1fb-e4fc2dc8360a" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-The fraction of the area of the 36 km grid cell that is covered by static water based on a Digital Elevation Map.
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-1.0
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>static_water_body_fraction</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-b92aa882-a224-4f03-8e75-d7ef9345693d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b92aa882-a224-4f03-8e75-d7ef9345693d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-404f7596-ed9f-4348-a1fb-e4fc2dc8360a" class="xr-var-data-in" type="checkbox"><label for="data-404f7596-ed9f-4348-a1fb-e4fc2dc8360a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>The fraction of the area of the 36 km grid cell that is covered by static water based on a Digital Elevation Map.</dd><dt><span>valid_max :</span></dt><dd>1.0</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -3462,50 +2586,7 @@ The fraction of the area of the 36 km grid cell that is covered by static water 
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>static_water_body_fraction_pm</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-3fac5ae5-f70b-4e59-b3e3-aaaf76ccb348" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-3fac5ae5-f70b-4e59-b3e3-aaaf76ccb348" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-34e6095d-e472-4a90-984e-850be1ebd0a1" class="xr-var-data-in" type="checkbox">
-<label for="data-34e6095d-e472-4a90-984e-850be1ebd0a1" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-The fraction of the area of the 36 km grid cell that is covered by static water based on a Digital Elevation Map.
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-1.0
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>static_water_body_fraction_pm</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-3fac5ae5-f70b-4e59-b3e3-aaaf76ccb348" class="xr-var-attrs-in" type="checkbox"><label for="attrs-3fac5ae5-f70b-4e59-b3e3-aaaf76ccb348" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-34e6095d-e472-4a90-984e-850be1ebd0a1" class="xr-var-data-in" type="checkbox"><label for="data-34e6095d-e472-4a90-984e-850be1ebd0a1" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>The fraction of the area of the 36 km grid cell that is covered by static water based on a Digital Elevation Map.</dd><dt><span>valid_max :</span></dt><dd>1.0</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -3548,50 +2629,7 @@ The fraction of the area of the 36 km grid cell that is covered by static water 
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>surface_flag</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-e38b8138-10b0-42f4-9627-6e517701a69f" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-e38b8138-10b0-42f4-9627-6e517701a69f" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-e69bec16-5d20-4798-a729-d6a4e6ae1157" class="xr-var-data-in" type="checkbox">
-<label for="data-e69bec16-5d20-4798-a729-d6a4e6ae1157" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>flag_masks :</span></dt>
-<dd>
-1s, 2s, 4s, 8s, 16s, 32s, 64s, 128s, 256s, 512s, 1024s, 2048s
-</dd>
-<dt><span>flag_meanings :</span></dt>
-<dd>
-36_km_static_water_body 36_km_radar_water_body_detection 36_km_coastal_proximity 36_km_urban_area 36_km_precipitation 36_km_snow_or_ice 36_km_permanent_snow_or_ice 36_km_radiometer_frozen_ground 36_km_model_frozen_ground 36_km_mountainous_terrain 36_km_dense_vegetation 36_km_nadir_region
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-Bit flags that record ambient surface conditions for the grid cell
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>surface_flag</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-e38b8138-10b0-42f4-9627-6e517701a69f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-e38b8138-10b0-42f4-9627-6e517701a69f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e69bec16-5d20-4798-a729-d6a4e6ae1157" class="xr-var-data-in" type="checkbox"><label for="data-e69bec16-5d20-4798-a729-d6a4e6ae1157" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>flag_masks :</span></dt><dd>1s, 2s, 4s, 8s, 16s, 32s, 64s, 128s, 256s, 512s, 1024s, 2048s</dd><dt><span>flag_meanings :</span></dt><dd>36_km_static_water_body 36_km_radar_water_body_detection 36_km_coastal_proximity 36_km_urban_area 36_km_precipitation 36_km_snow_or_ice 36_km_permanent_snow_or_ice 36_km_radiometer_frozen_ground 36_km_model_frozen_ground 36_km_mountainous_terrain 36_km_dense_vegetation 36_km_nadir_region</dd><dt><span>long_name :</span></dt><dd>Bit flags that record ambient surface conditions for the grid cell</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -3634,50 +2672,7 @@ Bit flags that record ambient surface conditions for the grid cell
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>surface_flag_pm</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-e76357b2-61dc-4f80-b806-d9a520da24cb" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-e76357b2-61dc-4f80-b806-d9a520da24cb" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-a862d716-7a23-4b21-9c3e-2fe49d035f02" class="xr-var-data-in" type="checkbox">
-<label for="data-a862d716-7a23-4b21-9c3e-2fe49d035f02" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>flag_masks :</span></dt>
-<dd>
-1s, 2s, 4s, 8s, 16s, 32s, 64s, 128s, 256s, 512s, 1024s, 2048s
-</dd>
-<dt><span>flag_meanings :</span></dt>
-<dd>
-36_km_static_water_body 36_km_radar_water_body_detection 36_km_coastal_proximity 36_km_urban_area 36_km_precipitation 36_km_snow_or_ice 36_km_permanent_snow_or_ice 36_km_radar_frozen_ground 36_km_model_frozen_ground 36_km_mountainous_terrain 36_km_dense_vegetation 36_km_nadir_region
-</dd>
-<dt><span>long_name :</span></dt>
-<dd>
-Bit flags that record ambient surface conditions for the grid cell
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>surface_flag_pm</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-e76357b2-61dc-4f80-b806-d9a520da24cb" class="xr-var-attrs-in" type="checkbox"><label for="attrs-e76357b2-61dc-4f80-b806-d9a520da24cb" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a862d716-7a23-4b21-9c3e-2fe49d035f02" class="xr-var-data-in" type="checkbox"><label for="data-a862d716-7a23-4b21-9c3e-2fe49d035f02" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>flag_masks :</span></dt><dd>1s, 2s, 4s, 8s, 16s, 32s, 64s, 128s, 256s, 512s, 1024s, 2048s</dd><dt><span>flag_meanings :</span></dt><dd>36_km_static_water_body 36_km_radar_water_body_detection 36_km_coastal_proximity 36_km_urban_area 36_km_precipitation 36_km_snow_or_ice 36_km_permanent_snow_or_ice 36_km_radar_frozen_ground 36_km_model_frozen_ground 36_km_mountainous_terrain 36_km_dense_vegetation 36_km_nadir_region</dd><dt><span>long_name :</span></dt><dd>Bit flags that record ambient surface conditions for the grid cell</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -3720,54 +2715,7 @@ Bit flags that record ambient surface conditions for the grid cell
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>surface_temperature</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-6235ca7f-acbd-4e51-b075-5e53bbca508f" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-6235ca7f-acbd-4e51-b075-5e53bbca508f" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-89543e8d-b2ff-443f-90a7-a12e50cb5820" class="xr-var-data-in" type="checkbox">
-<label for="data-89543e8d-b2ff-443f-90a7-a12e50cb5820" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-Temperature at land surface based on GMAO GEOS-5 data.
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-Kelvins
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-350.0
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>surface_temperature</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-6235ca7f-acbd-4e51-b075-5e53bbca508f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-6235ca7f-acbd-4e51-b075-5e53bbca508f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-89543e8d-b2ff-443f-90a7-a12e50cb5820" class="xr-var-data-in" type="checkbox"><label for="data-89543e8d-b2ff-443f-90a7-a12e50cb5820" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Temperature at land surface based on GMAO GEOS-5 data.</dd><dt><span>units :</span></dt><dd>Kelvins</dd><dt><span>valid_max :</span></dt><dd>350.0</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -3810,54 +2758,7 @@ Kelvins
 </tr>
 </tbody>
 </table>
-</div>
-</li>
-<li class="xr-var-item">
-<div class="xr-var-name">
-<span>surface_temperature_pm</span>
-</div>
-<div class="xr-var-dims">
-(northing_m, easting_m, datetime)
-</div>
-<div class="xr-var-dtype">
-float32
-</div>
-<div class="xr-var-preview xr-preview">
-dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;
-</div>
-<input id="attrs-ddcb7bdc-6145-420a-9a29-40ebfe48fa57" class="xr-var-attrs-in" type="checkbox">
-<label for="attrs-ddcb7bdc-6145-420a-9a29-40ebfe48fa57" title="Show/Hide attributes">
-<svg class="icon xr-icon-file-text2">
-<use href="#icon-file-text2"></use>
-</svg>
-</label>
-<input id="data-d944b65f-b496-46ba-847e-a13e0d70ecea" class="xr-var-data-in" type="checkbox">
-<label for="data-d944b65f-b496-46ba-847e-a13e0d70ecea" title="Show/Hide data repr">
-<svg class="icon xr-icon-database">
-<use href="#icon-database"></use>
-</svg>
-</label>
-<div class="xr-var-attrs">
-<dl>
-<dt><span>long_name :</span></dt>
-<dd>
-Temperature at land surface based on GMAO GEOS-5 data.
-</dd>
-<dt><span>units :</span></dt>
-<dd>
-Kelvins
-</dd>
-<dt><span>valid_max :</span></dt>
-<dd>
-350.0
-</dd>
-<dt><span>valid_min :</span></dt>
-<dd>
-0.0
-</dd>
-</dl>
-</div>
-<div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>surface_temperature_pm</span></div><div class="xr-var-dims">(northing_m, easting_m, datetime)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(100, 100, 100), meta=np.ndarray&gt;</div><input id="attrs-ddcb7bdc-6145-420a-9a29-40ebfe48fa57" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ddcb7bdc-6145-420a-9a29-40ebfe48fa57" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d944b65f-b496-46ba-847e-a13e0d70ecea" class="xr-var-data-in" type="checkbox"><label for="data-d944b65f-b496-46ba-847e-a13e0d70ecea" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Temperature at land surface based on GMAO GEOS-5 data.</dd><dt><span>units :</span></dt><dd>Kelvins</dd><dt><span>valid_max :</span></dt><dd>350.0</dd><dt><span>valid_min :</span></dt><dd>0.0</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -3900,8 +2801,7 @@ Kelvins
 </tr>
 </tbody>
 </table>
-</div>
-</li></ul></div></li></ul></div><li class="xr-section-item"><input id="section-40b75874-85ec-4b4d-b944-c7669fef8e5f" class="xr-section-summary-in" type="checkbox"><label for="section-40b75874-85ec-4b4d-b944-c7669fef8e5f" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>datetime</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-451289c4-f07c-4ffc-8929-cb344b7efe9a" class="xr-index-data-in" type="checkbox"><label for="index-451289c4-f07c-4ffc-8929-cb344b7efe9a" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2018-01-01', '2018-01-02', '2018-01-03', '2018-01-04',
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-40b75874-85ec-4b4d-b944-c7669fef8e5f" class="xr-section-summary-in" type="checkbox"><label for="section-40b75874-85ec-4b4d-b944-c7669fef8e5f" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>datetime</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-451289c4-f07c-4ffc-8929-cb344b7efe9a" class="xr-index-data-in" type="checkbox"><label for="index-451289c4-f07c-4ffc-8929-cb344b7efe9a" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2018-01-01', '2018-01-02', '2018-01-03', '2018-01-04',
                '2018-01-05', '2018-01-06', '2018-01-07', '2018-01-08',
                '2018-01-09', '2018-01-10',
                ...
@@ -3926,9 +2826,9 @@ Kelvins
        -7080331.060000001,        -7116363.28, -7152395.500000001,
        -7188427.720000002,        -7224459.94, -7260492.160000001,
               -7296524.38],
-      dtype='float64', name='northing_m', length=406))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-3ff2619b-1bb5-4d7f-85a0-10cb884e7144" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-3ff2619b-1bb5-4d7f-85a0-10cb884e7144" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></div></div>
+      dtype='float64', name='northing_m', length=406))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-3ff2619b-1bb5-4d7f-85a0-10cb884e7144" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-3ff2619b-1bb5-4d7f-85a0-10cb884e7144" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
 </div>
-</section></main></div>
+</div>
 <p>Select the variable of interest (soil moisture for this example).</p>
 <div id="4fefc7ac-4761-4396-b0e1-bcc5f3fd906b" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>soil_moisture <span class="op">=</span> ds.soil_moisture</span>
@@ -4384,15 +3284,15 @@ Attributes:
       dtype='float64', name='northing_m', length=406))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-220d3ca2-1dc7-45e1-8289-1e723558ddd1" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-220d3ca2-1dc7-45e1-8289-1e723558ddd1" class="xr-section-summary">Attributes: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Representative DCA soil moisture measurement for the Earth based grid cell.</dd><dt><span>units :</span></dt><dd>cm**3/cm**3</dd><dt><span>valid_max :</span></dt><dd>0.5</dd><dt><span>valid_min :</span></dt><dd>0.019999999552965164</dd></dl></div></li></ul></div></div>
 </div>
 </div>
-
+</section>
 <section id="strategy-1-downsample-the-temporal-resolution-of-the-data" class="level2">
-<h2 data-anchor-id="strategy-1-downsample-the-temporal-resolution-of-the-data">Strategy 1: Downsample the temporal resolution of the data</h2>
+<h2 class="anchored" data-anchor-id="strategy-1-downsample-the-temporal-resolution-of-the-data">Strategy 1: Downsample the temporal resolution of the data</h2>
 <p>To plot one day from every month, resample the data to 1 observation a month.</p>
 <div id="00afdcfd-03b6-4fe9-9c61-2603c7455ae9" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>somo_one_month <span class="op">=</span> soil_moisture.resample(datetime<span class="op">=</span><span class="st">"1ME"</span>).nearest()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="quick-plot" class="level3">
-<h3 data-anchor-id="quick-plot">Quick plot</h3>
+<h3 class="anchored" data-anchor-id="quick-plot">Quick plot</h3>
 <p>We can generate a quick plot using <code>hvplot</code> and <code>datashader</code>.</p>
 <div id="d2bf194b-891e-4602-b190-62c97d54ca3a" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># workaround to avoid warnings that are triggered within Dask.</span></span>
@@ -4490,7 +3390,7 @@ Attributes:
 </div>
 </section>
 <section id="reproject-before-plotting" class="level3">
-<h3 data-anchor-id="reproject-before-plotting">Reproject before plotting</h3>
+<h3 class="anchored" data-anchor-id="reproject-before-plotting">Reproject before plotting</h3>
 <p>Reproject the data for map visualization.</p>
 <div id="ab8a01b0-5cce-4a66-94d0-3e781554bec1" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>somo_one_month <span class="op">=</span> somo_one_month.transpose(<span class="st">"datetime"</span>, <span class="st">"northing_m"</span>, <span class="st">"easting_m"</span>)</span>
@@ -5112,7 +4012,7 @@ Attributes:
 </section>
 </section>
 <section id="strategy-2-coarsen-spatial-resolution-of-the-data" class="level2">
-<h2 data-anchor-id="strategy-2-coarsen-spatial-resolution-of-the-data">Strategy 2: Coarsen spatial resolution of the data</h2>
+<h2 class="anchored" data-anchor-id="strategy-2-coarsen-spatial-resolution-of-the-data">Strategy 2: Coarsen spatial resolution of the data</h2>
 <p>Below, we coarsen the spatial resolution of the data by a factor of 4 in the x and 2 in the y. These values were chosen because they can be used with the <code>exact</code> boundary argument as the dimensions size is a multiple of these values.</p>
 <p>You can also coarsen by datetime, using the same strategy as below but replacing <code>easting_m</code> and <code>northing_m</code> with <code>datetime</code>. If <code>{datetime: n}</code> is the value given to the <code>dim</code> argument, this would create a <code>mean</code> of the soil moisture average for <code>n</code> days.</p>
 <p>Once the data has been coarsened, again it is reprojected for map visualization and then visualized.</p>
@@ -5700,14 +4600,14 @@ Attributes:
 </div>
 </section>
 <section id="cleanup" class="level2">
-<h2 data-anchor-id="cleanup">Cleanup</h2>
+<h2 class="anchored" data-anchor-id="cleanup">Cleanup</h2>
 <p>When using a remote Dask cluster it is recommented to explicitly close the cluster.</p>
 <p>client.shutdown()</p>
 
 
 </section>
 
- <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -5887,18 +4787,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -5930,7 +4819,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/nasa-impact\.github\.io\/veda-docs");
@@ -5938,7 +4849,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -6273,7 +5184,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav>
- <!-- /content -->
+</div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
