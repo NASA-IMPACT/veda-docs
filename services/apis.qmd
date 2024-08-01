@@ -12,7 +12,11 @@ While some of our services are already very mature, VEDA is currently in the bui
 Maintenance on the staging environment will be announced internally and selected known stakeholders will be informed of any larger changes.
 
 ::: {.callout-note title="Base URL Changes"}
-The VEDA Team is in the process of updating documentation notebooks to use the new stable production APIs. Currently most notebooks use staging APIs.
+The VEDA Team is in the process of updating documentation notebooks to use the new stable production APIs. Currently most notebooks use deprecated staging APIs and should be updated:
+
+**STAC_API_URL** = `"https://staging-stac.delta-backend.com"` --> `https://openveda.cloud/api/stac`
+
+**RASTER_API_URL** = `"https://staging-raster.delta-backend.com"` --> `https://openveda.cloud/api/raster`
 :::
 
 ::: {.callout-warning title="Breaking tiling endpoint changes"} 
@@ -20,19 +24,20 @@ VEDA tilers are being upgraded to titiler-pgstac v1 which better aligns with the
 :::
 
 ### Production (stable):
-* STAC browser: [veda-stac-browser](https://openveda.cloud)
-* STAC API (metadata): [https://openveda.cloud/api/stac/docs](https://openveda.cloud/api/stac/docs)
-* List collections: [https://openveda.cloud/api/stac/collections](https://openveda.cloud/api/stac/collections)
-* Raster API (tiling): [https://openveda.cloud/api/raster/docs](https://openveda.cloud/api/raster/docs)
+* STAC browser: [openveda.cloud](https://openveda.cloud)
+* STAC API (metadata): [openveda.cloud/api/stac/docs](https://openveda.cloud/api/stac/docs)
+* List collections: [openveda.cloud/api/stac/collections](https://openveda.cloud/api/stac/collections)
+* Raster API (tiling): [openveda.cloud/api/raster/docs](https://openveda.cloud/api/raster/docs)
 
 ### Staging (maintenance will be announced):
 
-* STAC browser: [veda-staging-stac-browser](http://veda-staging-stac-browser.s3-website-us-west-2.amazonaws.com/)
-* STAC API (metadata): [staging-stac.delta-backend.com/docs](https://staging-stac.delta-backend.com/docs)
-* List collections: [staging-stac.delta-backend.com/collections](https://staging-stac.delta-backend.com/collections)
-* Raster API (map tiles and timeseries): [staging-raster.delta-backend.com/docs](https://staging-raster.delta-backend.com/docs)
+* STAC browser: [staging.openveda.cloud](https://staging.openveda.cloud)
+* STAC API (metadata): [staging.openveda.cloud/api/stac/docs](https://staging.openveda.cloud/api/stac/docs)
+* List collections: [staging.openveda.cloud/api/stac/collections](https://staging.openveda.cloud/api/stac/collections)
+* Raster API (map tiles and timeseries): [staging.openveda.cloud/api/raster/docs](https://staging.openveda.cloud/api/raster/docs)
 * Features API (vector data): [firenrt.delta-backend.com](https://firenrt.delta-backend.com) - see also the [usage tutorial](../notebooks/tutorials/mapping-fires.html)
-* STAC viewer (experimental): [staging-stac.delta-backend.com](https://staging-stac.delta-backend.com/index.html)
+* STAC viewer (experimental): [staging.openveda.cloud/api/stac/index.html](https://staging.openveda.cloud/api/stac/index.html)
+
 
 ## Using tile layers in external services
 
