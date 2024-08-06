@@ -22,7 +22,7 @@ Second, you need to authorize the app on the Hub. This needs to be done once eve
 1. Start an Hub instance.
 2. Create a new Jupyter notebook named `gh-scoped-creds.ipynb` in your home directory.
 3. Import `import gh_scoped_creds`
-4. Run the Jupyter magic command `%ghscopedcreds`, as shown in the following cell.
+4. Run the Jupyter magic command `%ghscopedcreds`, as shown below.
 5. Copy the code that was displayed in the cell output.
 6. Navigate to [https://github.com/login/device/select_account](https://github.com/login/device/select_account).
 7. Select the account that you want to authorize push access for.
@@ -30,6 +30,8 @@ Second, you need to authorize the app on the Hub. This needs to be done once eve
 9. Select `Authorize veda-hub-github-scoped-creds`.
 
 You can re-use the Jupyter notebook created in steps 1-3 each time you need to re-authorize push access.
+
+![Running gh-scoped-creds](images/gh-scoped-creds.gif)
 
 ## Push to repositories
 
