@@ -570,7 +570,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="open-stac-catalog" class="level2">
 <h2 class="anchored" data-anchor-id="open-stac-catalog">Open STAC catalog</h2>
-<div id="cell-4" class="cell" data-execution_count="1">
+<div id="cell-4" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/stac/"</span></span>
@@ -579,7 +579,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="list-collections" class="level2">
 <h2 class="anchored" data-anchor-id="list-collections">List collections</h2>
-<div id="cell-6" class="cell" data-execution_count="2">
+<div id="cell-6" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>collections <span class="op">=</span> <span class="bu">list</span>(catalog.get_collections())</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> collection <span class="kw">in</span> <span class="bu">sorted</span>(collections, key<span class="op">=</span><span class="kw">lambda</span> x: x.title):</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(collection.title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -729,8 +729,8 @@ disalexi-etsuppression</code></pre>
 <h2 class="anchored" data-anchor-id="alternate-approachs">Alternate approachs</h2>
 <p>Instead of exploring STAC catalog programatically, you can discover available collections the following ways:</p>
 <ul>
-<li>JSON API: https://staging-stac.delta-backend.com/collections</li>
-<li>STAC Browser: http://veda-staging-stac-browser.s3-website-us-west-2.amazonaws.com</li>
+<li>JSON API: https://openveda.cloud/api/stac/collections</li>
+<li>STAC Browser: http://openveda.cloud</li>
 </ul>
 
 
