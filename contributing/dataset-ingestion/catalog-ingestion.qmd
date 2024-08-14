@@ -34,9 +34,6 @@ Once you have logically grouped the datasets into collections, you will need to 
   ],
   "discovery_items": [
     {
-      "discovery": "s3",
-      "cogify": false,
-      "upload": false,
       "dry_run": false,
       "prefix": "EIS/COG/LIS_GLOBAL_DA/Evap/",
       "bucket": "veda-data-store-staging",
@@ -88,59 +85,59 @@ The following table describes what each of these fields mean:
 
 The publication process involves 3 steps:
 
-1. [VEDA] Publishing to the development STAC catalog `https://dev.openveda.cloud/api/stac`
+1. [VEDA] Publishing to the staging STAC catalog `https://staging.openveda.cloud`
 2. [EIS] Reviewing the collection/items published to the dev STAC catalog
-3. [VEDA] Publishing to the staging STAC catalog `https://staging-stac.delta-backend.com`
+3. [VEDA] Publishing to the production STAC catalog `https://openveda.cloud`
 
-To use the VEDA Ingestion API to schedule ingestion/publication of the data follow these steps:
+To use the VEDA Workflows API to schedule ingestion/publication of the data follow these steps:
 
 ### 1. Obtain credentials from a VEDA team member
 
 Ask a VEDA team member to create `Cognito` credentials (username and password) for VEDA authentication.
 
-### 2. Export username and password
+### 2. Set up
+
+Export username and password
 
 ```bash
 export username="johndoe"
 export password="xxxx"
 ```
 
+Install Cognito client
+```bash
+pip install cognito-client --quiet
+```
+
 ### 3. Get token
 
+You can obtain a token by clicking the 'Authorize' in the workflows API swagger docs at [staging.openveda.cloud/api/workflows/docs](https://staging.openveda.cloud/api/workflows/docs). It will be added to the headers of all requests made from the swagger docs page. 
+
+Alternatively, you can use the cognito client to obtain a token for your request headers.
 ```python
 # Required imports
 import os
 import requests
+from cognito_client import CognitoClient
 
-# Pull username and password from environment variables
-username = os.environ.get("username")
-password = os.environ.get("password")
+STAGING_CLIENT_ID = "4rhmpnmnk3rgd9qtiuarllppau"
+STAGING_USERPOOL_ID = "us-west-2_0G3VRilt1"
+STAGING_IDENTITY_POOL_ID = "us-west-2:ad6647b6-b410-4e73-8205-28a066c290fb"
 
-# base url for the workflows api
-# experimental / subject to change in the future
-# DISCLAIMER: coming soon, not yet available
-base_url = "https://dev.openveda.cloud/api/workflows"
+# Obtain a token from the cognito client 
+client = CognitoClient(
+    client_id = STAGING_CLIENT_ID,
+    user_pool_id = STAGING_USERPOOL_ID,
+    identity_pool_id = STAGING_IDENTITY_POOL_ID
+)
+_ = client.login()
 
-# endpoint to get the token from
-token_url = f"{base_url}/token"
+TOKEN = client.access_token
 
-# authentication credentials to be passed to the token_url
-body = {
-    "username": username,
-    "password": password,
+# prepare headers for requests
+headers = {
+    "Authorization": f"Bearer {TOKEN}"
 }
-
-# request token
-response = requests.post(token_url, data=body)
-if not response.ok:
-    raise Exception("Couldn't obtain the token. Make sure the username and password are correct.")
-else:
-    # get token from response
-    token = response.json().get("AccessToken")
-    # prepare headers for requests
-    headers = {
-        "Authorization": f"Bearer {token}"
-    }
 ```
 
 ### 4. Ingest the dataset
@@ -148,10 +145,13 @@ else:
 Then, use the code snippet below to publish the dataset.
 
 ```python
-# url for dataset validation / publication
-validate_url = f"{base_url}/dataset/validate"
 
-publish_url = f"{base_url}/dataset/publish"
+STAGING_WORKFLOWS_API_URL = "https://staging.openveda.cloud/api/workflows"
+
+# url for dataset validation / publication
+validate_url = f"{STAGING_WORKFLOWS_API_URL}/dataset/validate"
+
+publish_url = f"{STAGING_WORKFLOWS_API_URL}/dataset/publish"
 
 # prepare the body of the request,
 body = json.load(open("dataset-definition.json"))
@@ -184,7 +184,7 @@ if publish_response.ok:
 # should be available in the response of workflow execution request
 execution_id = "xxx"
 # url for execution status
-execution_status_url = f"{workflow_execution_url}/{execution_id}"
+execution_status_url = f"{STAGING_WORKFLOWS_API_URL}/discovery-executions/{execution_id}"
 # make the request
 response = requests.get(
     execution_status_url,
