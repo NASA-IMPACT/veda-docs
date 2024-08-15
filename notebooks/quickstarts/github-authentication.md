@@ -12,7 +12,7 @@ First, you need to install the GitHub auth application in the organization and r
 4. Select either `All repositories` or `Only select repositories` depending on whether you only want to allow pushing to specific repositories. In order for a Hub user to write to those repositories, the repository needs to be added to the application **and** the user needs to have read/write permissions for the repository. The following restrictions define whether you can install the application yourself or if you need to request permission:
     - Organization owners can install GitHub Apps for all repositories.
     - Repository admins can install the application if they only grant access to repositories that they administer.
-    - If a requested does not have sufficient permissions, GitHub will send a notification to the organization owner requesting that they install the app.
+    - If you do not have sufficient permissions, GitHub will send a notification to the organization owner requesting that they install the app.
 *. Click save.
 
 ## Authenticate using the veda-hub-github-scoped-creds app
