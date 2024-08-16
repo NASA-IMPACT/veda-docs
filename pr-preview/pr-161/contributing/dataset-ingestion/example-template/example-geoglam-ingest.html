@@ -511,11 +511,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#validate-data-format" id="toc-validate-data-format" class="nav-link" data-scroll-target="#validate-data-format">1. Validate data format</a></li>
   <li><a href="#upload-file-to-s3" id="toc-upload-file-to-s3" class="nav-link" data-scroll-target="#upload-file-to-s3">2. Upload file to S3</a></li>
-  <li><a href="#use-the-workflows-api-to-add-this-geoglam-item-to-the-staging-catalog" id="toc-use-the-workflows-api-to-add-this-geoglam-item-to-the-staging-catalog" class="nav-link" data-scroll-target="#use-the-workflows-api-to-add-this-geoglam-item-to-the-staging-catalog">3 Use the workflows-api to add this geoglam item to the staging catalog</a>
+  <li><a href="#use-the-workflows-api-to-add-this-geoglam-item-to-the-staging-catalog" id="toc-use-the-workflows-api-to-add-this-geoglam-item-to-the-staging-catalog" class="nav-link" data-scroll-target="#use-the-workflows-api-to-add-this-geoglam-item-to-the-staging-catalog">3. Use the workflows-api to add this geoglam item to the staging catalog</a>
   <ul class="collapse">
-  <li><a href="#a-construct-dataset-definition" id="toc-a-construct-dataset-definition" class="nav-link" data-scroll-target="#a-construct-dataset-definition">3.a Construct dataset definition</a></li>
-  <li><a href="#b-validate-dataset-definition" id="toc-b-validate-dataset-definition" class="nav-link" data-scroll-target="#b-validate-dataset-definition">3.b Validate dataset definition</a></li>
-  <li><a href="#c-publish-to-stac" id="toc-c-publish-to-stac" class="nav-link" data-scroll-target="#c-publish-to-stac">3.c Publish to STAC</a></li>
+  <li><a href="#a.-construct-dataset-definition" id="toc-a.-construct-dataset-definition" class="nav-link" data-scroll-target="#a.-construct-dataset-definition">3a. Construct dataset definition</a></li>
+  <li><a href="#b.-validate-dataset-definition" id="toc-b.-validate-dataset-definition" class="nav-link" data-scroll-target="#b.-validate-dataset-definition">3b. Validate dataset definition</a></li>
+  <li><a href="#c.-publish-to-stac" id="toc-c.-publish-to-stac" class="nav-link" data-scroll-target="#c.-publish-to-stac">3c. Publish to STAC</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -569,7 +569,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Upload the file to the staging S3 bucket (<code>veda-data-store-staging</code>)</li>
 <li>Use the workflows-api (<a href="https://staging.openveda.cloud/api/workflows/docs">staging.openveda.cloud/api/workflows/docs</a>) to generate STAC metadata for the file and add to the staging STAC catalog (<a href="https://staging.openveda.cloud">staging.openveda.cloud</a>)</li>
 </ol>
-<p>When the data has been published to the STAC metadata catalog for this <code>geoglam</code> collecition, which is already configured for the dashboard, it will be available in the <a href="https://www.earthdata.nasa.gov/dashboard">VEDA Dashboard</a></p>
+<p>When the data has been published to the STAC metadata catalog for this <code>geoglam</code> collection, which is already configured for the dashboard, it will be available in the <a href="https://www.earthdata.nasa.gov/dashboard">VEDA Dashboard</a></p>
 <section id="validate-data-format" class="level2">
 <h2 class="anchored" data-anchor-id="validate-data-format">1. Validate data format</h2>
 <p>Below we will import some geospatial tools for validation and define some of the variables to be used including the <code>TARGET_FILENAME</code> for the datafile you want to upload. Note that in this example we will demonstrate the ingestion of GEOGLAM’s June 2023 data. It is important that the file you want to upload (e.g., <code>CropMonitor_2023_06_28.tif</code> ) is located in the same repository folder as this notebook.</p>
@@ -612,10 +612,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="use-the-workflows-api-to-add-this-geoglam-item-to-the-staging-catalog" class="level2">
-<h2 class="anchored" data-anchor-id="use-the-workflows-api-to-add-this-geoglam-item-to-the-staging-catalog">3 Use the workflows-api to add this geoglam item to the staging catalog</h2>
+<h2 class="anchored" data-anchor-id="use-the-workflows-api-to-add-this-geoglam-item-to-the-staging-catalog">3. Use the workflows-api to add this geoglam item to the staging catalog</h2>
 <p>For this step, open the workflows API at <a href="https://staging.openveda.cloud/api/workflows/docs">staging.openveda.cloud/api/workflows/docs</a> in a second browser tab and click the green authorize button at the upper right to authenticate your session with your username and password (you will be temporarily redirected to a login widget and then back to the workflows-api docs). The cells below will guide you through the process of configuiring your request jsons for each endpoint demonstrated and you will copy the cell outputs into the workflows API in your second tab.</p>
-<section id="a-construct-dataset-definition" class="level3">
-<h3 class="anchored" data-anchor-id="a-construct-dataset-definition">3.a Construct dataset definition</h3>
+<section id="a.-construct-dataset-definition" class="level3">
+<h3 class="anchored" data-anchor-id="a.-construct-dataset-definition">3a. Construct dataset definition</h3>
 <p>Here the data provider will construct the dataset definition (and supporting metadata) that will be used for dataset ingestion. It is imperative that these values are correct and align to the data the provider is planning to upload to the VEDA Platform. For example, make sure that the <code>startdate</code> and <code>enddate</code> are realistic (e.g., an <code>"enddate":"2023-06-31T23:59:59Z"</code> would be an incorrect value for June, as it contains only 31 days).</p>
 <p>For further detail on metadata required for entries in the VEDA STAC to work with the VEDA Dashboard, see documentation <a href="https://nasa-impact.github.io/veda-docs/contributing/dataset-ingestion/stac-collection-conventions.html">here.</a> In particular, note recommendations for the fields <code>is_periodic</code> and <code>time_density</code>. For example, in the code block below we define the <code>is_periodic</code> field as <code>False</code> because we are ingesting only one month of data. Even though we know that the monthly observations are provided routinely by GEOGLAM, we will only have a single file to ingest and so do not have a temporal range of items in the collection with a monthly time density to generate a time picker from the available data.</p>
 <blockquote class="blockquote">
@@ -841,14 +841,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="b-validate-dataset-definition" class="level3">
-<h3 class="anchored" data-anchor-id="b-validate-dataset-definition">3.b Validate dataset definition</h3>
+<section id="b.-validate-dataset-definition" class="level3">
+<h3 class="anchored" data-anchor-id="b.-validate-dataset-definition">3b. Validate dataset definition</h3>
 <p>After composing your dataset definition, copy the printed json and paste it into the <code>/dataset/validate</code> input in the workflows-api docs page in the second tab. Note that if you navigate away from this page you will need to click authorize again.</p>
 <p>Choose <code>POST dataset/validate</code> in the <strong>Dataset</strong> section of the API docs at <a href="https://staging.openveda.cloud/api/workflows/docs">staging.openveda.cloud/api/workflows/docs</a>. Click ’Try it Out` and paste your json into the <strong>Request body</strong> and then <strong>Execute</strong></p>
 <p>If the json is valid, the response will confirm that it is ready to be published on the VEDA Platform.</p>
 </section>
-<section id="c-publish-to-stac" class="level3">
-<h3 class="anchored" data-anchor-id="c-publish-to-stac">3.c Publish to STAC</h3>
+<section id="c.-publish-to-stac" class="level3">
+<h3 class="anchored" data-anchor-id="c.-publish-to-stac">3c. Publish to STAC</h3>
 <p>Now that you have validated your dataset, you can initiate a workflow and publish the dataset to the VEDA Platform.</p>
 <p>Choose <code>POST dataset/publish</code> in the <strong>Dataset</strong> section of the API docs at <a href="https://staging.openveda.cloud/api/workflows/docs">staging.openveda.cloud/api/workflows/docs</a>. Click ’Try it Out` and paste your json into the <strong>Request body</strong> and then <strong>Execute</strong></p>
 <p>On success, you will recieve a success message containing the id of your workflow, for example</p>
