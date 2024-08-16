@@ -429,17 +429,34 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
+ <span class="menu-text">Boilerplate ingest example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributing/dataset-ingestion/example-template/example-geoglam-ingest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ingestion Workflow for Uploading Data to the VEDA Catalog for the VEDA Dashboard</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../contributing/dashboard-configuration/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dashboard Configuration</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../contributing/dashboard-configuration/dataset-configuration.html" class="sidebar-item-text sidebar-link">
@@ -473,6 +490,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#steps-for-ingesting-a-dataset" id="toc-steps-for-ingesting-a-dataset" class="nav-link active" data-scroll-target="#steps-for-ingesting-a-dataset">Steps for ingesting a dataset</a></li>
+  <li><a href="#end-to-end-ingest-example" id="toc-end-to-end-ingest-example" class="nav-link" data-scroll-target="#end-to-end-ingest-example">End to end ingest example</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/contributing/dataset-ingestion/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -524,7 +542,23 @@ If the above instructions do not cover the data you want to ingest and/or if you
 <p>Open a dedicated <a href="https://github.com/NASA-IMPACT/veda-data">pull request in the veda-data repository</a>. Please read through these docs fully first as you they will help supply the information required to complete the PR. Use this <a href="https://github.com/NASA-IMPACT/veda-data/issues/new?assignees=&amp;labels=dataset&amp;projects=&amp;template=new-dataset.yaml&amp;title=New+Dataset%3A+%3Cdataset+title%3E">“new dataset” template to open a new issue and get started</a>.</p>
 </div>
 </div>
-<p>For a walk through of the full process outlined above, please refer to this <a href="../../contributing/dataset-ingestion/example-template/example-geoglam-ingest.html">example notebook</a>. This notebook uses the <code>GEOGLAM June 2023</code> dataset as an example, but please use this as a guide for the ingestion process (and required dataset defintions), replacing the GEOGLAM dataset with your own.</p>
+</section>
+<section id="end-to-end-ingest-example" class="level2">
+<h2 class="anchored" data-anchor-id="end-to-end-ingest-example">End to end ingest example</h2>
+<p>For a walk through of the full process outlined above, please refer to this <a href="../../contributing/dataset-ingestion/example-template/example-geoglam-ingest.html">example notebook</a>. This notebook uses the <code>GEOGLAM June 2023</code> to ingest this file <a href="./example-template/CropMonitor_2023_06_28.tif">CropMonitor_2023_06_28.tif</a> into VEDA’s staging STAC catalog.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="This is an actual ingest and will update the staging STAC catalog">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+This is an actual ingest and will update the staging STAC catalog
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Please use this as a guide for the ingestion process (and required dataset defintions), replacing the GEOGLAM dataset metadata and file with your own data.</p>
+</div>
+</div>
 <p>Stuck on how to develop compliant metadata records for your dataset?</p>
 <p>Checkout the following notebooks and resources to help provide you with the STAC metadata required to <a href="https://nasa-impact.github.io/veda-docs/contributing/dataset-ingestion/catalog-ingestion.html">create the dataset definitions needed for catalog ingestion</a>.</p>
 <ul>
