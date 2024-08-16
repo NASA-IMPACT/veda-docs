@@ -463,17 +463,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
+ <span class="menu-text">Boilerplate ingest example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributing/dataset-ingestion/example-template/example-geoglam-ingest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ingestion Workflow for Uploading Data to the VEDA Catalog for the VEDA Dashboard</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../contributing/dashboard-configuration/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dashboard Configuration</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../contributing/dashboard-configuration/dataset-configuration.html" class="sidebar-item-text sidebar-link">
@@ -509,11 +526,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#step-iii-create-dataset-definitions" id="toc-step-iii-create-dataset-definitions" class="nav-link active" data-scroll-target="#step-iii-create-dataset-definitions">STEP III: Create dataset definitions</a></li>
   <li><a href="#step-iv-publication" id="toc-step-iv-publication" class="nav-link" data-scroll-target="#step-iv-publication">STEP IV: Publication</a>
   <ul class="collapse">
-  <li><a href="#obtain-credentials-from-a-veda-team-member" id="toc-obtain-credentials-from-a-veda-team-member" class="nav-link" data-scroll-target="#obtain-credentials-from-a-veda-team-member">1. Obtain credentials from a VEDA team member</a></li>
-  <li><a href="#export-username-and-password" id="toc-export-username-and-password" class="nav-link" data-scroll-target="#export-username-and-password">2. Export username and password</a></li>
-  <li><a href="#get-token" id="toc-get-token" class="nav-link" data-scroll-target="#get-token">3. Get token</a></li>
-  <li><a href="#ingest-the-dataset" id="toc-ingest-the-dataset" class="nav-link" data-scroll-target="#ingest-the-dataset">4. Ingest the dataset</a></li>
-  <li><a href="#check-the-status-of-the-execution" id="toc-check-the-status-of-the-execution" class="nav-link" data-scroll-target="#check-the-status-of-the-execution">Check the status of the execution</a></li>
+  <li><a href="#prerequisite-obtain-credentials-from-a-veda-team-member" id="toc-prerequisite-obtain-credentials-from-a-veda-team-member" class="nav-link" data-scroll-target="#prerequisite-obtain-credentials-from-a-veda-team-member">Prerequisite: obtain credentials from a VEDA team member</a></li>
+  <li><a href="#sign-in-to-the-workflows-api-docs-using-your-credentials" id="toc-sign-in-to-the-workflows-api-docs-using-your-credentials" class="nav-link" data-scroll-target="#sign-in-to-the-workflows-api-docs-using-your-credentials">Sign in to the workflows API docs using your credentials</a></li>
+  <li><a href="#datasetvalidate" id="toc-datasetvalidate" class="nav-link" data-scroll-target="#datasetvalidate"><code>/dataset/validate</code></a></li>
+  <li><a href="#datasetpublish" id="toc-datasetpublish" class="nav-link" data-scroll-target="#datasetpublish"><code>/dataset/publish</code></a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/contributing/dataset-ingestion/catalog-ingestion.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -568,17 +584,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span><span class="fu">,</span></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"discovery_items"</span><span class="fu">:</span> <span class="ot">[</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"discovery"</span><span class="fu">:</span> <span class="st">"s3"</span><span class="fu">,</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"cogify"</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"upload"</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"dry_run"</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"prefix"</span><span class="fu">:</span> <span class="st">"EIS/COG/LIS_GLOBAL_DA/Evap/"</span><span class="fu">,</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"bucket"</span><span class="fu">:</span> <span class="st">"veda-data-store-staging"</span><span class="fu">,</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"filename_regex"</span><span class="fu">:</span> <span class="st">"(.*)LIS_Evap_(.*).tif$"</span><span class="fu">,</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"datetime_range"</span><span class="fu">:</span> <span class="st">"day"</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"dry_run"</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"prefix"</span><span class="fu">:</span> <span class="st">"EIS/COG/LIS_GLOBAL_DA/Evap/"</span><span class="fu">,</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"bucket"</span><span class="fu">:</span> <span class="st">"veda-data-store-staging"</span><span class="fu">,</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"filename_regex"</span><span class="fu">:</span> <span class="st">"(.*)LIS_Evap_(.*).tif$"</span><span class="fu">,</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"datetime_range"</span><span class="fu">:</span> <span class="st">"day"</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <details>
 <summary>
 <strong>Click to show field descriptions</strong>
@@ -736,108 +749,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </details>
 <blockquote class="blockquote">
-<p>Note: The steps after this are technical, so at this point open a PR on the <a href="https://github.com/NASA-IMPACT/veda-data">veda-data</a> GitHub repository and a member of the VEDA team will handle the publication process.</p>
+<p>Note: If you are unable to complete the following steps or have a new type of data that does not work with the example docs, open an issue in the <a href="https://github.com/NASA-IMPACT/veda-data">veda-data</a> GitHub repository.</p>
 </blockquote>
 </section>
 <section id="step-iv-publication" class="level2">
 <h2 class="anchored" data-anchor-id="step-iv-publication">STEP IV: Publication</h2>
 <p>The publication process involves 3 steps:</p>
 <ol type="1">
-<li>[VEDA] Publishing to the development STAC catalog <code>https://dev.openveda.cloud/api/stac</code></li>
+<li>[VEDA] Publishing to the staging STAC catalog <code>https://staging.openveda.cloud</code></li>
 <li>[EIS] Reviewing the collection/items published to the dev STAC catalog</li>
-<li>[VEDA] Publishing to the staging STAC catalog <code>https://staging-stac.delta-backend.com</code></li>
+<li>[VEDA] Publishing to the production STAC catalog <code>https://openveda.cloud</code> by submitting the configuration you just created in a pull request to the <a href="https://github.com/NASA-IMPACT/veda-data?tab=readme-ov-file#dataset-submission-process">veda-data repo</a>.</li>
 </ol>
-<p>To use the VEDA Ingestion API to schedule ingestion/publication of the data follow these steps:</p>
-<section id="obtain-credentials-from-a-veda-team-member" class="level3">
-<h3 class="anchored" data-anchor-id="obtain-credentials-from-a-veda-team-member">1. Obtain credentials from a VEDA team member</h3>
+<p>To use the VEDA Workflows API to schedule ingestion/publication of the data follow these steps:</p>
+<section id="prerequisite-obtain-credentials-from-a-veda-team-member" class="level3">
+<h3 class="anchored" data-anchor-id="prerequisite-obtain-credentials-from-a-veda-team-member">Prerequisite: obtain credentials from a VEDA team member</h3>
 <p>Ask a VEDA team member to create <code>Cognito</code> credentials (username and password) for VEDA authentication.</p>
 </section>
-<section id="export-username-and-password" class="level3">
-<h3 class="anchored" data-anchor-id="export-username-and-password">2. Export username and password</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">username</span><span class="op">=</span><span class="st">"johndoe"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">password</span><span class="op">=</span><span class="st">"xxxx"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="sign-in-to-the-workflows-api-docs-using-your-credentials" class="level3">
+<h3 class="anchored" data-anchor-id="sign-in-to-the-workflows-api-docs-using-your-credentials">Sign in to the workflows API docs using your credentials</h3>
+<p>Open the workflows API at <a href="https://staging.openveda.cloud/api/workflows/docs">staging.openveda.cloud/api/workflows/docs</a> in a second browser tab and click the green authorize button at the upper right to authenticate your session with your username and password (you will be temporarily redirected to a login widget and then back to the workflows-api docs).</p>
 </section>
-<section id="get-token" class="level3">
-<h3 class="anchored" data-anchor-id="get-token">3. Get token</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Required imports</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull username and password from environment variables</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>username <span class="op">=</span> os.environ.get(<span class="st">"username"</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>password <span class="op">=</span> os.environ.get(<span class="st">"password"</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># base url for the workflows api</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># experimental / subject to change in the future</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># DISCLAIMER: coming soon, not yet available</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>base_url <span class="op">=</span> <span class="st">"https://dev.openveda.cloud/api/workflows"</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># endpoint to get the token from</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>token_url <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>base_url<span class="sc">}</span><span class="ss">/token"</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># authentication credentials to be passed to the token_url</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>body <span class="op">=</span> {</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"username"</span>: username,</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"password"</span>: password,</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># request token</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.post(token_url, data<span class="op">=</span>body)</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> response.ok:</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="st">"Couldn't obtain the token. Make sure the username and password are correct."</span>)</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get token from response</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    token <span class="op">=</span> response.json().get(<span class="st">"AccessToken"</span>)</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># prepare headers for requests</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    headers <span class="op">=</span> {</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Authorization"</span>: <span class="ss">f"Bearer </span><span class="sc">{</span>token<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="datasetvalidate" class="level3">
+<h3 class="anchored" data-anchor-id="datasetvalidate"><code>/dataset/validate</code></h3>
+<p>After creating your <a href="#step-iii-create-dataset-definitions">dataset definition</a>, copy the printed json and paste it into the <code>/dataset/validate</code> input in the workflows-api docs page in the second tab. Note that if you navigate away from this page you will need to click authorize again.</p>
+<p>Choose <code>POST dataset/validate</code> in the <strong>Dataset</strong> section of the workflows-api docs. Click ’Try it Out` and paste your json into the <strong>Request body</strong> and then <strong>Execute</strong></p>
+<p>If the json is valid, the response will confirm that it is ready to be published on the VEDA Platform.</p>
 </section>
-<section id="ingest-the-dataset" class="level3">
-<h3 class="anchored" data-anchor-id="ingest-the-dataset">4. Ingest the dataset</h3>
-<p>Then, use the code snippet below to publish the dataset.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># url for dataset validation / publication</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>validate_url <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>base_url<span class="sc">}</span><span class="ss">/dataset/validate"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>publish_url <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>base_url<span class="sc">}</span><span class="ss">/dataset/publish"</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare the body of the request,</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>body <span class="op">=</span> json.load(<span class="bu">open</span>(<span class="st">"dataset-definition.json"</span>))</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Validate the data definition using the /validate endpoint</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>validation_response <span class="op">=</span> requests.post(</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    validate_url,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    headers<span class="op">=</span>headers,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>body</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># look at the response</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>validation_response.raise_for_status()</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># If the validation is successful, publish the dataset using /publish endpoint</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>publish_response <span class="op">=</span> requests.post(</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    publish_url,</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    headers<span class="op">=</span>headers,</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>body</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> publish_response.ok:</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Success"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="check-the-status-of-the-execution" class="level3">
-<h3 class="anchored" data-anchor-id="check-the-status-of-the-execution">Check the status of the execution</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the id of the execution</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># should be available in the response of workflow execution request</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>execution_id <span class="op">=</span> <span class="st">"xxx"</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># url for execution status</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>execution_status_url <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>workflow_execution_url<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>execution_id<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># make the request</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    execution_status_url,</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    headers<span class="op">=</span>headers,</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> response.ok:</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(response.json())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="datasetpublish" class="level3">
+<h3 class="anchored" data-anchor-id="datasetpublish"><code>/dataset/publish</code></h3>
+<p>Now that you have validated your dataset, you can initiate a workflow and publish the dataset to the VEDA Platform.</p>
+<p>Choose <code>POST dataset/publish</code> in the <strong>Dataset</strong> section of the workflows-api docs. Click ’Try it Out` and paste your json into the <strong>Request body</strong> and then <strong>Execute</strong></p>
+<p>On success, you will recieve a success message containing the id of your workflow, for example</p>
+<pre><code>{"message":"Successfully published collection: geoglam. 1  workflows initiated.","workflows_ids":["db6a2097-3e4c-45a3-a772-0c11e6da8b44"]}</code></pre>
 
 
 </section>
