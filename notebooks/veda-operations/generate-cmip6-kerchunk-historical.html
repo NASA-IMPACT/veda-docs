@@ -614,34 +614,33 @@ Learn more
 <section id="step-1-setup" class="level2">
 <h2 class="anchored" data-anchor-id="step-1-setup">Step 1: Setup</h2>
 <p>Import necessary libraries and define some variables for which CMIP6 variable and model we will create references for.</p>
-<div id="9f7250a6" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tempfile <span class="im">import</span> TemporaryDirectory</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dask_gateway <span class="im">import</span> GatewayCluster, Gateway</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dask.bag <span class="im">as</span> db</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fsspec</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ujson</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<div id="9f7250a6" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tempfile <span class="im">import</span> TemporaryDirectory</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dask.bag <span class="im">as</span> db</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> fsspec</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ujson</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dask_gateway <span class="im">import</span> Gateway, GatewayCluster</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> kerchunk.combine <span class="im">import</span> MultiZarrToZarr</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> kerchunk.hdf <span class="im">import</span> SingleHdf5ToZarr</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Dict</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the CMIP model and variable to use. </span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Here we are using near-surface air temperature from the GISS-E2-1-G GCM </span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> <span class="st">"GISS-E2-1-G"</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>variable <span class="op">=</span> <span class="st">"tas"</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># If this code were re-used for a protected bucket, anon should be False.</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>anon <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: We are only using the historical data in this example.</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># More years of data are available from multiple Shared Socio-Economic Pathways (SSPs) in the s3://nex-gddp-cmip6 bucket.</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>s3_path <span class="op">=</span> <span class="ss">f"s3://nex-gddp-cmip6/NEX-GDDP-CMIP6/</span><span class="sc">{</span>model<span class="sc">}</span><span class="ss">/historical/r1i1p1*/</span><span class="sc">{</span>variable<span class="sc">}</span><span class="ss">/*"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the CMIP model and variable to use.</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Here we are using near-surface air temperature from the GISS-E2-1-G GCM</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> <span class="st">"GISS-E2-1-G"</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>variable <span class="op">=</span> <span class="st">"tas"</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># If this code were re-used for a protected bucket, anon should be False.</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>anon <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: We are only using the historical data in this example.</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># More years of data are available from multiple Shared Socio-Economic Pathways (SSPs) in the s3://nex-gddp-cmip6 bucket.</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>s3_path <span class="op">=</span> <span class="ss">f"s3://nex-gddp-cmip6/NEX-GDDP-CMIP6/</span><span class="sc">{</span>model<span class="sc">}</span><span class="ss">/historical/r1i1p1*/</span><span class="sc">{</span>variable<span class="sc">}</span><span class="ss">/*"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="step-2-initiate-file-systems-for-reading-and-temporary-writing" class="level2">
 <h2 class="anchored" data-anchor-id="step-2-initiate-file-systems-for-reading-and-temporary-writing">Step 2: Initiate file systems for reading and (temporary) writing</h2>
-<div id="c7879ad9" class="cell" data-execution_count="9">
+<div id="c7879ad9" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fs_read <span class="op">=</span> fsspec.filesystem(<span class="st">"s3"</span>, anon<span class="op">=</span>anon, skip_instance_cache<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a temporary directory to store the .json reference files</span></span>
@@ -650,13 +649,13 @@ Learn more
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>temp_dir <span class="op">=</span> td.name</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Writing single file references to </span><span class="sc">{</span>temp_dir<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Writing single file references to /tmp/tmppngepuvp</code></pre>
+<pre><code>Writing single file references to /tmp/tmpugv4rwhn</code></pre>
 </div>
 </div>
 </section>
 <section id="step-3-discover-files-from-s3" class="level2">
 <h2 class="anchored" data-anchor-id="step-3-discover-files-from-s3">Step 3: Discover files from S3</h2>
-<div id="f5e6e850-c6ee-48bf-8245-f7dd9c93f3e5" class="cell" data-tags="[]" data-execution_count="10">
+<div id="f5e6e850-c6ee-48bf-8245-f7dd9c93f3e5" class="cell" data-tags="[]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List available files for this model and variable</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>all_files <span class="op">=</span> <span class="bu">sorted</span>([<span class="st">"s3://"</span> <span class="op">+</span> f <span class="cf">for</span> f <span class="kw">in</span> fs_read.glob(s3_path)])</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(all_files)<span class="sc">}</span><span class="ss"> discovered from </span><span class="sc">{</span>s3_path<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -667,28 +666,31 @@ Learn more
 </section>
 <section id="step-4-define-some-functions-for-creating-and-storing-kerchunk-reference-files-for-single-files" class="level2">
 <h2 class="anchored" data-anchor-id="step-4-define-some-functions-for-creating-and-storing-kerchunk-reference-files-for-single-files">Step 4: Define some functions for creating and storing Kerchunk reference files for single files</h2>
-<div id="b046c17c" class="cell" data-execution_count="11">
+<div id="b046c17c" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>so <span class="op">=</span> <span class="bu">dict</span>(mode<span class="op">=</span><span class="st">"rb"</span>, anon<span class="op">=</span>anon, default_fill_cache<span class="op">=</span><span class="va">False</span>, default_cache_type<span class="op">=</span><span class="st">"first"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use Kerchunk's `SingleHdf5ToZarr` method to create a `Kerchunk` index from a NetCDF file.</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_json_reference(u):</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> fs_read.<span class="bu">open</span>(u, <span class="op">**</span>so) <span class="im">as</span> infile:</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        fname <span class="op">=</span> u.split(<span class="st">"/"</span>)[<span class="op">-</span><span class="dv">1</span>].strip(<span class="st">".nc"</span>)        </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        h5chunks <span class="op">=</span> SingleHdf5ToZarr(infile, u, inline_threshold<span class="op">=</span><span class="dv">300</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fname, ujson.dumps(h5chunks.translate()).encode()</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> write_json(fname, reference_json, temp_dir):</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    outf <span class="op">=</span> os.path.join(temp_dir, <span class="ss">f"</span><span class="sc">{</span>fname<span class="sc">}</span><span class="ss">.json"</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(outf, <span class="st">"wb"</span>) <span class="im">as</span> f:</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        f.write(reference_json)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> outf    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_json_reference(u):</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> fs_read.<span class="bu">open</span>(u, <span class="op">**</span>so) <span class="im">as</span> infile:</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        fname <span class="op">=</span> u.split(<span class="st">"/"</span>)[<span class="op">-</span><span class="dv">1</span>].strip(<span class="st">".nc"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        h5chunks <span class="op">=</span> SingleHdf5ToZarr(infile, u, inline_threshold<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> fname, ujson.dumps(h5chunks.translate()).encode()</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> write_json(fname, reference_json, temp_dir):</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    outf <span class="op">=</span> os.path.join(temp_dir, <span class="ss">f"</span><span class="sc">{</span>fname<span class="sc">}</span><span class="ss">.json"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(outf, <span class="st">"wb"</span>) <span class="im">as</span> f:</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        f.write(reference_json)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> outf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Test we can create a kerchunk reference for one file.</p>
-<div id="cbdcb56a-f4e2-40d1-b485-531083c2184b" class="cell" data-tags="[]" data-execution_count="12">
+<div id="cbdcb56a-f4e2-40d1-b485-531083c2184b" class="cell" data-tags="[]" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fname, ref_json <span class="op">=</span> generate_json_reference(all_files[<span class="dv">0</span>])</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>write_json(fname, ref_json, temp_dir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>'/tmp/tmppngepuvp/tas_day_GISS-E2-1-G_historical_r1i1p1f2_gn_1950.json'</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>'/tmp/tmpugv4rwhn/tas_day_GISS-E2-1-G_historical_r1i1p1f2_gn_1950.json'</code></pre>
 </div>
 </div>
 </section>
@@ -696,7 +698,7 @@ Learn more
 <h2 class="anchored" data-anchor-id="step-5-use-a-dask-cluster-to-generate-references-for-all-the-data">Step 5: Use a dask cluster to generate references for all the data</h2>
 <p>Start the cluster and check out the dashboard for active workers, as it may take a few seconds or minutes for them to start up.</p>
 <p>This was run on the VEDA JupyterHub which has access to a distributed cluster. You could also create a <a href="https://docs.dask.org/en/stable/deploying-python.html#localcluster">LocalCluster</a> instance to run the dask bag code below. But because this code is not using <a href="https://docs.dask.org/en/stable/array.html">DaskArrays</a>, you could also use a regular multiprocessing library to distribute the <code>generate_json_refence</code> tasks.</p>
-<div id="794be824-0833-4229-a8b4-10b071eced26" class="cell" data-tags="[]" data-execution_count="13">
+<div id="794be824-0833-4229-a8b4-10b071eced26" class="cell" data-tags="[]" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gateway <span class="op">=</span> Gateway()</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> gateway.list_clusters()</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -709,12 +711,12 @@ Learn more
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>cluster.scale(<span class="dv">16</span>)</span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> cluster.get_client()</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>client</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
     <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;"> </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px;" class="anchored">Client</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-ed7dc353-62fb-11ee-85b5-56638a2020e1</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-1e000625-59cf-11ef-8709-c2be3c95b571</p>
         
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <tbody>
@@ -723,7 +725,7 @@ Learn more
 <td style="text-align: left;"><strong>Cluster type:</strong> dask_gateway.GatewayCluster</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="../../services/dask-gateway/clusters/prod.c614b56e6272421d8b24f9b4ab9252ec/status" target="_blank">/services/dask-gateway/clusters/prod.c614b56e6272421d8b24f9b4ab9252ec/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="../../services/dask-gateway/clusters/prod.f49e93767f6f44469809f0227bf42fc8/status" target="_blank">/services/dask-gateway/clusters/prod.f49e93767f6f44469809f0227bf42fc8/status</a></td>
 <td style="text-align: left;"></td>
 </tr>
 </tbody>
@@ -731,7 +733,7 @@ Learn more
 
 
         
-            <button style="margin-bottom: 12px;" data-commandlinker-command="dask:populate-and-launch-layout" data-commandlinker-args="{&quot;url&quot;: &quot;/services/dask-gateway/clusters/prod.c614b56e6272421d8b24f9b4ab9252ec/status&quot; }">
+            <button style="margin-bottom: 12px;" data-commandlinker-command="dask:populate-and-launch-layout" data-commandlinker-args="{&quot;url&quot;: &quot;/services/dask-gateway/clusters/prod.f49e93767f6f44469809f0227bf42fc8/status&quot; }">
                 Launch dashboard in JupyterLab
             </button>
         
@@ -742,8 +744,8 @@ Learn more
             <div style="background-color: #f2f2f2; display: inline-block; padding: 10px; border: 1px solid #999999;">
   <h3 class="anchored">GatewayCluster</h3>
   <ul>
-    <li><b>Name: </b>prod.c614b56e6272421d8b24f9b4ab9252ec
-    </li><li><b>Dashboard: </b><a href="../../services/dask-gateway/clusters/prod.c614b56e6272421d8b24f9b4ab9252ec/status" target="_blank">/services/dask-gateway/clusters/prod.c614b56e6272421d8b24f9b4ab9252ec/status</a>
+    <li><b>Name: </b>prod.f49e93767f6f44469809f0227bf42fc8
+    </li><li><b>Dashboard: </b><a href="../../services/dask-gateway/clusters/prod.f49e93767f6f44469809f0227bf42fc8/status" target="_blank">/services/dask-gateway/clusters/prod.f49e93767f6f44469809f0227bf42fc8/status</a>
   </li></ul>
 </div>
 
@@ -756,59 +758,62 @@ Learn more
 </div>
 <section id="generate-a-dask-bag-for-all-the-files-and-store-files-in-the-temp_dir" class="level3">
 <h3 class="anchored" data-anchor-id="generate-a-dask-bag-for-all-the-files-and-store-files-in-the-temp_dir">Generate a dask bag for all the files and store files in the temp_dir</h3>
-<div id="b51b4183-5c4f-41ae-9dc9-bb0cc1cb4523" class="cell" data-tags="[]" data-execution_count="14">
+<div id="b51b4183-5c4f-41ae-9dc9-bb0cc1cb4523" class="cell" data-tags="[]" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>bag <span class="op">=</span> db.from_sequence(all_files, partition_size<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> db.<span class="bu">map</span>(generate_json_reference, bag)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>all_references <span class="op">=</span> result.compute()</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>output_files <span class="op">=</span> [write_json(fname, reference_json, temp_dir) <span class="cf">for</span> fname, reference_json <span class="kw">in</span> all_references]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>output_files <span class="op">=</span> [</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    write_json(fname, reference_json, temp_dir)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> fname, reference_json <span class="kw">in</span> all_references</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 74.7 ms, sys: 3.64 ms, total: 78.3 ms
-Wall time: 38.9 s</code></pre>
+<pre><code>CPU times: user 118 ms, sys: 24.9 ms, total: 143 ms
+Wall time: 2min 39s</code></pre>
 </div>
 </div>
 </section>
 <section id="step-6-combine-individual-references-into-a-single-consolidated-reference" class="level3">
 <h3 class="anchored" data-anchor-id="step-6-combine-individual-references-into-a-single-consolidated-reference">Step 6: Combine individual references into a single consolidated reference</h3>
 <p>Store it to local storage and test opening it.</p>
-<div id="e22ec232" class="cell" data-execution_count="15">
+<div id="e22ec232" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>mzz <span class="op">=</span> MultiZarrToZarr(</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    output_files,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    remote_protocol<span class="op">=</span><span class="st">'s3'</span>,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    remote_options<span class="op">=</span>{<span class="st">'anon'</span>: anon},</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    concat_dims<span class="op">=</span>[<span class="st">'time'</span>],</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    remote_protocol<span class="op">=</span><span class="st">"s3"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    remote_options<span class="op">=</span>{<span class="st">"anon"</span>: anon},</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    concat_dims<span class="op">=</span>[<span class="st">"time"</span>],</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    coo_map<span class="op">=</span>{<span class="st">"time"</span>: <span class="st">"cf:time"</span>},</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    inline_threshold<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    inline_threshold<span class="op">=</span><span class="dv">0</span>,</span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>multi_kerchunk <span class="op">=</span> mzz.translate()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 1.02 s, sys: 29.1 ms, total: 1.05 s
-Wall time: 1.03 s</code></pre>
+<pre><code>CPU times: user 961 ms, sys: 11.1 ms, total: 972 ms
+Wall time: 950 ms</code></pre>
 </div>
 </div>
 <p>Write the kerchunk .json file to local storage</p>
-<div id="55ced4a6-0c38-43c8-8c6e-a4fff8a9f7bb" class="cell" data-execution_count="16">
+<div id="55ced4a6-0c38-43c8-8c6e-a4fff8a9f7bb" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>output_fname <span class="op">=</span> <span class="ss">f"combined_CMIP6_daily_</span><span class="sc">{</span>model<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>variable<span class="sc">}</span><span class="ss">_kerchunk.json"</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>output_location <span class="op">=</span> os.path.join(temp_dir, output_fname)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f"</span><span class="sc">{</span>output_location<span class="sc">}</span><span class="ss">"</span>, <span class="st">"wb"</span>) <span class="im">as</span> f:</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Writing combined kerchunk reference file </span><span class="sc">{</span>output_location<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    f.write(ujson.dumps(multi_kerchunk).encode())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Writing combined kerchunk reference file /tmp/tmppngepuvp/combined_CMIP6_daily_GISS-E2-1-G_tas_kerchunk.json</code></pre>
+<pre><code>Writing combined kerchunk reference file /tmp/tmpugv4rwhn/combined_CMIP6_daily_GISS-E2-1-G_tas_kerchunk.json</code></pre>
 </div>
 </div>
-<div id="579d139d" class="cell" data-execution_count="17">
+<div id="579d139d" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># open dataset as zarr object using fsspec reference file system and Xarray</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>fs <span class="op">=</span> fsspec.filesystem(</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"reference"</span>, fo<span class="op">=</span>multi_kerchunk, remote_protocol<span class="op">=</span><span class="st">"s3"</span>, remote_options<span class="op">=</span>{<span class="st">"anon"</span>: anon}</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> fs.get_mapper(<span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="ac76c0c0" class="cell" data-execution_count="19">
+<div id="ac76c0c0" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the data</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_dataset(m, engine<span class="op">=</span><span class="st">"zarr"</span>, backend_kwargs<span class="op">=</span><span class="bu">dict</span>(consolidated<span class="op">=</span><span class="va">False</span>))</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>display(ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>display(ds)  <span class="co">##noqa</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -1173,14 +1178,14 @@ dl.xr-attrs {
   stroke: currentColor;
   fill: currentColor;
 }
-</style><pre class="xr-text-repr-fallback">&lt;xarray.Dataset&gt;
+</style><pre class="xr-text-repr-fallback">&lt;xarray.Dataset&gt; Size: 82GB
 Dimensions:  (lat: 600, lon: 1440, time: 23725)
 Coordinates:
-  * lat      (lat) float64 -59.88 -59.62 -59.38 -59.12 ... 89.38 89.62 89.88
-  * lon      (lon) float64 0.125 0.375 0.625 0.875 ... 359.1 359.4 359.6 359.9
-  * time     (time) object 1950-01-01 12:00:00 ... 2014-12-31 12:00:00
+  * lat      (lat) float64 5kB -59.88 -59.62 -59.38 -59.12 ... 89.38 89.62 89.88
+  * lon      (lon) float64 12kB 0.125 0.375 0.625 0.875 ... 359.4 359.6 359.9
+  * time     (time) object 190kB 1950-01-01 12:00:00 ... 2014-12-31 12:00:00
 Data variables:
-    tas      (time, lat, lon) float32 ...
+    tas      (time, lat, lon) float32 82GB ...
 Attributes: (12/23)
     Conventions:           CF-1.7
     activity:              NEX-GDDP-CMIP6
@@ -1194,24 +1199,24 @@ Attributes: (12/23)
     title:                 GISS-E2-1-G, r1i1p1f2, historical, global downscal...
     tracking_id:           25d6baa3-0404-4eba-a3f1-afddbf69d4cc
     variant_label:         r1i1p1f2
-    version:               1.0</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-99b0db41-b2bc-4550-b4d5-372c5e9baf2e" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-99b0db41-b2bc-4550-b4d5-372c5e9baf2e" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">lat</span>: 600</li><li><span class="xr-has-index">lon</span>: 1440</li><li><span class="xr-has-index">time</span>: 23725</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-2d77afff-d593-4d04-abf3-4bcc571d55bf" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-2d77afff-d593-4d04-abf3-4bcc571d55bf" class="xr-section-summary">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lat</span></div><div class="xr-var-dims">(lat)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-59.88 -59.62 ... 89.62 89.88</div><input id="attrs-6e2e87a3-ba8d-4f1d-8df6-10caa3130baf" class="xr-var-attrs-in" type="checkbox"><label for="attrs-6e2e87a3-ba8d-4f1d-8df6-10caa3130baf" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4dfad269-b39c-427f-9166-9ac4c9fbd321" class="xr-var-data-in" type="checkbox"><label for="data-4dfad269-b39c-427f-9166-9ac4c9fbd321" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>Y</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class="xr-var-data"><pre>array([-59.875, -59.625, -59.375, ...,  89.375,  89.625,  89.875])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lon</span></div><div class="xr-var-dims">(lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.125 0.375 0.625 ... 359.6 359.9</div><input id="attrs-ab757293-8d09-4ee2-8cb2-bed102b04c6c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ab757293-8d09-4ee2-8cb2-bed102b04c6c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1c477376-dd38-4c7b-b4e2-a126468fa3da" class="xr-var-data-in" type="checkbox"><label for="data-1c477376-dd38-4c7b-b4e2-a126468fa3da" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>X</dd><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class="xr-var-data"><pre>array([1.25000e-01, 3.75000e-01, 6.25000e-01, ..., 3.59375e+02, 3.59625e+02,
-       3.59875e+02])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">1950-01-01 12:00:00 ... 2014-12-...</div><input id="attrs-7f2f3c7b-dd06-4a04-8f17-54631ab9eb49" class="xr-var-attrs-in" type="checkbox"><label for="attrs-7f2f3c7b-dd06-4a04-8f17-54631ab9eb49" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-21bbe239-b61d-481c-9e96-36bc802ac208" class="xr-var-data-in" type="checkbox"><label for="data-21bbe239-b61d-481c-9e96-36bc802ac208" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>T</dd><dt><span>long_name :</span></dt><dd>time</dd><dt><span>standard_name :</span></dt><dd>time</dd></dl></div><div class="xr-var-data"><pre>array([cftime.DatetimeNoLeap(1950, 1, 1, 12, 0, 0, 0, has_year_zero=True),
+    version:               1.0</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-acf1b7cd-4a9f-4648-8690-c7e31d3ea8eb" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-acf1b7cd-4a9f-4648-8690-c7e31d3ea8eb" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">lat</span>: 600</li><li><span class="xr-has-index">lon</span>: 1440</li><li><span class="xr-has-index">time</span>: 23725</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-d60b95f3-f589-4f25-9eb0-57b5c5e2f561" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-d60b95f3-f589-4f25-9eb0-57b5c5e2f561" class="xr-section-summary">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lat</span></div><div class="xr-var-dims">(lat)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-59.88 -59.62 ... 89.62 89.88</div><input id="attrs-d1df3bf0-5d32-4f16-a481-6303acbb5d97" class="xr-var-attrs-in" type="checkbox"><label for="attrs-d1df3bf0-5d32-4f16-a481-6303acbb5d97" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-fdaf0d0b-9aef-4096-a6cb-a47f0aaa06e4" class="xr-var-data-in" type="checkbox"><label for="data-fdaf0d0b-9aef-4096-a6cb-a47f0aaa06e4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>Y</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class="xr-var-data"><pre>array([-59.875, -59.625, -59.375, ...,  89.375,  89.625,  89.875])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lon</span></div><div class="xr-var-dims">(lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.125 0.375 0.625 ... 359.6 359.9</div><input id="attrs-f063a72d-fd55-4a3d-8705-1b9eb0e77e6d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f063a72d-fd55-4a3d-8705-1b9eb0e77e6d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5ef8a500-3b6e-4ef8-9c42-3f77cce36faf" class="xr-var-data-in" type="checkbox"><label for="data-5ef8a500-3b6e-4ef8-9c42-3f77cce36faf" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>X</dd><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class="xr-var-data"><pre>array([1.25000e-01, 3.75000e-01, 6.25000e-01, ..., 3.59375e+02, 3.59625e+02,
+       3.59875e+02])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">1950-01-01 12:00:00 ... 2014-12-...</div><input id="attrs-551611e5-a5d3-4026-a8f9-a1fbc7c6ddb6" class="xr-var-attrs-in" type="checkbox"><label for="attrs-551611e5-a5d3-4026-a8f9-a1fbc7c6ddb6" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-bff30416-851d-4051-be40-8dbfad07e6f4" class="xr-var-data-in" type="checkbox"><label for="data-bff30416-851d-4051-be40-8dbfad07e6f4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>T</dd><dt><span>long_name :</span></dt><dd>time</dd><dt><span>standard_name :</span></dt><dd>time</dd></dl></div><div class="xr-var-data"><pre>array([cftime.DatetimeNoLeap(1950, 1, 1, 12, 0, 0, 0, has_year_zero=True),
        cftime.DatetimeNoLeap(1950, 1, 2, 12, 0, 0, 0, has_year_zero=True),
        cftime.DatetimeNoLeap(1950, 1, 3, 12, 0, 0, 0, has_year_zero=True), ...,
        cftime.DatetimeNoLeap(2014, 12, 29, 12, 0, 0, 0, has_year_zero=True),
        cftime.DatetimeNoLeap(2014, 12, 30, 12, 0, 0, 0, has_year_zero=True),
        cftime.DatetimeNoLeap(2014, 12, 31, 12, 0, 0, 0, has_year_zero=True)],
-      dtype=object)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-dd36e760-b4fe-4731-aa2c-03c54eb0bac7" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-dd36e760-b4fe-4731-aa2c-03c54eb0bac7" class="xr-section-summary">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>tas</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-ebec147e-bad5-4e2c-ad50-a1b1e4301514" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ebec147e-bad5-4e2c-ad50-a1b1e4301514" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8e391e35-740d-4805-b574-28230c4dccd8" class="xr-var-data-in" type="checkbox"><label for="data-8e391e35-740d-4805-b574-28230c4dccd8" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_measures :</span></dt><dd>area: areacella</dd><dt><span>cell_methods :</span></dt><dd>area: mean time: maximum</dd><dt><span>comment :</span></dt><dd>near-surface (usually, 2 meter) air temperature; derived from downscaled tasmax &amp; tasmin</dd><dt><span>long_name :</span></dt><dd>Daily Near-Surface Air Temperature</dd><dt><span>standard_name :</span></dt><dd>air_temperature</dd><dt><span>units :</span></dt><dd>K</dd></dl></div><div class="xr-var-data"><pre>[20498400000 values with dtype=float32]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-efe1a062-618d-4a79-a7f3-64772bb9a188" class="xr-section-summary-in" type="checkbox"><label for="section-efe1a062-618d-4a79-a7f3-64772bb9a188" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-9560c2c4-e749-49a1-b6ff-b9c1638318cf" class="xr-index-data-in" type="checkbox"><label for="index-9560c2c4-e749-49a1-b6ff-b9c1638318cf" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-59.875, -59.625, -59.375, -59.125, -58.875, -58.625, -58.375, -58.125,
+      dtype=object)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-f483bb21-b2b7-4296-942f-1bba7058fc98" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-f483bb21-b2b7-4296-942f-1bba7058fc98" class="xr-section-summary">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>tas</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-efb69399-f4b5-4e8a-98bf-969536ee1696" class="xr-var-attrs-in" type="checkbox"><label for="attrs-efb69399-f4b5-4e8a-98bf-969536ee1696" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-22f7ee90-4617-4ba5-87cf-cbe3be90b29b" class="xr-var-data-in" type="checkbox"><label for="data-22f7ee90-4617-4ba5-87cf-cbe3be90b29b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>cell_measures :</span></dt><dd>area: areacella</dd><dt><span>cell_methods :</span></dt><dd>area: mean time: maximum</dd><dt><span>comment :</span></dt><dd>near-surface (usually, 2 meter) air temperature; derived from downscaled tasmax &amp; tasmin</dd><dt><span>long_name :</span></dt><dd>Daily Near-Surface Air Temperature</dd><dt><span>standard_name :</span></dt><dd>air_temperature</dd><dt><span>units :</span></dt><dd>K</dd></dl></div><div class="xr-var-data"><pre>[20498400000 values with dtype=float32]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-7621b528-8418-41ec-8d77-ac0815f99090" class="xr-section-summary-in" type="checkbox"><label for="section-7621b528-8418-41ec-8d77-ac0815f99090" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-17ff4750-cafb-49a5-8444-923c26c1fc42" class="xr-index-data-in" type="checkbox"><label for="index-17ff4750-cafb-49a5-8444-923c26c1fc42" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-59.875, -59.625, -59.375, -59.125, -58.875, -58.625, -58.375, -58.125,
        -57.875, -57.625,
        ...
         87.625,  87.875,  88.125,  88.375,  88.625,  88.875,  89.125,  89.375,
         89.625,  89.875],
-      dtype='float64', name='lat', length=600))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>lon</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-2bced6cb-554e-4f8f-b23c-538aabcef22f" class="xr-index-data-in" type="checkbox"><label for="index-2bced6cb-554e-4f8f-b23c-538aabcef22f" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([  0.125,   0.375,   0.625,   0.875,   1.125,   1.375,   1.625,   1.875,
+      dtype='float64', name='lat', length=600))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>lon</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-9a8ce0a7-2b36-4634-ba26-e55aea23347f" class="xr-index-data-in" type="checkbox"><label for="index-9a8ce0a7-2b36-4634-ba26-e55aea23347f" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([  0.125,   0.375,   0.625,   0.875,   1.125,   1.375,   1.625,   1.875,
          2.125,   2.375,
        ...
        357.625, 357.875, 358.125, 358.375, 358.625, 358.875, 359.125, 359.375,
        359.625, 359.875],
-      dtype='float64', name='lon', length=1440))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-e83995a9-cfea-424a-9bef-8d7b66b715f6" class="xr-index-data-in" type="checkbox"><label for="index-e83995a9-cfea-424a-9bef-8d7b66b715f6" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(CFTimeIndex([1950-01-01 12:00:00, 1950-01-02 12:00:00, 1950-01-03 12:00:00,
+      dtype='float64', name='lon', length=1440))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-cb49e19f-f60e-4b23-b44c-257f9b2d5451" class="xr-index-data-in" type="checkbox"><label for="index-cb49e19f-f60e-4b23-b44c-257f9b2d5451" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(CFTimeIndex([1950-01-01 12:00:00, 1950-01-02 12:00:00, 1950-01-03 12:00:00,
              1950-01-04 12:00:00, 1950-01-05 12:00:00, 1950-01-06 12:00:00,
              1950-01-07 12:00:00, 1950-01-08 12:00:00, 1950-01-09 12:00:00,
              1950-01-10 12:00:00,
@@ -1220,8 +1225,13 @@ Attributes: (12/23)
              2014-12-25 12:00:00, 2014-12-26 12:00:00, 2014-12-27 12:00:00,
              2014-12-28 12:00:00, 2014-12-29 12:00:00, 2014-12-30 12:00:00,
              2014-12-31 12:00:00],
-            dtype='object', length=23725, calendar='noleap', freq='D'))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-9a54f1dc-9cf3-4ea3-96ad-0c396411df8f" class="xr-section-summary-in" type="checkbox"><label for="section-9a54f1dc-9cf3-4ea3-96ad-0c396411df8f" class="xr-section-summary">Attributes: <span>(23)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.7</dd><dt><span>activity :</span></dt><dd>NEX-GDDP-CMIP6</dd><dt><span>cmip6_institution_id :</span></dt><dd>NASA-GISS</dd><dt><span>cmip6_license :</span></dt><dd>CC-BY-SA 4.0</dd><dt><span>cmip6_source_id :</span></dt><dd>GISS-E2-1-G</dd><dt><span>contact :</span></dt><dd>Dr. Rama Nemani: rama.nemani@nasa.gov, Dr. Bridget Thrasher: bridget@climateanalyticsgroup.org</dd><dt><span>creation_date :</span></dt><dd>2021-10-04T18:41:40.796912+00:00</dd><dt><span>disclaimer :</span></dt><dd>This data is considered provisional and subject to change. This data is provided as is without any warranty of any kind, either express or implied, arising by law or otherwise, including but not limited to warranties of completeness, non-infringement, accuracy, merchantability, or fitness for a particular purpose. The user assumes all risk associated with the use of, or inability to use, this data.</dd><dt><span>downscalingModel :</span></dt><dd>BCSD</dd><dt><span>external_variables :</span></dt><dd>areacella</dd><dt><span>frequency :</span></dt><dd>day</dd><dt><span>history :</span></dt><dd>2021-10-04T18:41:40.796912+00:00: install global attributes</dd><dt><span>institution :</span></dt><dd>NASA Earth Exchange, NASA Ames Research Center, Moffett Field, CA 94035</dd><dt><span>product :</span></dt><dd>output</dd><dt><span>realm :</span></dt><dd>atmos</dd><dt><span>references :</span></dt><dd>BCSD method: Thrasher et al., 2012, Hydrol. Earth Syst. Sci.,16, 3309-3314. Ref period obs: latest version of the Princeton Global Meteorological Forcings (http://hydrology.princeton.edu/data.php), based on Sheffield et al., 2006, J. Climate, 19 (13), 3088-3111.</dd><dt><span>resolution_id :</span></dt><dd>0.25 degree</dd><dt><span>scenario :</span></dt><dd>historical</dd><dt><span>source :</span></dt><dd>BCSD</dd><dt><span>title :</span></dt><dd>GISS-E2-1-G, r1i1p1f2, historical, global downscaled CMIP6 climate projection data</dd><dt><span>tracking_id :</span></dt><dd>25d6baa3-0404-4eba-a3f1-afddbf69d4cc</dd><dt><span>variant_label :</span></dt><dd>r1i1p1f2</dd><dt><span>version :</span></dt><dd>1.0</dd></dl></div></li></ul></div></div>
+            dtype='object', length=23725, calendar='noleap', freq='D'))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-1ce46dda-2b7f-445b-8dfa-f0f447cd4fcc" class="xr-section-summary-in" type="checkbox"><label for="section-1ce46dda-2b7f-445b-8dfa-f0f447cd4fcc" class="xr-section-summary">Attributes: <span>(23)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>Conventions :</span></dt><dd>CF-1.7</dd><dt><span>activity :</span></dt><dd>NEX-GDDP-CMIP6</dd><dt><span>cmip6_institution_id :</span></dt><dd>NASA-GISS</dd><dt><span>cmip6_license :</span></dt><dd>CC-BY-SA 4.0</dd><dt><span>cmip6_source_id :</span></dt><dd>GISS-E2-1-G</dd><dt><span>contact :</span></dt><dd>Dr. Rama Nemani: rama.nemani@nasa.gov, Dr. Bridget Thrasher: bridget@climateanalyticsgroup.org</dd><dt><span>creation_date :</span></dt><dd>2021-10-04T18:41:40.796912+00:00</dd><dt><span>disclaimer :</span></dt><dd>This data is considered provisional and subject to change. This data is provided as is without any warranty of any kind, either express or implied, arising by law or otherwise, including but not limited to warranties of completeness, non-infringement, accuracy, merchantability, or fitness for a particular purpose. The user assumes all risk associated with the use of, or inability to use, this data.</dd><dt><span>downscalingModel :</span></dt><dd>BCSD</dd><dt><span>external_variables :</span></dt><dd>areacella</dd><dt><span>frequency :</span></dt><dd>day</dd><dt><span>history :</span></dt><dd>2021-10-04T18:41:40.796912+00:00: install global attributes</dd><dt><span>institution :</span></dt><dd>NASA Earth Exchange, NASA Ames Research Center, Moffett Field, CA 94035</dd><dt><span>product :</span></dt><dd>output</dd><dt><span>realm :</span></dt><dd>atmos</dd><dt><span>references :</span></dt><dd>BCSD method: Thrasher et al., 2012, Hydrol. Earth Syst. Sci.,16, 3309-3314. Ref period obs: latest version of the Princeton Global Meteorological Forcings (http://hydrology.princeton.edu/data.php), based on Sheffield et al., 2006, J. Climate, 19 (13), 3088-3111.</dd><dt><span>resolution_id :</span></dt><dd>0.25 degree</dd><dt><span>scenario :</span></dt><dd>historical</dd><dt><span>source :</span></dt><dd>BCSD</dd><dt><span>title :</span></dt><dd>GISS-E2-1-G, r1i1p1f2, historical, global downscaled CMIP6 climate projection data</dd><dt><span>tracking_id :</span></dt><dd>25d6baa3-0404-4eba-a3f1-afddbf69d4cc</dd><dt><span>variant_label :</span></dt><dd>r1i1p1f2</dd><dt><span>version :</span></dt><dd>1.0</dd></dl></div></li></ul></div></div>
 </div>
+</div>
+<div id="f6045233-9654-4e7f-982b-7aebf3454cf9" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Close the cluster</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>client.close()</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>cluster.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -1230,11 +1240,15 @@ Attributes: (12/23)
 <p>You can skip this if you are not trying to upload the reference file to veda-data-store-staging.</p>
 <p>If you are on the VEDA JupyterHub, you should have access to veda-data-store-staging.</p>
 <div id="3af3089a" class="cell" data-tags="[]" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>s3 <span class="op">=</span> boto3.client(<span class="st">'s3'</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>upload_bucket_name <span class="op">=</span> <span class="st">'veda-data-store-staging'</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> s3.upload_file(output_location, upload_bucket_name, <span class="ss">f'cmip6-</span><span class="sc">{</span>model<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>variable<span class="sc">}</span><span class="ss">-kerchunk/</span><span class="sc">{</span>output_fname<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># None is good.</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Response uploading </span><span class="sc">{</span>output_fname<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>upload_bucket_name<span class="sc">}</span><span class="ss"> was </span><span class="sc">{</span>response<span class="sc">}</span><span class="ss">."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>s3 <span class="op">=</span> boto3.client(<span class="st">"s3"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>upload_bucket_name <span class="op">=</span> <span class="st">"veda-data-store-staging"</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> s3.upload_file(</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    output_location,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    upload_bucket_name,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"cmip6-</span><span class="sc">{</span>model<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>variable<span class="sc">}</span><span class="ss">-kerchunk/</span><span class="sc">{</span>output_fname<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># None is good.</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Response uploading </span><span class="sc">{</span>output_fname<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span>upload_bucket_name<span class="sc">}</span><span class="ss"> was </span><span class="sc">{</span>response<span class="sc">}</span><span class="ss">."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Response uploading combined_CMIP6_daily_GISS-E2-1-G_tas_kerchunk.json to veda-data-store-staging was None.</code></pre>
 </div>
