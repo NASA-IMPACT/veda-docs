@@ -3,7 +3,7 @@ title: "Catalog Ingestion"
 subtitle: "How to load metadata with our STAC API"
 ---
 
-## STEP III: Create dataset definitions
+## STEP III Create dataset definitions
 
 The next step is to divide all the data into logical collections. A collection is basically what it sounds like, a collection of data files that share the same properties like, the data it's measuring, the periodicity, the spatial region, etc. For example, current VEDA datasets like `no2-mean` and `no2-diff` should be two different collections, because one measures the mean levels of nitrogen dioxide and the other the differences in observed levels. Likewise, datasets like `no2-monthly` and `no2-yearly` should be different because the periodicity is different.
 
@@ -77,7 +77,7 @@ The following table describes what each of these fields mean:
 </details>
 
 
-> Note: The steps after this are technical, so at this point open a PR on the [veda-data](https://github.com/NASA-IMPACT/veda-data) GitHub repository and a member of the VEDA team will handle the publication process.
+> Note: If you are unable to complete the following steps or have a new type of data that does not work with the example docs, open and issue in the [veda-data](https://github.com/NASA-IMPACT/veda-data) GitHub repository.
 
 
 
@@ -87,109 +87,33 @@ The publication process involves 3 steps:
 
 1. [VEDA] Publishing to the staging STAC catalog `https://staging.openveda.cloud`
 2. [EIS] Reviewing the collection/items published to the dev STAC catalog
-3. [VEDA] Publishing to the production STAC catalog `https://openveda.cloud`
+3. [VEDA] Publishing to the production STAC catalog `https://openveda.cloud` by submitting the configuration you just created in a pull request to the [veda-data repo](https://github.com/NASA-IMPACT/veda-data?tab=readme-ov-file#dataset-submission-process).
 
 To use the VEDA Workflows API to schedule ingestion/publication of the data follow these steps:
 
-### 1. Obtain credentials from a VEDA team member
+### Prerequisite: obtain credentials from a VEDA team member
 
 Ask a VEDA team member to create `Cognito` credentials (username and password) for VEDA authentication.
 
-### 2. Set up
+### Sign in to the workflows API docs using your credentials
 
-Export username and password
+Open the workflows API at [staging.openveda.cloud/api/workflows/docs](https://staging.openveda.cloud/api/workflows/docs) in a second browser tab and click the green authorize button at the upper right to authenticate your session with your username and password (you will be temporarily redirected to a login widget and then back to the workflows-api docs). 
 
-```bash
-export username="johndoe"
-export password="xxxx"
+### `/dataset/validate`
+After creating your [dataset definition](#step-iii-create-dataset-definitions), copy the printed json and paste it into the `/dataset/validate` input in the workflows-api docs page in the second tab. Note that if you navigate away from this page you will need to click authorize again.
+
+Choose `POST dataset/validate` in the **Dataset** section of the workflows-api docs. Click 'Try it Out` and paste your json into the **Request body** and then **Execute**
+
+If the json is valid, the response will confirm that it is ready to be published on the VEDA Platform. 
+
+### `/dataset/publish`
+
+Now that you have validated your dataset, you can initiate a workflow and publish the dataset to the VEDA Platform. 
+
+Choose `POST dataset/publish` in the **Dataset** section of the workflows-api docs. Click 'Try it Out` and paste your json into the **Request body** and then **Execute**
+
+On success, you will recieve a success message containing the id of your workflow, for example
+
 ```
-
-Install Cognito client
-```bash
-pip install cognito-client --quiet
-```
-
-### 3. Get token
-
-You can obtain a token by clicking the 'Authorize' in the workflows API swagger docs at [staging.openveda.cloud/api/workflows/docs](https://staging.openveda.cloud/api/workflows/docs). It will be added to the headers of all requests made from the swagger docs page. 
-
-Alternatively, you can use the cognito client to obtain a token for your request headers.
-```python
-# Required imports
-import os
-import requests
-from cognito_client import CognitoClient
-
-STAGING_CLIENT_ID = "4rhmpnmnk3rgd9qtiuarllppau"
-STAGING_USERPOOL_ID = "us-west-2_0G3VRilt1"
-STAGING_IDENTITY_POOL_ID = "us-west-2:ad6647b6-b410-4e73-8205-28a066c290fb"
-
-# Obtain a token from the cognito client 
-client = CognitoClient(
-    client_id = STAGING_CLIENT_ID,
-    user_pool_id = STAGING_USERPOOL_ID,
-    identity_pool_id = STAGING_IDENTITY_POOL_ID
-)
-_ = client.login()
-
-TOKEN = client.access_token
-
-# prepare headers for requests
-headers = {
-    "Authorization": f"Bearer {TOKEN}"
-}
-```
-
-### 4. Ingest the dataset
-
-Then, use the code snippet below to publish the dataset.
-
-```python
-
-STAGING_WORKFLOWS_API_URL = "https://staging.openveda.cloud/api/workflows"
-
-# url for dataset validation / publication
-validate_url = f"{STAGING_WORKFLOWS_API_URL}/dataset/validate"
-
-publish_url = f"{STAGING_WORKFLOWS_API_URL}/dataset/publish"
-
-# prepare the body of the request,
-body = json.load(open("dataset-definition.json"))
-
-# Validate the data definition using the /validate endpoint
-validation_response = requests.post(
-    validate_url,
-    headers=headers,
-    json=body
-)
-
-# look at the response
-validation_response.raise_for_status()
-
-# If the validation is successful, publish the dataset using /publish endpoint
-publish_response = requests.post(
-    publish_url,
-    headers=headers,
-    json=body
-)
-
-if publish_response.ok:
-    print("Success")
-```
-
-### Check the status of the execution
-
-```python
-# the id of the execution
-# should be available in the response of workflow execution request
-execution_id = "xxx"
-# url for execution status
-execution_status_url = f"{STAGING_WORKFLOWS_API_URL}/discovery-executions/{execution_id}"
-# make the request
-response = requests.get(
-    execution_status_url,
-    headers=headers,
-)
-if response.ok:
-    print(response.json())
+{"message":"Successfully published collection: geoglam. 1  workflows initiated.","workflows_ids":["db6a2097-3e4c-45a3-a772-0c11e6da8b44"]}
 ```
