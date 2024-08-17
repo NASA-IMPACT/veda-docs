@@ -626,8 +626,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this notebook we will focus on HLS S30 data for Hurricane Ida, but Hurricane Maria and L30 parameters are provided below for further exploration.</p>
 <div id="cell-6" class="cell" data-tags="[]" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Endpoints</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://staging-stac.delta-backend.com"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://staging-raster.delta-backend.com"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/stac"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/raster"</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Harmonized Sentinel collection id and configuration info</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>s30_collection_id <span class="op">=</span> <span class="st">"hls-s30-002-ej-reprocessed"</span></span>
@@ -697,20 +697,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>search context: {'limit': 100, 'matched': 14, 'returned': 14}</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>['2021-07-14T16:55:15.122720Z',
- '2021-07-24T16:55:15.112940Z',
- '2021-07-29T16:55:16.405890Z',
- '2021-08-08T16:55:15.798510Z',
- '2021-08-13T16:55:13.394950Z',
- '2021-08-23T16:55:11.785040Z',
- '2021-09-02T16:55:09.568600Z',
- '2021-09-07T16:55:13.430530Z',
- '2021-09-22T16:55:10.763010Z',
- '2021-09-27T16:55:17.027350Z',
- '2021-10-07T16:55:18.213640Z',
- '2021-10-12T16:55:14.209080Z',
- '2021-10-17T16:55:18.517600Z',
- '2021-10-22T16:55:14.670710Z']</code></pre>
+<pre><code>['2021-07-14T16:55:15.122720+00:00',
+ '2021-07-24T16:55:15.112940+00:00',
+ '2021-07-29T16:55:16.405890+00:00',
+ '2021-08-08T16:55:15.798510+00:00',
+ '2021-08-13T16:55:13.394950+00:00',
+ '2021-08-23T16:55:11.785040+00:00',
+ '2021-09-02T16:55:09.568600+00:00',
+ '2021-09-07T16:55:13.430530+00:00',
+ '2021-09-22T16:55:10.763010+00:00',
+ '2021-09-27T16:55:17.027350+00:00',
+ '2021-10-07T16:55:18.213640+00:00',
+ '2021-10-12T16:55:14.209080+00:00',
+ '2021-10-17T16:55:18.517600+00:00',
+ '2021-10-22T16:55:14.670710+00:00']</code></pre>
 </div>
 </div>
 </section>
@@ -754,19 +754,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       "rel": "metadata",
       "title": "Mosaic metadata",
       "type": "application/json",
-      "href": "https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/info"
+      "href": "https://openveda.cloud/api/raster/mosaic/7743bcb31bff7151aff7e5508785fce1/info"
     },
     {
       "rel": "tilejson",
       "title": "Link for TileJSON",
       "type": "application/json",
-      "href": "https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/tilejson.json"
+      "href": "https://openveda.cloud/api/raster/mosaic/7743bcb31bff7151aff7e5508785fce1/tilejson.json"
     },
     {
       "rel": "wmts",
       "title": "Link for WMTS",
       "type": "application/json",
-      "href": "https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/WMTSCapabilities.xml"
+      "href": "https://openveda.cloud/api/raster/mosaic/7743bcb31bff7151aff7e5508785fce1/WMTSCapabilities.xml"
     }
   ]
 }</code></pre>
@@ -807,7 +807,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "version": "1.0.0",
   "scheme": "xyz",
   "tiles": [
-    "https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?algorith=swir&amp;assets=B12&amp;assets=B8A&amp;assets=B04"
+    "https://openveda.cloud/api/raster/mosaic/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?algorith=swir&amp;assets=B12&amp;assets=B8A&amp;assets=B04"
   ],
   "minzoom": 6,
   "maxzoom": 12,
@@ -872,7 +872,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_0f712cbc28eb2c10c532c637cfa59ab5 {
+                #map_6f673c891abfd0ac895c57bc8eaea94d {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -886,14 +886,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_0f712cbc28eb2c10c532c637cfa59ab5&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_6f673c891abfd0ac895c57bc8eaea94d&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_0f712cbc28eb2c10c532c637cfa59ab5 = L.map(
-                &quot;map_0f712cbc28eb2c10c532c637cfa59ab5&quot;,
+            var map_6f673c891abfd0ac895c57bc8eaea94d = L.map(
+                &quot;map_6f673c891abfd0ac895c57bc8eaea94d&quot;,
                 {
                     center: [30.210818000000003, -90.349537],
                     crs: L.CRS.EPSG3857,
@@ -907,22 +907,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_e5324e294a18d323344eac4060ffe49d = L.tileLayer(
+            var tile_layer_36fbf51fc8bd139d4bdcf9b91c744855 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_e5324e294a18d323344eac4060ffe49d.addTo(map_0f712cbc28eb2c10c532c637cfa59ab5);
+            tile_layer_36fbf51fc8bd139d4bdcf9b91c744855.addTo(map_6f673c891abfd0ac895c57bc8eaea94d);
         
     
-            var tile_layer_27dc9daa1f7d670ebf3c3ed5af671ad7 = L.tileLayer(
-                &quot;https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?algorith=swir\u0026assets=B12\u0026assets=B8A\u0026assets=B04&quot;,
+            var tile_layer_ac0e46bd85f27dc2c0147f659df7f05f = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/mosaic/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?algorith=swir\u0026assets=B12\u0026assets=B8A\u0026assets=B04&quot;,
                 {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_27dc9daa1f7d670ebf3c3ed5af671ad7.addTo(map_0f712cbc28eb2c10c532c637cfa59ab5);
+            tile_layer_ac0e46bd85f27dc2c0147f659df7f05f.addTo(map_6f673c891abfd0ac895c57bc8eaea94d);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -954,7 +954,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "version": "1.0.0",
   "scheme": "xyz",
   "tiles": [
-    "https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B08&amp;assets=B04&amp;expression=%28B08_b1-B04_b1%29%2F%28B08_b1%2BB04_b1%29&amp;rescale=0%2C1&amp;colormap_name=rdylgn"
+    "https://openveda.cloud/api/raster/mosaic/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B08&amp;assets=B04&amp;expression=%28B08_b1-B04_b1%29%2F%28B08_b1%2BB04_b1%29&amp;rescale=0%2C1&amp;colormap_name=rdylgn"
   ],
   "minzoom": 6,
   "maxzoom": 12,
@@ -1017,7 +1017,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_8610898008b134d6977bbd7f45a11fe0 {
+                #map_59d681b7d7b7ede7d5ef4fe7da434603 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1031,14 +1031,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_8610898008b134d6977bbd7f45a11fe0&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_59d681b7d7b7ede7d5ef4fe7da434603&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_8610898008b134d6977bbd7f45a11fe0 = L.map(
-                &quot;map_8610898008b134d6977bbd7f45a11fe0&quot;,
+            var map_59d681b7d7b7ede7d5ef4fe7da434603 = L.map(
+                &quot;map_59d681b7d7b7ede7d5ef4fe7da434603&quot;,
                 {
                     center: [30.210818000000003, -90.349537],
                     crs: L.CRS.EPSG3857,
@@ -1052,22 +1052,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_535e7c5c8d694fa5804d3ba2a9a99274 = L.tileLayer(
+            var tile_layer_ff9f51deec8d480e2d5269a401ad8bb4 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_535e7c5c8d694fa5804d3ba2a9a99274.addTo(map_8610898008b134d6977bbd7f45a11fe0);
+            tile_layer_ff9f51deec8d480e2d5269a401ad8bb4.addTo(map_59d681b7d7b7ede7d5ef4fe7da434603);
         
     
-            var tile_layer_206d842c7ffd27f3790765c5e6341f3b = L.tileLayer(
-                &quot;https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B08\u0026assets=B04\u0026expression=%28B08_b1-B04_b1%29%2F%28B08_b1%2BB04_b1%29\u0026rescale=0%2C1\u0026colormap_name=rdylgn&quot;,
+            var tile_layer_8f9fff8d9fd2eb9872b515bd2ef93820 = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/mosaic/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B08\u0026assets=B04\u0026expression=%28B08_b1-B04_b1%29%2F%28B08_b1%2BB04_b1%29\u0026rescale=0%2C1\u0026colormap_name=rdylgn&quot;,
                 {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_206d842c7ffd27f3790765c5e6341f3b.addTo(map_8610898008b134d6977bbd7f45a11fe0);
+            tile_layer_8f9fff8d9fd2eb9872b515bd2ef93820.addTo(map_59d681b7d7b7ede7d5ef4fe7da434603);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -1149,15 +1149,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>search context: {'limit': 10, 'matched': 9, 'returned': 9}</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>['2017-06-06T14:43:41.335694Z',
- '2017-06-22T14:43:47.156698Z',
- '2017-07-24T14:43:56.898518Z',
- '2017-08-09T14:44:03.584741Z',
- '2017-08-25T14:44:07.854507Z',
- '2017-09-26T14:44:14.813967Z',
- '2017-10-12T14:44:19.576858Z',
- '2017-11-13T14:44:17.834919Z',
- '2017-11-29T14:44:11.126689Z']</code></pre>
+<pre><code>['2017-06-06T14:43:41.335694+00:00',
+ '2017-06-22T14:43:47.156698+00:00',
+ '2017-07-24T14:43:56.898518+00:00',
+ '2017-08-09T14:44:03.584741+00:00',
+ '2017-08-25T14:44:07.854507+00:00',
+ '2017-09-26T14:44:14.813967+00:00',
+ '2017-10-12T14:44:19.576858+00:00',
+ '2017-11-13T14:44:17.834919+00:00',
+ '2017-11-29T14:44:11.126689+00:00']</code></pre>
 </div>
 </div>
 <div id="cell-23" class="cell" data-execution_count="11">
@@ -1251,7 +1251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_d90dea1334abd484fcd83b3d2443af44 {
+                #map_0d773b176bced6636a8a2caeb4da5620 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1265,14 +1265,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_d90dea1334abd484fcd83b3d2443af44&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_0d773b176bced6636a8a2caeb4da5620&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_d90dea1334abd484fcd83b3d2443af44 = L.map(
-                &quot;map_d90dea1334abd484fcd83b3d2443af44&quot;,
+            var map_0d773b176bced6636a8a2caeb4da5620 = L.map(
+                &quot;map_0d773b176bced6636a8a2caeb4da5620&quot;,
                 {
                     center: [18.464629000000002, -65.638847],
                     crs: L.CRS.EPSG3857,
@@ -1286,22 +1286,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_79cf4fdeb1509fccb07fe7f69cd064bf = L.tileLayer(
+            var tile_layer_d6550dda642e81b9465356f1a5694ed2 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_79cf4fdeb1509fccb07fe7f69cd064bf.addTo(map_d90dea1334abd484fcd83b3d2443af44);
+            tile_layer_d6550dda642e81b9465356f1a5694ed2.addTo(map_0d773b176bced6636a8a2caeb4da5620);
         
     
-            var tile_layer_09388fe7c881ee6fde621fd95f0f5dd5 = L.tileLayer(
-                &quot;https://staging-raster.delta-backend.com/mosaic/61809545320d5ea343d57453af06b818/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B03\u0026assets=B05\u0026expression=%28B03_b1-B05_b1%29%2F%28B03_b1%2BB05_b1%29\u0026rescale=0%2C1\u0026colormap_name=viridis&quot;,
+            var tile_layer_fc57f849ea1afb7634cd6e7a4cb942af = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/mosaic/61809545320d5ea343d57453af06b818/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B03\u0026assets=B05\u0026expression=%28B03_b1-B05_b1%29%2F%28B03_b1%2BB05_b1%29\u0026rescale=0%2C1\u0026colormap_name=viridis&quot;,
                 {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_09388fe7c881ee6fde621fd95f0f5dd5.addTo(map_d90dea1334abd484fcd83b3d2443af44);
+            tile_layer_fc57f849ea1afb7634cd6e7a4cb942af.addTo(map_0d773b176bced6636a8a2caeb4da5620);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>

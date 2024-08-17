@@ -608,8 +608,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="cell-7" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Provide STAC and RASTER API endpoints</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://staging-stac.delta-backend.com"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://staging-raster.delta-backend.com"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/stac"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/raster"</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Declare collection of interest - Nitrogen Oxide</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>collection_name <span class="op">=</span> <span class="st">"no2-monthly"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -623,30 +623,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  'type': 'Collection',
  'links': [{'rel': 'items',
    'type': 'application/geo+json',
-   'href': 'https://staging-stac.delta-backend.com/collections/no2-monthly/items'},
+   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly/items'},
   {'rel': 'parent',
    'type': 'application/json',
-   'href': 'https://staging-stac.delta-backend.com/'},
+   'href': 'https://openveda.cloud/api/stac/'},
   {'rel': 'root',
    'type': 'application/json',
-   'href': 'https://staging-stac.delta-backend.com/'},
+   'href': 'https://openveda.cloud/api/stac/'},
   {'rel': 'self',
    'type': 'application/json',
-   'href': 'https://staging-stac.delta-backend.com/collections/no2-monthly'}],
+   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly'}],
  'title': 'NO₂',
- 'extent': {'spatial': {'bbox': [[-180, -90, 180, 90]]},
-  'temporal': {'interval': [['2016-01-01 00:00:00+00',
-     '2022-12-01 00:00:00+00']]}},
+ 'assets': {'thumbnail': {'href': 'https://thumbnails.openveda.cloud/no2--dataset-cover.jpg',
+   'type': 'image/jpeg',
+   'roles': ['thumbnail'],
+   'title': 'Thumbnail',
+   'description': 'Photo by [Mick Truyts](https://unsplash.com/photos/x6WQeNYJC1w) (Power plant shooting steam at the sky)'}},
+ 'extent': {'spatial': {'bbox': [[-180.0, -90.0, 180.0, 90.0]]},
+  'temporal': {'interval': [['2016-01-01T00:00:00+00:00',
+     '2022-12-31T00:00:00+00:00']]}},
  'license': 'MIT',
- 'summaries': {'datetime': ['2016-01-01T00:00:00Z', '2022-12-01T00:00:00Z'],
-  'cog_default': {'max': 50064805976866816, 'min': -10183824872833024}},
+ 'renders': {'dashboard': {'bidx': [1],
+   'title': 'VEDA Dashboard Render Parameters',
+   'assets': ['cog_default'],
+   'rescale': [[0, 15000000000000000]],
+   'resampling': 'bilinear',
+   'color_formula': 'gamma r 1.05',
+   'colormap_name': 'rdbu_r'}},
+ 'providers': [{'url': 'https://disc.gsfc.nasa.gov/',
+   'name': 'NASA Goddard Earth Sciences Data and Information Services Center',
+   'roles': ['producer', 'processor']},
+  {'url': 'https://www.earthdata.nasa.gov/dashboard/',
+   'name': 'NASA VEDA',
+   'roles': ['host']}],
+ 'summaries': {'datetime': ['2016-01-01T00:00:00Z', '2023-09-30T00:00:00Z']},
  'description': 'Darker colors indicate higher nitrogen dioxide (NO₂) levels and more activity. Lighter colors indicate lower levels of NO₂ and less activity. Missing pixels indicate areas of no data most likely associated with cloud cover or snow.',
  'item_assets': {'cog_default': {'type': 'image/tiff; application=geotiff; profile=cloud-optimized',
    'roles': ['data', 'layer'],
    'title': 'Default COG Layer',
    'description': 'Cloud optimized default layer to display on map'}},
  'stac_version': '1.0.0',
- 'stac_extensions': ['https://stac-extensions.github.io/item-assets/v1.0.0/schema.json'],
+ 'stac_extensions': ['https://stac-extensions.github.io/item-assets/v1.0.0/schema.json',
+  'https://stac-extensions.github.io/render/v1.0.0/schema.json'],
  'dashboard:is_periodic': True,
  'dashboard:time_density': 'month'}</code></pre>
 </div>
@@ -657,40 +675,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_name<span class="sc">}</span><span class="ss">/items?limit=100"</span>).json()[<span class="st">"features"</span>]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Found </span><span class="sc">{</span><span class="bu">len</span>(items)<span class="sc">}</span><span class="ss"> items"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Found 84 items</code></pre>
+<pre><code>Found 93 items</code></pre>
 </div>
 </div>
 <p>This makes sense as there are 7 years between 2016 - 2022, with 12 months per year, meaning 84 records in total.</p>
-<p>Below, we’ll use the <code>cog_default</code> values to provide our upper and lower bounds in <code>rescale_values</code>.</p>
+<p>Below, we’ll provide the max range of values to apply to visualizations of all items in the collection (<code>rescale_values</code>).</p>
 <div id="cell-12" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rescale_values <span class="op">=</span> collection[<span class="st">"summaries"</span>][<span class="st">"cog_default"</span>]</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>rescale_values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>{'max': 50064805976866816, 'min': -10183824872833024}</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rescale_values <span class="op">=</span> {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"max"</span>: <span class="dv">50064805976866816</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"min"</span>: <span class="op">-</span><span class="dv">1018382487283302</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exploring-changes-in-nitrogen-oxide-no₂-related-to-changes-in-human-behavior---using-the-raster-api" class="level2">
 <h2 class="anchored" data-anchor-id="exploring-changes-in-nitrogen-oxide-no₂-related-to-changes-in-human-behavior---using-the-raster-api">Exploring Changes in Nitrogen Oxide (NO₂) Related to Changes in Human Behavior - Using the Raster API</h2>
 <p>We will explore changes in air quality due to changes in human behaviour resulting from the COVID-19 pandemic. With people largely confined to their homes to reduce the spread of the novel coronavirus, scientists were anticipated there were likely to be fewer cars, planes, and ships emitting fossil fuel pollution. In this notebook, we’ll explore the impacts these government lockdowns had on specific air pollutants (i.e., NO₂) and explore these changes over time. We’ll then visualize the outputs on a map using <code>folium</code>.</p>
 <div id="cell-14" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to access the year value from each item more easily, this will let us query more explicity by year and month (e.g., 2020-02)</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> {item[<span class="st">"properties"</span>][<span class="st">"start_datetime"</span>][:<span class="dv">7</span>]: item <span class="cf">for</span> item <span class="kw">in</span> items} </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to access the year value from each item more easily, this will let us query more explicity by year and month (e.g., 2020-02)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> {item[<span class="st">"properties"</span>][<span class="st">"start_datetime"</span>][:<span class="dv">7</span>]: item <span class="cf">for</span> item <span class="kw">in</span> items} </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we will pass the item id, collection name, and <code>rescaling_factor</code> to the <code>Raster API</code> endpoint. We will do this twice times, once for February 2020 and again for February 2022, so that we can visualize each event independently.</p>
 <div id="cell-16" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>february_2020_tile <span class="op">=</span> requests.get(</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>items[<span class="st">'2020-02'</span>][<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>items[<span class="st">'2020-02'</span>][<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool"</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>, </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>february_2020_tile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>february_2020_tile <span class="op">=</span> requests.get(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>items[<span class="st">'2020-02'</span>][<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>items[<span class="st">'2020-02'</span>][<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool"</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>, </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>).json()</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>february_2020_tile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>{'tilejson': '2.2.0',
  'version': '1.0.0',
  'scheme': 'xyz',
- 'tiles': ['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly&amp;item=OMI_trno2_0.10x0.10_202002_Col3_V4.nc&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool&amp;rescale=-10183824872833024%2C50064805976866816'],
+ 'tiles': ['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly&amp;item=OMI_trno2_0.10x0.10_202002_Col3_V4.nc&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool&amp;rescale=-1018382487283302%2C50064805976866816'],
  'minzoom': 0,
  'maxzoom': 24,
  'bounds': [-180.0, -90.0, 180.0, 90.0],
@@ -698,18 +715,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="cell-17" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>february_2022_tile <span class="op">=</span> requests.get(</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>items[<span class="st">'2022-02'</span>][<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>items[<span class="st">'2022-02'</span>][<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool"</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>, </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>february_2022_tile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>february_2022_tile <span class="op">=</span> requests.get(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>items[<span class="st">'2022-02'</span>][<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>items[<span class="st">'2022-02'</span>][<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool"</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>, </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>).json()</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>february_2022_tile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>{'tilejson': '2.2.0',
  'version': '1.0.0',
  'scheme': 'xyz',
- 'tiles': ['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly&amp;item=OMI_trno2_0.10x0.10_202202_Col3_V4.nc&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool&amp;rescale=-10183824872833024%2C50064805976866816'],
+ 'tiles': ['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly&amp;item=OMI_trno2_0.10x0.10_202202_Col3_V4.nc&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool&amp;rescale=-1018382487283302%2C50064805976866816'],
  'minzoom': 0,
  'maxzoom': 24,
  'bounds': [-180.0, -90.0, 180.0, 90.0],
@@ -722,31 +739,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Air pollutants with short lifespans, like NO₂, decreased dramatically with COVID-related shutdowns in the spring of 2020 (see lefthand side map). As the world began to re-open and mobility restrictions eased, travel increased and alongside it NO₂ pollutants. Air quality levels are now returning to pre-pandemic levels (see righthand side map).</p>
 <p>Scroll and zoom within the maps below, the side-by-side comparison will follow wherever you explore. Darker purples indicate higher NO₂ levels and more activity. Lighter blues indicate lower levels of NO₂ and less activity.</p>
 <div id="cell-19" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We'll import folium to map and folium.plugins to allow mapping side-by-side</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium.plugins</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Set initial zoom and map for NO2 Layer</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.plugins.DualMap(location<span class="op">=</span>(<span class="fl">33.6901</span>, <span class="fl">118.9325</span>), zoom_start<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># February 2020</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>map_layer_2020 <span class="op">=</span> TileLayer(</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>february_2020_tile[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"VEDA"</span>,</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>map_layer_2020.add_to(m.m1)</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># February 2022</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>map_layer_2022 <span class="op">=</span> TileLayer(</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>february_2022_tile[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"VEDA"</span>,</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>map_layer_2022.add_to(m.m2)</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>m</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We'll import folium to map and folium.plugins to allow mapping side-by-side</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium.plugins</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Set initial zoom and map for NO2 Layer</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.plugins.DualMap(location<span class="op">=</span>(<span class="fl">33.6901</span>, <span class="fl">118.9325</span>), zoom_start<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># February 2020</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>map_layer_2020 <span class="op">=</span> TileLayer(</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>february_2020_tile[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"VEDA"</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>map_layer_2020.add_to(m.m1)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># February 2022</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>map_layer_2022 <span class="op">=</span> TileLayer(</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>february_2022_tile[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"VEDA"</span>,</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>map_layer_2022.add_to(m.m2)</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>m</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
 <html>
@@ -762,7 +779,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
     <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
-    <script src=&quot;https://code.jquery.com/jquery-1.12.4.min.js&quot;></script>
+    <script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;></script>
     <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
     <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
@@ -775,7 +792,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_4be33a4c01346377779cc8158792e1ef {
+                #map_e32927666b28d271958699eb75c9b3de {
                     position: absolute;
                     width: 50.0%;
                     height: 100.0%;
@@ -789,7 +806,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_3445ebe95b41d119173aeef05b149730 {
+                #map_bbaf0c0bd1a55e590749e405c5e26755 {
                     position: absolute;
                     width: 50.0%;
                     height: 100.0%;
@@ -804,17 +821,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_4be33a4c01346377779cc8158792e1ef&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_e32927666b28d271958699eb75c9b3de&quot; ></div>
         
     
-            <div class=&quot;folium-map&quot; id=&quot;map_3445ebe95b41d119173aeef05b149730&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_bbaf0c0bd1a55e590749e405c5e26755&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_4be33a4c01346377779cc8158792e1ef = L.map(
-                &quot;map_4be33a4c01346377779cc8158792e1ef&quot;,
+            var map_e32927666b28d271958699eb75c9b3de = L.map(
+                &quot;map_e32927666b28d271958699eb75c9b3de&quot;,
                 {
                     center: [33.6901, 118.9325],
                     crs: L.CRS.EPSG3857,
@@ -828,20 +845,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_d9fd4c98d43db39bc157c3ae596e0761 = L.tileLayer(
-                &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_4be33a4c01346377779cc8158792e1ef);
+            var tile_layer_43eced198f351a1c0d707a9014da2382 = L.tileLayer(
+                &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
+                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            );
         
     
-            var tile_layer_0efa003452fd68099b8f8139ef2664c6 = L.tileLayer(
-                &quot;https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly\u0026item=OMI_trno2_0.10x0.10_202002_Col3_V4.nc\u0026assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=cool\u0026rescale=-10183824872833024%2C50064805976866816&quot;,
+            tile_layer_43eced198f351a1c0d707a9014da2382.addTo(map_e32927666b28d271958699eb75c9b3de);
+        
+    
+            var tile_layer_88bc1f63e04a991c779b5da7850e12cb = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly\u0026item=OMI_trno2_0.10x0.10_202002_Col3_V4.nc\u0026assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=cool\u0026rescale=-1018382487283302%2C50064805976866816&quot;,
                 {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 0.8, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_4be33a4c01346377779cc8158792e1ef);
+            );
         
     
-            var map_3445ebe95b41d119173aeef05b149730 = L.map(
-                &quot;map_3445ebe95b41d119173aeef05b149730&quot;,
+            tile_layer_88bc1f63e04a991c779b5da7850e12cb.addTo(map_e32927666b28d271958699eb75c9b3de);
+        
+    
+            var map_bbaf0c0bd1a55e590749e405c5e26755 = L.map(
+                &quot;map_bbaf0c0bd1a55e590749e405c5e26755&quot;,
                 {
                     center: [33.6901, 118.9325],
                     crs: L.CRS.EPSG3857,
@@ -855,20 +878,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_6529c222cf1ee367af9ac04eb523cd80 = L.tileLayer(
-                &quot;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;Data by \u0026copy; \u003ca target=\&quot;_blank\&quot; href=\&quot;http://openstreetmap.org\&quot;\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\&quot;_blank\&quot; href=\&quot;http://www.openstreetmap.org/copyright\&quot;\u003eODbL\u003c/a\u003e.&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_3445ebe95b41d119173aeef05b149730);
+            var tile_layer_60683b9265ccf303db1f8fcbff7b5bdb = L.tileLayer(
+                &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
+                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            );
         
     
-            var tile_layer_38c1e46481ea63eadd463982aacc0614 = L.tileLayer(
-                &quot;https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly\u0026item=OMI_trno2_0.10x0.10_202202_Col3_V4.nc\u0026assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=cool\u0026rescale=-10183824872833024%2C50064805976866816&quot;,
+            tile_layer_60683b9265ccf303db1f8fcbff7b5bdb.addTo(map_bbaf0c0bd1a55e590749e405c5e26755);
+        
+    
+            var tile_layer_ca6be6d014cdfc7a72ce05073ade86d6 = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly\u0026item=OMI_trno2_0.10x0.10_202202_Col3_V4.nc\u0026assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=cool\u0026rescale=-1018382487283302%2C50064805976866816&quot;,
                 {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 0.8, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            ).addTo(map_3445ebe95b41d119173aeef05b149730);
+            );
         
     
-            map_4be33a4c01346377779cc8158792e1ef.sync(map_3445ebe95b41d119173aeef05b149730);
-            map_3445ebe95b41d119173aeef05b149730.sync(map_4be33a4c01346377779cc8158792e1ef);
+            tile_layer_ca6be6d014cdfc7a72ce05073ade86d6.addTo(map_bbaf0c0bd1a55e590749e405c5e26755);
+        
+    
+            map_e32927666b28d271958699eb75c9b3de.sync(map_bbaf0c0bd1a55e590749e405c5e26755);
+            map_bbaf0c0bd1a55e590749e405c5e26755.sync(map_e32927666b28d271958699eb75c9b3de);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
