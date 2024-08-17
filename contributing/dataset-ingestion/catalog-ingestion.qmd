@@ -34,9 +34,6 @@ Once you have logically grouped the datasets into collections, you will need to 
   ],
   "discovery_items": [
     {
-      "discovery": "s3",
-      "cogify": false,
-      "upload": false,
       "dry_run": false,
       "prefix": "EIS/COG/LIS_GLOBAL_DA/Evap/",
       "bucket": "veda-data-store-staging",
@@ -80,7 +77,7 @@ The following table describes what each of these fields mean:
 </details>
 
 
-> Note: The steps after this are technical, so at this point open a PR on the [veda-data](https://github.com/NASA-IMPACT/veda-data) GitHub repository and a member of the VEDA team will handle the publication process.
+> Note: If you are unable to complete the following steps or have a new type of data that does not work with the example docs, open an issue in the [veda-data](https://github.com/NASA-IMPACT/veda-data) GitHub repository.
 
 
 
@@ -88,108 +85,35 @@ The following table describes what each of these fields mean:
 
 The publication process involves 3 steps:
 
-1. [VEDA] Publishing to the development STAC catalog `https://dev.openveda.cloud/api/stac`
+1. [VEDA] Publishing to the staging STAC catalog `https://staging.openveda.cloud`
 2. [EIS] Reviewing the collection/items published to the dev STAC catalog
-3. [VEDA] Publishing to the staging STAC catalog `https://staging-stac.delta-backend.com`
+3. [VEDA] Publishing to the production STAC catalog `https://openveda.cloud` by submitting the configuration you just created in a pull request to the [veda-data repo](https://github.com/NASA-IMPACT/veda-data?tab=readme-ov-file#dataset-submission-process).
 
-To use the VEDA Ingestion API to schedule ingestion/publication of the data follow these steps:
+To use the VEDA Workflows API to schedule ingestion/publication of the data follow these steps:
 
-### 1. Obtain credentials from a VEDA team member
+### Prerequisite: obtain credentials from a VEDA team member
 
 Ask a VEDA team member to create `Cognito` credentials (username and password) for VEDA authentication.
 
-### 2. Export username and password
+### Sign in to the workflows API docs using your credentials
 
-```bash
-export username="johndoe"
-export password="xxxx"
+Open the workflows API at [staging.openveda.cloud/api/workflows/docs](https://staging.openveda.cloud/api/workflows/docs) in a second browser tab and click the green authorize button at the upper right to authenticate your session with your username and password (you will be temporarily redirected to a login widget and then back to the workflows-api docs). 
+
+### `/dataset/validate`
+After creating your [dataset definition](#step-iii-create-dataset-definitions), copy the printed json and paste it into the `/dataset/validate` input in the workflows-api docs page in the second tab. Note that if you navigate away from this page you will need to click authorize again.
+
+Choose `POST dataset/validate` in the **Dataset** section of the workflows-api docs. Click 'Try it Out` and paste your json into the **Request body** and then **Execute**
+
+If the json is valid, the response will confirm that it is ready to be published on the VEDA Platform. 
+
+### `/dataset/publish`
+
+Now that you have validated your dataset, you can initiate a workflow and publish the dataset to the VEDA Platform. 
+
+Choose `POST dataset/publish` in the **Dataset** section of the workflows-api docs. Click 'Try it Out` and paste your json into the **Request body** and then **Execute**
+
+On success, you will recieve a success message containing the id of your workflow, for example
+
 ```
-
-### 3. Get token
-
-```python
-# Required imports
-import os
-import requests
-
-# Pull username and password from environment variables
-username = os.environ.get("username")
-password = os.environ.get("password")
-
-# base url for the workflows api
-# experimental / subject to change in the future
-# DISCLAIMER: coming soon, not yet available
-base_url = "https://dev.openveda.cloud/api/workflows"
-
-# endpoint to get the token from
-token_url = f"{base_url}/token"
-
-# authentication credentials to be passed to the token_url
-body = {
-    "username": username,
-    "password": password,
-}
-
-# request token
-response = requests.post(token_url, data=body)
-if not response.ok:
-    raise Exception("Couldn't obtain the token. Make sure the username and password are correct.")
-else:
-    # get token from response
-    token = response.json().get("AccessToken")
-    # prepare headers for requests
-    headers = {
-        "Authorization": f"Bearer {token}"
-    }
-```
-
-### 4. Ingest the dataset
-
-Then, use the code snippet below to publish the dataset.
-
-```python
-# url for dataset validation / publication
-validate_url = f"{base_url}/dataset/validate"
-
-publish_url = f"{base_url}/dataset/publish"
-
-# prepare the body of the request,
-body = json.load(open("dataset-definition.json"))
-
-# Validate the data definition using the /validate endpoint
-validation_response = requests.post(
-    validate_url,
-    headers=headers,
-    json=body
-)
-
-# look at the response
-validation_response.raise_for_status()
-
-# If the validation is successful, publish the dataset using /publish endpoint
-publish_response = requests.post(
-    publish_url,
-    headers=headers,
-    json=body
-)
-
-if publish_response.ok:
-    print("Success")
-```
-
-### Check the status of the execution
-
-```python
-# the id of the execution
-# should be available in the response of workflow execution request
-execution_id = "xxx"
-# url for execution status
-execution_status_url = f"{workflow_execution_url}/{execution_id}"
-# make the request
-response = requests.get(
-    execution_status_url,
-    headers=headers,
-)
-if response.ok:
-    print(response.json())
+{"message":"Successfully published collection: geoglam. 1  workflows initiated.","workflows_ids":["db6a2097-3e4c-45a3-a772-0c11e6da8b44"]}
 ```
