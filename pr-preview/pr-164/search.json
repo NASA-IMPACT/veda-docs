@@ -2348,7 +2348,7 @@
     "href": "notebooks/templates/template-accessing-the-data-directly.html#read-data",
     "title": "Template (Accessing data directly)",
     "section": "Read data",
-    "text": "Read data\nCreate an xarray.DataSet using stackstac\n\n# This is a workaround that is planning to move up into stackstac itself\nimport rasterio as rio\nimport boto3\n\ngdal_env = stackstac.DEFAULT_GDAL_ENV.updated(\n    always=dict(AWS_NO_SIGN_REQUEST=False, session=rio.session.AWSSession(boto3.Session()))\n)\n\n\nimport pandas as pd\nda = stackstac.stack(search.item_collection(), gdal_env=gdal_env)\nda",
+    "text": "Read data\nCreate an xarray.DataSet using stackstac\n\n# This is a workaround that is planning to move up into stackstac itself\nimport rasterio as rio\nimport boto3\n\n\nimport pandas as pd\nda = stackstac.stack(search.item_collection())\nda",
     "crumbs": [
       "Contributing",
       "Usage Example Notebook Submission",
