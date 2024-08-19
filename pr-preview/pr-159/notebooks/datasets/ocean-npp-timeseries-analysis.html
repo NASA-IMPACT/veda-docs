@@ -607,8 +607,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="cell-7" class="cell" data-tags="[]" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Provife STAC and RASTER API endpoints</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://staging-stac.delta-backend.com"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://staging-raster.delta-backend.com"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/stac"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/raster"</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Declare collection of interest - Ocean NPP</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>collection_name <span class="op">=</span> <span class="st">"MO_NPP_npp_vgpm"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -622,17 +622,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  'type': 'Collection',
  'links': [{'rel': 'items',
    'type': 'application/geo+json',
-   'href': 'https://staging-stac.delta-backend.com/collections/MO_NPP_npp_vgpm/items'},
+   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm/items'},
   {'rel': 'parent',
    'type': 'application/json',
-   'href': 'https://staging-stac.delta-backend.com/'},
+   'href': 'https://openveda.cloud/api/stac/'},
   {'rel': 'root',
    'type': 'application/json',
-   'href': 'https://staging-stac.delta-backend.com/'},
+   'href': 'https://openveda.cloud/api/stac/'},
   {'rel': 'self',
    'type': 'application/json',
-   'href': 'https://staging-stac.delta-backend.com/collections/MO_NPP_npp_vgpm'}],
+   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm'}],
  'title': '',
+ 'assets': {'thumbnail': {'href': 'https://thumbnails.openveda.cloud/ocean-production--dataset-cover.jpg',
+   'type': 'image/jpeg',
+   'roles': ['thumbnail'],
+   'title': 'Thumbnail',
+   'description': 'Photo by [Karl Callwood](https://unsplash.com/photos/Ko1sGLhZm5w) (Rocky ocean shore)'}},
  'extent': {'spatial': {'bbox': [[-180.0000050868518,
      -90.00000508655744,
      180.0000050868518,
@@ -647,8 +652,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  'providers': [{'url': 'https://www.earthdata.nasa.gov/dashboard/',
    'name': 'NASA VEDA',
    'roles': ['host']}],
- 'summaries': {'datetime': ['2020-01-01T00:00:00Z', '2020-12-01T00:00:00Z'],
-  'cog_default': {'max': 34561.35546875, 'min': 14.516647338867188}},
+ 'summaries': {'datetime': ['2020-01-01T00:00:00Z', '2020-12-31T00:00:00Z']},
  'description': 'Ocean Net Primary Production (NPP): https://oceancolor.gsfc.nasa.gov/atbd/npp/',
  'item_assets': {'cog_default': {'type': 'image/tiff; application=geotiff; profile=cloud-optimized',
    'roles': ['data', 'layer'],
@@ -672,8 +676,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get collection summary</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>collection[<span class="st">"summaries"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>{'datetime': ['2020-01-01T00:00:00Z', '2020-12-01T00:00:00Z'],
- 'cog_default': {'max': 34561.35546875, 'min': 14.516647338867188}}</code></pre>
+<pre><code>{'datetime': ['2020-01-01T00:00:00Z', '2020-12-31T00:00:00Z']}</code></pre>
 </div>
 </div>
 <p>Great, we can explore the year 2020 time series. Let’s create a bounding box to explore the Walvis Bay area of interest (AOI) in Namibia</p>
@@ -742,7 +745,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_83d6a2049dd223ea40ef4ec8ece0348e {
+                #map_8576685b7544e36985499ddca10c823e {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -756,14 +759,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_83d6a2049dd223ea40ef4ec8ece0348e&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_8576685b7544e36985499ddca10c823e&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_83d6a2049dd223ea40ef4ec8ece0348e = L.map(
-                &quot;map_83d6a2049dd223ea40ef4ec8ece0348e&quot;,
+            var map_8576685b7544e36985499ddca10c823e = L.map(
+                &quot;map_8576685b7544e36985499ddca10c823e&quot;,
                 {
                     center: [-22.42146, 14.268801],
                     crs: L.CRS.EPSG3857,
@@ -777,34 +780,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_882b134f65a03a111791cbda5e1e6aa5 = L.tileLayer(
+            var tile_layer_7d715f3f2243a936cc9810965e885f59 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_882b134f65a03a111791cbda5e1e6aa5.addTo(map_83d6a2049dd223ea40ef4ec8ece0348e);
+            tile_layer_7d715f3f2243a936cc9810965e885f59.addTo(map_8576685b7544e36985499ddca10c823e);
         
     
 
-        function geo_json_e5877b636069d3c23ef207b3999daf74_onEachFeature(feature, layer) {
+        function geo_json_59591149f12fc36e6381a75796c9e509_onEachFeature(feature, layer) {
             layer.on({
             });
         };
-        var geo_json_e5877b636069d3c23ef207b3999daf74 = L.geoJson(null, {
-                onEachFeature: geo_json_e5877b636069d3c23ef207b3999daf74_onEachFeature,
+        var geo_json_59591149f12fc36e6381a75796c9e509 = L.geoJson(null, {
+                onEachFeature: geo_json_59591149f12fc36e6381a75796c9e509_onEachFeature,
             
         });
 
-        function geo_json_e5877b636069d3c23ef207b3999daf74_add (data) {
-            geo_json_e5877b636069d3c23ef207b3999daf74
+        function geo_json_59591149f12fc36e6381a75796c9e509_add (data) {
+            geo_json_59591149f12fc36e6381a75796c9e509
                 .addData(data);
         }
-            geo_json_e5877b636069d3c23ef207b3999daf74_add({&quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.686159004559698, -21.700046934333145], [13.686159004559698, -23.241974326585833], [14.753560168039911, -23.241974326585833], [14.753560168039911, -21.700046934333145], [13.686159004559698, -21.700046934333145]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;properties&quot;: {}, &quot;type&quot;: &quot;Feature&quot;});
+            geo_json_59591149f12fc36e6381a75796c9e509_add({&quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.686159004559698, -21.700046934333145], [13.686159004559698, -23.241974326585833], [14.753560168039911, -23.241974326585833], [14.753560168039911, -21.700046934333145], [13.686159004559698, -21.700046934333145]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;properties&quot;: {}, &quot;type&quot;: &quot;Feature&quot;});
 
         
     
-            geo_json_e5877b636069d3c23ef207b3999daf74.addTo(map_83d6a2049dd223ea40ef4ec8ece0348e);
+            geo_json_59591149f12fc36e6381a75796c9e509.addTo(map_8576685b7544e36985499ddca10c823e);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -834,24 +837,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  'type': 'Feature',
  'links': [{'rel': 'collection',
    'type': 'application/json',
-   'href': 'https://staging-stac.delta-backend.com/collections/MO_NPP_npp_vgpm'},
+   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm'},
   {'rel': 'parent',
    'type': 'application/json',
-   'href': 'https://staging-stac.delta-backend.com/collections/MO_NPP_npp_vgpm'},
+   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm'},
   {'rel': 'root',
    'type': 'application/json',
-   'href': 'https://staging-stac.delta-backend.com/'},
+   'href': 'https://openveda.cloud/api/stac/'},
   {'rel': 'self',
    'type': 'application/geo+json',
-   'href': 'https://staging-stac.delta-backend.com/collections/MO_NPP_npp_vgpm/items/A_202012.L3m_MO_NPP_npp_vgpm_4km'},
+   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm/items/A_202012.L3m_MO_NPP_npp_vgpm_4km'},
   {'title': 'Map of Item',
-   'href': 'https://3hwvk17uek.execute-api.us-west-2.amazonaws.com/stac/map?collection=MO_NPP_npp_vgpm&amp;item=A_202012.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;rescale=0%2C1500&amp;colormap_name=jet',
+   'href': 'https://openveda.cloud/api/raster/stac/map?collection=MO_NPP_npp_vgpm&amp;item=A_202012.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;rescale=0%2C1500&amp;colormap_name=jet',
    'rel': 'preview',
    'type': 'text/html'}],
- 'assets': {'cog_default': {'href': 's3://veda-data-store-staging/MO_NPP_npp_vgpm/A_202012.L3m_MO_NPP_npp_vgpm_4km.tif',
-   'type': 'image/tiff; application=geotiff; profile=cloud-optimized',
+ 'assets': {'cog_default': {'href': 's3://veda-data-store/MO_NPP_npp_vgpm/A_202012.L3m_MO_NPP_npp_vgpm_4km.tif',
+   'type': 'image/tiff; application=geotiff',
    'roles': ['data', 'layer'],
    'title': 'Default COG Layer',
+   'proj:bbox': [-180.0000050868518,
+    -90.00000508655744,
+    180.0000050868518,
+    89.9999974571629],
+   'proj:epsg': 4326,
+   'proj:wkt2': 'GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]',
+   'proj:shape': [4320, 8640],
    'description': 'Cloud optimized default layer to display on map',
    'raster:bands': [{'scale': 1.0,
      'nodata': -32767.0,
@@ -860,24 +870,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
      'data_type': 'float32',
      'histogram': {'max': 18305.302734375,
       'min': 20.69771957397461,
-      'count': 11.0,
-      'buckets': [223827.0,
-       2620.0,
-       363.0,
-       105.0,
-       45.0,
-       20.0,
-       13.0,
-       4.0,
-       1.0,
-       4.0]},
+      'count': 11,
+      'buckets': [223827, 2620, 363, 105, 45, 20, 13, 4, 1, 4]},
      'statistics': {'mean': 448.69620531977694,
       'stddev': 450.1186820854004,
       'maximum': 18305.302734375,
       'minimum': 20.69771957397461,
-      'valid_percent': 43.29719543457031}}]},
+      'valid_percent': 43.29719543457031}}],
+   'proj:geometry': {'type': 'Polygon',
+    'coordinates': [[[-180.0000050868518, -90.00000508655744],
+      [180.0000050868518, -90.00000508655744],
+      [180.0000050868518, 89.9999974571629],
+      [-180.0000050868518, 89.9999974571629],
+      [-180.0000050868518, -90.00000508655744]]]},
+   'proj:projjson': {'id': {'code': 4326, 'authority': 'EPSG'},
+    'name': 'WGS 84',
+    'type': 'GeographicCRS',
+    'datum': {'name': 'World Geodetic System 1984',
+     'type': 'GeodeticReferenceFrame',
+     'ellipsoid': {'name': 'WGS 84',
+      'semi_major_axis': 6378137,
+      'inverse_flattening': 298.257223563}},
+    '$schema': 'https://proj.org/schemas/v0.4/projjson.schema.json',
+    'coordinate_system': {'axis': [{'name': 'Geodetic latitude',
+       'unit': 'degree',
+       'direction': 'north',
+       'abbreviation': 'Lat'},
+      {'name': 'Geodetic longitude',
+       'unit': 'degree',
+       'direction': 'east',
+       'abbreviation': 'Lon'}],
+     'subtype': 'ellipsoidal'}},
+   'proj:transform': [0.041666667844178655,
+    0.0,
+    -180.0000050868518,
+    0.0,
+    -0.04166666725549082,
+    89.9999974571629,
+    0.0,
+    0.0,
+    1.0]},
   'rendered_preview': {'title': 'Rendered preview',
-   'href': 'https://3hwvk17uek.execute-api.us-west-2.amazonaws.com/stac/preview.png?collection=MO_NPP_npp_vgpm&amp;item=A_202012.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;rescale=0%2C1500&amp;colormap_name=jet',
+   'href': 'https://openveda.cloud/api/raster/stac/preview.png?collection=MO_NPP_npp_vgpm&amp;item=A_202012.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;rescale=0%2C1500&amp;colormap_name=jet',
    'rel': 'preview',
    'roles': ['overview'],
    'type': 'image/png'}},
@@ -888,32 +922,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     [-180.0000050868518, 89.9999974571629],
     [-180.0000050868518, -90.00000508655744]]]},
  'collection': 'MO_NPP_npp_vgpm',
- 'properties': {'proj:bbox': [-180.0000050868518,
-   -90.00000508655744,
-   180.0000050868518,
-   89.9999974571629],
-  'proj:epsg': 4326.0,
-  'proj:shape': [4320.0, 8640.0],
-  'end_datetime': '2020-12-31T00:00:00',
-  'proj:geometry': {'type': 'Polygon',
-   'coordinates': [[[-180.0000050868518, -90.00000508655744],
-     [180.0000050868518, -90.00000508655744],
-     [180.0000050868518, 89.9999974571629],
-     [-180.0000050868518, 89.9999974571629],
-     [-180.0000050868518, -90.00000508655744]]]},
-  'proj:transform': [0.041666667844178655,
-   0.0,
-   -180.0000050868518,
-   0.0,
-   -0.04166666725549082,
-   89.9999974571629,
-   0.0,
-   0.0,
-   1.0],
-  'start_datetime': '2020-12-01T00:00:00'},
+ 'properties': {'end_datetime': '2020-12-31T00:00:00+00:00',
+  'start_datetime': '2020-12-01T00:00:00+00:00'},
  'stac_version': '1.0.0',
- 'stac_extensions': ['https://stac-extensions.github.io/projection/v1.0.0/schema.json',
-  'https://stac-extensions.github.io/raster/v1.1.0/schema.json']}</code></pre>
+ 'stac_extensions': ['https://stac-extensions.github.io/raster/v1.1.0/schema.json',
+  'https://stac-extensions.github.io/projection/v1.1.0/schema.json']}</code></pre>
 </div>
 </div>
 <p>Now that we have explored the collection metadata by querying the STAC API, we can use the RASTER API to access the data itself.</p>
@@ -939,8 +952,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> [generate_stats(item, walvis_bay_aoi) <span class="cf">for</span> item <span class="kw">in</span> items]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 153 ms, sys: 13.9 ms, total: 167 ms
-Wall time: 9.62 s</code></pre>
+<pre><code>CPU times: user 52.5 ms, sys: 348 µs, total: 52.8 ms
+Wall time: 7.7 s</code></pre>
 </div>
 </div>
 <p>With the function provided above, we can generate statistics for our AOI. In the example below, we’ll explore sample statistics available from one of the tiles.</p>
@@ -949,10 +962,10 @@ Wall time: 9.62 s</code></pre>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>{'statistics': {'b1': {'min': 3040.676025390625,
    'max': 20105.990234375,
-   'mean': 7803.8864,
-   'count': 962.0,
+   'mean': 7803.88623046875,
+   'count': 625.0,
    'sum': 4877429.0,
-   'std': 3784.444606105174,
+   'std': 3784.4446091863997,
    'median': 6578.16162109375,
    'majority': 8848.3544921875,
    'minority': 3040.676025390625,
@@ -972,9 +985,9 @@ Wall time: 9.62 s</code></pre>
    'valid_percent': 64.97,
    'masked_pixels': 337.0,
    'valid_pixels': 625.0,
-   'percentile_2': 3439.763544921875,
-   'percentile_98': 17349.302734374993}},
- 'start_datetime': '2020-11-01T00:00:00'}</code></pre>
+   'percentile_2': 3431.018310546875,
+   'percentile_98': 17551.427734375}},
+ 'start_datetime': '2020-11-01T00:00:00+00:00'}</code></pre>
 </div>
 </div>
 <div id="cell-24" class="cell" data-tags="[]" data-execution_count="13">
@@ -1049,29 +1062,26 @@ Wall time: 9.62 s</code></pre>
 <div id="cell-29" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(items[<span class="dv">2</span>][<span class="st">"properties"</span>][<span class="st">"start_datetime"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>2020-10-01T00:00:00</code></pre>
+<pre><code>2020-10-01T00:00:00+00:00</code></pre>
 </div>
 </div>
 <div id="cell-30" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>rescale_values <span class="op">=</span> collection[<span class="st">"summaries"</span>][<span class="st">"cog_default"</span>]</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>rescale_values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
-<pre><code>{'max': 34561.35546875, 'min': 14.516647338867188}</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Declare the range of values for this collection</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>rescale_values <span class="op">=</span> {<span class="st">"max"</span>: <span class="fl">34561.35546875</span>, <span class="st">"min"</span>: <span class="fl">14.516647338867188</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-31" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>october_tile <span class="op">=</span> requests.get(</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>items[<span class="dv">2</span>][<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>items[<span class="dv">2</span>][<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis"</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>october_tile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>october_tile <span class="op">=</span> requests.get(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>items[<span class="dv">2</span>][<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>items[<span class="dv">2</span>][<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis"</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>).json()</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>october_tile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>{'tilejson': '2.2.0',
  'version': '1.0.0',
  'scheme': 'xyz',
- 'tiles': ['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202010.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875'],
+ 'tiles': ['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202010.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875'],
  'minzoom': 0,
  'maxzoom': 24,
  'bounds': [-180.0000050868518,
@@ -1082,27 +1092,27 @@ Wall time: 9.62 s</code></pre>
 </div>
 </div>
 <div id="cell-32" class="cell" data-tags="[]" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use bbox initial zoom and map</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up a map located w/in event bounds</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Map(</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span><span class="st">"OpenStreetMap"</span>,</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>[</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span><span class="fl">22.421460</span>,</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>        <span class="fl">14.268801</span>,</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    zoom_start<span class="op">=</span><span class="dv">8</span>,</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>map_layer <span class="op">=</span> TileLayer(</span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>october_tile[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"VEDA"</span>,</span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>map_layer.add_to(m)</span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use bbox initial zoom and map</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up a map located w/in event bounds</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Map(</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span><span class="st">"OpenStreetMap"</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>[</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span><span class="fl">22.421460</span>,</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>        <span class="fl">14.268801</span>,</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    zoom_start<span class="op">=</span><span class="dv">8</span>,</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>map_layer <span class="op">=</span> TileLayer(</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>october_tile[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"VEDA"</span>,</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>map_layer.add_to(m)</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
 <html>
@@ -1131,7 +1141,7 @@ Wall time: 9.62 s</code></pre>
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_c3d6dd843a646e5596f0bcf4460842d1 {
+                #map_3af1b42e153065037cc92d6d999c6ec1 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1145,14 +1155,14 @@ Wall time: 9.62 s</code></pre>
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_c3d6dd843a646e5596f0bcf4460842d1&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_3af1b42e153065037cc92d6d999c6ec1&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_c3d6dd843a646e5596f0bcf4460842d1 = L.map(
-                &quot;map_c3d6dd843a646e5596f0bcf4460842d1&quot;,
+            var map_3af1b42e153065037cc92d6d999c6ec1 = L.map(
+                &quot;map_3af1b42e153065037cc92d6d999c6ec1&quot;,
                 {
                     center: [-22.42146, 14.268801],
                     crs: L.CRS.EPSG3857,
@@ -1166,22 +1176,22 @@ Wall time: 9.62 s</code></pre>
 
         
     
-            var tile_layer_3b859ad6b6769bab7dbe593a6c5ab9b6 = L.tileLayer(
+            var tile_layer_7f6f9e8ae8b0232696de6b1da8346eea = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_3b859ad6b6769bab7dbe593a6c5ab9b6.addTo(map_c3d6dd843a646e5596f0bcf4460842d1);
+            tile_layer_7f6f9e8ae8b0232696de6b1da8346eea.addTo(map_3af1b42e153065037cc92d6d999c6ec1);
         
     
-            var tile_layer_0be324fa674fd2b605bcc550367a3f99 = L.tileLayer(
-                &quot;https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm\u0026item=A_202010.L3m_MO_NPP_npp_vgpm_4km\u0026assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=viridis\u0026rescale=14.516647338867188%2C34561.35546875&quot;,
+            var tile_layer_e1100dc7eb3dda8d733864679db68116 = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm\u0026item=A_202010.L3m_MO_NPP_npp_vgpm_4km\u0026assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=viridis\u0026rescale=14.516647338867188%2C34561.35546875&quot;,
                 {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_0be324fa674fd2b605bcc550367a3f99.addTo(map_c3d6dd843a646e5596f0bcf4460842d1);
+            tile_layer_e1100dc7eb3dda8d733864679db68116.addTo(map_3af1b42e153065037cc92d6d999c6ec1);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -1194,66 +1204,60 @@ Wall time: 9.62 s</code></pre>
 <p>Now we will look at each of the raster tiles that make up this time series to explore the spatial and temporal patterns of Ocean NPP observed in Walvis Bay throughout 2020.</p>
 <p>We used the code below to examine the tiles and the order in which they are presented.</p>
 <div id="cell-35" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> items:</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    tiles <span class="op">=</span> requests.get(</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>item[<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>item[<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"&amp;assets=cog_default"</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis"</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    ).json()</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(tiles[<span class="st">"tiles"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> items:</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    tiles <span class="op">=</span> requests.get(</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>item[<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>item[<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"&amp;assets=cog_default"</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis"</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    ).json()</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(tiles[<span class="st">"tiles"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202012.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202011.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202010.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202009.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202008.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202007.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202006.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202005.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202004.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202003.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202002.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202001.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']</code></pre>
+<pre><code>['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202012.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202011.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202010.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202009.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202008.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202007.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202006.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202005.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202004.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202003.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202002.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202001.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']</code></pre>
 </div>
 </div>
 <p>Since we found the tiles to be presented in reverse time order, we’ll revise this in the code below. We’ll use <code>reversed()</code> to do so.</p>
 <div id="cell-37" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tempfile</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Image</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>COG_DEFAULT <span class="op">=</span> [</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    x</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> x <span class="kw">in</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/collections"</span>).json()[<span class="st">"collections"</span>]</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x[<span class="st">"id"</span>] <span class="op">==</span> <span class="st">"MO_NPP_npp_vgpm"</span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>][<span class="dv">0</span>][<span class="st">"summaries"</span>][<span class="st">"cog_default"</span>]</span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> <span class="bu">reversed</span>(items):</span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.post(</span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/cog/feature"</span>,</span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>        params<span class="op">=</span>{</span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">"format"</span>: <span class="st">"png"</span>,</span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"height"</span>: <span class="dv">512</span>,</span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"width"</span>: <span class="dv">512</span>,</span>
-<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"url"</span>: item[<span class="st">"assets"</span>][<span class="st">"cog_default"</span>][<span class="st">"href"</span>],</span>
-<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"rescale"</span>: <span class="ss">f"</span><span class="sc">{</span>COG_DEFAULT[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>COG_DEFAULT[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
-<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"colormap_name"</span>: <span class="st">"viridis"</span>,</span>
-<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>        },</span>
-<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>        json<span class="op">=</span>walvis_bay_aoi,</span>
-<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> response.ok, response.text</span>
-<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>    image_bytes <span class="op">=</span> response.content</span>
-<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># formating the datetime to make for easier reading</span></span>
-<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>    datetime_str <span class="op">=</span> item[<span class="st">"properties"</span>][<span class="st">"start_datetime"</span>]</span>
-<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>    datetime_object <span class="op">=</span> datetime.strptime(datetime_str, <span class="st">"%Y-%m-</span><span class="sc">%d</span><span class="st">T%H:%M:%S"</span>)</span>
-<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(datetime_object.strftime(<span class="st">"%B %Y"</span>))</span>
-<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>    display(Image(image_bytes, height<span class="op">=</span><span class="dv">512</span>, width<span class="op">=</span><span class="dv">512</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tempfile</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dateutil.parser <span class="im">as</span> parser</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Image</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> <span class="bu">reversed</span>(items):</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.post(</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/cog/feature"</span>,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>        params<span class="op">=</span>{</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">"format"</span>: <span class="st">"png"</span>,</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">"height"</span>: <span class="dv">512</span>,</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"width"</span>: <span class="dv">512</span>,</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"url"</span>: item[<span class="st">"assets"</span>][<span class="st">"cog_default"</span>][<span class="st">"href"</span>],</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"rescale"</span>: <span class="ss">f"</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">"colormap_name"</span>: <span class="st">"viridis"</span>,</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>        },</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>        json<span class="op">=</span>walvis_bay_aoi,</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> response.ok, response.text</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    image_bytes <span class="op">=</span> response.content</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># formating the datetime to make for easier reading</span></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>    datetime_str <span class="op">=</span> item[<span class="st">"properties"</span>][<span class="st">"start_datetime"</span>]</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>    datetime_object <span class="op">=</span> parser.parse(datetime_str)</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(datetime_object.strftime(<span class="st">"%B %Y"</span>))</span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>    display(Image(image_bytes, height<span class="op">=</span><span class="dv">512</span>, width<span class="op">=</span><span class="dv">512</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>January 2020</code></pre>
 </div>

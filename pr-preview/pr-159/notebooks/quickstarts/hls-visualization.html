@@ -620,8 +620,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this notebook we will focus on HLS S30 data for Hurricane Ida, but Hurricane Maria and L30 parameters are provided below for further exploration.</p>
 <div id="cell-6" class="cell" data-tags="[]" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Endpoints</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://staging-stac.delta-backend.com"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://staging-raster.delta-backend.com"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/stac"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/raster"</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Harmonized Sentinel collection id and configuration info</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>s30_collection_id <span class="op">=</span> <span class="st">"hls-s30-002-ej-reprocessed"</span></span>
@@ -691,20 +691,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>search context: {'limit': 100, 'matched': 14, 'returned': 14}</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>['2021-07-14T16:55:15.122720Z',
- '2021-07-24T16:55:15.112940Z',
- '2021-07-29T16:55:16.405890Z',
- '2021-08-08T16:55:15.798510Z',
- '2021-08-13T16:55:13.394950Z',
- '2021-08-23T16:55:11.785040Z',
- '2021-09-02T16:55:09.568600Z',
- '2021-09-07T16:55:13.430530Z',
- '2021-09-22T16:55:10.763010Z',
- '2021-09-27T16:55:17.027350Z',
- '2021-10-07T16:55:18.213640Z',
- '2021-10-12T16:55:14.209080Z',
- '2021-10-17T16:55:18.517600Z',
- '2021-10-22T16:55:14.670710Z']</code></pre>
+<pre><code>['2021-07-14T16:55:15.122720+00:00',
+ '2021-07-24T16:55:15.112940+00:00',
+ '2021-07-29T16:55:16.405890+00:00',
+ '2021-08-08T16:55:15.798510+00:00',
+ '2021-08-13T16:55:13.394950+00:00',
+ '2021-08-23T16:55:11.785040+00:00',
+ '2021-09-02T16:55:09.568600+00:00',
+ '2021-09-07T16:55:13.430530+00:00',
+ '2021-09-22T16:55:10.763010+00:00',
+ '2021-09-27T16:55:17.027350+00:00',
+ '2021-10-07T16:55:18.213640+00:00',
+ '2021-10-12T16:55:14.209080+00:00',
+ '2021-10-17T16:55:18.517600+00:00',
+ '2021-10-22T16:55:14.670710+00:00']</code></pre>
 </div>
 </div>
 </section>
@@ -736,37 +736,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>mosaic_response <span class="op">=</span> requests.post(</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/mosaic/register"</span>,</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/searches/register"</span>,</span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>search_body,</span>
 <span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>).json()</span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(mosaic_response, indent<span class="op">=</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{
-  "searchid": "7743bcb31bff7151aff7e5508785fce1",
+  "id": "7743bcb31bff7151aff7e5508785fce1",
   "links": [
     {
+      "href": "https://openveda.cloud/api/raster/searches/7743bcb31bff7151aff7e5508785fce1/info",
       "rel": "metadata",
-      "title": "Mosaic metadata",
-      "type": "application/json",
-      "href": "https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/info"
+      "title": "Mosaic metadata"
     },
     {
+      "href": "https://openveda.cloud/api/raster/searches/7743bcb31bff7151aff7e5508785fce1/{tileMatrixSetId}/tilejson.json",
       "rel": "tilejson",
-      "title": "Link for TileJSON",
-      "type": "application/json",
-      "href": "https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/tilejson.json"
+      "templated": true,
+      "title": "Link for TileJSON (Template URL)"
     },
     {
+      "href": "https://openveda.cloud/api/raster/searches/7743bcb31bff7151aff7e5508785fce1/{tileMatrixSetId}/WMTSCapabilities.xml",
       "rel": "wmts",
-      "title": "Link for WMTS",
-      "type": "application/json",
-      "href": "https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/WMTSCapabilities.xml"
+      "templated": true,
+      "title": "Link for WMTS (Template URL)"
     }
   ]
 }</code></pre>
 </div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="5">
+<div id="cell-12" class="cell" data-scrolled="true" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get base url for tiler from the register mosaic request</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>tiles_href <span class="op">=</span> <span class="bu">next</span>(</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    link[<span class="st">"href"</span>] <span class="cf">for</span> link <span class="kw">in</span> mosaic_response[<span class="st">"links"</span>] <span class="cf">if</span> link[<span class="st">"rel"</span>] <span class="op">==</span> <span class="st">"tilejson"</span></span>
@@ -775,7 +774,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="configure-map-formatting-parameters" class="level3">
 <h3 class="anchored" data-anchor-id="configure-map-formatting-parameters">Configure map formatting parameters</h3>
-<p>See the <a href="https://staging-raster.delta-backend.com/docs#/Mosaic/tile_mosaic_tiles__searchid___z___x___y___format__get">raster-api/docs</a> for more formatting options</p>
+<p>See the <a href="https://openveda.cloud/api/raster/docs#/STAC%20Search/tilejson_searches__search_id___tileMatrixSetId__tilejson_json_get">openveda.cloud/api/raster/docs</a> for more formatting options</p>
 </section>
 </section>
 <section id="use-the-built-in-swir-post-processing-algorithm" class="level2">
@@ -783,17 +782,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Note in the example below the band assets for HLS S30 are selected. The equivalent SWIR band assets for L30 are provided at the top of this notebook.</p>
 <div id="cell-15" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add additional map formatting parameters to tiles url</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>tilejson_response <span class="op">=</span> requests.get(</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    tiles_href,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Info to add to the tilejson response</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minzoom"</span>: <span class="dv">6</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"maxzoom"</span>: <span class="dv">12</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"algorith"</span>: <span class="st">"swir"</span>,</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"assets"</span>: s30_swir_assets,</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(tilejson_response, indent<span class="op">=</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use default tile matrix set</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>tile_matrix_set_id <span class="op">=</span> <span class="st">"WebMercatorQuad"</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>tilejson_response <span class="op">=</span> requests.get(</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    tiles_href.<span class="bu">format</span>(tileMatrixSetId<span class="op">=</span>tile_matrix_set_id),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Info to add to the tilejson response</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minzoom"</span>: <span class="dv">6</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"maxzoom"</span>: <span class="dv">12</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"algorith"</span>: <span class="st">"swir"</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"assets"</span>: s30_swir_assets</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>).json()</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(tilejson_response, indent<span class="op">=</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{
   "tilejson": "2.2.0",
@@ -801,7 +804,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "version": "1.0.0",
   "scheme": "xyz",
   "tiles": [
-    "https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?algorith=swir&amp;assets=B12&amp;assets=B8A&amp;assets=B04"
+    "https://openveda.cloud/api/raster/searches/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?algorith=swir&amp;assets=B12&amp;assets=B8A&amp;assets=B04"
   ],
   "minzoom": 6,
   "maxzoom": 12,
@@ -866,7 +869,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_0f712cbc28eb2c10c532c637cfa59ab5 {
+                #map_c87a7bc55b11777af7e51a2286f3944e {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -880,14 +883,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_0f712cbc28eb2c10c532c637cfa59ab5&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_c87a7bc55b11777af7e51a2286f3944e&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_0f712cbc28eb2c10c532c637cfa59ab5 = L.map(
-                &quot;map_0f712cbc28eb2c10c532c637cfa59ab5&quot;,
+            var map_c87a7bc55b11777af7e51a2286f3944e = L.map(
+                &quot;map_c87a7bc55b11777af7e51a2286f3944e&quot;,
                 {
                     center: [30.210818000000003, -90.349537],
                     crs: L.CRS.EPSG3857,
@@ -901,22 +904,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_e5324e294a18d323344eac4060ffe49d = L.tileLayer(
+            var tile_layer_0988e829e6f343bfb2adb9eda15b914e = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_e5324e294a18d323344eac4060ffe49d.addTo(map_0f712cbc28eb2c10c532c637cfa59ab5);
+            tile_layer_0988e829e6f343bfb2adb9eda15b914e.addTo(map_c87a7bc55b11777af7e51a2286f3944e);
         
     
-            var tile_layer_27dc9daa1f7d670ebf3c3ed5af671ad7 = L.tileLayer(
-                &quot;https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?algorith=swir\u0026assets=B12\u0026assets=B8A\u0026assets=B04&quot;,
+            var tile_layer_e3aac3b1ebbca284acdccb813e01c109 = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/searches/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?algorith=swir\u0026assets=B12\u0026assets=B8A\u0026assets=B04&quot;,
                 {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_27dc9daa1f7d670ebf3c3ed5af671ad7.addTo(map_0f712cbc28eb2c10c532c637cfa59ab5);
+            tile_layer_e3aac3b1ebbca284acdccb813e01c109.addTo(map_c87a7bc55b11777af7e51a2286f3944e);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -928,19 +931,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The titiler/raster-api supports user defined band combinations, band math expressions, rescaling, band index, resampling and more.</p>
 <div id="cell-19" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add additional map formatting parameters to tiles url</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>tilejson_response <span class="op">=</span> requests.get(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    tiles_href,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Info to add to the tilejson response</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minzoom"</span>: <span class="dv">6</span>,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"maxzoom"</span>: <span class="dv">12</span>,</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"assets"</span>: s30_vegetation_index_assets,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"expression"</span>: s30_vegetation_index_expression,</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"rescale"</span>: s30_vegetation_index_rescaling,</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"colormap_name"</span>: s30_vegetation_index_colormap,</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(tilejson_response, indent<span class="op">=</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use default tile matrix set</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>tile_matrix_set_id <span class="op">=</span> <span class="st">"WebMercatorQuad"</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>tilejson_response <span class="op">=</span> requests.get(</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    tiles_href.<span class="bu">format</span>(tileMatrixSetId<span class="op">=</span>tile_matrix_set_id),</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Info to add to the tilejson response</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minzoom"</span>: <span class="dv">6</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"maxzoom"</span>: <span class="dv">12</span>,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"assets"</span>: s30_vegetation_index_assets,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"expression"</span>: s30_vegetation_index_expression,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"rescale"</span>: s30_vegetation_index_rescaling,</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"colormap_name"</span>: s30_vegetation_index_colormap,</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>).json()</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(tilejson_response, indent<span class="op">=</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{
   "tilejson": "2.2.0",
@@ -948,7 +955,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "version": "1.0.0",
   "scheme": "xyz",
   "tiles": [
-    "https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B08&amp;assets=B04&amp;expression=%28B08_b1-B04_b1%29%2F%28B08_b1%2BB04_b1%29&amp;rescale=0%2C1&amp;colormap_name=rdylgn"
+    "https://openveda.cloud/api/raster/searches/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B08&amp;assets=B04&amp;expression=%28B08_b1-B04_b1%29%2F%28B08_b1%2BB04_b1%29&amp;rescale=0%2C1&amp;colormap_name=rdylgn"
   ],
   "minzoom": 6,
   "maxzoom": 12,
@@ -1011,7 +1018,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_8610898008b134d6977bbd7f45a11fe0 {
+                #map_18b3cd7c6c56cc2148072241089ff3b5 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1025,14 +1032,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_8610898008b134d6977bbd7f45a11fe0&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_18b3cd7c6c56cc2148072241089ff3b5&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_8610898008b134d6977bbd7f45a11fe0 = L.map(
-                &quot;map_8610898008b134d6977bbd7f45a11fe0&quot;,
+            var map_18b3cd7c6c56cc2148072241089ff3b5 = L.map(
+                &quot;map_18b3cd7c6c56cc2148072241089ff3b5&quot;,
                 {
                     center: [30.210818000000003, -90.349537],
                     crs: L.CRS.EPSG3857,
@@ -1046,22 +1053,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_535e7c5c8d694fa5804d3ba2a9a99274 = L.tileLayer(
+            var tile_layer_1441be24b23f57ca76f3a798f032dc0b = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_535e7c5c8d694fa5804d3ba2a9a99274.addTo(map_8610898008b134d6977bbd7f45a11fe0);
+            tile_layer_1441be24b23f57ca76f3a798f032dc0b.addTo(map_18b3cd7c6c56cc2148072241089ff3b5);
         
     
-            var tile_layer_206d842c7ffd27f3790765c5e6341f3b = L.tileLayer(
-                &quot;https://staging-raster.delta-backend.com/mosaic/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B08\u0026assets=B04\u0026expression=%28B08_b1-B04_b1%29%2F%28B08_b1%2BB04_b1%29\u0026rescale=0%2C1\u0026colormap_name=rdylgn&quot;,
+            var tile_layer_3bd491e80c27eff9dedcbf0bf9eecaa4 = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/searches/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B08\u0026assets=B04\u0026expression=%28B08_b1-B04_b1%29%2F%28B08_b1%2BB04_b1%29\u0026rescale=0%2C1\u0026colormap_name=rdylgn&quot;,
                 {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_206d842c7ffd27f3790765c5e6341f3b.addTo(map_8610898008b134d6977bbd7f45a11fe0);
+            tile_layer_3bd491e80c27eff9dedcbf0bf9eecaa4.addTo(map_18b3cd7c6c56cc2148072241089ff3b5);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -1143,15 +1150,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>search context: {'limit': 10, 'matched': 9, 'returned': 9}</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>['2017-06-06T14:43:41.335694Z',
- '2017-06-22T14:43:47.156698Z',
- '2017-07-24T14:43:56.898518Z',
- '2017-08-09T14:44:03.584741Z',
- '2017-08-25T14:44:07.854507Z',
- '2017-09-26T14:44:14.813967Z',
- '2017-10-12T14:44:19.576858Z',
- '2017-11-13T14:44:17.834919Z',
- '2017-11-29T14:44:11.126689Z']</code></pre>
+<pre><code>['2017-06-06T14:43:41.335694+00:00',
+ '2017-06-22T14:43:47.156698+00:00',
+ '2017-07-24T14:43:56.898518+00:00',
+ '2017-08-09T14:44:03.584741+00:00',
+ '2017-08-25T14:44:07.854507+00:00',
+ '2017-09-26T14:44:14.813967+00:00',
+ '2017-10-12T14:44:19.576858+00:00',
+ '2017-11-13T14:44:17.834919+00:00',
+ '2017-11-29T14:44:11.126689+00:00']</code></pre>
 </div>
 </div>
 <div id="cell-23" class="cell" data-execution_count="11">
@@ -1178,7 +1185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>mosaic_response <span class="op">=</span> requests.post(</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/mosaic/register"</span>,</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/searches/register"</span>,</span>
 <span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>search_body,</span>
 <span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>).json()</span>
 <span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a></span>
@@ -1186,19 +1193,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Get base url for tiler from the register mosaic request</span></span>
 <span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>tiles_href <span class="op">=</span> <span class="bu">next</span>(link[<span class="st">"href"</span>] <span class="cf">for</span> link <span class="kw">in</span> mosaic_response[<span class="st">"links"</span>] <span class="cf">if</span> link[<span class="st">"rel"</span>]<span class="op">==</span><span class="st">"tilejson"</span>)</span>
 <span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Add additional map formatting parameters to tiles url</span></span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>tilejson_response <span class="op">=</span> requests.get(</span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>    tiles_href,</span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{</span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Info to add to the tilejson response</span></span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minzoom"</span>: <span class="dv">6</span>,</span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">"maxzoom"</span>: <span class="dv">12</span>,</span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"assets"</span>: l30_ndwi_assets,</span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"expression"</span>: l30_ndwi_expression,</span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"rescale"</span>: l30_ndwi_rescaling,</span>
-<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">"colormap_name"</span>: <span class="st">"viridis"</span></span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Use default tile matrix set</span></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>tile_matrix_set_id <span class="op">=</span> <span class="st">"WebMercatorQuad"</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>tilejson_response <span class="op">=</span> requests.get(</span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>    tiles_href.<span class="bu">format</span>(tileMatrixSetId<span class="op">=</span>tile_matrix_set_id),</span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{</span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Info to add to the tilejson response</span></span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minzoom"</span>: <span class="dv">6</span>,</span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"maxzoom"</span>: <span class="dv">12</span>,</span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"assets"</span>: l30_ndwi_assets,</span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">"expression"</span>: l30_ndwi_expression,</span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>        <span class="st">"rescale"</span>: l30_ndwi_rescaling,</span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>        <span class="st">"colormap_name"</span>: <span class="st">"viridis"</span></span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-24" class="cell" data-tags="[]" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use bbox initial zoom and map</span></span>
@@ -1245,7 +1254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_d90dea1334abd484fcd83b3d2443af44 {
+                #map_b9f831827e09fca7c88f5adeac5bca21 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1259,14 +1268,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_d90dea1334abd484fcd83b3d2443af44&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_b9f831827e09fca7c88f5adeac5bca21&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_d90dea1334abd484fcd83b3d2443af44 = L.map(
-                &quot;map_d90dea1334abd484fcd83b3d2443af44&quot;,
+            var map_b9f831827e09fca7c88f5adeac5bca21 = L.map(
+                &quot;map_b9f831827e09fca7c88f5adeac5bca21&quot;,
                 {
                     center: [18.464629000000002, -65.638847],
                     crs: L.CRS.EPSG3857,
@@ -1280,22 +1289,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_79cf4fdeb1509fccb07fe7f69cd064bf = L.tileLayer(
+            var tile_layer_3ff8d2de6cb2758feaa159878d727d3e = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_79cf4fdeb1509fccb07fe7f69cd064bf.addTo(map_d90dea1334abd484fcd83b3d2443af44);
+            tile_layer_3ff8d2de6cb2758feaa159878d727d3e.addTo(map_b9f831827e09fca7c88f5adeac5bca21);
         
     
-            var tile_layer_09388fe7c881ee6fde621fd95f0f5dd5 = L.tileLayer(
-                &quot;https://staging-raster.delta-backend.com/mosaic/61809545320d5ea343d57453af06b818/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B03\u0026assets=B05\u0026expression=%28B03_b1-B05_b1%29%2F%28B03_b1%2BB05_b1%29\u0026rescale=0%2C1\u0026colormap_name=viridis&quot;,
+            var tile_layer_2150da3c4d644575e2add7b2009d95fc = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/searches/61809545320d5ea343d57453af06b818/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B03\u0026assets=B05\u0026expression=%28B03_b1-B05_b1%29%2F%28B03_b1%2BB05_b1%29\u0026rescale=0%2C1\u0026colormap_name=viridis&quot;,
                 {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_09388fe7c881ee6fde621fd95f0f5dd5.addTo(map_d90dea1334abd484fcd83b3d2443af44);
+            tile_layer_2150da3c4d644575e2add7b2009d95fc.addTo(map_b9f831827e09fca7c88f5adeac5bca21);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
