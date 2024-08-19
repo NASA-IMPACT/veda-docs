@@ -67,7 +67,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../notebooks/quickstarts/no2-map-plot.html" rel="next">
-<link href="../../notebooks/quickstarts/intake.html" rel="prev">
+<link href="../../notebooks/quickstarts/downsample-zarr.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -250,12 +250,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../notebooks/quickstarts/downsample-zarr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Downsample zarr</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../notebooks/quickstarts/intake.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Searching VEDA STAC API and inspecting catalogs with intake</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -613,10 +607,10 @@ Learn more
 <li>If you need the file on your local machine, zip and download the output directory</li>
 </ol>
 <p>Note that the default examples environment is missing the <code>stac-asset</code> package. We can <code>pip install</code> that before trying to import.</p>
-<div id="cell-3" class="cell" data-tags="[]" data-execution_count="1">
+<div id="cell-3" class="cell" data-tags="[]" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q stac<span class="op">-</span>asset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-4" class="cell" data-tags="[]" data-execution_count="2">
+<div id="cell-4" class="cell" data-tags="[]" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> stac_asset</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -629,11 +623,11 @@ Learn more
 <li>JSON API: https://staging-stac.delta-backend.com/collections</li>
 <li>STAC Browser: http://veda-staging-stac-browser.s3-website-us-west-2.amazonaws.com</li>
 </ul>
-<div id="cell-6" class="cell" data-tags="[]" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://staging-stac.delta-backend.com/"</span></span>
+<div id="cell-6" class="cell" data-tags="[]" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/stac/"</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> <span class="st">"caldor-fire-burn-severity"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-7" class="cell" data-tags="[]" data-execution_count="4">
+<div id="cell-7" class="cell" data-tags="[]" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>catalog <span class="op">=</span> Client.<span class="bu">open</span>(STAC_API_URL)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> catalog.search(collections<span class="op">=</span>[collection])</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -646,13 +640,13 @@ Learn more
 <section id="download-the-assets" class="level2">
 <h2 class="anchored" data-anchor-id="download-the-assets">Download the assets</h2>
 <p>Once you have identified the items that you are interested in, use <code>stac_asset</code> to download the related assets.</p>
-<div id="cell-9" class="cell" data-tags="[]" data-execution_count="5">
+<div id="cell-9" class="cell" data-tags="[]" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> stac_asset.download_item_collection(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    search.item_collection(), </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    directory<span class="op">=</span><span class="st">"data"</span>, </span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    config<span class="op">=</span>stac_asset.Config(make_directory<span class="op">=</span><span class="va">True</span>, s3_requester_pays<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="22">
 
 
 <style>
@@ -744,460 +738,12 @@ Learn more
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
-                <li><details>
-        <summary class="pystac-summary"><span class="pystac-k">proj:bbox</span><span class="pystac-l">[] 4 items</span></summary>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">0</span>
-            <span class="pystac-v">707933.4475195253</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">1</span>
-            <span class="pystac-v">4271224.262587059</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">2</span>
-            <span class="pystac-v">767213.4475195253</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">3</span>
-            <span class="pystac-v">4309054.262587059</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-    </details></li>
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">proj:epsg</span>
-            <span class="pystac-v">26910.0</span>
-        </li>
-    
-            
-        
-            
-                <li><details>
-        <summary class="pystac-summary"><span class="pystac-k">proj:shape</span><span class="pystac-l">[] 2 items</span></summary>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">0</span>
-            <span class="pystac-v">1261.0</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">1</span>
-            <span class="pystac-v">1976.0</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-    </details></li>
-            
-        
-            
                 
         <li class="pystac-row">
             <span class="pystac-k">end_datetime</span>
             <span class="pystac-v">"2021-10-21T12:00:00+00:00"</span>
         </li>
     
-            
-        
-            
-                
-        <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">proj:geometry</span></summary>
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">type</span>
-            <span class="pystac-v">"Polygon"</span>
-        </li>
-    
-            
-        
-            
-                <li><details>
-        <summary class="pystac-summary"><span class="pystac-k">coordinates</span><span class="pystac-l">[] 1 items</span></summary>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                <li><details>
-        <summary class="pystac-summary"><span class="pystac-k">0</span><span class="pystac-l">[] 5 items</span></summary>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                <li><details>
-        <summary class="pystac-summary"><span class="pystac-k">0</span><span class="pystac-l">[] 2 items</span></summary>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">0</span>
-            <span class="pystac-v">707933.4475195253</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">1</span>
-            <span class="pystac-v">4271224.262587059</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-    </details></li>
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                <li><details>
-        <summary class="pystac-summary"><span class="pystac-k">1</span><span class="pystac-l">[] 2 items</span></summary>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">0</span>
-            <span class="pystac-v">767213.4475195253</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">1</span>
-            <span class="pystac-v">4271224.262587059</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-    </details></li>
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                <li><details>
-        <summary class="pystac-summary"><span class="pystac-k">2</span><span class="pystac-l">[] 2 items</span></summary>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">0</span>
-            <span class="pystac-v">767213.4475195253</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">1</span>
-            <span class="pystac-v">4309054.262587059</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-    </details></li>
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                <li><details>
-        <summary class="pystac-summary"><span class="pystac-k">3</span><span class="pystac-l">[] 2 items</span></summary>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">0</span>
-            <span class="pystac-v">707933.4475195253</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">1</span>
-            <span class="pystac-v">4309054.262587059</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-    </details></li>
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                <li><details>
-        <summary class="pystac-summary"><span class="pystac-k">4</span><span class="pystac-l">[] 2 items</span></summary>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">0</span>
-            <span class="pystac-v">707933.4475195253</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">1</span>
-            <span class="pystac-v">4271224.262587059</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-    </details></li>
-            
-        
-    </ul>
-        
-    </details></li>
-            
-        
-    </ul>
-        
-    </details></li>
-            
-        
-    </ul>
-        </details></li>
-    
-            
-        
-            
-                <li><details>
-        <summary class="pystac-summary"><span class="pystac-k">proj:transform</span><span class="pystac-l">[] 9 items</span></summary>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">0</span>
-            <span class="pystac-v">30.0</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">1</span>
-            <span class="pystac-v">0.0</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">2</span>
-            <span class="pystac-v">707933.4475195253</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">3</span>
-            <span class="pystac-v">0.0</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">4</span>
-            <span class="pystac-v">-30.0</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">5</span>
-            <span class="pystac-v">4309054.262587059</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">6</span>
-            <span class="pystac-v">0.0</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">7</span>
-            <span class="pystac-v">0.0</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">8</span>
-            <span class="pystac-v">1.0</span>
-        </li>
-    
-            
-        
-    </ul>
-        
-    </details></li>
             
         
             
@@ -1273,7 +819,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">1</span>
-            <span class="pystac-v">38.56515924781838</span>
+            <span class="pystac-v">38.54940283865057</span>
         </li>
     
             
@@ -1297,7 +843,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">0</span>
-            <span class="pystac-v">-119.93378864679858</span>
+            <span class="pystac-v">-119.91905658168675</span>
         </li>
     
             
@@ -1310,7 +856,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">1</span>
-            <span class="pystac-v">38.549319926107025</span>
+            <span class="pystac-v">38.54940283865057</span>
         </li>
     
             
@@ -1334,7 +880,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">0</span>
-            <span class="pystac-v">-119.91919400099995</span>
+            <span class="pystac-v">-119.91905658168675</span>
         </li>
     
             
@@ -1347,7 +893,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">1</span>
-            <span class="pystac-v">38.88974438210656</span>
+            <span class="pystac-v">38.90577651328637</span>
         </li>
     
             
@@ -1371,7 +917,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">0</span>
-            <span class="pystac-v">-120.60201903270269</span>
+            <span class="pystac-v">-120.61338752166166</span>
         </li>
     
             
@@ -1421,7 +967,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">1</span>
-            <span class="pystac-v">38.56515924781838</span>
+            <span class="pystac-v">38.54940283865057</span>
         </li>
     
             
@@ -1448,7 +994,7 @@ Learn more
         
             
                 <li><details>
-        <summary class="pystac-summary"><span class="pystac-k">links</span><span class="pystac-l">[] 3 items</span></summary>
+        <summary class="pystac-summary"><span class="pystac-k">links</span><span class="pystac-l">[] 4 items</span></summary>
         
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
@@ -1471,7 +1017,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://staging-stac.delta-backend.com/collections/caldor-fire-burn-severity"</span>
+            <span class="pystac-v">"https://openveda.cloud/api/stac/collections/caldor-fire-burn-severity"</span>
         </li>
     
             
@@ -1513,7 +1059,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://staging-stac.delta-backend.com/collections/caldor-fire-burn-severity"</span>
+            <span class="pystac-v">"https://openveda.cloud/api/stac/collections/caldor-fire-burn-severity"</span>
         </li>
     
             
@@ -1555,7 +1101,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://staging-stac.delta-backend.com/"</span>
+            <span class="pystac-v">"https://openveda.cloud/api/stac/"</span>
         </li>
     
             
@@ -1573,7 +1119,58 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"veda-stac"</span>
+            <span class="pystac-v">"VEDA (Visualization, Exploration, and Data Analysis) STAC API"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">3</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"preview"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://openveda.cloud/api/raster/collections/caldor-fire-burn-severity/items/bs_to_save/map?assets=cog_default&amp;rescale=0%2C5&amp;colormap_name=inferno_r"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"text/html"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Map of Item"</span>
         </li>
     
             
@@ -1613,7 +1210,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">type</span>
-            <span class="pystac-v">"image/tiff; application=geotiff; profile=cloud-optimized"</span>
+            <span class="pystac-v">"image/tiff; application=geotiff"</span>
         </li>
     
             
@@ -1634,6 +1231,116 @@ Learn more
             <span class="pystac-v">"Cloud optimized default layer to display on map"</span>
         </li>
     
+            
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">proj:bbox</span><span class="pystac-l">[] 4 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">-120.61338752166166</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">38.54940283865057</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">2</span>
+            <span class="pystac-v">-119.91905658168675</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">3</span>
+            <span class="pystac-v">38.90577651328637</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">proj:epsg</span>
+            <span class="pystac-v">4326</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">proj:wkt2</span>
+            <span class="pystac-v">"GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]"</span>
+        </li>
+    
+            
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">proj:shape</span><span class="pystac-l">[] 2 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">1103</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">2149</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
             
         
             
@@ -1661,7 +1368,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">nodata</span>
-            <span class="pystac-v">255.0</span>
+            <span class="pystac-v">-100.0</span>
         </li>
     
             
@@ -1703,7 +1410,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">max</span>
-            <span class="pystac-v">4.209886074066162</span>
+            <span class="pystac-v">4.0</span>
         </li>
     
             
@@ -1712,7 +1419,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">min</span>
-            <span class="pystac-v">0.8347156643867493</span>
+            <span class="pystac-v">1.0</span>
         </li>
     
             
@@ -1721,7 +1428,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">count</span>
-            <span class="pystac-v">11.0</span>
+            <span class="pystac-v">11</span>
         </li>
     
             
@@ -1736,7 +1443,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">0</span>
-            <span class="pystac-v">3869.0</span>
+            <span class="pystac-v">10233</span>
         </li>
     
             
@@ -1749,7 +1456,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">1</span>
-            <span class="pystac-v">5601.0</span>
+            <span class="pystac-v">0</span>
         </li>
     
             
@@ -1762,7 +1469,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">2</span>
-            <span class="pystac-v">13118.0</span>
+            <span class="pystac-v">0</span>
         </li>
     
             
@@ -1775,7 +1482,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">3</span>
-            <span class="pystac-v">64022.0</span>
+            <span class="pystac-v">67409</span>
         </li>
     
             
@@ -1788,7 +1495,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">4</span>
-            <span class="pystac-v">25216.0</span>
+            <span class="pystac-v">0</span>
         </li>
     
             
@@ -1801,7 +1508,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">5</span>
-            <span class="pystac-v">23602.0</span>
+            <span class="pystac-v">0</span>
         </li>
     
             
@@ -1814,7 +1521,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">6</span>
-            <span class="pystac-v">65527.0</span>
+            <span class="pystac-v">71518</span>
         </li>
     
             
@@ -1827,7 +1534,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">7</span>
-            <span class="pystac-v">15846.0</span>
+            <span class="pystac-v">0</span>
         </li>
     
             
@@ -1840,7 +1547,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">8</span>
-            <span class="pystac-v">12513.0</span>
+            <span class="pystac-v">0</span>
         </li>
     
             
@@ -1853,7 +1560,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">9</span>
-            <span class="pystac-v">19199.0</span>
+            <span class="pystac-v">24232</span>
         </li>
     
             
@@ -1878,7 +1585,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">mean</span>
-            <span class="pystac-v">2.651540032771221</span>
+            <span class="pystac-v">2.63295307741995</span>
         </li>
     
             
@@ -1887,7 +1594,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">stddev</span>
-            <span class="pystac-v">0.7138142662108937</span>
+            <span class="pystac-v">0.7936384596443959</span>
         </li>
     
             
@@ -1896,7 +1603,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">maximum</span>
-            <span class="pystac-v">4.209886074066162</span>
+            <span class="pystac-v">4.0</span>
         </li>
     
             
@@ -1905,7 +1612,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">minimum</span>
-            <span class="pystac-v">0.8347156643867493</span>
+            <span class="pystac-v">1.0</span>
         </li>
     
             
@@ -1914,7 +1621,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">valid_percent</span>
-            <span class="pystac-v">37.10832974961774</span>
+            <span class="pystac-v">32.191658745247146</span>
         </li>
     
             
@@ -1926,6 +1633,616 @@ Learn more
         
     </ul>
         </details></li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">proj:geometry</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"Polygon"</span>
+        </li>
+    
+            
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">coordinates</span><span class="pystac-l">[] 1 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">0</span><span class="pystac-l">[] 5 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">0</span><span class="pystac-l">[] 2 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">-120.61338752166166</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">38.54940283865057</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">1</span><span class="pystac-l">[] 2 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">-119.91905658168675</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">38.54940283865057</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">2</span><span class="pystac-l">[] 2 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">-119.91905658168675</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">38.90577651328637</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">3</span><span class="pystac-l">[] 2 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">-120.61338752166166</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">38.90577651328637</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">4</span><span class="pystac-l">[] 2 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">-120.61338752166166</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">38.54940283865057</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">proj:projjson</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">id</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">code</span>
+            <span class="pystac-v">4326</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">authority</span>
+            <span class="pystac-v">"EPSG"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">name</span>
+            <span class="pystac-v">"WGS 84"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"GeographicCRS"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">datum</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">name</span>
+            <span class="pystac-v">"World Geodetic System 1984"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"GeodeticReferenceFrame"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">ellipsoid</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">name</span>
+            <span class="pystac-v">"WGS 84"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">semi_major_axis</span>
+            <span class="pystac-v">6378137</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">inverse_flattening</span>
+            <span class="pystac-v">298.257223563</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">$schema</span>
+            <span class="pystac-v">"https://proj.org/schemas/v0.4/projjson.schema.json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">coordinate_system</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">axis</span><span class="pystac-l">[] 2 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">0</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">name</span>
+            <span class="pystac-v">"Geodetic latitude"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">unit</span>
+            <span class="pystac-v">"degree"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">direction</span>
+            <span class="pystac-v">"north"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">abbreviation</span>
+            <span class="pystac-v">"Lat"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">1</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">name</span>
+            <span class="pystac-v">"Geodetic longitude"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">unit</span>
+            <span class="pystac-v">"degree"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">direction</span>
+            <span class="pystac-v">"east"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">abbreviation</span>
+            <span class="pystac-v">"Lon"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">subtype</span>
+            <span class="pystac-v">"ellipsoidal"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">proj:transform</span><span class="pystac-l">[] 9 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">0.0003230948999417961</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">0.0</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">2</span>
+            <span class="pystac-v">-120.61338752166166</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">3</span>
+            <span class="pystac-v">0.0</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">4</span>
+            <span class="pystac-v">-0.00032309489994179427</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">5</span>
+            <span class="pystac-v">38.90577651328637</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">6</span>
+            <span class="pystac-v">0.0</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">7</span>
+            <span class="pystac-v">0.0</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">8</span>
+            <span class="pystac-v">1.0</span>
+        </li>
     
             
         
@@ -1972,6 +2289,73 @@ Learn more
     
             
         
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">rendered_preview</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"/home/jovyan/veda-docs/notebooks/quickstarts/data/bs_to_save/preview.png"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"image/png"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Rendered preview"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"preview"</span>
+        </li>
+    
+            
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">roles</span><span class="pystac-l">[] 1 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">"overview"</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
     </ul>
         </details></li>
     
@@ -2000,7 +2384,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">1</span>
-            <span class="pystac-v">38.549319926107025</span>
+            <span class="pystac-v">38.54940283865057</span>
         </li>
     
             
@@ -2013,7 +2397,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">2</span>
-            <span class="pystac-v">-119.91919400099995</span>
+            <span class="pystac-v">-119.91905658168675</span>
         </li>
     
             
@@ -2046,7 +2430,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">0</span>
-            <span class="pystac-v">"https://stac-extensions.github.io/projection/v1.0.0/schema.json"</span>
+            <span class="pystac-v">"https://stac-extensions.github.io/raster/v1.1.0/schema.json"</span>
         </li>
     
             
@@ -2059,7 +2443,7 @@ Learn more
                 
         <li class="pystac-row">
             <span class="pystac-k">1</span>
-            <span class="pystac-v">"https://stac-extensions.github.io/raster/v1.1.0/schema.json"</span>
+            <span class="pystac-v">"https://stac-extensions.github.io/projection/v1.1.0/schema.json"</span>
         </li>
     
             
@@ -2098,13 +2482,14 @@ Learn more
 <section id="download-from-jupyterhub" class="level2">
 <h2 class="anchored" data-anchor-id="download-from-jupyterhub">Download from JupyterHub</h2>
 <p>If you want to further download from this JupyterHub to your local machine you can zip the data directory:</p>
-<div id="cell-12" class="cell" data-tags="[]" data-execution_count="6">
+<div id="cell-12" class="cell" data-tags="[]" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span><span class="bu">zip</span> <span class="op">-</span>r data.<span class="bu">zip</span> data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>updating: data/ (stored 0%)
 updating: data/item-collection.json (deflated 74%)
 updating: data/bs_to_save/ (stored 0%)
-updating: data/bs_to_save/bs_to_save.tif (deflated 16%)</code></pre>
+updating: data/bs_to_save/bs_to_save.tif (deflated 16%)
+updating: data/bs_to_save/preview.png (deflated 3%)</code></pre>
 </div>
 </div>
 <p>Then right click on the the zipped file in the Jupyter file browser and select “Download”</p>
@@ -2685,8 +3070,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../notebooks/quickstarts/intake.html" class="pagination-link" aria-label="Searching VEDA STAC API and inspecting catalogs with intake">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Searching VEDA STAC API and inspecting catalogs with intake</span>
+      <a href="../../notebooks/quickstarts/downsample-zarr.html" class="pagination-link" aria-label="Downsample zarr">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Downsample zarr</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

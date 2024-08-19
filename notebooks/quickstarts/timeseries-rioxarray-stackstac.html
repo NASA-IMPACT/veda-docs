@@ -254,12 +254,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/quickstarts/intake.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Searching VEDA STAC API and inspecting catalogs with intake</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../notebooks/quickstarts/download-assets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Download STAC assets</span></a>
   </div>
@@ -625,7 +619,7 @@ Learn more
   }
 
   var force = true;
-  var py_version = '3.3.3'.replace('rc', '-rc.').replace('.dev', '-dev.');
+  var py_version = '3.4.1'.replace('rc', '-rc.').replace('.dev', '-dev.');
   var reloading = false;
   var Bokeh = root.Bokeh;
 
@@ -681,37 +675,8 @@ Learn more
 
     var skip = [];
     if (window.requirejs) {
-      window.requirejs.config({'packages': {}, 'paths': {'jspanel': 'https://cdn.jsdelivr.net/npm/jspanel4@4.12.0/dist/jspanel', 'jspanel-modal': 'https://cdn.jsdelivr.net/npm/jspanel4@4.12.0/dist/extensions/modal/jspanel.modal', 'jspanel-tooltip': 'https://cdn.jsdelivr.net/npm/jspanel4@4.12.0/dist/extensions/tooltip/jspanel.tooltip', 'jspanel-hint': 'https://cdn.jsdelivr.net/npm/jspanel4@4.12.0/dist/extensions/hint/jspanel.hint', 'jspanel-layout': 'https://cdn.jsdelivr.net/npm/jspanel4@4.12.0/dist/extensions/layout/jspanel.layout', 'jspanel-contextmenu': 'https://cdn.jsdelivr.net/npm/jspanel4@4.12.0/dist/extensions/contextmenu/jspanel.contextmenu', 'jspanel-dock': 'https://cdn.jsdelivr.net/npm/jspanel4@4.12.0/dist/extensions/dock/jspanel.dock', 'gridstack': 'https://cdn.jsdelivr.net/npm/gridstack@7.2.3/dist/gridstack-all', 'notyf': 'https://cdn.jsdelivr.net/npm/notyf@3/notyf.min'}, 'shim': {'jspanel': {'exports': 'jsPanel'}, 'gridstack': {'exports': 'GridStack'}}});
-      require(["jspanel"], function(jsPanel) {
-    window.jsPanel = jsPanel
-    on_load()
-      })
-      require(["jspanel-modal"], function() {
-    on_load()
-      })
-      require(["jspanel-tooltip"], function() {
-    on_load()
-      })
-      require(["jspanel-hint"], function() {
-    on_load()
-      })
-      require(["jspanel-layout"], function() {
-    on_load()
-      })
-      require(["jspanel-contextmenu"], function() {
-    on_load()
-      })
-      require(["jspanel-dock"], function() {
-    on_load()
-      })
-      require(["gridstack"], function(GridStack) {
-    window.GridStack = GridStack
-    on_load()
-      })
-      require(["notyf"], function() {
-    on_load()
-      })
-      root._bokeh_is_loading = css_urls.length + 9;
+      window.requirejs.config({'packages': {}, 'paths': {}, 'shim': {}});
+      root._bokeh_is_loading = css_urls.length + 0;
     } else {
       root._bokeh_is_loading = css_urls.length + js_urls.length + js_modules.length + Object.keys(js_exports).length;
     }
@@ -738,21 +703,6 @@ Learn more
       element.href = url;
       console.debug("Bokeh: injecting link tag for BokehJS stylesheet: ", url);
       document.body.appendChild(element);
-    }    if (((window['jsPanel'] !== undefined) && (!(window['jsPanel'] instanceof HTMLElement))) || window.requirejs) {
-      var urls = ['https://cdn.holoviz.org/panel/1.3.6/dist/bundled/floatpanel/jspanel4@4.12.0/dist/jspanel.js', 'https://cdn.holoviz.org/panel/1.3.6/dist/bundled/floatpanel/jspanel4@4.12.0/dist/extensions/modal/jspanel.modal.js', 'https://cdn.holoviz.org/panel/1.3.6/dist/bundled/floatpanel/jspanel4@4.12.0/dist/extensions/tooltip/jspanel.tooltip.js', 'https://cdn.holoviz.org/panel/1.3.6/dist/bundled/floatpanel/jspanel4@4.12.0/dist/extensions/hint/jspanel.hint.js', 'https://cdn.holoviz.org/panel/1.3.6/dist/bundled/floatpanel/jspanel4@4.12.0/dist/extensions/layout/jspanel.layout.js', 'https://cdn.holoviz.org/panel/1.3.6/dist/bundled/floatpanel/jspanel4@4.12.0/dist/extensions/contextmenu/jspanel.contextmenu.js', 'https://cdn.holoviz.org/panel/1.3.6/dist/bundled/floatpanel/jspanel4@4.12.0/dist/extensions/dock/jspanel.dock.js'];
-      for (var i = 0; i < urls.length; i++) {
-        skip.push(urls[i])
-      }
-    }    if (((window['GridStack'] !== undefined) && (!(window['GridStack'] instanceof HTMLElement))) || window.requirejs) {
-      var urls = ['https://cdn.holoviz.org/panel/1.3.6/dist/bundled/gridstack/gridstack@7.2.3/dist/gridstack-all.js'];
-      for (var i = 0; i < urls.length; i++) {
-        skip.push(urls[i])
-      }
-    }    if (((window['Notyf'] !== undefined) && (!(window['Notyf'] instanceof HTMLElement))) || window.requirejs) {
-      var urls = ['https://cdn.holoviz.org/panel/1.3.6/dist/bundled/notificationarea/notyf@3/notyf.min.js'];
-      for (var i = 0; i < urls.length; i++) {
-        skip.push(urls[i])
-      }
     }    var existing_scripts = []
     var scripts = document.getElementsByTagName('script')
     for (var i = 0; i < scripts.length; i++) {
@@ -825,7 +775,7 @@ Learn more
     document.body.appendChild(element);
   }
 
-  var js_urls = ["https://cdn.bokeh.org/bokeh/release/bokeh-3.3.3.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.3.3.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.3.3.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.3.3.min.js", "https://cdn.holoviz.org/panel/1.3.6/dist/panel.min.js"];
+  var js_urls = ["https://cdn.bokeh.org/bokeh/release/bokeh-3.4.1.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-gl-3.4.1.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.4.1.min.js", "https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.4.1.min.js", "https://cdn.holoviz.org/panel/1.4.4/dist/panel.min.js"];
   var js_modules = [];
   var js_exports = {};
   var css_urls = [];
@@ -1163,25 +1113,30 @@ if (window.Jupyter !== undefined) {
 </div>
 <div class="cell-output cell-output-display">
 <div id="p1002">
-  <div id="afbd4a14-90cf-48f2-8070-357e958e3645" data-root-id="p1002" style="display: contents;"></div>
+  <div id="c34c8242-239c-4799-a8eb-6048ed80d43d" data-root-id="p1002" style="display: contents;"></div>
 </div>
 <script type="application/javascript">(function(root) {
-  var docs_json = {"89ff7578-3520-4d80-9fb1-e4939d21e641":{"version":"3.3.3","title":"Bokeh Application","roots":[{"type":"object","name":"panel.models.browser.BrowserInfo","id":"p1002"},{"type":"object","name":"panel.models.comm_manager.CommManager","id":"p1003","attributes":{"plot_id":"p1002","comm_id":"712b800d2ab246e98fca5bc847fda653","client_comm_id":"63257dbdef2948eba37cb12d7fe99f15"}}],"defs":[{"type":"model","name":"ReactiveHTML1"},{"type":"model","name":"FlexBox1","properties":[{"name":"align_content","kind":"Any","default":"flex-start"},{"name":"align_items","kind":"Any","default":"flex-start"},{"name":"flex_direction","kind":"Any","default":"row"},{"name":"flex_wrap","kind":"Any","default":"wrap"},{"name":"justify_content","kind":"Any","default":"flex-start"}]},{"type":"model","name":"FloatPanel1","properties":[{"name":"config","kind":"Any","default":{"type":"map"}},{"name":"contained","kind":"Any","default":true},{"name":"position","kind":"Any","default":"right-top"},{"name":"offsetx","kind":"Any","default":null},{"name":"offsety","kind":"Any","default":null},{"name":"theme","kind":"Any","default":"primary"},{"name":"status","kind":"Any","default":"normalized"}]},{"type":"model","name":"GridStack1","properties":[{"name":"mode","kind":"Any","default":"warn"},{"name":"ncols","kind":"Any","default":null},{"name":"nrows","kind":"Any","default":null},{"name":"allow_resize","kind":"Any","default":true},{"name":"allow_drag","kind":"Any","default":true},{"name":"state","kind":"Any","default":[]}]},{"type":"model","name":"drag1","properties":[{"name":"slider_width","kind":"Any","default":5},{"name":"slider_color","kind":"Any","default":"black"},{"name":"value","kind":"Any","default":50}]},{"type":"model","name":"click1","properties":[{"name":"terminal_output","kind":"Any","default":""},{"name":"debug_name","kind":"Any","default":""},{"name":"clears","kind":"Any","default":0}]},{"type":"model","name":"copy_to_clipboard1","properties":[{"name":"fill","kind":"Any","default":"none"},{"name":"value","kind":"Any","default":null}]},{"type":"model","name":"FastWrapper1","properties":[{"name":"object","kind":"Any","default":null},{"name":"style","kind":"Any","default":null}]},{"type":"model","name":"NotificationAreaBase1","properties":[{"name":"js_events","kind":"Any","default":{"type":"map"}},{"name":"position","kind":"Any","default":"bottom-right"},{"name":"_clear","kind":"Any","default":0}]},{"type":"model","name":"NotificationArea1","properties":[{"name":"js_events","kind":"Any","default":{"type":"map"}},{"name":"notifications","kind":"Any","default":[]},{"name":"position","kind":"Any","default":"bottom-right"},{"name":"_clear","kind":"Any","default":0},{"name":"types","kind":"Any","default":[{"type":"map","entries":[["type","warning"],["background","#ffc107"],["icon",{"type":"map","entries":[["className","fas fa-exclamation-triangle"],["tagName","i"],["color","white"]]}]]},{"type":"map","entries":[["type","info"],["background","#007bff"],["icon",{"type":"map","entries":[["className","fas fa-info-circle"],["tagName","i"],["color","white"]]}]]}]}]},{"type":"model","name":"Notification","properties":[{"name":"background","kind":"Any","default":null},{"name":"duration","kind":"Any","default":3000},{"name":"icon","kind":"Any","default":null},{"name":"message","kind":"Any","default":""},{"name":"notification_type","kind":"Any","default":null},{"name":"_destroyed","kind":"Any","default":false}]},{"type":"model","name":"TemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"BootstrapTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"MaterialTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]}]}};
-  var render_items = [{"docid":"89ff7578-3520-4d80-9fb1-e4939d21e641","roots":{"p1002":"afbd4a14-90cf-48f2-8070-357e958e3645"},"root_ids":["p1002"]}];
+  var docs_json = {"314aac7a-e62b-42ca-afde-10e7f8f3ba90":{"version":"3.4.1","title":"Bokeh Application","roots":[{"type":"object","name":"panel.models.browser.BrowserInfo","id":"p1002"},{"type":"object","name":"panel.models.comm_manager.CommManager","id":"p1003","attributes":{"plot_id":"p1002","comm_id":"b8116f5a7d134db6bb846a45949cc61b","client_comm_id":"48725e5c7d994773a92c0bbecbe932a6"}}],"defs":[{"type":"model","name":"ReactiveHTML1"},{"type":"model","name":"FlexBox1","properties":[{"name":"align_content","kind":"Any","default":"flex-start"},{"name":"align_items","kind":"Any","default":"flex-start"},{"name":"flex_direction","kind":"Any","default":"row"},{"name":"flex_wrap","kind":"Any","default":"wrap"},{"name":"gap","kind":"Any","default":""},{"name":"justify_content","kind":"Any","default":"flex-start"}]},{"type":"model","name":"FloatPanel1","properties":[{"name":"config","kind":"Any","default":{"type":"map"}},{"name":"contained","kind":"Any","default":true},{"name":"position","kind":"Any","default":"right-top"},{"name":"offsetx","kind":"Any","default":null},{"name":"offsety","kind":"Any","default":null},{"name":"theme","kind":"Any","default":"primary"},{"name":"status","kind":"Any","default":"normalized"}]},{"type":"model","name":"GridStack1","properties":[{"name":"mode","kind":"Any","default":"warn"},{"name":"ncols","kind":"Any","default":null},{"name":"nrows","kind":"Any","default":null},{"name":"allow_resize","kind":"Any","default":true},{"name":"allow_drag","kind":"Any","default":true},{"name":"state","kind":"Any","default":[]}]},{"type":"model","name":"drag1","properties":[{"name":"slider_width","kind":"Any","default":5},{"name":"slider_color","kind":"Any","default":"black"},{"name":"value","kind":"Any","default":50}]},{"type":"model","name":"click1","properties":[{"name":"terminal_output","kind":"Any","default":""},{"name":"debug_name","kind":"Any","default":""},{"name":"clears","kind":"Any","default":0}]},{"type":"model","name":"FastWrapper1","properties":[{"name":"object","kind":"Any","default":null},{"name":"style","kind":"Any","default":null}]},{"type":"model","name":"NotificationAreaBase1","properties":[{"name":"js_events","kind":"Any","default":{"type":"map"}},{"name":"position","kind":"Any","default":"bottom-right"},{"name":"_clear","kind":"Any","default":0}]},{"type":"model","name":"NotificationArea1","properties":[{"name":"js_events","kind":"Any","default":{"type":"map"}},{"name":"notifications","kind":"Any","default":[]},{"name":"position","kind":"Any","default":"bottom-right"},{"name":"_clear","kind":"Any","default":0},{"name":"types","kind":"Any","default":[{"type":"map","entries":[["type","warning"],["background","#ffc107"],["icon",{"type":"map","entries":[["className","fas fa-exclamation-triangle"],["tagName","i"],["color","white"]]}]]},{"type":"map","entries":[["type","info"],["background","#007bff"],["icon",{"type":"map","entries":[["className","fas fa-info-circle"],["tagName","i"],["color","white"]]}]]}]}]},{"type":"model","name":"Notification","properties":[{"name":"background","kind":"Any","default":null},{"name":"duration","kind":"Any","default":3000},{"name":"icon","kind":"Any","default":null},{"name":"message","kind":"Any","default":""},{"name":"notification_type","kind":"Any","default":null},{"name":"_destroyed","kind":"Any","default":false}]},{"type":"model","name":"TemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"BootstrapTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"TemplateEditor1","properties":[{"name":"layout","kind":"Any","default":[]}]},{"type":"model","name":"MaterialTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"copy_to_clipboard1","properties":[{"name":"fill","kind":"Any","default":"none"},{"name":"value","kind":"Any","default":null}]}]}};
+  var render_items = [{"docid":"314aac7a-e62b-42ca-afde-10e7f8f3ba90","roots":{"p1002":"c34c8242-239c-4799-a8eb-6048ed80d43d"},"root_ids":["p1002"]}];
   var docs = Object.values(docs_json)
   if (!docs) {
     return
   }
   const py_version = docs[0].version.replace('rc', '-rc.').replace('.dev', '-dev.')
-  function embed_document(root) {
+  async function embed_document(root) {
     var Bokeh = get_bokeh(root)
-    Bokeh.embed.embed_items_notebook(docs_json, render_items);
+    await Bokeh.embed.embed_items_notebook(docs_json, render_items);
     for (const render_item of render_items) {
       for (const root_id of render_item.root_ids) {
     const id_el = document.getElementById(root_id)
-    if (id_el.children.length && (id_el.children[0].className === 'bk-root')) {
+    if (id_el.children.length && id_el.children[0].hasAttribute('data-root-id')) {
       const root_el = id_el.children[0]
       root_el.id = root_el.id + '-rendered'
+      for (const child of root_el.children) {
+            // Ensure JupyterLab does not capture keyboard shortcuts
+            // see: https://jupyterlab.readthedocs.io/en/4.1.x/extension/notebook.html#keyboard-interaction-model
+        child.setAttribute('data-lm-suppress-shortcuts', 'true')
+      }
     }
       }
     }
@@ -1239,7 +1194,7 @@ if (window.Jupyter !== undefined) {
 <li>STAC Browser: http://veda-staging-stac-browser.s3-website-us-west-2.amazonaws.com</li>
 </ul>
 <div id="b0b2f0c2-b734-493d-ab3e-47ec65de0da5" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://staging-stac.delta-backend.com/"</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/stac/"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> <span class="st">"no2-monthly"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -1642,28 +1597,28 @@ dl.xr-attrs {
   stroke: currentColor;
   fill: currentColor;
 }
-</style><pre class="xr-text-repr-fallback">&lt;xarray.DataArray 'stackstac-501e9e9badc173d84c999a59abafa101' (time: 73,
-                                                                y: 1800, x: 3600)&gt;
+</style><pre class="xr-text-repr-fallback">&lt;xarray.DataArray 'stackstac-92e4c5b4a3eab66b40bd5f869280d6b5' (time: 73,
+                                                                y: 1800, x: 3600)&gt; Size: 4GB
 dask.array&lt;getitem, shape=(73, 1800, 3600), dtype=float64, chunksize=(1, 1024, 1024), chunktype=numpy.ndarray&gt;
-Coordinates: (12/15)
-    id              (time) &lt;U37 'OMI_trno2_0.10x0.10_202201_Col3_V4.nc' ... '...
-    band            &lt;U11 'cog_default'
-  * x               (x) float64 -180.0 -179.9 -179.8 ... 179.7 179.8 179.9
-  * y               (y) float64 90.0 89.9 89.8 89.7 ... -89.6 -89.7 -89.8 -89.9
-    proj:shape      object {1800.0, 3600.0}
-    start_datetime  (time) &lt;U19 '2022-01-01T00:00:00' ... '2016-01-01T00:00:00'
+Coordinates: (12/17)
+    id              (time) &lt;U37 11kB 'OMI_trno2_0.10x0.10_202201_Col3_V4.nc' ...
+    band            &lt;U11 44B 'cog_default'
+  * x               (x) float64 29kB -180.0 -179.9 -179.8 ... 179.7 179.8 179.9
+  * y               (y) float64 14kB 90.0 89.9 89.8 89.7 ... -89.7 -89.8 -89.9
+    start_datetime  (time) &lt;U25 7kB '2022-01-01T00:00:00+00:00' ... '2016-01-...
+    end_datetime    (time) &lt;U25 7kB '2022-01-31T00:00:00+00:00' ... '2016-01-...
     ...              ...
-    end_datetime    (time) &lt;U19 '2022-01-31T00:00:00' ... '2016-01-31T00:00:00'
-    proj:geometry   object {'type': 'Polygon', 'coordinates': [[[-180.0, -90....
-    title           &lt;U17 'Default COG Layer'
-    description     &lt;U47 'Cloud optimized default layer to display on map'
-    epsg            int64 4326
-  * time            (time) datetime64[ns] 2022-01-01 2021-12-01 ... 2016-01-01
+    proj:bbox       object 8B {90.0, 180.0, -90.0, -180.0}
+    proj:geometry   object 8B {'type': 'Polygon', 'coordinates': [[[-180.0, -...
+    title           &lt;U17 68B 'Default COG Layer'
+    proj:transform  object 8B {0.1, 0.0, 1.0, -0.1, -180.0, 90.0}
+    epsg            int64 8B 4326
+  * time            (time) object 584B 1640995200000000000 ... 14516064000000...
 Attributes:
     spec:        RasterSpec(epsg=4326, bounds=(-180.0, -90.0, 180.0, 90.0), r...
     crs:         epsg:4326
     transform:   | 0.10, 0.00,-180.00|\n| 0.00,-0.10, 90.00|\n| 0.00, 0.00, 1...
-    resolution:  0.1</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'stackstac-501e9e9badc173d84c999a59abafa101'</div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 73</li><li><span class="xr-has-index">y</span>: 1800</li><li><span class="xr-has-index">x</span>: 3600</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-1fdc281c-3c68-401e-b635-657f232188fb" class="xr-array-in" type="checkbox" checked=""><label for="section-1fdc281c-3c68-401e-b635-657f232188fb" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>dask.array&lt;chunksize=(1, 1024, 1024), meta=np.ndarray&gt;</span></div><div class="xr-array-data">
+    resolution:  0.1</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'stackstac-92e4c5b4a3eab66b40bd5f869280d6b5'</div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 73</li><li><span class="xr-has-index">y</span>: 1800</li><li><span class="xr-has-index">x</span>: 3600</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-d825b774-bc15-48af-b6c9-d4c5be045a73" class="xr-array-in" type="checkbox" checked=""><label for="section-d825b774-bc15-48af-b6c9-d4c5be045a73" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>dask.array&lt;chunksize=(1, 1024, 1024), meta=np.ndarray&gt;</span></div><div class="xr-array-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -1706,7 +1661,7 @@ Attributes:
 </tr>
 </tbody>
 </table>
-</div></div></li><li class="xr-section-item"><input id="section-28e89a10-df8a-4e3c-aeb9-02b260a1b307" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-28e89a10-df8a-4e3c-aeb9-02b260a1b307" class="xr-section-summary">Coordinates: <span>(15)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>id</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U37</div><div class="xr-var-preview xr-preview">'OMI_trno2_0.10x0.10_202201_Col3...</div><input id="attrs-4b9e7e8f-3426-4e43-847b-46f94f7d1ffe" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-4b9e7e8f-3426-4e43-847b-46f94f7d1ffe" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7f52c6a5-460c-4739-9497-cdf6ebe40920" class="xr-var-data-in" type="checkbox"><label for="data-7f52c6a5-460c-4739-9497-cdf6ebe40920" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['OMI_trno2_0.10x0.10_202201_Col3_V4.nc',
+</div></div></li><li class="xr-section-item"><input id="section-20ad223a-4ba1-4c00-afb4-fcec4d923e3e" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-20ad223a-4ba1-4c00-afb4-fcec4d923e3e" class="xr-section-summary">Coordinates: <span>(17)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>id</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U37</div><div class="xr-var-preview xr-preview">'OMI_trno2_0.10x0.10_202201_Col3...</div><input id="attrs-502254b8-1c0e-4b05-8b9f-5eb9e8f19eaf" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-502254b8-1c0e-4b05-8b9f-5eb9e8f19eaf" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1d5b19f7-cc8e-4b2e-9df0-5e2e0a217939" class="xr-var-data-in" type="checkbox"><label for="data-1d5b19f7-cc8e-4b2e-9df0-5e2e0a217939" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['OMI_trno2_0.10x0.10_202201_Col3_V4.nc',
        'OMI_trno2_0.10x0.10_202112_Col3_V4.nc',
        'OMI_trno2_0.10x0.10_202111_Col3_V4.nc',
        'OMI_trno2_0.10x0.10_202110_Col3_V4.nc',
@@ -1746,116 +1701,106 @@ Attributes:
        'OMI_trno2_0.10x0.10_201604_Col3_V4.nc',
        'OMI_trno2_0.10x0.10_201603_Col3_V4.nc',
        'OMI_trno2_0.10x0.10_201602_Col3_V4.nc',
-       'OMI_trno2_0.10x0.10_201601_Col3_V4.nc'], dtype='&lt;U37')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>band</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U11</div><div class="xr-var-preview xr-preview">'cog_default'</div><input id="attrs-7d5aee46-ea9b-490e-ae84-cdb154193585" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-7d5aee46-ea9b-490e-ae84-cdb154193585" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-535ec878-fde4-4ef1-bb49-948e5f92112e" class="xr-var-data-in" type="checkbox"><label for="data-535ec878-fde4-4ef1-bb49-948e5f92112e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('cog_default', dtype='&lt;U11')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-180.0 -179.9 ... 179.8 179.9</div><input id="attrs-dab7ea58-6eca-4b46-acdb-70ffc4bf7455" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-dab7ea58-6eca-4b46-acdb-70ffc4bf7455" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3f786bd1-e81a-40ec-8b6d-c85a37d9cd82" class="xr-var-data-in" type="checkbox"><label for="data-3f786bd1-e81a-40ec-8b6d-c85a37d9cd82" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([-180. , -179.9, -179.8, ...,  179.7,  179.8,  179.9])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">90.0 89.9 89.8 ... -89.8 -89.9</div><input id="attrs-07582ac4-ec89-4a56-9888-d4f1ccf76f9b" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-07582ac4-ec89-4a56-9888-d4f1ccf76f9b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-fed43e42-9d17-4229-a386-918b8a0b72d6" class="xr-var-data-in" type="checkbox"><label for="data-fed43e42-9d17-4229-a386-918b8a0b72d6" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([ 90. ,  89.9,  89.8, ..., -89.7, -89.8, -89.9])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:shape</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{1800.0, 3600.0}</div><input id="attrs-b0155c1b-5e22-46ef-a8e1-ee8482cb9251" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-b0155c1b-5e22-46ef-a8e1-ee8482cb9251" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5c11c2d5-09bd-4837-a097-733e3d78e76e" class="xr-var-data-in" type="checkbox"><label for="data-5c11c2d5-09bd-4837-a097-733e3d78e76e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({1800.0, 3600.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>start_datetime</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U19</div><div class="xr-var-preview xr-preview">'2022-01-01T00:00:00' ... '2016-...</div><input id="attrs-e389b48e-58c6-490d-b22a-de30e7ddcfee" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-e389b48e-58c6-490d-b22a-de30e7ddcfee" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a6cf37c2-5c2f-4bb1-9210-afc05502f192" class="xr-var-data-in" type="checkbox"><label for="data-a6cf37c2-5c2f-4bb1-9210-afc05502f192" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-01T00:00:00', '2021-12-01T00:00:00',
-       '2021-11-01T00:00:00', '2021-10-01T00:00:00',
-       '2021-09-01T00:00:00', '2021-08-01T00:00:00',
-       '2021-07-01T00:00:00', '2021-06-01T00:00:00',
-       '2021-05-01T00:00:00', '2021-04-01T00:00:00',
-       '2021-03-01T00:00:00', '2021-02-01T00:00:00',
-       '2021-01-01T00:00:00', '2020-12-01T00:00:00',
-       '2020-11-01T00:00:00', '2020-10-01T00:00:00',
-       '2020-09-01T00:00:00', '2020-08-01T00:00:00',
-       '2020-07-01T00:00:00', '2020-06-01T00:00:00',
-       '2020-05-01T00:00:00', '2020-04-01T00:00:00',
-       '2020-03-01T00:00:00', '2020-02-01T00:00:00',
-       '2020-01-01T00:00:00', '2019-12-01T00:00:00',
-       '2019-11-01T00:00:00', '2019-10-01T00:00:00',
-       '2019-09-01T00:00:00', '2019-08-01T00:00:00',
-       '2019-07-01T00:00:00', '2019-06-01T00:00:00',
-       '2019-05-01T00:00:00', '2019-04-01T00:00:00',
-       '2019-03-01T00:00:00', '2019-02-01T00:00:00',
-       '2019-01-01T00:00:00', '2018-12-01T00:00:00',
-       '2018-11-01T00:00:00', '2018-10-01T00:00:00',
-       '2018-09-01T00:00:00', '2018-08-01T00:00:00',
-       '2018-07-01T00:00:00', '2018-06-01T00:00:00',
-       '2018-05-01T00:00:00', '2018-04-01T00:00:00',
-       '2018-03-01T00:00:00', '2018-02-01T00:00:00',
-       '2018-01-01T00:00:00', '2017-12-01T00:00:00',
-       '2017-11-01T00:00:00', '2017-10-01T00:00:00',
-       '2017-09-01T00:00:00', '2017-08-01T00:00:00',
-       '2017-07-01T00:00:00', '2017-06-01T00:00:00',
-       '2017-05-01T00:00:00', '2017-04-01T00:00:00',
-       '2017-03-01T00:00:00', '2017-02-01T00:00:00',
-       '2017-01-01T00:00:00', '2016-12-01T00:00:00',
-       '2016-11-01T00:00:00', '2016-10-01T00:00:00',
-       '2016-09-01T00:00:00', '2016-08-01T00:00:00',
-       '2016-07-01T00:00:00', '2016-06-01T00:00:00',
-       '2016-05-01T00:00:00', '2016-04-01T00:00:00',
-       '2016-03-01T00:00:00', '2016-02-01T00:00:00',
-       '2016-01-01T00:00:00'], dtype='&lt;U19')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:bbox</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{90.0, 180.0, -90.0, -180.0}</div><input id="attrs-b44bc311-d8ba-4c4c-a335-342549203315" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-b44bc311-d8ba-4c4c-a335-342549203315" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f19a3579-75ad-4202-82b5-e3ef161dc246" class="xr-var-data-in" type="checkbox"><label for="data-f19a3579-75ad-4202-82b5-e3ef161dc246" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({90.0, 180.0, -90.0, -180.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:transform</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{0.1, 0.0, 1.0, -0.1, -180.0, 90.0}</div><input id="attrs-62335ee0-3e00-4c2f-9ff8-02d327cc458f" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-62335ee0-3e00-4c2f-9ff8-02d327cc458f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-858636de-3296-4d9f-bf6e-c0d9d50b964b" class="xr-var-data-in" type="checkbox"><label for="data-858636de-3296-4d9f-bf6e-c0d9d50b964b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({0.1, 0.0, 1.0, -0.1, -180.0, 90.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:epsg</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">4.326e+03</div><input id="attrs-b0a595ea-a1d6-4188-b205-cc320b2b7840" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-b0a595ea-a1d6-4188-b205-cc320b2b7840" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d156a671-51b8-46f5-8c6a-0abeae02468e" class="xr-var-data-in" type="checkbox"><label for="data-d156a671-51b8-46f5-8c6a-0abeae02468e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(4326.)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>end_datetime</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U19</div><div class="xr-var-preview xr-preview">'2022-01-31T00:00:00' ... '2016-...</div><input id="attrs-ac21c80e-2a71-499d-978a-81883cc2f480" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-ac21c80e-2a71-499d-978a-81883cc2f480" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-11fa8308-8a1c-4844-94fb-9298e1ab7415" class="xr-var-data-in" type="checkbox"><label for="data-11fa8308-8a1c-4844-94fb-9298e1ab7415" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-31T00:00:00', '2021-12-31T00:00:00',
-       '2021-11-30T00:00:00', '2021-10-31T00:00:00',
-       '2021-09-30T00:00:00', '2021-08-31T00:00:00',
-       '2021-07-31T00:00:00', '2021-06-30T00:00:00',
-       '2021-05-31T00:00:00', '2021-04-30T00:00:00',
-       '2021-03-31T00:00:00', '2021-02-28T00:00:00',
-       '2021-01-31T00:00:00', '2020-12-31T00:00:00',
-       '2020-11-30T00:00:00', '2020-10-31T00:00:00',
-       '2020-09-30T00:00:00', '2020-08-31T00:00:00',
-       '2020-07-31T00:00:00', '2020-06-30T00:00:00',
-       '2020-05-31T00:00:00', '2020-04-30T00:00:00',
-       '2020-03-31T00:00:00', '2020-02-29T00:00:00',
-       '2020-01-31T00:00:00', '2019-12-31T00:00:00',
-       '2019-11-30T00:00:00', '2019-10-31T00:00:00',
-       '2019-09-30T00:00:00', '2019-08-31T00:00:00',
-       '2019-07-31T00:00:00', '2019-06-30T00:00:00',
-       '2019-05-31T00:00:00', '2019-04-30T00:00:00',
-       '2019-03-31T00:00:00', '2019-02-28T00:00:00',
-       '2019-01-31T00:00:00', '2018-12-31T00:00:00',
-       '2018-11-30T00:00:00', '2018-10-31T00:00:00',
-       '2018-09-30T00:00:00', '2018-08-31T00:00:00',
-       '2018-07-31T00:00:00', '2018-06-30T00:00:00',
-       '2018-05-31T00:00:00', '2018-04-30T00:00:00',
-       '2018-03-31T00:00:00', '2018-02-28T00:00:00',
-       '2018-01-31T00:00:00', '2017-12-31T00:00:00',
-       '2017-11-30T00:00:00', '2017-10-31T00:00:00',
-       '2017-09-30T00:00:00', '2017-08-31T00:00:00',
-       '2017-07-31T00:00:00', '2017-06-30T00:00:00',
-       '2017-05-31T00:00:00', '2017-04-30T00:00:00',
-       '2017-03-31T00:00:00', '2017-02-28T00:00:00',
-       '2017-01-31T00:00:00', '2016-12-31T00:00:00',
-       '2016-11-30T00:00:00', '2016-10-31T00:00:00',
-       '2016-09-30T00:00:00', '2016-08-31T00:00:00',
-       '2016-07-31T00:00:00', '2016-06-30T00:00:00',
-       '2016-05-31T00:00:00', '2016-04-30T00:00:00',
-       '2016-03-31T00:00:00', '2016-02-29T00:00:00',
-       '2016-01-31T00:00:00'], dtype='&lt;U19')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:geometry</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{'type': 'Polygon', 'coordinates...</div><input id="attrs-d1fb5ff2-1223-4700-853e-84158a9bde11" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-d1fb5ff2-1223-4700-853e-84158a9bde11" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8f267ea2-0a6a-439d-bdfa-93cf82077fae" class="xr-var-data-in" type="checkbox"><label for="data-8f267ea2-0a6a-439d-bdfa-93cf82077fae" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({'type': 'Polygon', 'coordinates': [[[-180.0, -90.0], [180.0, -90.0], [180.0, 90.0], [-180.0, 90.0], [-180.0, -90.0]]]},
-      dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>title</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U17</div><div class="xr-var-preview xr-preview">'Default COG Layer'</div><input id="attrs-24c44a10-1493-438c-98f1-146bbbdacb6f" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-24c44a10-1493-438c-98f1-146bbbdacb6f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a0c5166b-f827-4377-9ec3-57aaa1867e06" class="xr-var-data-in" type="checkbox"><label for="data-a0c5166b-f827-4377-9ec3-57aaa1867e06" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('Default COG Layer', dtype='&lt;U17')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>description</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U47</div><div class="xr-var-preview xr-preview">'Cloud optimized default layer t...</div><input id="attrs-beb28f98-2363-4bd4-ae9f-26d6e369e88b" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-beb28f98-2363-4bd4-ae9f-26d6e369e88b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-dc979a94-5925-491d-a68a-b4e431456ed5" class="xr-var-data-in" type="checkbox"><label for="data-dc979a94-5925-491d-a68a-b4e431456ed5" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('Cloud optimized default layer to display on map', dtype='&lt;U47')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>epsg</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">4326</div><input id="attrs-2e3b9c2a-b327-428f-8abe-e2eb427bd341" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-2e3b9c2a-b327-428f-8abe-e2eb427bd341" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-26e7441f-1bd8-4812-b814-51738e8bba20" class="xr-var-data-in" type="checkbox"><label for="data-26e7441f-1bd8-4812-b814-51738e8bba20" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(4326)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2022-01-01 ... 2016-01-01</div><input id="attrs-cc9d69a2-f5ee-4212-ba8a-eae9646c0af8" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-cc9d69a2-f5ee-4212-ba8a-eae9646c0af8" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b78f4b98-a072-4f6f-8210-f6f326ea94f9" class="xr-var-data-in" type="checkbox"><label for="data-b78f4b98-a072-4f6f-8210-f6f326ea94f9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-01T00:00:00.000000000', '2021-12-01T00:00:00.000000000',
-       '2021-11-01T00:00:00.000000000', '2021-10-01T00:00:00.000000000',
-       '2021-09-01T00:00:00.000000000', '2021-08-01T00:00:00.000000000',
-       '2021-07-01T00:00:00.000000000', '2021-06-01T00:00:00.000000000',
-       '2021-05-01T00:00:00.000000000', '2021-04-01T00:00:00.000000000',
-       '2021-03-01T00:00:00.000000000', '2021-02-01T00:00:00.000000000',
-       '2021-01-01T00:00:00.000000000', '2020-12-01T00:00:00.000000000',
-       '2020-11-01T00:00:00.000000000', '2020-10-01T00:00:00.000000000',
-       '2020-09-01T00:00:00.000000000', '2020-08-01T00:00:00.000000000',
-       '2020-07-01T00:00:00.000000000', '2020-06-01T00:00:00.000000000',
-       '2020-05-01T00:00:00.000000000', '2020-04-01T00:00:00.000000000',
-       '2020-03-01T00:00:00.000000000', '2020-02-01T00:00:00.000000000',
-       '2020-01-01T00:00:00.000000000', '2019-12-01T00:00:00.000000000',
-       '2019-11-01T00:00:00.000000000', '2019-10-01T00:00:00.000000000',
-       '2019-09-01T00:00:00.000000000', '2019-08-01T00:00:00.000000000',
-       '2019-07-01T00:00:00.000000000', '2019-06-01T00:00:00.000000000',
-       '2019-05-01T00:00:00.000000000', '2019-04-01T00:00:00.000000000',
-       '2019-03-01T00:00:00.000000000', '2019-02-01T00:00:00.000000000',
-       '2019-01-01T00:00:00.000000000', '2018-12-01T00:00:00.000000000',
-       '2018-11-01T00:00:00.000000000', '2018-10-01T00:00:00.000000000',
-       '2018-09-01T00:00:00.000000000', '2018-08-01T00:00:00.000000000',
-       '2018-07-01T00:00:00.000000000', '2018-06-01T00:00:00.000000000',
-       '2018-05-01T00:00:00.000000000', '2018-04-01T00:00:00.000000000',
-       '2018-03-01T00:00:00.000000000', '2018-02-01T00:00:00.000000000',
-       '2018-01-01T00:00:00.000000000', '2017-12-01T00:00:00.000000000',
-       '2017-11-01T00:00:00.000000000', '2017-10-01T00:00:00.000000000',
-       '2017-09-01T00:00:00.000000000', '2017-08-01T00:00:00.000000000',
-       '2017-07-01T00:00:00.000000000', '2017-06-01T00:00:00.000000000',
-       '2017-05-01T00:00:00.000000000', '2017-04-01T00:00:00.000000000',
-       '2017-03-01T00:00:00.000000000', '2017-02-01T00:00:00.000000000',
-       '2017-01-01T00:00:00.000000000', '2016-12-01T00:00:00.000000000',
-       '2016-11-01T00:00:00.000000000', '2016-10-01T00:00:00.000000000',
-       '2016-09-01T00:00:00.000000000', '2016-08-01T00:00:00.000000000',
-       '2016-07-01T00:00:00.000000000', '2016-06-01T00:00:00.000000000',
-       '2016-05-01T00:00:00.000000000', '2016-04-01T00:00:00.000000000',
-       '2016-03-01T00:00:00.000000000', '2016-02-01T00:00:00.000000000',
-       '2016-01-01T00:00:00.000000000'], dtype='datetime64[ns]')</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-0c2dedb3-a191-41a0-9cae-3b9099ee71eb" class="xr-section-summary-in" type="checkbox"><label for="section-0c2dedb3-a191-41a0-9cae-3b9099ee71eb" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>x</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-e3e760eb-2130-47a3-8456-929defcfd81d" class="xr-index-data-in" type="checkbox"><label for="index-e3e760eb-2130-47a3-8456-929defcfd81d" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([            -180.0,             -179.9,             -179.8,
+       'OMI_trno2_0.10x0.10_201601_Col3_V4.nc'], dtype='&lt;U37')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>band</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U11</div><div class="xr-var-preview xr-preview">'cog_default'</div><input id="attrs-76ef85a2-752b-4c99-b430-126489d2ac39" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-76ef85a2-752b-4c99-b430-126489d2ac39" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5b718d87-f8ca-4474-a57b-5ab0b7338ebe" class="xr-var-data-in" type="checkbox"><label for="data-5b718d87-f8ca-4474-a57b-5ab0b7338ebe" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('cog_default', dtype='&lt;U11')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-180.0 -179.9 ... 179.8 179.9</div><input id="attrs-4858744f-ad4c-4ff2-b65b-d14893bbca70" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-4858744f-ad4c-4ff2-b65b-d14893bbca70" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2f4a482c-8283-44ca-b7f0-378a435666e9" class="xr-var-data-in" type="checkbox"><label for="data-2f4a482c-8283-44ca-b7f0-378a435666e9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([-180. , -179.9, -179.8, ...,  179.7,  179.8,  179.9])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">90.0 89.9 89.8 ... -89.8 -89.9</div><input id="attrs-cd162386-a73e-49dc-aaa7-115f9998fb5f" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-cd162386-a73e-49dc-aaa7-115f9998fb5f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3d85add2-bf13-40bd-967f-67f91845b66f" class="xr-var-data-in" type="checkbox"><label for="data-3d85add2-bf13-40bd-967f-67f91845b66f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([ 90. ,  89.9,  89.8, ..., -89.7, -89.8, -89.9])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>start_datetime</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U25</div><div class="xr-var-preview xr-preview">'2022-01-01T00:00:00+00:00' ... ...</div><input id="attrs-3bb526c9-90ca-4172-b746-c7d5a216cf3e" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-3bb526c9-90ca-4172-b746-c7d5a216cf3e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ab2bc5eb-823e-4de6-a67e-ad73771c7428" class="xr-var-data-in" type="checkbox"><label for="data-ab2bc5eb-823e-4de6-a67e-ad73771c7428" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-01T00:00:00+00:00', '2021-12-01T00:00:00+00:00',
+       '2021-11-01T00:00:00+00:00', '2021-10-01T00:00:00+00:00',
+       '2021-09-01T00:00:00+00:00', '2021-08-01T00:00:00+00:00',
+       '2021-07-01T00:00:00+00:00', '2021-06-01T00:00:00+00:00',
+       '2021-05-01T00:00:00+00:00', '2021-04-01T00:00:00+00:00',
+       '2021-03-01T00:00:00+00:00', '2021-02-01T00:00:00+00:00',
+       '2021-01-01T00:00:00+00:00', '2020-12-01T00:00:00+00:00',
+       '2020-11-01T00:00:00+00:00', '2020-10-01T00:00:00+00:00',
+       '2020-09-01T00:00:00+00:00', '2020-08-01T00:00:00+00:00',
+       '2020-07-01T00:00:00+00:00', '2020-06-01T00:00:00+00:00',
+       '2020-05-01T00:00:00+00:00', '2020-04-01T00:00:00+00:00',
+       '2020-03-01T00:00:00+00:00', '2020-02-01T00:00:00+00:00',
+       '2020-01-01T00:00:00+00:00', '2019-12-01T00:00:00+00:00',
+       '2019-11-01T00:00:00+00:00', '2019-10-01T00:00:00+00:00',
+       '2019-09-01T00:00:00+00:00', '2019-08-01T00:00:00+00:00',
+       '2019-07-01T00:00:00+00:00', '2019-06-01T00:00:00+00:00',
+       '2019-05-01T00:00:00+00:00', '2019-04-01T00:00:00+00:00',
+       '2019-03-01T00:00:00+00:00', '2019-02-01T00:00:00+00:00',
+       '2019-01-01T00:00:00+00:00', '2018-12-01T00:00:00+00:00',
+       '2018-11-01T00:00:00+00:00', '2018-10-01T00:00:00+00:00',
+       '2018-09-01T00:00:00+00:00', '2018-08-01T00:00:00+00:00',
+       '2018-07-01T00:00:00+00:00', '2018-06-01T00:00:00+00:00',
+       '2018-05-01T00:00:00+00:00', '2018-04-01T00:00:00+00:00',
+       '2018-03-01T00:00:00+00:00', '2018-02-01T00:00:00+00:00',
+       '2018-01-01T00:00:00+00:00', '2017-12-01T00:00:00+00:00',
+       '2017-11-01T00:00:00+00:00', '2017-10-01T00:00:00+00:00',
+       '2017-09-01T00:00:00+00:00', '2017-08-01T00:00:00+00:00',
+       '2017-07-01T00:00:00+00:00', '2017-06-01T00:00:00+00:00',
+       '2017-05-01T00:00:00+00:00', '2017-04-01T00:00:00+00:00',
+       '2017-03-01T00:00:00+00:00', '2017-02-01T00:00:00+00:00',
+       '2017-01-01T00:00:00+00:00', '2016-12-01T00:00:00+00:00',
+       '2016-11-01T00:00:00+00:00', '2016-10-01T00:00:00+00:00',
+       '2016-09-01T00:00:00+00:00', '2016-08-01T00:00:00+00:00',
+       '2016-07-01T00:00:00+00:00', '2016-06-01T00:00:00+00:00',
+       '2016-05-01T00:00:00+00:00', '2016-04-01T00:00:00+00:00',
+       '2016-03-01T00:00:00+00:00', '2016-02-01T00:00:00+00:00',
+       '2016-01-01T00:00:00+00:00'], dtype='&lt;U25')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>end_datetime</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U25</div><div class="xr-var-preview xr-preview">'2022-01-31T00:00:00+00:00' ... ...</div><input id="attrs-3331f882-0913-4a3a-94b1-9382e4a183a9" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-3331f882-0913-4a3a-94b1-9382e4a183a9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4d5d6c03-04eb-4997-9912-9c5a999daca2" class="xr-var-data-in" type="checkbox"><label for="data-4d5d6c03-04eb-4997-9912-9c5a999daca2" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-31T00:00:00+00:00', '2021-12-31T00:00:00+00:00',
+       '2021-11-30T00:00:00+00:00', '2021-10-31T00:00:00+00:00',
+       '2021-09-30T00:00:00+00:00', '2021-08-31T00:00:00+00:00',
+       '2021-07-31T00:00:00+00:00', '2021-06-30T00:00:00+00:00',
+       '2021-05-31T00:00:00+00:00', '2021-04-30T00:00:00+00:00',
+       '2021-03-31T00:00:00+00:00', '2021-02-28T00:00:00+00:00',
+       '2021-01-31T00:00:00+00:00', '2020-12-31T00:00:00+00:00',
+       '2020-11-30T00:00:00+00:00', '2020-10-31T00:00:00+00:00',
+       '2020-09-30T00:00:00+00:00', '2020-08-31T00:00:00+00:00',
+       '2020-07-31T00:00:00+00:00', '2020-06-30T00:00:00+00:00',
+       '2020-05-31T00:00:00+00:00', '2020-04-30T00:00:00+00:00',
+       '2020-03-31T00:00:00+00:00', '2020-02-29T00:00:00+00:00',
+       '2020-01-31T00:00:00+00:00', '2019-12-31T00:00:00+00:00',
+       '2019-11-30T00:00:00+00:00', '2019-10-31T00:00:00+00:00',
+       '2019-09-30T00:00:00+00:00', '2019-08-31T00:00:00+00:00',
+       '2019-07-31T00:00:00+00:00', '2019-06-30T00:00:00+00:00',
+       '2019-05-31T00:00:00+00:00', '2019-04-30T00:00:00+00:00',
+       '2019-03-31T00:00:00+00:00', '2019-02-28T00:00:00+00:00',
+       '2019-01-31T00:00:00+00:00', '2018-12-31T00:00:00+00:00',
+       '2018-11-30T00:00:00+00:00', '2018-10-31T00:00:00+00:00',
+       '2018-09-30T00:00:00+00:00', '2018-08-31T00:00:00+00:00',
+       '2018-07-31T00:00:00+00:00', '2018-06-30T00:00:00+00:00',
+       '2018-05-31T00:00:00+00:00', '2018-04-30T00:00:00+00:00',
+       '2018-03-31T00:00:00+00:00', '2018-02-28T00:00:00+00:00',
+       '2018-01-31T00:00:00+00:00', '2017-12-31T00:00:00+00:00',
+       '2017-11-30T00:00:00+00:00', '2017-10-31T00:00:00+00:00',
+       '2017-09-30T00:00:00+00:00', '2017-08-31T00:00:00+00:00',
+       '2017-07-31T00:00:00+00:00', '2017-06-30T00:00:00+00:00',
+       '2017-05-31T00:00:00+00:00', '2017-04-30T00:00:00+00:00',
+       '2017-03-31T00:00:00+00:00', '2017-02-28T00:00:00+00:00',
+       '2017-01-31T00:00:00+00:00', '2016-12-31T00:00:00+00:00',
+       '2016-11-30T00:00:00+00:00', '2016-10-31T00:00:00+00:00',
+       '2016-09-30T00:00:00+00:00', '2016-08-31T00:00:00+00:00',
+       '2016-07-31T00:00:00+00:00', '2016-06-30T00:00:00+00:00',
+       '2016-05-31T00:00:00+00:00', '2016-04-30T00:00:00+00:00',
+       '2016-03-31T00:00:00+00:00', '2016-02-29T00:00:00+00:00',
+       '2016-01-31T00:00:00+00:00'], dtype='&lt;U25')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>description</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U47</div><div class="xr-var-preview xr-preview">'Cloud optimized default layer t...</div><input id="attrs-42fd3b47-74c6-403b-88f3-f6a45974dab9" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-42fd3b47-74c6-403b-88f3-f6a45974dab9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2a69e1a6-a869-4039-8d88-cf4718e026b2" class="xr-var-data-in" type="checkbox"><label for="data-2a69e1a6-a869-4039-8d88-cf4718e026b2" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('Cloud optimized default layer to display on map', dtype='&lt;U47')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:projjson</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{'id': {'code': 4326, 'authority...</div><input id="attrs-00b315d3-c88f-459a-9403-4e3fac3a42f3" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-00b315d3-c88f-459a-9403-4e3fac3a42f3" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a872515c-f3d3-45fe-81fd-3f6d98b1aa0c" class="xr-var-data-in" type="checkbox"><label for="data-a872515c-f3d3-45fe-81fd-3f6d98b1aa0c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({'id': {'code': 4326, 'authority': 'EPSG'}, 'name': 'WGS 84', 'type': 'GeographicCRS', 'datum': {'name': 'World Geodetic System 1984', 'type': 'GeodeticReferenceFrame', 'ellipsoid': {'name': 'WGS 84', 'semi_major_axis': 6378137, 'inverse_flattening': 298.257223563}}, '$schema': 'https://proj.org/schemas/v0.4/projjson.schema.json', 'coordinate_system': {'axis': [{'name': 'Geodetic latitude', 'unit': 'degree', 'direction': 'north', 'abbreviation': 'Lat'}, {'name': 'Geodetic longitude', 'unit': 'degree', 'direction': 'east', 'abbreviation': 'Lon'}], 'subtype': 'ellipsoidal'}},
+      dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:shape</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{1800, 3600}</div><input id="attrs-de7bcc9b-934f-46d4-a511-685f87d736a3" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-de7bcc9b-934f-46d4-a511-685f87d736a3" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a500b8ad-4696-4f3d-adec-e8ad665c1441" class="xr-var-data-in" type="checkbox"><label for="data-a500b8ad-4696-4f3d-adec-e8ad665c1441" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({1800, 3600}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:epsg</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">4326</div><input id="attrs-3b48bd90-8192-404e-9d87-83a363000217" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-3b48bd90-8192-404e-9d87-83a363000217" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e22f9fb4-1bab-470e-97b6-2764e9d74e16" class="xr-var-data-in" type="checkbox"><label for="data-e22f9fb4-1bab-470e-97b6-2764e9d74e16" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(4326)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:wkt2</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U277</div><div class="xr-var-preview xr-preview">'GEOGCS["WGS 84",DATUM["WGS_1984...</div><input id="attrs-a5568b3e-e561-4d5b-9070-780956b78e75" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-a5568b3e-e561-4d5b-9070-780956b78e75" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4cdbd9b9-873e-4a69-acc7-30ad3c945f4a" class="xr-var-data-in" type="checkbox"><label for="data-4cdbd9b9-873e-4a69-acc7-30ad3c945f4a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]',
+      dtype='&lt;U277')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:bbox</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{90.0, 180.0, -90.0, -180.0}</div><input id="attrs-28342614-3084-427e-b8d2-a0280fba7120" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-28342614-3084-427e-b8d2-a0280fba7120" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9227df1d-14a2-4293-9815-753f1f4c150b" class="xr-var-data-in" type="checkbox"><label for="data-9227df1d-14a2-4293-9815-753f1f4c150b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({90.0, 180.0, -90.0, -180.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:geometry</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{'type': 'Polygon', 'coordinates...</div><input id="attrs-791c33eb-e66c-4605-aec6-4412cdab0eff" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-791c33eb-e66c-4605-aec6-4412cdab0eff" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ca10ed4a-2c29-4a2e-8e25-1834db537f15" class="xr-var-data-in" type="checkbox"><label for="data-ca10ed4a-2c29-4a2e-8e25-1834db537f15" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({'type': 'Polygon', 'coordinates': [[[-180.0, -90.0], [180.0, -90.0], [180.0, 90.0], [-180.0, 90.0], [-180.0, -90.0]]]},
+      dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>title</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U17</div><div class="xr-var-preview xr-preview">'Default COG Layer'</div><input id="attrs-31ece528-3f2a-4e5f-9011-8a5c08ce517b" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-31ece528-3f2a-4e5f-9011-8a5c08ce517b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d6310b50-7930-4911-9261-09e56abf5843" class="xr-var-data-in" type="checkbox"><label for="data-d6310b50-7930-4911-9261-09e56abf5843" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('Default COG Layer', dtype='&lt;U17')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:transform</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{0.1, 0.0, 1.0, -0.1, -180.0, 90.0}</div><input id="attrs-498686e1-f4df-4cce-89dd-e3436ea0fe13" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-498686e1-f4df-4cce-89dd-e3436ea0fe13" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c1f54cc9-e9f8-4619-a856-b6114aea8e6e" class="xr-var-data-in" type="checkbox"><label for="data-c1f54cc9-e9f8-4619-a856-b6114aea8e6e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({0.1, 0.0, 1.0, -0.1, -180.0, 90.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>epsg</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">4326</div><input id="attrs-bdd3f908-f4de-491a-b7c5-30c0345f15d7" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-bdd3f908-f4de-491a-b7c5-30c0345f15d7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f5a40a71-8afc-4b05-8821-72cff3370ed0" class="xr-var-data-in" type="checkbox"><label for="data-f5a40a71-8afc-4b05-8821-72cff3370ed0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(4326)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">1640995200000000000 ... 14516064...</div><input id="attrs-bd31d6f9-86e7-47ea-b39c-56acbbe3cbe7" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-bd31d6f9-86e7-47ea-b39c-56acbbe3cbe7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ffa7f7d9-2781-4d94-88de-af78d9fd8ce4" class="xr-var-data-in" type="checkbox"><label for="data-ffa7f7d9-2781-4d94-88de-af78d9fd8ce4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([1640995200000000000, 1638316800000000000, 1635724800000000000,
+       1633046400000000000, 1630454400000000000, 1627776000000000000,
+       1625097600000000000, 1622505600000000000, 1619827200000000000,
+       1617235200000000000, 1614556800000000000, 1612137600000000000,
+       1609459200000000000, 1606780800000000000, 1604188800000000000,
+       1601510400000000000, 1598918400000000000, 1596240000000000000,
+       1593561600000000000, 1590969600000000000, 1588291200000000000,
+       1585699200000000000, 1583020800000000000, 1580515200000000000,
+       1577836800000000000, 1575158400000000000, 1572566400000000000,
+       1569888000000000000, 1567296000000000000, 1564617600000000000,
+       1561939200000000000, 1559347200000000000, 1556668800000000000,
+       1554076800000000000, 1551398400000000000, 1548979200000000000,
+       1546300800000000000, 1543622400000000000, 1541030400000000000,
+       1538352000000000000, 1535760000000000000, 1533081600000000000,
+       1530403200000000000, 1527811200000000000, 1525132800000000000,
+       1522540800000000000, 1519862400000000000, 1517443200000000000,
+       1514764800000000000, 1512086400000000000, 1509494400000000000,
+       1506816000000000000, 1504224000000000000, 1501545600000000000,
+       1498867200000000000, 1496275200000000000, 1493596800000000000,
+       1491004800000000000, 1488326400000000000, 1485907200000000000,
+       1483228800000000000, 1480550400000000000, 1477958400000000000,
+       1475280000000000000, 1472688000000000000, 1470009600000000000,
+       1467331200000000000, 1464739200000000000, 1462060800000000000,
+       1459468800000000000, 1456790400000000000, 1454284800000000000,
+       1451606400000000000], dtype=object)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-2de127dd-3141-433f-a69a-040f3ce0a497" class="xr-section-summary-in" type="checkbox"><label for="section-2de127dd-3141-433f-a69a-040f3ce0a497" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>x</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-d5db8965-abcf-4d0f-ae53-1dd2a3e51ba6" class="xr-index-data-in" type="checkbox"><label for="index-d5db8965-abcf-4d0f-ae53-1dd2a3e51ba6" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([            -180.0,             -179.9,             -179.8,
                    -179.7,             -179.6,             -179.5,
                    -179.4,             -179.3,             -179.2,
                    -179.1,
@@ -1864,7 +1809,7 @@ Attributes:
                     179.3, 179.40000000000003,              179.5,
        179.60000000000002, 179.70000000000005,              179.8,
        179.90000000000003],
-      dtype='float64', name='x', length=3600))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>y</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-95ac9885-65f6-4c00-b0a0-64bae9a0d8d3" class="xr-index-data-in" type="checkbox"><label for="index-95ac9885-65f6-4c00-b0a0-64bae9a0d8d3" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([              90.0,               89.9,               89.8,
+      dtype='float64', name='x', length=3600))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>y</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-62f0b255-3f72-4df0-ae5d-da3a60e14b7b" class="xr-index-data-in" type="checkbox"><label for="index-62f0b255-3f72-4df0-ae5d-da3a60e14b7b" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([              90.0,               89.9,               89.8,
                      89.7,               89.6,               89.5,
                      89.4,               89.3,               89.2,
                      89.1,
@@ -1873,26 +1818,44 @@ Attributes:
        -89.30000000000001,              -89.4,              -89.5,
        -89.60000000000002, -89.70000000000002, -89.80000000000001,
                     -89.9],
-      dtype='float64', name='y', length=1800))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-bbfc22af-adcb-4a23-a4b7-ac3d5b0aea50" class="xr-index-data-in" type="checkbox"><label for="index-bbfc22af-adcb-4a23-a4b7-ac3d5b0aea50" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2022-01-01', '2021-12-01', '2021-11-01', '2021-10-01',
-               '2021-09-01', '2021-08-01', '2021-07-01', '2021-06-01',
-               '2021-05-01', '2021-04-01', '2021-03-01', '2021-02-01',
-               '2021-01-01', '2020-12-01', '2020-11-01', '2020-10-01',
-               '2020-09-01', '2020-08-01', '2020-07-01', '2020-06-01',
-               '2020-05-01', '2020-04-01', '2020-03-01', '2020-02-01',
-               '2020-01-01', '2019-12-01', '2019-11-01', '2019-10-01',
-               '2019-09-01', '2019-08-01', '2019-07-01', '2019-06-01',
-               '2019-05-01', '2019-04-01', '2019-03-01', '2019-02-01',
-               '2019-01-01', '2018-12-01', '2018-11-01', '2018-10-01',
-               '2018-09-01', '2018-08-01', '2018-07-01', '2018-06-01',
-               '2018-05-01', '2018-04-01', '2018-03-01', '2018-02-01',
-               '2018-01-01', '2017-12-01', '2017-11-01', '2017-10-01',
-               '2017-09-01', '2017-08-01', '2017-07-01', '2017-06-01',
-               '2017-05-01', '2017-04-01', '2017-03-01', '2017-02-01',
-               '2017-01-01', '2016-12-01', '2016-11-01', '2016-10-01',
-               '2016-09-01', '2016-08-01', '2016-07-01', '2016-06-01',
-               '2016-05-01', '2016-04-01', '2016-03-01', '2016-02-01',
-               '2016-01-01'],
-              dtype='datetime64[ns]', name='time', freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-8f18f596-8981-44ac-87eb-b5c7d264c581" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-8f18f596-8981-44ac-87eb-b5c7d264c581" class="xr-section-summary">Attributes: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>spec :</span></dt><dd>RasterSpec(epsg=4326, bounds=(-180.0, -90.0, 180.0, 90.0), resolutions_xy=(0.1, 0.1))</dd><dt><span>crs :</span></dt><dd>epsg:4326</dd><dt><span>transform :</span></dt><dd>| 0.10, 0.00,-180.00|
+      dtype='float64', name='y', length=1800))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-6b68e371-5f40-4a97-84eb-5d2b9c90101d" class="xr-index-data-in" type="checkbox"><label for="index-6b68e371-5f40-4a97-84eb-5d2b9c90101d" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2022-01-01 00:00:00+00:00', '2021-12-01 00:00:00+00:00',
+               '2021-11-01 00:00:00+00:00', '2021-10-01 00:00:00+00:00',
+               '2021-09-01 00:00:00+00:00', '2021-08-01 00:00:00+00:00',
+               '2021-07-01 00:00:00+00:00', '2021-06-01 00:00:00+00:00',
+               '2021-05-01 00:00:00+00:00', '2021-04-01 00:00:00+00:00',
+               '2021-03-01 00:00:00+00:00', '2021-02-01 00:00:00+00:00',
+               '2021-01-01 00:00:00+00:00', '2020-12-01 00:00:00+00:00',
+               '2020-11-01 00:00:00+00:00', '2020-10-01 00:00:00+00:00',
+               '2020-09-01 00:00:00+00:00', '2020-08-01 00:00:00+00:00',
+               '2020-07-01 00:00:00+00:00', '2020-06-01 00:00:00+00:00',
+               '2020-05-01 00:00:00+00:00', '2020-04-01 00:00:00+00:00',
+               '2020-03-01 00:00:00+00:00', '2020-02-01 00:00:00+00:00',
+               '2020-01-01 00:00:00+00:00', '2019-12-01 00:00:00+00:00',
+               '2019-11-01 00:00:00+00:00', '2019-10-01 00:00:00+00:00',
+               '2019-09-01 00:00:00+00:00', '2019-08-01 00:00:00+00:00',
+               '2019-07-01 00:00:00+00:00', '2019-06-01 00:00:00+00:00',
+               '2019-05-01 00:00:00+00:00', '2019-04-01 00:00:00+00:00',
+               '2019-03-01 00:00:00+00:00', '2019-02-01 00:00:00+00:00',
+               '2019-01-01 00:00:00+00:00', '2018-12-01 00:00:00+00:00',
+               '2018-11-01 00:00:00+00:00', '2018-10-01 00:00:00+00:00',
+               '2018-09-01 00:00:00+00:00', '2018-08-01 00:00:00+00:00',
+               '2018-07-01 00:00:00+00:00', '2018-06-01 00:00:00+00:00',
+               '2018-05-01 00:00:00+00:00', '2018-04-01 00:00:00+00:00',
+               '2018-03-01 00:00:00+00:00', '2018-02-01 00:00:00+00:00',
+               '2018-01-01 00:00:00+00:00', '2017-12-01 00:00:00+00:00',
+               '2017-11-01 00:00:00+00:00', '2017-10-01 00:00:00+00:00',
+               '2017-09-01 00:00:00+00:00', '2017-08-01 00:00:00+00:00',
+               '2017-07-01 00:00:00+00:00', '2017-06-01 00:00:00+00:00',
+               '2017-05-01 00:00:00+00:00', '2017-04-01 00:00:00+00:00',
+               '2017-03-01 00:00:00+00:00', '2017-02-01 00:00:00+00:00',
+               '2017-01-01 00:00:00+00:00', '2016-12-01 00:00:00+00:00',
+               '2016-11-01 00:00:00+00:00', '2016-10-01 00:00:00+00:00',
+               '2016-09-01 00:00:00+00:00', '2016-08-01 00:00:00+00:00',
+               '2016-07-01 00:00:00+00:00', '2016-06-01 00:00:00+00:00',
+               '2016-05-01 00:00:00+00:00', '2016-04-01 00:00:00+00:00',
+               '2016-03-01 00:00:00+00:00', '2016-02-01 00:00:00+00:00',
+               '2016-01-01 00:00:00+00:00'],
+              dtype='datetime64[ns, UTC]', name='time', freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-b77bfb50-34d9-4670-a8f5-6fda7ac5b3b2" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-b77bfb50-34d9-4670-a8f5-6fda7ac5b3b2" class="xr-section-summary">Attributes: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>spec :</span></dt><dd>RasterSpec(epsg=4326, bounds=(-180.0, -90.0, 180.0, 90.0), resolutions_xy=(0.1, 0.1))</dd><dt><span>crs :</span></dt><dd>epsg:4326</dd><dt><span>transform :</span></dt><dd>| 0.10, 0.00,-180.00|
 | 0.00,-0.10, 90.00|
 | 0.00, 0.00, 1.00|</dd><dt><span>resolution :</span></dt><dd>0.1</dd></dl></div></li></ul></div></div>
 </div>
@@ -2268,26 +2231,26 @@ dl.xr-attrs {
   stroke: currentColor;
   fill: currentColor;
 }
-</style><pre class="xr-text-repr-fallback">&lt;xarray.DataArray 'stackstac-501e9e9badc173d84c999a59abafa101' (time: 73,
-                                                                y: 354, x: 614)&gt;
+</style><pre class="xr-text-repr-fallback">&lt;xarray.DataArray 'stackstac-92e4c5b4a3eab66b40bd5f869280d6b5' (time: 73,
+                                                                y: 354, x: 614)&gt; Size: 127MB
 dask.array&lt;getitem, shape=(73, 354, 614), dtype=float64, chunksize=(1, 354, 535), chunktype=numpy.ndarray&gt;
-Coordinates: (12/16)
-    id              (time) &lt;U37 'OMI_trno2_0.10x0.10_202201_Col3_V4.nc' ... '...
-    band            &lt;U11 'cog_default'
-  * x               (x) float64 73.7 73.8 73.9 74.0 ... 134.7 134.8 134.9 135.0
-  * y               (y) float64 53.5 53.4 53.3 53.2 53.1 ... 18.5 18.4 18.3 18.2
-    proj:shape      object {1800.0, 3600.0}
-    start_datetime  (time) &lt;U19 '2022-01-01T00:00:00' ... '2016-01-01T00:00:00'
+Coordinates: (12/18)
+    id              (time) &lt;U37 11kB 'OMI_trno2_0.10x0.10_202201_Col3_V4.nc' ...
+    band            &lt;U11 44B 'cog_default'
+  * x               (x) float64 5kB 73.7 73.8 73.9 74.0 ... 134.8 134.9 135.0
+  * y               (y) float64 3kB 53.5 53.4 53.3 53.2 ... 18.5 18.4 18.3 18.2
+    start_datetime  (time) &lt;U25 7kB '2022-01-01T00:00:00+00:00' ... '2016-01-...
+    end_datetime    (time) &lt;U25 7kB '2022-01-31T00:00:00+00:00' ... '2016-01-...
     ...              ...
-    proj:geometry   object {'type': 'Polygon', 'coordinates': [[[-180.0, -90....
-    title           &lt;U17 'Default COG Layer'
-    description     &lt;U47 'Cloud optimized default layer to display on map'
-    epsg            int64 4326
-  * time            (time) datetime64[ns] 2022-01-01 2021-12-01 ... 2016-01-01
-    spatial_ref     int64 0
+    proj:geometry   object 8B {'type': 'Polygon', 'coordinates': [[[-180.0, -...
+    title           &lt;U17 68B 'Default COG Layer'
+    proj:transform  object 8B {0.1, 0.0, 1.0, -0.1, -180.0, 90.0}
+    epsg            int64 8B 4326
+  * time            (time) object 584B 1640995200000000000 ... 14516064000000...
+    spatial_ref     int64 8B 0
 Attributes:
     spec:        RasterSpec(epsg=4326, bounds=(-180.0, -90.0, 180.0, 90.0), r...
-    resolution:  0.1</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'stackstac-501e9e9badc173d84c999a59abafa101'</div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 73</li><li><span class="xr-has-index">y</span>: 354</li><li><span class="xr-has-index">x</span>: 614</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-3f20e794-1501-4556-b694-1af0d664e2cd" class="xr-array-in" type="checkbox" checked=""><label for="section-3f20e794-1501-4556-b694-1af0d664e2cd" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>dask.array&lt;chunksize=(1, 354, 535), meta=np.ndarray&gt;</span></div><div class="xr-array-data">
+    resolution:  0.1</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'stackstac-92e4c5b4a3eab66b40bd5f869280d6b5'</div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 73</li><li><span class="xr-has-index">y</span>: 354</li><li><span class="xr-has-index">x</span>: 614</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-02672fe1-104a-4975-b625-3f13d22cb3be" class="xr-array-in" type="checkbox" checked=""><label for="section-02672fe1-104a-4975-b625-3f13d22cb3be" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>dask.array&lt;chunksize=(1, 354, 535), meta=np.ndarray&gt;</span></div><div class="xr-array-data">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 50%">
@@ -2330,7 +2293,7 @@ Attributes:
 </tr>
 </tbody>
 </table>
-</div></div></li><li class="xr-section-item"><input id="section-e67ab695-aebd-43e9-93cf-31641d5153a6" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-e67ab695-aebd-43e9-93cf-31641d5153a6" class="xr-section-summary">Coordinates: <span>(16)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>id</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U37</div><div class="xr-var-preview xr-preview">'OMI_trno2_0.10x0.10_202201_Col3...</div><input id="attrs-fe9e389b-3aa3-4f48-95fd-bebb8ff58822" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-fe9e389b-3aa3-4f48-95fd-bebb8ff58822" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-decedca7-4f62-4469-9145-56cf4759d9b4" class="xr-var-data-in" type="checkbox"><label for="data-decedca7-4f62-4469-9145-56cf4759d9b4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['OMI_trno2_0.10x0.10_202201_Col3_V4.nc',
+</div></div></li><li class="xr-section-item"><input id="section-c34ead21-0bc1-4d7c-9d28-529882fc63fb" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-c34ead21-0bc1-4d7c-9d28-529882fc63fb" class="xr-section-summary">Coordinates: <span>(18)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>id</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U37</div><div class="xr-var-preview xr-preview">'OMI_trno2_0.10x0.10_202201_Col3...</div><input id="attrs-feaee5a7-cbea-4b01-a322-268b57a264a8" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-feaee5a7-cbea-4b01-a322-268b57a264a8" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e7926505-dfd1-484a-8538-a81224aaaef7" class="xr-var-data-in" type="checkbox"><label for="data-e7926505-dfd1-484a-8538-a81224aaaef7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['OMI_trno2_0.10x0.10_202201_Col3_V4.nc',
        'OMI_trno2_0.10x0.10_202112_Col3_V4.nc',
        'OMI_trno2_0.10x0.10_202111_Col3_V4.nc',
        'OMI_trno2_0.10x0.10_202110_Col3_V4.nc',
@@ -2370,116 +2333,106 @@ Attributes:
        'OMI_trno2_0.10x0.10_201604_Col3_V4.nc',
        'OMI_trno2_0.10x0.10_201603_Col3_V4.nc',
        'OMI_trno2_0.10x0.10_201602_Col3_V4.nc',
-       'OMI_trno2_0.10x0.10_201601_Col3_V4.nc'], dtype='&lt;U37')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>band</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U11</div><div class="xr-var-preview xr-preview">'cog_default'</div><input id="attrs-817bd67d-1226-45d5-b4b2-618f8c3fd7fa" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-817bd67d-1226-45d5-b4b2-618f8c3fd7fa" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4b008169-b7dc-4e6d-ade0-6ddf5ed19896" class="xr-var-data-in" type="checkbox"><label for="data-4b008169-b7dc-4e6d-ade0-6ddf5ed19896" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('cog_default', dtype='&lt;U11')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">73.7 73.8 73.9 ... 134.9 135.0</div><input id="attrs-257e0cf0-4ca5-4775-9de3-11b5acd78020" class="xr-var-attrs-in" type="checkbox"><label for="attrs-257e0cf0-4ca5-4775-9de3-11b5acd78020" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0c6161b6-c384-4362-8ea5-d8babc140ea7" class="xr-var-data-in" type="checkbox"><label for="data-0c6161b6-c384-4362-8ea5-d8babc140ea7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>X</dd><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class="xr-var-data"><pre>array([ 73.7,  73.8,  73.9, ..., 134.8, 134.9, 135. ])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">53.5 53.4 53.3 ... 18.4 18.3 18.2</div><input id="attrs-a06daa07-702a-407e-9637-3b35e5e5fd2f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-a06daa07-702a-407e-9637-3b35e5e5fd2f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d203b30c-8efa-4291-b4a1-dcb2e737fe31" class="xr-var-data-in" type="checkbox"><label for="data-d203b30c-8efa-4291-b4a1-dcb2e737fe31" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>Y</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class="xr-var-data"><pre>array([53.5, 53.4, 53.3, ..., 18.4, 18.3, 18.2])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:shape</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{1800.0, 3600.0}</div><input id="attrs-33992465-4a61-4c76-b68d-eb4ba76a92e4" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-33992465-4a61-4c76-b68d-eb4ba76a92e4" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-16a89013-a9e7-42b0-909f-7d8d5f7a85b0" class="xr-var-data-in" type="checkbox"><label for="data-16a89013-a9e7-42b0-909f-7d8d5f7a85b0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({1800.0, 3600.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>start_datetime</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U19</div><div class="xr-var-preview xr-preview">'2022-01-01T00:00:00' ... '2016-...</div><input id="attrs-5b41d8e8-0461-44bb-80d2-f5d79518fac7" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-5b41d8e8-0461-44bb-80d2-f5d79518fac7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-422573f6-a737-44b1-a29e-55ec34eed292" class="xr-var-data-in" type="checkbox"><label for="data-422573f6-a737-44b1-a29e-55ec34eed292" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-01T00:00:00', '2021-12-01T00:00:00',
-       '2021-11-01T00:00:00', '2021-10-01T00:00:00',
-       '2021-09-01T00:00:00', '2021-08-01T00:00:00',
-       '2021-07-01T00:00:00', '2021-06-01T00:00:00',
-       '2021-05-01T00:00:00', '2021-04-01T00:00:00',
-       '2021-03-01T00:00:00', '2021-02-01T00:00:00',
-       '2021-01-01T00:00:00', '2020-12-01T00:00:00',
-       '2020-11-01T00:00:00', '2020-10-01T00:00:00',
-       '2020-09-01T00:00:00', '2020-08-01T00:00:00',
-       '2020-07-01T00:00:00', '2020-06-01T00:00:00',
-       '2020-05-01T00:00:00', '2020-04-01T00:00:00',
-       '2020-03-01T00:00:00', '2020-02-01T00:00:00',
-       '2020-01-01T00:00:00', '2019-12-01T00:00:00',
-       '2019-11-01T00:00:00', '2019-10-01T00:00:00',
-       '2019-09-01T00:00:00', '2019-08-01T00:00:00',
-       '2019-07-01T00:00:00', '2019-06-01T00:00:00',
-       '2019-05-01T00:00:00', '2019-04-01T00:00:00',
-       '2019-03-01T00:00:00', '2019-02-01T00:00:00',
-       '2019-01-01T00:00:00', '2018-12-01T00:00:00',
-       '2018-11-01T00:00:00', '2018-10-01T00:00:00',
-       '2018-09-01T00:00:00', '2018-08-01T00:00:00',
-       '2018-07-01T00:00:00', '2018-06-01T00:00:00',
-       '2018-05-01T00:00:00', '2018-04-01T00:00:00',
-       '2018-03-01T00:00:00', '2018-02-01T00:00:00',
-       '2018-01-01T00:00:00', '2017-12-01T00:00:00',
-       '2017-11-01T00:00:00', '2017-10-01T00:00:00',
-       '2017-09-01T00:00:00', '2017-08-01T00:00:00',
-       '2017-07-01T00:00:00', '2017-06-01T00:00:00',
-       '2017-05-01T00:00:00', '2017-04-01T00:00:00',
-       '2017-03-01T00:00:00', '2017-02-01T00:00:00',
-       '2017-01-01T00:00:00', '2016-12-01T00:00:00',
-       '2016-11-01T00:00:00', '2016-10-01T00:00:00',
-       '2016-09-01T00:00:00', '2016-08-01T00:00:00',
-       '2016-07-01T00:00:00', '2016-06-01T00:00:00',
-       '2016-05-01T00:00:00', '2016-04-01T00:00:00',
-       '2016-03-01T00:00:00', '2016-02-01T00:00:00',
-       '2016-01-01T00:00:00'], dtype='&lt;U19')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:bbox</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{90.0, 180.0, -90.0, -180.0}</div><input id="attrs-706f29a3-92ba-4863-981c-112735f0f36f" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-706f29a3-92ba-4863-981c-112735f0f36f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-16237bb1-5644-4c15-9b2c-0790c6d2258e" class="xr-var-data-in" type="checkbox"><label for="data-16237bb1-5644-4c15-9b2c-0790c6d2258e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({90.0, 180.0, -90.0, -180.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:transform</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{0.1, 0.0, 1.0, -0.1, -180.0, 90.0}</div><input id="attrs-236d1a9c-b631-47c3-897f-71f85aae5e30" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-236d1a9c-b631-47c3-897f-71f85aae5e30" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c79bbe3d-a73c-4447-9e02-b7bc7c8b05f5" class="xr-var-data-in" type="checkbox"><label for="data-c79bbe3d-a73c-4447-9e02-b7bc7c8b05f5" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({0.1, 0.0, 1.0, -0.1, -180.0, 90.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:epsg</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">4.326e+03</div><input id="attrs-49c51300-657c-4f9e-a1c5-fcf4a5e47875" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-49c51300-657c-4f9e-a1c5-fcf4a5e47875" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-fe01c8c7-1972-4947-9817-96ce6cc212ce" class="xr-var-data-in" type="checkbox"><label for="data-fe01c8c7-1972-4947-9817-96ce6cc212ce" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(4326.)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>end_datetime</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U19</div><div class="xr-var-preview xr-preview">'2022-01-31T00:00:00' ... '2016-...</div><input id="attrs-d1c4caa2-b4f7-4d4b-a32e-a190930bacc7" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-d1c4caa2-b4f7-4d4b-a32e-a190930bacc7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-57dd3a52-73ce-43a6-b321-80335a0dd713" class="xr-var-data-in" type="checkbox"><label for="data-57dd3a52-73ce-43a6-b321-80335a0dd713" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-31T00:00:00', '2021-12-31T00:00:00',
-       '2021-11-30T00:00:00', '2021-10-31T00:00:00',
-       '2021-09-30T00:00:00', '2021-08-31T00:00:00',
-       '2021-07-31T00:00:00', '2021-06-30T00:00:00',
-       '2021-05-31T00:00:00', '2021-04-30T00:00:00',
-       '2021-03-31T00:00:00', '2021-02-28T00:00:00',
-       '2021-01-31T00:00:00', '2020-12-31T00:00:00',
-       '2020-11-30T00:00:00', '2020-10-31T00:00:00',
-       '2020-09-30T00:00:00', '2020-08-31T00:00:00',
-       '2020-07-31T00:00:00', '2020-06-30T00:00:00',
-       '2020-05-31T00:00:00', '2020-04-30T00:00:00',
-       '2020-03-31T00:00:00', '2020-02-29T00:00:00',
-       '2020-01-31T00:00:00', '2019-12-31T00:00:00',
-       '2019-11-30T00:00:00', '2019-10-31T00:00:00',
-       '2019-09-30T00:00:00', '2019-08-31T00:00:00',
-       '2019-07-31T00:00:00', '2019-06-30T00:00:00',
-       '2019-05-31T00:00:00', '2019-04-30T00:00:00',
-       '2019-03-31T00:00:00', '2019-02-28T00:00:00',
-       '2019-01-31T00:00:00', '2018-12-31T00:00:00',
-       '2018-11-30T00:00:00', '2018-10-31T00:00:00',
-       '2018-09-30T00:00:00', '2018-08-31T00:00:00',
-       '2018-07-31T00:00:00', '2018-06-30T00:00:00',
-       '2018-05-31T00:00:00', '2018-04-30T00:00:00',
-       '2018-03-31T00:00:00', '2018-02-28T00:00:00',
-       '2018-01-31T00:00:00', '2017-12-31T00:00:00',
-       '2017-11-30T00:00:00', '2017-10-31T00:00:00',
-       '2017-09-30T00:00:00', '2017-08-31T00:00:00',
-       '2017-07-31T00:00:00', '2017-06-30T00:00:00',
-       '2017-05-31T00:00:00', '2017-04-30T00:00:00',
-       '2017-03-31T00:00:00', '2017-02-28T00:00:00',
-       '2017-01-31T00:00:00', '2016-12-31T00:00:00',
-       '2016-11-30T00:00:00', '2016-10-31T00:00:00',
-       '2016-09-30T00:00:00', '2016-08-31T00:00:00',
-       '2016-07-31T00:00:00', '2016-06-30T00:00:00',
-       '2016-05-31T00:00:00', '2016-04-30T00:00:00',
-       '2016-03-31T00:00:00', '2016-02-29T00:00:00',
-       '2016-01-31T00:00:00'], dtype='&lt;U19')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:geometry</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{'type': 'Polygon', 'coordinates...</div><input id="attrs-49aa3f46-d20c-4645-bc74-f40a2e0d5261" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-49aa3f46-d20c-4645-bc74-f40a2e0d5261" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-209b1059-8aba-42e5-9c6d-2c8cd735e143" class="xr-var-data-in" type="checkbox"><label for="data-209b1059-8aba-42e5-9c6d-2c8cd735e143" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({'type': 'Polygon', 'coordinates': [[[-180.0, -90.0], [180.0, -90.0], [180.0, 90.0], [-180.0, 90.0], [-180.0, -90.0]]]},
-      dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>title</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U17</div><div class="xr-var-preview xr-preview">'Default COG Layer'</div><input id="attrs-0b68921e-bc77-4c3c-a413-fa70f7c7148f" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-0b68921e-bc77-4c3c-a413-fa70f7c7148f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8a83133b-ccc4-47ad-af2e-eb27ff2c672d" class="xr-var-data-in" type="checkbox"><label for="data-8a83133b-ccc4-47ad-af2e-eb27ff2c672d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('Default COG Layer', dtype='&lt;U17')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>description</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U47</div><div class="xr-var-preview xr-preview">'Cloud optimized default layer t...</div><input id="attrs-6fccaa79-c140-4af2-b01a-39e30bb142de" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-6fccaa79-c140-4af2-b01a-39e30bb142de" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4ba4b9da-2472-4ddc-a0c1-7606561b5010" class="xr-var-data-in" type="checkbox"><label for="data-4ba4b9da-2472-4ddc-a0c1-7606561b5010" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('Cloud optimized default layer to display on map', dtype='&lt;U47')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>epsg</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">4326</div><input id="attrs-a99b5eeb-150a-4059-a566-2f19856ef593" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-a99b5eeb-150a-4059-a566-2f19856ef593" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-136afe7f-cabf-4780-87ac-82894b1d1545" class="xr-var-data-in" type="checkbox"><label for="data-136afe7f-cabf-4780-87ac-82894b1d1545" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(4326)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2022-01-01 ... 2016-01-01</div><input id="attrs-5a976f86-bdfe-4f2e-87b3-7770772f9ad7" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-5a976f86-bdfe-4f2e-87b3-7770772f9ad7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e1c4f327-e2fa-4c79-93b1-2c4a7e80f03d" class="xr-var-data-in" type="checkbox"><label for="data-e1c4f327-e2fa-4c79-93b1-2c4a7e80f03d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-01T00:00:00.000000000', '2021-12-01T00:00:00.000000000',
-       '2021-11-01T00:00:00.000000000', '2021-10-01T00:00:00.000000000',
-       '2021-09-01T00:00:00.000000000', '2021-08-01T00:00:00.000000000',
-       '2021-07-01T00:00:00.000000000', '2021-06-01T00:00:00.000000000',
-       '2021-05-01T00:00:00.000000000', '2021-04-01T00:00:00.000000000',
-       '2021-03-01T00:00:00.000000000', '2021-02-01T00:00:00.000000000',
-       '2021-01-01T00:00:00.000000000', '2020-12-01T00:00:00.000000000',
-       '2020-11-01T00:00:00.000000000', '2020-10-01T00:00:00.000000000',
-       '2020-09-01T00:00:00.000000000', '2020-08-01T00:00:00.000000000',
-       '2020-07-01T00:00:00.000000000', '2020-06-01T00:00:00.000000000',
-       '2020-05-01T00:00:00.000000000', '2020-04-01T00:00:00.000000000',
-       '2020-03-01T00:00:00.000000000', '2020-02-01T00:00:00.000000000',
-       '2020-01-01T00:00:00.000000000', '2019-12-01T00:00:00.000000000',
-       '2019-11-01T00:00:00.000000000', '2019-10-01T00:00:00.000000000',
-       '2019-09-01T00:00:00.000000000', '2019-08-01T00:00:00.000000000',
-       '2019-07-01T00:00:00.000000000', '2019-06-01T00:00:00.000000000',
-       '2019-05-01T00:00:00.000000000', '2019-04-01T00:00:00.000000000',
-       '2019-03-01T00:00:00.000000000', '2019-02-01T00:00:00.000000000',
-       '2019-01-01T00:00:00.000000000', '2018-12-01T00:00:00.000000000',
-       '2018-11-01T00:00:00.000000000', '2018-10-01T00:00:00.000000000',
-       '2018-09-01T00:00:00.000000000', '2018-08-01T00:00:00.000000000',
-       '2018-07-01T00:00:00.000000000', '2018-06-01T00:00:00.000000000',
-       '2018-05-01T00:00:00.000000000', '2018-04-01T00:00:00.000000000',
-       '2018-03-01T00:00:00.000000000', '2018-02-01T00:00:00.000000000',
-       '2018-01-01T00:00:00.000000000', '2017-12-01T00:00:00.000000000',
-       '2017-11-01T00:00:00.000000000', '2017-10-01T00:00:00.000000000',
-       '2017-09-01T00:00:00.000000000', '2017-08-01T00:00:00.000000000',
-       '2017-07-01T00:00:00.000000000', '2017-06-01T00:00:00.000000000',
-       '2017-05-01T00:00:00.000000000', '2017-04-01T00:00:00.000000000',
-       '2017-03-01T00:00:00.000000000', '2017-02-01T00:00:00.000000000',
-       '2017-01-01T00:00:00.000000000', '2016-12-01T00:00:00.000000000',
-       '2016-11-01T00:00:00.000000000', '2016-10-01T00:00:00.000000000',
-       '2016-09-01T00:00:00.000000000', '2016-08-01T00:00:00.000000000',
-       '2016-07-01T00:00:00.000000000', '2016-06-01T00:00:00.000000000',
-       '2016-05-01T00:00:00.000000000', '2016-04-01T00:00:00.000000000',
-       '2016-03-01T00:00:00.000000000', '2016-02-01T00:00:00.000000000',
-       '2016-01-01T00:00:00.000000000'], dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>spatial_ref</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">0</div><input id="attrs-6b5f8948-5a6a-4a4c-b789-a0789453e5a1" class="xr-var-attrs-in" type="checkbox"><label for="attrs-6b5f8948-5a6a-4a4c-b789-a0789453e5a1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-099fbd7d-edce-4393-a785-23429d591ff4" class="xr-var-data-in" type="checkbox"><label for="data-099fbd7d-edce-4393-a785-23429d591ff4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>crs_wkt :</span></dt><dd>GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>semi_minor_axis :</span></dt><dd>6356752.314245179</dd><dt><span>inverse_flattening :</span></dt><dd>298.257223563</dd><dt><span>reference_ellipsoid_name :</span></dt><dd>WGS 84</dd><dt><span>longitude_of_prime_meridian :</span></dt><dd>0.0</dd><dt><span>prime_meridian_name :</span></dt><dd>Greenwich</dd><dt><span>geographic_crs_name :</span></dt><dd>WGS 84</dd><dt><span>horizontal_datum_name :</span></dt><dd>World Geodetic System 1984</dd><dt><span>grid_mapping_name :</span></dt><dd>latitude_longitude</dd><dt><span>spatial_ref :</span></dt><dd>GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]</dd><dt><span>GeoTransform :</span></dt><dd>73.65000000000002 0.09999999999999998 0.0 53.55 0.0 -0.09999999999999999</dd></dl></div><div class="xr-var-data"><pre>array(0)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-856d3a2b-0b53-4b02-9195-3f5891b8baf0" class="xr-section-summary-in" type="checkbox"><label for="section-856d3a2b-0b53-4b02-9195-3f5891b8baf0" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>x</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-aa5eefa5-0fd8-40c4-9f17-fb33cbd0e114" class="xr-index-data-in" type="checkbox"><label for="index-aa5eefa5-0fd8-40c4-9f17-fb33cbd0e114" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([ 73.70000000000002,  73.80000000000001,               73.9,
+       'OMI_trno2_0.10x0.10_201601_Col3_V4.nc'], dtype='&lt;U37')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>band</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U11</div><div class="xr-var-preview xr-preview">'cog_default'</div><input id="attrs-3d3bc092-f167-4e9c-aaee-78f0b6177754" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-3d3bc092-f167-4e9c-aaee-78f0b6177754" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-77215b11-a132-4cc6-9c93-f931766e04ff" class="xr-var-data-in" type="checkbox"><label for="data-77215b11-a132-4cc6-9c93-f931766e04ff" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('cog_default', dtype='&lt;U11')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">73.7 73.8 73.9 ... 134.9 135.0</div><input id="attrs-03006a6c-cfe9-49a4-8b53-35b4764cd5c1" class="xr-var-attrs-in" type="checkbox"><label for="attrs-03006a6c-cfe9-49a4-8b53-35b4764cd5c1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-eef0ee1b-b702-4666-830a-1eaf60efa67f" class="xr-var-data-in" type="checkbox"><label for="data-eef0ee1b-b702-4666-830a-1eaf60efa67f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>X</dd><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd></dl></div><div class="xr-var-data"><pre>array([ 73.7,  73.8,  73.9, ..., 134.8, 134.9, 135. ])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">53.5 53.4 53.3 ... 18.4 18.3 18.2</div><input id="attrs-c3545187-23fe-461e-a243-7cebea4f4d66" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c3545187-23fe-461e-a243-7cebea4f4d66" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-72e189c8-72fc-45a2-97e0-c21d60b1262d" class="xr-var-data-in" type="checkbox"><label for="data-72e189c8-72fc-45a2-97e0-c21d60b1262d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>axis :</span></dt><dd>Y</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd></dl></div><div class="xr-var-data"><pre>array([53.5, 53.4, 53.3, ..., 18.4, 18.3, 18.2])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>start_datetime</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U25</div><div class="xr-var-preview xr-preview">'2022-01-01T00:00:00+00:00' ... ...</div><input id="attrs-d8a3c46f-50fb-4280-8c0f-2d879dbc8391" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-d8a3c46f-50fb-4280-8c0f-2d879dbc8391" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3279fe44-62a8-4d19-ae94-13169bb9b219" class="xr-var-data-in" type="checkbox"><label for="data-3279fe44-62a8-4d19-ae94-13169bb9b219" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-01T00:00:00+00:00', '2021-12-01T00:00:00+00:00',
+       '2021-11-01T00:00:00+00:00', '2021-10-01T00:00:00+00:00',
+       '2021-09-01T00:00:00+00:00', '2021-08-01T00:00:00+00:00',
+       '2021-07-01T00:00:00+00:00', '2021-06-01T00:00:00+00:00',
+       '2021-05-01T00:00:00+00:00', '2021-04-01T00:00:00+00:00',
+       '2021-03-01T00:00:00+00:00', '2021-02-01T00:00:00+00:00',
+       '2021-01-01T00:00:00+00:00', '2020-12-01T00:00:00+00:00',
+       '2020-11-01T00:00:00+00:00', '2020-10-01T00:00:00+00:00',
+       '2020-09-01T00:00:00+00:00', '2020-08-01T00:00:00+00:00',
+       '2020-07-01T00:00:00+00:00', '2020-06-01T00:00:00+00:00',
+       '2020-05-01T00:00:00+00:00', '2020-04-01T00:00:00+00:00',
+       '2020-03-01T00:00:00+00:00', '2020-02-01T00:00:00+00:00',
+       '2020-01-01T00:00:00+00:00', '2019-12-01T00:00:00+00:00',
+       '2019-11-01T00:00:00+00:00', '2019-10-01T00:00:00+00:00',
+       '2019-09-01T00:00:00+00:00', '2019-08-01T00:00:00+00:00',
+       '2019-07-01T00:00:00+00:00', '2019-06-01T00:00:00+00:00',
+       '2019-05-01T00:00:00+00:00', '2019-04-01T00:00:00+00:00',
+       '2019-03-01T00:00:00+00:00', '2019-02-01T00:00:00+00:00',
+       '2019-01-01T00:00:00+00:00', '2018-12-01T00:00:00+00:00',
+       '2018-11-01T00:00:00+00:00', '2018-10-01T00:00:00+00:00',
+       '2018-09-01T00:00:00+00:00', '2018-08-01T00:00:00+00:00',
+       '2018-07-01T00:00:00+00:00', '2018-06-01T00:00:00+00:00',
+       '2018-05-01T00:00:00+00:00', '2018-04-01T00:00:00+00:00',
+       '2018-03-01T00:00:00+00:00', '2018-02-01T00:00:00+00:00',
+       '2018-01-01T00:00:00+00:00', '2017-12-01T00:00:00+00:00',
+       '2017-11-01T00:00:00+00:00', '2017-10-01T00:00:00+00:00',
+       '2017-09-01T00:00:00+00:00', '2017-08-01T00:00:00+00:00',
+       '2017-07-01T00:00:00+00:00', '2017-06-01T00:00:00+00:00',
+       '2017-05-01T00:00:00+00:00', '2017-04-01T00:00:00+00:00',
+       '2017-03-01T00:00:00+00:00', '2017-02-01T00:00:00+00:00',
+       '2017-01-01T00:00:00+00:00', '2016-12-01T00:00:00+00:00',
+       '2016-11-01T00:00:00+00:00', '2016-10-01T00:00:00+00:00',
+       '2016-09-01T00:00:00+00:00', '2016-08-01T00:00:00+00:00',
+       '2016-07-01T00:00:00+00:00', '2016-06-01T00:00:00+00:00',
+       '2016-05-01T00:00:00+00:00', '2016-04-01T00:00:00+00:00',
+       '2016-03-01T00:00:00+00:00', '2016-02-01T00:00:00+00:00',
+       '2016-01-01T00:00:00+00:00'], dtype='&lt;U25')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>end_datetime</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">&lt;U25</div><div class="xr-var-preview xr-preview">'2022-01-31T00:00:00+00:00' ... ...</div><input id="attrs-dbbda228-5e54-44b8-8ce4-d96960e19341" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-dbbda228-5e54-44b8-8ce4-d96960e19341" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c55a7759-8e47-410f-b7a5-80980ac8c70e" class="xr-var-data-in" type="checkbox"><label for="data-c55a7759-8e47-410f-b7a5-80980ac8c70e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2022-01-31T00:00:00+00:00', '2021-12-31T00:00:00+00:00',
+       '2021-11-30T00:00:00+00:00', '2021-10-31T00:00:00+00:00',
+       '2021-09-30T00:00:00+00:00', '2021-08-31T00:00:00+00:00',
+       '2021-07-31T00:00:00+00:00', '2021-06-30T00:00:00+00:00',
+       '2021-05-31T00:00:00+00:00', '2021-04-30T00:00:00+00:00',
+       '2021-03-31T00:00:00+00:00', '2021-02-28T00:00:00+00:00',
+       '2021-01-31T00:00:00+00:00', '2020-12-31T00:00:00+00:00',
+       '2020-11-30T00:00:00+00:00', '2020-10-31T00:00:00+00:00',
+       '2020-09-30T00:00:00+00:00', '2020-08-31T00:00:00+00:00',
+       '2020-07-31T00:00:00+00:00', '2020-06-30T00:00:00+00:00',
+       '2020-05-31T00:00:00+00:00', '2020-04-30T00:00:00+00:00',
+       '2020-03-31T00:00:00+00:00', '2020-02-29T00:00:00+00:00',
+       '2020-01-31T00:00:00+00:00', '2019-12-31T00:00:00+00:00',
+       '2019-11-30T00:00:00+00:00', '2019-10-31T00:00:00+00:00',
+       '2019-09-30T00:00:00+00:00', '2019-08-31T00:00:00+00:00',
+       '2019-07-31T00:00:00+00:00', '2019-06-30T00:00:00+00:00',
+       '2019-05-31T00:00:00+00:00', '2019-04-30T00:00:00+00:00',
+       '2019-03-31T00:00:00+00:00', '2019-02-28T00:00:00+00:00',
+       '2019-01-31T00:00:00+00:00', '2018-12-31T00:00:00+00:00',
+       '2018-11-30T00:00:00+00:00', '2018-10-31T00:00:00+00:00',
+       '2018-09-30T00:00:00+00:00', '2018-08-31T00:00:00+00:00',
+       '2018-07-31T00:00:00+00:00', '2018-06-30T00:00:00+00:00',
+       '2018-05-31T00:00:00+00:00', '2018-04-30T00:00:00+00:00',
+       '2018-03-31T00:00:00+00:00', '2018-02-28T00:00:00+00:00',
+       '2018-01-31T00:00:00+00:00', '2017-12-31T00:00:00+00:00',
+       '2017-11-30T00:00:00+00:00', '2017-10-31T00:00:00+00:00',
+       '2017-09-30T00:00:00+00:00', '2017-08-31T00:00:00+00:00',
+       '2017-07-31T00:00:00+00:00', '2017-06-30T00:00:00+00:00',
+       '2017-05-31T00:00:00+00:00', '2017-04-30T00:00:00+00:00',
+       '2017-03-31T00:00:00+00:00', '2017-02-28T00:00:00+00:00',
+       '2017-01-31T00:00:00+00:00', '2016-12-31T00:00:00+00:00',
+       '2016-11-30T00:00:00+00:00', '2016-10-31T00:00:00+00:00',
+       '2016-09-30T00:00:00+00:00', '2016-08-31T00:00:00+00:00',
+       '2016-07-31T00:00:00+00:00', '2016-06-30T00:00:00+00:00',
+       '2016-05-31T00:00:00+00:00', '2016-04-30T00:00:00+00:00',
+       '2016-03-31T00:00:00+00:00', '2016-02-29T00:00:00+00:00',
+       '2016-01-31T00:00:00+00:00'], dtype='&lt;U25')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>description</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U47</div><div class="xr-var-preview xr-preview">'Cloud optimized default layer t...</div><input id="attrs-3e1ce806-53a0-47c1-8c9e-13c234e81a39" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-3e1ce806-53a0-47c1-8c9e-13c234e81a39" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-05b3df18-caeb-406c-ab1c-ea3952ca457e" class="xr-var-data-in" type="checkbox"><label for="data-05b3df18-caeb-406c-ab1c-ea3952ca457e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('Cloud optimized default layer to display on map', dtype='&lt;U47')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:projjson</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{'id': {'code': 4326, 'authority...</div><input id="attrs-e6dcabce-f065-41bb-b4d8-37e6df9d9b2d" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-e6dcabce-f065-41bb-b4d8-37e6df9d9b2d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2002936a-98ca-457e-834f-e5f4a98266c6" class="xr-var-data-in" type="checkbox"><label for="data-2002936a-98ca-457e-834f-e5f4a98266c6" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({'id': {'code': 4326, 'authority': 'EPSG'}, 'name': 'WGS 84', 'type': 'GeographicCRS', 'datum': {'name': 'World Geodetic System 1984', 'type': 'GeodeticReferenceFrame', 'ellipsoid': {'name': 'WGS 84', 'semi_major_axis': 6378137, 'inverse_flattening': 298.257223563}}, '$schema': 'https://proj.org/schemas/v0.4/projjson.schema.json', 'coordinate_system': {'axis': [{'name': 'Geodetic latitude', 'unit': 'degree', 'direction': 'north', 'abbreviation': 'Lat'}, {'name': 'Geodetic longitude', 'unit': 'degree', 'direction': 'east', 'abbreviation': 'Lon'}], 'subtype': 'ellipsoidal'}},
+      dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:shape</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{1800, 3600}</div><input id="attrs-b72282ab-a804-4962-9011-38048a5d0f81" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-b72282ab-a804-4962-9011-38048a5d0f81" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7cc13065-3129-4f74-8fb5-9ff3af67170a" class="xr-var-data-in" type="checkbox"><label for="data-7cc13065-3129-4f74-8fb5-9ff3af67170a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({1800, 3600}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:epsg</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">4326</div><input id="attrs-9b78f1c2-2434-4ad3-ab4d-aa0329d3e488" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-9b78f1c2-2434-4ad3-ab4d-aa0329d3e488" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-33a4e9b0-6c6c-4366-93e0-2ed5593b44e1" class="xr-var-data-in" type="checkbox"><label for="data-33a4e9b0-6c6c-4366-93e0-2ed5593b44e1" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(4326)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:wkt2</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U277</div><div class="xr-var-preview xr-preview">'GEOGCS["WGS 84",DATUM["WGS_1984...</div><input id="attrs-e55b02e3-8a99-4eca-bce6-01687b518d8a" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-e55b02e3-8a99-4eca-bce6-01687b518d8a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e40ef509-8520-4569-bdac-3244c879b531" class="xr-var-data-in" type="checkbox"><label for="data-e40ef509-8520-4569-bdac-3244c879b531" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]',
+      dtype='&lt;U277')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:bbox</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{90.0, 180.0, -90.0, -180.0}</div><input id="attrs-605a763c-2882-421c-9d4a-e1d6a42e65c7" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-605a763c-2882-421c-9d4a-e1d6a42e65c7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-bd84fc0e-fd81-4170-983b-e095f839f28a" class="xr-var-data-in" type="checkbox"><label for="data-bd84fc0e-fd81-4170-983b-e095f839f28a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({90.0, 180.0, -90.0, -180.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:geometry</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{'type': 'Polygon', 'coordinates...</div><input id="attrs-0605f0d5-810c-4f58-9b1d-df34897b91d9" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-0605f0d5-810c-4f58-9b1d-df34897b91d9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d6f96c08-46dd-4d53-a110-2825990bcfb2" class="xr-var-data-in" type="checkbox"><label for="data-d6f96c08-46dd-4d53-a110-2825990bcfb2" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({'type': 'Polygon', 'coordinates': [[[-180.0, -90.0], [180.0, -90.0], [180.0, 90.0], [-180.0, 90.0], [-180.0, -90.0]]]},
+      dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>title</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">&lt;U17</div><div class="xr-var-preview xr-preview">'Default COG Layer'</div><input id="attrs-fc223510-eef0-48e1-a7bf-013f745bd8c8" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-fc223510-eef0-48e1-a7bf-013f745bd8c8" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1ff97d0d-e531-4284-b305-70d22faad3d1" class="xr-var-data-in" type="checkbox"><label for="data-1ff97d0d-e531-4284-b305-70d22faad3d1" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array('Default COG Layer', dtype='&lt;U17')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>proj:transform</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">{0.1, 0.0, 1.0, -0.1, -180.0, 90.0}</div><input id="attrs-22a72a7d-d74c-4def-96ce-a249cbcf62f7" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-22a72a7d-d74c-4def-96ce-a249cbcf62f7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3f93c857-93f6-4783-b9d9-97e63058a879" class="xr-var-data-in" type="checkbox"><label for="data-3f93c857-93f6-4783-b9d9-97e63058a879" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array({0.1, 0.0, 1.0, -0.1, -180.0, 90.0}, dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>epsg</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">4326</div><input id="attrs-1254dd54-86ae-4349-8194-d7196339eb72" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-1254dd54-86ae-4349-8194-d7196339eb72" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a0c4155e-54eb-4b10-90ee-9a8305522187" class="xr-var-data-in" type="checkbox"><label for="data-a0c4155e-54eb-4b10-90ee-9a8305522187" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(4326)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">1640995200000000000 ... 14516064...</div><input id="attrs-8bcae28f-7f68-4b2c-a30b-fa853a400423" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-8bcae28f-7f68-4b2c-a30b-fa853a400423" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a8c4521f-1d31-4be8-9d4f-add450635009" class="xr-var-data-in" type="checkbox"><label for="data-a8c4521f-1d31-4be8-9d4f-add450635009" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([1640995200000000000, 1638316800000000000, 1635724800000000000,
+       1633046400000000000, 1630454400000000000, 1627776000000000000,
+       1625097600000000000, 1622505600000000000, 1619827200000000000,
+       1617235200000000000, 1614556800000000000, 1612137600000000000,
+       1609459200000000000, 1606780800000000000, 1604188800000000000,
+       1601510400000000000, 1598918400000000000, 1596240000000000000,
+       1593561600000000000, 1590969600000000000, 1588291200000000000,
+       1585699200000000000, 1583020800000000000, 1580515200000000000,
+       1577836800000000000, 1575158400000000000, 1572566400000000000,
+       1569888000000000000, 1567296000000000000, 1564617600000000000,
+       1561939200000000000, 1559347200000000000, 1556668800000000000,
+       1554076800000000000, 1551398400000000000, 1548979200000000000,
+       1546300800000000000, 1543622400000000000, 1541030400000000000,
+       1538352000000000000, 1535760000000000000, 1533081600000000000,
+       1530403200000000000, 1527811200000000000, 1525132800000000000,
+       1522540800000000000, 1519862400000000000, 1517443200000000000,
+       1514764800000000000, 1512086400000000000, 1509494400000000000,
+       1506816000000000000, 1504224000000000000, 1501545600000000000,
+       1498867200000000000, 1496275200000000000, 1493596800000000000,
+       1491004800000000000, 1488326400000000000, 1485907200000000000,
+       1483228800000000000, 1480550400000000000, 1477958400000000000,
+       1475280000000000000, 1472688000000000000, 1470009600000000000,
+       1467331200000000000, 1464739200000000000, 1462060800000000000,
+       1459468800000000000, 1456790400000000000, 1454284800000000000,
+       1451606400000000000], dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>spatial_ref</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">0</div><input id="attrs-beb67ef4-5859-46cb-9b24-8bb06e530e0e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-beb67ef4-5859-46cb-9b24-8bb06e530e0e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c7e77815-f57d-4743-bae4-c84a07a52a23" class="xr-var-data-in" type="checkbox"><label for="data-c7e77815-f57d-4743-bae4-c84a07a52a23" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>crs_wkt :</span></dt><dd>GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>semi_minor_axis :</span></dt><dd>6356752.314245179</dd><dt><span>inverse_flattening :</span></dt><dd>298.257223563</dd><dt><span>reference_ellipsoid_name :</span></dt><dd>WGS 84</dd><dt><span>longitude_of_prime_meridian :</span></dt><dd>0.0</dd><dt><span>prime_meridian_name :</span></dt><dd>Greenwich</dd><dt><span>geographic_crs_name :</span></dt><dd>WGS 84</dd><dt><span>horizontal_datum_name :</span></dt><dd>World Geodetic System 1984</dd><dt><span>grid_mapping_name :</span></dt><dd>latitude_longitude</dd><dt><span>spatial_ref :</span></dt><dd>GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]</dd><dt><span>GeoTransform :</span></dt><dd>73.65000000000002 0.09999999999999998 0.0 53.55 0.0 -0.09999999999999999</dd></dl></div><div class="xr-var-data"><pre>array(0)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-0a66828a-90ef-42fe-9d49-6013dd0dd6c1" class="xr-section-summary-in" type="checkbox"><label for="section-0a66828a-90ef-42fe-9d49-6013dd0dd6c1" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>x</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-a8d7a731-c6ae-4fdf-ad88-4fe1b797bd08" class="xr-index-data-in" type="checkbox"><label for="index-a8d7a731-c6ae-4fdf-ad88-4fe1b797bd08" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([ 73.70000000000002,  73.80000000000001,               73.9,
                      74.0,  74.10000000000002,  74.20000000000002,
         74.30000000000001,               74.4,               74.5,
         74.60000000000002,
@@ -2488,7 +2441,7 @@ Attributes:
        134.40000000000003,              134.5, 134.60000000000002,
        134.70000000000005,              134.8, 134.90000000000003,
                     135.0],
-      dtype='float64', name='x', length=614))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>y</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-d9fd9781-1559-4bbd-8052-be6e2d9bdf7e" class="xr-index-data-in" type="checkbox"><label for="index-d9fd9781-1559-4bbd-8052-be6e2d9bdf7e" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([              53.5,               53.4,               53.3,
+      dtype='float64', name='x', length=614))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>y</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-886f8618-8e4e-429a-8ecc-eac6e5fe6279" class="xr-index-data-in" type="checkbox"><label for="index-886f8618-8e4e-429a-8ecc-eac6e5fe6279" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([              53.5,               53.4,               53.3,
        53.199999999999996,               53.1,               53.0,
                      52.9,               52.8, 52.699999999999996,
                      52.6,
@@ -2497,26 +2450,44 @@ Attributes:
        18.799999999999997, 18.700000000000003, 18.599999999999994,
                      18.5,  18.39999999999999, 18.299999999999997,
        18.200000000000003],
-      dtype='float64', name='y', length=354))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-024a899e-ab4b-45ae-ac1b-4c526bbeabeb" class="xr-index-data-in" type="checkbox"><label for="index-024a899e-ab4b-45ae-ac1b-4c526bbeabeb" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2022-01-01', '2021-12-01', '2021-11-01', '2021-10-01',
-               '2021-09-01', '2021-08-01', '2021-07-01', '2021-06-01',
-               '2021-05-01', '2021-04-01', '2021-03-01', '2021-02-01',
-               '2021-01-01', '2020-12-01', '2020-11-01', '2020-10-01',
-               '2020-09-01', '2020-08-01', '2020-07-01', '2020-06-01',
-               '2020-05-01', '2020-04-01', '2020-03-01', '2020-02-01',
-               '2020-01-01', '2019-12-01', '2019-11-01', '2019-10-01',
-               '2019-09-01', '2019-08-01', '2019-07-01', '2019-06-01',
-               '2019-05-01', '2019-04-01', '2019-03-01', '2019-02-01',
-               '2019-01-01', '2018-12-01', '2018-11-01', '2018-10-01',
-               '2018-09-01', '2018-08-01', '2018-07-01', '2018-06-01',
-               '2018-05-01', '2018-04-01', '2018-03-01', '2018-02-01',
-               '2018-01-01', '2017-12-01', '2017-11-01', '2017-10-01',
-               '2017-09-01', '2017-08-01', '2017-07-01', '2017-06-01',
-               '2017-05-01', '2017-04-01', '2017-03-01', '2017-02-01',
-               '2017-01-01', '2016-12-01', '2016-11-01', '2016-10-01',
-               '2016-09-01', '2016-08-01', '2016-07-01', '2016-06-01',
-               '2016-05-01', '2016-04-01', '2016-03-01', '2016-02-01',
-               '2016-01-01'],
-              dtype='datetime64[ns]', name='time', freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-70b7d576-01fb-4872-ace0-1d4b8930c8d3" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-70b7d576-01fb-4872-ace0-1d4b8930c8d3" class="xr-section-summary">Attributes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>spec :</span></dt><dd>RasterSpec(epsg=4326, bounds=(-180.0, -90.0, 180.0, 90.0), resolutions_xy=(0.1, 0.1))</dd><dt><span>resolution :</span></dt><dd>0.1</dd></dl></div></li></ul></div></div>
+      dtype='float64', name='y', length=354))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-d22fb80f-ce5f-4a7b-800b-3ea515fa535d" class="xr-index-data-in" type="checkbox"><label for="index-d22fb80f-ce5f-4a7b-800b-3ea515fa535d" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2022-01-01 00:00:00+00:00', '2021-12-01 00:00:00+00:00',
+               '2021-11-01 00:00:00+00:00', '2021-10-01 00:00:00+00:00',
+               '2021-09-01 00:00:00+00:00', '2021-08-01 00:00:00+00:00',
+               '2021-07-01 00:00:00+00:00', '2021-06-01 00:00:00+00:00',
+               '2021-05-01 00:00:00+00:00', '2021-04-01 00:00:00+00:00',
+               '2021-03-01 00:00:00+00:00', '2021-02-01 00:00:00+00:00',
+               '2021-01-01 00:00:00+00:00', '2020-12-01 00:00:00+00:00',
+               '2020-11-01 00:00:00+00:00', '2020-10-01 00:00:00+00:00',
+               '2020-09-01 00:00:00+00:00', '2020-08-01 00:00:00+00:00',
+               '2020-07-01 00:00:00+00:00', '2020-06-01 00:00:00+00:00',
+               '2020-05-01 00:00:00+00:00', '2020-04-01 00:00:00+00:00',
+               '2020-03-01 00:00:00+00:00', '2020-02-01 00:00:00+00:00',
+               '2020-01-01 00:00:00+00:00', '2019-12-01 00:00:00+00:00',
+               '2019-11-01 00:00:00+00:00', '2019-10-01 00:00:00+00:00',
+               '2019-09-01 00:00:00+00:00', '2019-08-01 00:00:00+00:00',
+               '2019-07-01 00:00:00+00:00', '2019-06-01 00:00:00+00:00',
+               '2019-05-01 00:00:00+00:00', '2019-04-01 00:00:00+00:00',
+               '2019-03-01 00:00:00+00:00', '2019-02-01 00:00:00+00:00',
+               '2019-01-01 00:00:00+00:00', '2018-12-01 00:00:00+00:00',
+               '2018-11-01 00:00:00+00:00', '2018-10-01 00:00:00+00:00',
+               '2018-09-01 00:00:00+00:00', '2018-08-01 00:00:00+00:00',
+               '2018-07-01 00:00:00+00:00', '2018-06-01 00:00:00+00:00',
+               '2018-05-01 00:00:00+00:00', '2018-04-01 00:00:00+00:00',
+               '2018-03-01 00:00:00+00:00', '2018-02-01 00:00:00+00:00',
+               '2018-01-01 00:00:00+00:00', '2017-12-01 00:00:00+00:00',
+               '2017-11-01 00:00:00+00:00', '2017-10-01 00:00:00+00:00',
+               '2017-09-01 00:00:00+00:00', '2017-08-01 00:00:00+00:00',
+               '2017-07-01 00:00:00+00:00', '2017-06-01 00:00:00+00:00',
+               '2017-05-01 00:00:00+00:00', '2017-04-01 00:00:00+00:00',
+               '2017-03-01 00:00:00+00:00', '2017-02-01 00:00:00+00:00',
+               '2017-01-01 00:00:00+00:00', '2016-12-01 00:00:00+00:00',
+               '2016-11-01 00:00:00+00:00', '2016-10-01 00:00:00+00:00',
+               '2016-09-01 00:00:00+00:00', '2016-08-01 00:00:00+00:00',
+               '2016-07-01 00:00:00+00:00', '2016-06-01 00:00:00+00:00',
+               '2016-05-01 00:00:00+00:00', '2016-04-01 00:00:00+00:00',
+               '2016-03-01 00:00:00+00:00', '2016-02-01 00:00:00+00:00',
+               '2016-01-01 00:00:00+00:00'],
+              dtype='datetime64[ns, UTC]', name='time', freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-c773535e-c7cc-423c-86f3-5c82ed5d1005" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-c773535e-c7cc-423c-86f3-5c82ed5d1005" class="xr-section-summary">Attributes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>spec :</span></dt><dd>RasterSpec(epsg=4326, bounds=(-180.0, -90.0, 180.0, 90.0), resolutions_xy=(0.1, 0.1))</dd><dt><span>resolution :</span></dt><dd>0.1</dd></dl></div></li></ul></div></div>
 </div>
 </div>
 </section>
@@ -2534,25 +2505,30 @@ Attributes:
 </div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div id="p1004">
-  <div id="a32f32a7-09de-45c2-bf89-62271f646538" data-root-id="p1004" style="display: contents;"></div>
+  <div id="bb7e7bfe-e618-4e87-a784-0eff9d35660e" data-root-id="p1004" style="display: contents;"></div>
 </div>
 <script type="application/javascript">(function(root) {
-  var docs_json = {"e547b280-b07c-49e1-8ee3-75e987d09f95":{"version":"3.3.3","title":"Bokeh Application","roots":[{"type":"object","name":"Row","id":"p1004","attributes":{"name":"Row00938","tags":["embedded"],"stylesheets":["\n:host(.pn-loading.pn-arc):before, .pn-loading.pn-arc:before {\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJtYXJnaW46IGF1dG87IGJhY2tncm91bmQ6IG5vbmU7IGRpc3BsYXk6IGJsb2NrOyBzaGFwZS1yZW5kZXJpbmc6IGF1dG87IiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQiPiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzNjM2MzIiBzdHJva2Utd2lkdGg9IjEwIiByPSIzNSIgc3Ryb2tlLWRhc2hhcnJheT0iMTY0LjkzMzYxNDMxMzQ2NDE1IDU2Ljk3Nzg3MTQzNzgyMTM4Ij4gICAgPGFuaW1hdGVUcmFuc2Zvcm0gYXR0cmlidXRlTmFtZT0idHJhbnNmb3JtIiB0eXBlPSJyb3RhdGUiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBkdXI9IjFzIiB2YWx1ZXM9IjAgNTAgNTA7MzYwIDUwIDUwIiBrZXlUaW1lcz0iMDsxIj48L2FuaW1hdGVUcmFuc2Zvcm0+ICA8L2NpcmNsZT48L3N2Zz4=\");\n  background-size: auto calc(min(50%, 400px));\n}",{"type":"object","name":"ImportedStyleSheet","id":"p1007","attributes":{"url":"https://cdn.holoviz.org/panel/1.3.6/dist/css/loading.css"}},{"type":"object","name":"ImportedStyleSheet","id":"p1075","attributes":{"url":"https://cdn.holoviz.org/panel/1.3.6/dist/css/listpanel.css"}},{"type":"object","name":"ImportedStyleSheet","id":"p1005","attributes":{"url":"https://cdn.holoviz.org/panel/1.3.6/dist/bundled/theme/default.css"}},{"type":"object","name":"ImportedStyleSheet","id":"p1006","attributes":{"url":"https://cdn.holoviz.org/panel/1.3.6/dist/bundled/theme/native.css"}}],"min_width":700,"margin":0,"sizing_mode":"stretch_width","align":"start","children":[{"type":"object","name":"Spacer","id":"p1008","attributes":{"name":"HSpacer00945","stylesheets":["\n:host(.pn-loading.pn-arc):before, .pn-loading.pn-arc:before {\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJtYXJnaW46IGF1dG87IGJhY2tncm91bmQ6IG5vbmU7IGRpc3BsYXk6IGJsb2NrOyBzaGFwZS1yZW5kZXJpbmc6IGF1dG87IiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQiPiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzNjM2MzIiBzdHJva2Utd2lkdGg9IjEwIiByPSIzNSIgc3Ryb2tlLWRhc2hhcnJheT0iMTY0LjkzMzYxNDMxMzQ2NDE1IDU2Ljk3Nzg3MTQzNzgyMTM4Ij4gICAgPGFuaW1hdGVUcmFuc2Zvcm0gYXR0cmlidXRlTmFtZT0idHJhbnNmb3JtIiB0eXBlPSJyb3RhdGUiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBkdXI9IjFzIiB2YWx1ZXM9IjAgNTAgNTA7MzYwIDUwIDUwIiBrZXlUaW1lcz0iMDsxIj48L2FuaW1hdGVUcmFuc2Zvcm0+ICA8L2NpcmNsZT48L3N2Zz4=\");\n  background-size: auto calc(min(50%, 400px));\n}",{"id":"p1007"},{"id":"p1005"},{"id":"p1006"}],"margin":0,"sizing_mode":"stretch_width","align":"start"}},{"type":"object","name":"Figure","id":"p1016","attributes":{"width":700,"height":300,"margin":[5,10],"sizing_mode":"fixed","align":"start","x_range":{"type":"object","name":"Range1d","id":"p1009","attributes":{"tags":[[["time","time",null]],[]],"start":1451606400000.0,"end":1640995200000.0,"reset_start":1451606400000.0,"reset_end":1640995200000.0}},"y_range":{"type":"object","name":"Range1d","id":"p1010","attributes":{"tags":[[["stackstac-501e9e9badc173d84c999a59abafa101","stackstac-501e9e9badc173d84c999a59abafa101",null]],{"type":"map","entries":[["invert_yaxis",false],["autorange",false]]}],"start":1035773861542583.0,"end":2893627415683637.5,"reset_start":1035773861542583.0,"reset_end":2893627415683637.5}},"x_scale":{"type":"object","name":"LinearScale","id":"p1026"},"y_scale":{"type":"object","name":"LinearScale","id":"p1027"},"title":{"type":"object","name":"Title","id":"p1019","attributes":{"text":"Mean Monthly NO2 in China","text_color":"black","text_font_size":"12pt"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1068","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1059","attributes":{"selected":{"type":"object","name":"Selection","id":"p1060","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1061"},"data":{"type":"map","entries":[["time",{"type":"ndarray","array":{"type":"bytes","data":"AADAvacfdUIAAAAQoil1QgAAwJb3MnVCAAAA6fE8dUIAAIDVmUZ1QgAAwCeUUHVCAABAFDxadUIAAIBmNmR1QgAAwLgwbnVCAABApdh3dUIAAID30oF1QgAAAOR6i3VCAABANnWVdUIAAICIb591QgAAgKlyqHVCAADA+2yydUIAAEDoFLx1QgAAgDoPxnVCAAAAJ7fPdUIAAEB5sdl1QgAAgMur43VCAAAAuFPtdUIAAEAKTvd1QgAAwPb1AHZCAAAASfAKdkIAAECb6hR2QgAAQLztHXZCAACADugndkIAAAD7jzF2QgAAQE2KO3ZCAADAOTJFdkIAAACMLE92QgAAQN4mWXZCAADAys5idkIAAAAdyWx2QgAAgAlxdnZCAADAW2uAdkIAAACuZYp2QgAAAM9ok3ZCAABAIWOddkIAAMANC6d2QgAAAGAFsXZCAACATK26dkIAAMCep8R2QgAAAPGhznZCAACA3UnYdkIAAMAvROJ2QgAAQBzs63ZCAACAbub1dkIAAMDA4P92QgAAgEc2CXdCAADAmTATd0IAAECG2Bx3QgAAgNjSJndCAAAAxXowd0IAAEAXdTp3QgAAgGlvRHdCAAAAVhdOd0IAAECoEVh3QgAAwJS5YXdCAAAA57Nrd0IAAEA5rnV3QgAAQFqxfndCAACArKuId0IAAACZU5J3QgAAQOtNnHdCAADA1/Wld0IAAAAq8K93QgAAQHzquXdCAADAaJLDd0IAAAC7jM13QgAAgKc013dCAADA+S7hd0I="},"shape":[73],"dtype":"float64","order":"little"}],["stackstac-501e9e9badc173d84c999a59abafa101",{"type":"ndarray","array":{"type":"bytes","data":"298EmTOwH0Mzd1S00d0ZQ6fpfTkkCyBDSxatYY+UGkP0e6pNWQkYQw+Ch8C43RZDi+KDsul4E0Plx5YQp6YSQ+acGsNg2hRDMiV472dwF0O4bZIlFaUeQ0ZRIntLoyBDmBzNViQEHEMv9hFUWygaQ2Ov25XvqR5D7sswnUSsGkOpTRgPEDcXQ/L1S8KbPRZDGxdc41bhEkNIcxodLDkSQ/CpgcbWVhRDqfVAv1qUGUMQIJ3KMGUgQ9Z9lw/cdSNDhe1F6hseH0N7qqQj4X0bQ+ZDlsuySxxDt3OInzIoGkOmPPBfgQ4WQ+5cDy57qRVDGKrxjqNaEUOECdssPi4RQwhfhc8OtRJDTdeyoLkRGkM5+IT3hTAfQ65f2N4TWCBDJzAW7ASAIEMdKihTTBgWQ84wSklWPBxDefTIU9uiGENQvJyD6CkXQ5f/VsAygxZDY6G0pkwEE0P8WocW4pYSQ+uSnHZufBND1VEDXJz4F0NM1h8olTEeQ+OiwTVBwx9DAeiHm10CFkN/cVaylpsRQ/hACNjVsBlD7x4TX6R9GENOyrkhJm4UQxZlhEmbbBRDZmPT4Pm/EUMGeA3+W+sQQ++gA227NRNDAWW8+3BbGUPjdBgvQMweQ3bK2u16/yFDsBv/UvCIHkOLbCPhHegWQ+Y/txwYHRxDKulwVpBlGENNr5KXEIUWQ2mzBlLh1RVD5/zSgzT6E0MvFRU8aoETQ/+oT9ewJBNDDFMjHykzGENFJaJVa0ceQ+ZKaLhbHCBDkXX1OVb0GkM="},"shape":[73],"dtype":"float64","order":"little"}],["stackstac_hyphen_minus_501e9e9badc173d84c999a59abafa101",{"type":"ndarray","array":{"type":"bytes","data":"298EmTOwH0Mzd1S00d0ZQ6fpfTkkCyBDSxatYY+UGkP0e6pNWQkYQw+Ch8C43RZDi+KDsul4E0Plx5YQp6YSQ+acGsNg2hRDMiV472dwF0O4bZIlFaUeQ0ZRIntLoyBDmBzNViQEHEMv9hFUWygaQ2Ov25XvqR5D7sswnUSsGkOpTRgPEDcXQ/L1S8KbPRZDGxdc41bhEkNIcxodLDkSQ/CpgcbWVhRDqfVAv1qUGUMQIJ3KMGUgQ9Z9lw/cdSNDhe1F6hseH0N7qqQj4X0bQ+ZDlsuySxxDt3OInzIoGkOmPPBfgQ4WQ+5cDy57qRVDGKrxjqNaEUOECdssPi4RQwhfhc8OtRJDTdeyoLkRGkM5+IT3hTAfQ65f2N4TWCBDJzAW7ASAIEMdKihTTBgWQ84wSklWPBxDefTIU9uiGENQvJyD6CkXQ5f/VsAygxZDY6G0pkwEE0P8WocW4pYSQ+uSnHZufBND1VEDXJz4F0NM1h8olTEeQ+OiwTVBwx9DAeiHm10CFkN/cVaylpsRQ/hACNjVsBlD7x4TX6R9GENOyrkhJm4UQxZlhEmbbBRDZmPT4Pm/EUMGeA3+W+sQQ++gA227NRNDAWW8+3BbGUPjdBgvQMweQ3bK2u16/yFDsBv/UvCIHkOLbCPhHegWQ+Y/txwYHRxDKulwVpBlGENNr5KXEIUWQ2mzBlLh1RVD5/zSgzT6E0MvFRU8aoETQ/+oT9ewJBNDDFMjHykzGENFJaJVa0ceQ+ZKaLhbHCBDkXX1OVb0GkM="},"shape":[73],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1069","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1070"}}},"glyph":{"type":"object","name":"Line","id":"p1065","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"time"},"y":{"type":"field","field":"stackstac-501e9e9badc173d84c999a59abafa101"},"line_color":"#30a2da","line_width":2}},"selection_glyph":{"type":"object","name":"Line","id":"p1071","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"time"},"y":{"type":"field","field":"stackstac-501e9e9badc173d84c999a59abafa101"},"line_color":"#30a2da","line_width":2}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1066","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"time"},"y":{"type":"field","field":"stackstac-501e9e9badc173d84c999a59abafa101"},"line_color":"#30a2da","line_alpha":0.1,"line_width":2}},"muted_glyph":{"type":"object","name":"Line","id":"p1067","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"time"},"y":{"type":"field","field":"stackstac-501e9e9badc173d84c999a59abafa101"},"line_color":"#30a2da","line_alpha":0.2,"line_width":2}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1025","attributes":{"tools":[{"type":"object","name":"WheelZoomTool","id":"p1014","attributes":{"tags":["hv_created"],"renderers":"auto","zoom_together":"none"}},{"type":"object","name":"HoverTool","id":"p1015","attributes":{"tags":["hv_created"],"renderers":[{"id":"p1068"}],"tooltips":[["time","@{time}{%F %T}"],["stackstac-501e9e9badc173d84c999a59abafa101","@{stackstac_hyphen_minus_501e9e9badc173d84c999a59abafa101}"]],"formatters":{"type":"map","entries":[["@{time}","datetime"]]}}},{"type":"object","name":"SaveTool","id":"p1050"},{"type":"object","name":"PanTool","id":"p1051"},{"type":"object","name":"BoxZoomTool","id":"p1052","attributes":{"overlay":{"type":"object","name":"BoxAnnotation","id":"p1053","attributes":{"syncable":false,"level":"overlay","visible":false,"left":{"type":"number","value":"nan"},"right":{"type":"number","value":"nan"},"top":{"type":"number","value":"nan"},"bottom":{"type":"number","value":"nan"},"left_units":"canvas","right_units":"canvas","top_units":"canvas","bottom_units":"canvas","line_color":"black","line_alpha":1.0,"line_width":2,"line_dash":[4,4],"fill_color":"lightgrey","fill_alpha":0.5}}}},{"type":"object","name":"ResetTool","id":"p1058"}],"active_drag":{"id":"p1051"},"active_scroll":{"id":"p1014"}}},"left":[{"type":"object","name":"LinearAxis","id":"p1045","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1046","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1047"},"axis_label":"NO2","major_label_policy":{"type":"object","name":"AllLabels","id":"p1048"}}}],"below":[{"type":"object","name":"DatetimeAxis","id":"p1028","attributes":{"ticker":{"type":"object","name":"DatetimeTicker","id":"p1029","attributes":{"num_minor_ticks":5,"tickers":[{"type":"object","name":"AdaptiveTicker","id":"p1030","attributes":{"num_minor_ticks":0,"mantissas":[1,2,5],"max_interval":500.0}},{"type":"object","name":"AdaptiveTicker","id":"p1031","attributes":{"num_minor_ticks":0,"base":60,"mantissas":[1,2,5,10,15,20,30],"min_interval":1000.0,"max_interval":1800000.0}},{"type":"object","name":"AdaptiveTicker","id":"p1032","attributes":{"num_minor_ticks":0,"base":24,"mantissas":[1,2,4,6,8,12],"min_interval":3600000.0,"max_interval":43200000.0}},{"type":"object","name":"DaysTicker","id":"p1033","attributes":{"days":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]}},{"type":"object","name":"DaysTicker","id":"p1034","attributes":{"days":[1,4,7,10,13,16,19,22,25,28]}},{"type":"object","name":"DaysTicker","id":"p1035","attributes":{"days":[1,8,15,22]}},{"type":"object","name":"DaysTicker","id":"p1036","attributes":{"days":[1,15]}},{"type":"object","name":"MonthsTicker","id":"p1037","attributes":{"months":[0,1,2,3,4,5,6,7,8,9,10,11]}},{"type":"object","name":"MonthsTicker","id":"p1038","attributes":{"months":[0,2,4,6,8,10]}},{"type":"object","name":"MonthsTicker","id":"p1039","attributes":{"months":[0,4,8]}},{"type":"object","name":"MonthsTicker","id":"p1040","attributes":{"months":[0,6]}},{"type":"object","name":"YearsTicker","id":"p1041"}]}},"formatter":{"type":"object","name":"DatetimeTickFormatter","id":"p1042"},"axis_label":"time","major_label_policy":{"type":"object","name":"AllLabels","id":"p1043"}}}],"center":[{"type":"object","name":"Grid","id":"p1044","attributes":{"axis":{"id":"p1028"},"grid_line_color":null}},{"type":"object","name":"Grid","id":"p1049","attributes":{"dimension":1,"axis":{"id":"p1045"},"grid_line_color":null}}],"min_border_top":10,"min_border_bottom":10,"min_border_left":10,"min_border_right":10,"output_backend":"webgl"}},{"type":"object","name":"Spacer","id":"p1073","attributes":{"name":"HSpacer00946","stylesheets":["\n:host(.pn-loading.pn-arc):before, .pn-loading.pn-arc:before {\n  background-image: url(\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJtYXJnaW46IGF1dG87IGJhY2tncm91bmQ6IG5vbmU7IGRpc3BsYXk6IGJsb2NrOyBzaGFwZS1yZW5kZXJpbmc6IGF1dG87IiB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQiPiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzNjM2MzIiBzdHJva2Utd2lkdGg9IjEwIiByPSIzNSIgc3Ryb2tlLWRhc2hhcnJheT0iMTY0LjkzMzYxNDMxMzQ2NDE1IDU2Ljk3Nzg3MTQzNzgyMTM4Ij4gICAgPGFuaW1hdGVUcmFuc2Zvcm0gYXR0cmlidXRlTmFtZT0idHJhbnNmb3JtIiB0eXBlPSJyb3RhdGUiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBkdXI9IjFzIiB2YWx1ZXM9IjAgNTAgNTA7MzYwIDUwIDUwIiBrZXlUaW1lcz0iMDsxIj48L2FuaW1hdGVUcmFuc2Zvcm0+ICA8L2NpcmNsZT48L3N2Zz4=\");\n  background-size: auto calc(min(50%, 400px));\n}",{"id":"p1007"},{"id":"p1005"},{"id":"p1006"}],"margin":0,"sizing_mode":"stretch_width","align":"start"}}]}}],"defs":[{"type":"model","name":"ReactiveHTML1"},{"type":"model","name":"FlexBox1","properties":[{"name":"align_content","kind":"Any","default":"flex-start"},{"name":"align_items","kind":"Any","default":"flex-start"},{"name":"flex_direction","kind":"Any","default":"row"},{"name":"flex_wrap","kind":"Any","default":"wrap"},{"name":"justify_content","kind":"Any","default":"flex-start"}]},{"type":"model","name":"FloatPanel1","properties":[{"name":"config","kind":"Any","default":{"type":"map"}},{"name":"contained","kind":"Any","default":true},{"name":"position","kind":"Any","default":"right-top"},{"name":"offsetx","kind":"Any","default":null},{"name":"offsety","kind":"Any","default":null},{"name":"theme","kind":"Any","default":"primary"},{"name":"status","kind":"Any","default":"normalized"}]},{"type":"model","name":"GridStack1","properties":[{"name":"mode","kind":"Any","default":"warn"},{"name":"ncols","kind":"Any","default":null},{"name":"nrows","kind":"Any","default":null},{"name":"allow_resize","kind":"Any","default":true},{"name":"allow_drag","kind":"Any","default":true},{"name":"state","kind":"Any","default":[]}]},{"type":"model","name":"drag1","properties":[{"name":"slider_width","kind":"Any","default":5},{"name":"slider_color","kind":"Any","default":"black"},{"name":"value","kind":"Any","default":50}]},{"type":"model","name":"click1","properties":[{"name":"terminal_output","kind":"Any","default":""},{"name":"debug_name","kind":"Any","default":""},{"name":"clears","kind":"Any","default":0}]},{"type":"model","name":"copy_to_clipboard1","properties":[{"name":"fill","kind":"Any","default":"none"},{"name":"value","kind":"Any","default":null}]},{"type":"model","name":"FastWrapper1","properties":[{"name":"object","kind":"Any","default":null},{"name":"style","kind":"Any","default":null}]},{"type":"model","name":"NotificationAreaBase1","properties":[{"name":"js_events","kind":"Any","default":{"type":"map"}},{"name":"position","kind":"Any","default":"bottom-right"},{"name":"_clear","kind":"Any","default":0}]},{"type":"model","name":"NotificationArea1","properties":[{"name":"js_events","kind":"Any","default":{"type":"map"}},{"name":"notifications","kind":"Any","default":[]},{"name":"position","kind":"Any","default":"bottom-right"},{"name":"_clear","kind":"Any","default":0},{"name":"types","kind":"Any","default":[{"type":"map","entries":[["type","warning"],["background","#ffc107"],["icon",{"type":"map","entries":[["className","fas fa-exclamation-triangle"],["tagName","i"],["color","white"]]}]]},{"type":"map","entries":[["type","info"],["background","#007bff"],["icon",{"type":"map","entries":[["className","fas fa-info-circle"],["tagName","i"],["color","white"]]}]]}]}]},{"type":"model","name":"Notification","properties":[{"name":"background","kind":"Any","default":null},{"name":"duration","kind":"Any","default":3000},{"name":"icon","kind":"Any","default":null},{"name":"message","kind":"Any","default":""},{"name":"notification_type","kind":"Any","default":null},{"name":"_destroyed","kind":"Any","default":false}]},{"type":"model","name":"TemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"BootstrapTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"MaterialTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]}]}};
-  var render_items = [{"docid":"e547b280-b07c-49e1-8ee3-75e987d09f95","roots":{"p1004":"a32f32a7-09de-45c2-bf89-62271f646538"},"root_ids":["p1004"]}];
+  var docs_json = {"a5914f7e-275d-4b22-a2cf-84bd1f5fd04b":{"version":"3.4.1","title":"Bokeh Application","roots":[{"type":"object","name":"Row","id":"p1004","attributes":{"name":"Row00938","tags":["embedded"],"stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #c3c3c3;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"type":"object","name":"ImportedStyleSheet","id":"p1007","attributes":{"url":"https://cdn.holoviz.org/panel/1.4.4/dist/css/loading.css"}},{"type":"object","name":"ImportedStyleSheet","id":"p1075","attributes":{"url":"https://cdn.holoviz.org/panel/1.4.4/dist/css/listpanel.css"}},{"type":"object","name":"ImportedStyleSheet","id":"p1005","attributes":{"url":"https://cdn.holoviz.org/panel/1.4.4/dist/bundled/theme/default.css"}},{"type":"object","name":"ImportedStyleSheet","id":"p1006","attributes":{"url":"https://cdn.holoviz.org/panel/1.4.4/dist/bundled/theme/native.css"}}],"min_width":700,"margin":0,"sizing_mode":"stretch_width","align":"start","children":[{"type":"object","name":"Spacer","id":"p1008","attributes":{"name":"HSpacer00945","stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #c3c3c3;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1007"},{"id":"p1005"},{"id":"p1006"}],"margin":0,"sizing_mode":"stretch_width","align":"start"}},{"type":"object","name":"Figure","id":"p1016","attributes":{"width":700,"height":300,"margin":[5,10],"sizing_mode":"fixed","align":"start","x_range":{"type":"object","name":"Range1d","id":"p1009","attributes":{"tags":[[["time","time",null]],[]],"start":1451606400000.0,"end":1640995200000.0,"reset_start":1451606400000.0,"reset_end":1640995200000.0}},"y_range":{"type":"object","name":"Range1d","id":"p1010","attributes":{"tags":[[["stackstac-92e4c5b4a3eab66b40bd5f869280d6b5","stackstac-92e4c5b4a3eab66b40bd5f869280d6b5",null]],{"type":"map","entries":[["invert_yaxis",false],["autorange",false]]}],"start":1035773861542583.0,"end":2893627415683637.5,"reset_start":1035773861542583.0,"reset_end":2893627415683637.5}},"x_scale":{"type":"object","name":"LinearScale","id":"p1026"},"y_scale":{"type":"object","name":"LinearScale","id":"p1027"},"title":{"type":"object","name":"Title","id":"p1019","attributes":{"text":"Mean Monthly NO2 in China","text_color":"black","text_font_size":"12pt"}},"renderers":[{"type":"object","name":"GlyphRenderer","id":"p1068","attributes":{"data_source":{"type":"object","name":"ColumnDataSource","id":"p1059","attributes":{"selected":{"type":"object","name":"Selection","id":"p1060","attributes":{"indices":[],"line_indices":[]}},"selection_policy":{"type":"object","name":"UnionRenderers","id":"p1061"},"data":{"type":"map","entries":[["time",{"type":"ndarray","array":{"type":"bytes","data":"AADAvacfdUIAAAAQoil1QgAAwJb3MnVCAAAA6fE8dUIAAIDVmUZ1QgAAwCeUUHVCAABAFDxadUIAAIBmNmR1QgAAwLgwbnVCAABApdh3dUIAAID30oF1QgAAAOR6i3VCAABANnWVdUIAAICIb591QgAAgKlyqHVCAADA+2yydUIAAEDoFLx1QgAAgDoPxnVCAAAAJ7fPdUIAAEB5sdl1QgAAgMur43VCAAAAuFPtdUIAAEAKTvd1QgAAwPb1AHZCAAAASfAKdkIAAECb6hR2QgAAQLztHXZCAACADugndkIAAAD7jzF2QgAAQE2KO3ZCAADAOTJFdkIAAACMLE92QgAAQN4mWXZCAADAys5idkIAAAAdyWx2QgAAgAlxdnZCAADAW2uAdkIAAACuZYp2QgAAAM9ok3ZCAABAIWOddkIAAMANC6d2QgAAAGAFsXZCAACATK26dkIAAMCep8R2QgAAAPGhznZCAACA3UnYdkIAAMAvROJ2QgAAQBzs63ZCAACAbub1dkIAAMDA4P92QgAAgEc2CXdCAADAmTATd0IAAECG2Bx3QgAAgNjSJndCAAAAxXowd0IAAEAXdTp3QgAAgGlvRHdCAAAAVhdOd0IAAECoEVh3QgAAwJS5YXdCAAAA57Nrd0IAAEA5rnV3QgAAQFqxfndCAACArKuId0IAAACZU5J3QgAAQOtNnHdCAADA1/Wld0IAAAAq8K93QgAAQHzquXdCAADAaJLDd0IAAAC7jM13QgAAgKc013dCAADA+S7hd0I="},"shape":[73],"dtype":"float64","order":"little"}],["stackstac-92e4c5b4a3eab66b40bd5f869280d6b5",{"type":"ndarray","array":{"type":"bytes","data":"298EmTOwH0Mzd1S00d0ZQ6fpfTkkCyBDSxatYY+UGkP0e6pNWQkYQw+Ch8C43RZDi+KDsul4E0Plx5YQp6YSQ+acGsNg2hRDMiV472dwF0O4bZIlFaUeQ0ZRIntLoyBDmBzNViQEHEMv9hFUWygaQ2Ov25XvqR5D7sswnUSsGkOpTRgPEDcXQ/L1S8KbPRZDGxdc41bhEkNIcxodLDkSQ/CpgcbWVhRDqfVAv1qUGUMQIJ3KMGUgQ9Z9lw/cdSNDhe1F6hseH0N7qqQj4X0bQ+ZDlsuySxxDt3OInzIoGkOmPPBfgQ4WQ+5cDy57qRVDGKrxjqNaEUOECdssPi4RQwhfhc8OtRJDTdeyoLkRGkM5+IT3hTAfQ65f2N4TWCBDJzAW7ASAIEMdKihTTBgWQ84wSklWPBxDefTIU9uiGENQvJyD6CkXQ5f/VsAygxZDY6G0pkwEE0P8WocW4pYSQ+uSnHZufBND1VEDXJz4F0NM1h8olTEeQ+OiwTVBwx9DAeiHm10CFkN/cVaylpsRQ/hACNjVsBlD7x4TX6R9GENOyrkhJm4UQxZlhEmbbBRDZmPT4Pm/EUMGeA3+W+sQQ++gA227NRNDAWW8+3BbGUPjdBgvQMweQ3bK2u16/yFDsBv/UvCIHkOLbCPhHegWQ+Y/txwYHRxDKulwVpBlGENNr5KXEIUWQ2mzBlLh1RVD5/zSgzT6E0MvFRU8aoETQ/+oT9ewJBNDDFMjHykzGENFJaJVa0ceQ+ZKaLhbHCBDkXX1OVb0GkM="},"shape":[73],"dtype":"float64","order":"little"}],["stackstac_hyphen_minus_92e4c5b4a3eab66b40bd5f869280d6b5",{"type":"ndarray","array":{"type":"bytes","data":"298EmTOwH0Mzd1S00d0ZQ6fpfTkkCyBDSxatYY+UGkP0e6pNWQkYQw+Ch8C43RZDi+KDsul4E0Plx5YQp6YSQ+acGsNg2hRDMiV472dwF0O4bZIlFaUeQ0ZRIntLoyBDmBzNViQEHEMv9hFUWygaQ2Ov25XvqR5D7sswnUSsGkOpTRgPEDcXQ/L1S8KbPRZDGxdc41bhEkNIcxodLDkSQ/CpgcbWVhRDqfVAv1qUGUMQIJ3KMGUgQ9Z9lw/cdSNDhe1F6hseH0N7qqQj4X0bQ+ZDlsuySxxDt3OInzIoGkOmPPBfgQ4WQ+5cDy57qRVDGKrxjqNaEUOECdssPi4RQwhfhc8OtRJDTdeyoLkRGkM5+IT3hTAfQ65f2N4TWCBDJzAW7ASAIEMdKihTTBgWQ84wSklWPBxDefTIU9uiGENQvJyD6CkXQ5f/VsAygxZDY6G0pkwEE0P8WocW4pYSQ+uSnHZufBND1VEDXJz4F0NM1h8olTEeQ+OiwTVBwx9DAeiHm10CFkN/cVaylpsRQ/hACNjVsBlD7x4TX6R9GENOyrkhJm4UQxZlhEmbbBRDZmPT4Pm/EUMGeA3+W+sQQ++gA227NRNDAWW8+3BbGUPjdBgvQMweQ3bK2u16/yFDsBv/UvCIHkOLbCPhHegWQ+Y/txwYHRxDKulwVpBlGENNr5KXEIUWQ2mzBlLh1RVD5/zSgzT6E0MvFRU8aoETQ/+oT9ewJBNDDFMjHykzGENFJaJVa0ceQ+ZKaLhbHCBDkXX1OVb0GkM="},"shape":[73],"dtype":"float64","order":"little"}]]}}},"view":{"type":"object","name":"CDSView","id":"p1069","attributes":{"filter":{"type":"object","name":"AllIndices","id":"p1070"}}},"glyph":{"type":"object","name":"Line","id":"p1065","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"time"},"y":{"type":"field","field":"stackstac-92e4c5b4a3eab66b40bd5f869280d6b5"},"line_color":"#30a2da","line_width":2}},"selection_glyph":{"type":"object","name":"Line","id":"p1071","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"time"},"y":{"type":"field","field":"stackstac-92e4c5b4a3eab66b40bd5f869280d6b5"},"line_color":"#30a2da","line_width":2}},"nonselection_glyph":{"type":"object","name":"Line","id":"p1066","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"time"},"y":{"type":"field","field":"stackstac-92e4c5b4a3eab66b40bd5f869280d6b5"},"line_color":"#30a2da","line_alpha":0.1,"line_width":2}},"muted_glyph":{"type":"object","name":"Line","id":"p1067","attributes":{"tags":["apply_ranges"],"x":{"type":"field","field":"time"},"y":{"type":"field","field":"stackstac-92e4c5b4a3eab66b40bd5f869280d6b5"},"line_color":"#30a2da","line_alpha":0.2,"line_width":2}}}}],"toolbar":{"type":"object","name":"Toolbar","id":"p1025","attributes":{"tools":[{"type":"object","name":"WheelZoomTool","id":"p1014","attributes":{"tags":["hv_created"],"renderers":"auto","zoom_together":"none"}},{"type":"object","name":"HoverTool","id":"p1015","attributes":{"tags":["hv_created"],"renderers":[{"id":"p1068"}],"tooltips":[["time","@{time}{%F %T}"],["stackstac-92e4c5b4a3eab66b40bd5f869280d6b5","@{stackstac_hyphen_minus_92e4c5b4a3eab66b40bd5f869280d6b5}"]],"formatters":{"type":"map","entries":[["@{time}","datetime"]]}}},{"type":"object","name":"SaveTool","id":"p1050"},{"type":"object","name":"PanTool","id":"p1051"},{"type":"object","name":"BoxZoomTool","id":"p1052","attributes":{"overlay":{"type":"object","name":"BoxAnnotation","id":"p1053","attributes":{"syncable":false,"level":"overlay","visible":false,"left":{"type":"number","value":"nan"},"right":{"type":"number","value":"nan"},"top":{"type":"number","value":"nan"},"bottom":{"type":"number","value":"nan"},"left_units":"canvas","right_units":"canvas","top_units":"canvas","bottom_units":"canvas","line_color":"black","line_alpha":1.0,"line_width":2,"line_dash":[4,4],"fill_color":"lightgrey","fill_alpha":0.5}}}},{"type":"object","name":"ResetTool","id":"p1058"}],"active_drag":{"id":"p1051"},"active_scroll":{"id":"p1014"}}},"left":[{"type":"object","name":"LinearAxis","id":"p1045","attributes":{"ticker":{"type":"object","name":"BasicTicker","id":"p1046","attributes":{"mantissas":[1,2,5]}},"formatter":{"type":"object","name":"BasicTickFormatter","id":"p1047"},"axis_label":"NO2","major_label_policy":{"type":"object","name":"AllLabels","id":"p1048"}}}],"below":[{"type":"object","name":"DatetimeAxis","id":"p1028","attributes":{"ticker":{"type":"object","name":"DatetimeTicker","id":"p1029","attributes":{"num_minor_ticks":5,"tickers":[{"type":"object","name":"AdaptiveTicker","id":"p1030","attributes":{"num_minor_ticks":0,"mantissas":[1,2,5],"max_interval":500.0}},{"type":"object","name":"AdaptiveTicker","id":"p1031","attributes":{"num_minor_ticks":0,"base":60,"mantissas":[1,2,5,10,15,20,30],"min_interval":1000.0,"max_interval":1800000.0}},{"type":"object","name":"AdaptiveTicker","id":"p1032","attributes":{"num_minor_ticks":0,"base":24,"mantissas":[1,2,4,6,8,12],"min_interval":3600000.0,"max_interval":43200000.0}},{"type":"object","name":"DaysTicker","id":"p1033","attributes":{"days":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]}},{"type":"object","name":"DaysTicker","id":"p1034","attributes":{"days":[1,4,7,10,13,16,19,22,25,28]}},{"type":"object","name":"DaysTicker","id":"p1035","attributes":{"days":[1,8,15,22]}},{"type":"object","name":"DaysTicker","id":"p1036","attributes":{"days":[1,15]}},{"type":"object","name":"MonthsTicker","id":"p1037","attributes":{"months":[0,1,2,3,4,5,6,7,8,9,10,11]}},{"type":"object","name":"MonthsTicker","id":"p1038","attributes":{"months":[0,2,4,6,8,10]}},{"type":"object","name":"MonthsTicker","id":"p1039","attributes":{"months":[0,4,8]}},{"type":"object","name":"MonthsTicker","id":"p1040","attributes":{"months":[0,6]}},{"type":"object","name":"YearsTicker","id":"p1041"}]}},"formatter":{"type":"object","name":"DatetimeTickFormatter","id":"p1042"},"axis_label":"time","major_label_policy":{"type":"object","name":"AllLabels","id":"p1043"}}}],"center":[{"type":"object","name":"Grid","id":"p1044","attributes":{"axis":{"id":"p1028"},"grid_line_color":null}},{"type":"object","name":"Grid","id":"p1049","attributes":{"dimension":1,"axis":{"id":"p1045"},"grid_line_color":null}}],"min_border_top":10,"min_border_bottom":10,"min_border_left":10,"min_border_right":10,"output_backend":"webgl"}},{"type":"object","name":"Spacer","id":"p1073","attributes":{"name":"HSpacer00946","stylesheets":["\n:host(.pn-loading):before, .pn-loading:before {\n  background-color: #c3c3c3;\n  mask-size: auto calc(min(50%, 400px));\n  -webkit-mask-size: auto calc(min(50%, 400px));\n}",{"id":"p1007"},{"id":"p1005"},{"id":"p1006"}],"margin":0,"sizing_mode":"stretch_width","align":"start"}}]}}],"defs":[{"type":"model","name":"ReactiveHTML1"},{"type":"model","name":"FlexBox1","properties":[{"name":"align_content","kind":"Any","default":"flex-start"},{"name":"align_items","kind":"Any","default":"flex-start"},{"name":"flex_direction","kind":"Any","default":"row"},{"name":"flex_wrap","kind":"Any","default":"wrap"},{"name":"gap","kind":"Any","default":""},{"name":"justify_content","kind":"Any","default":"flex-start"}]},{"type":"model","name":"FloatPanel1","properties":[{"name":"config","kind":"Any","default":{"type":"map"}},{"name":"contained","kind":"Any","default":true},{"name":"position","kind":"Any","default":"right-top"},{"name":"offsetx","kind":"Any","default":null},{"name":"offsety","kind":"Any","default":null},{"name":"theme","kind":"Any","default":"primary"},{"name":"status","kind":"Any","default":"normalized"}]},{"type":"model","name":"GridStack1","properties":[{"name":"mode","kind":"Any","default":"warn"},{"name":"ncols","kind":"Any","default":null},{"name":"nrows","kind":"Any","default":null},{"name":"allow_resize","kind":"Any","default":true},{"name":"allow_drag","kind":"Any","default":true},{"name":"state","kind":"Any","default":[]}]},{"type":"model","name":"drag1","properties":[{"name":"slider_width","kind":"Any","default":5},{"name":"slider_color","kind":"Any","default":"black"},{"name":"value","kind":"Any","default":50}]},{"type":"model","name":"click1","properties":[{"name":"terminal_output","kind":"Any","default":""},{"name":"debug_name","kind":"Any","default":""},{"name":"clears","kind":"Any","default":0}]},{"type":"model","name":"FastWrapper1","properties":[{"name":"object","kind":"Any","default":null},{"name":"style","kind":"Any","default":null}]},{"type":"model","name":"NotificationAreaBase1","properties":[{"name":"js_events","kind":"Any","default":{"type":"map"}},{"name":"position","kind":"Any","default":"bottom-right"},{"name":"_clear","kind":"Any","default":0}]},{"type":"model","name":"NotificationArea1","properties":[{"name":"js_events","kind":"Any","default":{"type":"map"}},{"name":"notifications","kind":"Any","default":[]},{"name":"position","kind":"Any","default":"bottom-right"},{"name":"_clear","kind":"Any","default":0},{"name":"types","kind":"Any","default":[{"type":"map","entries":[["type","warning"],["background","#ffc107"],["icon",{"type":"map","entries":[["className","fas fa-exclamation-triangle"],["tagName","i"],["color","white"]]}]]},{"type":"map","entries":[["type","info"],["background","#007bff"],["icon",{"type":"map","entries":[["className","fas fa-info-circle"],["tagName","i"],["color","white"]]}]]}]}]},{"type":"model","name":"Notification","properties":[{"name":"background","kind":"Any","default":null},{"name":"duration","kind":"Any","default":3000},{"name":"icon","kind":"Any","default":null},{"name":"message","kind":"Any","default":""},{"name":"notification_type","kind":"Any","default":null},{"name":"_destroyed","kind":"Any","default":false}]},{"type":"model","name":"TemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"BootstrapTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"TemplateEditor1","properties":[{"name":"layout","kind":"Any","default":[]}]},{"type":"model","name":"MaterialTemplateActions1","properties":[{"name":"open_modal","kind":"Any","default":0},{"name":"close_modal","kind":"Any","default":0}]},{"type":"model","name":"copy_to_clipboard1","properties":[{"name":"fill","kind":"Any","default":"none"},{"name":"value","kind":"Any","default":null}]}]}};
+  var render_items = [{"docid":"a5914f7e-275d-4b22-a2cf-84bd1f5fd04b","roots":{"p1004":"bb7e7bfe-e618-4e87-a784-0eff9d35660e"},"root_ids":["p1004"]}];
   var docs = Object.values(docs_json)
   if (!docs) {
     return
   }
   const py_version = docs[0].version.replace('rc', '-rc.').replace('.dev', '-dev.')
-  function embed_document(root) {
+  async function embed_document(root) {
     var Bokeh = get_bokeh(root)
-    Bokeh.embed.embed_items_notebook(docs_json, render_items);
+    await Bokeh.embed.embed_items_notebook(docs_json, render_items);
     for (const render_item of render_items) {
       for (const root_id of render_item.root_ids) {
     const id_el = document.getElementById(root_id)
-    if (id_el.children.length && (id_el.children[0].className === 'bk-root')) {
+    if (id_el.children.length && id_el.children[0].hasAttribute('data-root-id')) {
       const root_el = id_el.children[0]
       root_el.id = root_el.id + '-rendered'
+      for (const child of root_el.children) {
+            // Ensure JupyterLab does not capture keyboard shortcuts
+            // see: https://jupyterlab.readthedocs.io/en/4.1.x/extension/notebook.html#keyboard-interaction-model
+        child.setAttribute('data-lm-suppress-shortcuts', 'true')
+      }
     }
       }
     }

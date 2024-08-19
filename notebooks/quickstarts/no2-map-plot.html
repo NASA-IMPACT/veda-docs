@@ -254,12 +254,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/quickstarts/intake.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Searching VEDA STAC API and inspecting catalogs with intake</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../notebooks/quickstarts/download-assets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Download STAC assets</span></a>
   </div>
@@ -603,41 +597,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>STAC Browser: http://veda-staging-stac-browser.s3-website-us-west-2.amazonaws.com</li>
 </ul>
 <div id="b3cbcf7a-ba1e-4985-9780-2b2806d50e13" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://staging-stac.delta-backend.com"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://staging-raster.delta-backend.com"</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/stac"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/raster"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>collection_name <span class="op">=</span> <span class="st">"no2-monthly"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"no2-monthly"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="fetch-stac-collection" class="level2">
 <h2 class="anchored" data-anchor-id="fetch-stac-collection">Fetch STAC collection</h2>
 <p>We will use <code>requests</code> to fetch all the metadata about the collection of interest from STAC.</p>
 <div id="f8584f43-07d0-4530-b71e-7eee38814a60" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_name<span class="sc">}</span><span class="ss">"</span>).json()</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span>).json()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>{'id': 'no2-monthly',
  'type': 'Collection',
  'links': [{'rel': 'items',
    'type': 'application/geo+json',
-   'href': 'https://staging-stac.delta-backend.com/collections/no2-monthly/items'},
+   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly/items'},
   {'rel': 'parent',
    'type': 'application/json',
-   'href': 'https://staging-stac.delta-backend.com/'},
+   'href': 'https://openveda.cloud/api/stac/'},
   {'rel': 'root',
    'type': 'application/json',
-   'href': 'https://staging-stac.delta-backend.com/'},
+   'href': 'https://openveda.cloud/api/stac/'},
   {'rel': 'self',
    'type': 'application/json',
-   'href': 'https://staging-stac.delta-backend.com/collections/no2-monthly'}],
+   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly'}],
  'title': 'NO₂',
- 'assets': None,
- 'extent': {'spatial': {'bbox': [[-180, -90, 180, 90]]},
-  'temporal': {'interval': [['2016-01-01 00:00:00+00',
-     '2023-09-30 00:00:00+00']]}},
+ 'assets': {'thumbnail': {'href': 'https://thumbnails.openveda.cloud/no2--dataset-cover.jpg',
+   'type': 'image/jpeg',
+   'roles': ['thumbnail'],
+   'title': 'Thumbnail',
+   'description': 'Photo by [Mick Truyts](https://unsplash.com/photos/x6WQeNYJC1w) (Power plant shooting steam at the sky)'}},
+ 'extent': {'spatial': {'bbox': [[-180.0, -90.0, 180.0, 90.0]]},
+  'temporal': {'interval': [['2016-01-01T00:00:00+00:00',
+     '2022-12-31T00:00:00+00:00']]}},
  'license': 'MIT',
- 'keywords': None,
- 'providers': None,
+ 'renders': {'dashboard': {'bidx': [1],
+   'title': 'VEDA Dashboard Render Parameters',
+   'assets': ['cog_default'],
+   'rescale': [[0, 15000000000000000]],
+   'resampling': 'bilinear',
+   'color_formula': 'gamma r 1.05',
+   'colormap_name': 'rdbu_r'}},
+ 'providers': [{'url': 'https://disc.gsfc.nasa.gov/',
+   'name': 'NASA Goddard Earth Sciences Data and Information Services Center',
+   'roles': ['producer', 'processor']},
+  {'url': 'https://www.earthdata.nasa.gov/dashboard/',
+   'name': 'NASA VEDA',
+   'roles': ['host']}],
  'summaries': {'datetime': ['2016-01-01T00:00:00Z', '2023-09-30T00:00:00Z']},
  'description': 'Darker colors indicate higher nitrogen dioxide (NO₂) levels and more activity. Lighter colors indicate lower levels of NO₂ and less activity. Missing pixels indicate areas of no data most likely associated with cloud cover or snow.',
  'item_assets': {'cog_default': {'type': 'image/tiff; application=geotiff; profile=cloud-optimized',
@@ -645,7 +654,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    'title': 'Default COG Layer',
    'description': 'Cloud optimized default layer to display on map'}},
  'stac_version': '1.0.0',
- 'stac_extensions': None,
+ 'stac_extensions': ['https://stac-extensions.github.io/item-assets/v1.0.0/schema.json',
+  'https://stac-extensions.github.io/render/v1.0.0/schema.json'],
  'dashboard:is_periodic': True,
  'dashboard:time_density': 'month'}</code></pre>
 </div>
@@ -658,7 +668,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.post(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/search"</span>,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>{</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"collections"</span>: [collection_name],</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"collections"</span>: [collection_id],</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"query"</span>: {<span class="st">"datetime"</span>: {<span class="st">"eq"</span>: <span class="st">"2021-01-01T00:00:00"</span>}},</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"limit"</span>: <span class="dv">100</span>,</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    },</span>
@@ -679,20 +689,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  'type': 'Feature',
  'links': [{'rel': 'collection',
    'type': 'application/json',
-   'href': 'https://staging-stac.delta-backend.com/collections/no2-monthly'},
+   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly'},
   {'rel': 'parent',
    'type': 'application/json',
-   'href': 'https://staging-stac.delta-backend.com/collections/no2-monthly'},
+   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly'},
   {'rel': 'root',
    'type': 'application/json',
-   'href': 'https://staging-stac.delta-backend.com/'},
+   'href': 'https://openveda.cloud/api/stac/'},
   {'rel': 'self',
    'type': 'application/geo+json',
-   'href': 'https://staging-stac.delta-backend.com/collections/no2-monthly/items/OMI_trno2_0.10x0.10_202101_Col3_V4.nc'}],
- 'assets': {'cog_default': {'href': 's3://veda-data-store-staging/no2-monthly/OMI_trno2_0.10x0.10_202101_Col3_V4.nc.tif',
-   'type': 'image/tiff; application=geotiff; profile=cloud-optimized',
+   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly/items/OMI_trno2_0.10x0.10_202101_Col3_V4.nc'},
+  {'title': 'Map of Item',
+   'href': 'https://openveda.cloud/api/raster/collections/no2-monthly/items/OMI_trno2_0.10x0.10_202101_Col3_V4.nc/map?bidx=1&amp;assets=cog_default&amp;rescale=0%2C15000000000000000&amp;resampling=bilinear&amp;color_formula=gamma+r+1.05&amp;colormap_name=rdbu_r',
+   'rel': 'preview',
+   'type': 'text/html'}],
+ 'assets': {'cog_default': {'href': 's3://veda-data-store/no2-monthly/OMI_trno2_0.10x0.10_202101_Col3_V4.nc.tif',
+   'type': 'image/tiff; application=geotiff',
    'roles': ['data', 'layer'],
    'title': 'Default COG Layer',
+   'proj:bbox': [-180.0, -90.0, 180.0, 90.0],
+   'proj:epsg': 4326,
+   'proj:wkt2': 'GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]',
+   'proj:shape': [1800, 3600],
    'description': 'Cloud optimized default layer to display on map',
    'raster:bands': [{'scale': 1.0,
      'nodata': -1.2676506002282294e+30,
@@ -701,22 +719,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
      'data_type': 'float32',
      'histogram': {'max': 35781585143857150,
       'min': -4107596126486528.0,
-      'count': 11.0,
-      'buckets': [7437.0,
-       432387.0,
-       2866.0,
-       699.0,
-       356.0,
-       207.0,
-       76.0,
-       27.0,
-       7.0,
-       1.0]},
+      'count': 11,
+      'buckets': [7437, 432387, 2866, 699, 356, 207, 76, 27, 7, 1]},
      'statistics': {'mean': 367152773066762.6,
       'stddev': 961254458662885.4,
       'maximum': 35781585143857150,
       'minimum': -4107596126486528.0,
-      'valid_percent': 84.69829559326172}}]}},
+      'valid_percent': 84.69829559326172}}],
+   'proj:geometry': {'type': 'Polygon',
+    'coordinates': [[[-180.0, -90.0],
+      [180.0, -90.0],
+      [180.0, 90.0],
+      [-180.0, 90.0],
+      [-180.0, -90.0]]]},
+   'proj:projjson': {'id': {'code': 4326, 'authority': 'EPSG'},
+    'name': 'WGS 84',
+    'type': 'GeographicCRS',
+    'datum': {'name': 'World Geodetic System 1984',
+     'type': 'GeodeticReferenceFrame',
+     'ellipsoid': {'name': 'WGS 84',
+      'semi_major_axis': 6378137,
+      'inverse_flattening': 298.257223563}},
+    '$schema': 'https://proj.org/schemas/v0.4/projjson.schema.json',
+    'coordinate_system': {'axis': [{'name': 'Geodetic latitude',
+       'unit': 'degree',
+       'direction': 'north',
+       'abbreviation': 'Lat'},
+      {'name': 'Geodetic longitude',
+       'unit': 'degree',
+       'direction': 'east',
+       'abbreviation': 'Lon'}],
+     'subtype': 'ellipsoidal'}},
+   'proj:transform': [0.1, 0.0, -180.0, 0.0, -0.1, 90.0, 0.0, 0.0, 1.0]},
+  'rendered_preview': {'title': 'Rendered preview',
+   'href': 'https://openveda.cloud/api/raster/collections/no2-monthly/items/OMI_trno2_0.10x0.10_202101_Col3_V4.nc/preview.png?bidx=1&amp;assets=cog_default&amp;rescale=0%2C15000000000000000&amp;resampling=bilinear&amp;color_formula=gamma+r+1.05&amp;colormap_name=rdbu_r',
+   'rel': 'preview',
+   'roles': ['overview'],
+   'type': 'image/png'}},
  'geometry': {'type': 'Polygon',
   'coordinates': [[[-180, -90],
     [180, -90],
@@ -724,21 +763,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     [-180, 90],
     [-180, -90]]]},
  'collection': 'no2-monthly',
- 'properties': {'proj:bbox': [-180.0, -90.0, 180.0, 90.0],
-  'proj:epsg': 4326.0,
-  'proj:shape': [1800.0, 3600.0],
-  'end_datetime': '2021-01-31T00:00:00',
-  'proj:geometry': {'type': 'Polygon',
-   'coordinates': [[[-180.0, -90.0],
-     [180.0, -90.0],
-     [180.0, 90.0],
-     [-180.0, 90.0],
-     [-180.0, -90.0]]]},
-  'proj:transform': [0.1, 0.0, -180.0, 0.0, -0.1, 90.0, 0.0, 0.0, 1.0],
-  'start_datetime': '2021-01-01T00:00:00'},
+ 'properties': {'end_datetime': '2021-01-31T00:00:00+00:00',
+  'start_datetime': '2021-01-01T00:00:00+00:00'},
  'stac_version': '1.0.0',
- 'stac_extensions': ['https://stac-extensions.github.io/projection/v1.0.0/schema.json',
-  'https://stac-extensions.github.io/raster/v1.1.0/schema.json']}</code></pre>
+ 'stac_extensions': ['https://stac-extensions.github.io/raster/v1.1.0/schema.json',
+  'https://stac-extensions.github.io/projection/v1.1.0/schema.json']}</code></pre>
 </div>
 </div>
 <div id="7bc42fff" class="cell" data-execution_count="6">
@@ -749,19 +778,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="use-stactilejson.json-to-get-tiles" class="level2">
 <h2 class="anchored" data-anchor-id="use-stactilejson.json-to-get-tiles">Use <code>/stac/tilejson.json</code> to get tiles</h2>
 <p>We pass the, item id, collection name, and the <code>rescale_values</code> in to the RASTER API endpoint and get back a tile.</p>
-<div id="71acb916" class="cell" data-execution_count="7">
+<div id="71acb916" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tiles <span class="op">=</span> requests.get(</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>item[<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>item[<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">/items/</span><span class="sc">{</span>item[<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">/tilejson.json?"</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=rdbu_r"</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>).json()</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>tiles</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>{'tilejson': '2.2.0',
  'version': '1.0.0',
  'scheme': 'xyz',
- 'tiles': ['https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly&amp;item=OMI_trno2_0.10x0.10_202101_Col3_V4.nc&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=rdbu_r&amp;rescale=-4107596126486528.0%2C35781585143857150'],
+ 'tiles': ['https://openveda.cloud/api/raster/collections/no2-monthly/items/OMI_trno2_0.10x0.10_202101_Col3_V4.nc/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=rdbu_r&amp;rescale=-4107596126486528.0%2C35781585143857150'],
  'minzoom': 0,
  'maxzoom': 24,
  'bounds': [-180.0, -90.0, 180.0, 90.0],
@@ -769,13 +798,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>With that tile url in hand we can create a simple visualization using <code>folium</code>.</p>
-<div id="b4792eed" class="cell" data-execution_count="8">
+<div id="b4792eed" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>folium.Map(</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>tiles[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    min_zoom<span class="op">=</span><span class="dv">3</span>,</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"VEDA"</span>,</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
 <html>
 <head>
@@ -803,7 +832,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_d6d24d9418bc4927c0c9b16b8ec3e0d0 {
+                #map_c49fa0e7f1d7c67520d5ce20a572a6b1 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -817,14 +846,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_d6d24d9418bc4927c0c9b16b8ec3e0d0&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_c49fa0e7f1d7c67520d5ce20a572a6b1&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_d6d24d9418bc4927c0c9b16b8ec3e0d0 = L.map(
-                &quot;map_d6d24d9418bc4927c0c9b16b8ec3e0d0&quot;,
+            var map_c49fa0e7f1d7c67520d5ce20a572a6b1 = L.map(
+                &quot;map_c49fa0e7f1d7c67520d5ce20a572a6b1&quot;,
                 {
                     center: [0.0, 0.0],
                     crs: L.CRS.EPSG3857,
@@ -838,13 +867,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_e5ffbe8b54d72b5725e8d2fa0f87104c = L.tileLayer(
-                &quot;https://staging-raster.delta-backend.com/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly\u0026item=OMI_trno2_0.10x0.10_202101_Col3_V4.nc\u0026assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=rdbu_r\u0026rescale=-4107596126486528.0%2C35781585143857150&quot;,
+            var tile_layer_05d23e5138174d755959ebbbec545838 = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/collections/no2-monthly/items/OMI_trno2_0.10x0.10_202101_Col3_V4.nc/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=rdbu_r\u0026rescale=-4107596126486528.0%2C35781585143857150&quot;,
                 {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 3, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_e5ffbe8b54d72b5725e8d2fa0f87104c.addTo(map_d6d24d9418bc4927c0c9b16b8ec3e0d0);
+            tile_layer_05d23e5138174d755959ebbbec545838.addTo(map_c49fa0e7f1d7c67520d5ce20a572a6b1);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
