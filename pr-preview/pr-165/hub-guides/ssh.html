@@ -647,7 +647,7 @@ Warning
 <h3 class="anchored" data-anchor-id="setup-your-local-.sshconfig">Setup your local <code>~/.ssh/config</code></h3>
 <p>Before your first time remotely connecting to the VEDA JupyterHub, you need to configure your local ssh.</p>
 <ol type="1">
-<li><p>Add an entry that looks like the following to the end of your ~/.ssh/config (Create it if it doesn not exist).</p>
+<li><p>Add an entry that looks like the following to the end of your ~/.ssh/config. Create it if it does not exist.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Host</span> hub.openveda.cloud</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">User</span> jovyan</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">ProxyCommand</span> websocat <span class="at">--binary</span> <span class="at">-H</span><span class="op">=</span><span class="st">'Authorization: token &lt;YOUR-JUPYTERHUB-TOKEN&gt;'</span> asyncstdio: wss://%h/user/<span class="op">&lt;</span>YOUR-JUPYTERHUB-USERNAME<span class="op">&gt;</span>/sshd/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
@@ -657,7 +657,7 @@ Warning
 </section>
 <section id="setup-ssh-keys-on-your-jupyterhub-server" class="level3">
 <h3 class="anchored" data-anchor-id="setup-ssh-keys-on-your-jupyterhub-server">Setup ssh keys on your JupyterHub server</h3>
-<p>You need to put some ssh public keys in <code>~/.ssh/authorized_keys</code> after you start your JupyterHub server and have completed the setup of your private keys on your local machine (see “Setup your local ~/.ssh/config”).</p>
+<p>You need to put some ssh public keys in <code>~/.ssh/authorized_keys</code> after you start your JupyterHub server and have completed the <a href="#setup-your-local-.sshconfig">setup of your private keys on your local machine</a>.</p>
 <ol type="1">
 <li><p>Launch a server from the <a href="https://hub.openveda.cloud/">VEDA JupyterHub home page</a> if you don’t already have one running.</p></li>
 <li><p>Open a terminal in JupyterLab</p></li>
@@ -705,7 +705,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you have not ssh’d into the JupyterHub before, you will receive a notice that “The authenticity of host ‘hub.openveda.cloud (<no hostip="" for="" proxy="" command="">)’ can’t be established.”. Enter ‘yes’. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.</no></p>
+<p>If you have not ssh’d into the JupyterHub before, you will receive a notice that “The authenticity of host ‘hub.openveda.cloud’ can’t be established.”. Enter ‘yes’ in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.</p>
 </div>
 </div>
 <section id="install-extensions" class="level4">
@@ -761,7 +761,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>If you have not ssh’d into the JupyterHub before,you will receive a notice that “The authenticity of host ‘hub.openveda.cloud (<no hostip="" for="" proxy="" command="">)’ can’t be established.”. Enter ‘yes’. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.</no></p>
+<p>If you have not ssh’d into the JupyterHub before, you will receive a notice that “The authenticity of host ‘hub.openveda.cloud’ can’t be established.”. Enter ‘yes’ in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.</p>
 </div>
 </div>
 </section>
