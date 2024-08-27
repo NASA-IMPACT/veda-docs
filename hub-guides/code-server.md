@@ -4,12 +4,12 @@ This is a quick how-to guide for using VS Code as an IDE on the VEDA JupyterHub.
 
 ## Launch VSCode
 
-1. Access the launcher from the home screen by clicking the `+` tab if it is not already open
-2. Click the "VS Code" icon on the top row. This will open a new browser tab with the VS Code interface
+1. Access the launcher from the home screen by clicking the `+` tab if it is not already open.
+2. Click the "VS Code" icon on the top row. This will open a new browser tab with the VS Code interface:
 
    ![VS Code icon on the Launcher page](images/launch-vscode.png)
 
-3. Open the specific folder that you want to work in
+3. Open the specific folder that you want to work in:
 
    - Click the three lines on the upper left (a.k.a., hamburger symbol)
    - Select 'File'
@@ -19,7 +19,7 @@ This is a quick how-to guide for using VS Code as an IDE on the VEDA JupyterHub.
 
    ![Process for selecting the workspace folder](images/open-folder.png)
 
-4. Select that you trust the repository to enable all VS Code features
+4. Select that you trust the repository to enable all VS Code features:
 
    ![Process for trusting the workspace folder](images/trust-folder.png)
 
@@ -37,15 +37,15 @@ As an alternative to step 2, you can type the path to your folder after `?folder
 
 The VEDA JupyterHub comes with several VS Code extensions pre-installed. However, you may need access to others that are not installed. For example, the ms-python `Python` extension is required for debugging Python code and isn't curently installed by default.
 
-1. Navigate to the Extensions view by clicking on the icon with four boxes and one slightly offset
+1. Navigate to the Extensions view by clicking on the icon with four boxes and one slightly offset:
 
    ![Extensions icon in VS Code](images/extensions_icon.png){fig-align="left" width=100}
 
-2. The view shows the already installed extensions. Type the name of the extension you're looking for in the 'Search Extensions' text box
+2. The view shows the already installed extensions. Type the name of the extension you're looking for in the 'Search Extensions' text box:
 
    ![Install VS Code extension](images/install-extension.png)
 
-3. Click install
+3. Click install.
 
 :::{.callout-note}
 The extensions will be installed for the duration of your session. For persistant access to VS Code extensions, raise an issue in [VEDA Hub docker image repository](https://github.com/NASA-IMPACT/pangeo-notebook-veda-image).
@@ -59,12 +59,12 @@ The extensions will be installed for the duration of your session. For persistan
 
 ![VS Code Run View](images/run-and-debug.png){width=500 fig-align="left"}
 
-2. Click on "create a launch.json file"
+2. Click on "create a launch.json file":
 
 ![Create a launch.json file](images/launch-json.png){width=500 fig-align="left"}
 
-3. Select "Python Debugger"
-4. Select "Python File: Debug the currently active Python file"
+3. Select "Python Debugger".
+4. Select "Python File: Debug the currently active Python file".
 
 :::{.callout-note}
 Check out the [Visual Studio Code Debugging docs](https://code.visualstudio.com/docs/python/debugging#_set-configuration-options) for additional configuration options. One of the more useful controls is setting `"justMyCode": false` to debug imported libraries.
@@ -91,4 +91,4 @@ Add the .vscode folder to your .gitignore and put ephemeral testing modules in t
 
 ## Acknowledgments
 
-Several images in this section are from [Microsoft's public documentation for Visual Studio Code](https://github.com/microsoft/vscode-docs). Imaged are used under the terms of the under the Creative Commons Attribution 3.0 United States License.
+Several images in this section are from [Microsoft's public documentation for Visual Studio Code](https://github.com/microsoft/vscode-docs). Images are used under the terms of the under the Creative Commons Attribution 3.0 United States License.
