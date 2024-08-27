@@ -31,7 +31,7 @@ Treat this token like you would treat a password to your JupyterHub instance!
 
 Before your first time remotely connecting to the VEDA JupyterHub, you need to configure your local ssh.
 
-1. Add an entry that looks like the following to the end of your ~/.ssh/config (Create it if it doesn not exist).
+1. Add an entry that looks like the following to the end of your ~/.ssh/config. Create it if it does not exist.
 
    ```bash
    Host hub.openveda.cloud
@@ -44,7 +44,7 @@ Before your first time remotely connecting to the VEDA JupyterHub, you need to c
 
 ### Setup ssh keys on your JupyterHub server
 
-You need to put some ssh public keys in `~/.ssh/authorized_keys` after you start your JupyterHub server and have completed the setup of your private keys on your local machine (see "Setup your local ~/.ssh/config").
+You need to put some ssh public keys in `~/.ssh/authorized_keys` after you start your JupyterHub server and have completed the [setup of your private keys on your local machine](#setup-your-local-.sshconfig).
 
 1. Launch a server from the [VEDA JupyterHub home page](https://hub.openveda.cloud/) if you don't already have one running.
 2. Open a terminal in JupyterLab
@@ -76,7 +76,7 @@ Most times, you will want to select a folder that is a git repository, perhaps c
 :::
 
 :::{.callout-note}
-If you have not ssh'd into the JupyterHub before, you will receive a notice that "The authenticity of host 'hub.openveda.cloud (<no hostip for proxy command>)' can't be established.". Enter 'yes'. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.
+If you have not ssh'd into the JupyterHub before, you will receive a notice that "The authenticity of host 'hub.openveda.cloud' can't be established.". Enter 'yes' in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.
 :::
 
 #### Install extensions
@@ -110,7 +110,7 @@ Exiting VS Code will also close the remote connection.
 You are now ssh'd into the JupyterHub! If you enter a command (e.g., `touch am-i-on-the-jupyterhub`), it will be run on the remote server.
 
 :::{.callout-note}
-If you have not ssh'd into the JupyterHub before,you will receive a notice that "The authenticity of host 'hub.openveda.cloud (<no hostip for proxy command>)' can't be established.". Enter 'yes'. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.
+If you have not ssh'd into the JupyterHub before, you will receive a notice that "The authenticity of host 'hub.openveda.cloud' can't be established.". Enter 'yes' in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.
 :::
 
 ## Acknowledgments
