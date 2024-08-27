@@ -33,6 +33,10 @@ Using the full set of VS Code features requires trusting the folders, which shou
 As an alternative to step 2, you can type the path to your folder after `?folder=` in the browser URL and press enter.
 :::
 
+:::{.callout-tip}
+Most times, you will want to select a folder that is a git repository, perhaps cloned from GitHub, so that your code is version controlled.
+:::
+
 ## Installing extensions
 
 The VEDA JupyterHub comes with several VS Code extensions pre-installed. However, you may need access to others that are not installed. For example, the ms-python `Python` extension is required for debugging Python code and isn't curently installed by default.
