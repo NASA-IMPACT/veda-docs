@@ -7,7 +7,7 @@ This is a how-to guide for connecting to the VEDA JupyterHub from your local env
 :::
 
 :::{.callout-warning}
-We are exploring two options for using VS Code on the VEDA JupyterHub. This options should be considered experimental and may not be supported long-term.
+We are exploring two options for using VS Code on the VEDA JupyterHub. These options should be considered experimental and may not be supported long-term.
 :::
 
 ## Setup

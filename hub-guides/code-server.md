@@ -2,6 +2,10 @@
 
 This is a quick how-to guide for using VS Code as an IDE on the VEDA JupyterHub.
 
+:::{.callout-warning}
+We are exploring two options for using VS Code on the VEDA JupyterHub. These options should be considered experimental and may not be supported long-term.
+:::
+
 ## Launch VSCode
 
 1. Access the launcher from the home screen by clicking the `+` tab if it is not already open.
