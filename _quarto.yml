@@ -31,81 +31,75 @@ website:
     search: true
     collapse-level: 2
     contents:
-      - href: index.qmd
+      - href: pages/index.qmd
         text: Welcome
       - text: About VEDA
-        href: about.qmd
-      - section: pages/components/index.qmd
+        href: pages/about.qmd
+      - section: Nasa VEDA Platform
         contents:
-          - pages/components/dashboard.qmd
-          - pages/components/analytics.qmd
-          - pages/components/data-services.qmd
-          - pages/components/apis.qmd
-          - pages/components/jupyterhub.qmd
-      - section: pages/notebooks/index.qmd
+        - section: pages/components/index.qmd
+          contents:
+            - pages/components/dashboard.qmd
+            - pages/components/analytics.qmd
+            - pages/components/data-services.qmd
+            - pages/components/apis.qmd
+            - pages/components/jupyterhub.qmd
+        - text: Getting Access
+        - section: pages/notebooks/index.qmd
+          contents:
+            - section: Quickstarts
+              contents:
+                - section: Accessing the Data Directly
+                  contents:
+                    - pages/notebooks/quickstarts/list-collections.ipynb
+                    - pages/notebooks/quickstarts/open-and-plot.ipynb
+                    - pages/notebooks/quickstarts/timeseries-rioxarray-stackstac.ipynb
+                    - pages/notebooks/quickstarts/visualize-zarr.ipynb
+                    - pages/notebooks/quickstarts/visualize-multiple-times.ipynb
+                    - pages/notebooks/quickstarts/downsample-zarr.ipynb
+                    - pages/notebooks/quickstarts/download-assets.ipynb
+                - section: Using the Raster API
+                  contents:
+                    - pages/notebooks/quickstarts/no2-map-plot.ipynb
+                    - pages/notebooks/quickstarts/timeseries-stac-api.ipynb
+                    - pages/notebooks/quickstarts/hls-visualization.ipynb
+            - section: Tutorials
+              contents:
+                - pages/notebooks/tutorials/gif-generation.ipynb
+                - pages/notebooks/tutorials/netcdf-to-cog-cmip6.ipynb
+                - pages/notebooks/tutorials/mapping-fires.ipynb
+                - pages/notebooks/tutorials/stac_ipyleaflet.ipynb
+                - pages/notebooks/tutorials/zonal-statistics-validation.ipynb
+            - section: Datasets
+              contents:
+                - pages/notebooks/datasets/ocean-npp-timeseries-analysis.ipynb
+                - pages/notebooks/datasets/nceo-biomass-statistics.ipynb
+                - pages/notebooks/datasets/volcano-so2-monitoring.ipynb
+                - pages/notebooks/datasets/air-quality-covid.ipynb
+            - section: JupyterHub
+              contents:
+                - pages/hub-guides/code-server.md
+                - pages/hub-guides/ssh.md
+        - text: API Docs
+        - text: Community and Support
+      - section: VEDA Open-Source Ecosystem
         contents:
-          - section: Quickstarts
-            contents:
-              - section: Accessing the Data Directly
-                contents:
-                  - pages/notebooks/quickstarts/list-collections.ipynb
-                  - pages/notebooks/quickstarts/open-and-plot.ipynb
-                  - pages/notebooks/quickstarts/timeseries-rioxarray-stackstac.ipynb
-                  - pages/notebooks/quickstarts/visualize-zarr.ipynb
-                  - pages/notebooks/quickstarts/visualize-multiple-times.ipynb
-                  - pages/notebooks/quickstarts/downsample-zarr.ipynb
-                  - pages/notebooks/quickstarts/download-assets.ipynb
-              - section: Using the Raster API
-                contents:
-                  - pages/notebooks/quickstarts/no2-map-plot.ipynb
-                  - pages/notebooks/quickstarts/timeseries-stac-api.ipynb
-                  - pages/notebooks/quickstarts/hls-visualization.ipynb
-          - section: Tutorials
-            contents:
-              - pages/notebooks/tutorials/gif-generation.ipynb
-              - pages/notebooks/tutorials/netcdf-to-cog-cmip6.ipynb
-              - pages/notebooks/tutorials/mapping-fires.ipynb
-              - pages/notebooks/tutorials/stac_ipyleaflet.ipynb
-              - pages/notebooks/tutorials/zonal-statistics-validation.ipynb
-          - section: Datasets
-            contents:
-              - pages/notebooks/datasets/ocean-npp-timeseries-analysis.ipynb
-              - pages/notebooks/datasets/nceo-biomass-statistics.ipynb
-              - pages/notebooks/datasets/volcano-so2-monitoring.ipynb
-              - pages/notebooks/datasets/air-quality-covid.ipynb
-          - section: JupyterHub
-            contents:
-              - /pages/hub-guides/code-server.md
-              - /pages/hub-guides/ssh.md
-      - section: pages/repositories.qmd
-      - section: pages/contributing/index.qmd
-        contents:
-          - section: pages/contributing/docs-and-notebooks.qmd
-            contents:
-              - pages/notebooks/templates/template-accessing-the-data-directly.ipynb
-              - pages/notebooks/templates/template-using-the-raster-api.ipynb
-          - section: pages/contributing/dataset-ingestion/index.qmd
-            contents:
-              - pages/contributing/dataset-ingestion/file-preparation.qmd
-              - pages/contributing/dataset-ingestion/catalog-ingestion.qmd
-              - pages/notebooks/veda-operations/generate-cmip6-kerchunk-historical.ipynb
-              - section: STAC Collection Creation
-                contents:
-                  - pages/contributing/dataset-ingestion/stac-collection-conventions.qmd
-                  - pages/notebooks/veda-operations/stac-collection-creation.ipynb
-                  - pages/notebooks/veda-operations/publish-cmip6-kerchunk-stac.ipynb
-              - section: STAC Item Creation
-                contents:
-                  - pages/contributing/dataset-ingestion/stac-item-conventions.qmd
-                  - pages/notebooks/veda-operations/stac-item-creation.ipynb
-              - section: Boilerplate ingest example
-                contents:
-                  - pages/contributing/dataset-ingestion/example-template/example-geoglam-ingest.ipynb
-          - section: pages/contributing/dashboard-configuration/index.qmd
-            contents:
-              - pages/contributing/dashboard-configuration/dataset-configuration.qmd
-              - pages/contributing/dashboard-configuration/discovery-configuration.qmd
-      - /pages/external-resources.qmd
+        - text: Software and Service Architecture
+          href: pages/architecture.qmd
+        - text: Repositories
+          href: pages/repositories.qmd
+        - text: Choice of Standards
+          href: pages/standards
+        - text: How to Deploy Your Own VEDA
+          href: deploy.qmd
+        - text: Recommendations for Maintainers
+          href: pages/recommendations.qmd
+        - text: Related Projects
+          href: pages/related.qmd
+      - text: Contributing
+        href: pages/contributing/index.qmd
+      - text: External Resources
+        href: pages/external-resources.qmd
 format:
   html:
     theme:
