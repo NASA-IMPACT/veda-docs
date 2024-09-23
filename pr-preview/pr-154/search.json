@@ -1494,159 +1494,381 @@
     ]
   },
   {
-    "objectID": "notebooks/datasets/nldas_visualize_rawdata.html",
-    "href": "notebooks/datasets/nldas_visualize_rawdata.html",
-    "title": "Visualizing the NLDAS-3 Data",
-    "section": "",
-    "text": "You can launch this notebook in VEDA JupyterHub by clicking the link below.\nLaunch in VEDA JupyterHub (requires access)\n\n\nLearn more\n\n\n\nThis notebook was written on the VEDA JupyterHub and as such is designed to be run on a jupyterhub which is associated with an AWS IAM role which has been granted permissions to the VEDA data store via its bucket policy. The instance used provided 16GB of RAM.\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\n\nThe data is in a protected bucket. Please request access by emailng aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN). The team will help you configure the cognito client.\nYou should then run:\n%run -i 'cognito_login.py'",
-    "crumbs": [
-      "Usage Examples",
-      "Datasets",
-      "Visualizing the NLDAS-3 Data"
-    ]
-  },
-  {
-    "objectID": "notebooks/datasets/nldas_visualize_rawdata.html#run-this-notebook",
-    "href": "notebooks/datasets/nldas_visualize_rawdata.html#run-this-notebook",
-    "title": "Visualizing the NLDAS-3 Data",
-    "section": "",
-    "text": "You can launch this notebook in VEDA JupyterHub by clicking the link below.\nLaunch in VEDA JupyterHub (requires access)\n\n\nLearn more\n\n\n\nThis notebook was written on the VEDA JupyterHub and as such is designed to be run on a jupyterhub which is associated with an AWS IAM role which has been granted permissions to the VEDA data store via its bucket policy. The instance used provided 16GB of RAM.\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\n\nThe data is in a protected bucket. Please request access by emailng aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN). The team will help you configure the cognito client.\nYou should then run:\n%run -i 'cognito_login.py'",
-    "crumbs": [
-      "Usage Examples",
-      "Datasets",
-      "Visualizing the NLDAS-3 Data"
-    ]
-  },
-  {
-    "objectID": "notebooks/datasets/nldas_visualize_rawdata.html#approach",
-    "href": "notebooks/datasets/nldas_visualize_rawdata.html#approach",
-    "title": "Visualizing the NLDAS-3 Data",
-    "section": "Approach",
-    "text": "Approach\n\nIdentify available dates and temporal frequency of observations for the given collection using the GHGC API /stac endpoint. The collection processed in this notebook is the Air-Sea CO₂ Flux, ECCO-Darwin Model v5 Data product.\nPass the STAC item into the raster API /stac/tilejson.json endpoint.\nUsing folium.plugins.DualMap, we will visualize two tiles (side-by-side), allowing us to compare time points.\nAfter the visualization, we will perform zonal statistics for a given polygon.\n\n\n# import libraries\nfrom matplotlib import pyplot as plt\nimport pandas as pd\nimport xarray as xr\nimport numpy as np\nimport datetime\nfrom dateutil.relativedelta import relativedelta\nfrom __future__ import print_function\nimport boto3\nimport s3fs\nimport rioxarray\nimport rasterio\nfrom rasterio.io import MemoryFile\nimport os\nimport tempfile\nimport shutil\nfrom boto3.session import Session",
-    "crumbs": [
-      "Usage Examples",
-      "Datasets",
-      "Visualizing the NLDAS-3 Data"
-    ]
-  },
-  {
-    "objectID": "notebooks/datasets/nldas_visualize_rawdata.html#querying-the-stac-api",
-    "href": "notebooks/datasets/nldas_visualize_rawdata.html#querying-the-stac-api",
-    "title": "Visualizing the NLDAS-3 Data",
-    "section": "Querying the STAC API",
-    "text": "Querying the STAC API\nFirst, we are going to import the required libraries. Once imported, they allow better executing a query in the VEDA Spatio Temporal Asset Catalog (STAC) Application Programming Interface (API) where the granules for this collection are stored.\n\n# Provide the STAC and RASTER API endpoints\n# The endpoint is referring to a location within the API that executes a request on a data collection nesting on the server.\n\n# The STAC API is a catalog of all the existing data collections that are stored in the GHG Center.\nSTAC_API_URL = \"https://openveda.cloud/api/stac\"\n\n# The RASTER API is used to fetch collections for visualization\nRASTER_API_URL = \"https://openveda.cloud/api/raster\"\n\n# The collection name is used to fetch the dataset from the STAC API. First, we define the collection name as a variable \n# Name of the collection for ECCO Darwin CO₂ flux monthly emissions\ncollection = \"nldas-3\"\n\n\nfrom pystac_client import Client\n\ncatalog = Client.open(STAC_API_URL)\nsearch = catalog.search(collections=[collection])\n\nitem_collection = search.item_collection()\nprint(f\"Found {len(item_collection)} items\")\n\n\n## Read data\n# Read in data using `xarray` using a combination of `xpystac`, `stackstac`, and `rasterio`.\nnldas3 = stackstac.stack(item_collection, epsg=4326)\nnldas3 = nldas3.assign_coords({\"time\": nldas3.start_datetime}).squeeze()\nnldas3\n\n\nThe files are stored in Project VEDA’s AWS cloud storage platform, so they can be accessed easily with the correct credentials from any environment.\n\n# Set up global variables\n\n# Indicates the folder where the NLDAS files are found in Discover\ndirectory=r'/discover/nobackup/fmaina/veda_story/nldas3/'\n\n# Define the Lat/Long boundaries of the data for rescaling later\nnldasExtent = {\n    \"x0\":-169.0,\n    \"xn\":-52.0,\n    \"y0\":7.0,\n    \"yn\":72.0\n}\n\n#Temporary credentials, get them from Rishi Anand\n\n\n\nThe data needs to be rescaled to work properly, as there was an encoding error related to one of the axes.\n\n# This function is used to generate rescaled axes, and will be used to convert the NLDAS data to Lat/Long axes\ndef scaleAxes(x, y, x0, xn, y0, yn):\n    newX = np.array(x)\n    newY = np.array(y)\n    newX = newX * (xn-x0)/len(x)\n    newY = newY * (yn-y0)/len(y)\n    medX = np.median(newX)\n    medY = np.median(newY)\n    newX = newX-medX+((x0+xn)/2)\n    newY = newY-medY+((y0+yn)/2)\n    \n    return [newX, newY]\n\n# This function reads the files from directory starting with initYear and processes yearsToProcess years\ndef getNLDASFilesForYrRange(initYear=2019, yearsToProcess=1):\n    print(\"Reading stored files...\")\n    # The returned list of data\n    results = []\n    # A list of dates associated with each datapoint, will be returned alongside results\n    dates = []\n\n    fs = s3fs.S3FileSystem(anon=False, \n                           key=credentials[''], \n                           secret=credentials[''],\n                           token=credentials[''],\n                           client_kwargs={\n                           'endpoint_url':'https://s3.us-west-2.amazonaws.com'\n                           })\n    \n    aws_url = 's3://veda-data-store-staging/'\n    \n    # Go through the files month by month\n    for month in range(int(12 * yearsToProcess)):\n        \n        #Convert from raw month into year and month of year (Jan == 01)\n        year = month//12+initYear\n        monthOfYear = month%12+1\n        if month%12==0:\n            print(year)\n        \n        # Format the year and month of year to the standard filename format\n        yrMnth = str(year) + str(monthOfYear).zfill(2)\n        nc = xr.open_dataset(fs.open(aws_url+\"EIS/NLDAS3MonthlyData/LIS_HIST_\"+yrMnth+\".nc\")) # reading the nc file and creating Dataset\n        nc = nc.set_coords((\"lat\", \"lon\")).drop_vars(['latitude', 'longitude'])\n        \n        # Rescalin the axes to Lat/Long\n        axes = scaleAxes(nc[\"longitude\"], nc[\"latitude\"], nldasExtent[\"x0\"], nldasExtent[\"xn\"], nldasExtent[\"y0\"], nldasExtent[\"yn\"])\n        nc[\"latitude\"] = axes[1]\n        nc[\"longitude\"] = axes[0]\n        results.append(nc)\n    \n    #Iterate through all used dates as datetimes and add them to dates\n    nextM = datetime.date(initYear, 1, 1)\n    end = datetime.date(initYear+yearsToProcess-1, 12, 1)    \n\n    while nextM &lt;= end:\n        dates.append(nextM)\n        nextM += relativedelta(months=1)\n    \n    # Return generated data and corresponding dates in a dict\n    return {\n        \"data\":results,\n        \"dates\":dates\n    }\n\n\n# Get a smaller sample to play with\nsample = getNLDASFilesForYrRange(initYear=2019, yearsToProcess=2)[\"data\"]\n\nReading stored files...\n2019\n\n\n\n# Look at one of the raw pieces of data\nsample[6][\"Precep\"].plot()",
-    "crumbs": [
-      "Usage Examples",
-      "Datasets",
-      "Visualizing the NLDAS-3 Data"
-    ]
-  },
-  {
-    "objectID": "notebooks/datasets/air-quality-covid.html",
-    "href": "notebooks/datasets/air-quality-covid.html",
-    "title": "Air Quality and COVID-19",
+    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html",
+    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html",
+    "title": "Visualizing Ocean NPP time series for seasonal patterns",
     "section": "",
     "text": "You can launch this notebook using mybinder, by clicking the button below.",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Air Quality and COVID-19"
+      "Visualizing Ocean NPP time series for seasonal patterns"
     ]
   },
   {
-    "objectID": "notebooks/datasets/air-quality-covid.html#run-this-notebook",
-    "href": "notebooks/datasets/air-quality-covid.html#run-this-notebook",
-    "title": "Air Quality and COVID-19",
+    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#run-this-notebook",
+    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#run-this-notebook",
+    "title": "Visualizing Ocean NPP time series for seasonal patterns",
     "section": "",
     "text": "You can launch this notebook using mybinder, by clicking the button below.",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Air Quality and COVID-19"
+      "Visualizing Ocean NPP time series for seasonal patterns"
     ]
   },
   {
-    "objectID": "notebooks/datasets/air-quality-covid.html#approach",
-    "href": "notebooks/datasets/air-quality-covid.html#approach",
-    "title": "Air Quality and COVID-19",
+    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#approach",
+    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#approach",
+    "title": "Visualizing Ocean NPP time series for seasonal patterns",
     "section": "Approach",
-    "text": "Approach\n\nIdentify available dates and temporal frequency of observations for a given collection - NO₂\nPass the STAC item into raster API /stac/tilejson.json endpoint\nWe’ll visualize two tiles (side-by-side) allowing for comparison of each of the time points using folium.plugins.DualMap",
+    "text": "Approach\n\nIdentify available dates and temporal frequency of observations for a given collection\nPass STAC item into raster API /stac/tilejson.json endpoint\nGet time series statistics over available time period to identify seasonal trends\nVisualize peak by displaying the tile in folium\nVisualize time series of raster images",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Air Quality and COVID-19"
+      "Visualizing Ocean NPP time series for seasonal patterns"
     ]
   },
   {
-    "objectID": "notebooks/datasets/air-quality-covid.html#about-the-data",
-    "href": "notebooks/datasets/air-quality-covid.html#about-the-data",
-    "title": "Air Quality and COVID-19",
+    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#about-the-data",
+    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#about-the-data",
+    "title": "Visualizing Ocean NPP time series for seasonal patterns",
     "section": "About the Data",
-    "text": "About the Data\nThis dataset is of monthly nitrogen dioxide (NO₂) levels values across the globe. Darker colors indicate higher NO₂ levels and more activity. Lighter colors indicate lower levels of NO₂ and less activity. Missing pixels indicate areas of no data most likely associated with cloud cover or snow.",
+    "text": "About the Data\nOcean Net Primary Production (NPP) is the result of CO2 fixation, through photosynthesis, by marine phytoplankton which contain chlorophyll. It is the proportion of phytoplankton-sequestered carbon that enters the oceanic food web and supports a variety of marine life.",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Air Quality and COVID-19"
+      "Visualizing Ocean NPP time series for seasonal patterns"
     ]
   },
   {
-    "objectID": "notebooks/datasets/air-quality-covid.html#the-case-study---air-quality-and-covid-19",
-    "href": "notebooks/datasets/air-quality-covid.html#the-case-study---air-quality-and-covid-19",
-    "title": "Air Quality and COVID-19",
-    "section": "The Case Study - Air Quality and COVID-19",
-    "text": "The Case Study - Air Quality and COVID-19\nIn this notebook, we’ll walk through the development of side-by-side comparisons of NO₂ levels before and after government lockdowns as demonstrated Seeing Rebounds in NO₂ in this VEDA Discovery story: Air Quality and COVID-19 available on the VEDA Dashboard.",
+    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#the-case-study---walvis-bay-namibia",
+    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#the-case-study---walvis-bay-namibia",
+    "title": "Visualizing Ocean NPP time series for seasonal patterns",
+    "section": "The Case Study - Walvis Bay, Namibia",
+    "text": "The Case Study - Walvis Bay, Namibia\nWalvis Bay is home to Namibia’s largest marine farming center and a well established commercial fishing industry. It’s location in the nutrient-rich Benguela upwelling system of the Atlantic Ocean, means producers can rely on this area to cultivate an abundance of shellfish including oysters, mussels, and scallops.\nOccasionally the nutrient-rich waters of the Atlantic produce higher than normal NPP levels, resulting in short-lived harmful algal blooms. This is often a result of both favorable temperatures and abundance of sufficient nutrients. The resulting algal blooms can have severe consequences causing massive fish kills, contaminating seafood with toxins and creating an unsafe environment for humans and marine life. Toxins accumulated in the shellfish organs can be subsequently transmitted to humans through consumption and resulting in serious health threats.\nIn this example we explore the Ocean NPP dataset over the year 2020 to identify spatial and temporal patterns of Ocean NPP in the Walvis Bay area.",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Air Quality and COVID-19"
+      "Visualizing Ocean NPP time series for seasonal patterns"
     ]
   },
   {
-    "objectID": "notebooks/datasets/air-quality-covid.html#querying-the-stac-api",
-    "href": "notebooks/datasets/air-quality-covid.html#querying-the-stac-api",
-    "title": "Air Quality and COVID-19",
+    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#querying-the-stac-api",
+    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#querying-the-stac-api",
+    "title": "Visualizing Ocean NPP time series for seasonal patterns",
     "section": "Querying the STAC API",
-    "text": "Querying the STAC API\n\nimport requests\nfrom folium import Map, TileLayer\n\n\n# Provide STAC and RASTER API endpoints\nSTAC_API_URL = \"https://openveda.cloud/api/stac\"\nRASTER_API_URL = \"https://openveda.cloud/api/raster\"\n\n# Declare collection of interest - Nitrogen Oxide\ncollection_name = \"no2-monthly\"\n\n\n#Fetch STAC collection\ncollection = requests.get(f\"{STAC_API_URL}/collections/{collection_name}\").json()\ncollection\n\n{'id': 'no2-monthly',\n 'type': 'Collection',\n 'links': [{'rel': 'items',\n   'type': 'application/geo+json',\n   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly/items'},\n  {'rel': 'parent',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/'},\n  {'rel': 'root',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/'},\n  {'rel': 'self',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly'}],\n 'title': 'NO₂',\n 'assets': {'thumbnail': {'href': 'https://thumbnails.openveda.cloud/no2--dataset-cover.jpg',\n   'type': 'image/jpeg',\n   'roles': ['thumbnail'],\n   'title': 'Thumbnail',\n   'description': 'Photo by [Mick Truyts](https://unsplash.com/photos/x6WQeNYJC1w) (Power plant shooting steam at the sky)'}},\n 'extent': {'spatial': {'bbox': [[-180.0, -90.0, 180.0, 90.0]]},\n  'temporal': {'interval': [['2016-01-01T00:00:00+00:00',\n     '2022-12-31T00:00:00+00:00']]}},\n 'license': 'MIT',\n 'renders': {'dashboard': {'bidx': [1],\n   'title': 'VEDA Dashboard Render Parameters',\n   'assets': ['cog_default'],\n   'rescale': [[0, 15000000000000000]],\n   'resampling': 'bilinear',\n   'color_formula': 'gamma r 1.05',\n   'colormap_name': 'rdbu_r'}},\n 'providers': [{'url': 'https://disc.gsfc.nasa.gov/',\n   'name': 'NASA Goddard Earth Sciences Data and Information Services Center',\n   'roles': ['producer', 'processor']},\n  {'url': 'https://www.earthdata.nasa.gov/dashboard/',\n   'name': 'NASA VEDA',\n   'roles': ['host']}],\n 'summaries': {'datetime': ['2016-01-01T00:00:00Z', '2023-09-30T00:00:00Z']},\n 'description': 'Darker colors indicate higher nitrogen dioxide (NO₂) levels and more activity. Lighter colors indicate lower levels of NO₂ and less activity. Missing pixels indicate areas of no data most likely associated with cloud cover or snow.',\n 'item_assets': {'cog_default': {'type': 'image/tiff; application=geotiff; profile=cloud-optimized',\n   'roles': ['data', 'layer'],\n   'title': 'Default COG Layer',\n   'description': 'Cloud optimized default layer to display on map'}},\n 'stac_version': '1.0.0',\n 'stac_extensions': ['https://stac-extensions.github.io/item-assets/v1.0.0/schema.json',\n  'https://stac-extensions.github.io/render/v1.0.0/schema.json'],\n 'dashboard:is_periodic': True,\n 'dashboard:time_density': 'month'}\n\n\nExamining the contents of our collection under summaries we see that the data is available from January 2015 to December 2022. By looking at the dashboard:time density we observe that the periodic frequency of these observations is monthly.\n\n# Check total number of items available\nitems = requests.get(f\"{STAC_API_URL}/collections/{collection_name}/items?limit=100\").json()[\"features\"]\nprint(f\"Found {len(items)} items\")\n\nFound 93 items\n\n\nThis makes sense as there are 7 years between 2016 - 2022, with 12 months per year, meaning 84 records in total.\nBelow, we’ll provide the max range of values to apply to visualizations of all items in the collection (rescale_values).\n\nrescale_values = {\n    \"max\": 50064805976866816,\n    \"min\": -1018382487283302\n}",
+    "text": "Querying the STAC API\n\nimport requests\nfrom folium import Map, TileLayer\n\n\n# Provife STAC and RASTER API endpoints\nSTAC_API_URL = \"https://openveda.cloud/api/stac\"\nRASTER_API_URL = \"https://openveda.cloud/api/raster\"\n\n# Declare collection of interest - Ocean NPP\ncollection_name = \"MO_NPP_npp_vgpm\"\n\n\n# Fetch STAC collection\ncollection = requests.get(f\"{STAC_API_URL}/collections/{collection_name}\").json()\ncollection\n\n{'id': 'MO_NPP_npp_vgpm',\n 'type': 'Collection',\n 'links': [{'rel': 'items',\n   'type': 'application/geo+json',\n   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm/items'},\n  {'rel': 'parent',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/'},\n  {'rel': 'root',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/'},\n  {'rel': 'self',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm'}],\n 'title': '',\n 'assets': {'thumbnail': {'href': 'https://thumbnails.openveda.cloud/ocean-production--dataset-cover.jpg',\n   'type': 'image/jpeg',\n   'roles': ['thumbnail'],\n   'title': 'Thumbnail',\n   'description': 'Photo by [Karl Callwood](https://unsplash.com/photos/Ko1sGLhZm5w) (Rocky ocean shore)'}},\n 'extent': {'spatial': {'bbox': [[-180.0000050868518,\n     -90.00000508655744,\n     180.0000050868518,\n     89.9999974571629]]},\n  'temporal': {'interval': [['2020-01-01T00:00:00+00:00',\n     '2020-12-31T00:00:00+00:00']]}},\n 'license': 'MIT',\n 'renders': {'dashboard': {'title': 'VEDA Dashboard Render Parameters',\n   'assets': ['cog_default'],\n   'rescale': [[0, 1500]],\n   'colormap_name': 'jet'}},\n 'providers': [{'url': 'https://www.earthdata.nasa.gov/dashboard/',\n   'name': 'NASA VEDA',\n   'roles': ['host']}],\n 'summaries': {'datetime': ['2020-01-01T00:00:00Z', '2020-12-31T00:00:00Z']},\n 'description': 'Ocean Net Primary Production (NPP): https://oceancolor.gsfc.nasa.gov/atbd/npp/',\n 'item_assets': {'cog_default': {'type': 'image/tiff; application=geotiff; profile=cloud-optimized',\n   'roles': ['data', 'layer'],\n   'title': 'Default COG Layer',\n   'description': 'Cloud optimized default layer to display on map'}},\n 'stac_version': '1.0.0',\n 'stac_extensions': ['https://stac-extensions.github.io/render/v1.0.0/schema.json',\n  'https://stac-extensions.github.io/item-assets/v1.0.0/schema.json'],\n 'dashboard:is_periodic': True,\n 'dashboard:time_density': 'month'}\n\n\n\n# Verify frequency of data available\ncollection[\"dashboard:time_density\"]\n\n'month'\n\n\n\n# Get collection summary\ncollection[\"summaries\"]\n\n{'datetime': ['2020-01-01T00:00:00Z', '2020-12-31T00:00:00Z']}\n\n\nGreat, we can explore the year 2020 time series. Let’s create a bounding box to explore the Walvis Bay area of interest (AOI) in Namibia\n\n# Walvis Bay, Namibia\nwalvis_bay_aoi = {\n    \"type\": \"Feature\",\n    \"properties\": {},\n    \"geometry\": {\n        \"coordinates\": [\n            [\n                [13.686159004559698, -21.700046934333145],\n                [13.686159004559698, -23.241974326585833],\n                [14.753560168039911, -23.241974326585833],\n                [14.753560168039911, -21.700046934333145],\n                [13.686159004559698, -21.700046934333145],\n            ]\n        ],\n        \"type\": \"Polygon\",\n    },\n}\n\nLet’s visualize the AOI we have just created using folium\n\n# We'll plug in the coordinates for a location\n# central to the study area and a reasonable zoom level\n\nimport folium\n\nm = Map(\n    tiles=\"OpenStreetMap\",\n    location=[\n        -22.421460,\n        14.268801,\n    ],\n    zoom_start=8,\n)\n\nfolium.GeoJson(walvis_bay_aoi, name=\"Walvis Bay\").add_to(m)\nm\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook\n\n\nReturning back to our STAC API requests, let’s check how many total items are available.\n\n# Check total number of items available\nitems = requests.get(\n    f\"{STAC_API_URL}/collections/{collection_name}/items?limit=100\"\n).json()[\"features\"]\nprint(f\"Found {len(items)} items\")\n\nFound 12 items\n\n\nThis makes sense is our collection is monthly, so we should have 12 total items.\n\n# Explore one item to see what it contains\nitems[0]\n\n{'id': 'A_202012.L3m_MO_NPP_npp_vgpm_4km',\n 'bbox': [-180.0000050868518,\n  -90.00000508655744,\n  180.0000050868518,\n  89.9999974571629],\n 'type': 'Feature',\n 'links': [{'rel': 'collection',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm'},\n  {'rel': 'parent',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm'},\n  {'rel': 'root',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/'},\n  {'rel': 'self',\n   'type': 'application/geo+json',\n   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm/items/A_202012.L3m_MO_NPP_npp_vgpm_4km'},\n  {'title': 'Map of Item',\n   'href': 'https://openveda.cloud/api/raster/stac/map?collection=MO_NPP_npp_vgpm&item=A_202012.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&rescale=0%2C1500&colormap_name=jet',\n   'rel': 'preview',\n   'type': 'text/html'}],\n 'assets': {'cog_default': {'href': 's3://veda-data-store/MO_NPP_npp_vgpm/A_202012.L3m_MO_NPP_npp_vgpm_4km.tif',\n   'type': 'image/tiff; application=geotiff',\n   'roles': ['data', 'layer'],\n   'title': 'Default COG Layer',\n   'proj:bbox': [-180.0000050868518,\n    -90.00000508655744,\n    180.0000050868518,\n    89.9999974571629],\n   'proj:epsg': 4326,\n   'proj:wkt2': 'GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]',\n   'proj:shape': [4320, 8640],\n   'description': 'Cloud optimized default layer to display on map',\n   'raster:bands': [{'scale': 1.0,\n     'nodata': -32767.0,\n     'offset': 0.0,\n     'sampling': 'area',\n     'data_type': 'float32',\n     'histogram': {'max': 18305.302734375,\n      'min': 20.69771957397461,\n      'count': 11,\n      'buckets': [223827, 2620, 363, 105, 45, 20, 13, 4, 1, 4]},\n     'statistics': {'mean': 448.69620531977694,\n      'stddev': 450.1186820854004,\n      'maximum': 18305.302734375,\n      'minimum': 20.69771957397461,\n      'valid_percent': 43.29719543457031}}],\n   'proj:geometry': {'type': 'Polygon',\n    'coordinates': [[[-180.0000050868518, -90.00000508655744],\n      [180.0000050868518, -90.00000508655744],\n      [180.0000050868518, 89.9999974571629],\n      [-180.0000050868518, 89.9999974571629],\n      [-180.0000050868518, -90.00000508655744]]]},\n   'proj:projjson': {'id': {'code': 4326, 'authority': 'EPSG'},\n    'name': 'WGS 84',\n    'type': 'GeographicCRS',\n    'datum': {'name': 'World Geodetic System 1984',\n     'type': 'GeodeticReferenceFrame',\n     'ellipsoid': {'name': 'WGS 84',\n      'semi_major_axis': 6378137,\n      'inverse_flattening': 298.257223563}},\n    '$schema': 'https://proj.org/schemas/v0.4/projjson.schema.json',\n    'coordinate_system': {'axis': [{'name': 'Geodetic latitude',\n       'unit': 'degree',\n       'direction': 'north',\n       'abbreviation': 'Lat'},\n      {'name': 'Geodetic longitude',\n       'unit': 'degree',\n       'direction': 'east',\n       'abbreviation': 'Lon'}],\n     'subtype': 'ellipsoidal'}},\n   'proj:transform': [0.041666667844178655,\n    0.0,\n    -180.0000050868518,\n    0.0,\n    -0.04166666725549082,\n    89.9999974571629,\n    0.0,\n    0.0,\n    1.0]},\n  'rendered_preview': {'title': 'Rendered preview',\n   'href': 'https://openveda.cloud/api/raster/stac/preview.png?collection=MO_NPP_npp_vgpm&item=A_202012.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&rescale=0%2C1500&colormap_name=jet',\n   'rel': 'preview',\n   'roles': ['overview'],\n   'type': 'image/png'}},\n 'geometry': {'type': 'Polygon',\n  'coordinates': [[[-180.0000050868518, -90.00000508655744],\n    [180.0000050868518, -90.00000508655744],\n    [180.0000050868518, 89.9999974571629],\n    [-180.0000050868518, 89.9999974571629],\n    [-180.0000050868518, -90.00000508655744]]]},\n 'collection': 'MO_NPP_npp_vgpm',\n 'properties': {'end_datetime': '2020-12-31T00:00:00+00:00',\n  'start_datetime': '2020-12-01T00:00:00+00:00'},\n 'stac_version': '1.0.0',\n 'stac_extensions': ['https://stac-extensions.github.io/raster/v1.1.0/schema.json',\n  'https://stac-extensions.github.io/projection/v1.1.0/schema.json']}\n\n\nNow that we have explored the collection metadata by querying the STAC API, we can use the RASTER API to access the data itself.\nNOTE: The RASTER_API expects AOI as a Feature or a FeatureCollection. The datatype of the input matches the datatype of the output. So if you use a FeatureCollection as input, you will get back a FeatureCollection.\n\ndef generate_stats(item, aoi):\n    \"\"\" Generate statistics for a particular item and AOI\n\n    NOTE: This function assumes that the AOI is a geojson `Feature`.\n    \"\"\"\n    result = requests.post(\n        f\"{RASTER_API_URL}/cog/statistics\",\n        params={\"url\": item[\"assets\"][\"cog_default\"][\"href\"]},\n        json=aoi,\n    ).json()\n\n    return {\n        **result[\"properties\"],\n        \"start_datetime\": item[\"properties\"][\"start_datetime\"],\n    }\n\n\n%%time\nstats = [generate_stats(item, walvis_bay_aoi) for item in items]\n\nCPU times: user 52.5 ms, sys: 348 µs, total: 52.8 ms\nWall time: 7.7 s\n\n\nWith the function provided above, we can generate statistics for our AOI. In the example below, we’ll explore sample statistics available from one of the tiles.\n\nstats[1]\n\n{'statistics': {'b1': {'min': 3040.676025390625,\n   'max': 20105.990234375,\n   'mean': 7803.88623046875,\n   'count': 625.0,\n   'sum': 4877429.0,\n   'std': 3784.4446091863997,\n   'median': 6578.16162109375,\n   'majority': 8848.3544921875,\n   'minority': 3040.676025390625,\n   'unique': 615.0,\n   'histogram': [[149.0, 154.0, 91.0, 76.0, 50.0, 37.0, 24.0, 26.0, 10.0, 8.0],\n    [3040.676025390625,\n     4747.20751953125,\n     6453.73876953125,\n     8160.2705078125,\n     9866.8017578125,\n     11573.3330078125,\n     13279.8642578125,\n     14986.3955078125,\n     16692.927734375,\n     18399.458984375,\n     20105.990234375]],\n   'valid_percent': 64.97,\n   'masked_pixels': 337.0,\n   'valid_pixels': 625.0,\n   'percentile_2': 3431.018310546875,\n   'percentile_98': 17551.427734375}},\n 'start_datetime': '2020-11-01T00:00:00+00:00'}\n\n\n\nimport pandas as pd\n\n\ndef clean_stats(stats_json) -&gt; pd.DataFrame:\n    df = pd.json_normalize(stats_json)\n    df.columns = [col.replace(\"statistics.b1.\", \"\") for col in df.columns]\n    df[\"date\"] = pd.to_datetime(df[\"start_datetime\"])\n    return df\n\n\ndf = clean_stats(stats)",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Air Quality and COVID-19"
+      "Visualizing Ocean NPP time series for seasonal patterns"
     ]
   },
   {
-    "objectID": "notebooks/datasets/air-quality-covid.html#exploring-changes-in-nitrogen-oxide-no₂-related-to-changes-in-human-behavior---using-the-raster-api",
-    "href": "notebooks/datasets/air-quality-covid.html#exploring-changes-in-nitrogen-oxide-no₂-related-to-changes-in-human-behavior---using-the-raster-api",
-    "title": "Air Quality and COVID-19",
-    "section": "Exploring Changes in Nitrogen Oxide (NO₂) Related to Changes in Human Behavior - Using the Raster API",
-    "text": "Exploring Changes in Nitrogen Oxide (NO₂) Related to Changes in Human Behavior - Using the Raster API\nWe will explore changes in air quality due to changes in human behaviour resulting from the COVID-19 pandemic. With people largely confined to their homes to reduce the spread of the novel coronavirus, scientists were anticipated there were likely to be fewer cars, planes, and ships emitting fossil fuel pollution. In this notebook, we’ll explore the impacts these government lockdowns had on specific air pollutants (i.e., NO₂) and explore these changes over time. We’ll then visualize the outputs on a map using folium.\n\n# to access the year value from each item more easily, this will let us query more explicity by year and month (e.g., 2020-02)\nitems = {item[\"properties\"][\"start_datetime\"][:7]: item for item in items} \n\nNow we will pass the item id, collection name, and rescaling_factor to the Raster API endpoint. We will do this twice times, once for February 2020 and again for February 2022, so that we can visualize each event independently.\n\nfebruary_2020_tile = requests.get(\n    f\"{RASTER_API_URL}/stac/tilejson.json?collection={items['2020-02']['collection']}&item={items['2020-02']['id']}\"\n    \"&assets=cog_default\"\n    \"&color_formula=gamma+r+1.05&colormap_name=cool\"\n    f\"&rescale={rescale_values['min']},{rescale_values['max']}\", \n).json()\nfebruary_2020_tile\n\n{'tilejson': '2.2.0',\n 'version': '1.0.0',\n 'scheme': 'xyz',\n 'tiles': ['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly&item=OMI_trno2_0.10x0.10_202002_Col3_V4.nc&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=cool&rescale=-1018382487283302%2C50064805976866816'],\n 'minzoom': 0,\n 'maxzoom': 24,\n 'bounds': [-180.0, -90.0, 180.0, 90.0],\n 'center': [0.0, 0.0, 0]}\n\n\n\nfebruary_2022_tile = requests.get(\n    f\"{RASTER_API_URL}/stac/tilejson.json?collection={items['2022-02']['collection']}&item={items['2022-02']['id']}\"\n    \"&assets=cog_default\"\n    \"&color_formula=gamma+r+1.05&colormap_name=cool\"\n    f\"&rescale={rescale_values['min']},{rescale_values['max']}\", \n).json()\nfebruary_2022_tile\n\n{'tilejson': '2.2.0',\n 'version': '1.0.0',\n 'scheme': 'xyz',\n 'tiles': ['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly&item=OMI_trno2_0.10x0.10_202202_Col3_V4.nc&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=cool&rescale=-1018382487283302%2C50064805976866816'],\n 'minzoom': 0,\n 'maxzoom': 24,\n 'bounds': [-180.0, -90.0, 180.0, 90.0],\n 'center': [0.0, 0.0, 0]}",
+    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#visualizing-the-data-as-a-time-series",
+    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#visualizing-the-data-as-a-time-series",
+    "title": "Visualizing Ocean NPP time series for seasonal patterns",
+    "section": "Visualizing the Data as a Time Series",
+    "text": "Visualizing the Data as a Time Series\nWe can now explore the full Ocean NPP time series available (January-December 2020) for the Walvis Bay area of Namibia. We can plot the data set using the code below:\n\nimport matplotlib.pyplot as plt\n\nfig = plt.figure(figsize=(20, 10))\n\nplt.plot(df[\"date\"], df[\"mean\"], \"black\", label=\"Mean monthly Ocean NPP values\")\n\nplt.fill_between(\n    df[\"date\"],\n    df[\"mean\"] + df[\"std\"],\n    df[\"mean\"] - df[\"std\"],\n    facecolor=\"lightgray\",\n    interpolate=False,\n    label=\"+/- one standard devation\",\n)\n\nplt.plot(\n    df[\"date\"],\n    df[\"min\"],\n    color=\"blue\",\n    linestyle=\"-\",\n    linewidth=0.5,\n    label=\"Min monthly NPP values\",\n)\nplt.plot(\n    df[\"date\"],\n    df[\"max\"],\n    color=\"red\",\n    linestyle=\"-\",\n    linewidth=0.5,\n    label=\"Max monhtly NPP values\",\n)\n\nplt.legend()\nplt.title(\"Ocean NPP Values for Walvis Bay, Namibia (2020)\")\n\nText(0.5, 1.0, 'Ocean NPP Values for Walvis Bay, Namibia (2020)')\n\n\n\n\n\n\n\n\n\nHere, we observe the seasonal variability in Ocean NPP for the Walvis Bay area. The larger peaks in the max values suggests the intensity of these events may vary spatially. Let’s explore one of the time steps (e.g., October) where there are higher maximum monthly NPP values to see if this is the case.\nImportant note: Keep in mind that the size and extent of your AOI will influence the ‘signal’ of your time series. If the phenomena you are investigating displays greater spatial variability a larger AOI will provide more ‘noise’ making it more difficult to detect.",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Air Quality and COVID-19"
+      "Visualizing Ocean NPP time series for seasonal patterns"
     ]
   },
   {
-    "objectID": "notebooks/datasets/air-quality-covid.html#seeing-rebounds-in-no₂",
-    "href": "notebooks/datasets/air-quality-covid.html#seeing-rebounds-in-no₂",
-    "title": "Air Quality and COVID-19",
-    "section": "Seeing Rebounds in NO₂",
-    "text": "Seeing Rebounds in NO₂\nAir pollutants with short lifespans, like NO₂, decreased dramatically with COVID-related shutdowns in the spring of 2020 (see lefthand side map). As the world began to re-open and mobility restrictions eased, travel increased and alongside it NO₂ pollutants. Air quality levels are now returning to pre-pandemic levels (see righthand side map).\nScroll and zoom within the maps below, the side-by-side comparison will follow wherever you explore. Darker purples indicate higher NO₂ levels and more activity. Lighter blues indicate lower levels of NO₂ and less activity.\n\n# We'll import folium to map and folium.plugins to allow mapping side-by-side\nimport folium\nimport folium.plugins\n\n# Set initial zoom and map for NO2 Layer\nm = folium.plugins.DualMap(location=(33.6901, 118.9325), zoom_start=5)\n\n# February 2020\nmap_layer_2020 = TileLayer(\n    tiles=february_2020_tile[\"tiles\"][0],\n    attr=\"VEDA\",\n    opacity=0.8,\n)\nmap_layer_2020.add_to(m.m1)\n\n# February 2022\nmap_layer_2022 = TileLayer(\n    tiles=february_2022_tile[\"tiles\"][0],\n    attr=\"VEDA\",\n    opacity=0.8,\n)\nmap_layer_2022.add_to(m.m2)\n\nm\n\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook",
+    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#visualizing-the-raster-imagery",
+    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#visualizing-the-raster-imagery",
+    "title": "Visualizing Ocean NPP time series for seasonal patterns",
+    "section": "Visualizing the Raster Imagery",
+    "text": "Visualizing the Raster Imagery\nLet’s first explore a single tile during one of the relative peaks in October, where we observe an increased sustained peak in NPP values.\n\nprint(items[2][\"properties\"][\"start_datetime\"])\n\n2020-10-01T00:00:00+00:00\n\n\n\n# Declare the range of values for this collection\nrescale_values = {\"max\": 34561.35546875, \"min\": 14.516647338867188}\n\n\noctober_tile = requests.get(\n    f\"{RASTER_API_URL}/stac/tilejson.json?collection={items[2]['collection']}&item={items[2]['id']}\"\n    \"&assets=cog_default\"\n    \"&color_formula=gamma+r+1.05&colormap_name=viridis\"\n    f\"&rescale={rescale_values['min']},{rescale_values['max']}\",\n).json()\noctober_tile\n\n{'tilejson': '2.2.0',\n 'version': '1.0.0',\n 'scheme': 'xyz',\n 'tiles': ['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202010.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875'],\n 'minzoom': 0,\n 'maxzoom': 24,\n 'bounds': [-180.0000050868518,\n  -90.00000508655744,\n  180.0000050868518,\n  89.9999974571629],\n 'center': [0.0, -3.814697265625e-06, 0]}\n\n\n\n# Use bbox initial zoom and map\n# Set up a map located w/in event bounds\nimport folium\n\nm = Map(\n    tiles=\"OpenStreetMap\",\n    location=[\n        -22.421460,\n        14.268801,\n    ],\n    zoom_start=8,\n)\n\nmap_layer = TileLayer(\n    tiles=october_tile[\"tiles\"][0],\n    attr=\"VEDA\",\n)\n\nmap_layer.add_to(m)\n\nm\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook\n\n\nFrom the image above, we see higher Ocean NPP values (displayed in teal) located in and around Walvis Bay and the surrounding shorelines - highlighting areas of concern for the local shellfish industry.",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Air Quality and COVID-19"
+      "Visualizing Ocean NPP time series for seasonal patterns"
     ]
   },
   {
-    "objectID": "notebooks/datasets/air-quality-covid.html#summary",
-    "href": "notebooks/datasets/air-quality-covid.html#summary",
-    "title": "Air Quality and COVID-19",
+    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#visualizing-the-raster-time-series",
+    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#visualizing-the-raster-time-series",
+    "title": "Visualizing Ocean NPP time series for seasonal patterns",
+    "section": "Visualizing the raster time series",
+    "text": "Visualizing the raster time series\nNow we will look at each of the raster tiles that make up this time series to explore the spatial and temporal patterns of Ocean NPP observed in Walvis Bay throughout 2020.\nWe used the code below to examine the tiles and the order in which they are presented.\n\nimport matplotlib.pyplot as plt\n\nfor item in items:\n    tiles = requests.get(\n        f\"{RASTER_API_URL}/stac/tilejson.json?collection={item['collection']}&item={item['id']}\"\n        \"&assets=cog_default\"\n        \"&color_formula=gamma+r+1.05&colormap_name=viridis\"\n        f\"&rescale={rescale_values['min']},{rescale_values['max']}\",\n    ).json()\n    print(tiles[\"tiles\"])\n\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202012.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202011.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202010.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202009.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202008.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202007.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202006.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202005.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202004.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202003.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202002.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202001.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n\n\nSince we found the tiles to be presented in reverse time order, we’ll revise this in the code below. We’ll use reversed() to do so.\n\nimport tempfile\nfrom datetime import datetime\nimport dateutil.parser as parser\nfrom IPython.display import display, Image\n\nfor item in reversed(items):\n    response = requests.post(\n        f\"{RASTER_API_URL}/cog/feature\",\n        params={\n            \"format\": \"png\",\n            \"height\": 512,\n            \"width\": 512,\n            \"url\": item[\"assets\"][\"cog_default\"][\"href\"],\n            \"rescale\": f\"{rescale_values['min']},{rescale_values['max']}\",\n            \"colormap_name\": \"viridis\",\n        },\n        json=walvis_bay_aoi,\n    )\n    assert response.ok, response.text\n    image_bytes = response.content\n\n    # formating the datetime to make for easier reading\n    datetime_str = item[\"properties\"][\"start_datetime\"]\n    datetime_object = parser.parse(datetime_str)\n    print(datetime_object.strftime(\"%B %Y\"))\n\n    display(Image(image_bytes, height=512, width=512))\n\nJanuary 2020\n\n\n\n\n\n\n\n\n\nFebruary 2020\n\n\n\n\n\n\n\n\n\nMarch 2020\n\n\n\n\n\n\n\n\n\nApril 2020\n\n\n\n\n\n\n\n\n\nMay 2020\n\n\n\n\n\n\n\n\n\nJune 2020\n\n\n\n\n\n\n\n\n\nJuly 2020\n\n\n\n\n\n\n\n\n\nAugust 2020\n\n\n\n\n\n\n\n\n\nSeptember 2020\n\n\n\n\n\n\n\n\n\nOctober 2020\n\n\n\n\n\n\n\n\n\nNovember 2020\n\n\n\n\n\n\n\n\n\nDecember 2020",
+    "crumbs": [
+      "Usage Examples",
+      "Datasets",
+      "Visualizing Ocean NPP time series for seasonal patterns"
+    ]
+  },
+  {
+    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#summary",
+    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#summary",
+    "title": "Visualizing Ocean NPP time series for seasonal patterns",
     "section": "Summary",
-    "text": "Summary\nIn this case study we have successfully visualized how NASA monitors NO₂ emissions from space. By showcasing lockdown (February 2020) and post-lockdown (February 2022) snapshots of air quality side-by-side, we demonstrate how quickly atmospheric NO₂ responds to reductions in emissions and human behavior.",
+    "text": "Summary\nIn this case study we have successfully visualized the spatial and temporal variability of Ocean NPP values in the Benguela Current, which displays a seasonal pattern of peaking in the October, November, December, and January months when favorable temperatures and nutrient conditions are present.",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Air Quality and COVID-19"
+      "Visualizing Ocean NPP time series for seasonal patterns"
+    ]
+  },
+  {
+    "objectID": "notebooks/datasets/nldas_compare2_3.html",
+    "href": "notebooks/datasets/nldas_compare2_3.html",
+    "title": "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data",
+    "section": "",
+    "text": "You can launch this notebook in VEDA JupyterHub by clicking the link below.\nLaunch in VEDA JupyterHub (requires access)\n\n\nLearn more\n\n\n\nThis notebook was written on the VEDA JupyterHub and as such is designed to be run on a jupyterhub which is associated with an AWS IAM role which has been granted permissions to the VEDA data store via its bucket policy. The instance used provided 16GB of RAM.\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\n\nThe data is in a protected bucket. Please request access by emailng aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN). The team will help you configure the cognito client.\nYou should then run:\n%run -i 'cognito_login.py'",
+    "crumbs": [
+      "Usage Examples",
+      "Datasets",
+      "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data"
+    ]
+  },
+  {
+    "objectID": "notebooks/datasets/nldas_compare2_3.html#run-this-notebook",
+    "href": "notebooks/datasets/nldas_compare2_3.html#run-this-notebook",
+    "title": "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data",
+    "section": "",
+    "text": "You can launch this notebook in VEDA JupyterHub by clicking the link below.\nLaunch in VEDA JupyterHub (requires access)\n\n\nLearn more\n\n\n\nThis notebook was written on the VEDA JupyterHub and as such is designed to be run on a jupyterhub which is associated with an AWS IAM role which has been granted permissions to the VEDA data store via its bucket policy. The instance used provided 16GB of RAM.\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\n\nThe data is in a protected bucket. Please request access by emailng aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN). The team will help you configure the cognito client.\nYou should then run:\n%run -i 'cognito_login.py'",
+    "crumbs": [
+      "Usage Examples",
+      "Datasets",
+      "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data"
+    ]
+  },
+  {
+    "objectID": "notebooks/datasets/nldas_compare2_3.html#about-the-data",
+    "href": "notebooks/datasets/nldas_compare2_3.html#about-the-data",
+    "title": "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data",
+    "section": "About the Data",
+    "text": "About the Data\nNLDAS is a widely used land modeling environment that generates estimates of land surface fluxes and states such as soil moisture, snow, and streamflow. These estimates are critical for drought and flood monitoring, water availability and water resource management, climate assessments, and other uses. NLDAS-3 is the next generation version of NLDAS-2, and offers significant improvements such as improved spatial resolution (12.5km to 1km), expanded domain (CONUS to North and Central America), reduced data latency (3.5 days to near real-time), and assimilation of NASA remote sensing data, among others. (see Earthdata VEDA Data Story (https://www.earthdata.nasa.gov/dashboard/stories/nldas)). Please note that the NLDAS-3 precipitation data provided here is a sample dataset still in development, and will not be the final NLDAS-3 product when it is released.\nThis notebook is intended to visualize and compare the NLDAS-2 and sample NLDAS-3 monthly-averaged precipitation forcing.\n\nApproach\n\nQuery metadata from the VEDA STAC API\nQuery NLDAS-2 and NLDAS-3 Raster data drom the VEDA Raster API\nDisplay the data side-by-side for comparison\n\n\nimport requests\nimport folium\nimport folium.plugins\nfrom folium import Map, TileLayer\nfrom pystac_client import Client\nimport branca\nimport pandas as pd\nimport matplotlib.pyplot as plt",
+    "crumbs": [
+      "Usage Examples",
+      "Datasets",
+      "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data"
+    ]
+  },
+  {
+    "objectID": "notebooks/datasets/nldas_compare2_3.html#querying-the-stac-api",
+    "href": "notebooks/datasets/nldas_compare2_3.html#querying-the-stac-api",
+    "title": "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data",
+    "section": "Querying the STAC API",
+    "text": "Querying the STAC API\n\n# The data can be accessed without credentials via these links\nSTAC_API_URL = \"https://openveda.cloud/api/stac\"\nRASTER_API_URL = \"https://openveda.cloud/api/raster\"\n\n# The NLDAS-2 and NLDAS-3 are stored in these collections\ncollection_id3 = \"nldas3\"\ncollection_id2 = \"nldas2\"\n\n\n# These lines store the metadata for each collection to allow us to query the STAC easily\ncollection3 = requests.get(f\"{STAC_API_URL}/collections/{collection_id3}\").json()\ncollection2 = requests.get(f\"{STAC_API_URL}/collections/{collection_id2}\").json()\n\n\n# This date can be changed and is the date that will be used to generate the maps\ndate = '2021-02-01'\n\n\n# This line searches for and stores the NLDAS-3 file information that matches the given date\nresponse3 = requests.post(\n    f\"{STAC_API_URL}/search\",\n    json={\n        \"collections\": [collection_id3],\n        \"query\": {\"datetime\": {\"eq\": date+\"T00:00:00\"}},\n        \"limit\": 100,\n    },\n).json()\nitems3 = response3[\"features\"]\nlen(items3)\n\n1\n\n\n\n# This line searches for and stores the NLDAS-2 file information that matches the given date\nresponse2 = requests.post(\n    f\"{STAC_API_URL}/search\",\n    json={\n        \"collections\": [collection_id2],\n        \"query\": {\"datetime\": {\"eq\": date+\"T00:00:00\"}},\n        \"limit\": 100,\n    },\n).json()\nitems2 = response2[\"features\"]\nlen(items2)\n\n1\n\n\n\n# Get the first matching file for each version and save/visualize it\nitem2 = items2[0]\nitem3 = items3[0]\nitem2, item3\n\n({'id': 'nldas2_LIS_HIST_202102',\n  'bbox': [-168.98000671647551,\n   7.019999961559591,\n   -51.93999145246978,\n   72.06000091582078],\n  'type': 'Feature',\n  'links': [{'rel': 'collection',\n    'type': 'application/json',\n    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas2'},\n   {'rel': 'parent',\n    'type': 'application/json',\n    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas2'},\n   {'rel': 'root',\n    'type': 'application/json',\n    'href': 'https://staging.openveda.cloud/api/stac/'},\n   {'rel': 'self',\n    'type': 'application/geo+json',\n    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas2/items/nldas2_LIS_HIST_202102'},\n   {'title': 'Map of Item',\n    'href': 'https://staging.openveda.cloud/api/raster/collections/nldas2/items/nldas2_LIS_HIST_202102/map?bidx=1&assets=cog_default&unscale=False&colormap=%7B%221%22%3A+%5B120%2C+120%2C+120%5D%2C+%222%22%3A+%5B130%2C+65%2C+0%5D%2C+%223%22%3A+%5B66%2C+207%2C+56%5D%2C+%224%22%3A+%5B245%2C+239%2C+0%5D%2C+%225%22%3A+%5B241%2C+89%2C+32%5D%2C+%226%22%3A+%5B168%2C+0%2C+0%5D%2C+%227%22%3A+%5B0%2C+143%2C+201%5D%7D&max_size=1024&resampling=nearest&return_mask=True',\n    'rel': 'preview',\n    'type': 'text/html'}],\n  'assets': {'cog_default': {'href': 's3://veda-data-store-staging/EIS/nldas2monthly/nldas2_LIS_HIST_202102.tif',\n    'type': 'image/tiff; application=geotiff; profile=cloud-optimized',\n    'roles': ['data', 'layer'],\n    'title': 'Default COG Layer',\n    'description': 'Cloud optimized default layer to display on map',\n    'raster:bands': [{'scale': 1.0,\n      'nodata': -9999.0,\n      'offset': 0.0,\n      'sampling': 'area',\n      'data_type': 'float32',\n      'histogram': {'max': 574.3709106445312,\n       'min': -4.244315147399902,\n       'count': 11.0,\n       'buckets': [75701.0,\n        14093.0,\n        5868.0,\n        2149.0,\n        419.0,\n        204.0,\n        128.0,\n        63.0,\n        36.0,\n        12.0]},\n      'statistics': {'mean': 40.024527986379255,\n       'stddev': 50.011235463160766,\n       'maximum': 574.3709106445312,\n       'minimum': -4.244315147399902,\n       'valid_percent': 16.90532483552632}}]},\n   'rendered_preview': {'title': 'Rendered preview',\n    'href': 'https://staging.openveda.cloud/api/raster/collections/nldas2/items/nldas2_LIS_HIST_202102/preview.png?bidx=1&assets=cog_default&unscale=False&colormap=%7B%221%22%3A+%5B120%2C+120%2C+120%5D%2C+%222%22%3A+%5B130%2C+65%2C+0%5D%2C+%223%22%3A+%5B66%2C+207%2C+56%5D%2C+%224%22%3A+%5B245%2C+239%2C+0%5D%2C+%225%22%3A+%5B241%2C+89%2C+32%5D%2C+%226%22%3A+%5B168%2C+0%2C+0%5D%2C+%227%22%3A+%5B0%2C+143%2C+201%5D%7D&max_size=1024&resampling=nearest&return_mask=True',\n    'rel': 'preview',\n    'roles': ['overview'],\n    'type': 'image/png'}},\n  'geometry': {'type': 'Polygon',\n   'coordinates': [[[-168.98000671647551, 7.019999961559591],\n     [-51.93999145246978, 7.019999961559591],\n     [-51.93999145246978, 72.06000091582078],\n     [-168.98000671647551, 72.06000091582078],\n     [-168.98000671647551, 7.019999961559591]]]},\n  'collection': 'nldas2',\n  'properties': {'proj:bbox': [-168.98000671647551,\n    7.019999961559591,\n    -51.93999145246978,\n    72.06000091582078],\n   'proj:epsg': 4326.0,\n   'proj:shape': [1626.0, 2926.0],\n   'end_datetime': '2021-02-28T00:00:00',\n   'proj:geometry': {'type': 'Polygon',\n    'coordinates': [[[-168.98000671647551, 7.019999961559591],\n      [-51.93999145246978, 7.019999961559591],\n      [-51.93999145246978, 72.06000091582078],\n      [-168.98000671647551, 72.06000091582078],\n      [-168.98000671647551, 7.019999961559591]]]},\n   'proj:transform': [0.04000000521668002,\n    0.0,\n    -168.98000671647551,\n    0.0,\n    -0.0400000005868765,\n    72.06000091582078,\n    0.0,\n    0.0,\n    1.0],\n   'start_datetime': '2021-02-01T00:00:00'},\n  'stac_version': '1.0.0',\n  'stac_extensions': ['https://stac-extensions.github.io/projection/v1.0.0/schema.json',\n   'https://stac-extensions.github.io/raster/v1.1.0/schema.json']},\n {'id': 'nldas3_LIS_HIST_202102',\n  'bbox': [-168.98000671647551,\n   7.019999961559591,\n   -51.93999145246978,\n   72.06000091582078],\n  'type': 'Feature',\n  'links': [{'rel': 'collection',\n    'type': 'application/json',\n    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas3'},\n   {'rel': 'parent',\n    'type': 'application/json',\n    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas3'},\n   {'rel': 'root',\n    'type': 'application/json',\n    'href': 'https://staging.openveda.cloud/api/stac/'},\n   {'rel': 'self',\n    'type': 'application/geo+json',\n    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas3/items/nldas3_LIS_HIST_202102'},\n   {'title': 'Map of Item',\n    'href': 'https://staging.openveda.cloud/api/raster/collections/nldas3/items/nldas3_LIS_HIST_202102/map?bidx=1&assets=cog_default&unscale=False&colormap=%7B%221%22%3A+%5B120%2C+120%2C+120%5D%2C+%222%22%3A+%5B130%2C+65%2C+0%5D%2C+%223%22%3A+%5B66%2C+207%2C+56%5D%2C+%224%22%3A+%5B245%2C+239%2C+0%5D%2C+%225%22%3A+%5B241%2C+89%2C+32%5D%2C+%226%22%3A+%5B168%2C+0%2C+0%5D%2C+%227%22%3A+%5B0%2C+143%2C+201%5D%7D&max_size=1024&resampling=nearest&return_mask=True',\n    'rel': 'preview',\n    'type': 'text/html'}],\n  'assets': {'cog_default': {'href': 's3://veda-data-store-staging/EIS/nldas3monthly/nldas3_LIS_HIST_202102.tif',\n    'type': 'image/tiff; application=geotiff; profile=cloud-optimized',\n    'roles': ['data', 'layer'],\n    'title': 'Default COG Layer',\n    'description': 'Cloud optimized default layer to display on map',\n    'raster:bands': [{'scale': 1.0,\n      'nodata': -9999.0,\n      'offset': 0.0,\n      'sampling': 'area',\n      'data_type': 'float32',\n      'histogram': {'max': 428.0843200683594,\n       'min': -0.022795898839831352,\n       'count': 11.0,\n       'buckets': [217417.0,\n        29857.0,\n        15254.0,\n        7576.0,\n        3011.0,\n        1122.0,\n        488.0,\n        77.0,\n        9.0,\n        2.0]},\n      'statistics': {'mean': 30.96841488575868,\n       'stddev': 41.008411449510426,\n       'maximum': 428.0843200683594,\n       'minimum': -0.022795898839831352,\n       'valid_percent': 47.08281935307018}}]},\n   'rendered_preview': {'title': 'Rendered preview',\n    'href': 'https://staging.openveda.cloud/api/raster/collections/nldas3/items/nldas3_LIS_HIST_202102/preview.png?bidx=1&assets=cog_default&unscale=False&colormap=%7B%221%22%3A+%5B120%2C+120%2C+120%5D%2C+%222%22%3A+%5B130%2C+65%2C+0%5D%2C+%223%22%3A+%5B66%2C+207%2C+56%5D%2C+%224%22%3A+%5B245%2C+239%2C+0%5D%2C+%225%22%3A+%5B241%2C+89%2C+32%5D%2C+%226%22%3A+%5B168%2C+0%2C+0%5D%2C+%227%22%3A+%5B0%2C+143%2C+201%5D%7D&max_size=1024&resampling=nearest&return_mask=True',\n    'rel': 'preview',\n    'roles': ['overview'],\n    'type': 'image/png'}},\n  'geometry': {'type': 'Polygon',\n   'coordinates': [[[-168.98000671647551, 7.019999961559591],\n     [-51.93999145246978, 7.019999961559591],\n     [-51.93999145246978, 72.06000091582078],\n     [-168.98000671647551, 72.06000091582078],\n     [-168.98000671647551, 7.019999961559591]]]},\n  'collection': 'nldas3',\n  'properties': {'proj:bbox': [-168.98000671647551,\n    7.019999961559591,\n    -51.93999145246978,\n    72.06000091582078],\n   'proj:epsg': 4326.0,\n   'proj:shape': [1626.0, 2926.0],\n   'end_datetime': '2021-02-28T00:00:00',\n   'proj:geometry': {'type': 'Polygon',\n    'coordinates': [[[-168.98000671647551, 7.019999961559591],\n      [-51.93999145246978, 7.019999961559591],\n      [-51.93999145246978, 72.06000091582078],\n      [-168.98000671647551, 72.06000091582078],\n      [-168.98000671647551, 7.019999961559591]]]},\n   'proj:transform': [0.04000000521668002,\n    0.0,\n    -168.98000671647551,\n    0.0,\n    -0.0400000005868765,\n    72.06000091582078,\n    0.0,\n    0.0,\n    1.0],\n   'start_datetime': '2021-02-01T00:00:00'},\n  'stac_version': '1.0.0',\n  'stac_extensions': ['https://stac-extensions.github.io/projection/v1.0.0/schema.json',\n   'https://stac-extensions.github.io/raster/v1.1.0/schema.json']})\n\n\n\n# Save the relevant statistics for each file\nitem_stats3 = item3['assets']['cog_default']['raster:bands'][0]['statistics']\nrescale_values3 = item_stats3['minimum'], item_stats3['maximum']\n\nitem_stats2 = item2['assets']['cog_default']['raster:bands'][0]['statistics']\nrescale_values2 = item_stats2['minimum'], item_stats2['maximum']\n\n\n# Query the raster API for the NLDAS-3 tile\ntiles3 = requests.get(\n    f\"{RASTER_API_URL}/collections/{collection_id3}/items/{item3['id']}/tilejson.json?\"\n    \"&assets=cog_default\"\n    \"&color_formula=gamma+r+1.05&colormap_name=rdbu_r\"\n    f\"&rescale={rescale_values3[0]},{rescale_values3[1]}\",\n).json()\ntiles3\n\n{'tilejson': '2.2.0',\n 'version': '1.0.0',\n 'scheme': 'xyz',\n 'tiles': ['https://staging.openveda.cloud/api/raster/collections/nldas3/items/nldas3_LIS_HIST_202102/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&color_formula=gamma+r+1.05&colormap_name=rdbu_r&rescale=-0.022795898839831352%2C428.0843200683594'],\n 'minzoom': 0,\n 'maxzoom': 24,\n 'bounds': [-168.98000671647551,\n  7.019999961559591,\n  -51.93999145246978,\n  72.06000091582078],\n 'center': [-110.45999908447266, 39.540000438690186, 0]}\n\n\n\n# Query the raster API for the NLDAS-2 tile\ntiles2 = requests.get(\n    f\"{RASTER_API_URL}/collections/{collection_id2}/items/{item2['id']}/tilejson.json?\"\n    \"&assets=cog_default\"\n    \"&color_formula=gamma+r+1.05&colormap_name=rdbu_r\"\n    f\"&rescale={rescale_values2[0]},{rescale_values2[1]}\",\n).json()\ntiles2\n\n{'tilejson': '2.2.0',\n 'version': '1.0.0',\n 'scheme': 'xyz',\n 'tiles': ['https://staging.openveda.cloud/api/raster/collections/nldas2/items/nldas2_LIS_HIST_202102/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&color_formula=gamma+r+1.05&colormap_name=rdbu_r&rescale=-4.244315147399902%2C574.3709106445312'],\n 'minzoom': 0,\n 'maxzoom': 24,\n 'bounds': [-168.98000671647551,\n  7.019999961559591,\n  -51.93999145246978,\n  72.06000091582078],\n 'center': [-110.45999908447266, 39.540000438690186, 0]}",
+    "crumbs": [
+      "Usage Examples",
+      "Datasets",
+      "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data"
+    ]
+  },
+  {
+    "objectID": "notebooks/datasets/nldas_compare2_3.html#visualize-nldas-2-and-nldas-3",
+    "href": "notebooks/datasets/nldas_compare2_3.html#visualize-nldas-2-and-nldas-3",
+    "title": "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data",
+    "section": "Visualize NLDAS-2 and NLDAS-3",
+    "text": "Visualize NLDAS-2 and NLDAS-3\n\nNotice the differences in extent and resolution between the two versions.\n\n# Create and display a DualMap to visualize NLDAS-2 and NLDAS-3 data side-by-side\nmap_layer2 = TileLayer(\n    tiles=tiles2[\"tiles\"][0],\n    attr=\"VEDA\",\n)\nmap_layer3 = TileLayer(\n    tiles=tiles3[\"tiles\"][0],\n    attr=\"VEDA\",\n)\nmap_ = folium.plugins.DualMap(location=[39,-110], zoom_start=3,)\nmap_layer2.add_to(map_.m1)\nmap_layer3.add_to(map_.m2)\nmap_\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook",
+    "crumbs": [
+      "Usage Examples",
+      "Datasets",
+      "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data"
+    ]
+  },
+  {
+    "objectID": "notebooks/index.html",
+    "href": "notebooks/index.html",
+    "title": "Usage Examples",
+    "section": "",
+    "text": "Base URL Changes\n\n\n\nThe VEDA Team is in the process of updating documentation notebooks to use the new stable production APIs. Currently most notebooks use deprecated staging APIs and should be updated:\nSTAC_API_URL = \"https://staging-stac.delta-backend.com\" –&gt; https://openveda.cloud/api/stac\nRASTER_API_URL = \"https://staging-raster.delta-backend.com\" –&gt; https://openveda.cloud/api/raster",
+    "crumbs": [
+      "Usage Examples"
+    ]
+  },
+  {
+    "objectID": "notebooks/index.html#getting-started",
+    "href": "notebooks/index.html#getting-started",
+    "title": "Usage Examples",
+    "section": "Getting started",
+    "text": "Getting started\nThe example notebooks are divided into three sections:\n\nQuickstarts: Notebooks to get you started quickly and help you become more familiar with cloud-native geospatial technologies.\nTutorials: Longer notebooks that walk through more advanced use cases and examples.\nDatasets: Notebooks that showcase a particular VEDA dataset and walk through an applied geospatial analyses.\n\n\nChoosing the right data access route for your needs\nThe Quickstarts examples are further divided into two sections, which you can choose from depending on your data needs:\n\nAccessing the Data Directly: For when you want to access the raw data (e.g., to do a specific analysis). In this case, permissions are required to access the data (i.e., must be run on VEDA JupyterHub) and computation happens within the user’s instance (i.e., the user needs to think about instance size). This approach is suitable for use within notebooks. All examples provided in this section require VEDA JupyterHub access to run.\nUsing the Raster API: For when you want to show outputs to other people or do standard processing. No permissions required (i.e., notebooks can be run on mybinder). Additionally, the computation happens somewhere else (i.e., user does not have to think about instance size). Lastly, this approach is suitable for use within notebooks as well as web application frontends (e.g., like dataset discoveries). These notebook examples can be run on both VEDA JupyterHub, as well as outside of the Hub (see instructions below) and within mybinder.",
+    "crumbs": [
+      "Usage Examples"
+    ]
+  },
+  {
+    "objectID": "notebooks/index.html#how-to-run",
+    "href": "notebooks/index.html#how-to-run",
+    "title": "Usage Examples",
+    "section": "How to run",
+    "text": "How to run\nEvery notebook contains information about how to run it. Some can run on mybinder and all can run on the VEDA JupyterHub. See VEDA Analytics JupyterHub Access for information about how to gain access.\n\nRunning outside of VEDA JupyterHub\nTo run the notebooks locally, you can use can install the Python packages (a virtual environment is recommended)\npip install -r requirements.txt\nOnce you have installed the packages you can run the notebooks using Jupyter.\njupyter lab\nIf the notebook needs access to protected data on S3, you will need to specifically get access. Please request access by emailing aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN).",
+    "crumbs": [
+      "Usage Examples"
+    ]
+  },
+  {
+    "objectID": "notebooks/index.html#how-to-contribute",
+    "href": "notebooks/index.html#how-to-contribute",
+    "title": "Usage Examples",
+    "section": "How to contribute",
+    "text": "How to contribute\nPlease refer to the notebook style guide in these docs.",
+    "crumbs": [
+      "Usage Examples"
+    ]
+  },
+  {
+    "objectID": "hub-guides/ssh.html",
+    "href": "hub-guides/ssh.html",
+    "title": "How to ssh into the JupyterHub",
+    "section": "",
+    "text": "This is a how-to guide for connecting to the VEDA JupyterHub from your local environment via ssh. This allows you to use all of ssh’s features (copy, run commands) as well as connecting via VS Code’s proprietary Remote Development functionality.\n\n\n\n\n\n\nNote\n\n\n\nwebsocat must be installed on your local machine in order to remotely connect to the VEDA JupyterHub. The full installation instructions are available on websocat’s GitHub README. websocat can be installed on macOS via Homebrew as brew install websocat.\n\n\n\n\n\n\n\n\nWarning\n\n\n\nWe are exploring two options for using VS Code on the VEDA JupyterHub. These options should be considered experimental and may not be supported long-term.\n\n\n\n\n\n\n\nLaunch a server from the VEDA JupyterHub home page. The server must be started in order to connect remotely.\nGet a new token from the VEDA JupyterHub token page:\n\nEnter a descriptive name in the ‘Note’ text window.\nEnter an expiration date.\nClick “request a new API token”\n\n\n\n\nGenerate a new token\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nTreat this token like you would treat a password to your JupyterHub instance!\n\n\n\n\n\nBefore your first time remotely connecting to the VEDA JupyterHub, you need to configure your local ssh.\n\nAdd an entry that looks like the following to the end of your ~/.ssh/config. Create it if it does not exist.\nHost hub.openveda.cloud\n    User jovyan\n    ProxyCommand websocat --binary -H='Authorization: token &lt;YOUR-JUPYTERHUB-TOKEN&gt;' asyncstdio: wss://%h/user/&lt;YOUR-JUPYTERHUB-USERNAME&gt;/sshd/\nReplace &lt;YOUR-JUPYTERHUB-TOKEN&gt; with the token you created earlier.\nReplace &lt;YOUR-JUPYTERHUB-USERNAME&gt; with your VEDA JupyterHub username.\n\n\n\n\nYou need to put some ssh public keys in ~/.ssh/authorized_keys after you start your JupyterHub server and have completed the setup of your private keys on your local machine.\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a terminal in JupyterLab\nRun the following commands, replacing  with your github username:\nmkdir -p ~/.ssh\nwget https://github.com/&lt;YOUR-GITHUB-USERNAME&gt;.keys -O ~/.ssh/authorized_keys\nchmod 0600 ~/.ssh/authorized_keys\n\n\n\n\n\nThere are two ways to connect to JupyterHub: Connect to the JupyterHub using VS Code’s Remote SSH feature and Connect via ssh on the command line.\n\n\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a new VS Code Window on your local maachine.\nOpen the command prompt (command + shift + P on macOS)\nEnter Remote-SSH: Connect to Host...\nSelect hub.openveda.cloud\nSelect “Open Folder” and select the specific folder that you want to work in.\n\nNow you’re connected and ready to develop using VS Code! You may need to install some extensions in the SSH server to use your regular development workflows.\n\n\n\n\n\n\nTip\n\n\n\nMost times, you will want to select a folder that is a git repository, perhaps cloned from GitHub, so that your code is version controlled.\n\n\n\n\n\n\n\n\nNote\n\n\n\nIf you have not ssh’d into the JupyterHub before, you will receive a notice that “The authenticity of host ‘hub.openveda.cloud’ can’t be established.”. Enter ‘yes’ in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.\n\n\n\n\nYou will need to install the extensions that you want to use in the SSH.\n\nNavigate to the Extensions view by clicking on the icon with four boxes and one slightly offset:\n\n\n\nExtensions icon in VS Code\n\n\nThe view shows the already installed extensions. Type the name of the extension you’re looking for in the ‘Search Extensions’ text box, or scroll to see your locally installed extensions:\n\n\n\nInstall VS Code extension\n\n\nSelect ‘Install in SSH: hub.openveda.cloud’\n\n\n\n\n\nSelect File &gt; Close Remote Connection to disconnect from the JupyterHub:\n\n\n\nClose remote connection\n\n\n\nExiting VS Code will also close the remote connection.\n\n\n\n\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a new terminal on your local machine.\nEnter ssh hub.openveda.cloud\n\nYou are now ssh’d into the JupyterHub! If you enter a command (e.g., touch am-i-on-the-jupyterhub), it will be run on the remote server.\n\n\n\n\n\n\nNote\n\n\n\nIf you have not ssh’d into the JupyterHub before, you will receive a notice that “The authenticity of host ‘hub.openveda.cloud’ can’t be established.”. Enter ‘yes’ in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.\n\n\n\n\n\n\nThese instructions are based off the jupyter-sshd-proxy documentation and a screen recording Yuvi Panda shared in the NASA IMPACT slack workspace. Thank you to Yuvi Panda for developing jupyter-sshd-proxy!",
+    "crumbs": [
+      "Usage Examples",
+      "JupyterHub",
+      "How to ssh into the JupyterHub"
+    ]
+  },
+  {
+    "objectID": "hub-guides/ssh.html#setup",
+    "href": "hub-guides/ssh.html#setup",
+    "title": "How to ssh into the JupyterHub",
+    "section": "",
+    "text": "Launch a server from the VEDA JupyterHub home page. The server must be started in order to connect remotely.\nGet a new token from the VEDA JupyterHub token page:\n\nEnter a descriptive name in the ‘Note’ text window.\nEnter an expiration date.\nClick “request a new API token”\n\n\n\n\nGenerate a new token\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nTreat this token like you would treat a password to your JupyterHub instance!\n\n\n\n\n\nBefore your first time remotely connecting to the VEDA JupyterHub, you need to configure your local ssh.\n\nAdd an entry that looks like the following to the end of your ~/.ssh/config. Create it if it does not exist.\nHost hub.openveda.cloud\n    User jovyan\n    ProxyCommand websocat --binary -H='Authorization: token &lt;YOUR-JUPYTERHUB-TOKEN&gt;' asyncstdio: wss://%h/user/&lt;YOUR-JUPYTERHUB-USERNAME&gt;/sshd/\nReplace &lt;YOUR-JUPYTERHUB-TOKEN&gt; with the token you created earlier.\nReplace &lt;YOUR-JUPYTERHUB-USERNAME&gt; with your VEDA JupyterHub username.\n\n\n\n\nYou need to put some ssh public keys in ~/.ssh/authorized_keys after you start your JupyterHub server and have completed the setup of your private keys on your local machine.\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a terminal in JupyterLab\nRun the following commands, replacing  with your github username:\nmkdir -p ~/.ssh\nwget https://github.com/&lt;YOUR-GITHUB-USERNAME&gt;.keys -O ~/.ssh/authorized_keys\nchmod 0600 ~/.ssh/authorized_keys",
+    "crumbs": [
+      "Usage Examples",
+      "JupyterHub",
+      "How to ssh into the JupyterHub"
+    ]
+  },
+  {
+    "objectID": "hub-guides/ssh.html#connect-to-jupyterhub",
+    "href": "hub-guides/ssh.html#connect-to-jupyterhub",
+    "title": "How to ssh into the JupyterHub",
+    "section": "",
+    "text": "There are two ways to connect to JupyterHub: Connect to the JupyterHub using VS Code’s Remote SSH feature and Connect via ssh on the command line.\n\n\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a new VS Code Window on your local maachine.\nOpen the command prompt (command + shift + P on macOS)\nEnter Remote-SSH: Connect to Host...\nSelect hub.openveda.cloud\nSelect “Open Folder” and select the specific folder that you want to work in.\n\nNow you’re connected and ready to develop using VS Code! You may need to install some extensions in the SSH server to use your regular development workflows.\n\n\n\n\n\n\nTip\n\n\n\nMost times, you will want to select a folder that is a git repository, perhaps cloned from GitHub, so that your code is version controlled.\n\n\n\n\n\n\n\n\nNote\n\n\n\nIf you have not ssh’d into the JupyterHub before, you will receive a notice that “The authenticity of host ‘hub.openveda.cloud’ can’t be established.”. Enter ‘yes’ in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.\n\n\n\n\nYou will need to install the extensions that you want to use in the SSH.\n\nNavigate to the Extensions view by clicking on the icon with four boxes and one slightly offset:\n\n\n\nExtensions icon in VS Code\n\n\nThe view shows the already installed extensions. Type the name of the extension you’re looking for in the ‘Search Extensions’ text box, or scroll to see your locally installed extensions:\n\n\n\nInstall VS Code extension\n\n\nSelect ‘Install in SSH: hub.openveda.cloud’\n\n\n\n\n\nSelect File &gt; Close Remote Connection to disconnect from the JupyterHub:\n\n\n\nClose remote connection\n\n\n\nExiting VS Code will also close the remote connection.\n\n\n\n\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a new terminal on your local machine.\nEnter ssh hub.openveda.cloud\n\nYou are now ssh’d into the JupyterHub! If you enter a command (e.g., touch am-i-on-the-jupyterhub), it will be run on the remote server.\n\n\n\n\n\n\nNote\n\n\n\nIf you have not ssh’d into the JupyterHub before, you will receive a notice that “The authenticity of host ‘hub.openveda.cloud’ can’t be established.”. Enter ‘yes’ in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.",
+    "crumbs": [
+      "Usage Examples",
+      "JupyterHub",
+      "How to ssh into the JupyterHub"
+    ]
+  },
+  {
+    "objectID": "hub-guides/ssh.html#acknowledgments",
+    "href": "hub-guides/ssh.html#acknowledgments",
+    "title": "How to ssh into the JupyterHub",
+    "section": "",
+    "text": "These instructions are based off the jupyter-sshd-proxy documentation and a screen recording Yuvi Panda shared in the NASA IMPACT slack workspace. Thank you to Yuvi Panda for developing jupyter-sshd-proxy!",
+    "crumbs": [
+      "Usage Examples",
+      "JupyterHub",
+      "How to ssh into the JupyterHub"
+    ]
+  },
+  {
+    "objectID": "hub-guides/code-server.html",
+    "href": "hub-guides/code-server.html",
+    "title": "How to use VS Code on the VEDA JupyterHub",
+    "section": "",
+    "text": "This is a quick how-to guide for using VS Code as an IDE on the VEDA JupyterHub.\n\n\n\n\n\n\nWarning\n\n\n\nWe are exploring two options for using VS Code on the VEDA JupyterHub. These options should be considered experimental and may not be supported long-term.\n\n\n\n\n\nAccess the launcher from the home screen by clicking the + tab if it is not already open.\nClick the “VS Code” icon on the top row. This will open a new browser tab with the VS Code interface:\n\n\n\nVS Code icon on the Launcher page\n\n\nOpen the specific folder that you want to work in:\n\nClick the three lines on the upper left (a.k.a., hamburger symbol)\nSelect ‘File’\nSelect ‘Open Folder…’\nNavigate to the appropriate folder\nClick ‘OK’\n\n\n\n\nProcess for selecting the workspace folder\n\n\nSelect that you trust the repository to enable all VS Code features:\n\n\n\nProcess for trusting the workspace folder\n\n\n\nNow, you have access to VS Code on the VEDA Hub and are ready to get started on your development!\n\n\n\n\n\n\nWarning\n\n\n\nUsing the full set of VS Code features requires trusting the folders, which should only be done for individual, known/trusted repositories rather than the entire JupyterHub home directory.\n\n\n\n\n\n\n\n\nTip\n\n\n\nAs an alternative to step 2, you can type the path to your folder after ?folder= in the browser URL and press enter.\n\n\n\n\n\n\n\n\nTip\n\n\n\nMost times, you will want to select a folder that is a git repository, perhaps cloned from GitHub, so that your code is version controlled.\n\n\n\n\n\nThe VEDA JupyterHub comes with several VS Code extensions pre-installed. However, you may need access to others that are not installed. For example, the ms-python Python extension is required for debugging Python code and isn’t curently installed by default.\n\nNavigate to the Extensions view by clicking on the icon with four boxes and one slightly offset:\n\n\n\nExtensions icon in VS Code\n\n\nThe view shows the already installed extensions. Type the name of the extension you’re looking for in the ‘Search Extensions’ text box:\n\n\n\nInstall VS Code extension\n\n\nClick install.\n\n\n\n\n\n\n\nNote\n\n\n\nThe extensions will be installed for the duration of your session. For persistant access to VS Code extensions, raise an issue in VEDA Hub docker image repository.\n\n\n\n\n\n\n\n\nSelect the Run view in the sidebar:\n\n\n\n\nVS Code Run View\n\n\n\nClick on “create a launch.json file”:\n\n\n\n\nCreate a launch.json file\n\n\n\nSelect “Python Debugger”.\nSelect “Python File: Debug the currently active Python file”.\n\n\n\n\n\n\n\nNote\n\n\n\nCheck out the Visual Studio Code Debugging docs for additional configuration options. One of the more useful controls is setting \"justMyCode\": false to debug imported libraries.\n\n\n\n\n\n\nOpen the Python file that you want to debug\nClick to the left of a line number to add a breakpoint\n\n\n\n\nAdd a breakpoint\n\n\n\nFrom the Run view, click on the green triangle to start debugging\n\n\n\n\nStart debugger\n\n\n\nUse the debugger controls to continue, restart, stop, step over, step in, or step out of functions.\n\n\n\n\nDebugger control\n\n\n\n\n\n\n\n\nTip\n\n\n\nAdd the .vscode folder to your .gitignore and put ephemeral testing modules in their for debugging without poluting the git workspace.\n\n\n\n\n\n\nSeveral images in this section are from Microsoft’s public documentation for Visual Studio Code. Images are used under the terms of the under the Creative Commons Attribution 3.0 United States License.",
+    "crumbs": [
+      "Usage Examples",
+      "JupyterHub",
+      "How to use VS Code on the VEDA JupyterHub"
+    ]
+  },
+  {
+    "objectID": "hub-guides/code-server.html#launch-vscode",
+    "href": "hub-guides/code-server.html#launch-vscode",
+    "title": "How to use VS Code on the VEDA JupyterHub",
+    "section": "",
+    "text": "Access the launcher from the home screen by clicking the + tab if it is not already open.\nClick the “VS Code” icon on the top row. This will open a new browser tab with the VS Code interface:\n\n\n\nVS Code icon on the Launcher page\n\n\nOpen the specific folder that you want to work in:\n\nClick the three lines on the upper left (a.k.a., hamburger symbol)\nSelect ‘File’\nSelect ‘Open Folder…’\nNavigate to the appropriate folder\nClick ‘OK’\n\n\n\n\nProcess for selecting the workspace folder\n\n\nSelect that you trust the repository to enable all VS Code features:\n\n\n\nProcess for trusting the workspace folder\n\n\n\nNow, you have access to VS Code on the VEDA Hub and are ready to get started on your development!\n\n\n\n\n\n\nWarning\n\n\n\nUsing the full set of VS Code features requires trusting the folders, which should only be done for individual, known/trusted repositories rather than the entire JupyterHub home directory.\n\n\n\n\n\n\n\n\nTip\n\n\n\nAs an alternative to step 2, you can type the path to your folder after ?folder= in the browser URL and press enter.\n\n\n\n\n\n\n\n\nTip\n\n\n\nMost times, you will want to select a folder that is a git repository, perhaps cloned from GitHub, so that your code is version controlled.",
+    "crumbs": [
+      "Usage Examples",
+      "JupyterHub",
+      "How to use VS Code on the VEDA JupyterHub"
+    ]
+  },
+  {
+    "objectID": "hub-guides/code-server.html#installing-extensions",
+    "href": "hub-guides/code-server.html#installing-extensions",
+    "title": "How to use VS Code on the VEDA JupyterHub",
+    "section": "",
+    "text": "The VEDA JupyterHub comes with several VS Code extensions pre-installed. However, you may need access to others that are not installed. For example, the ms-python Python extension is required for debugging Python code and isn’t curently installed by default.\n\nNavigate to the Extensions view by clicking on the icon with four boxes and one slightly offset:\n\n\n\nExtensions icon in VS Code\n\n\nThe view shows the already installed extensions. Type the name of the extension you’re looking for in the ‘Search Extensions’ text box:\n\n\n\nInstall VS Code extension\n\n\nClick install.\n\n\n\n\n\n\n\nNote\n\n\n\nThe extensions will be installed for the duration of your session. For persistant access to VS Code extensions, raise an issue in VEDA Hub docker image repository.",
+    "crumbs": [
+      "Usage Examples",
+      "JupyterHub",
+      "How to use VS Code on the VEDA JupyterHub"
+    ]
+  },
+  {
+    "objectID": "hub-guides/code-server.html#debugging-python-code",
+    "href": "hub-guides/code-server.html#debugging-python-code",
+    "title": "How to use VS Code on the VEDA JupyterHub",
+    "section": "",
+    "text": "Select the Run view in the sidebar:\n\n\n\n\nVS Code Run View\n\n\n\nClick on “create a launch.json file”:\n\n\n\n\nCreate a launch.json file\n\n\n\nSelect “Python Debugger”.\nSelect “Python File: Debug the currently active Python file”.\n\n\n\n\n\n\n\nNote\n\n\n\nCheck out the Visual Studio Code Debugging docs for additional configuration options. One of the more useful controls is setting \"justMyCode\": false to debug imported libraries.\n\n\n\n\n\n\nOpen the Python file that you want to debug\nClick to the left of a line number to add a breakpoint\n\n\n\n\nAdd a breakpoint\n\n\n\nFrom the Run view, click on the green triangle to start debugging\n\n\n\n\nStart debugger\n\n\n\nUse the debugger controls to continue, restart, stop, step over, step in, or step out of functions.\n\n\n\n\nDebugger control\n\n\n\n\n\n\n\n\nTip\n\n\n\nAdd the .vscode folder to your .gitignore and put ephemeral testing modules in their for debugging without poluting the git workspace.",
+    "crumbs": [
+      "Usage Examples",
+      "JupyterHub",
+      "How to use VS Code on the VEDA JupyterHub"
+    ]
+  },
+  {
+    "objectID": "hub-guides/code-server.html#acknowledgments",
+    "href": "hub-guides/code-server.html#acknowledgments",
+    "title": "How to use VS Code on the VEDA JupyterHub",
+    "section": "",
+    "text": "Several images in this section are from Microsoft’s public documentation for Visual Studio Code. Images are used under the terms of the under the Creative Commons Attribution 3.0 United States License.",
+    "crumbs": [
+      "Usage Examples",
+      "JupyterHub",
+      "How to use VS Code on the VEDA JupyterHub"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "VEDA User Documentation",
+    "section": "",
+    "text": "VEDA (Visualization, Exploration and Data Analysis) is an innovative platform empowering researchers to explore and analyze Earth science data in the cloud. By combining interactive storytelling with open science principles, VEDA enables researchers to engage new audiences and share their analysis results effectively.\nDeveloped through a collaboration between NASA IMPACT, Development Seed, University of Alabama in Huntsville, Element 84, Indiana University, International Interactive Computing Collaboration (2i2c), Earth Science Data and Information System (ESDIS) Project, NASA Science Managed Cloud Environment (SMCE), and NASA Mission Cloud Platform (MCP), VEDA significantly reduces the barriers to accessing Earth science data and the computational resources needed for exploring and processing the petabyte-scale Earth data archives in the cloud. VEDA’s achievement exemplifies the core principles of NASA’s Open-Source Science Initiative (OSSI), showcasing commitment to promoting transparent, accessible, and collaborative scientific research.\nRead more about the history of VEDA in this blog post.\nThese pages provide documentation for onboarding users to cloud-enabled open science with Earth data, from computing and API usage to publication on the VEDA Dashboard.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "VEDA User Documentation",
+    "section": "",
+    "text": "VEDA (Visualization, Exploration and Data Analysis) is an innovative platform empowering researchers to explore and analyze Earth science data in the cloud. By combining interactive storytelling with open science principles, VEDA enables researchers to engage new audiences and share their analysis results effectively.\nDeveloped through a collaboration between NASA IMPACT, Development Seed, University of Alabama in Huntsville, Element 84, Indiana University, International Interactive Computing Collaboration (2i2c), Earth Science Data and Information System (ESDIS) Project, NASA Science Managed Cloud Environment (SMCE), and NASA Mission Cloud Platform (MCP), VEDA significantly reduces the barriers to accessing Earth science data and the computational resources needed for exploring and processing the petabyte-scale Earth data archives in the cloud. VEDA’s achievement exemplifies the core principles of NASA’s Open-Source Science Initiative (OSSI), showcasing commitment to promoting transparent, accessible, and collaborative scientific research.\nRead more about the history of VEDA in this blog post.\nThese pages provide documentation for onboarding users to cloud-enabled open science with Earth data, from computing and API usage to publication on the VEDA Dashboard.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#data-services",
+    "href": "index.html#data-services",
+    "title": "VEDA User Documentation",
+    "section": "Data Services",
+    "text": "Data Services\nIn VEDA’s open-source science environment, datasets can be discovered and accessed via open-standard data services such as a Spatio Temporal Asset Catalog (STAC) and WMTS map tiles APIs. Here is an overview of the API endpoints.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#resources-for-open-source-data-science",
+    "href": "index.html#resources-for-open-source-data-science",
+    "title": "VEDA User Documentation",
+    "section": "Resources for Open-Source Data Science",
+    "text": "Resources for Open-Source Data Science\nIf you are just getting started with geospatial data science (in Python) or want to learn more, you may find the Collection of External Resources useful.\nTo learn from examples, see the VEDA Example Notebooks - examples of open-source data science using VEDA services.\nSelected user groups can also get access to a VEDA-provided JupyterHub service.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#contributing",
+    "href": "index.html#contributing",
+    "title": "VEDA User Documentation",
+    "section": "Contributing",
+    "text": "Contributing\nContributions of data, stories, and example code are open to all users affiliated with the project. We strive to make the process as easy as possible. Please see the docs on Contributing.",
+    "crumbs": [
+      "Welcome"
     ]
   },
   {
@@ -1782,381 +2004,111 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "VEDA User Documentation",
-    "section": "",
-    "text": "VEDA (Visualization, Exploration and Data Analysis) is an innovative platform empowering researchers to explore and analyze Earth science data in the cloud. By combining interactive storytelling with open science principles, VEDA enables researchers to engage new audiences and share their analysis results effectively.\nDeveloped through a collaboration between NASA IMPACT, Development Seed, University of Alabama in Huntsville, Element 84, Indiana University, International Interactive Computing Collaboration (2i2c), Earth Science Data and Information System (ESDIS) Project, NASA Science Managed Cloud Environment (SMCE), and NASA Mission Cloud Platform (MCP), VEDA significantly reduces the barriers to accessing Earth science data and the computational resources needed for exploring and processing the petabyte-scale Earth data archives in the cloud. VEDA’s achievement exemplifies the core principles of NASA’s Open-Source Science Initiative (OSSI), showcasing commitment to promoting transparent, accessible, and collaborative scientific research.\nRead more about the history of VEDA in this blog post.\nThese pages provide documentation for onboarding users to cloud-enabled open science with Earth data, from computing and API usage to publication on the VEDA Dashboard.",
-    "crumbs": [
-      "Welcome"
-    ]
-  },
-  {
-    "objectID": "index.html#welcome",
-    "href": "index.html#welcome",
-    "title": "VEDA User Documentation",
-    "section": "",
-    "text": "VEDA (Visualization, Exploration and Data Analysis) is an innovative platform empowering researchers to explore and analyze Earth science data in the cloud. By combining interactive storytelling with open science principles, VEDA enables researchers to engage new audiences and share their analysis results effectively.\nDeveloped through a collaboration between NASA IMPACT, Development Seed, University of Alabama in Huntsville, Element 84, Indiana University, International Interactive Computing Collaboration (2i2c), Earth Science Data and Information System (ESDIS) Project, NASA Science Managed Cloud Environment (SMCE), and NASA Mission Cloud Platform (MCP), VEDA significantly reduces the barriers to accessing Earth science data and the computational resources needed for exploring and processing the petabyte-scale Earth data archives in the cloud. VEDA’s achievement exemplifies the core principles of NASA’s Open-Source Science Initiative (OSSI), showcasing commitment to promoting transparent, accessible, and collaborative scientific research.\nRead more about the history of VEDA in this blog post.\nThese pages provide documentation for onboarding users to cloud-enabled open science with Earth data, from computing and API usage to publication on the VEDA Dashboard.",
-    "crumbs": [
-      "Welcome"
-    ]
-  },
-  {
-    "objectID": "index.html#data-services",
-    "href": "index.html#data-services",
-    "title": "VEDA User Documentation",
-    "section": "Data Services",
-    "text": "Data Services\nIn VEDA’s open-source science environment, datasets can be discovered and accessed via open-standard data services such as a Spatio Temporal Asset Catalog (STAC) and WMTS map tiles APIs. Here is an overview of the API endpoints.",
-    "crumbs": [
-      "Welcome"
-    ]
-  },
-  {
-    "objectID": "index.html#resources-for-open-source-data-science",
-    "href": "index.html#resources-for-open-source-data-science",
-    "title": "VEDA User Documentation",
-    "section": "Resources for Open-Source Data Science",
-    "text": "Resources for Open-Source Data Science\nIf you are just getting started with geospatial data science (in Python) or want to learn more, you may find the Collection of External Resources useful.\nTo learn from examples, see the VEDA Example Notebooks - examples of open-source data science using VEDA services.\nSelected user groups can also get access to a VEDA-provided JupyterHub service.",
-    "crumbs": [
-      "Welcome"
-    ]
-  },
-  {
-    "objectID": "index.html#contributing",
-    "href": "index.html#contributing",
-    "title": "VEDA User Documentation",
-    "section": "Contributing",
-    "text": "Contributing\nContributions of data, stories, and example code are open to all users affiliated with the project. We strive to make the process as easy as possible. Please see the docs on Contributing.",
-    "crumbs": [
-      "Welcome"
-    ]
-  },
-  {
-    "objectID": "hub-guides/code-server.html",
-    "href": "hub-guides/code-server.html",
-    "title": "How to use VS Code on the VEDA JupyterHub",
-    "section": "",
-    "text": "This is a quick how-to guide for using VS Code as an IDE on the VEDA JupyterHub.\n\n\n\n\n\n\nWarning\n\n\n\nWe are exploring two options for using VS Code on the VEDA JupyterHub. These options should be considered experimental and may not be supported long-term.\n\n\n\n\n\nAccess the launcher from the home screen by clicking the + tab if it is not already open.\nClick the “VS Code” icon on the top row. This will open a new browser tab with the VS Code interface:\n\n\n\nVS Code icon on the Launcher page\n\n\nOpen the specific folder that you want to work in:\n\nClick the three lines on the upper left (a.k.a., hamburger symbol)\nSelect ‘File’\nSelect ‘Open Folder…’\nNavigate to the appropriate folder\nClick ‘OK’\n\n\n\n\nProcess for selecting the workspace folder\n\n\nSelect that you trust the repository to enable all VS Code features:\n\n\n\nProcess for trusting the workspace folder\n\n\n\nNow, you have access to VS Code on the VEDA Hub and are ready to get started on your development!\n\n\n\n\n\n\nWarning\n\n\n\nUsing the full set of VS Code features requires trusting the folders, which should only be done for individual, known/trusted repositories rather than the entire JupyterHub home directory.\n\n\n\n\n\n\n\n\nTip\n\n\n\nAs an alternative to step 2, you can type the path to your folder after ?folder= in the browser URL and press enter.\n\n\n\n\n\n\n\n\nTip\n\n\n\nMost times, you will want to select a folder that is a git repository, perhaps cloned from GitHub, so that your code is version controlled.\n\n\n\n\n\nThe VEDA JupyterHub comes with several VS Code extensions pre-installed. However, you may need access to others that are not installed. For example, the ms-python Python extension is required for debugging Python code and isn’t curently installed by default.\n\nNavigate to the Extensions view by clicking on the icon with four boxes and one slightly offset:\n\n\n\nExtensions icon in VS Code\n\n\nThe view shows the already installed extensions. Type the name of the extension you’re looking for in the ‘Search Extensions’ text box:\n\n\n\nInstall VS Code extension\n\n\nClick install.\n\n\n\n\n\n\n\nNote\n\n\n\nThe extensions will be installed for the duration of your session. For persistant access to VS Code extensions, raise an issue in VEDA Hub docker image repository.\n\n\n\n\n\n\n\n\nSelect the Run view in the sidebar:\n\n\n\n\nVS Code Run View\n\n\n\nClick on “create a launch.json file”:\n\n\n\n\nCreate a launch.json file\n\n\n\nSelect “Python Debugger”.\nSelect “Python File: Debug the currently active Python file”.\n\n\n\n\n\n\n\nNote\n\n\n\nCheck out the Visual Studio Code Debugging docs for additional configuration options. One of the more useful controls is setting \"justMyCode\": false to debug imported libraries.\n\n\n\n\n\n\nOpen the Python file that you want to debug\nClick to the left of a line number to add a breakpoint\n\n\n\n\nAdd a breakpoint\n\n\n\nFrom the Run view, click on the green triangle to start debugging\n\n\n\n\nStart debugger\n\n\n\nUse the debugger controls to continue, restart, stop, step over, step in, or step out of functions.\n\n\n\n\nDebugger control\n\n\n\n\n\n\n\n\nTip\n\n\n\nAdd the .vscode folder to your .gitignore and put ephemeral testing modules in their for debugging without poluting the git workspace.\n\n\n\n\n\n\nSeveral images in this section are from Microsoft’s public documentation for Visual Studio Code. Images are used under the terms of the under the Creative Commons Attribution 3.0 United States License.",
-    "crumbs": [
-      "Usage Examples",
-      "JupyterHub",
-      "How to use VS Code on the VEDA JupyterHub"
-    ]
-  },
-  {
-    "objectID": "hub-guides/code-server.html#launch-vscode",
-    "href": "hub-guides/code-server.html#launch-vscode",
-    "title": "How to use VS Code on the VEDA JupyterHub",
-    "section": "",
-    "text": "Access the launcher from the home screen by clicking the + tab if it is not already open.\nClick the “VS Code” icon on the top row. This will open a new browser tab with the VS Code interface:\n\n\n\nVS Code icon on the Launcher page\n\n\nOpen the specific folder that you want to work in:\n\nClick the three lines on the upper left (a.k.a., hamburger symbol)\nSelect ‘File’\nSelect ‘Open Folder…’\nNavigate to the appropriate folder\nClick ‘OK’\n\n\n\n\nProcess for selecting the workspace folder\n\n\nSelect that you trust the repository to enable all VS Code features:\n\n\n\nProcess for trusting the workspace folder\n\n\n\nNow, you have access to VS Code on the VEDA Hub and are ready to get started on your development!\n\n\n\n\n\n\nWarning\n\n\n\nUsing the full set of VS Code features requires trusting the folders, which should only be done for individual, known/trusted repositories rather than the entire JupyterHub home directory.\n\n\n\n\n\n\n\n\nTip\n\n\n\nAs an alternative to step 2, you can type the path to your folder after ?folder= in the browser URL and press enter.\n\n\n\n\n\n\n\n\nTip\n\n\n\nMost times, you will want to select a folder that is a git repository, perhaps cloned from GitHub, so that your code is version controlled.",
-    "crumbs": [
-      "Usage Examples",
-      "JupyterHub",
-      "How to use VS Code on the VEDA JupyterHub"
-    ]
-  },
-  {
-    "objectID": "hub-guides/code-server.html#installing-extensions",
-    "href": "hub-guides/code-server.html#installing-extensions",
-    "title": "How to use VS Code on the VEDA JupyterHub",
-    "section": "",
-    "text": "The VEDA JupyterHub comes with several VS Code extensions pre-installed. However, you may need access to others that are not installed. For example, the ms-python Python extension is required for debugging Python code and isn’t curently installed by default.\n\nNavigate to the Extensions view by clicking on the icon with four boxes and one slightly offset:\n\n\n\nExtensions icon in VS Code\n\n\nThe view shows the already installed extensions. Type the name of the extension you’re looking for in the ‘Search Extensions’ text box:\n\n\n\nInstall VS Code extension\n\n\nClick install.\n\n\n\n\n\n\n\nNote\n\n\n\nThe extensions will be installed for the duration of your session. For persistant access to VS Code extensions, raise an issue in VEDA Hub docker image repository.",
-    "crumbs": [
-      "Usage Examples",
-      "JupyterHub",
-      "How to use VS Code on the VEDA JupyterHub"
-    ]
-  },
-  {
-    "objectID": "hub-guides/code-server.html#debugging-python-code",
-    "href": "hub-guides/code-server.html#debugging-python-code",
-    "title": "How to use VS Code on the VEDA JupyterHub",
-    "section": "",
-    "text": "Select the Run view in the sidebar:\n\n\n\n\nVS Code Run View\n\n\n\nClick on “create a launch.json file”:\n\n\n\n\nCreate a launch.json file\n\n\n\nSelect “Python Debugger”.\nSelect “Python File: Debug the currently active Python file”.\n\n\n\n\n\n\n\nNote\n\n\n\nCheck out the Visual Studio Code Debugging docs for additional configuration options. One of the more useful controls is setting \"justMyCode\": false to debug imported libraries.\n\n\n\n\n\n\nOpen the Python file that you want to debug\nClick to the left of a line number to add a breakpoint\n\n\n\n\nAdd a breakpoint\n\n\n\nFrom the Run view, click on the green triangle to start debugging\n\n\n\n\nStart debugger\n\n\n\nUse the debugger controls to continue, restart, stop, step over, step in, or step out of functions.\n\n\n\n\nDebugger control\n\n\n\n\n\n\n\n\nTip\n\n\n\nAdd the .vscode folder to your .gitignore and put ephemeral testing modules in their for debugging without poluting the git workspace.",
-    "crumbs": [
-      "Usage Examples",
-      "JupyterHub",
-      "How to use VS Code on the VEDA JupyterHub"
-    ]
-  },
-  {
-    "objectID": "hub-guides/code-server.html#acknowledgments",
-    "href": "hub-guides/code-server.html#acknowledgments",
-    "title": "How to use VS Code on the VEDA JupyterHub",
-    "section": "",
-    "text": "Several images in this section are from Microsoft’s public documentation for Visual Studio Code. Images are used under the terms of the under the Creative Commons Attribution 3.0 United States License.",
-    "crumbs": [
-      "Usage Examples",
-      "JupyterHub",
-      "How to use VS Code on the VEDA JupyterHub"
-    ]
-  },
-  {
-    "objectID": "hub-guides/ssh.html",
-    "href": "hub-guides/ssh.html",
-    "title": "How to ssh into the JupyterHub",
-    "section": "",
-    "text": "This is a how-to guide for connecting to the VEDA JupyterHub from your local environment via ssh. This allows you to use all of ssh’s features (copy, run commands) as well as connecting via VS Code’s proprietary Remote Development functionality.\n\n\n\n\n\n\nNote\n\n\n\nwebsocat must be installed on your local machine in order to remotely connect to the VEDA JupyterHub. The full installation instructions are available on websocat’s GitHub README. websocat can be installed on macOS via Homebrew as brew install websocat.\n\n\n\n\n\n\n\n\nWarning\n\n\n\nWe are exploring two options for using VS Code on the VEDA JupyterHub. These options should be considered experimental and may not be supported long-term.\n\n\n\n\n\n\n\nLaunch a server from the VEDA JupyterHub home page. The server must be started in order to connect remotely.\nGet a new token from the VEDA JupyterHub token page:\n\nEnter a descriptive name in the ‘Note’ text window.\nEnter an expiration date.\nClick “request a new API token”\n\n\n\n\nGenerate a new token\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nTreat this token like you would treat a password to your JupyterHub instance!\n\n\n\n\n\nBefore your first time remotely connecting to the VEDA JupyterHub, you need to configure your local ssh.\n\nAdd an entry that looks like the following to the end of your ~/.ssh/config. Create it if it does not exist.\nHost hub.openveda.cloud\n    User jovyan\n    ProxyCommand websocat --binary -H='Authorization: token &lt;YOUR-JUPYTERHUB-TOKEN&gt;' asyncstdio: wss://%h/user/&lt;YOUR-JUPYTERHUB-USERNAME&gt;/sshd/\nReplace &lt;YOUR-JUPYTERHUB-TOKEN&gt; with the token you created earlier.\nReplace &lt;YOUR-JUPYTERHUB-USERNAME&gt; with your VEDA JupyterHub username.\n\n\n\n\nYou need to put some ssh public keys in ~/.ssh/authorized_keys after you start your JupyterHub server and have completed the setup of your private keys on your local machine.\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a terminal in JupyterLab\nRun the following commands, replacing  with your github username:\nmkdir -p ~/.ssh\nwget https://github.com/&lt;YOUR-GITHUB-USERNAME&gt;.keys -O ~/.ssh/authorized_keys\nchmod 0600 ~/.ssh/authorized_keys\n\n\n\n\n\nThere are two ways to connect to JupyterHub: Connect to the JupyterHub using VS Code’s Remote SSH feature and Connect via ssh on the command line.\n\n\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a new VS Code Window on your local maachine.\nOpen the command prompt (command + shift + P on macOS)\nEnter Remote-SSH: Connect to Host...\nSelect hub.openveda.cloud\nSelect “Open Folder” and select the specific folder that you want to work in.\n\nNow you’re connected and ready to develop using VS Code! You may need to install some extensions in the SSH server to use your regular development workflows.\n\n\n\n\n\n\nTip\n\n\n\nMost times, you will want to select a folder that is a git repository, perhaps cloned from GitHub, so that your code is version controlled.\n\n\n\n\n\n\n\n\nNote\n\n\n\nIf you have not ssh’d into the JupyterHub before, you will receive a notice that “The authenticity of host ‘hub.openveda.cloud’ can’t be established.”. Enter ‘yes’ in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.\n\n\n\n\nYou will need to install the extensions that you want to use in the SSH.\n\nNavigate to the Extensions view by clicking on the icon with four boxes and one slightly offset:\n\n\n\nExtensions icon in VS Code\n\n\nThe view shows the already installed extensions. Type the name of the extension you’re looking for in the ‘Search Extensions’ text box, or scroll to see your locally installed extensions:\n\n\n\nInstall VS Code extension\n\n\nSelect ‘Install in SSH: hub.openveda.cloud’\n\n\n\n\n\nSelect File &gt; Close Remote Connection to disconnect from the JupyterHub:\n\n\n\nClose remote connection\n\n\n\nExiting VS Code will also close the remote connection.\n\n\n\n\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a new terminal on your local machine.\nEnter ssh hub.openveda.cloud\n\nYou are now ssh’d into the JupyterHub! If you enter a command (e.g., touch am-i-on-the-jupyterhub), it will be run on the remote server.\n\n\n\n\n\n\nNote\n\n\n\nIf you have not ssh’d into the JupyterHub before, you will receive a notice that “The authenticity of host ‘hub.openveda.cloud’ can’t be established.”. Enter ‘yes’ in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.\n\n\n\n\n\n\nThese instructions are based off the jupyter-sshd-proxy documentation and a screen recording Yuvi Panda shared in the NASA IMPACT slack workspace. Thank you to Yuvi Panda for developing jupyter-sshd-proxy!",
-    "crumbs": [
-      "Usage Examples",
-      "JupyterHub",
-      "How to ssh into the JupyterHub"
-    ]
-  },
-  {
-    "objectID": "hub-guides/ssh.html#setup",
-    "href": "hub-guides/ssh.html#setup",
-    "title": "How to ssh into the JupyterHub",
-    "section": "",
-    "text": "Launch a server from the VEDA JupyterHub home page. The server must be started in order to connect remotely.\nGet a new token from the VEDA JupyterHub token page:\n\nEnter a descriptive name in the ‘Note’ text window.\nEnter an expiration date.\nClick “request a new API token”\n\n\n\n\nGenerate a new token\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nTreat this token like you would treat a password to your JupyterHub instance!\n\n\n\n\n\nBefore your first time remotely connecting to the VEDA JupyterHub, you need to configure your local ssh.\n\nAdd an entry that looks like the following to the end of your ~/.ssh/config. Create it if it does not exist.\nHost hub.openveda.cloud\n    User jovyan\n    ProxyCommand websocat --binary -H='Authorization: token &lt;YOUR-JUPYTERHUB-TOKEN&gt;' asyncstdio: wss://%h/user/&lt;YOUR-JUPYTERHUB-USERNAME&gt;/sshd/\nReplace &lt;YOUR-JUPYTERHUB-TOKEN&gt; with the token you created earlier.\nReplace &lt;YOUR-JUPYTERHUB-USERNAME&gt; with your VEDA JupyterHub username.\n\n\n\n\nYou need to put some ssh public keys in ~/.ssh/authorized_keys after you start your JupyterHub server and have completed the setup of your private keys on your local machine.\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a terminal in JupyterLab\nRun the following commands, replacing  with your github username:\nmkdir -p ~/.ssh\nwget https://github.com/&lt;YOUR-GITHUB-USERNAME&gt;.keys -O ~/.ssh/authorized_keys\nchmod 0600 ~/.ssh/authorized_keys",
-    "crumbs": [
-      "Usage Examples",
-      "JupyterHub",
-      "How to ssh into the JupyterHub"
-    ]
-  },
-  {
-    "objectID": "hub-guides/ssh.html#connect-to-jupyterhub",
-    "href": "hub-guides/ssh.html#connect-to-jupyterhub",
-    "title": "How to ssh into the JupyterHub",
-    "section": "",
-    "text": "There are two ways to connect to JupyterHub: Connect to the JupyterHub using VS Code’s Remote SSH feature and Connect via ssh on the command line.\n\n\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a new VS Code Window on your local maachine.\nOpen the command prompt (command + shift + P on macOS)\nEnter Remote-SSH: Connect to Host...\nSelect hub.openveda.cloud\nSelect “Open Folder” and select the specific folder that you want to work in.\n\nNow you’re connected and ready to develop using VS Code! You may need to install some extensions in the SSH server to use your regular development workflows.\n\n\n\n\n\n\nTip\n\n\n\nMost times, you will want to select a folder that is a git repository, perhaps cloned from GitHub, so that your code is version controlled.\n\n\n\n\n\n\n\n\nNote\n\n\n\nIf you have not ssh’d into the JupyterHub before, you will receive a notice that “The authenticity of host ‘hub.openveda.cloud’ can’t be established.”. Enter ‘yes’ in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.\n\n\n\n\nYou will need to install the extensions that you want to use in the SSH.\n\nNavigate to the Extensions view by clicking on the icon with four boxes and one slightly offset:\n\n\n\nExtensions icon in VS Code\n\n\nThe view shows the already installed extensions. Type the name of the extension you’re looking for in the ‘Search Extensions’ text box, or scroll to see your locally installed extensions:\n\n\n\nInstall VS Code extension\n\n\nSelect ‘Install in SSH: hub.openveda.cloud’\n\n\n\n\n\nSelect File &gt; Close Remote Connection to disconnect from the JupyterHub:\n\n\n\nClose remote connection\n\n\n\nExiting VS Code will also close the remote connection.\n\n\n\n\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a new terminal on your local machine.\nEnter ssh hub.openveda.cloud\n\nYou are now ssh’d into the JupyterHub! If you enter a command (e.g., touch am-i-on-the-jupyterhub), it will be run on the remote server.\n\n\n\n\n\n\nNote\n\n\n\nIf you have not ssh’d into the JupyterHub before, you will receive a notice that “The authenticity of host ‘hub.openveda.cloud’ can’t be established.”. Enter ‘yes’ in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.",
-    "crumbs": [
-      "Usage Examples",
-      "JupyterHub",
-      "How to ssh into the JupyterHub"
-    ]
-  },
-  {
-    "objectID": "hub-guides/ssh.html#acknowledgments",
-    "href": "hub-guides/ssh.html#acknowledgments",
-    "title": "How to ssh into the JupyterHub",
-    "section": "",
-    "text": "These instructions are based off the jupyter-sshd-proxy documentation and a screen recording Yuvi Panda shared in the NASA IMPACT slack workspace. Thank you to Yuvi Panda for developing jupyter-sshd-proxy!",
-    "crumbs": [
-      "Usage Examples",
-      "JupyterHub",
-      "How to ssh into the JupyterHub"
-    ]
-  },
-  {
-    "objectID": "notebooks/index.html",
-    "href": "notebooks/index.html",
-    "title": "Usage Examples",
-    "section": "",
-    "text": "Base URL Changes\n\n\n\nThe VEDA Team is in the process of updating documentation notebooks to use the new stable production APIs. Currently most notebooks use deprecated staging APIs and should be updated:\nSTAC_API_URL = \"https://staging-stac.delta-backend.com\" –&gt; https://openveda.cloud/api/stac\nRASTER_API_URL = \"https://staging-raster.delta-backend.com\" –&gt; https://openveda.cloud/api/raster",
-    "crumbs": [
-      "Usage Examples"
-    ]
-  },
-  {
-    "objectID": "notebooks/index.html#getting-started",
-    "href": "notebooks/index.html#getting-started",
-    "title": "Usage Examples",
-    "section": "Getting started",
-    "text": "Getting started\nThe example notebooks are divided into three sections:\n\nQuickstarts: Notebooks to get you started quickly and help you become more familiar with cloud-native geospatial technologies.\nTutorials: Longer notebooks that walk through more advanced use cases and examples.\nDatasets: Notebooks that showcase a particular VEDA dataset and walk through an applied geospatial analyses.\n\n\nChoosing the right data access route for your needs\nThe Quickstarts examples are further divided into two sections, which you can choose from depending on your data needs:\n\nAccessing the Data Directly: For when you want to access the raw data (e.g., to do a specific analysis). In this case, permissions are required to access the data (i.e., must be run on VEDA JupyterHub) and computation happens within the user’s instance (i.e., the user needs to think about instance size). This approach is suitable for use within notebooks. All examples provided in this section require VEDA JupyterHub access to run.\nUsing the Raster API: For when you want to show outputs to other people or do standard processing. No permissions required (i.e., notebooks can be run on mybinder). Additionally, the computation happens somewhere else (i.e., user does not have to think about instance size). Lastly, this approach is suitable for use within notebooks as well as web application frontends (e.g., like dataset discoveries). These notebook examples can be run on both VEDA JupyterHub, as well as outside of the Hub (see instructions below) and within mybinder.",
-    "crumbs": [
-      "Usage Examples"
-    ]
-  },
-  {
-    "objectID": "notebooks/index.html#how-to-run",
-    "href": "notebooks/index.html#how-to-run",
-    "title": "Usage Examples",
-    "section": "How to run",
-    "text": "How to run\nEvery notebook contains information about how to run it. Some can run on mybinder and all can run on the VEDA JupyterHub. See VEDA Analytics JupyterHub Access for information about how to gain access.\n\nRunning outside of VEDA JupyterHub\nTo run the notebooks locally, you can use can install the Python packages (a virtual environment is recommended)\npip install -r requirements.txt\nOnce you have installed the packages you can run the notebooks using Jupyter.\njupyter lab\nIf the notebook needs access to protected data on S3, you will need to specifically get access. Please request access by emailing aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN).",
-    "crumbs": [
-      "Usage Examples"
-    ]
-  },
-  {
-    "objectID": "notebooks/index.html#how-to-contribute",
-    "href": "notebooks/index.html#how-to-contribute",
-    "title": "Usage Examples",
-    "section": "How to contribute",
-    "text": "How to contribute\nPlease refer to the notebook style guide in these docs.",
-    "crumbs": [
-      "Usage Examples"
-    ]
-  },
-  {
-    "objectID": "notebooks/datasets/nldas_compare2_3.html",
-    "href": "notebooks/datasets/nldas_compare2_3.html",
-    "title": "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data",
-    "section": "",
-    "text": "You can launch this notebook in VEDA JupyterHub by clicking the link below.\nLaunch in VEDA JupyterHub (requires access)\n\n\nLearn more\n\n\n\nThis notebook was written on the VEDA JupyterHub and as such is designed to be run on a jupyterhub which is associated with an AWS IAM role which has been granted permissions to the VEDA data store via its bucket policy. The instance used provided 16GB of RAM.\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\n\nThe data is in a protected bucket. Please request access by emailng aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN). The team will help you configure the cognito client.\nYou should then run:\n%run -i 'cognito_login.py'",
-    "crumbs": [
-      "Usage Examples",
-      "Datasets",
-      "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data"
-    ]
-  },
-  {
-    "objectID": "notebooks/datasets/nldas_compare2_3.html#run-this-notebook",
-    "href": "notebooks/datasets/nldas_compare2_3.html#run-this-notebook",
-    "title": "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data",
-    "section": "",
-    "text": "You can launch this notebook in VEDA JupyterHub by clicking the link below.\nLaunch in VEDA JupyterHub (requires access)\n\n\nLearn more\n\n\n\nThis notebook was written on the VEDA JupyterHub and as such is designed to be run on a jupyterhub which is associated with an AWS IAM role which has been granted permissions to the VEDA data store via its bucket policy. The instance used provided 16GB of RAM.\nSee (VEDA Analytics JupyterHub Access)[https://nasa-impact.github.io/veda-docs/veda-jh-access.html] for information about how to gain access.\n\n\n\nThe data is in a protected bucket. Please request access by emailng aimee@developmentseed.org or alexandra@developmentseed.org and providing your affiliation, interest in or expected use of the dataset and an AWS IAM role or user Amazon Resource Name (ARN). The team will help you configure the cognito client.\nYou should then run:\n%run -i 'cognito_login.py'",
-    "crumbs": [
-      "Usage Examples",
-      "Datasets",
-      "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data"
-    ]
-  },
-  {
-    "objectID": "notebooks/datasets/nldas_compare2_3.html#about-the-data",
-    "href": "notebooks/datasets/nldas_compare2_3.html#about-the-data",
-    "title": "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data",
-    "section": "About the Data",
-    "text": "About the Data\nNLDAS is a widely used land modeling environment that generates estimates of land surface fluxes and states such as soil moisture, snow, and streamflow. These estimates are critical for drought and flood monitoring, water availability and water resource management, climate assessments, and other uses. NLDAS-3 is the next generation version of NLDAS-2, and offers significant improvements such as improved spatial resolution (12.5km to 1km), expanded domain (CONUS to North and Central America), reduced data latency (3.5 days to near real-time), and assimilation of NASA remote sensing data, among others. (see Earthdata VEDA Data Story (https://www.earthdata.nasa.gov/dashboard/stories/nldas)). Please note that the NLDAS-3 precipitation data provided here is a sample dataset still in development, and will not be the final NLDAS-3 product when it is released.\nThis notebook is intended to visualize and compare the NLDAS-2 and sample NLDAS-3 monthly-averaged precipitation forcing.\n\nApproach\n\nQuery metadata from the VEDA STAC API\nQuery NLDAS-2 and NLDAS-3 Raster data drom the VEDA Raster API\nDisplay the data side-by-side for comparison\n\n\nimport requests\nimport folium\nimport folium.plugins\nfrom folium import Map, TileLayer\nfrom pystac_client import Client\nimport branca\nimport pandas as pd\nimport matplotlib.pyplot as plt",
-    "crumbs": [
-      "Usage Examples",
-      "Datasets",
-      "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data"
-    ]
-  },
-  {
-    "objectID": "notebooks/datasets/nldas_compare2_3.html#querying-the-stac-api",
-    "href": "notebooks/datasets/nldas_compare2_3.html#querying-the-stac-api",
-    "title": "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data",
-    "section": "Querying the STAC API",
-    "text": "Querying the STAC API\n\n# The data can be accessed without credentials via these links\nSTAC_API_URL = \"https://openveda.cloud/api/stac\"\nRASTER_API_URL = \"https://openveda.cloud/api/raster\"\n\n# The NLDAS-2 and NLDAS-3 are stored in these collections\ncollection_id3 = \"nldas3\"\ncollection_id2 = \"nldas2\"\n\n\n# These lines store the metadata for each collection to allow us to query the STAC easily\ncollection3 = requests.get(f\"{STAC_API_URL}/collections/{collection_id3}\").json()\ncollection2 = requests.get(f\"{STAC_API_URL}/collections/{collection_id2}\").json()\n\n\n# This date can be changed and is the date that will be used to generate the maps\ndate = '2021-02-01'\n\n\n# This line searches for and stores the NLDAS-3 file information that matches the given date\nresponse3 = requests.post(\n    f\"{STAC_API_URL}/search\",\n    json={\n        \"collections\": [collection_id3],\n        \"query\": {\"datetime\": {\"eq\": date+\"T00:00:00\"}},\n        \"limit\": 100,\n    },\n).json()\nitems3 = response3[\"features\"]\nlen(items3)\n\n1\n\n\n\n# This line searches for and stores the NLDAS-2 file information that matches the given date\nresponse2 = requests.post(\n    f\"{STAC_API_URL}/search\",\n    json={\n        \"collections\": [collection_id2],\n        \"query\": {\"datetime\": {\"eq\": date+\"T00:00:00\"}},\n        \"limit\": 100,\n    },\n).json()\nitems2 = response2[\"features\"]\nlen(items2)\n\n1\n\n\n\n# Get the first matching file for each version and save/visualize it\nitem2 = items2[0]\nitem3 = items3[0]\nitem2, item3\n\n({'id': 'nldas2_LIS_HIST_202102',\n  'bbox': [-168.98000671647551,\n   7.019999961559591,\n   -51.93999145246978,\n   72.06000091582078],\n  'type': 'Feature',\n  'links': [{'rel': 'collection',\n    'type': 'application/json',\n    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas2'},\n   {'rel': 'parent',\n    'type': 'application/json',\n    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas2'},\n   {'rel': 'root',\n    'type': 'application/json',\n    'href': 'https://staging.openveda.cloud/api/stac/'},\n   {'rel': 'self',\n    'type': 'application/geo+json',\n    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas2/items/nldas2_LIS_HIST_202102'},\n   {'title': 'Map of Item',\n    'href': 'https://staging.openveda.cloud/api/raster/collections/nldas2/items/nldas2_LIS_HIST_202102/map?bidx=1&assets=cog_default&unscale=False&colormap=%7B%221%22%3A+%5B120%2C+120%2C+120%5D%2C+%222%22%3A+%5B130%2C+65%2C+0%5D%2C+%223%22%3A+%5B66%2C+207%2C+56%5D%2C+%224%22%3A+%5B245%2C+239%2C+0%5D%2C+%225%22%3A+%5B241%2C+89%2C+32%5D%2C+%226%22%3A+%5B168%2C+0%2C+0%5D%2C+%227%22%3A+%5B0%2C+143%2C+201%5D%7D&max_size=1024&resampling=nearest&return_mask=True',\n    'rel': 'preview',\n    'type': 'text/html'}],\n  'assets': {'cog_default': {'href': 's3://veda-data-store-staging/EIS/nldas2monthly/nldas2_LIS_HIST_202102.tif',\n    'type': 'image/tiff; application=geotiff; profile=cloud-optimized',\n    'roles': ['data', 'layer'],\n    'title': 'Default COG Layer',\n    'description': 'Cloud optimized default layer to display on map',\n    'raster:bands': [{'scale': 1.0,\n      'nodata': -9999.0,\n      'offset': 0.0,\n      'sampling': 'area',\n      'data_type': 'float32',\n      'histogram': {'max': 574.3709106445312,\n       'min': -4.244315147399902,\n       'count': 11.0,\n       'buckets': [75701.0,\n        14093.0,\n        5868.0,\n        2149.0,\n        419.0,\n        204.0,\n        128.0,\n        63.0,\n        36.0,\n        12.0]},\n      'statistics': {'mean': 40.024527986379255,\n       'stddev': 50.011235463160766,\n       'maximum': 574.3709106445312,\n       'minimum': -4.244315147399902,\n       'valid_percent': 16.90532483552632}}]},\n   'rendered_preview': {'title': 'Rendered preview',\n    'href': 'https://staging.openveda.cloud/api/raster/collections/nldas2/items/nldas2_LIS_HIST_202102/preview.png?bidx=1&assets=cog_default&unscale=False&colormap=%7B%221%22%3A+%5B120%2C+120%2C+120%5D%2C+%222%22%3A+%5B130%2C+65%2C+0%5D%2C+%223%22%3A+%5B66%2C+207%2C+56%5D%2C+%224%22%3A+%5B245%2C+239%2C+0%5D%2C+%225%22%3A+%5B241%2C+89%2C+32%5D%2C+%226%22%3A+%5B168%2C+0%2C+0%5D%2C+%227%22%3A+%5B0%2C+143%2C+201%5D%7D&max_size=1024&resampling=nearest&return_mask=True',\n    'rel': 'preview',\n    'roles': ['overview'],\n    'type': 'image/png'}},\n  'geometry': {'type': 'Polygon',\n   'coordinates': [[[-168.98000671647551, 7.019999961559591],\n     [-51.93999145246978, 7.019999961559591],\n     [-51.93999145246978, 72.06000091582078],\n     [-168.98000671647551, 72.06000091582078],\n     [-168.98000671647551, 7.019999961559591]]]},\n  'collection': 'nldas2',\n  'properties': {'proj:bbox': [-168.98000671647551,\n    7.019999961559591,\n    -51.93999145246978,\n    72.06000091582078],\n   'proj:epsg': 4326.0,\n   'proj:shape': [1626.0, 2926.0],\n   'end_datetime': '2021-02-28T00:00:00',\n   'proj:geometry': {'type': 'Polygon',\n    'coordinates': [[[-168.98000671647551, 7.019999961559591],\n      [-51.93999145246978, 7.019999961559591],\n      [-51.93999145246978, 72.06000091582078],\n      [-168.98000671647551, 72.06000091582078],\n      [-168.98000671647551, 7.019999961559591]]]},\n   'proj:transform': [0.04000000521668002,\n    0.0,\n    -168.98000671647551,\n    0.0,\n    -0.0400000005868765,\n    72.06000091582078,\n    0.0,\n    0.0,\n    1.0],\n   'start_datetime': '2021-02-01T00:00:00'},\n  'stac_version': '1.0.0',\n  'stac_extensions': ['https://stac-extensions.github.io/projection/v1.0.0/schema.json',\n   'https://stac-extensions.github.io/raster/v1.1.0/schema.json']},\n {'id': 'nldas3_LIS_HIST_202102',\n  'bbox': [-168.98000671647551,\n   7.019999961559591,\n   -51.93999145246978,\n   72.06000091582078],\n  'type': 'Feature',\n  'links': [{'rel': 'collection',\n    'type': 'application/json',\n    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas3'},\n   {'rel': 'parent',\n    'type': 'application/json',\n    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas3'},\n   {'rel': 'root',\n    'type': 'application/json',\n    'href': 'https://staging.openveda.cloud/api/stac/'},\n   {'rel': 'self',\n    'type': 'application/geo+json',\n    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas3/items/nldas3_LIS_HIST_202102'},\n   {'title': 'Map of Item',\n    'href': 'https://staging.openveda.cloud/api/raster/collections/nldas3/items/nldas3_LIS_HIST_202102/map?bidx=1&assets=cog_default&unscale=False&colormap=%7B%221%22%3A+%5B120%2C+120%2C+120%5D%2C+%222%22%3A+%5B130%2C+65%2C+0%5D%2C+%223%22%3A+%5B66%2C+207%2C+56%5D%2C+%224%22%3A+%5B245%2C+239%2C+0%5D%2C+%225%22%3A+%5B241%2C+89%2C+32%5D%2C+%226%22%3A+%5B168%2C+0%2C+0%5D%2C+%227%22%3A+%5B0%2C+143%2C+201%5D%7D&max_size=1024&resampling=nearest&return_mask=True',\n    'rel': 'preview',\n    'type': 'text/html'}],\n  'assets': {'cog_default': {'href': 's3://veda-data-store-staging/EIS/nldas3monthly/nldas3_LIS_HIST_202102.tif',\n    'type': 'image/tiff; application=geotiff; profile=cloud-optimized',\n    'roles': ['data', 'layer'],\n    'title': 'Default COG Layer',\n    'description': 'Cloud optimized default layer to display on map',\n    'raster:bands': [{'scale': 1.0,\n      'nodata': -9999.0,\n      'offset': 0.0,\n      'sampling': 'area',\n      'data_type': 'float32',\n      'histogram': {'max': 428.0843200683594,\n       'min': -0.022795898839831352,\n       'count': 11.0,\n       'buckets': [217417.0,\n        29857.0,\n        15254.0,\n        7576.0,\n        3011.0,\n        1122.0,\n        488.0,\n        77.0,\n        9.0,\n        2.0]},\n      'statistics': {'mean': 30.96841488575868,\n       'stddev': 41.008411449510426,\n       'maximum': 428.0843200683594,\n       'minimum': -0.022795898839831352,\n       'valid_percent': 47.08281935307018}}]},\n   'rendered_preview': {'title': 'Rendered preview',\n    'href': 'https://staging.openveda.cloud/api/raster/collections/nldas3/items/nldas3_LIS_HIST_202102/preview.png?bidx=1&assets=cog_default&unscale=False&colormap=%7B%221%22%3A+%5B120%2C+120%2C+120%5D%2C+%222%22%3A+%5B130%2C+65%2C+0%5D%2C+%223%22%3A+%5B66%2C+207%2C+56%5D%2C+%224%22%3A+%5B245%2C+239%2C+0%5D%2C+%225%22%3A+%5B241%2C+89%2C+32%5D%2C+%226%22%3A+%5B168%2C+0%2C+0%5D%2C+%227%22%3A+%5B0%2C+143%2C+201%5D%7D&max_size=1024&resampling=nearest&return_mask=True',\n    'rel': 'preview',\n    'roles': ['overview'],\n    'type': 'image/png'}},\n  'geometry': {'type': 'Polygon',\n   'coordinates': [[[-168.98000671647551, 7.019999961559591],\n     [-51.93999145246978, 7.019999961559591],\n     [-51.93999145246978, 72.06000091582078],\n     [-168.98000671647551, 72.06000091582078],\n     [-168.98000671647551, 7.019999961559591]]]},\n  'collection': 'nldas3',\n  'properties': {'proj:bbox': [-168.98000671647551,\n    7.019999961559591,\n    -51.93999145246978,\n    72.06000091582078],\n   'proj:epsg': 4326.0,\n   'proj:shape': [1626.0, 2926.0],\n   'end_datetime': '2021-02-28T00:00:00',\n   'proj:geometry': {'type': 'Polygon',\n    'coordinates': [[[-168.98000671647551, 7.019999961559591],\n      [-51.93999145246978, 7.019999961559591],\n      [-51.93999145246978, 72.06000091582078],\n      [-168.98000671647551, 72.06000091582078],\n      [-168.98000671647551, 7.019999961559591]]]},\n   'proj:transform': [0.04000000521668002,\n    0.0,\n    -168.98000671647551,\n    0.0,\n    -0.0400000005868765,\n    72.06000091582078,\n    0.0,\n    0.0,\n    1.0],\n   'start_datetime': '2021-02-01T00:00:00'},\n  'stac_version': '1.0.0',\n  'stac_extensions': ['https://stac-extensions.github.io/projection/v1.0.0/schema.json',\n   'https://stac-extensions.github.io/raster/v1.1.0/schema.json']})\n\n\n\n# Save the relevant statistics for each file\nitem_stats3 = item3['assets']['cog_default']['raster:bands'][0]['statistics']\nrescale_values3 = item_stats3['minimum'], item_stats3['maximum']\n\nitem_stats2 = item2['assets']['cog_default']['raster:bands'][0]['statistics']\nrescale_values2 = item_stats2['minimum'], item_stats2['maximum']\n\n\n# Query the raster API for the NLDAS-3 tile\ntiles3 = requests.get(\n    f\"{RASTER_API_URL}/collections/{collection_id3}/items/{item3['id']}/tilejson.json?\"\n    \"&assets=cog_default\"\n    \"&color_formula=gamma+r+1.05&colormap_name=rdbu_r\"\n    f\"&rescale={rescale_values3[0]},{rescale_values3[1]}\",\n).json()\ntiles3\n\n{'tilejson': '2.2.0',\n 'version': '1.0.0',\n 'scheme': 'xyz',\n 'tiles': ['https://staging.openveda.cloud/api/raster/collections/nldas3/items/nldas3_LIS_HIST_202102/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&color_formula=gamma+r+1.05&colormap_name=rdbu_r&rescale=-0.022795898839831352%2C428.0843200683594'],\n 'minzoom': 0,\n 'maxzoom': 24,\n 'bounds': [-168.98000671647551,\n  7.019999961559591,\n  -51.93999145246978,\n  72.06000091582078],\n 'center': [-110.45999908447266, 39.540000438690186, 0]}\n\n\n\n# Query the raster API for the NLDAS-2 tile\ntiles2 = requests.get(\n    f\"{RASTER_API_URL}/collections/{collection_id2}/items/{item2['id']}/tilejson.json?\"\n    \"&assets=cog_default\"\n    \"&color_formula=gamma+r+1.05&colormap_name=rdbu_r\"\n    f\"&rescale={rescale_values2[0]},{rescale_values2[1]}\",\n).json()\ntiles2\n\n{'tilejson': '2.2.0',\n 'version': '1.0.0',\n 'scheme': 'xyz',\n 'tiles': ['https://staging.openveda.cloud/api/raster/collections/nldas2/items/nldas2_LIS_HIST_202102/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&color_formula=gamma+r+1.05&colormap_name=rdbu_r&rescale=-4.244315147399902%2C574.3709106445312'],\n 'minzoom': 0,\n 'maxzoom': 24,\n 'bounds': [-168.98000671647551,\n  7.019999961559591,\n  -51.93999145246978,\n  72.06000091582078],\n 'center': [-110.45999908447266, 39.540000438690186, 0]}",
-    "crumbs": [
-      "Usage Examples",
-      "Datasets",
-      "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data"
-    ]
-  },
-  {
-    "objectID": "notebooks/datasets/nldas_compare2_3.html#visualize-nldas-2-and-nldas-3",
-    "href": "notebooks/datasets/nldas_compare2_3.html#visualize-nldas-2-and-nldas-3",
-    "title": "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data",
-    "section": "Visualize NLDAS-2 and NLDAS-3",
-    "text": "Visualize NLDAS-2 and NLDAS-3\n\nNotice the differences in extent and resolution between the two versions.\n\n# Create and display a DualMap to visualize NLDAS-2 and NLDAS-3 data side-by-side\nmap_layer2 = TileLayer(\n    tiles=tiles2[\"tiles\"][0],\n    attr=\"VEDA\",\n)\nmap_layer3 = TileLayer(\n    tiles=tiles3[\"tiles\"][0],\n    attr=\"VEDA\",\n)\nmap_ = folium.plugins.DualMap(location=[39,-110], zoom_start=3,)\nmap_layer2.add_to(map_.m1)\nmap_layer3.add_to(map_.m2)\nmap_\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook",
-    "crumbs": [
-      "Usage Examples",
-      "Datasets",
-      "Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data"
-    ]
-  },
-  {
-    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html",
-    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html",
-    "title": "Visualizing Ocean NPP time series for seasonal patterns",
+    "objectID": "notebooks/datasets/air-quality-covid.html",
+    "href": "notebooks/datasets/air-quality-covid.html",
+    "title": "Air Quality and COVID-19",
     "section": "",
     "text": "You can launch this notebook using mybinder, by clicking the button below.",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Visualizing Ocean NPP time series for seasonal patterns"
+      "Air Quality and COVID-19"
     ]
   },
   {
-    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#run-this-notebook",
-    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#run-this-notebook",
-    "title": "Visualizing Ocean NPP time series for seasonal patterns",
+    "objectID": "notebooks/datasets/air-quality-covid.html#run-this-notebook",
+    "href": "notebooks/datasets/air-quality-covid.html#run-this-notebook",
+    "title": "Air Quality and COVID-19",
     "section": "",
     "text": "You can launch this notebook using mybinder, by clicking the button below.",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Visualizing Ocean NPP time series for seasonal patterns"
+      "Air Quality and COVID-19"
     ]
   },
   {
-    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#approach",
-    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#approach",
-    "title": "Visualizing Ocean NPP time series for seasonal patterns",
+    "objectID": "notebooks/datasets/air-quality-covid.html#approach",
+    "href": "notebooks/datasets/air-quality-covid.html#approach",
+    "title": "Air Quality and COVID-19",
     "section": "Approach",
-    "text": "Approach\n\nIdentify available dates and temporal frequency of observations for a given collection\nPass STAC item into raster API /stac/tilejson.json endpoint\nGet time series statistics over available time period to identify seasonal trends\nVisualize peak by displaying the tile in folium\nVisualize time series of raster images",
+    "text": "Approach\n\nIdentify available dates and temporal frequency of observations for a given collection - NO₂\nPass the STAC item into raster API /stac/tilejson.json endpoint\nWe’ll visualize two tiles (side-by-side) allowing for comparison of each of the time points using folium.plugins.DualMap",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Visualizing Ocean NPP time series for seasonal patterns"
+      "Air Quality and COVID-19"
     ]
   },
   {
-    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#about-the-data",
-    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#about-the-data",
-    "title": "Visualizing Ocean NPP time series for seasonal patterns",
+    "objectID": "notebooks/datasets/air-quality-covid.html#about-the-data",
+    "href": "notebooks/datasets/air-quality-covid.html#about-the-data",
+    "title": "Air Quality and COVID-19",
     "section": "About the Data",
-    "text": "About the Data\nOcean Net Primary Production (NPP) is the result of CO2 fixation, through photosynthesis, by marine phytoplankton which contain chlorophyll. It is the proportion of phytoplankton-sequestered carbon that enters the oceanic food web and supports a variety of marine life.",
+    "text": "About the Data\nThis dataset is of monthly nitrogen dioxide (NO₂) levels values across the globe. Darker colors indicate higher NO₂ levels and more activity. Lighter colors indicate lower levels of NO₂ and less activity. Missing pixels indicate areas of no data most likely associated with cloud cover or snow.",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Visualizing Ocean NPP time series for seasonal patterns"
+      "Air Quality and COVID-19"
     ]
   },
   {
-    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#the-case-study---walvis-bay-namibia",
-    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#the-case-study---walvis-bay-namibia",
-    "title": "Visualizing Ocean NPP time series for seasonal patterns",
-    "section": "The Case Study - Walvis Bay, Namibia",
-    "text": "The Case Study - Walvis Bay, Namibia\nWalvis Bay is home to Namibia’s largest marine farming center and a well established commercial fishing industry. It’s location in the nutrient-rich Benguela upwelling system of the Atlantic Ocean, means producers can rely on this area to cultivate an abundance of shellfish including oysters, mussels, and scallops.\nOccasionally the nutrient-rich waters of the Atlantic produce higher than normal NPP levels, resulting in short-lived harmful algal blooms. This is often a result of both favorable temperatures and abundance of sufficient nutrients. The resulting algal blooms can have severe consequences causing massive fish kills, contaminating seafood with toxins and creating an unsafe environment for humans and marine life. Toxins accumulated in the shellfish organs can be subsequently transmitted to humans through consumption and resulting in serious health threats.\nIn this example we explore the Ocean NPP dataset over the year 2020 to identify spatial and temporal patterns of Ocean NPP in the Walvis Bay area.",
+    "objectID": "notebooks/datasets/air-quality-covid.html#the-case-study---air-quality-and-covid-19",
+    "href": "notebooks/datasets/air-quality-covid.html#the-case-study---air-quality-and-covid-19",
+    "title": "Air Quality and COVID-19",
+    "section": "The Case Study - Air Quality and COVID-19",
+    "text": "The Case Study - Air Quality and COVID-19\nIn this notebook, we’ll walk through the development of side-by-side comparisons of NO₂ levels before and after government lockdowns as demonstrated Seeing Rebounds in NO₂ in this VEDA Discovery story: Air Quality and COVID-19 available on the VEDA Dashboard.",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Visualizing Ocean NPP time series for seasonal patterns"
+      "Air Quality and COVID-19"
     ]
   },
   {
-    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#querying-the-stac-api",
-    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#querying-the-stac-api",
-    "title": "Visualizing Ocean NPP time series for seasonal patterns",
+    "objectID": "notebooks/datasets/air-quality-covid.html#querying-the-stac-api",
+    "href": "notebooks/datasets/air-quality-covid.html#querying-the-stac-api",
+    "title": "Air Quality and COVID-19",
     "section": "Querying the STAC API",
-    "text": "Querying the STAC API\n\nimport requests\nfrom folium import Map, TileLayer\n\n\n# Provife STAC and RASTER API endpoints\nSTAC_API_URL = \"https://openveda.cloud/api/stac\"\nRASTER_API_URL = \"https://openveda.cloud/api/raster\"\n\n# Declare collection of interest - Ocean NPP\ncollection_name = \"MO_NPP_npp_vgpm\"\n\n\n# Fetch STAC collection\ncollection = requests.get(f\"{STAC_API_URL}/collections/{collection_name}\").json()\ncollection\n\n{'id': 'MO_NPP_npp_vgpm',\n 'type': 'Collection',\n 'links': [{'rel': 'items',\n   'type': 'application/geo+json',\n   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm/items'},\n  {'rel': 'parent',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/'},\n  {'rel': 'root',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/'},\n  {'rel': 'self',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm'}],\n 'title': '',\n 'assets': {'thumbnail': {'href': 'https://thumbnails.openveda.cloud/ocean-production--dataset-cover.jpg',\n   'type': 'image/jpeg',\n   'roles': ['thumbnail'],\n   'title': 'Thumbnail',\n   'description': 'Photo by [Karl Callwood](https://unsplash.com/photos/Ko1sGLhZm5w) (Rocky ocean shore)'}},\n 'extent': {'spatial': {'bbox': [[-180.0000050868518,\n     -90.00000508655744,\n     180.0000050868518,\n     89.9999974571629]]},\n  'temporal': {'interval': [['2020-01-01T00:00:00+00:00',\n     '2020-12-31T00:00:00+00:00']]}},\n 'license': 'MIT',\n 'renders': {'dashboard': {'title': 'VEDA Dashboard Render Parameters',\n   'assets': ['cog_default'],\n   'rescale': [[0, 1500]],\n   'colormap_name': 'jet'}},\n 'providers': [{'url': 'https://www.earthdata.nasa.gov/dashboard/',\n   'name': 'NASA VEDA',\n   'roles': ['host']}],\n 'summaries': {'datetime': ['2020-01-01T00:00:00Z', '2020-12-31T00:00:00Z']},\n 'description': 'Ocean Net Primary Production (NPP): https://oceancolor.gsfc.nasa.gov/atbd/npp/',\n 'item_assets': {'cog_default': {'type': 'image/tiff; application=geotiff; profile=cloud-optimized',\n   'roles': ['data', 'layer'],\n   'title': 'Default COG Layer',\n   'description': 'Cloud optimized default layer to display on map'}},\n 'stac_version': '1.0.0',\n 'stac_extensions': ['https://stac-extensions.github.io/render/v1.0.0/schema.json',\n  'https://stac-extensions.github.io/item-assets/v1.0.0/schema.json'],\n 'dashboard:is_periodic': True,\n 'dashboard:time_density': 'month'}\n\n\n\n# Verify frequency of data available\ncollection[\"dashboard:time_density\"]\n\n'month'\n\n\n\n# Get collection summary\ncollection[\"summaries\"]\n\n{'datetime': ['2020-01-01T00:00:00Z', '2020-12-31T00:00:00Z']}\n\n\nGreat, we can explore the year 2020 time series. Let’s create a bounding box to explore the Walvis Bay area of interest (AOI) in Namibia\n\n# Walvis Bay, Namibia\nwalvis_bay_aoi = {\n    \"type\": \"Feature\",\n    \"properties\": {},\n    \"geometry\": {\n        \"coordinates\": [\n            [\n                [13.686159004559698, -21.700046934333145],\n                [13.686159004559698, -23.241974326585833],\n                [14.753560168039911, -23.241974326585833],\n                [14.753560168039911, -21.700046934333145],\n                [13.686159004559698, -21.700046934333145],\n            ]\n        ],\n        \"type\": \"Polygon\",\n    },\n}\n\nLet’s visualize the AOI we have just created using folium\n\n# We'll plug in the coordinates for a location\n# central to the study area and a reasonable zoom level\n\nimport folium\n\nm = Map(\n    tiles=\"OpenStreetMap\",\n    location=[\n        -22.421460,\n        14.268801,\n    ],\n    zoom_start=8,\n)\n\nfolium.GeoJson(walvis_bay_aoi, name=\"Walvis Bay\").add_to(m)\nm\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook\n\n\nReturning back to our STAC API requests, let’s check how many total items are available.\n\n# Check total number of items available\nitems = requests.get(\n    f\"{STAC_API_URL}/collections/{collection_name}/items?limit=100\"\n).json()[\"features\"]\nprint(f\"Found {len(items)} items\")\n\nFound 12 items\n\n\nThis makes sense is our collection is monthly, so we should have 12 total items.\n\n# Explore one item to see what it contains\nitems[0]\n\n{'id': 'A_202012.L3m_MO_NPP_npp_vgpm_4km',\n 'bbox': [-180.0000050868518,\n  -90.00000508655744,\n  180.0000050868518,\n  89.9999974571629],\n 'type': 'Feature',\n 'links': [{'rel': 'collection',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm'},\n  {'rel': 'parent',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm'},\n  {'rel': 'root',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/'},\n  {'rel': 'self',\n   'type': 'application/geo+json',\n   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm/items/A_202012.L3m_MO_NPP_npp_vgpm_4km'},\n  {'title': 'Map of Item',\n   'href': 'https://openveda.cloud/api/raster/stac/map?collection=MO_NPP_npp_vgpm&item=A_202012.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&rescale=0%2C1500&colormap_name=jet',\n   'rel': 'preview',\n   'type': 'text/html'}],\n 'assets': {'cog_default': {'href': 's3://veda-data-store/MO_NPP_npp_vgpm/A_202012.L3m_MO_NPP_npp_vgpm_4km.tif',\n   'type': 'image/tiff; application=geotiff',\n   'roles': ['data', 'layer'],\n   'title': 'Default COG Layer',\n   'proj:bbox': [-180.0000050868518,\n    -90.00000508655744,\n    180.0000050868518,\n    89.9999974571629],\n   'proj:epsg': 4326,\n   'proj:wkt2': 'GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]',\n   'proj:shape': [4320, 8640],\n   'description': 'Cloud optimized default layer to display on map',\n   'raster:bands': [{'scale': 1.0,\n     'nodata': -32767.0,\n     'offset': 0.0,\n     'sampling': 'area',\n     'data_type': 'float32',\n     'histogram': {'max': 18305.302734375,\n      'min': 20.69771957397461,\n      'count': 11,\n      'buckets': [223827, 2620, 363, 105, 45, 20, 13, 4, 1, 4]},\n     'statistics': {'mean': 448.69620531977694,\n      'stddev': 450.1186820854004,\n      'maximum': 18305.302734375,\n      'minimum': 20.69771957397461,\n      'valid_percent': 43.29719543457031}}],\n   'proj:geometry': {'type': 'Polygon',\n    'coordinates': [[[-180.0000050868518, -90.00000508655744],\n      [180.0000050868518, -90.00000508655744],\n      [180.0000050868518, 89.9999974571629],\n      [-180.0000050868518, 89.9999974571629],\n      [-180.0000050868518, -90.00000508655744]]]},\n   'proj:projjson': {'id': {'code': 4326, 'authority': 'EPSG'},\n    'name': 'WGS 84',\n    'type': 'GeographicCRS',\n    'datum': {'name': 'World Geodetic System 1984',\n     'type': 'GeodeticReferenceFrame',\n     'ellipsoid': {'name': 'WGS 84',\n      'semi_major_axis': 6378137,\n      'inverse_flattening': 298.257223563}},\n    '$schema': 'https://proj.org/schemas/v0.4/projjson.schema.json',\n    'coordinate_system': {'axis': [{'name': 'Geodetic latitude',\n       'unit': 'degree',\n       'direction': 'north',\n       'abbreviation': 'Lat'},\n      {'name': 'Geodetic longitude',\n       'unit': 'degree',\n       'direction': 'east',\n       'abbreviation': 'Lon'}],\n     'subtype': 'ellipsoidal'}},\n   'proj:transform': [0.041666667844178655,\n    0.0,\n    -180.0000050868518,\n    0.0,\n    -0.04166666725549082,\n    89.9999974571629,\n    0.0,\n    0.0,\n    1.0]},\n  'rendered_preview': {'title': 'Rendered preview',\n   'href': 'https://openveda.cloud/api/raster/stac/preview.png?collection=MO_NPP_npp_vgpm&item=A_202012.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&rescale=0%2C1500&colormap_name=jet',\n   'rel': 'preview',\n   'roles': ['overview'],\n   'type': 'image/png'}},\n 'geometry': {'type': 'Polygon',\n  'coordinates': [[[-180.0000050868518, -90.00000508655744],\n    [180.0000050868518, -90.00000508655744],\n    [180.0000050868518, 89.9999974571629],\n    [-180.0000050868518, 89.9999974571629],\n    [-180.0000050868518, -90.00000508655744]]]},\n 'collection': 'MO_NPP_npp_vgpm',\n 'properties': {'end_datetime': '2020-12-31T00:00:00+00:00',\n  'start_datetime': '2020-12-01T00:00:00+00:00'},\n 'stac_version': '1.0.0',\n 'stac_extensions': ['https://stac-extensions.github.io/raster/v1.1.0/schema.json',\n  'https://stac-extensions.github.io/projection/v1.1.0/schema.json']}\n\n\nNow that we have explored the collection metadata by querying the STAC API, we can use the RASTER API to access the data itself.\nNOTE: The RASTER_API expects AOI as a Feature or a FeatureCollection. The datatype of the input matches the datatype of the output. So if you use a FeatureCollection as input, you will get back a FeatureCollection.\n\ndef generate_stats(item, aoi):\n    \"\"\" Generate statistics for a particular item and AOI\n\n    NOTE: This function assumes that the AOI is a geojson `Feature`.\n    \"\"\"\n    result = requests.post(\n        f\"{RASTER_API_URL}/cog/statistics\",\n        params={\"url\": item[\"assets\"][\"cog_default\"][\"href\"]},\n        json=aoi,\n    ).json()\n\n    return {\n        **result[\"properties\"],\n        \"start_datetime\": item[\"properties\"][\"start_datetime\"],\n    }\n\n\n%%time\nstats = [generate_stats(item, walvis_bay_aoi) for item in items]\n\nCPU times: user 52.5 ms, sys: 348 µs, total: 52.8 ms\nWall time: 7.7 s\n\n\nWith the function provided above, we can generate statistics for our AOI. In the example below, we’ll explore sample statistics available from one of the tiles.\n\nstats[1]\n\n{'statistics': {'b1': {'min': 3040.676025390625,\n   'max': 20105.990234375,\n   'mean': 7803.88623046875,\n   'count': 625.0,\n   'sum': 4877429.0,\n   'std': 3784.4446091863997,\n   'median': 6578.16162109375,\n   'majority': 8848.3544921875,\n   'minority': 3040.676025390625,\n   'unique': 615.0,\n   'histogram': [[149.0, 154.0, 91.0, 76.0, 50.0, 37.0, 24.0, 26.0, 10.0, 8.0],\n    [3040.676025390625,\n     4747.20751953125,\n     6453.73876953125,\n     8160.2705078125,\n     9866.8017578125,\n     11573.3330078125,\n     13279.8642578125,\n     14986.3955078125,\n     16692.927734375,\n     18399.458984375,\n     20105.990234375]],\n   'valid_percent': 64.97,\n   'masked_pixels': 337.0,\n   'valid_pixels': 625.0,\n   'percentile_2': 3431.018310546875,\n   'percentile_98': 17551.427734375}},\n 'start_datetime': '2020-11-01T00:00:00+00:00'}\n\n\n\nimport pandas as pd\n\n\ndef clean_stats(stats_json) -&gt; pd.DataFrame:\n    df = pd.json_normalize(stats_json)\n    df.columns = [col.replace(\"statistics.b1.\", \"\") for col in df.columns]\n    df[\"date\"] = pd.to_datetime(df[\"start_datetime\"])\n    return df\n\n\ndf = clean_stats(stats)",
+    "text": "Querying the STAC API\n\nimport requests\nfrom folium import Map, TileLayer\n\n\n# Provide STAC and RASTER API endpoints\nSTAC_API_URL = \"https://openveda.cloud/api/stac\"\nRASTER_API_URL = \"https://openveda.cloud/api/raster\"\n\n# Declare collection of interest - Nitrogen Oxide\ncollection_name = \"no2-monthly\"\n\n\n#Fetch STAC collection\ncollection = requests.get(f\"{STAC_API_URL}/collections/{collection_name}\").json()\ncollection\n\n{'id': 'no2-monthly',\n 'type': 'Collection',\n 'links': [{'rel': 'items',\n   'type': 'application/geo+json',\n   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly/items'},\n  {'rel': 'parent',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/'},\n  {'rel': 'root',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/'},\n  {'rel': 'self',\n   'type': 'application/json',\n   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly'}],\n 'title': 'NO₂',\n 'assets': {'thumbnail': {'href': 'https://thumbnails.openveda.cloud/no2--dataset-cover.jpg',\n   'type': 'image/jpeg',\n   'roles': ['thumbnail'],\n   'title': 'Thumbnail',\n   'description': 'Photo by [Mick Truyts](https://unsplash.com/photos/x6WQeNYJC1w) (Power plant shooting steam at the sky)'}},\n 'extent': {'spatial': {'bbox': [[-180.0, -90.0, 180.0, 90.0]]},\n  'temporal': {'interval': [['2016-01-01T00:00:00+00:00',\n     '2022-12-31T00:00:00+00:00']]}},\n 'license': 'MIT',\n 'renders': {'dashboard': {'bidx': [1],\n   'title': 'VEDA Dashboard Render Parameters',\n   'assets': ['cog_default'],\n   'rescale': [[0, 15000000000000000]],\n   'resampling': 'bilinear',\n   'color_formula': 'gamma r 1.05',\n   'colormap_name': 'rdbu_r'}},\n 'providers': [{'url': 'https://disc.gsfc.nasa.gov/',\n   'name': 'NASA Goddard Earth Sciences Data and Information Services Center',\n   'roles': ['producer', 'processor']},\n  {'url': 'https://www.earthdata.nasa.gov/dashboard/',\n   'name': 'NASA VEDA',\n   'roles': ['host']}],\n 'summaries': {'datetime': ['2016-01-01T00:00:00Z', '2023-09-30T00:00:00Z']},\n 'description': 'Darker colors indicate higher nitrogen dioxide (NO₂) levels and more activity. Lighter colors indicate lower levels of NO₂ and less activity. Missing pixels indicate areas of no data most likely associated with cloud cover or snow.',\n 'item_assets': {'cog_default': {'type': 'image/tiff; application=geotiff; profile=cloud-optimized',\n   'roles': ['data', 'layer'],\n   'title': 'Default COG Layer',\n   'description': 'Cloud optimized default layer to display on map'}},\n 'stac_version': '1.0.0',\n 'stac_extensions': ['https://stac-extensions.github.io/item-assets/v1.0.0/schema.json',\n  'https://stac-extensions.github.io/render/v1.0.0/schema.json'],\n 'dashboard:is_periodic': True,\n 'dashboard:time_density': 'month'}\n\n\nExamining the contents of our collection under summaries we see that the data is available from January 2015 to December 2022. By looking at the dashboard:time density we observe that the periodic frequency of these observations is monthly.\n\n# Check total number of items available\nitems = requests.get(f\"{STAC_API_URL}/collections/{collection_name}/items?limit=100\").json()[\"features\"]\nprint(f\"Found {len(items)} items\")\n\nFound 93 items\n\n\nThis makes sense as there are 7 years between 2016 - 2022, with 12 months per year, meaning 84 records in total.\nBelow, we’ll provide the max range of values to apply to visualizations of all items in the collection (rescale_values).\n\nrescale_values = {\n    \"max\": 50064805976866816,\n    \"min\": -1018382487283302\n}",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Visualizing Ocean NPP time series for seasonal patterns"
+      "Air Quality and COVID-19"
     ]
   },
   {
-    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#visualizing-the-data-as-a-time-series",
-    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#visualizing-the-data-as-a-time-series",
-    "title": "Visualizing Ocean NPP time series for seasonal patterns",
-    "section": "Visualizing the Data as a Time Series",
-    "text": "Visualizing the Data as a Time Series\nWe can now explore the full Ocean NPP time series available (January-December 2020) for the Walvis Bay area of Namibia. We can plot the data set using the code below:\n\nimport matplotlib.pyplot as plt\n\nfig = plt.figure(figsize=(20, 10))\n\nplt.plot(df[\"date\"], df[\"mean\"], \"black\", label=\"Mean monthly Ocean NPP values\")\n\nplt.fill_between(\n    df[\"date\"],\n    df[\"mean\"] + df[\"std\"],\n    df[\"mean\"] - df[\"std\"],\n    facecolor=\"lightgray\",\n    interpolate=False,\n    label=\"+/- one standard devation\",\n)\n\nplt.plot(\n    df[\"date\"],\n    df[\"min\"],\n    color=\"blue\",\n    linestyle=\"-\",\n    linewidth=0.5,\n    label=\"Min monthly NPP values\",\n)\nplt.plot(\n    df[\"date\"],\n    df[\"max\"],\n    color=\"red\",\n    linestyle=\"-\",\n    linewidth=0.5,\n    label=\"Max monhtly NPP values\",\n)\n\nplt.legend()\nplt.title(\"Ocean NPP Values for Walvis Bay, Namibia (2020)\")\n\nText(0.5, 1.0, 'Ocean NPP Values for Walvis Bay, Namibia (2020)')\n\n\n\n\n\n\n\n\n\nHere, we observe the seasonal variability in Ocean NPP for the Walvis Bay area. The larger peaks in the max values suggests the intensity of these events may vary spatially. Let’s explore one of the time steps (e.g., October) where there are higher maximum monthly NPP values to see if this is the case.\nImportant note: Keep in mind that the size and extent of your AOI will influence the ‘signal’ of your time series. If the phenomena you are investigating displays greater spatial variability a larger AOI will provide more ‘noise’ making it more difficult to detect.",
+    "objectID": "notebooks/datasets/air-quality-covid.html#exploring-changes-in-nitrogen-oxide-no₂-related-to-changes-in-human-behavior---using-the-raster-api",
+    "href": "notebooks/datasets/air-quality-covid.html#exploring-changes-in-nitrogen-oxide-no₂-related-to-changes-in-human-behavior---using-the-raster-api",
+    "title": "Air Quality and COVID-19",
+    "section": "Exploring Changes in Nitrogen Oxide (NO₂) Related to Changes in Human Behavior - Using the Raster API",
+    "text": "Exploring Changes in Nitrogen Oxide (NO₂) Related to Changes in Human Behavior - Using the Raster API\nWe will explore changes in air quality due to changes in human behaviour resulting from the COVID-19 pandemic. With people largely confined to their homes to reduce the spread of the novel coronavirus, scientists were anticipated there were likely to be fewer cars, planes, and ships emitting fossil fuel pollution. In this notebook, we’ll explore the impacts these government lockdowns had on specific air pollutants (i.e., NO₂) and explore these changes over time. We’ll then visualize the outputs on a map using folium.\n\n# to access the year value from each item more easily, this will let us query more explicity by year and month (e.g., 2020-02)\nitems = {item[\"properties\"][\"start_datetime\"][:7]: item for item in items} \n\nNow we will pass the item id, collection name, and rescaling_factor to the Raster API endpoint. We will do this twice times, once for February 2020 and again for February 2022, so that we can visualize each event independently.\n\nfebruary_2020_tile = requests.get(\n    f\"{RASTER_API_URL}/stac/tilejson.json?collection={items['2020-02']['collection']}&item={items['2020-02']['id']}\"\n    \"&assets=cog_default\"\n    \"&color_formula=gamma+r+1.05&colormap_name=cool\"\n    f\"&rescale={rescale_values['min']},{rescale_values['max']}\", \n).json()\nfebruary_2020_tile\n\n{'tilejson': '2.2.0',\n 'version': '1.0.0',\n 'scheme': 'xyz',\n 'tiles': ['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly&item=OMI_trno2_0.10x0.10_202002_Col3_V4.nc&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=cool&rescale=-1018382487283302%2C50064805976866816'],\n 'minzoom': 0,\n 'maxzoom': 24,\n 'bounds': [-180.0, -90.0, 180.0, 90.0],\n 'center': [0.0, 0.0, 0]}\n\n\n\nfebruary_2022_tile = requests.get(\n    f\"{RASTER_API_URL}/stac/tilejson.json?collection={items['2022-02']['collection']}&item={items['2022-02']['id']}\"\n    \"&assets=cog_default\"\n    \"&color_formula=gamma+r+1.05&colormap_name=cool\"\n    f\"&rescale={rescale_values['min']},{rescale_values['max']}\", \n).json()\nfebruary_2022_tile\n\n{'tilejson': '2.2.0',\n 'version': '1.0.0',\n 'scheme': 'xyz',\n 'tiles': ['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly&item=OMI_trno2_0.10x0.10_202202_Col3_V4.nc&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=cool&rescale=-1018382487283302%2C50064805976866816'],\n 'minzoom': 0,\n 'maxzoom': 24,\n 'bounds': [-180.0, -90.0, 180.0, 90.0],\n 'center': [0.0, 0.0, 0]}",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Visualizing Ocean NPP time series for seasonal patterns"
+      "Air Quality and COVID-19"
     ]
   },
   {
-    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#visualizing-the-raster-imagery",
-    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#visualizing-the-raster-imagery",
-    "title": "Visualizing Ocean NPP time series for seasonal patterns",
-    "section": "Visualizing the Raster Imagery",
-    "text": "Visualizing the Raster Imagery\nLet’s first explore a single tile during one of the relative peaks in October, where we observe an increased sustained peak in NPP values.\n\nprint(items[2][\"properties\"][\"start_datetime\"])\n\n2020-10-01T00:00:00+00:00\n\n\n\n# Declare the range of values for this collection\nrescale_values = {\"max\": 34561.35546875, \"min\": 14.516647338867188}\n\n\noctober_tile = requests.get(\n    f\"{RASTER_API_URL}/stac/tilejson.json?collection={items[2]['collection']}&item={items[2]['id']}\"\n    \"&assets=cog_default\"\n    \"&color_formula=gamma+r+1.05&colormap_name=viridis\"\n    f\"&rescale={rescale_values['min']},{rescale_values['max']}\",\n).json()\noctober_tile\n\n{'tilejson': '2.2.0',\n 'version': '1.0.0',\n 'scheme': 'xyz',\n 'tiles': ['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202010.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875'],\n 'minzoom': 0,\n 'maxzoom': 24,\n 'bounds': [-180.0000050868518,\n  -90.00000508655744,\n  180.0000050868518,\n  89.9999974571629],\n 'center': [0.0, -3.814697265625e-06, 0]}\n\n\n\n# Use bbox initial zoom and map\n# Set up a map located w/in event bounds\nimport folium\n\nm = Map(\n    tiles=\"OpenStreetMap\",\n    location=[\n        -22.421460,\n        14.268801,\n    ],\n    zoom_start=8,\n)\n\nmap_layer = TileLayer(\n    tiles=october_tile[\"tiles\"][0],\n    attr=\"VEDA\",\n)\n\nmap_layer.add_to(m)\n\nm\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook\n\n\nFrom the image above, we see higher Ocean NPP values (displayed in teal) located in and around Walvis Bay and the surrounding shorelines - highlighting areas of concern for the local shellfish industry.",
+    "objectID": "notebooks/datasets/air-quality-covid.html#seeing-rebounds-in-no₂",
+    "href": "notebooks/datasets/air-quality-covid.html#seeing-rebounds-in-no₂",
+    "title": "Air Quality and COVID-19",
+    "section": "Seeing Rebounds in NO₂",
+    "text": "Seeing Rebounds in NO₂\nAir pollutants with short lifespans, like NO₂, decreased dramatically with COVID-related shutdowns in the spring of 2020 (see lefthand side map). As the world began to re-open and mobility restrictions eased, travel increased and alongside it NO₂ pollutants. Air quality levels are now returning to pre-pandemic levels (see righthand side map).\nScroll and zoom within the maps below, the side-by-side comparison will follow wherever you explore. Darker purples indicate higher NO₂ levels and more activity. Lighter blues indicate lower levels of NO₂ and less activity.\n\n# We'll import folium to map and folium.plugins to allow mapping side-by-side\nimport folium\nimport folium.plugins\n\n# Set initial zoom and map for NO2 Layer\nm = folium.plugins.DualMap(location=(33.6901, 118.9325), zoom_start=5)\n\n# February 2020\nmap_layer_2020 = TileLayer(\n    tiles=february_2020_tile[\"tiles\"][0],\n    attr=\"VEDA\",\n    opacity=0.8,\n)\nmap_layer_2020.add_to(m.m1)\n\n# February 2022\nmap_layer_2022 = TileLayer(\n    tiles=february_2022_tile[\"tiles\"][0],\n    attr=\"VEDA\",\n    opacity=0.8,\n)\nmap_layer_2022.add_to(m.m2)\n\nm\n\n\nMake this Notebook Trusted to load map: File -&gt; Trust Notebook",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Visualizing Ocean NPP time series for seasonal patterns"
+      "Air Quality and COVID-19"
     ]
   },
   {
-    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#visualizing-the-raster-time-series",
-    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#visualizing-the-raster-time-series",
-    "title": "Visualizing Ocean NPP time series for seasonal patterns",
-    "section": "Visualizing the raster time series",
-    "text": "Visualizing the raster time series\nNow we will look at each of the raster tiles that make up this time series to explore the spatial and temporal patterns of Ocean NPP observed in Walvis Bay throughout 2020.\nWe used the code below to examine the tiles and the order in which they are presented.\n\nimport matplotlib.pyplot as plt\n\nfor item in items:\n    tiles = requests.get(\n        f\"{RASTER_API_URL}/stac/tilejson.json?collection={item['collection']}&item={item['id']}\"\n        \"&assets=cog_default\"\n        \"&color_formula=gamma+r+1.05&colormap_name=viridis\"\n        f\"&rescale={rescale_values['min']},{rescale_values['max']}\",\n    ).json()\n    print(tiles[\"tiles\"])\n\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202012.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202011.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202010.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202009.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202008.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202007.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202006.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202005.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202004.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202003.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202002.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&item=A_202001.L3m_MO_NPP_npp_vgpm_4km&assets=cog_default&color_formula=gamma+r+1.05&colormap_name=viridis&rescale=14.516647338867188%2C34561.35546875']\n\n\nSince we found the tiles to be presented in reverse time order, we’ll revise this in the code below. We’ll use reversed() to do so.\n\nimport tempfile\nfrom datetime import datetime\nimport dateutil.parser as parser\nfrom IPython.display import display, Image\n\nfor item in reversed(items):\n    response = requests.post(\n        f\"{RASTER_API_URL}/cog/feature\",\n        params={\n            \"format\": \"png\",\n            \"height\": 512,\n            \"width\": 512,\n            \"url\": item[\"assets\"][\"cog_default\"][\"href\"],\n            \"rescale\": f\"{rescale_values['min']},{rescale_values['max']}\",\n            \"colormap_name\": \"viridis\",\n        },\n        json=walvis_bay_aoi,\n    )\n    assert response.ok, response.text\n    image_bytes = response.content\n\n    # formating the datetime to make for easier reading\n    datetime_str = item[\"properties\"][\"start_datetime\"]\n    datetime_object = parser.parse(datetime_str)\n    print(datetime_object.strftime(\"%B %Y\"))\n\n    display(Image(image_bytes, height=512, width=512))\n\nJanuary 2020\n\n\n\n\n\n\n\n\n\nFebruary 2020\n\n\n\n\n\n\n\n\n\nMarch 2020\n\n\n\n\n\n\n\n\n\nApril 2020\n\n\n\n\n\n\n\n\n\nMay 2020\n\n\n\n\n\n\n\n\n\nJune 2020\n\n\n\n\n\n\n\n\n\nJuly 2020\n\n\n\n\n\n\n\n\n\nAugust 2020\n\n\n\n\n\n\n\n\n\nSeptember 2020\n\n\n\n\n\n\n\n\n\nOctober 2020\n\n\n\n\n\n\n\n\n\nNovember 2020\n\n\n\n\n\n\n\n\n\nDecember 2020",
-    "crumbs": [
-      "Usage Examples",
-      "Datasets",
-      "Visualizing Ocean NPP time series for seasonal patterns"
-    ]
-  },
-  {
-    "objectID": "notebooks/datasets/ocean-npp-timeseries-analysis.html#summary",
-    "href": "notebooks/datasets/ocean-npp-timeseries-analysis.html#summary",
-    "title": "Visualizing Ocean NPP time series for seasonal patterns",
+    "objectID": "notebooks/datasets/air-quality-covid.html#summary",
+    "href": "notebooks/datasets/air-quality-covid.html#summary",
+    "title": "Air Quality and COVID-19",
     "section": "Summary",
-    "text": "Summary\nIn this case study we have successfully visualized the spatial and temporal variability of Ocean NPP values in the Benguela Current, which displays a seasonal pattern of peaking in the October, November, December, and January months when favorable temperatures and nutrient conditions are present.",
+    "text": "Summary\nIn this case study we have successfully visualized how NASA monitors NO₂ emissions from space. By showcasing lockdown (February 2020) and post-lockdown (February 2022) snapshots of air quality side-by-side, we demonstrate how quickly atmospheric NO₂ responds to reductions in emissions and human behavior.",
     "crumbs": [
       "Usage Examples",
       "Datasets",
-      "Visualizing Ocean NPP time series for seasonal patterns"
+      "Air Quality and COVID-19"
     ]
   },
   {
