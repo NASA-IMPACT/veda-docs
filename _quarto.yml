@@ -33,9 +33,6 @@ website:
     contents:
       - href: index.qmd
         text: Welcome
-      - text: About VEDA
-        href: about/index.qmd
-      - text: "---"
       - section: Nasa VEDA Platform
         contents:
           - section: Core Services
@@ -49,92 +46,83 @@ website:
               - services/data-ingestion.qmd
         - section: components/index.qmd
           contents:
-            - components/dashboard.qmd
-            - components/analytics.qmd
-            - components/data-services.qmd
-            - components/jupyterhub.qmd
-        - text: Getting Access
-          href: components/jupyterhub.qmd#access
-        - section: notebooks/index.qmd
+            - nasa-veda-platform/data-services/data-store.qmd
+            - nasa-veda-platform/data-services/apis.qmd
+            - nasa-veda-platform/data-services/raster-api.qmd
+            - nasa-veda-platform/data-services/stac-api.qmd
+        - section: nasa-veda-platform/scientific-computing/index.qmd
           contents:
-            - section: Quickstarts
-              contents:
-                - section: Accessing the Data Directly
-                  contents:
-                    - notebooks/quickstarts/list-collections.ipynb
-                    - notebooks/quickstarts/open-and-plot.ipynb
-                    - notebooks/quickstarts/timeseries-rioxarray-stackstac.ipynb
-                    - notebooks/quickstarts/visualize-zarr.ipynb
-                    - notebooks/quickstarts/visualize-multiple-times.ipynb
-                    - notebooks/quickstarts/downsample-zarr.ipynb
-                    - notebooks/quickstarts/download-assets.ipynb
-                - section: Using the Raster API
-                  contents:
-                    - notebooks/quickstarts/no2-map-plot.ipynb
-                    - notebooks/quickstarts/timeseries-stac-api.ipynb
-                    - notebooks/quickstarts/hls-visualization.ipynb
-            - section: Tutorials
-              contents:
-                - notebooks/tutorials/gif-generation.ipynb
-                - notebooks/tutorials/netcdf-to-cog-cmip6.ipynb
-                - notebooks/tutorials/mapping-fires.ipynb
-                - notebooks/tutorials/stac_ipyleaflet.ipynb
-                - notebooks/tutorials/zonal-statistics-validation.ipynb
-            - section: Datasets
-              contents:
-                - notebooks/datasets/ocean-npp-timeseries-analysis.ipynb
-                - notebooks/datasets/nceo-biomass-statistics.ipynb
-                - notebooks/datasets/volcano-so2-monitoring.ipynb
-                - notebooks/datasets/air-quality-covid.ipynb
-                - notebooks/datasets/nldas_time_series.ipynb
-                - notebooks/datasets/nldas_compare2_3.ipynb
-            - section: JupyterHub
-              contents:
-                - hub-guides/code-server.md
-                - hub-guides/ssh.md
-        - text: APIs
-          href: apis/apis.qmd
-          contents:
-            - apis/stac-api.qmd
-            - apis/raster-api.qmd
+            - nasa-veda-platform/scientific-computing/code-server.md
+            - nasa-veda-platform/scientific-computing/ssh.md
+        - nasa-veda-platform/getting-access.qmd
       - text: "---"
-      - section: VEDA Open-Source Ecosystem
+      - section: notebooks/index.qmd
         contents:
-        - text: Software and Service Architecture
-          href: architecture/architecture.qmd
-        - text: Repositories
-          href: repositories.qmd
+          - section: Quickstarts
+            contents:
+              - section: Accessing the Data Directly
+                contents:
+                  - notebooks/quickstarts/list-collections.ipynb
+                  - notebooks/quickstarts/open-and-plot.ipynb
+                  - notebooks/quickstarts/timeseries-rioxarray-stackstac.ipynb
+                  - notebooks/quickstarts/visualize-zarr.ipynb
+                  - notebooks/quickstarts/visualize-multiple-times.ipynb
+                  - notebooks/quickstarts/downsample-zarr.ipynb
+                  - notebooks/quickstarts/download-assets.ipynb
+              - section: Using the Raster API
+                contents:
+                  - notebooks/quickstarts/no2-map-plot.ipynb
+                  - notebooks/quickstarts/timeseries-stac-api.ipynb
+                  - notebooks/quickstarts/hls-visualization.ipynb
+          - section: Tutorials
+            contents:
+              - notebooks/tutorials/gif-generation.ipynb
+              - notebooks/tutorials/netcdf-to-cog-cmip6.ipynb
+              - notebooks/tutorials/mapping-fires.ipynb
+              - notebooks/tutorials/stac_ipyleaflet.ipynb
+              - notebooks/tutorials/zonal-statistics-validation.ipynb
+          - section: Datasets
+            contents:
+              - notebooks/datasets/ocean-npp-timeseries-analysis.ipynb
+              - notebooks/datasets/nceo-biomass-statistics.ipynb
+              - notebooks/datasets/volcano-so2-monitoring.ipynb
+              - notebooks/datasets/air-quality-covid.ipynb
+              - notebooks/datasets/nldas_time_series.ipynb
+              - notebooks/datasets/nldas_compare2_3.ipynb
       - text: "---"
-      - text: Contributing
-        href: contributing/index.qmd
+      - section: open-source-ecosystem/index.qmd
         contents:
-          - section: contributing/docs-and-notebooks.qmd
+        - open-source-ecosystem/architecture.qmd
+        - open-source-ecosystem/repositories.qmd
+        - open-source-ecosystem/external-resources.qmd
+      - text: "---"
+      - section: nasa-veda-platform/contributing/index.qmd
+        contents:
+          - section: nasa-veda-platform/contributing/docs-and-notebooks.qmd
             contents:
               - notebooks/templates/template-accessing-the-data-directly.ipynb
               - notebooks/templates/template-using-the-raster-api.ipynb
-          - section: contributing/dataset-ingestion/index.qmd
+          - section: nasa-veda-platform/contributing/dataset-ingestion/index.qmd
             contents:
-              - contributing/dataset-ingestion/file-preparation.qmd
-              - contributing/dataset-ingestion/catalog-ingestion.qmd
+              - nasa-veda-platform/contributing/dataset-ingestion/file-preparation.qmd
+              - nasa-veda-platform/contributing/dataset-ingestion/catalog-ingestion.qmd
               - notebooks/veda-operations/generate-cmip6-kerchunk-historical.ipynb
               - section: STAC Collection Creation
                 contents:
-                  - contributing/dataset-ingestion/stac-collection-conventions.qmd
+                  - nasa-veda-platform/contributing/dataset-ingestion/stac-collection-conventions.qmd
                   - notebooks/veda-operations/stac-collection-creation.ipynb
                   - notebooks/veda-operations/publish-cmip6-kerchunk-stac.ipynb
               - section: STAC Item Creation
                 contents:
-                  - contributing/dataset-ingestion/stac-item-conventions.qmd
+                  - nasa-veda-platform/contributing/dataset-ingestion/stac-item-conventions.qmd
                   - notebooks/veda-operations/stac-item-creation.ipynb
               - section: Boilerplate ingest example
                 contents:
-                  - contributing/dataset-ingestion/example-template/example-geoglam-ingest.ipynb
-          - section: contributing/dashboard-configuration/index.qmd
+                  - nasa-veda-platform/contributing/dataset-ingestion/example-template/example-geoglam-ingest.ipynb
+          - section: nasa-veda-platform/contributing/dashboard-configuration/index.qmd
             contents:
-              - contributing/dashboard-configuration/dataset-configuration.qmd
-              - contributing/dashboard-configuration/discovery-configuration.qmd
-      - text: External Resources
-        href: external-resources.qmd
+              - nasa-veda-platform/contributing/dashboard-configuration/dataset-configuration.qmd
+              - nasa-veda-platform/contributing/dashboard-configuration/discovery-configuration.qmd
 format:
   html:
     theme:
