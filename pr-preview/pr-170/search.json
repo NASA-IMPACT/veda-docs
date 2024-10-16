@@ -6,7 +6,7 @@
     "section": "",
     "text": "This is a how-to guide for connecting to the VEDA JupyterHub from your local environment via ssh. This allows you to use all of ssh’s features (copy, run commands) as well as connecting via VS Code’s proprietary Remote Development functionality.\n\n\n\n\n\n\nNote\n\n\n\nwebsocat must be installed on your local machine in order to remotely connect to the VEDA JupyterHub. The full installation instructions are available on websocat’s GitHub README. websocat can be installed on macOS via Homebrew as brew install websocat.\n\n\n\n\n\n\n\n\nWarning\n\n\n\nWe are exploring two options for using VS Code on the VEDA JupyterHub. These options should be considered experimental and may not be supported long-term.\n\n\n\n\n\n\n\nLaunch a server from the VEDA JupyterHub home page. The server must be started in order to connect remotely.\nGet a new token from the VEDA JupyterHub token page:\n\nEnter a descriptive name in the ‘Note’ text window.\nEnter an expiration date.\nClick “request a new API token”\n\n\n\n\nGenerate a new token\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nTreat this token like you would treat a password to your JupyterHub instance!\n\n\n\n\n\nBefore your first time remotely connecting to the VEDA JupyterHub, you need to configure your local ssh.\n\nAdd an entry that looks like the following to the end of your ~/.ssh/config. Create it if it does not exist.\nHost hub.openveda.cloud\n    User jovyan\n    ProxyCommand websocat --binary -H='Authorization: token &lt;YOUR-JUPYTERHUB-TOKEN&gt;' asyncstdio: wss://%h/user/&lt;YOUR-JUPYTERHUB-USERNAME&gt;/sshd/\nReplace &lt;YOUR-JUPYTERHUB-TOKEN&gt; with the token you created earlier.\nReplace &lt;YOUR-JUPYTERHUB-USERNAME&gt; with your VEDA JupyterHub username.\n\n\n\n\nYou need to put some ssh public keys in ~/.ssh/authorized_keys after you start your JupyterHub server and have completed the setup of your private keys on your local machine.\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a terminal in JupyterLab\nRun the following commands, replacing  with your github username:\nmkdir -p ~/.ssh\nwget https://github.com/&lt;YOUR-GITHUB-USERNAME&gt;.keys -O ~/.ssh/authorized_keys\nchmod 0600 ~/.ssh/authorized_keys\n\n\n\n\n\nThere are two ways to connect to JupyterHub: Connect to the JupyterHub using VS Code’s Remote SSH feature and Connect via ssh on the command line.\n\n\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a new VS Code Window on your local maachine.\nOpen the command prompt (command + shift + P on macOS)\nEnter Remote-SSH: Connect to Host...\nSelect hub.openveda.cloud\nSelect “Open Folder” and select the specific folder that you want to work in.\n\nNow you’re connected and ready to develop using VS Code! You may need to install some extensions in the SSH server to use your regular development workflows.\n\n\n\n\n\n\nTip\n\n\n\nMost times, you will want to select a folder that is a git repository, perhaps cloned from GitHub, so that your code is version controlled.\n\n\n\n\n\n\n\n\nNote\n\n\n\nIf you have not ssh’d into the JupyterHub before, you will receive a notice that “The authenticity of host ‘hub.openveda.cloud’ can’t be established.”. Enter ‘yes’ in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.\n\n\n\n\nYou will need to install the extensions that you want to use in the SSH.\n\nNavigate to the Extensions view by clicking on the icon with four boxes and one slightly offset:\n\n\n\nExtensions icon in VS Code\n\n\nThe view shows the already installed extensions. Type the name of the extension you’re looking for in the ‘Search Extensions’ text box, or scroll to see your locally installed extensions:\n\n\n\nInstall VS Code extension\n\n\nSelect ‘Install in SSH: hub.openveda.cloud’\n\n\n\n\n\nSelect File &gt; Close Remote Connection to disconnect from the JupyterHub:\n\n\n\nClose remote connection\n\n\n\nExiting VS Code will also close the remote connection.\n\n\n\n\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a new terminal on your local machine.\nEnter ssh hub.openveda.cloud\n\nYou are now ssh’d into the JupyterHub! If you enter a command (e.g., touch am-i-on-the-jupyterhub), it will be run on the remote server.\n\n\n\n\n\n\nNote\n\n\n\nIf you have not ssh’d into the JupyterHub before, you will receive a notice that “The authenticity of host ‘hub.openveda.cloud’ can’t be established.”. Enter ‘yes’ in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.\n\n\n\n\n\n\nThese instructions are based off the jupyter-sshd-proxy documentation and a screen recording Yuvi Panda shared in the NASA IMPACT slack workspace. Thank you to Yuvi Panda for developing jupyter-sshd-proxy!",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Scientific Computing",
       "How to ssh into the JupyterHub"
     ]
@@ -18,7 +18,7 @@
     "section": "",
     "text": "Launch a server from the VEDA JupyterHub home page. The server must be started in order to connect remotely.\nGet a new token from the VEDA JupyterHub token page:\n\nEnter a descriptive name in the ‘Note’ text window.\nEnter an expiration date.\nClick “request a new API token”\n\n\n\n\nGenerate a new token\n\n\n\n\n\n\n\n\n\nWarning\n\n\n\nTreat this token like you would treat a password to your JupyterHub instance!\n\n\n\n\n\nBefore your first time remotely connecting to the VEDA JupyterHub, you need to configure your local ssh.\n\nAdd an entry that looks like the following to the end of your ~/.ssh/config. Create it if it does not exist.\nHost hub.openveda.cloud\n    User jovyan\n    ProxyCommand websocat --binary -H='Authorization: token &lt;YOUR-JUPYTERHUB-TOKEN&gt;' asyncstdio: wss://%h/user/&lt;YOUR-JUPYTERHUB-USERNAME&gt;/sshd/\nReplace &lt;YOUR-JUPYTERHUB-TOKEN&gt; with the token you created earlier.\nReplace &lt;YOUR-JUPYTERHUB-USERNAME&gt; with your VEDA JupyterHub username.\n\n\n\n\nYou need to put some ssh public keys in ~/.ssh/authorized_keys after you start your JupyterHub server and have completed the setup of your private keys on your local machine.\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a terminal in JupyterLab\nRun the following commands, replacing  with your github username:\nmkdir -p ~/.ssh\nwget https://github.com/&lt;YOUR-GITHUB-USERNAME&gt;.keys -O ~/.ssh/authorized_keys\nchmod 0600 ~/.ssh/authorized_keys",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Scientific Computing",
       "How to ssh into the JupyterHub"
     ]
@@ -30,7 +30,7 @@
     "section": "",
     "text": "There are two ways to connect to JupyterHub: Connect to the JupyterHub using VS Code’s Remote SSH feature and Connect via ssh on the command line.\n\n\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a new VS Code Window on your local maachine.\nOpen the command prompt (command + shift + P on macOS)\nEnter Remote-SSH: Connect to Host...\nSelect hub.openveda.cloud\nSelect “Open Folder” and select the specific folder that you want to work in.\n\nNow you’re connected and ready to develop using VS Code! You may need to install some extensions in the SSH server to use your regular development workflows.\n\n\n\n\n\n\nTip\n\n\n\nMost times, you will want to select a folder that is a git repository, perhaps cloned from GitHub, so that your code is version controlled.\n\n\n\n\n\n\n\n\nNote\n\n\n\nIf you have not ssh’d into the JupyterHub before, you will receive a notice that “The authenticity of host ‘hub.openveda.cloud’ can’t be established.”. Enter ‘yes’ in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.\n\n\n\n\nYou will need to install the extensions that you want to use in the SSH.\n\nNavigate to the Extensions view by clicking on the icon with four boxes and one slightly offset:\n\n\n\nExtensions icon in VS Code\n\n\nThe view shows the already installed extensions. Type the name of the extension you’re looking for in the ‘Search Extensions’ text box, or scroll to see your locally installed extensions:\n\n\n\nInstall VS Code extension\n\n\nSelect ‘Install in SSH: hub.openveda.cloud’\n\n\n\n\n\nSelect File &gt; Close Remote Connection to disconnect from the JupyterHub:\n\n\n\nClose remote connection\n\n\n\nExiting VS Code will also close the remote connection.\n\n\n\n\n\nLaunch a server from the VEDA JupyterHub home page if you don’t already have one running.\nOpen a new terminal on your local machine.\nEnter ssh hub.openveda.cloud\n\nYou are now ssh’d into the JupyterHub! If you enter a command (e.g., touch am-i-on-the-jupyterhub), it will be run on the remote server.\n\n\n\n\n\n\nNote\n\n\n\nIf you have not ssh’d into the JupyterHub before, you will receive a notice that “The authenticity of host ‘hub.openveda.cloud’ can’t be established.”. Enter ‘yes’ in response to this prompt. This will add the key to your list of known hosts, so that you will be notified if it changes in the future.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Scientific Computing",
       "How to ssh into the JupyterHub"
     ]
@@ -42,7 +42,7 @@
     "section": "",
     "text": "These instructions are based off the jupyter-sshd-proxy documentation and a screen recording Yuvi Panda shared in the NASA IMPACT slack workspace. Thank you to Yuvi Panda for developing jupyter-sshd-proxy!",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Scientific Computing",
       "How to ssh into the JupyterHub"
     ]
@@ -54,7 +54,7 @@
     "section": "",
     "text": "This is a quick how-to guide for using VS Code as an IDE on the VEDA JupyterHub.\n\n\n\n\n\n\nWarning\n\n\n\nWe are exploring two options for using VS Code on the VEDA JupyterHub. These options should be considered experimental and may not be supported long-term.\n\n\n\n\n\nAccess the launcher from the home screen by clicking the + tab if it is not already open.\nClick the “VS Code” icon on the top row. This will open a new browser tab with the VS Code interface:\n\n\n\nVS Code icon on the Launcher page\n\n\nOpen the specific folder that you want to work in:\n\nClick the three lines on the upper left (a.k.a., hamburger symbol)\nSelect ‘File’\nSelect ‘Open Folder…’\nNavigate to the appropriate folder\nClick ‘OK’\n\n\n\n\nProcess for selecting the workspace folder\n\n\nSelect that you trust the repository to enable all VS Code features:\n\n\n\nProcess for trusting the workspace folder\n\n\n\nNow, you have access to VS Code on the VEDA Hub and are ready to get started on your development!\n\n\n\n\n\n\nWarning\n\n\n\nUsing the full set of VS Code features requires trusting the folders, which should only be done for individual, known/trusted repositories rather than the entire JupyterHub home directory.\n\n\n\n\n\n\n\n\nTip\n\n\n\nAs an alternative to step 2, you can type the path to your folder after ?folder= in the browser URL and press enter.\n\n\n\n\n\n\n\n\nTip\n\n\n\nMost times, you will want to select a folder that is a git repository, perhaps cloned from GitHub, so that your code is version controlled.\n\n\n\n\n\nThe VEDA JupyterHub comes with several VS Code extensions pre-installed. However, you may need access to others that are not installed. For example, the ms-python Python extension is required for debugging Python code and isn’t curently installed by default.\n\nNavigate to the Extensions view by clicking on the icon with four boxes and one slightly offset:\n\n\n\nExtensions icon in VS Code\n\n\nThe view shows the already installed extensions. Type the name of the extension you’re looking for in the ‘Search Extensions’ text box:\n\n\n\nInstall VS Code extension\n\n\nClick install.\n\n\n\n\n\n\n\nNote\n\n\n\nThe extensions will be installed for the duration of your session. For persistant access to VS Code extensions, raise an issue in VEDA Hub docker image repository.\n\n\n\n\n\n\n\n\nSelect the Run view in the sidebar:\n\n\n\n\nVS Code Run View\n\n\n\nClick on “create a launch.json file”:\n\n\n\n\nCreate a launch.json file\n\n\n\nSelect “Python Debugger”.\nSelect “Python File: Debug the currently active Python file”.\n\n\n\n\n\n\n\nNote\n\n\n\nCheck out the Visual Studio Code Debugging docs for additional configuration options. One of the more useful controls is setting \"justMyCode\": false to debug imported libraries.\n\n\n\n\n\n\nOpen the Python file that you want to debug\nClick to the left of a line number to add a breakpoint\n\n\n\n\nAdd a breakpoint\n\n\n\nFrom the Run view, click on the green triangle to start debugging\n\n\n\n\nStart debugger\n\n\n\nUse the debugger controls to continue, restart, stop, step over, step in, or step out of functions.\n\n\n\n\nDebugger control\n\n\n\n\n\n\n\n\nTip\n\n\n\nAdd the .vscode folder to your .gitignore and put ephemeral testing modules in their for debugging without poluting the git workspace.\n\n\n\n\n\n\nSeveral images in this section are from Microsoft’s public documentation for Visual Studio Code. Images are used under the terms of the under the Creative Commons Attribution 3.0 United States License.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Scientific Computing",
       "How to use VS Code on the VEDA JupyterHub"
     ]
@@ -66,7 +66,7 @@
     "section": "",
     "text": "Access the launcher from the home screen by clicking the + tab if it is not already open.\nClick the “VS Code” icon on the top row. This will open a new browser tab with the VS Code interface:\n\n\n\nVS Code icon on the Launcher page\n\n\nOpen the specific folder that you want to work in:\n\nClick the three lines on the upper left (a.k.a., hamburger symbol)\nSelect ‘File’\nSelect ‘Open Folder…’\nNavigate to the appropriate folder\nClick ‘OK’\n\n\n\n\nProcess for selecting the workspace folder\n\n\nSelect that you trust the repository to enable all VS Code features:\n\n\n\nProcess for trusting the workspace folder\n\n\n\nNow, you have access to VS Code on the VEDA Hub and are ready to get started on your development!\n\n\n\n\n\n\nWarning\n\n\n\nUsing the full set of VS Code features requires trusting the folders, which should only be done for individual, known/trusted repositories rather than the entire JupyterHub home directory.\n\n\n\n\n\n\n\n\nTip\n\n\n\nAs an alternative to step 2, you can type the path to your folder after ?folder= in the browser URL and press enter.\n\n\n\n\n\n\n\n\nTip\n\n\n\nMost times, you will want to select a folder that is a git repository, perhaps cloned from GitHub, so that your code is version controlled.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Scientific Computing",
       "How to use VS Code on the VEDA JupyterHub"
     ]
@@ -78,7 +78,7 @@
     "section": "",
     "text": "The VEDA JupyterHub comes with several VS Code extensions pre-installed. However, you may need access to others that are not installed. For example, the ms-python Python extension is required for debugging Python code and isn’t curently installed by default.\n\nNavigate to the Extensions view by clicking on the icon with four boxes and one slightly offset:\n\n\n\nExtensions icon in VS Code\n\n\nThe view shows the already installed extensions. Type the name of the extension you’re looking for in the ‘Search Extensions’ text box:\n\n\n\nInstall VS Code extension\n\n\nClick install.\n\n\n\n\n\n\n\nNote\n\n\n\nThe extensions will be installed for the duration of your session. For persistant access to VS Code extensions, raise an issue in VEDA Hub docker image repository.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Scientific Computing",
       "How to use VS Code on the VEDA JupyterHub"
     ]
@@ -90,7 +90,7 @@
     "section": "",
     "text": "Select the Run view in the sidebar:\n\n\n\n\nVS Code Run View\n\n\n\nClick on “create a launch.json file”:\n\n\n\n\nCreate a launch.json file\n\n\n\nSelect “Python Debugger”.\nSelect “Python File: Debug the currently active Python file”.\n\n\n\n\n\n\n\nNote\n\n\n\nCheck out the Visual Studio Code Debugging docs for additional configuration options. One of the more useful controls is setting \"justMyCode\": false to debug imported libraries.\n\n\n\n\n\n\nOpen the Python file that you want to debug\nClick to the left of a line number to add a breakpoint\n\n\n\n\nAdd a breakpoint\n\n\n\nFrom the Run view, click on the green triangle to start debugging\n\n\n\n\nStart debugger\n\n\n\nUse the debugger controls to continue, restart, stop, step over, step in, or step out of functions.\n\n\n\n\nDebugger control\n\n\n\n\n\n\n\n\nTip\n\n\n\nAdd the .vscode folder to your .gitignore and put ephemeral testing modules in their for debugging without poluting the git workspace.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Scientific Computing",
       "How to use VS Code on the VEDA JupyterHub"
     ]
@@ -102,7 +102,7 @@
     "section": "",
     "text": "Several images in this section are from Microsoft’s public documentation for Visual Studio Code. Images are used under the terms of the under the Creative Commons Attribution 3.0 United States License.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Scientific Computing",
       "How to use VS Code on the VEDA JupyterHub"
     ]
@@ -114,7 +114,7 @@
     "section": "",
     "text": "Most of the VEDA APIs are hosted out of a single project (veda-backend) that combines multiple standalone services.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Data Services",
       "APIs"
     ]
@@ -126,7 +126,7 @@
     "section": "Environments",
     "text": "Environments\nWhile some of our services are already very mature, VEDA is currently in the build-up phase. Therefore, we do not yet have a production environment for users. Maintenance on the staging environment will be announced internally and selected known stakeholders will be informed of any larger changes.\n\n\n\n\n\n\nBase URL Changes\n\n\n\nThe VEDA Team is in the process of updating documentation notebooks to use the new stable production APIs. Currently most notebooks use deprecated staging APIs and should be updated:\nSTAC_API_URL = \"https://staging-stac.delta-backend.com\" –&gt; https://openveda.cloud/api/stac\nRASTER_API_URL = \"https://staging-raster.delta-backend.com\" –&gt; https://openveda.cloud/api/raster\n\n\n\n\n\n\n\n\nBreaking tiling endpoint changes\n\n\n\nVEDA tilers are being upgraded to titiler-pgstac v1 which better aligns with the stac-api spec and has many improvements but also introduces some breaking endpoint changes. The VEDA team will be updating notebooks for the new endpoints but, in the meantime, the titiler-pgstac migration documentation provides support for using the new endpoints.\n\n\n\nProduction (stable):\n\nSTAC browser: openveda.cloud\nSTAC API (metadata): openveda.cloud/api/stac/docs\nList collections: openveda.cloud/api/stac/collections\nRaster API (tiling): openveda.cloud/api/raster/docs\n\n\n\nStaging (maintenance will be announced):\n\nSTAC browser: staging.openveda.cloud\nSTAC API (metadata): staging.openveda.cloud/api/stac/docs\nList collections: staging.openveda.cloud/api/stac/collections\nRaster API (map tiles and timeseries): staging.openveda.cloud/api/raster/docs\nFeatures API (vector data): firenrt.delta-backend.com - see also the usage tutorial\nWorkflows API (request airflow ingestions): staging.openveda.cloud/api/workflows/docs\nSTAC viewer (experimental): staging.openveda.cloud/api/stac/index.html",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Data Services",
       "APIs"
     ]
@@ -138,7 +138,7 @@
     "section": "Using tile layers in external services",
     "text": "Using tile layers in external services\n\nUI for single tile layers\nAs you can see from our API docs referenced above, our raster API provides WMTS and XYZ tiles for public consumption.\nFor any layer you are seeing in the VEDA dataset Explorer, you can retrieve the tile URL:\n\n\n\nVEDA Dashboard Exploration API grab\n\n\nAnd paste that into any client that loads these tiles, like QGIS, ArcGIS, Leaflet, even online tools such as geojson.io or felt.com.\n\n\nSTAC for layer timeseries\nIf you want to integrate tile layer time series into your application, you will need to fetch the information about which time steps exist and what the layer URLs are from our Spatio Tempoeral Asset Catalog (STAC) API (see above).\nThat is because, unfortunately, neither XYZ nor WMTS have time series capabilities (unlike good old WMS, which our services do not provide, though).\nYou can see how to retrieve time steps and tile layer URLs from these tutorial Python notebooks (mostly REST API calls):\n\nUsing /stac/tilejson.json with STAC collection and item IDs\nCreating layers from filters and mosaics (advanced)\n\nIt comes down to querying for STAC items (timesteps) and then asking the Raster API for tilejson.json specifications for the items you are interested in.\nOnce you retrieved the WMTS or XYZ layer URLs this way, you can use them seamlessly with all mapping clients.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Data Services",
       "APIs"
     ]
@@ -150,7 +150,7 @@
     "section": "",
     "text": "Welcome to the VEDA data ingestion services documentation. This document provides an overview of our data ingestion pipelines, Airflow instance, and ingest APIs. Whether you’re deploying new services or interacting with existing ones, this guide will help you get started. For detailed development and contribution guidelines, please refer to our Contributing Guide.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Data Services",
       "VEDA Data Ingestion Services"
     ]
@@ -162,7 +162,7 @@
     "section": "Overview",
     "text": "Overview\nVEDA’s data ingestion services are designed to handle and manage the flow of data from various sources efficiently. Our system integrates with Apache Airflow for orchestrating and scheduling data pipelines, and APIs to facilitate and manage data ingestion tasks.\n\nComponents\n\nApache Airflow Instance\n\nOur Airflow instance orchestrates various data ingestion tasks and workflows. It supports scheduling, monitoring, and managing pipelines, described using Directed Acyclic Graphs (DAGs).\nFor details on how to deploy, configure, or modify our Airflow instance, refer to the veda-data-airflow repository.\n\nIngest APIs\n\nOur ingest API facilitates data ingestion from multiple sources and manages the data flow into VEDA’s system. This API is included in veda-backend\nTo learn how to interact with these APIs as a user, consult the Dataset Ingestion Guide.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Data Services",
       "VEDA Data Ingestion Services"
     ]
@@ -174,7 +174,7 @@
     "section": "Deployment and Modification",
     "text": "Deployment and Modification\nIf you need to deploy or modify any of the ingestion services, please visit the veda-data-airflow repository. This repo contains: - Instructions for deploying the Airflow instance - Examples of how to write new ingestion processes (DAGs) - Guidance on extending and modifying existing ingestion services",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Data Services",
       "VEDA Data Ingestion Services"
     ]
@@ -186,7 +186,7 @@
     "section": "",
     "text": "The VEDA Dashboard is one of several user interfaces in the VEDA project. The VEDA Dashboard is a publishing platform for results of scientific analysis of Earth data at NASA, in the form of Dataset information pages (“Datasets”) and stories (“Discoveries”).\nIt also is aligned with VEDA’s goal of advancing interactive visualization and exploratory visual data analysis. This dashboard constitutes:",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Dashboard"
     ]
   },
@@ -197,7 +197,7 @@
     "section": "Contributing",
     "text": "Contributing\nPlease see our docs on Dashboard Configuration.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Dashboard"
     ]
   },
@@ -1927,7 +1927,7 @@
     "href": "index.html#veda-open-source-ecosystem",
     "title": "VEDA User Documentation",
     "section": "VEDA Open-Source Ecosystem",
-    "text": "VEDA Open-Source Ecosystem\n\nSoftware Architecture\nRepositiories\nRelated projects",
+    "text": "VEDA Open-Source Ecosystem\n\nSoftware Architecture\nRepositiories\nExternal Resources",
     "crumbs": [
       "Welcome"
     ]
@@ -3527,7 +3527,7 @@
     "section": "",
     "text": "Visualization Exploration and Data Analysis (VEDA) is an ecosystem of tools and services built with a goal to provide a unified open-source science cyberinfrastructure for data processing, visualization, exploration, and GIS capabilities with NASA data on the cloud.\nDeveloped through a collaboration between NASA IMPACT, Development Seed, University of Alabama in Huntsville, Element 84, Indiana University, International Interactive Computing Collaboration (2i2c), Earth Science Data and Information System (ESDIS) Project, NASA Science Managed Cloud Environment (SMCE), and NASA Mission Cloud Platform (MCP), VEDA significantly reduces the barriers to accessing Earth science data and the computational resources needed for exploring and processing the petabyte-scale Earth data archives in the cloud. VEDA’s achievement exemplifies the core principles of NASA’s Open-Source Science Initiative (OSSI), showcasing commitment to promoting transparent, accessible, and collaborative scientific research.\nRead more about the history of VEDA in this blog post.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "About the VEDA project"
     ]
   },
@@ -3538,7 +3538,7 @@
     "section": "",
     "text": "Visualization Exploration and Data Analysis (VEDA) is an ecosystem of tools and services built with a goal to provide a unified open-source science cyberinfrastructure for data processing, visualization, exploration, and GIS capabilities with NASA data on the cloud.\nDeveloped through a collaboration between NASA IMPACT, Development Seed, University of Alabama in Huntsville, Element 84, Indiana University, International Interactive Computing Collaboration (2i2c), Earth Science Data and Information System (ESDIS) Project, NASA Science Managed Cloud Environment (SMCE), and NASA Mission Cloud Platform (MCP), VEDA significantly reduces the barriers to accessing Earth science data and the computational resources needed for exploring and processing the petabyte-scale Earth data archives in the cloud. VEDA’s achievement exemplifies the core principles of NASA’s Open-Source Science Initiative (OSSI), showcasing commitment to promoting transparent, accessible, and collaborative scientific research.\nRead more about the history of VEDA in this blog post.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "About the VEDA project"
     ]
   },
@@ -3549,7 +3549,7 @@
     "section": "Goals",
     "text": "Goals\n\nLeverage existing open source components (NASA-MAAP, Dashboard, Cumulus, Pangeo, STAC, etc) to assemble interoperable ecosystem of tools\nMaximize the capabilities offered by data and compute on the cloud\nProvide services for future mission data processing\nProvide platform for new priorities and directives: Environmental/Climate Justice, Earth Operation/Action Center, Earth Information System\n\n\nStakeholder Benefits\n\nGeneral Public: Interactive stories\nScientist: scientific (visual) analysis and communication\nData producers/Researchers: processing and self publishing\nTOPS: summer schools and competitions\nApplied science/Decision makers: geospatial analysis and communication\nCommunication: Interactive storytelling\n\n\n\nOverview\n\n\n\nVEDA Overview Diagram",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "About the VEDA project"
     ]
   },
@@ -3560,7 +3560,7 @@
     "section": "Resources for Open-Source Data Science",
     "text": "Resources for Open-Source Data Science\nIf you are just getting started with geospatial data science (in Python) or want to learn more, you may find the Collection of External Resources useful.\nTo learn from examples, see the VEDA Example Notebooks - examples of open-source data science using VEDA services.\nSelected user groups can also get access to a VEDA-provided JupyterHub service.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "About the VEDA project"
     ]
   },
@@ -3571,7 +3571,7 @@
     "section": "",
     "text": "The VEDA Data Store consists of cloud object storage (AWS S3 in us-west-2) and a central Spatio-Temporal Asset Catalog (STAC) that exposes the datasets.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Data Services",
       "VEDA Data Store"
     ]
@@ -3583,7 +3583,7 @@
     "section": "Dataset selection",
     "text": "Dataset selection\nThe VEDA Data Store is meant for\n\nNovel datasets produced by NASA Earth data scientists to be presented on the VEDA Dashboard or shared with other science users on VEDA, but not (yet) suited for publication in one of the EOSDIS Distributed Active Archive Centers (DAAC)\nNon-authoritative cloud-optimized versions of Datasets from a DAAC\nOther datasets that do not have an authoritative, cloud-optimized source, to be published or used within the VEDA platform",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Data Services",
       "VEDA Data Store"
     ]
@@ -3595,7 +3595,7 @@
     "section": "Browsing the Data Store",
     "text": "Browsing the Data Store\nThe main public interface is the STAC browser and many APIs are exposed that provide access to the data using various protocols.\n\nSTAC browser: veda-staging-stac-browser",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Data Services",
       "VEDA Data Store"
     ]
@@ -3607,7 +3607,7 @@
     "section": "Contributing data",
     "text": "Contributing data\nThe process of data ingestion into the VEDA Data Store is under active development.\nPlease see our docs on dataset ingestion.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Data Services",
       "VEDA Data Store"
     ]
@@ -3619,7 +3619,7 @@
     "section": "",
     "text": "The goal of VEDA Data Services is to support open science through community standard tooling, Application Programming Interfaces (APIs), and providing access to persistent, discoverable Earth science datasets. This approach includes:\n\nHosting and making available key datasets in analysis-optimized formats\nTying together VEDA products by providing access to hosted data, existing third-party geospatial datasets, and new datasets produced within the VEDA ecosystem\nMaking data Findable, Accessible, Interoperable, and Reusable (FAIR), within and also beyond VEDA\n\nThe Data Services hosts a suite of services that make these pointers possible.\nSome of them include:\n\nARCO Store: holds all the Analysis Ready Cloud-Optimized (ARCO) data products\nDynamic Tiler: dynamic tiling service that makes visualization of cloud-optimized geotiffs possible\nSTAC Catalog: a catalog of all the available data in the VEDA system\nData Transformation & Publication Pipeline: a cloud-native workflow that handles data transformation, ingestion and publication to the VEDA data catalog\n\nA technical architecture diagram of how all of these work together can be found in the software architecture description.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Data Services"
     ]
   },
@@ -3630,7 +3630,7 @@
     "section": "",
     "text": "The goal of VEDA Data Services is to support open science through community standard tooling, Application Programming Interfaces (APIs), and providing access to persistent, discoverable Earth science datasets. This approach includes:\n\nHosting and making available key datasets in analysis-optimized formats\nTying together VEDA products by providing access to hosted data, existing third-party geospatial datasets, and new datasets produced within the VEDA ecosystem\nMaking data Findable, Accessible, Interoperable, and Reusable (FAIR), within and also beyond VEDA\n\nThe Data Services hosts a suite of services that make these pointers possible.\nSome of them include:\n\nARCO Store: holds all the Analysis Ready Cloud-Optimized (ARCO) data products\nDynamic Tiler: dynamic tiling service that makes visualization of cloud-optimized geotiffs possible\nSTAC Catalog: a catalog of all the available data in the VEDA system\nData Transformation & Publication Pipeline: a cloud-native workflow that handles data transformation, ingestion and publication to the VEDA data catalog\n\nA technical architecture diagram of how all of these work together can be found in the software architecture description.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Data Services"
     ]
   },
@@ -3641,7 +3641,7 @@
     "section": "",
     "text": "VEDA data service APIs are open to free and fair use. For access to other resources, please see the sections below.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Getting access"
     ]
   },
@@ -3652,7 +3652,7 @@
     "section": "VEDA Interactive Compute and Processing Environment",
     "text": "VEDA Interactive Compute and Processing Environment\nAccess to the VEDA compute and processing environment is currently on an as-need basis. If you are a user afficiliated with VEDA, you can gain access by following these steps:\n\nMake sure you have a Github Account. Take note of your Github username\nSend an email to the VEDA team (veda@uah.edu) asking for access to the VEDA notebook environment. Please include your Github username. They will invite you through Github to join the VEDA Analytics Github Team. Please watch your email for the invite.\nOnce you accepted the invitation, you should be able to go to https://hub.openveda.cloud/ and login via your Github credentials.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Getting access"
     ]
   },
@@ -3663,7 +3663,7 @@
     "section": "",
     "text": "VEDA scientific computing services provide scientists the resources they need to develop (interactively) and execute (operationally) algorithms for geospatial data science and scalable computing, and to support open science by giving all users access to sufficient resources and tools to do science and replicate scientific results. This approach includes:",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Scientific Computing"
     ]
   },
@@ -3674,7 +3674,7 @@
     "section": "Collaborative and Interactive Data Science with JupyterHub",
     "text": "Collaborative and Interactive Data Science with JupyterHub\nVEDA promotes the use of JupyterHub environments for interactive data science. JupyterHub enables you to analyze massive archives of Earth science data in the cloud in an interactive environment that alleviates the complexities of managing compute resources (virtual machines, roles and permissions, etc).\nUsers affiliated with VEDA can get access to a dedicated JupyterHub service, provided in collaboration with 2i2c: hub.openveda.cloud. Please find instructions for requesting access below.\nIf you are a scientist affiliated with NASA projects such as EIS and MAAP, you can also keep using the resources provided by these projects.\nThrough the use of open-source technology, we make sure our services are interoperable and exchangeable.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Scientific Computing"
     ]
   },
@@ -3685,7 +3685,7 @@
     "section": "Instructory notebooks",
     "text": "Instructory notebooks\nThis documentation site provides Jupyter notebooks on how to load and analyze Earth data an interactive cloud computing environment.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Scientific Computing"
     ]
   },
@@ -3696,7 +3696,7 @@
     "section": "Getting access to VEDA’s JupyterHub environment",
     "text": "Getting access to VEDA’s JupyterHub environment\nPlease see Getting Access.",
     "crumbs": [
-      "Nasa VEDA Platform",
+      "NASA VEDA Platform",
       "Scientific Computing"
     ]
   }
