@@ -148,7 +148,7 @@
     "href": "nasa-veda-platform/data-services/data-ingestion.html",
     "title": "VEDA Data Ingestion Services",
     "section": "",
-    "text": "Welcome to the VEDA data ingestion services documentation. This document provides an overview of our data ingestion pipelines, Airflow instance, and ingest APIs. Whether you’re deploying new services or interacting with existing ones, this guide will help you get started. For detailed development and contribution guidelines, please refer to our Contributing Guide.",
+    "text": "VEDA’s data ingestion services are designed to handle and manage the flow of data from various sources efficiently. The system integrates with Apache Airflow for orchestrating and scheduling data pipelines, and APIs to facilitate and manage data ingestion tasks.\n\n\n\nApache Airflow Instance\n\nAirflow orchestrates various data ingestion tasks and workflows. It supports scheduling, monitoring, and managing pipelines, described using Directed Acyclic Graphs (DAGs).\nFor details on how to deploy, configure, or modify our Airflow instance, refer to the veda-data-airflow repository.\n\nIngest APIs\n\nThe Ingest API facilitates data ingestion from multiple sources and manages the data flow into VEDA’s system. This API is included in veda-backend\nTo learn how to interact with these APIs as a user, consult the Dataset Ingestion Guide.",
     "crumbs": [
       "NASA VEDA Platform",
       "Data Services",
@@ -159,20 +159,8 @@
     "objectID": "nasa-veda-platform/data-services/data-ingestion.html#overview",
     "href": "nasa-veda-platform/data-services/data-ingestion.html#overview",
     "title": "VEDA Data Ingestion Services",
-    "section": "Overview",
-    "text": "Overview\nVEDA’s data ingestion services are designed to handle and manage the flow of data from various sources efficiently. Our system integrates with Apache Airflow for orchestrating and scheduling data pipelines, and APIs to facilitate and manage data ingestion tasks.\n\nComponents\n\nApache Airflow Instance\n\nOur Airflow instance orchestrates various data ingestion tasks and workflows. It supports scheduling, monitoring, and managing pipelines, described using Directed Acyclic Graphs (DAGs).\nFor details on how to deploy, configure, or modify our Airflow instance, refer to the veda-data-airflow repository.\n\nIngest APIs\n\nOur ingest API facilitates data ingestion from multiple sources and manages the data flow into VEDA’s system. This API is included in veda-backend\nTo learn how to interact with these APIs as a user, consult the Dataset Ingestion Guide.",
-    "crumbs": [
-      "NASA VEDA Platform",
-      "Data Services",
-      "VEDA Data Ingestion Services"
-    ]
-  },
-  {
-    "objectID": "nasa-veda-platform/data-services/data-ingestion.html#deployment-and-modification",
-    "href": "nasa-veda-platform/data-services/data-ingestion.html#deployment-and-modification",
-    "title": "VEDA Data Ingestion Services",
-    "section": "Deployment and Modification",
-    "text": "Deployment and Modification\nIf you need to deploy or modify any of the ingestion services, please visit the veda-data-airflow repository. This repo contains: - Instructions for deploying the Airflow instance - Examples of how to write new ingestion processes (DAGs) - Guidance on extending and modifying existing ingestion services",
+    "section": "",
+    "text": "VEDA’s data ingestion services are designed to handle and manage the flow of data from various sources efficiently. The system integrates with Apache Airflow for orchestrating and scheduling data pipelines, and APIs to facilitate and manage data ingestion tasks.\n\n\n\nApache Airflow Instance\n\nAirflow orchestrates various data ingestion tasks and workflows. It supports scheduling, monitoring, and managing pipelines, described using Directed Acyclic Graphs (DAGs).\nFor details on how to deploy, configure, or modify our Airflow instance, refer to the veda-data-airflow repository.\n\nIngest APIs\n\nThe Ingest API facilitates data ingestion from multiple sources and manages the data flow into VEDA’s system. This API is included in veda-backend\nTo learn how to interact with these APIs as a user, consult the Dataset Ingestion Guide.",
     "crumbs": [
       "NASA VEDA Platform",
       "Data Services",
@@ -1810,7 +1798,7 @@
     "href": "open-source-ecosystem/repositories.html#data-services",
     "title": "VEDA Repositories",
     "section": "Data Services",
-    "text": "Data Services\n\nveda-backend\nCentral index (database) and APIs for recording, discovering, viewing, and using VEDA assets\n\n\nveda-stac-ingestor\nEntry-point for users/services to add new records to database\n\n\nveda-data-pipelines\nCloud optimize data assets and submit records for publication to veda-stac-ingestor using Step Functions\n\n\nveda-data-airflow\nCloud optimize data assets and submit records for publication to veda-stac-ingestor using Airflow\n\n\nveda-features-api\nHosting and serving collections of vector data features for VEDA\n\n\nveda-auth\nAuthentication service for VEDA systems\n\n\nveda-data-processing\nScripts for data downloading, transformation, and related processing for the VEDA project",
+    "text": "Data Services\n\nveda-backend\nCentral index (database) and APIs for ingesting, discovering, viewing, and accessing VEDA assets\n\n\nveda-routes\nCloudfront Distribution, and DNS resources for all VEDA services\n\n\nveda-data-airflow\nSTAC metadata creation and ingestion using Apache Airflow\n\n\nveda-features-api-cdk\nHosting and serving collections of vector data features for VEDA\n\n\nveda-auth\nAuthentication service for VEDA systems\n\n\nveda-data-processing\nScripts for data downloading, transformation, and related processing for the VEDA project",
     "crumbs": [
       "VEDA Open Source Ecosystem",
       "VEDA Repositories"
@@ -1865,7 +1853,7 @@
     "href": "open-source-ecosystem/architecture.html",
     "title": "Software Architecture",
     "section": "",
-    "text": "Architecture diagram\n\n\n\nThis diagram shows a high level overview of the components in the the VEDA Open-Source Ecosystem.",
+    "text": "Architecture diagram\n\n\n\nThis diagram shows a high level overview of the components in the the VEDA Open-Source Ecosystem. See the repositories page for links to software used for VEDA services.",
     "crumbs": [
       "VEDA Open Source Ecosystem",
       "Software Architecture"
@@ -1876,7 +1864,7 @@
     "href": "open-source-ecosystem/architecture.html#architecture",
     "title": "Software Architecture",
     "section": "",
-    "text": "Architecture diagram\n\n\n\nThis diagram shows a high level overview of the components in the the VEDA Open-Source Ecosystem.",
+    "text": "Architecture diagram\n\n\n\nThis diagram shows a high level overview of the components in the the VEDA Open-Source Ecosystem. See the repositories page for links to software used for VEDA services.",
     "crumbs": [
       "VEDA Open Source Ecosystem",
       "Software Architecture"
@@ -3613,7 +3601,7 @@
     "href": "nasa-veda-platform/data-services/data-store.html#browsing-the-data-store",
     "title": "VEDA Data Store",
     "section": "Browsing the Data Store",
-    "text": "Browsing the Data Store\nThe main public interface is the STAC browser and many APIs are exposed that provide access to the data using various protocols.\n\nSTAC browser: veda-staging-stac-browser",
+    "text": "Browsing the Data Store\nThe main public interface is the STAC browser and APIs that provide access to the data using various protocols.",
     "crumbs": [
       "NASA VEDA Platform",
       "Data Services",
