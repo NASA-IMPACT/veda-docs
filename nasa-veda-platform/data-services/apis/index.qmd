@@ -1,6 +1,8 @@
 ---
 title: APIs
 subtitle: Application Programming Interfaces (APIs) provided by VEDA
+aliases:
+  - /services/apis.html
 ---
 
 Most of the VEDA APIs are hosted out of a single project ([veda-backend](https://github.com/NASA-IMPACT/veda-backend)) that combines multiple standalone services.
@@ -48,7 +50,7 @@ As you can see from our API docs referenced above, our raster API provides [WMTS
 
 For any layer you are seeing in the VEDA dataset Explorer, you can retrieve the tile URL:
 
-![VEDA Dashboard Exploration API grab](api-integration-wmts-xyz-from-exploration.png)
+![VEDA Dashboard Exploration API grab](./images/api-integration-wmts-xyz-from-exploration.png)
 
 And paste that into any client that loads these tiles, like QGIS, ArcGIS, Leaflet, even online tools such as [geojson.io](https://geojson.io) or [felt.com](https://felt.com).
 
@@ -61,8 +63,8 @@ That is because, unfortunately, neither XYZ nor WMTS have time series capabiliti
 
 You can see how to retrieve time steps and tile layer URLs from these tutorial Python notebooks (mostly REST API calls):
 
-1. [Using /stac/tilejson.json with STAC collection and item IDs](../notebooks/datasets/ocean-npp-timeseries-analysis.html#visualizing-the-raster-imagery)
-2. [Creating layers from filters and mosaics (advanced)](../notebooks/quickstarts/hls-visualization.html)
+1. [Using /stac/tilejson.json with STAC collection and item IDs](/notebooks/datasets/ocean-npp-timeseries-analysis.html#visualizing-the-raster-imagery)
+2. [Creating layers from filters and mosaics (advanced)](/notebooks/quickstarts/hls-visualization.html)
 
 It comes down to querying for STAC items (timesteps) and then asking the Raster API for `tilejson.json` specifications for the items you are interested in.
 

@@ -26,18 +26,30 @@ website:
       - icon: binoculars
         href: https://earthdata.nasa.gov/dashboard
         text: "VEDA Dashboard"
-
     style: "docked"
     search: true
     collapse-level: 2
     contents:
       - href: index.qmd
         text: Welcome
-      - section: services/index.qmd
+      - text: "---"
+      - section: NASA VEDA Platform
         contents:
-          - services/dashboard.qmd
-          - services/apis.qmd
-          - services/jupyterhub.qmd
+          - nasa-veda-platform/about/index.qmd
+          - nasa-veda-platform/dashboard/index.qmd
+          - section: nasa-veda-platform/data-services/index.qmd
+            contents:
+              - nasa-veda-platform/data-services/data-store.qmd
+              - nasa-veda-platform/data-services/data-ingestion.qmd
+              - section: nasa-veda-platform/data-services/apis/index.qmd
+                contents:
+                  - nasa-veda-platform/data-services/apis/raster-api.qmd
+                  - nasa-veda-platform/data-services/apis/stac-api.qmd
+          - section: nasa-veda-platform/scientific-computing/index.qmd
+            contents:
+              - nasa-veda-platform/scientific-computing/code-server.md
+              - nasa-veda-platform/scientific-computing/ssh.md
+          - nasa-veda-platform/getting-access.qmd
       - section: notebooks/index.qmd
         contents:
           - section: Quickstarts
@@ -71,38 +83,40 @@ website:
               - notebooks/datasets/air-quality-covid.ipynb
               - notebooks/datasets/nldas_time_series.ipynb
               - notebooks/datasets/nldas_compare2_3.ipynb
-          - section: JupyterHub
-            contents:
-              - hub-guides/code-server.md
-              - hub-guides/ssh.md
-      - section: contributing/index.qmd
+      - section: nasa-veda-platform/contributing/index.qmd
         contents:
-          - section: contributing/docs-and-notebooks.qmd
+          - section: nasa-veda-platform/contributing/docs-and-notebooks.qmd
             contents:
               - notebooks/templates/template-accessing-the-data-directly.ipynb
               - notebooks/templates/template-using-the-raster-api.ipynb
-          - section: contributing/dataset-ingestion/index.qmd
+          - section: nasa-veda-platform/contributing/dataset-ingestion/index.qmd
             contents:
-              - contributing/dataset-ingestion/file-preparation.qmd
-              - contributing/dataset-ingestion/catalog-ingestion.qmd
+              - nasa-veda-platform/contributing/dataset-ingestion/file-preparation.qmd
+              - nasa-veda-platform/contributing/dataset-ingestion/catalog-ingestion.qmd
               - notebooks/veda-operations/generate-cmip6-kerchunk-historical.ipynb
               - section: STAC Collection Creation
                 contents:
-                  - contributing/dataset-ingestion/stac-collection-conventions.qmd
+                  - nasa-veda-platform/contributing/dataset-ingestion/stac-collection-conventions.qmd
                   - notebooks/veda-operations/stac-collection-creation.ipynb
                   - notebooks/veda-operations/publish-cmip6-kerchunk-stac.ipynb
               - section: STAC Item Creation
                 contents:
-                  - contributing/dataset-ingestion/stac-item-conventions.qmd
+                  - nasa-veda-platform/contributing/dataset-ingestion/stac-item-conventions.qmd
                   - notebooks/veda-operations/stac-item-creation.ipynb
               - section: Boilerplate ingest example
                 contents:
-                  - contributing/dataset-ingestion/example-template/example-geoglam-ingest.ipynb
-          - section: contributing/dashboard-configuration/index.qmd
+                  - nasa-veda-platform/contributing/dataset-ingestion/example-template/example-geoglam-ingest.ipynb
+          - section: nasa-veda-platform/contributing/dashboard-configuration/index.qmd
             contents:
-              - contributing/dashboard-configuration/dataset-configuration.qmd
-              - contributing/dashboard-configuration/discovery-configuration.qmd
-      - external-resources.qmd
+              - nasa-veda-platform/contributing/dashboard-configuration/dataset-configuration.qmd
+              - nasa-veda-platform/contributing/dashboard-configuration/discovery-configuration.qmd
+      - text: "---"
+      - section: open-source-ecosystem/index.qmd
+        contents:
+          - open-source-ecosystem/why.qmd
+          - open-source-ecosystem/architecture.qmd
+          - open-source-ecosystem/repositories.qmd
+          - open-source-ecosystem/external-resources.qmd
 format:
   html:
     theme:
