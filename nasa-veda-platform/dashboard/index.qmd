@@ -1,21 +1,75 @@
 ---
-title: Dashboard
-subtitle: A graphical interface for discovering Earth data science
+title: VEDA Dashboard
+subtitle: 10 Things to Know About the VEDA Dashboard
 aliases:
   - /services/dashboard.html
 ---
 
-The [VEDA Dashboard](https://www.earthdata.nasa.gov/dashboard/) is one of several user interfaces in the VEDA project. The VEDA Dashboard is a publishing platform for results of scientific analysis of Earth data at NASA, 
-in the form of Dataset information pages ("Datasets") and stories ("Data Stories").
+The VEDA Dashboard is an open-source set of configurable tools and pages that enable you and your team to visualize, analyze, and communicate science data. 
 
-It also is aligned with VEDA's goal of advancing interactive visualization and exploratory visual data analysis. This dashboard constitutes:
+Learn more about the principles the VEDA Dashboard is designed around below.
 
-* an evolution of COVID-19 dashboard to provide the interactive storytelling for various environmental changes using Earth observation data;
-* a transformation of high-valued NASA datasets to dynamic visualization, enabling users to perform on-the-fly visual analysis; support for environmental justice initiatives through the integration of NASA Earth observation data and socio-economic data;
-* a tool by which users can visually explore and localize data, and perform independent analysis; data-driven stories that are exportable in multiple formats; and a situational awareness system that brings together Earth observation datasets such as greenhouse gasses, air quality, and sea level rise, among others.
+If you would like to learn more about how to create your own instance of the VEDA Dashboard, visit the [VEDA UI docs](https://github.com/NASA-IMPACT/veda-ui/blob/main/docs/development/SETUP.md).
 
-![Dashboard Screenshot](images/dashboard.png)
+### 1. Science teams need a way to show their work
+- Science teams often need a web presence to show their research program, findings, and methods and data to their stakeholders, colleagues, and other audiences
+- Modern data-driven science is not only presented through papers, posters, and lectures to fellow scientists and through reports to decision makers, but also through up-to-date interactive online tools and blogs that are available directly to either audience.
+Web and cloud platforms can enable scientists to publish contents in these interactive ways.
+- Often, science programs will want to put their information into a specific context and make it discoverable via their name, which is also important for credibility and attribution.
+- VEDA UI helps science teams combine the two - program-specific websites with interactive data visualization and standardized access.
 
-## Contributing
+### 2. The VEDA Dashboard visualizes Earth science data in a way that a CMS can't
+- In order to include interactive data exploration and analysis tools into sites built with traditional CMS tools, you often need to manually embed third-party services into your website, losing any reference to the original data. 
+- Otherwise, you have to rely on a highly customized and expensive service.
+- The VEDA Dashboard set of tools allows you to visualize spatio-temporal data assets within your website, maintaining an interoperable reference to the source data. At the same time, it is completely open source, customizable, and comes without a subscription.
+
+### 3. It enables science workflows AND communicates to stakeholders in one platform
+- We show that, with cloud-optimized data, we can achieve multiple purposes without considerable additional effort or duplicating data sources
+- Data visualization in web interfaces often relies on copies of original data that were prepared for visualization (even scalable visualization services like NASA WorldView rely on statically produced rendered replicas). Linking the visualization back to original source data, as required for (re)producing scientific analysis, is often not possible or requires connecting a lot of dots.
+- VEDA visualizes data directly off a single authoritative reference that contains data optimized for visualization as well as direct access, avoiding the issue of missing links between source and rendered data. The data a user sees in VEDA has a direct reference to source data (often via STAC).
+Another benefit of dynamic tiling is that users are able to adjust viewing parameters such as color map and value range to focus on, to study details of their interest.
+
+### 4. Features are optimized for Earth science data but other spatio-temporal applications might find them useful
+- Spatio-temporal data often comes from Earth observations or Earth system models. However, the principle of integrating dynamically rendered data into a website is valuable for many branches of data-intensive science, such as heliophysics or astrophysics
+
+### 5. The VEDA Dashboard is completely open-source
+- The code is open and accessible, and the tool itself proliferates the use of open standards and reproducible data access for open science
+Community involvement will become important to the long-term success of VEDA
+
+### 6. Each science team can create their own VEDA Dashboard with different content, data, and features
+Existing VEDA instances:
+
+- Template
+- Earthdata
+- Greenhouse Gas Center Portal
+- earth.gov
+
+Planned VEDA instances:
+
+- Air Quality Portal
+
+### 7. Each science team will customize their VEDA Dashboard to meet the needs of their audience
+![Dashboard audiences](images/VEDA Engagement.jpeg)
+
+### 8. There is a template for science teams to see features and a potential layout
+- The Dashboard is NOT a replicable white-label website/dashboard, or even a single website
+- Each science team will make their own instance of the Dashboard, and a template instance will provide some guidance and a starting point, if the teams need it
+- However, each team can decide how to use the features available
+
+### 9. Utilizing an integrated STAC, a VEDA Dashboard can show data from a variety of sources
+There are different ways to integrate data, such as:
+- Using platform storage, catalog, and data access services
+- Catalog externally stored data, serve through platform services (e.g. cloud-optimized GeoTIFF in DAAC S3; TiTiler and TiTiler-Xarray)
+- Rely on external storage and catalog, serve through platform services (e.g. TiTiler-CMR)
+- Integrate third-party data services (ArcGIS ImageServer etc., WorldView WMS) 
+While open source cloud-native geospatial data services are preferred, we should also avoid making copies of data and instead rely on existing, authoritative services.
+
+### 10. There are other frontends for VEDA
+- The VEDA Dashboard is just one frontend for VEDA, and should integrate well with other frontend options for users
+- The virtue of open-standard, open-access data services is that many interfaces can connect to them (interoperability).
+- Within the VEDA project, we promote the use of STAC Browser to browse the VEDA catalog, interactive code notebooks for finding and loading data (VEDA JupyterHub), and multiple data websites to use the same services (ESA/NASA/JAXA EO Dashboard, Earth.gov, …).
+
+
+## Configuration
 
 Please see our docs on [Dashboard Configuration](../contributing/dashboard-configuration/index.qmd).
