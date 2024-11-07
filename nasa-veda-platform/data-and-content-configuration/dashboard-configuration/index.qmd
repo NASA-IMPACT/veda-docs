@@ -1,13 +1,11 @@
 ---
 title: "Dashboard Configuration"
-subtitle: "Dataset and Discovery publication in the [VEDA Dashboard](https://www.earthdata.nasa.gov/dashboard/)"
+subtitle: "Dataset and story publication in your VEDA Dashboard"
 ---
 
-This guide explains how to publish content in the [VEDA Dashboard](https://www.earthdata.nasa.gov/dashboard/), the graphical user interface
-for exploring NASA Earth Data datasets and science stories [VEDA UI](https://github.com/NASA-IMPACT/veda-ui).
+This guide explains how to publish content to your instance of the [VEDA Dashboard](https://www.earthdata.nasa.gov/dashboard/). You will do this in your own customized repository that resembles [veda-config](https://github.com/NASA-IMPACT/veda-config), the configuration repository for the [Earthdata VEDA Dashboard](https://www.earthdata.nasa.gov/dashboard/).
 
-By following this document, you should have a good understanding of how to start from having an idea for some content to show on the VEDA Dashboard all the way to having your data and content appear in the production version of the VEDA Dashboard. Detailed technical documentation for each of the steps is available on GitHub and other places, links provided in the Appendix below.
-
+Detailed technical documentation for each of the steps is available on GitHub and other places, links provided in the Appendix below.
 
 ```{mermaid}
 flowchart LR
@@ -15,10 +13,10 @@ flowchart LR
     B -->|No| C[Go to Dataset Ingestion]
     C --> E
     B -->|Yes| E{Do you have a story?}
-    E -->|Yes| D[Go to Discovery Configuration]
+    E -->|Yes| D[Go to Story Configuration]
     E -->|No| F[Go to Dataset Configuration]
     click C "../dataset-ingestion/index.html" "Docs on Dataset Ingestion" _blank
-    click D "./discovery-configuration.html" "Docs on Discovery Configuration" _blank
+    click D "./story-configuration.html" "Docs on story Configuration" _blank
     click F "./dataset-configuration.html" "Docs on Dataset Configuration" _blank
 ```
 
@@ -26,13 +24,9 @@ flowchart LR
 
 This is an important step before ingesting or configuring anything within VEDA. This will set you up for success in later steps.
 
-
 ### Key Steps
 
-🧑‍💻 Collaborate with partners familiar with the data context, to draft the necessary content.
-
-
-For **Discoveries**, the required content is:
+For **Stories**, the required content is:
 
 1.  Text for the actual story itself
 2.  Any visuals you would like to include, whether that be images, charts, maps, or other
@@ -42,10 +36,9 @@ For **Discoveries**, the required content is:
     b. If charts, gather the relevant data to build the chart. A csv file is the most common, but json is also supported
 
 3.  A cover image for the dataset as it will appear in the Dashboard
-4.  A title and short description/sub-title (5-10 words) for the Discovery
+4.  A title and short description/sub-title (5-10 words) for the story
 
-Next step: [Discovery Configuration](./discovery-configuration.qmd).
-
+Next step: [Story Configuration](./story-configuration.qmd).
 
 For **Datasets**, the required content is:
 
@@ -54,12 +47,12 @@ For **Datasets**, the required content is:
 3. A cover image for the dataset as it will appear in the Dashboard
 4. Any other relevant metadata you might want included
     https://nasa-impact.github.io/veda-docs/contributing/dashboard-content.html
-5. For any datasets that need to be ingested, convert data to Cloud-Optimized GeoTIFFs (COGs) (⚠️ This is currently the only format supported in the VEDA Dashboard. More formats to come in the future)
 
 Next step: If your data is already in VEDA go to [Dataset Configuration](./dataset-configuration.qmd). Otherwise go to [Dataset Ingestion](../dataset-ingestion/index.qmd).
 
 ## Useful Links
 
-* Content repository for the VEDA Dashboard - [veda-config](https://github.com/NASA-IMPACT/veda-config)
+* VEDA Dashboard core repository and documentation - [veda-ui](https://github.com/NASA-IMPACT/veda-ui)
+* Example content repository for the Earthdata VEDA Dashboard - [veda-config](https://github.com/NASA-IMPACT/veda-config)
 * [Data processing from EIS](https://github.com/Earth-Information-System/veda-data-processing)
 * [Alexey’s notes on helpful tips](https://docs.google.com/document/d/13go47lheeIU2kQqoZo4DVwLWJBEQp25S61vQz-a4T9A/edit)
