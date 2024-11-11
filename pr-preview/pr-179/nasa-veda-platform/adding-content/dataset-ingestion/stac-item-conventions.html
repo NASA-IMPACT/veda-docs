@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>STAC collection conventions – VEDA Documentation</title>
+<title>STAC item conventions – VEDA Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,6 +63,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
+<link href="../../../notebooks/veda-operations/stac-item-creation.html" rel="next">
+<link href="../../../notebooks/veda-operations/publish-cmip6-kerchunk-stac.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -82,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">STAC collection conventions</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../nasa-veda-platform/adding-content/index.html">Adding Content</a></li><li class="breadcrumb-item"><a href="../../../nasa-veda-platform/adding-content/dataset-ingestion/index.html">Dataset Ingestion</a></li><li class="breadcrumb-item"><a href="../../../nasa-veda-platform/adding-content/dataset-ingestion/stac-item-conventions.html">STAC Item Creation</a></li><li class="breadcrumb-item"><a href="../../../nasa-veda-platform/adding-content/dataset-ingestion/stac-item-conventions.html">STAC item conventions</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -412,8 +448,8 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true">
- <span class="menu-text">nasa-veda-platform/contributing/index.qmd</span></a>
+            <a href="../../../nasa-veda-platform/adding-content/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Adding Content</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -421,42 +457,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false">
- <span class="menu-text">nasa-veda-platform/contributing/docs-and-notebooks.qmd</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <a href="../../../nasa-veda-platform/adding-content/dataset-ingestion/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dataset Ingestion</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/templates/template-accessing-the-data-directly.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Template (Accessing data directly)</span></a>
+  <a href="../../../nasa-veda-platform/adding-content/dataset-ingestion/file-preparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">File preparation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../notebooks/templates/template-using-the-raster-api.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Template (Using the raster API)</span></a>
+  <a href="../../../nasa-veda-platform/adding-content/dataset-ingestion/catalog-ingestion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Catalog Ingestion</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
- <span class="menu-text">nasa-veda-platform/contributing/dataset-ingestion/index.qmd</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item">
- <span class="menu-text">nasa-veda-platform/contributing/dataset-ingestion/file-preparation.qmd</span>
-  </li>
-          <li class="sidebar-item">
- <span class="menu-text">nasa-veda-platform/contributing/dataset-ingestion/catalog-ingestion.qmd</span>
-  </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../notebooks/veda-operations/generate-cmip6-kerchunk-historical.html" class="sidebar-item-text sidebar-link">
@@ -465,16 +484,19 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false">
  <span class="menu-text">STAC Collection Creation</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 ">  
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
- <span class="menu-text">nasa-veda-platform/contributing/dataset-ingestion/stac-collection-conventions.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../../../nasa-veda-platform/adding-content/dataset-ingestion/stac-collection-conventions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">STAC collection conventions</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../notebooks/veda-operations/stac-collection-creation.html" class="sidebar-item-text sidebar-link">
@@ -491,16 +513,19 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true">
  <span class="menu-text">STAC Item Creation</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth3 show">  
           <li class="sidebar-item">
- <span class="menu-text">nasa-veda-platform/contributing/dataset-ingestion/stac-item-conventions.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../../../nasa-veda-platform/adding-content/dataset-ingestion/stac-item-conventions.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">STAC item conventions</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../notebooks/veda-operations/stac-item-creation.html" class="sidebar-item-text sidebar-link">
@@ -511,35 +536,67 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false">
  <span class="menu-text">Boilerplate ingest example</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth3 ">  
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
- <span class="menu-text">nasa-veda-platform/contributing/dataset-ingestion/example-template/example-geoglam-ingest.ipynb</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../../../nasa-veda-platform/adding-content/dataset-ingestion/example-template/example-geoglam-ingest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ingestion Workflow for Uploading Data to the VEDA Catalog for the VEDA Dashboard</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false">
- <span class="menu-text">nasa-veda-platform/contributing/dashboard-configuration/index.qmd</span></a>
+            <a href="../../../nasa-veda-platform/adding-content/dashboard-configuration/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dashboard Configuration</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../nasa-veda-platform/adding-content/dashboard-configuration/dataset-configuration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dataset Configuration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../nasa-veda-platform/adding-content/dashboard-configuration/story-configuration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Story Configuration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../nasa-veda-platform/adding-content/docs-and-notebooks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Usage Example Notebook Submission</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
- <span class="menu-text">nasa-veda-platform/contributing/dashboard-configuration/dataset-configuration.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/templates/template-accessing-the-data-directly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Template (Accessing data directly)</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
- <span class="menu-text">nasa-veda-platform/contributing/dashboard-configuration/discovery-configuration.qmd</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../../../notebooks/templates/template-using-the-raster-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Template (Using the raster API)</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -590,17 +647,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#collection-field-extension-and-naming-recommendations" id="toc-collection-field-extension-and-naming-recommendations" class="nav-link active" data-scroll-target="#collection-field-extension-and-naming-recommendations">Collection field, extension, and naming recommendations</a></li>
+  <li><a href="#rio-stac-conventions-for-generating-stac-items" id="toc-rio-stac-conventions-for-generating-stac-items" class="nav-link active" data-scroll-target="#rio-stac-conventions-for-generating-stac-items">Rio-stac conventions for generating STAC Items</a></li>
+  <li><a href="#data-provenance-convention" id="toc-data-provenance-convention" class="nav-link" data-scroll-target="#data-provenance-convention">Data provenance convention</a></li>
+  <li><a href="#stac-item-validation-convention" id="toc-stac-item-validation-convention" class="nav-link" data-scroll-target="#stac-item-validation-convention">STAC Item validation convention</a></li>
+  <li><a href="#convention-for-default-map-layer-assets-for-spectral-data" id="toc-convention-for-default-map-layer-assets-for-spectral-data" class="nav-link" data-scroll-target="#convention-for-default-map-layer-assets-for-spectral-data">Convention for default map layer assets for spectral data</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/nasa-veda-platform/data-and-content-configuration/dataset-ingestion/stac-collection-conventions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/nasa-veda-platform/adding-content/dataset-ingestion/stac-item-conventions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../nasa-veda-platform/adding-content/index.html">Adding Content</a></li><li class="breadcrumb-item"><a href="../../../nasa-veda-platform/adding-content/dataset-ingestion/index.html">Dataset Ingestion</a></li><li class="breadcrumb-item"><a href="../../../nasa-veda-platform/adding-content/dataset-ingestion/stac-item-conventions.html">STAC Item Creation</a></li><li class="breadcrumb-item"><a href="../../../nasa-veda-platform/adding-content/dataset-ingestion/stac-item-conventions.html">STAC item conventions</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">STAC collection conventions</h1>
-<p class="subtitle lead">Metadata required for entries in VEDA STAC to work with the VEDA Dashboard</p>
+<h1 class="title">STAC item conventions</h1>
+<p class="subtitle lead">Tooling and format to use when creating STAC items for VEDA</p>
 </div>
 
 
@@ -617,115 +677,96 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Copied from <a href="https://github.com/NASA-IMPACT/veda-backend/issues/29"><code>veda-backend#29</code></a></p>
-<p>Dashboard-specific notes that supplement the full <a href="https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md">stac-api collection specification</a>. Note that there is no schema enforcement on the collection table content in pgstac—this provides flexibility but also requires caution when creating and modifying Collections.</p>
-<section id="collection-field-extension-and-naming-recommendations" class="level2">
-<h2 class="anchored" data-anchor-id="collection-field-extension-and-naming-recommendations">Collection field, extension, and naming recommendations</h2>
+<p>Copied from <a href="https://github.com/NASA-IMPACT/veda-backend/issues/28"><code>veda-backend#28</code></a></p>
+<p>This document defines a set of conventions for generating STAC Items consistently for the VEDA Dashboard UI and future API users. Ultimately, these represent the minimum metadata API users can expect from the backend.</p>
+<section id="rio-stac-conventions-for-generating-stac-items" class="level2">
+<h2 class="anchored" data-anchor-id="rio-stac-conventions-for-generating-stac-items">Rio-stac conventions for generating STAC Items</h2>
+<p>All of our current ingestion plans will use <a href="https://developmentseed.org/rio-stac/">rio-stac</a> to generate item metadata for COGs so the notes below are organized around the input parameters of the <a href="https://developmentseed.org/rio-stac/api/rio_stac/stac/#create_stac_item">create_stac_item</a> method.</p>
+<p><strong>example rio-stac python usage</strong></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> rio_stac.stac.create_stac_item(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">id</span> <span class="op">=</span> item_id,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  source <span class="op">=</span> <span class="ss">f"s3://</span><span class="sc">{</span>obj<span class="sc">.</span>bucket_name<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>obj<span class="sc">.</span>key<span class="sc">}</span><span class="ss">"</span>, </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  collection <span class="op">=</span> collection_id, </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  input_datetime <span class="op">=</span> <span class="op">&lt;</span>datetime.datetime<span class="op">&gt;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  with_proj <span class="op">=</span> <span class="va">True</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  with_raster <span class="op">=</span> <span class="va">True</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  asset_name <span class="op">=</span> <span class="st">"cog_default"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  asset_roles <span class="op">=</span> [<span class="st">"data"</span>, <span class="st">"layer"</span>],</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  asset_media_type <span class="op">=</span> <span class="st">"image/tiff; application=geotiff; profile=cloud-optimized"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>Rio-stac create item parameter recommendations</strong> These recommendations are for generating STAC Item metadata for collections intended for the dasboard and may not be applicable to all ARCO collections.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th><strong>Field &amp;/or Extension</strong></th>
+<th>Parameter</th>
 <th><strong>Recommendations</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><strong>id</strong></td>
-<td>If dataset exists in NASA’s Earthdata or presumably from some other data provider like ESA, use that ID. If appropriate, add a suffix for any additional processing that has been performed, e.g.&nbsp;“OMSO2PCA_cog”. If dataset is not from NASA’s Earthdata, we can use a human readable name with underscores like “facebook_population_density”.</td>
+<td>(1) When STAC Item metadata is generated from a COG file, strip the full file extension from the filename for the item id. (2) When ids are not unique across collections, append the collection id to the item id. For example the no2-monthly and no2-monthly-diff COGs are stored with unique bucket prefixes but within the prefix all the filenames are the same, so the collection id is appended: <code>OMI_trno2_0.10x0.10_201604_Col3_V4</code> → <code>OMI_trno2_0.10x0.10_201604_Col3_V4-no2-monthly</code>).</td>
 </tr>
 <tr class="even">
-<td><strong>dashboard extension</strong></td>
-<td>To support the delta-ui we have added two new fields in a proposed dashboard extension. For now we are just adding the fields but after testing things out, we can formalize the extension with a <a href="https://github.com/stac-extensions/template">hosted json schema</a>. <strong><em>Dashboard extension properties are only required for collections that will be viewed in the delta-ui dashboard.</em></strong></td>
+<td><strong>with_proj</strong></td>
+<td><code>True</code>. Generate projection extension metadata for the item for future ARCO datastore users.</td>
 </tr>
 <tr class="odd">
-<td><strong>dashboard:is_periodic</strong></td>
-<td><code>True/False</code> This boolean is used when summarizing the collection—if the collection is periodic, the temporal range of the items in the collection and the time density are all the front end needs to generate a time picker. If the items in the collection are not periodic, a complete list of the unique item datetimes is needed.</td>
+<td><strong>with_raster</strong></td>
+<td><code>True</code>. This will generate gdal statistics for every band in the COG—we use these to get the range of values for the full collection.</td>
 </tr>
 <tr class="even">
-<td><strong>dashboard:time_density</strong></td>
-<td><code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>minute</code>, or <code>null</code>. These time steps should be treated as enum when the extension is formalized. For collections with a single time snapshot this value is null.</td>
+<td><strong>asset_name</strong></td>
+<td>A meaningful asset name for the default cloud optimized asset to be displayed on a map. <code>cog_default</code> is a placeholder—we need to choose and commit to an asset name for all collections. If not set, will default to <code>asset</code>. * TODO Decision: For items with many assets we should ingest all with appropriate keys and duplicate one preferred display asset as the default cog. We should be considering <a href="https://github.com/stac-utils/titiler-pgstac/issues/30">metadata conventions in pgstac-titiler</a></td>
 </tr>
 <tr class="odd">
-<td><strong>item_assets</strong></td>
-<td><a href="https://github.com/stac-extensions/item-assets/blob/main/README.md">stac-extension/item_assets</a> is used to explain the assets that are provided for each item in the collection. We’re not providing thumbnails yet, but this example below includes a thumbnail asset to illustrate how the extension will be used. The population of this property is not automated, the creator of the collection writes the item assets documentation. <strong><em>Item assets are only required for collections that will be viewed in the delta-ui dashboard.</em></strong></td>
+<td><strong>asset_roles</strong></td>
+<td><code>["data", "layer"]</code> data is an appropriate role, we may also choose to add something like layer to indicate that the asset is optimized to be used as a map layer (<a href="https://github.com/radiantearth/stac-api-spec/blob/master/stac-spec/item-spec/item-spec.md#asset-role-types">stac specification for asset roles</a>).</td>
 </tr>
 <tr class="even">
-<td><strong>summaries</strong></td>
-<td>The implementation of this <a href="https://github.com/radiantearth/stac-api-spec/blob/master/stac-spec/collection-spec/collection-spec.md#summaries">core stac-spec</a> field is use-case specific. Our implementation is intended to support the dashboard and will supply datetime and raster statistics for the default map layer asset across the entire collection. <strong><em>Currently summaries are manually updated with a delta-ui specific <a href="https://github.com/NASA-IMPACT/delta-backend/issues/31">user defined function in pgstac</a>.</em></strong></td>
+<td><strong>asset_media_type</strong></td>
+<td><code>"image/tiff; application=geotiff; profile=cloud-optimized</code> (<a href="https://github.com/radiantearth/stac-api-spec/blob/master/stac-spec/best-practices.md#working-with-media-types">stac best practices for asset media type</a>).</td>
 </tr>
 <tr class="odd">
-<td><strong>title and description</strong></td>
-<td>Use these properties to provide specific information about the collection to API users and catalog browsers. These properties correspond to <a href="https://github.com/NASA-IMPACT/covid-api/blob/develop/covid_api/db/static/datasets/no2-diff.json">dataset name and info in the covid-api</a> but the delta dashboard will use delta-config to set these values in the UI so the information in our stac collections will be for data curators and API users.</td>
-</tr>
-<tr class="even">
-<td><strong>collection name style choices</strong></td>
-<td>Prefer lower-case kebab-case collection names. Decision: Should names align with underlying data identifiers or should it be an interpreted name? <code>omi-trno2-dhrm</code> and <code>omi-trno2-dhrm-difference</code> vs <code>no2-monthly</code> and <code>no2-monthly-diff</code>; <code>bmhd-30m-monthly</code> vs <code>nightlights-hd-monthly</code></td>
-</tr>
-<tr class="odd">
-<td><strong>license</strong></td>
-<td><a href="https://spdx.org/licenses/">SPDX license id</a>, license is likely available in CMR but we may need to research other sources of data. Default open license: <code>CC0-1.0</code></td>
+<td><strong>properties</strong></td>
+<td>CMIP6: TODO, CMR: TODO if we don’t store links to the original data, downstream users are not going to be able to pair STAC records with the versioned parent data in CMR</td>
 </tr>
 </tbody>
 </table>
-<p><strong>item_assets example</strong></p>
-<pre><code>
-"item_assets": {
-    "thumbnail": {
-      "type": "image/jpeg",
-      "roles": [
-        "thumbnail"
-      ],
-      "title": "Thumbnail",
-      "description": "A medium sized thumbnail"
+</section>
+<section id="data-provenance-convention" class="level2">
+<h2 class="anchored" data-anchor-id="data-provenance-convention">Data provenance convention</h2>
+<p>When adding STAC items that were derived from previously published data (such as CMR records), there are multiple ways to preserve the linkage between the item and the more complete source metadata. We should provide at a minimum metadata assets for any items derived from previously published data. Here are three examples from HLS:</p>
+<p><strong>metadata are assets</strong> The CMR properties question in the table above (how to refer the STAC Item to it’s CMR source metadata) could instead be solved by adding a metadata asset. This does not require creating a new extension for CMR, it just involves creating an asset from the CMR granule metadata which should be in the event context for CMR search driven ingests. The example below is from <a href="https://lpdaac.usgs.gov/resources/e-learning/getting-started-with-cloud-native-harmonized-landsat-sentinel-2-hls-data-in-r/">documentation for using HLS cloud optimized data</a>.</p>
+<pre><code>"assets": {
+  "metadata": {
+    "href": "https://cmr.earthdata.nasa.gov/search/concepts/G2099379244-LPCLOUD.xml",
+    "type": "application/xml"
     },
-    "cog_default": {
-      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
-      "roles": [
-        "data",
-        "layer"
-      ],
-      "title": "Default COG Layer",
-      "description": "Cloud optimized default layer to display on map"
-    }
-  }</code></pre>
-<p><strong>summaries example for periodic collection</strong></p>
-<pre><code>"summaries": {
-    "datetime": ["2016-01-01T00:00:00Z", "2022-01-01T00:00:00Z"],
-    "cog_default": {
-      "max": 50064805976866820,
-      "min": -6618294421291008
-    }
-  }</code></pre>
-<p><strong>summaries example for non-periodic collection</strong></p>
-<pre><code>"summaries": {
-    "datetime": [
-      "2020-01-01T00:00:00Z",
-      "2020-02-01T00:00:00Z",
-      "2020-03-01T00:00:00Z",
-      "2020-04-01T00:00:00Z",
-      "2020-05-01T00:00:00Z",
-      "2020-06-01T00:00:00Z",
-      "2020-07-01T00:00:00Z",
-      "2020-08-01T00:00:00Z",
-      "2020-09-01T00:00:00Z",
-      "2020-10-01T00:00:00Z",
-      "2020-11-01T00:00:00Z",
-      "2020-12-01T00:00:00Z",
-      "2021-01-01T00:00:00Z",
-      "2021-02-01T00:00:00Z",
-      "2021-03-01T00:00:00Z",
-      "2021-04-01T00:00:00Z",
-      "2021-05-01T00:00:00Z",
-      "2021-06-01T00:00:00Z",
-      "2021-07-01T00:00:00Z",
-      "2021-08-01T00:00:00Z",
-      "2021-09-01T00:00:00Z"
-    ],
-    "cog_default": {
-      "max": 255,
-      "min": 0
-    }
-  }</code></pre>
+    "thumbnail": { ...}
+}</code></pre>
+<p><strong>stac-spec <a href="https://github.com/stac-extensions/scientific">scieintific extension</a></strong></p>
+<pre><code>"properties": {
+   "sci:doi": "10.5067/HLS/HLSS30.002",
+   ...
+}</code></pre>
+<p><strong>Item links to metadata</strong> Use a <code>cite-as</code> Item link to the DOI for the source data.</p>
+<pre><code>"links": [
+  {
+    "rel": "cite-as",
+    "href": "https://doi.org/10.5067/HLS/HLSS30.002"
+  },
+  ...
+]</code></pre>
+</section>
+<section id="stac-item-validation-convention" class="level2">
+<h2 class="anchored" data-anchor-id="stac-item-validation-convention">STAC Item validation convention</h2>
+<p>We are producing <a href="https://pystac.readthedocs.io/en/stable/api/item.html">pystac.items</a> with rio-stac’s create_stac_item method and we should validate them before publishing them to s3. Testing found that it is possible to produce structurally sound but invalid STAC Items with create_stac_item.</p>
+<p>The built in pystac validator on the pystac.item returned by create_stac_item can be used to easily validate the metadata—<code>item.validate()</code> will raise an exception for invalid metadata. Pystac does need to be <a href="https://pystac.readthedocs.io/en/stable/api.html?highlight=validation#validation">installed with the appropriate dependencies for validation</a>.</p>
+</section>
+<section id="convention-for-default-map-layer-assets-for-spectral-data" class="level2">
+<h2 class="anchored" data-anchor-id="convention-for-default-map-layer-assets-for-spectral-data">Convention for default map layer assets for spectral data</h2>
+<p>Many of the collections for the dashboard have a clear default map layer asset that we can name <code>cog_default</code>. This convention does not map as well to spectral data with many assets (B01, B02,…). A preferred band asset could be duplicated to define a default map layer asset to be consistent but this needs to be decided.</p>
 
 
 </section>
@@ -1295,6 +1336,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../notebooks/veda-operations/publish-cmip6-kerchunk-stac.html" class="pagination-link" aria-label="Publishing a CMIP6 Kerchunk Reference to STAC">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Publishing a CMIP6 Kerchunk Reference to STAC</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../notebooks/veda-operations/stac-item-creation.html" class="pagination-link" aria-label="STAC Item Creation">
+        <span class="nav-page-text">STAC Item Creation</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -1303,7 +1356,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/nasa-veda-platform/data-and-content-configuration/dataset-ingestion/stac-collection-conventions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/nasa-veda-platform/adding-content/dataset-ingestion/stac-item-conventions.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
