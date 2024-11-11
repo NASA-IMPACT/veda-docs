@@ -15,7 +15,7 @@ Tutorial
 Dataset
 
 ## Checklist
-_The following checklist ensures that our notebooks are internally consistent ([read more](https://nasa-impact.github.io/veda-docs/contributing/doc-and-notebooks))_
+_The following checklist ensures that our notebooks are internally consistent ([read more](https://nasa-impact.github.io/veda-docs/adding-content/doc-and-notebooks))_
 
 - [ ] The first cell contains the rendering information with author and data
 - [ ] The notebook has a **Run this Notebook** section (with filename in link)
