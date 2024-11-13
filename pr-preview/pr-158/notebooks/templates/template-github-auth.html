@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>How to push to GitHub from the VEDA JupyterHub – VEDA Documentation</title>
+<title>template-github-auth – VEDA Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -29,8 +63,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../nasa-veda-platform/getting-access.html" rel="next">
-<link href="../../nasa-veda-platform/scientific-computing/ssh.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -84,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../nasa-veda-platform/about/index.html">NASA VEDA Platform</a></li><li class="breadcrumb-item"><a href="../../nasa-veda-platform/scientific-computing/index.html">Scientific Computing</a></li><li class="breadcrumb-item"><a href="../../nasa-veda-platform/scientific-computing/github-authentication.html">How to push to GitHub from the VEDA JupyterHub</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -192,11 +224,11 @@ ul.task-list li input[type="checkbox"] {
       <div class="sidebar-item-container"> 
             <a href="../../nasa-veda-platform/scientific-computing/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Scientific Computing</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../nasa-veda-platform/scientific-computing/code-server.html" class="sidebar-item-text sidebar-link">
@@ -211,7 +243,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../nasa-veda-platform/scientific-computing/github-authentication.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../nasa-veda-platform/scientific-computing/github-authentication.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to push to GitHub from the VEDA JupyterHub</span></a>
   </div>
 </li>
@@ -613,127 +645,22 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#user-authentication-via-veda-hub-github-scoped-creds-app" id="toc-user-authentication-via-veda-hub-github-scoped-creds-app" class="nav-link active" data-scroll-target="#user-authentication-via-veda-hub-github-scoped-creds-app">User authentication via veda-hub-github-scoped-creds app</a>
-  <ul class="collapse">
-  <li><a href="#copy-notebook-for-running-gh-scoped-creds" id="toc-copy-notebook-for-running-gh-scoped-creds" class="nav-link" data-scroll-target="#copy-notebook-for-running-gh-scoped-creds">Copy notebook for running <code>gh-scoped-creds</code></a></li>
-  <li><a href="#authenticate-to-github" id="toc-authenticate-to-github" class="nav-link" data-scroll-target="#authenticate-to-github">Authenticate to GitHub</a></li>
-  </ul></li>
-  <li><a href="#repository-admin-configuration-of-the-veda-hub-github-scoped-creds-app" id="toc-repository-admin-configuration-of-the-veda-hub-github-scoped-creds-app" class="nav-link" data-scroll-target="#repository-admin-configuration-of-the-veda-hub-github-scoped-creds-app">Repository admin configuration of the veda-hub-github-scoped-creds app</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/nasa-veda-platform/scientific-computing/github-authentication.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../nasa-veda-platform/about/index.html">NASA VEDA Platform</a></li><li class="breadcrumb-item"><a href="../../nasa-veda-platform/scientific-computing/index.html">Scientific Computing</a></li><li class="breadcrumb-item"><a href="../../nasa-veda-platform/scientific-computing/github-authentication.html">How to push to GitHub from the VEDA JupyterHub</a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title">How to push to GitHub from the VEDA JupyterHub</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
+<div id="cell-0" class="cell" data-vscode="{&quot;languageId&quot;:&quot;plaintext&quot;}">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gh_scoped_creds  <span class="co"># noqa</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>ghscopedcreds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
-</header>
-
-
-<p>This is a quick how-to guide for pushing to GitHub from the VEDA JupyterHub.</p>
-<section id="user-authentication-via-veda-hub-github-scoped-creds-app" class="level2">
-<h2 class="anchored" data-anchor-id="user-authentication-via-veda-hub-github-scoped-creds-app">User authentication via veda-hub-github-scoped-creds app</h2>
-<section id="copy-notebook-for-running-gh-scoped-creds" class="level3">
-<h3 class="anchored" data-anchor-id="copy-notebook-for-running-gh-scoped-creds">Copy notebook for running <code>gh-scoped-creds</code></h3>
-<p>Copy the <code>/home/jovyan/veda-docs/notebooks/templates/template-github-auth.ipynb</code> notebook to your personal home directory on the Hub as <code>github-auth.ipynb</code>.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You only need to do this step once.</p>
-</div>
-</div>
-</section>
-<section id="authenticate-to-github" class="level3">
-<h3 class="anchored" data-anchor-id="authenticate-to-github">Authenticate to GitHub</h3>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You need to do this step each time you create a new JupyterHub instance.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This will only allow pushing to repositories that have been <a href="">configured with the veda-hub-github-scoped-creds-app</a></p>
-</div>
-</div>
-<p>These steps are also shown in the GIF below.</p>
-<ol type="1">
-<li>Open the <code>github-auth.ipynb</code> in your home directory.</li>
-<li>Run the cell that contains <code>import gh_scoped_creds</code> followed by <code>%ghscopedcreds</code>.</li>
-<li>Copy the code that was displayed in the cell output.</li>
-<li>Navigate to <a href="https://github.com/login/device/select_account">https://github.com/login/device/select_account</a>.</li>
-<li>Select the account that you want to authorize push access for.</li>
-<li>Enter the code from the cell output in the Jupyter Notebook.</li>
-<li>Select <code>Authorize veda-hub-github-scoped-creds</code>.</li>
-</ol>
-<p>Now, you’re all set! You should be able to push to the repositories that you configured in the first portion, as long as you’re using the <code>https</code> rather than <code>ssh</code> protocol. You can set this up by selecting <code>https</code> when cloning the repository, or using <code>git remote set-url</code> to change from <code>ssh</code> to <code>https</code>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/gh-scoped-creds.gif" class="img-fluid figure-img"></p>
-<figcaption>Running gh-scoped-creds</figcaption>
-</figure>
-</div>
-</section>
-</section>
-<section id="repository-admin-configuration-of-the-veda-hub-github-scoped-creds-app" class="level2">
-<h2 class="anchored" data-anchor-id="repository-admin-configuration-of-the-veda-hub-github-scoped-creds-app">Repository admin configuration of the veda-hub-github-scoped-creds app</h2>
-<p>Repository admins need to configure the veda-hub-github-scoped-creds app to allow users to push from the JupyterHub.</p>
-<ol type="1">
-<li>Navigate to <a href="https://github.com/apps/veda-hub-github-scoped-creds">https://github.com/apps/veda-hub-github-scoped-creds</a>.</li>
-<li>Select <code>Configure</code>.</li>
-<li>Select the organization that contains the repository that you would like to push to.</li>
-<li>Select either <code>All repositories</code> or <code>Only select repositories</code> depending on whether you only want to allow pushing to specific repositories. In order for a Hub user to write to those repositories, the repository needs to be added to the application <strong>and</strong> the user needs to have read/write permissions for the repository. The following restrictions define whether you can install the application yourself or if you need to request permission:
-<ul>
-<li>Organization owners can install GitHub Apps for all repositories.</li>
-<li>Repository admins can install the application if they only grant access to repositories that they administer.</li>
-<li>If you do not have sufficient permissions, GitHub will send a notification to the organization owner requesting that they install the app.</li>
-</ul></li>
-<li>Click save.</li>
-</ol>
-
-
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1300,18 +1227,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../../nasa-veda-platform/scientific-computing/ssh.html" class="pagination-link" aria-label="How to ssh into the JupyterHub">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">How to ssh into the JupyterHub</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../../nasa-veda-platform/getting-access.html" class="pagination-link" aria-label="Getting access">
-        <span class="nav-page-text">Getting access</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -1320,7 +1235,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/nasa-veda-platform/scientific-computing/github-authentication.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.dev/nasa-impact/veda-docs/blob/main/notebooks/templates/template-github-auth.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
