@@ -5,7 +5,7 @@ Learn more about this project [https://www.earthdata.nasa.gov/esds/veda](https:/
 
 ## Contributing
 
-For info on contributing documentation to VEDA see: https://nasa-impact.github.io/veda-docs/contributing/
+For info on contributing documentation to VEDA see: https://docs.openveda.cloud/open-source-ecosystem/
 
 ## License
 
