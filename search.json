@@ -346,64 +346,81 @@
     ]
   },
   {
-    "objectID": "nasa-veda-platform/data-services/apis/index.html",
-    "href": "nasa-veda-platform/data-services/apis/index.html",
-    "title": "APIs",
+    "objectID": "nasa-veda-platform/data-services/index.html",
+    "href": "nasa-veda-platform/data-services/index.html",
+    "title": "Data Services",
     "section": "",
-    "text": "Most of the VEDA APIs are hosted out of a single project (veda-backend) that combines multiple standalone services.",
+    "text": "The goal of VEDA Data Services is to support open science through community standard tooling, Application Programming Interfaces (APIs), and providing access to persistent, discoverable Earth science datasets. This approach includes:\n\nHosting and making available key datasets in analysis-optimized formats\nTying together VEDA products by providing access to hosted data, existing third-party geospatial datasets, and new datasets produced within the VEDA ecosystem\nMaking data Findable, Accessible, Interoperable, and Reusable (FAIR), within and also beyond VEDA\n\nThe Data Services hosts a suite of services that make these pointers possible.\nSome of them include:\n\nARCO Store: holds all the Analysis Ready Cloud-Optimized (ARCO) data products\nDynamic Tiler: dynamic tiling service that makes visualization of cloud-optimized geotiffs possible\nSTAC Catalog: a catalog of all the available data in the VEDA system\nData Transformation & Publication Pipeline: a cloud-native workflow that handles data transformation, ingestion and publication to the VEDA data catalog\n\nA technical architecture diagram of how all of these work together can be found in the software architecture description.",
     "crumbs": [
       "NASA VEDA Platform",
-      "Data Services",
-      "APIs"
+      "Data Services"
     ]
   },
   {
-    "objectID": "nasa-veda-platform/data-services/apis/index.html#environments",
-    "href": "nasa-veda-platform/data-services/apis/index.html#environments",
-    "title": "APIs",
-    "section": "Environments",
-    "text": "Environments\nWhile some of our services are already very mature, VEDA is currently in the build-up phase. Therefore, we do not yet have a production environment for users. Maintenance on the staging environment will be announced internally and selected known stakeholders will be informed of any larger changes.\n\n\n\n\n\n\nBase URL Changes\n\n\n\nThe VEDA Team is in the process of updating documentation notebooks to use the new stable production APIs. Currently most notebooks use deprecated staging APIs and should be updated:\nSTAC_API_URL = \"https://staging-stac.delta-backend.com\" –&gt; https://openveda.cloud/api/stac\nRASTER_API_URL = \"https://staging-raster.delta-backend.com\" –&gt; https://openveda.cloud/api/raster\n\n\n\n\n\n\n\n\nBreaking tiling endpoint changes\n\n\n\nVEDA tilers are being upgraded to titiler-pgstac v1 which better aligns with the stac-api spec and has many improvements but also introduces some breaking endpoint changes. The VEDA team will be updating notebooks for the new endpoints but, in the meantime, the titiler-pgstac migration documentation provides support for using the new endpoints.\n\n\n\nProduction (stable):\n\nSTAC browser: openveda.cloud\nSTAC API (metadata): openveda.cloud/api/stac/docs\nList collections: openveda.cloud/api/stac/collections\nRaster API (tiling): openveda.cloud/api/raster/docs\n\n\n\nStaging (maintenance will be announced):\n\nSTAC browser: staging.openveda.cloud\nSTAC API (metadata): staging.openveda.cloud/api/stac/docs\nList collections: staging.openveda.cloud/api/stac/collections\nRaster API (map tiles and timeseries): staging.openveda.cloud/api/raster/docs\nFeatures API (vector data): firenrt.delta-backend.com - see also the usage tutorial\nWorkflows API (request airflow ingestions): staging.openveda.cloud/api/workflows/docs\nSTAC viewer (experimental): staging.openveda.cloud/api/stac/index.html",
-    "crumbs": [
-      "NASA VEDA Platform",
-      "Data Services",
-      "APIs"
-    ]
-  },
-  {
-    "objectID": "nasa-veda-platform/data-services/apis/index.html#using-tile-layers-in-external-services",
-    "href": "nasa-veda-platform/data-services/apis/index.html#using-tile-layers-in-external-services",
-    "title": "APIs",
-    "section": "Using tile layers in external services",
-    "text": "Using tile layers in external services\n\nUI for single tile layers\nAs you can see from our API docs referenced above, our raster API provides WMTS and XYZ tiles for public consumption.\nFor any layer you are seeing in the VEDA dataset Explorer, you can retrieve the tile URL:\n\n\n\nVEDA Dashboard Exploration API grab\n\n\nAnd paste that into any client that loads these tiles, like QGIS, ArcGIS, Leaflet, even online tools such as geojson.io or felt.com.\n\n\nSTAC for layer timeseries\nIf you want to integrate tile layer time series into your application, you will need to fetch the information about which time steps exist and what the layer URLs are from our Spatio Tempoeral Asset Catalog (STAC) API (see above).\nThat is because, unfortunately, neither XYZ nor WMTS have time series capabilities (unlike good old WMS, which our services do not provide, though).\nYou can see how to retrieve time steps and tile layer URLs from these tutorial Python notebooks (mostly REST API calls):\n\nUsing /stac/tilejson.json with STAC collection and item IDs\nCreating layers from filters and mosaics (advanced)\n\nIt comes down to querying for STAC items (timesteps) and then asking the Raster API for tilejson.json specifications for the items you are interested in.\nOnce you retrieved the WMTS or XYZ layer URLs this way, you can use them seamlessly with all mapping clients.",
-    "crumbs": [
-      "NASA VEDA Platform",
-      "Data Services",
-      "APIs"
-    ]
-  },
-  {
-    "objectID": "nasa-veda-platform/data-services/data-ingestion.html",
-    "href": "nasa-veda-platform/data-services/data-ingestion.html",
-    "title": "VEDA Data Ingestion Services",
+    "objectID": "nasa-veda-platform/data-services/index.html#data-services",
+    "href": "nasa-veda-platform/data-services/index.html#data-services",
+    "title": "Data Services",
     "section": "",
-    "text": "VEDA’s data ingestion services are designed to handle and manage the flow of data from various sources efficiently. The system integrates with Apache Airflow for orchestrating and scheduling data pipelines, and APIs to facilitate and manage data ingestion tasks.\n\n\n\nApache Airflow Instance\n\nAirflow orchestrates various data ingestion tasks and workflows. It supports scheduling, monitoring, and managing pipelines, described using Directed Acyclic Graphs (DAGs).\nFor details on how to deploy, configure, or modify our Airflow instance, refer to the veda-data-airflow repository.\n\nIngest APIs\n\nThe Ingest API facilitates data ingestion from multiple sources and manages the data flow into VEDA’s system. This API is included in veda-backend\nTo learn how to interact with these APIs as a user, consult the Dataset Ingestion Guide.",
+    "text": "The goal of VEDA Data Services is to support open science through community standard tooling, Application Programming Interfaces (APIs), and providing access to persistent, discoverable Earth science datasets. This approach includes:\n\nHosting and making available key datasets in analysis-optimized formats\nTying together VEDA products by providing access to hosted data, existing third-party geospatial datasets, and new datasets produced within the VEDA ecosystem\nMaking data Findable, Accessible, Interoperable, and Reusable (FAIR), within and also beyond VEDA\n\nThe Data Services hosts a suite of services that make these pointers possible.\nSome of them include:\n\nARCO Store: holds all the Analysis Ready Cloud-Optimized (ARCO) data products\nDynamic Tiler: dynamic tiling service that makes visualization of cloud-optimized geotiffs possible\nSTAC Catalog: a catalog of all the available data in the VEDA system\nData Transformation & Publication Pipeline: a cloud-native workflow that handles data transformation, ingestion and publication to the VEDA data catalog\n\nA technical architecture diagram of how all of these work together can be found in the software architecture description.",
     "crumbs": [
       "NASA VEDA Platform",
-      "Data Services",
-      "VEDA Data Ingestion Services"
+      "Data Services"
     ]
   },
   {
-    "objectID": "nasa-veda-platform/data-services/data-ingestion.html#overview",
-    "href": "nasa-veda-platform/data-services/data-ingestion.html#overview",
-    "title": "VEDA Data Ingestion Services",
+    "objectID": "nasa-veda-platform/data-services/data-store.html",
+    "href": "nasa-veda-platform/data-services/data-store.html",
+    "title": "VEDA Data Store",
     "section": "",
-    "text": "VEDA’s data ingestion services are designed to handle and manage the flow of data from various sources efficiently. The system integrates with Apache Airflow for orchestrating and scheduling data pipelines, and APIs to facilitate and manage data ingestion tasks.\n\n\n\nApache Airflow Instance\n\nAirflow orchestrates various data ingestion tasks and workflows. It supports scheduling, monitoring, and managing pipelines, described using Directed Acyclic Graphs (DAGs).\nFor details on how to deploy, configure, or modify our Airflow instance, refer to the veda-data-airflow repository.\n\nIngest APIs\n\nThe Ingest API facilitates data ingestion from multiple sources and manages the data flow into VEDA’s system. This API is included in veda-backend\nTo learn how to interact with these APIs as a user, consult the Dataset Ingestion Guide.",
+    "text": "The VEDA Data Store consists of cloud object storage (AWS S3 in us-west-2) and a central Spatio-Temporal Asset Catalog (STAC) that exposes the datasets.",
     "crumbs": [
       "NASA VEDA Platform",
       "Data Services",
-      "VEDA Data Ingestion Services"
+      "VEDA Data Store"
     ]
+  },
+  {
+    "objectID": "nasa-veda-platform/data-services/data-store.html#dataset-selection",
+    "href": "nasa-veda-platform/data-services/data-store.html#dataset-selection",
+    "title": "VEDA Data Store",
+    "section": "Dataset selection",
+    "text": "Dataset selection\nThe VEDA Data Store is meant for\n\nNovel datasets produced by NASA Earth data scientists to be presented on the VEDA Dashboard or shared with other science users on VEDA, but not (yet) suited for publication in one of the EOSDIS Distributed Active Archive Centers (DAAC)\nNon-authoritative cloud-optimized versions of Datasets from a DAAC\nOther datasets that do not have an authoritative, cloud-optimized source, to be published or used within the VEDA platform",
+    "crumbs": [
+      "NASA VEDA Platform",
+      "Data Services",
+      "VEDA Data Store"
+    ]
+  },
+  {
+    "objectID": "nasa-veda-platform/data-services/data-store.html#browsing-the-data-store",
+    "href": "nasa-veda-platform/data-services/data-store.html#browsing-the-data-store",
+    "title": "VEDA Data Store",
+    "section": "Browsing the Data Store",
+    "text": "Browsing the Data Store\nThe main public interface is the STAC browser and APIs that provide access to the data using various protocols.",
+    "crumbs": [
+      "NASA VEDA Platform",
+      "Data Services",
+      "VEDA Data Store"
+    ]
+  },
+  {
+    "objectID": "nasa-veda-platform/data-services/data-store.html#contributing-data",
+    "href": "nasa-veda-platform/data-services/data-store.html#contributing-data",
+    "title": "VEDA Data Store",
+    "section": "Contributing data",
+    "text": "Contributing data\nThe process of data ingestion into the VEDA Data Store is under active development.\nPlease see our docs on dataset ingestion.",
+    "crumbs": [
+      "NASA VEDA Platform",
+      "Data Services",
+      "VEDA Data Store"
+    ]
+  },
+  {
+    "objectID": "notebooks/templates/template-github-auth.html",
+    "href": "notebooks/templates/template-github-auth.html",
+    "title": "VEDA Documentation",
+    "section": "",
+    "text": "import gh_scoped_creds  # noqa\n\n%ghscopedcreds"
   },
   {
     "objectID": "notebooks/templates/template-accessing-the-data-directly.html",
@@ -3347,73 +3364,99 @@
     ]
   },
   {
-    "objectID": "nasa-veda-platform/data-services/data-store.html",
-    "href": "nasa-veda-platform/data-services/data-store.html",
-    "title": "VEDA Data Store",
+    "objectID": "nasa-veda-platform/data-services/data-ingestion.html",
+    "href": "nasa-veda-platform/data-services/data-ingestion.html",
+    "title": "VEDA Data Ingestion Services",
     "section": "",
-    "text": "The VEDA Data Store consists of cloud object storage (AWS S3 in us-west-2) and a central Spatio-Temporal Asset Catalog (STAC) that exposes the datasets.",
+    "text": "VEDA’s data ingestion services are designed to handle and manage the flow of data from various sources efficiently. The system integrates with Apache Airflow for orchestrating and scheduling data pipelines, and APIs to facilitate and manage data ingestion tasks.\n\n\n\nApache Airflow Instance\n\nAirflow orchestrates various data ingestion tasks and workflows. It supports scheduling, monitoring, and managing pipelines, described using Directed Acyclic Graphs (DAGs).\nFor details on how to deploy, configure, or modify our Airflow instance, refer to the veda-data-airflow repository.\n\nIngest APIs\n\nThe Ingest API facilitates data ingestion from multiple sources and manages the data flow into VEDA’s system. This API is included in veda-backend\nTo learn how to interact with these APIs as a user, consult the Dataset Ingestion Guide.",
     "crumbs": [
       "NASA VEDA Platform",
       "Data Services",
-      "VEDA Data Store"
+      "VEDA Data Ingestion Services"
     ]
   },
   {
-    "objectID": "nasa-veda-platform/data-services/data-store.html#dataset-selection",
-    "href": "nasa-veda-platform/data-services/data-store.html#dataset-selection",
-    "title": "VEDA Data Store",
-    "section": "Dataset selection",
-    "text": "Dataset selection\nThe VEDA Data Store is meant for\n\nNovel datasets produced by NASA Earth data scientists to be presented on the VEDA Dashboard or shared with other science users on VEDA, but not (yet) suited for publication in one of the EOSDIS Distributed Active Archive Centers (DAAC)\nNon-authoritative cloud-optimized versions of Datasets from a DAAC\nOther datasets that do not have an authoritative, cloud-optimized source, to be published or used within the VEDA platform",
-    "crumbs": [
-      "NASA VEDA Platform",
-      "Data Services",
-      "VEDA Data Store"
-    ]
-  },
-  {
-    "objectID": "nasa-veda-platform/data-services/data-store.html#browsing-the-data-store",
-    "href": "nasa-veda-platform/data-services/data-store.html#browsing-the-data-store",
-    "title": "VEDA Data Store",
-    "section": "Browsing the Data Store",
-    "text": "Browsing the Data Store\nThe main public interface is the STAC browser and APIs that provide access to the data using various protocols.",
-    "crumbs": [
-      "NASA VEDA Platform",
-      "Data Services",
-      "VEDA Data Store"
-    ]
-  },
-  {
-    "objectID": "nasa-veda-platform/data-services/data-store.html#contributing-data",
-    "href": "nasa-veda-platform/data-services/data-store.html#contributing-data",
-    "title": "VEDA Data Store",
-    "section": "Contributing data",
-    "text": "Contributing data\nThe process of data ingestion into the VEDA Data Store is under active development.\nPlease see our docs on dataset ingestion.",
-    "crumbs": [
-      "NASA VEDA Platform",
-      "Data Services",
-      "VEDA Data Store"
-    ]
-  },
-  {
-    "objectID": "nasa-veda-platform/data-services/index.html",
-    "href": "nasa-veda-platform/data-services/index.html",
-    "title": "Data Services",
+    "objectID": "nasa-veda-platform/data-services/data-ingestion.html#overview",
+    "href": "nasa-veda-platform/data-services/data-ingestion.html#overview",
+    "title": "VEDA Data Ingestion Services",
     "section": "",
-    "text": "The goal of VEDA Data Services is to support open science through community standard tooling, Application Programming Interfaces (APIs), and providing access to persistent, discoverable Earth science datasets. This approach includes:\n\nHosting and making available key datasets in analysis-optimized formats\nTying together VEDA products by providing access to hosted data, existing third-party geospatial datasets, and new datasets produced within the VEDA ecosystem\nMaking data Findable, Accessible, Interoperable, and Reusable (FAIR), within and also beyond VEDA\n\nThe Data Services hosts a suite of services that make these pointers possible.\nSome of them include:\n\nARCO Store: holds all the Analysis Ready Cloud-Optimized (ARCO) data products\nDynamic Tiler: dynamic tiling service that makes visualization of cloud-optimized geotiffs possible\nSTAC Catalog: a catalog of all the available data in the VEDA system\nData Transformation & Publication Pipeline: a cloud-native workflow that handles data transformation, ingestion and publication to the VEDA data catalog\n\nA technical architecture diagram of how all of these work together can be found in the software architecture description.",
+    "text": "VEDA’s data ingestion services are designed to handle and manage the flow of data from various sources efficiently. The system integrates with Apache Airflow for orchestrating and scheduling data pipelines, and APIs to facilitate and manage data ingestion tasks.\n\n\n\nApache Airflow Instance\n\nAirflow orchestrates various data ingestion tasks and workflows. It supports scheduling, monitoring, and managing pipelines, described using Directed Acyclic Graphs (DAGs).\nFor details on how to deploy, configure, or modify our Airflow instance, refer to the veda-data-airflow repository.\n\nIngest APIs\n\nThe Ingest API facilitates data ingestion from multiple sources and manages the data flow into VEDA’s system. This API is included in veda-backend\nTo learn how to interact with these APIs as a user, consult the Dataset Ingestion Guide.",
     "crumbs": [
       "NASA VEDA Platform",
-      "Data Services"
+      "Data Services",
+      "VEDA Data Ingestion Services"
     ]
   },
   {
-    "objectID": "nasa-veda-platform/data-services/index.html#data-services",
-    "href": "nasa-veda-platform/data-services/index.html#data-services",
-    "title": "Data Services",
+    "objectID": "nasa-veda-platform/data-services/apis/index.html",
+    "href": "nasa-veda-platform/data-services/apis/index.html",
+    "title": "APIs",
     "section": "",
-    "text": "The goal of VEDA Data Services is to support open science through community standard tooling, Application Programming Interfaces (APIs), and providing access to persistent, discoverable Earth science datasets. This approach includes:\n\nHosting and making available key datasets in analysis-optimized formats\nTying together VEDA products by providing access to hosted data, existing third-party geospatial datasets, and new datasets produced within the VEDA ecosystem\nMaking data Findable, Accessible, Interoperable, and Reusable (FAIR), within and also beyond VEDA\n\nThe Data Services hosts a suite of services that make these pointers possible.\nSome of them include:\n\nARCO Store: holds all the Analysis Ready Cloud-Optimized (ARCO) data products\nDynamic Tiler: dynamic tiling service that makes visualization of cloud-optimized geotiffs possible\nSTAC Catalog: a catalog of all the available data in the VEDA system\nData Transformation & Publication Pipeline: a cloud-native workflow that handles data transformation, ingestion and publication to the VEDA data catalog\n\nA technical architecture diagram of how all of these work together can be found in the software architecture description.",
+    "text": "Most of the VEDA APIs are hosted out of a single project (veda-backend) that combines multiple standalone services.",
     "crumbs": [
       "NASA VEDA Platform",
-      "Data Services"
+      "Data Services",
+      "APIs"
+    ]
+  },
+  {
+    "objectID": "nasa-veda-platform/data-services/apis/index.html#environments",
+    "href": "nasa-veda-platform/data-services/apis/index.html#environments",
+    "title": "APIs",
+    "section": "Environments",
+    "text": "Environments\nWhile some of our services are already very mature, VEDA is currently in the build-up phase. Therefore, we do not yet have a production environment for users. Maintenance on the staging environment will be announced internally and selected known stakeholders will be informed of any larger changes.\n\n\n\n\n\n\nBase URL Changes\n\n\n\nThe VEDA Team is in the process of updating documentation notebooks to use the new stable production APIs. Currently most notebooks use deprecated staging APIs and should be updated:\nSTAC_API_URL = \"https://staging-stac.delta-backend.com\" –&gt; https://openveda.cloud/api/stac\nRASTER_API_URL = \"https://staging-raster.delta-backend.com\" –&gt; https://openveda.cloud/api/raster\n\n\n\n\n\n\n\n\nBreaking tiling endpoint changes\n\n\n\nVEDA tilers are being upgraded to titiler-pgstac v1 which better aligns with the stac-api spec and has many improvements but also introduces some breaking endpoint changes. The VEDA team will be updating notebooks for the new endpoints but, in the meantime, the titiler-pgstac migration documentation provides support for using the new endpoints.\n\n\n\nProduction (stable):\n\nSTAC browser: openveda.cloud\nSTAC API (metadata): openveda.cloud/api/stac/docs\nList collections: openveda.cloud/api/stac/collections\nRaster API (tiling): openveda.cloud/api/raster/docs\n\n\n\nStaging (maintenance will be announced):\n\nSTAC browser: staging.openveda.cloud\nSTAC API (metadata): staging.openveda.cloud/api/stac/docs\nList collections: staging.openveda.cloud/api/stac/collections\nRaster API (map tiles and timeseries): staging.openveda.cloud/api/raster/docs\nFeatures API (vector data): firenrt.delta-backend.com - see also the usage tutorial\nWorkflows API (request airflow ingestions): staging.openveda.cloud/api/workflows/docs\nSTAC viewer (experimental): staging.openveda.cloud/api/stac/index.html",
+    "crumbs": [
+      "NASA VEDA Platform",
+      "Data Services",
+      "APIs"
+    ]
+  },
+  {
+    "objectID": "nasa-veda-platform/data-services/apis/index.html#using-tile-layers-in-external-services",
+    "href": "nasa-veda-platform/data-services/apis/index.html#using-tile-layers-in-external-services",
+    "title": "APIs",
+    "section": "Using tile layers in external services",
+    "text": "Using tile layers in external services\n\nUI for single tile layers\nAs you can see from our API docs referenced above, our raster API provides WMTS and XYZ tiles for public consumption.\nFor any layer you are seeing in the VEDA dataset Explorer, you can retrieve the tile URL:\n\n\n\nVEDA Dashboard Exploration API grab\n\n\nAnd paste that into any client that loads these tiles, like QGIS, ArcGIS, Leaflet, even online tools such as geojson.io or felt.com.\n\n\nSTAC for layer timeseries\nIf you want to integrate tile layer time series into your application, you will need to fetch the information about which time steps exist and what the layer URLs are from our Spatio Tempoeral Asset Catalog (STAC) API (see above).\nThat is because, unfortunately, neither XYZ nor WMTS have time series capabilities (unlike good old WMS, which our services do not provide, though).\nYou can see how to retrieve time steps and tile layer URLs from these tutorial Python notebooks (mostly REST API calls):\n\nUsing /stac/tilejson.json with STAC collection and item IDs\nCreating layers from filters and mosaics (advanced)\n\nIt comes down to querying for STAC items (timesteps) and then asking the Raster API for tilejson.json specifications for the items you are interested in.\nOnce you retrieved the WMTS or XYZ layer URLs this way, you can use them seamlessly with all mapping clients.",
+    "crumbs": [
+      "NASA VEDA Platform",
+      "Data Services",
+      "APIs"
+    ]
+  },
+  {
+    "objectID": "nasa-veda-platform/scientific-computing/github-authentication.html",
+    "href": "nasa-veda-platform/scientific-computing/github-authentication.html",
+    "title": "How to push to GitHub from the VEDA JupyterHub",
+    "section": "",
+    "text": "This is a quick how-to guide for pushing to GitHub from the VEDA JupyterHub. There are several methods for GitHub Authentication, which are detailed in GitHub’s documentation. While some of those are applicable across all compute environments (e.g., personal access tokens), we recommend using gh-scoped-creds as a fine tuned GitHub authenticatin method designed for shared computing environments like HPCs and JupyterHubs.",
+    "crumbs": [
+      "NASA VEDA Platform",
+      "Scientific Computing",
+      "How to push to GitHub from the VEDA JupyterHub"
+    ]
+  },
+  {
+    "objectID": "nasa-veda-platform/scientific-computing/github-authentication.html#user-authentication-via-veda-hub-github-scoped-creds-app",
+    "href": "nasa-veda-platform/scientific-computing/github-authentication.html#user-authentication-via-veda-hub-github-scoped-creds-app",
+    "title": "How to push to GitHub from the VEDA JupyterHub",
+    "section": "User authentication via veda-hub-github-scoped-creds app",
+    "text": "User authentication via veda-hub-github-scoped-creds app\n\nCopy notebook for running gh-scoped-creds\nCopy the /home/jovyan/veda-docs/notebooks/templates/template-github-auth.ipynb notebook to your personal home directory on the Hub as github-auth.ipynb.\n\n\n\n\n\n\nTip\n\n\n\nYou only need to do this step once.\n\n\n\n\nAuthenticate to GitHub\n\n\n\n\n\n\nTip\n\n\n\nYou need to do this step each time you start a new JupyterHub instance.\n\n\n\n\n\n\n\n\nWarning\n\n\n\nThis will only allow pushing to repositories that have been configured with the veda-hub-github-scoped-creds-app. While gh-scoped-creds is the recommend method for authenticating on VEDA, you can fallback on personal access tokens if necessary, while taking precautions to not store long-lived tokens directly on the Hub to avoid leaked credentials.\n\n\nThese steps are also shown in the GIF below.\n\nOpen the github-auth.ipynb in your home directory.\nRun the cell that contains import gh_scoped_creds followed by %ghscopedcreds.\nCopy the code that was displayed in the cell output.\nNavigate to https://github.com/login/device/select_account.\nSelect the account that you want to authorize push access for.\nEnter the code from the cell output in the Jupyter Notebook.\nSelect Authorize veda-hub-github-scoped-creds.\n\nNow, you’re all set! You should be able to push to the repositories that you configured in the first portion, as long as you’re using the https rather than ssh protocol. You can set this up by selecting https when cloning the repository, or using git remote set-url to change from ssh to https.\n\n\n\nRunning gh-scoped-creds",
+    "crumbs": [
+      "NASA VEDA Platform",
+      "Scientific Computing",
+      "How to push to GitHub from the VEDA JupyterHub"
+    ]
+  },
+  {
+    "objectID": "nasa-veda-platform/scientific-computing/github-authentication.html#repository-admin-configuration-of-the-veda-hub-github-scoped-creds-app",
+    "href": "nasa-veda-platform/scientific-computing/github-authentication.html#repository-admin-configuration-of-the-veda-hub-github-scoped-creds-app",
+    "title": "How to push to GitHub from the VEDA JupyterHub",
+    "section": "Repository admin configuration of the veda-hub-github-scoped-creds app",
+    "text": "Repository admin configuration of the veda-hub-github-scoped-creds app\nRepository admins need to configure the veda-hub-github-scoped-creds app to allow users to push from the JupyterHub.\n\nNavigate to https://github.com/apps/veda-hub-github-scoped-creds.\nSelect Configure.\nSelect the organization that contains the repository that you would like to push to.\nSelect either All repositories or Only select repositories depending on whether you only want to allow pushing to specific repositories. In order for a Hub user to write to those repositories, the repository needs to be added to the application and the user needs to have read/write permissions for the repository. The following restrictions define whether you can install the application yourself or if you need to request permission:\n\nOrganization owners can install GitHub Apps for all repositories.\nRepository admins can install the application if they only grant access to repositories that they administer.\nIf you do not have sufficient permissions, GitHub will send a notification to the organization owner requesting that they install the app.\n\nClick save.",
+    "crumbs": [
+      "NASA VEDA Platform",
+      "Scientific Computing",
+      "How to push to GitHub from the VEDA JupyterHub"
     ]
   },
   {
