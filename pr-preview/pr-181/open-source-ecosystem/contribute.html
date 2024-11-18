@@ -696,6 +696,12 @@ window.Quarto = {
 <section id="from-submodule-to-registry" class="level3">
 <h3 class="anchored" data-anchor-id="from-submodule-to-registry">From submodule to registry</h3>
 <p>The primary goal of VEDA UI has always been to offer an easily replicable instance. Initially, VEDA UI began as a git submodule for various instances. However, after gaining an understanding of product needs, we are now transitioning VEDA UI into a registry. During this transition, we continue to release new features and fix bugs for existing instances. This is made possible by maintaining two build systems that leverage the same codebase.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/veda-dashoard-current-state.png" class="img-fluid figure-img"></p>
+<figcaption>A diagram illustrating how the two build systems work: Components are built using the library build process, while page components wrap these components and are then built using the application build process.</figcaption>
+</figure>
+</div>
 <p>If you’re working on a specific feature or bug fix, this current structure will likely not impact your work. However, you might encounter challenges similar to those faced when developing a library, such as ensuring a component can function seamlessly in both SPA (Single Page Application) and SSR (Server-Side Rendering) environments, or not using environmental variables at the component level.</p>
 </section>
 </section>
@@ -717,6 +723,12 @@ window.Quarto = {
 </section>
 <section id="break-down-the-features" class="level2">
 <h2 class="anchored" data-anchor-id="break-down-the-features">Break down the features</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/contribute-small-pr.png" class="img-fluid figure-img"></p>
+<figcaption>A joke meme that shows a big PR get no comment while a small PR gets so many comments</figcaption>
+</figure>
+</div>
 <p>It is a joke meme, but it is true that reviewing a PR that includes a lot of changes is challenging, often resulting in a hasty review.</p>
 <p>To make the review process easy and helpful for everybody, we recommend you to consider breaking down features, so each change needed for the feature can be as small and modular as possible. For example, if the feature you are working on has multiple ‘nice to have’ - strip them down to MVP, figure out what is the minimum viable shape that we can have in production and start from there. If your change will need multiple logic changes and UI changes, consider separating them so the logic can be reviewed separately from UI change.</p>
 <section id="communicate-with-the-team" class="level3">
