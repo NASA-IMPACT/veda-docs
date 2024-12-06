@@ -1,0 +1,68 @@
+---
+title: "Contribute to VEDA dashboard"
+subtitle: "Relevant VEDA Repositories"
+---
+
+## Documentation
+
+Development related documentation can be found in this directory of the repo: https://github.com/NASA-IMPACT/veda-ui/blob/main/docs/development/.
+
+## Context: The current state of VEDA-UI
+
+### From submodule to registry
+
+The primary goal of VEDA UI has always been to offer an easily replicable instance. Initially, VEDA UI began as a git submodule for various instances. However, after gaining an understanding of product needs, we are now transitioning VEDA UI into a registry. During this transition, we continue to release new features and fix bugs for existing instances. This is made possible by maintaining two build systems that leverage the same codebase.
+
+![A diagram illustrating how the two build systems work: Components are built using the library build process, while page components wrap these components and are then built using the application build process.](images/veda-dashoard-current-state.png)
+
+If you’re working on a specific feature or bug fix, this current structure will likely not impact your work. However, you might encounter challenges similar to those faced when developing a library, such as ensuring a component can function seamlessly in both SPA (Single Page Application) and SSR (Server-Side Rendering) environments, or not using environmental variables at the component level. 
+
+## GitHub Workflow
+
+### Pre-requisite
+
+We have some automatic checks in place to make sure we have consistent code across the various environments. This involves preview build, lint, Typescript Check, and tests as of Oct 2024. The code that doesn’t pass these automatic tests are not considered ready for the code review. There are exceptions detailed below.
+
+We have a Netlify preview setup for every PR against the main branch. This means that you will have a URL that reflects your changes with your PR. You can find the preview URL in your PR thread. The preview will be updated as you push more changes in your PR.
+
+
+### Exception of the pre-requisites
+
+If you are looking to experiment, make a quick prototype, or want to bounce the ideas of your code changes, you might not want to put extra effort into making the automatic checks pass. In this case, draft PR is recommended. Draft PR skips the check, but still generates a PR structure that people can comment on. When you are making a draft PR, make it clear why you are opening a draft PR, so the reviewers know what the level of effort will be to review the PR. It is also a good idea to prefix your PR title with a clear flag such as  [Do not merge]. But also do not forget to close the PR once the goal of it is achieved.
+
+
+You can select to open a draft through the dropdown of GitHub interface.
+
+### Before making a PR (Pull Request)
+
+## Break down the features
+
+![A joke meme that shows a big PR get no comment while a small PR gets so many comments](images/contribute-small-pr.png)
+
+It is a joke meme, but it is true that reviewing a PR that includes a lot of changes is challenging, often resulting in a hasty review.
+
+To make the review process easy and helpful for everybody, we recommend you to consider breaking down features, so each change needed for the feature can be as small and modular as possible. For example, if the feature you are working on has multiple ‘nice to have’ - strip them down to MVP, figure out what is the minimum viable shape that we can have in production and start from there. If your change will need multiple logic changes and UI changes, consider separating them so the logic can be reviewed separately from UI change.
+
+### Communicate with the team
+
+If you have been working on your own, lacking communication with the VEDA-dashboard team, give a nudge to the dashboard team about what you are trying to change. This will help the team to allocate a proper amount of time to review your change, and the team might be able to help you break down the features, or make your code changes to be ready for the other changes going on the dashboard. This can be a draft PR, or a comment on the channel if you are on #veda-dashboard channel. 
+
+Now you are ready to make a PR
+
+### Branch name convention
+ Our branch name convention is ${issue-number}/${branch-name} ex. 1167/source-param-fix The branch that follows this name convention will automatically be linked up with the existing issue. 
+
+### Feature review
+
+Make your PR as easy as possible to review your features. Is the change specific to one section of one page? Point it, and link it with a preview url. If this is a change that can affect multiple pages, provide 2 or 3 examples of workflow to demonstrate the changes. If possible, test with an actual instance (VEDA Dashboard, GHG, Earth.gov), and generate the preview URLs from the instance with your change. 
+
+### Code change
+
+GitHub has a convenient view to display all the changes your PR includes. So just check one more time if your PR includes any unnecessary change that might confuse reviewers. (If it is difficult to spot unnecessary changes, it might mean that your PR is too big!) Use the functionality of inline comment (GitHub feature that you can leave the comment directly on the line level by selecting a line on ‘files changed’ view)  if you want to communicate about specific lines and syntaxes with reviewers.
+
+Fill out the template as you see fit: Our repo has PR message templates to help everybody to see what the PR is trying to achieve. Try to fill all the sections up. 
+
+### Tag reviewers
+
+Please mind that when you tag people as reviewers, it means that your PR is ready to be reviewed, to be in production. Unless your PR urgently needs to be merged, you can tag our project owner first, so that the PR can be assigned to a proper reviewer later. 
+
