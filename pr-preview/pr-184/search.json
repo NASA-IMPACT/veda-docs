@@ -42,13 +42,6 @@
     "text": "Hackday with Pangeo: We’ll join Pangeo hackday to meet and work with other awesome open science/cloud/geospatial folks!\nhttps://discourse.pangeo.io/t/post-agu-pangeo-working-meeting-december-14-2024-in-washington-dc/4440"
   },
   {
-    "objectID": "instance-management/adding-instance.html",
-    "href": "instance-management/adding-instance.html",
-    "title": "Creating your Own Instance of VEDA",
-    "section": "",
-    "text": "tbd"
-  },
-  {
     "objectID": "instance-management/notebooks/index.html",
     "href": "instance-management/notebooks/index.html",
     "title": "Usage Examples and Tutorials",
@@ -1036,26 +1029,18 @@
     "text": "Collection field, extension, and naming recommendations\n\n\n\nField &/or Extension\nRecommendations\n\n\n\n\nid\nIf dataset exists in NASA’s Earthdata or presumably from some other data provider like ESA, use that ID. If appropriate, add a suffix for any additional processing that has been performed, e.g. “OMSO2PCA_cog”. If dataset is not from NASA’s Earthdata, we can use a human readable name with underscores like “facebook_population_density”.\n\n\ndashboard extension\nTo support the delta-ui we have added two new fields in a proposed dashboard extension. For now we are just adding the fields but after testing things out, we can formalize the extension with a hosted json schema. Dashboard extension properties are only required for collections that will be viewed in the delta-ui dashboard.\n\n\ndashboard:is_periodic\nTrue/False This boolean is used when summarizing the collection—if the collection is periodic, the temporal range of the items in the collection and the time density are all the front end needs to generate a time picker. If the items in the collection are not periodic, a complete list of the unique item datetimes is needed.\n\n\ndashboard:time_density\nyear, month, day, hour, minute, or null. These time steps should be treated as enum when the extension is formalized. For collections with a single time snapshot this value is null.\n\n\nitem_assets\nstac-extension/item_assets is used to explain the assets that are provided for each item in the collection. We’re not providing thumbnails yet, but this example below includes a thumbnail asset to illustrate how the extension will be used. The population of this property is not automated, the creator of the collection writes the item assets documentation. Item assets are only required for collections that will be viewed in the delta-ui dashboard.\n\n\nsummaries\nThe implementation of this core stac-spec field is use-case specific. Our implementation is intended to support the dashboard and will supply datetime and raster statistics for the default map layer asset across the entire collection. Currently summaries are manually updated with a delta-ui specific user defined function in pgstac.\n\n\ntitle and description\nUse these properties to provide specific information about the collection to API users and catalog browsers. These properties correspond to dataset name and info in the covid-api but the delta dashboard will use delta-config to set these values in the UI so the information in our stac collections will be for data curators and API users.\n\n\ncollection name style choices\nPrefer lower-case kebab-case collection names. Decision: Should names align with underlying data identifiers or should it be an interpreted name? omi-trno2-dhrm and omi-trno2-dhrm-difference vs no2-monthly and no2-monthly-diff; bmhd-30m-monthly vs nightlights-hd-monthly\n\n\nlicense\nSPDX license id, license is likely available in CMR but we may need to research other sources of data. Default open license: CC0-1.0\n\n\n\nitem_assets example\n\n\"item_assets\": {\n    \"thumbnail\": {\n      \"type\": \"image/jpeg\",\n      \"roles\": [\n        \"thumbnail\"\n      ],\n      \"title\": \"Thumbnail\",\n      \"description\": \"A medium sized thumbnail\"\n    },\n    \"cog_default\": {\n      \"type\": \"image/tiff; application=geotiff; profile=cloud-optimized\",\n      \"roles\": [\n        \"data\",\n        \"layer\"\n      ],\n      \"title\": \"Default COG Layer\",\n      \"description\": \"Cloud optimized default layer to display on map\"\n    }\n  }\nsummaries example for periodic collection\n\"summaries\": {\n    \"datetime\": [\"2016-01-01T00:00:00Z\", \"2022-01-01T00:00:00Z\"],\n    \"cog_default\": {\n      \"max\": 50064805976866820,\n      \"min\": -6618294421291008\n    }\n  }\nsummaries example for non-periodic collection\n\"summaries\": {\n    \"datetime\": [\n      \"2020-01-01T00:00:00Z\",\n      \"2020-02-01T00:00:00Z\",\n      \"2020-03-01T00:00:00Z\",\n      \"2020-04-01T00:00:00Z\",\n      \"2020-05-01T00:00:00Z\",\n      \"2020-06-01T00:00:00Z\",\n      \"2020-07-01T00:00:00Z\",\n      \"2020-08-01T00:00:00Z\",\n      \"2020-09-01T00:00:00Z\",\n      \"2020-10-01T00:00:00Z\",\n      \"2020-11-01T00:00:00Z\",\n      \"2020-12-01T00:00:00Z\",\n      \"2021-01-01T00:00:00Z\",\n      \"2021-02-01T00:00:00Z\",\n      \"2021-03-01T00:00:00Z\",\n      \"2021-04-01T00:00:00Z\",\n      \"2021-05-01T00:00:00Z\",\n      \"2021-06-01T00:00:00Z\",\n      \"2021-07-01T00:00:00Z\",\n      \"2021-08-01T00:00:00Z\",\n      \"2021-09-01T00:00:00Z\"\n    ],\n    \"cog_default\": {\n      \"max\": 255,\n      \"min\": 0\n    }\n  }"
   },
   {
-    "objectID": "nasa-veda-platform/dashboard/index.html",
-    "href": "nasa-veda-platform/dashboard/index.html",
-    "title": "VEDA Dashboard",
+    "objectID": "instance-management/instance-management.html",
+    "href": "instance-management/instance-management.html",
+    "title": "Managing Your Own VEDA",
     "section": "",
-    "text": "The VEDA Dashboard is an open-source set of configurable tools and pages that enable you and your team to visualize, analyze, and communicate science data.\nLearn more about the principles the VEDA Dashboard is designed around below.\nIf you would like to learn more about how to create your own instance of the VEDA Dashboard, visit the VEDA UI docs.",
-    "crumbs": [
-      "NASA VEDA Platform",
-      "VEDA Dashboard"
-    ]
+    "text": "If you are interested in setting up your own instance of VEDA, please email the VEDA team at veda@uah.edu and we will provide direction and support.\nIf you already have your own instance of VEDA, you can find information on the entire process below.\n\nInformation on setting up your own VEDA instance\nInstructions for ingesting data into VEDA Data Services\nHow to add and manage content on your VEDA Dashboard"
   },
   {
-    "objectID": "nasa-veda-platform/dashboard/index.html#configuration",
-    "href": "nasa-veda-platform/dashboard/index.html#configuration",
-    "title": "VEDA Dashboard",
-    "section": "Configuration",
-    "text": "Configuration\nPlease see our docs on Dashboard Configuration.",
-    "crumbs": [
-      "NASA VEDA Platform",
-      "VEDA Dashboard"
-    ]
+    "objectID": "nasa-veda-platform/index.html",
+    "href": "nasa-veda-platform/index.html",
+    "title": "Creating your Own Instance of VEDA",
+    "section": "",
+    "text": "tbd"
   },
   {
     "objectID": "nasa-veda-platform/why.html",
@@ -1587,6 +1572,28 @@
     "crumbs": [
       "NASA VEDA Platform",
       "About the VEDA project"
+    ]
+  },
+  {
+    "objectID": "nasa-veda-platform/dashboard/index.html",
+    "href": "nasa-veda-platform/dashboard/index.html",
+    "title": "VEDA Dashboard",
+    "section": "",
+    "text": "The VEDA Dashboard is an open-source set of configurable tools and pages that enable you and your team to visualize, analyze, and communicate science data.\nLearn more about the principles the VEDA Dashboard is designed around below.\nIf you would like to learn more about how to create your own instance of the VEDA Dashboard, visit the VEDA UI docs.",
+    "crumbs": [
+      "NASA VEDA Platform",
+      "VEDA Dashboard"
+    ]
+  },
+  {
+    "objectID": "nasa-veda-platform/dashboard/index.html#configuration",
+    "href": "nasa-veda-platform/dashboard/index.html#configuration",
+    "title": "VEDA Dashboard",
+    "section": "Configuration",
+    "text": "Configuration\nPlease see our docs on Dashboard Configuration.",
+    "crumbs": [
+      "NASA VEDA Platform",
+      "VEDA Dashboard"
     ]
   },
   {
@@ -2379,13 +2386,6 @@
     "title": "STAC Collection Creation",
     "section": "Upload this notebook",
     "text": "Upload this notebook\nYou can upload the notebook to anyplace you like, but one of the easiest ones is notebook sharing space. Just change the following cell from “Raw” to “Code”, run it and copy the output link.\n\nBefore uploading make sure: 1) you have not hard-coded any secrets or access keys. 2) you have saved this notebook. Hint (ctrl+s) will do it\n\n!nbss-upload new-collection.ipynb"
-  },
-  {
-    "objectID": "instance-management/index.html",
-    "href": "instance-management/index.html",
-    "title": "Managing Your Own VEDA",
-    "section": "",
-    "text": "If you are interested in setting up your own instance of VEDA, please email the VEDA team at veda@uah.edu and we will provide direction and support.\nIf you already have your own instance of VEDA, you can find information on the entire process below.\n\nInformation on setting up your own VEDA instance\nInstructions for ingesting data into VEDA Data Services\nHow to add and manage content on your VEDA Dashboard"
   },
   {
     "objectID": "index.html",
