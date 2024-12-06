@@ -29,10 +29,13 @@ website:
     contents:
       - href: index.qmd
         text: Welcome
+      - href: AGU2024.qmd
+        text: AGU 2024
       - text: "---"
       - section: NASA VEDA Platform
         contents:
           - nasa-veda-platform/about/index.qmd
+          - nasa-veda-platform/why/index.qmd
           - nasa-veda-platform/dashboard/index.qmd
           - section: nasa-veda-platform/data-services/index.qmd
             contents:
@@ -48,70 +51,72 @@ website:
               - nasa-veda-platform/scientific-computing/ssh.md
               - nasa-veda-platform/scientific-computing/github-authentication.qmd
           - nasa-veda-platform/getting-access.qmd
-      - section: notebooks/index.qmd
+      - text: "---"
+      - section: instance-management/index.qmd
         contents:
-          - section: Quickstarts
+          - section: instance-management/adding-content/index.qmd
             contents:
-              - section: Accessing the Data Directly
+              - section: instance-management/adding-content/dataset-ingestion/index.qmd
                 contents:
-                  - notebooks/quickstarts/list-collections.ipynb
-                  - notebooks/quickstarts/open-and-plot.ipynb
-                  - notebooks/quickstarts/timeseries-rioxarray-stackstac.ipynb
-                  - notebooks/quickstarts/visualize-zarr.ipynb
-                  - notebooks/quickstarts/visualize-multiple-times.ipynb
-                  - notebooks/quickstarts/downsample-zarr.ipynb
-                  - notebooks/quickstarts/download-assets.ipynb
-              - section: Using the Raster API
+                  - instance-management/adding-content/dataset-ingestion/file-preparation.qmd
+                  - instance-management/adding-content/dataset-ingestion/catalog-ingestion.qmd
+                  - notebooks/veda-operations/generate-cmip6-kerchunk-historical.ipynb
+                  - section: STAC Collection Creation
+                    contents:
+                      - instance-management/adding-content/dataset-ingestion/stac-collection-conventions.qmd
+                      - instance-management/notebooks/veda-operations/stac-collection-creation.ipynb
+                      - instance-management/notebooks/veda-operations/publish-cmip6-kerchunk-stac.ipynb
+                  - section: STAC Item Creation
+                    contents:
+                      - nasa-veda-platform/adding-content/dataset-ingestion/stac-item-conventions.qmd
+                      - instance-management/notebooks/veda-operations/stac-item-creation.ipynb
+                  - section: Boilerplate ingest example
+                    contents:
+                      - instance-management/adding-content/dataset-ingestion/example-template/example-geoglam-ingest.ipynb
+              - section: instance-management/adding-content/dashboard-configuration/index.qmd
                 contents:
-                  - notebooks/quickstarts/no2-map-plot.ipynb
-                  - notebooks/quickstarts/timeseries-stac-api.ipynb
-                  - notebooks/quickstarts/hls-visualization.ipynb
-          - section: Tutorials
-            contents:
-              - notebooks/tutorials/gif-generation.ipynb
-              - notebooks/tutorials/netcdf-to-cog-cmip6.ipynb
-              - notebooks/tutorials/mapping-fires.ipynb
-              - notebooks/tutorials/stac_ipyleaflet.ipynb
-              - notebooks/tutorials/zonal-statistics-validation.ipynb
-          - section: Datasets
-            contents:
-              - notebooks/datasets/ocean-npp-timeseries-analysis.ipynb
-              - notebooks/datasets/nceo-biomass-statistics.ipynb
-              - notebooks/datasets/volcano-so2-monitoring.ipynb
-              - notebooks/datasets/air-quality-covid.ipynb
-              - notebooks/datasets/nldas_time_series.ipynb
-              - notebooks/datasets/nldas_compare2_3.ipynb
-      - section: nasa-veda-platform/adding-content/index.qmd
-        contents:
-          - section: nasa-veda-platform/adding-content/dataset-ingestion/index.qmd
-            contents:
-              - nasa-veda-platform/adding-content/dataset-ingestion/file-preparation.qmd
-              - nasa-veda-platform/adding-content/dataset-ingestion/catalog-ingestion.qmd
-              - notebooks/veda-operations/generate-cmip6-kerchunk-historical.ipynb
-              - section: STAC Collection Creation
+                  - instance-management/adding-content/dashboard-configuration/dataset-configuration.qmd
+                  - instance-management/adding-content/dashboard-configuration/story-configuration.qmd
+              - section: instance-management/adding-content/docs-and-notebooks.qmd
                 contents:
-                  - nasa-veda-platform/adding-content/dataset-ingestion/stac-collection-conventions.qmd
-                  - notebooks/veda-operations/stac-collection-creation.ipynb
-                  - notebooks/veda-operations/publish-cmip6-kerchunk-stac.ipynb
-              - section: STAC Item Creation
-                contents:
-                  - nasa-veda-platform/adding-content/dataset-ingestion/stac-item-conventions.qmd
-                  - notebooks/veda-operations/stac-item-creation.ipynb
-              - section: Boilerplate ingest example
-                contents:
-                  - nasa-veda-platform/adding-content/dataset-ingestion/example-template/example-geoglam-ingest.ipynb
-          - section: nasa-veda-platform/adding-content/dashboard-configuration/index.qmd
+                  - instance-management/notebooks/templates/template-accessing-the-data-directly.ipynb
+                  - instance-management/notebooks/templates/template-using-the-raster-api.ipynb
+          - section: instance-management/notebooks/index.qmd
             contents:
-              - nasa-veda-platform/adding-content/dashboard-configuration/dataset-configuration.qmd
-              - nasa-veda-platform/adding-content/dashboard-configuration/story-configuration.qmd
-          - section: nasa-veda-platform/adding-content/docs-and-notebooks.qmd
-            contents:
-              - notebooks/templates/template-accessing-the-data-directly.ipynb
-              - notebooks/templates/template-using-the-raster-api.ipynb
+              - section: Quickstarts
+                contents:
+                  - section: Accessing the Data Directly
+                    contents:
+                      - instance-management/notebooks/quickstarts/list-collections.ipynb
+                      - instance-management/notebooks/quickstarts/open-and-plot.ipynb
+                      - instance-management/notebooks/quickstarts/timeseries-rioxarray-stackstac.ipynb
+                      - instance-management/notebooks/quickstarts/visualize-zarr.ipynb
+                      - instance-management/notebooks/quickstarts/visualize-multiple-times.ipynb
+                      - instance-management/notebooks/quickstarts/downsample-zarr.ipynb
+                      - instance-management/notebooks/quickstarts/download-assets.ipynb
+                  - section: Using the Raster API
+                    contents:
+                      - instance-management/notebooks/quickstarts/no2-map-plot.ipynb
+                      - instance-management/notebooks/quickstarts/timeseries-stac-api.ipynb
+                      - instance-management/notebooks/quickstarts/hls-visualization.ipynb
+              - section: Tutorials
+                contents:
+                  - instance-management/notebooks/tutorials/gif-generation.ipynb
+                  - instance-management/notebooks/tutorials/netcdf-to-cog-cmip6.ipynb
+                  - instance-management/notebooks/tutorials/mapping-fires.ipynb
+                  - instance-management/notebooks/tutorials/stac_ipyleaflet.ipynb
+                  - instance-management/notebooks/tutorials/zonal-statistics-validation.ipynb
+              - section: Datasets
+                contents:
+                  - instance-management/notebooks/datasets/ocean-npp-timeseries-analysis.ipynb
+                  - instance-management/notebooks/datasets/nceo-biomass-statistics.ipynb
+                  - instance-management/notebooks/datasets/volcano-so2-monitoring.ipynb
+                  - instance-management/notebooks/datasets/air-quality-covid.ipynb
+                  - instance-management/notebooks/datasets/nldas_time_series.ipynb
+                  - instance-management/notebooks/datasets/nldas_compare2_3.ipynb
       - text: "---"
       - section: open-source-ecosystem/index.qmd
         contents:
-          - open-source-ecosystem/why.qmd
           - open-source-ecosystem/architecture.qmd
           - open-source-ecosystem/repositories.qmd
           - open-source-ecosystem/external-resources.qmd
