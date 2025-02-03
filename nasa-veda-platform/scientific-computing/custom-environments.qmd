@@ -1,0 +1,170 @@
+---
+title: How to use a custom environment in the VEDA JupyterHub
+---
+
+The VEDA JupyterHub lists a few *pre-built environments* (Docker images) as
+**Server Options** intended to cover most users' needs.  However, since it is
+impossible to cover every scenario, there are two options for choosing a *custom
+environment*:
+
+- **Use some other pre-built, public Docker image** (see
+  [Environment: Other](#environment-other))
+- **Build your own Docker image** (see
+  [Environment: Build your own image](#environment-build-your-own-image))
+
+Each option is covered in the following sections.
+
+## Environment: Other
+
+If you are aware of an existing pre-built, *publicly accessible Docker image* that
+meets your needs, on the **Server Options** page, open the **Environment**
+drop-down list, choose **Other...**, and specify the public identifier of the
+image in the **Custom image** field.
+
+For example, if a Modified Pangeo Notebook environment were not already one of
+the pre-built environments listed, you could use the standard, publicly
+available Pangeo Notebook image yourself, like so:
+
+![Specifying a publicly available Docker image](images/environment-other-custom-image.png)
+
+At a minimum, the **Custom image** field must include both a name and a tag in
+the form `NAME:TAG`.  There is no assumption that a name without a tag implies
+the `latest` tag, so a tag must be supplied.
+
+When the hostname of the image registry is not specified, it defaults to
+`docker.io`, the canonical hostname of the official Docker registry.  Therefore,
+the following 2 image identifiers are equivalent:
+
+* `pangeo/pangeo-notebook:latest` (as shown in the screenshot above)
+* `docker.io/pangeo/pangeo-notebook:latest` (including a registry hostname prefix)
+
+If you wish to use an image hosted in a regsistry other than `docker.io`, you
+must explicitly specify the hostname of the registry.  Note the intervening `/`
+between the hostname and the remainder of the identifier shown in the second
+bulleted item above.
+
+Once you have specified your custom image, choose your desired **Resource
+Allocation** and press the **Start** button at the bottom of the form to launch
+your environment.
+
+## Environment: Build your own image
+
+When you wish to use a custom environment, but are not aware of a publicly
+available Docker image that suits your needs, the **Environment** option **Build
+your own image** provides a relatively easy and convenient means for building
+and using your desired environment (image), without requiring knowledge of
+Docker.
+
+This option leverages the
+[repo2docker](https://repo2docker.readthedocs.io/en/stable/index.html) tool to
+handle the grunt work of building a custom Docker image for you, by allowing you
+to **fully describe your desired image via files in a public code repository**.
+
+::: {.callout-note}
+Currently, the VEDA JupyterHub supports only **GitHub** as a repository provider
+for use with repo2docker.
+:::
+
+### Describing Your Image
+
+The beauty of leveraging **repo2docker** is that it will use the contents of a
+public code repository (repo) to build a Docker image, doing all of the heavy
+lifting for you.  You do not need to know how to write a `Dockerfile` because it
+generates one for you.  Hence the name *repo2docker*.
+
+In brief, repo2docker allows you to describe the following within a public
+GitHub repository:
+
+- A **list of dependencies** to install, specified via various files (such as
+  `environment.yml`, `requirements.txt`, or `apt.txt`, among others), and are
+  installed **in addition to** a [base set of dependencies].
+- *Optionally*, a **post-build script** to run after all dependencies are
+  installed (this must be named [postBuild])
+- *Optionally*, a **pre-session script** to run each time you start a server
+  with your image (this must be named [start])
+
+Such files from your repository are used to construct a `Dockerfile` file on
+your behalf, so you don't have to write one yourself, unless your really want
+to.  If your repo contains a `Dockerfile`, repo2docker will ignore all other
+files in your repo that it would otherwise use to generate a `Dockerfile`, and
+simply use the `Dockerfile` from your repo.
+
+For complete details on what repo2docker supports, see the following:
+
+- [Where to put configuration files]
+- [Configuring your repository]
+- [Architecture]
+- [Frequently Asked Questions (FAQ)]
+- [Example repositories]
+
+Once you have described your image in your repository, you are ready to build
+it, as described in the next section.
+
+### Building Your Image
+
+When you choose **Build your own image** from the **Environment** list, you must
+specify values for 2 other fields --- **Repository** and **Git Ref** --- which
+indicate which repository to use and which commit within the repository to use
+(valid values for these fields are explained below the screenshot):
+
+![Specifying a repository for building your own image](images/environment-build-your-own-image.png)
+
+In the **Repository** field, you must specify a public GitHub repository in
+either of the following forms:
+
+- **Full URL** (e.g., <https://github.com/binder-examples/conda>)
+- **Namespace/name pair** (e.g., `binder-examples/conda`), where a namespace
+  is either a GitHub *username* or *organization* (`binder-examples` in this
+  example).
+
+In the **Git Ref** field, if you want repo2docker to use the most recent
+versions of files from the default branch of the repository (typically `main`),
+then use the default value **HEAD** to indicate the most recent commit.
+Alternatively, you may specify a **branch name**, a **tag**, or a specific
+**commit identifier** to indicate a different commit for repo2docker to use.
+
+Once you've specified both **Repository** and **Git Ref**, click the **Build
+image** button to trigger repo2docker to build your image (which may take
+several minutes), and you should see log messages appear below the **Build
+image** button, similar to the following:
+
+![Building a new image](images/build-logs-new-build-started.png)
+
+Once your image is built, you should see something similar to this:
+
+![Image build has finished](images/build-logs-new-build-finished.png)
+
+The next time you click **Build image** for the same values of **Repository**
+and **Git Ref**, if the Git Ref refers to the same commit in the repository as
+it did when you last clicked **Build image**, the previously built image will be
+reused, and you should again see the message highlighted above, but it should
+appear much more quickly since no new build is necessary in this case.
+
+Once your image has been built, it's ready for use.  As with all other
+environment options, select your desired **Resource Allocation** and click the
+**Start** button to launch a Docker container using your custom image.
+
+::: {.callout-note}
+When your server is ready, the conda environment named "notebook" will be
+activated for you.  Even if your repository contains an `environment.yml` file
+with a `name` entry, the name specified within your file will be ignored.  While
+all dependencies in your file will be installed, the name of the environment
+will always be "notebook."
+:::
+
+[base set of dependencies]:
+  https://github.com/jupyterhub/repo2docker/blob/HEAD/repo2docker/buildpacks/conda/environment.yml
+[postBuild]:
+  https://repo2docker.readthedocs.io/en/stable/config_files.html#postbuild-run-code-after-installing-the-environment
+[start]:
+  https://repo2docker.readthedocs.io/en/stable/config_files.html#start-run-code-before-the-user-sessions-starts
+[Configuring your repository]:
+  https://repo2docker.readthedocs.io/en/stable/configuration/index.html
+[Architecture]:
+  https://repo2docker.readthedocs.io/en/stable/architecture.html
+[Frequently Asked Questions (FAQ)]:
+  https://repo2docker.readthedocs.io/en/stable/faq.html
+[Where to put configuration files]:
+  https://repo2docker.readthedocs.io/en/stable/usage.html#where-to-put-configuration-files
+[Example repositories]:
+  https://github.com/binder-examples
