@@ -1,4 +1,4 @@
-# How to ssh into the JupyterHub
+# How to ssh into the VEDA JupyterHub
 
 This is a how-to guide for connecting to the VEDA JupyterHub from your local environment via `ssh`. This allows you to use all of `ssh`'s features (copy, run commands) as well as connecting via [VS Code's proprietary Remote Development functionality](https://code.visualstudio.com/docs/remote/ssh).
 
