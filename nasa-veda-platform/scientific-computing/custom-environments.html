@@ -6,11 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Kathryn Berger">
-<meta name="dcterms.date" content="2023-04-12">
-<meta name="description" content="An exploration of how the atmosphere responded to wide spread government shutdowns and sudden change in human behavior.">
 
-<title>Air Quality and COVID-19 – VEDA Documentation</title>
+<title>How to use a custom environment in the VEDA JupyterHub – VEDA Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,51 +20,17 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../notebooks/datasets/nldas_time_series.html" rel="next">
-<link href="../../notebooks/datasets/volcano-so2-monitoring.html" rel="prev">
+<link href="../../nasa-veda-platform/scientific-computing/getting-access.html" rel="next">
+<link href="../../nasa-veda-platform/scientific-computing/github-authentication.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -77,8 +40,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-8d3738f8ed59319bac9a6cceb6a0bfe2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-8e63b19b8614d15c7e8b85219d6475d7.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-7af5a90f79707ca9bcfffd85562a6673.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-a83dabaebd8d3bf2549c53bd3e39057b.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -106,9 +69,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <script defer="" data-domain="nasa-impact.github.io/veda-docs" src="https://plausible.io/js/script.js"></script>
 
 
@@ -124,7 +84,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../instance-management/index.html">Managing Your Own VEDA</a></li><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples and Tutorials</a></li><li class="breadcrumb-item"><a href="../../notebooks/datasets/ocean-npp-timeseries-analysis.html">Datasets</a></li><li class="breadcrumb-item"><a href="../../notebooks/datasets/air-quality-covid.html">Air Quality and COVID-19</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../nasa-veda-platform/about/index.html">NASA VEDA Platform</a></li><li class="breadcrumb-item"><a href="../../nasa-veda-platform/scientific-computing/index.html">Scientific Computing</a></li><li class="breadcrumb-item"><a href="../../nasa-veda-platform/scientific-computing/custom-environments.html">How to use a custom environment in the VEDA JupyterHub</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -244,11 +204,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../nasa-veda-platform/scientific-computing/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Scientific Computing</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../nasa-veda-platform/scientific-computing/code-server.html" class="sidebar-item-text sidebar-link">
@@ -269,7 +229,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../nasa-veda-platform/scientific-computing/custom-environments.html" class="sidebar-item-text sidebar-link">
+  <a href="../../nasa-veda-platform/scientific-computing/custom-environments.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">How to use a custom environment in the VEDA JupyterHub</span></a>
   </div>
 </li>
@@ -449,11 +409,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../notebooks/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Usage Examples and Tutorials</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-13" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-13" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
@@ -590,13 +550,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="false">
  <span class="menu-text">Datasets</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-18" class="collapse list-unstyled sidebar-section depth3 show">  
+      <ul id="quarto-sidebar-section-18" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../notebooks/datasets/ocean-npp-timeseries-analysis.html" class="sidebar-item-text sidebar-link">
@@ -617,7 +577,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../notebooks/datasets/air-quality-covid.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../notebooks/datasets/air-quality-covid.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Air Quality and COVID-19</span></a>
   </div>
 </li>
@@ -679,47 +639,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#run-this-notebook" id="toc-run-this-notebook" class="nav-link active" data-scroll-target="#run-this-notebook">Run this notebook</a></li>
-  <li><a href="#approach" id="toc-approach" class="nav-link" data-scroll-target="#approach">Approach</a></li>
-  <li><a href="#about-the-data" id="toc-about-the-data" class="nav-link" data-scroll-target="#about-the-data">About the Data</a></li>
-  <li><a href="#the-case-study---air-quality-and-covid-19" id="toc-the-case-study---air-quality-and-covid-19" class="nav-link" data-scroll-target="#the-case-study---air-quality-and-covid-19">The Case Study - Air Quality and COVID-19</a></li>
-  <li><a href="#querying-the-stac-api" id="toc-querying-the-stac-api" class="nav-link" data-scroll-target="#querying-the-stac-api">Querying the STAC API</a></li>
-  <li><a href="#exploring-changes-in-nitrogen-oxide-no₂-related-to-changes-in-human-behavior---using-the-raster-api" id="toc-exploring-changes-in-nitrogen-oxide-no₂-related-to-changes-in-human-behavior---using-the-raster-api" class="nav-link" data-scroll-target="#exploring-changes-in-nitrogen-oxide-no₂-related-to-changes-in-human-behavior---using-the-raster-api">Exploring Changes in Nitrogen Oxide (NO₂) Related to Changes in Human Behavior - Using the Raster API</a></li>
-  <li><a href="#seeing-rebounds-in-no₂" id="toc-seeing-rebounds-in-no₂" class="nav-link" data-scroll-target="#seeing-rebounds-in-no₂">Seeing Rebounds in NO₂</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#environment-other" id="toc-environment-other" class="nav-link active" data-scroll-target="#environment-other">Environment: Other</a></li>
+  <li><a href="#environment-build-your-own-image" id="toc-environment-build-your-own-image" class="nav-link" data-scroll-target="#environment-build-your-own-image">Environment: Build your own image</a>
+  <ul class="collapse">
+  <li><a href="#describing-your-image" id="toc-describing-your-image" class="nav-link" data-scroll-target="#describing-your-image">Describing Your Image</a></li>
+  <li><a href="#building-your-image" id="toc-building-your-image" class="nav-link" data-scroll-target="#building-your-image">Building Your Image</a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.dev/nasa-impact/veda-docs/blob/main/notebooks/datasets/air-quality-covid.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/nasa-veda-platform/scientific-computing/custom-environments.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../instance-management/index.html">Managing Your Own VEDA</a></li><li class="breadcrumb-item"><a href="../../notebooks/index.html">Usage Examples and Tutorials</a></li><li class="breadcrumb-item"><a href="../../notebooks/datasets/ocean-npp-timeseries-analysis.html">Datasets</a></li><li class="breadcrumb-item"><a href="../../notebooks/datasets/air-quality-covid.html">Air Quality and COVID-19</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../nasa-veda-platform/about/index.html">NASA VEDA Platform</a></li><li class="breadcrumb-item"><a href="../../nasa-veda-platform/scientific-computing/index.html">Scientific Computing</a></li><li class="breadcrumb-item"><a href="../../nasa-veda-platform/scientific-computing/custom-environments.html">How to use a custom environment in the VEDA JupyterHub</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Air Quality and COVID-19</h1>
+<h1 class="title">How to use a custom environment in the VEDA JupyterHub</h1>
 </div>
 
-<div>
-  <div class="description">
-    An exploration of how the atmosphere responded to wide spread government shutdowns and sudden change in human behavior.
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Kathryn Berger </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 12, 2023</p>
-    </div>
-  </div>
   
     
   </div>
@@ -729,336 +670,149 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="run-this-notebook" class="level2">
-<h2 class="anchored" data-anchor-id="run-this-notebook">Run this notebook</h2>
-<p>You can launch this notebook using mybinder, by clicking the button below.</p>
-<p><a href="https://binder.openveda.cloud/v2/gh/NASA-IMPACT/veda-docs/HEAD?labpath=notebooks/datasets/air-quality-covid.ipynb"> <img src="https://binder.openveda.cloud/badge_logo.svg" alt="Binder" title="A cute binder" width="150"> </a></p>
+<p>The VEDA JupyterHub lists a few pre-configured environments (collections of Python or R libraries and/or other software) as <strong>Server Options</strong> intended to cover most common geospatial data science needs. These are pre-built Docker images ready for users to launch.</p>
+<p>If you need a different configuration, there are two options for launching a <em>custom environment</em>:</p>
+<ul>
+<li><strong>Use some other pre-built, public Docker image</strong> (see <a href="#environment-other">Environment: Other</a>)</li>
+<li><strong>Build your own Docker image</strong> (see <a href="#environment-build-your-own-image">Environment: Build your own image</a>)</li>
+</ul>
+<p>Each option is covered in the following sections.</p>
+<section id="environment-other" class="level2">
+<h2 class="anchored" data-anchor-id="environment-other">Environment: Other</h2>
+<p>If you are aware of an existing pre-built, <em>publicly accessible Docker image</em> that meets your needs, on the <strong>Server Options</strong> page, open the <strong>Environment</strong> drop-down list, choose <strong>Other…</strong>, and specify the public identifier of the image in the <strong>Custom image</strong> field.</p>
+<p>For example, if a Modified Pangeo Notebook environment were not already one of the pre-built environments listed, you could use the standard, publicly available Pangeo Notebook image yourself, like so:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/environment-other-custom-image.png" class="img-fluid figure-img"></p>
+<figcaption>Specifying a publicly available Docker image</figcaption>
+</figure>
+</div>
+<p>At a minimum, the <strong>Custom image</strong> field must include both a name and a tag in the form <code>NAME:TAG</code>. There is no assumption that a name without a tag implies the <code>latest</code> tag, so a tag must be supplied.</p>
+<p>When the hostname of the image registry is not specified, it defaults to <code>docker.io</code>, the canonical hostname of the official Docker registry. Therefore, the following custom image identifiers are equivalent:</p>
+<ul>
+<li><code>pangeo/pangeo-notebook:2025.01.10</code> (registry hostname is <em>implicitly</em> <code>docker.io</code>)</li>
+<li><code>docker.io/pangeo/pangeo-notebook:2025.01.10</code></li>
+</ul>
+<p>If you wish to use an image hosted in a registry other than <code>docker.io</code>, the custom image identifier must also include the registry hostname (in addition to a name and a tag). For example, images hosted in the GitHub Container Registry use the hostname <code>ghrc.io</code>, such as this “Tidyverse based R image with Python”: <code>ghcr.io/nmfs-opensci/container-images/py-rocket-base:4.4-3.10</code></p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you specify <code>latest</code> for the image tag, keep in mind that the image tagged <code>latest</code> may change over time, always referring to the latest published version. If you wish to “pin” the image each time you launch an environment, then use a specific tag, as shown in the examples above, to ensure you’re launching an environment from the same image version each time.</p>
+</div>
+</div>
+<p>Once you have specified your custom image, choose your desired <strong>Resource Allocation</strong> and press the <strong>Start</strong> button at the bottom of the form to launch your environment.</p>
 </section>
-<section id="approach" class="level2">
-<h2 class="anchored" data-anchor-id="approach">Approach</h2>
-<ol type="1">
-<li>Identify available dates and temporal frequency of observations for a given collection - NO₂</li>
-<li>Pass the STAC item into raster API <code>/stac/tilejson.json</code> endpoint</li>
-<li>We’ll visualize two tiles (side-by-side) allowing for comparison of each of the time points using <code>folium.plugins.DualMap</code></li>
-</ol>
+<section id="environment-build-your-own-image" class="level2">
+<h2 class="anchored" data-anchor-id="environment-build-your-own-image">Environment: Build your own image</h2>
+<p>When you wish to use a custom environment, but are not aware of a publicly available Docker image that suits your needs, the <strong>Environment</strong> option <strong>Build your own image</strong> provides a relatively easy and convenient means for building your desired image, without requiring knowledge of Docker.</p>
+<p>This option leverages the <a href="https://repo2docker.readthedocs.io/en/stable/index.html">repo2docker</a> tool to handle the grunt work of building a custom Docker image for you, by allowing you to <strong>fully describe your desired image via files in a public code repository</strong>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Currently, the VEDA JupyterHub supports only <strong>GitHub</strong> as a repository provider for use with repo2docker.</p>
+</div>
+</div>
+<section id="describing-your-image" class="level3">
+<h3 class="anchored" data-anchor-id="describing-your-image">Describing Your Image</h3>
+<p>The beauty of <strong>repo2docker</strong> is that it will use the contents of a public code repository (repo) to build a Docker image, doing all of the heavy lifting for you. You do not need to know how to write a <code>Dockerfile</code> because it generates one for you. Hence the name <em>repo2docker</em>.</p>
+<p>In brief, repo2docker allows you to describe the following within a public GitHub repository (for full details, see <a href="https://repo2docker.readthedocs.io/en/stable/configuration/index.html">Configuring your repository</a>):</p>
+<ul>
+<li>A <strong>list of packages and runtimes</strong> to install (<strong>in addition to</strong> a <a href="https://github.com/jupyterhub/repo2docker/blob/HEAD/repo2docker/buildpacks/conda/environment.yml">base set of packages</a>), specified via various files, such as the following (among others):
+<ul>
+<li><code>environment.yml</code>: for any kind of conda package (and/or <code>pip</code> package), including specific versions of programming languages</li>
+<li><code>install.R</code>: for R packages (if not using <code>environment.yml</code>)</li>
+<li><code>requirements.txt</code>: for <code>pip</code> packages (if not using <code>environment.yml</code>)</li>
+<li><code>runtime.txt</code>: for specifying versions of runtimes (such as Python or R) when other files (such as <code>install.R</code> and <code>requirements.txt</code>) do not support doing so</li>
+<li><code>apt.txt</code>: for specifying Ubuntu packages installed via <code>apt</code></li>
+</ul></li>
+<li><em>Optionally</em>, a <strong>post-build script</strong> to run after all packages and runtimes are installed (this must be named <a href="https://repo2docker.readthedocs.io/en/stable/config_files.html#postbuild-run-code-after-installing-the-environment">postBuild</a>)</li>
+<li><em>Optionally</em>, a <strong>pre-session script</strong> to run each time you launch a new environment with your image (this must be named <a href="https://repo2docker.readthedocs.io/en/stable/config_files.html#start-run-code-before-the-user-sessions-starts">start</a>)</li>
+</ul>
+<p>Such files from your repository are used to construct a <code>Dockerfile</code> file on your behalf, so you don’t have to write one yourself, unless you really want to. If your repo contains a <code>Dockerfile</code>, repo2docker will ignore all other files in your repo that it would otherwise use to generate a <code>Dockerfile</code>, and simply use the <code>Dockerfile</code> from your repo directly.</p>
+<p>For complete details on what repo2docker supports, see the following:</p>
+<ul>
+<li><a href="https://repo2docker.readthedocs.io/en/stable/configuration/index.html">Configuring your repository</a></li>
+<li><a href="https://repo2docker.readthedocs.io/en/stable/usage.html#where-to-put-configuration-files">Where to put configuration files</a></li>
+<li><a href="https://repo2docker.readthedocs.io/en/stable/architecture.html">Architecture</a></li>
+<li><a href="https://repo2docker.readthedocs.io/en/stable/faq.html">Frequently Asked Questions (FAQ)</a></li>
+<li><a href="https://github.com/binder-examples">Example repositories</a></li>
+</ul>
+<p>Once you have described your image in your repository, you are ready to build it, as described in the next section.</p>
 </section>
-<section id="about-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="about-the-data">About the Data</h2>
-<p>This dataset is of monthly nitrogen dioxide <a href="https://radiantearth.github.io/stac-browser/#/external/staging-stac.delta-backend.com/collections/no2-monthly">(NO₂) levels</a> values across the globe. Darker colors indicate higher NO₂ levels and more activity. Lighter colors indicate lower levels of NO₂ and less activity. Missing pixels indicate areas of no data most likely associated with cloud cover or snow.</p>
-</section>
-<section id="the-case-study---air-quality-and-covid-19" class="level2">
-<h2 class="anchored" data-anchor-id="the-case-study---air-quality-and-covid-19">The Case Study - Air Quality and COVID-19</h2>
-<p>In this notebook, we’ll walk through the development of side-by-side comparisons of NO₂ levels before and after government lockdowns as demonstrated <code>Seeing Rebounds in NO₂</code> in this VEDA Discovery story: <a href="https://www.earthdata.nasa.gov/dashboard/covid-19/discoveries/air-quality-and-covid-19">Air Quality and COVID-19 available on the VEDA Dashboard</a>.</p>
-</section>
-<section id="querying-the-stac-api" class="level2">
-<h2 class="anchored" data-anchor-id="querying-the-stac-api">Querying the STAC API</h2>
-<div id="cell-6" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> folium <span class="im">import</span> Map, TileLayer</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="building-your-image" class="level3">
+<h3 class="anchored" data-anchor-id="building-your-image">Building Your Image</h3>
+<p>When you choose <strong>Build your own image</strong> from the <strong>Environment</strong> list, you must specify values for 2 other fields — <strong>Repository</strong> and <strong>Git Ref</strong> — which indicate which repository to use and which commit within the repository to use (valid values for these fields are explained below the screenshot):</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/environment-build-your-own-image.png" class="img-fluid figure-img"></p>
+<figcaption>Specifying a repository for building your own image</figcaption>
+</figure>
 </div>
-<div id="cell-7" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Provide STAC and RASTER API endpoints</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/stac"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/raster"</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Declare collection of interest - Nitrogen Oxide</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>collection_name <span class="op">=</span> <span class="st">"no2-monthly"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In the <strong>Repository</strong> field, you must specify a public GitHub repository in either of the following forms:</p>
+<ul>
+<li><strong>Full URL</strong> (e.g., <a href="https://github.com/binder-examples/conda" class="uri">https://github.com/binder-examples/conda</a>)</li>
+<li><strong>Namespace/name pair</strong> (e.g., <code>binder-examples/conda</code>), where a namespace is either a GitHub <em>username</em> or <em>organization</em> (<code>binder-examples</code> in this example).</li>
+</ul>
+<p>In the <strong>Git Ref</strong> field, if you want repo2docker to use the most recent changes (latest commit) on the default branch of the repository (typically <code>main</code>), then use the default value <strong>HEAD</strong> to indicate the latest commit. Alternatively, you may specify a <strong>branch name</strong>, a <strong>tag</strong>, or a specific <strong>commit identifier</strong> to indicate a different commit for repo2docker to use.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div id="cell-8" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Fetch STAC collection</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_name<span class="sc">}</span><span class="ss">"</span>).json()</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>{'id': 'no2-monthly',
- 'type': 'Collection',
- 'links': [{'rel': 'items',
-   'type': 'application/geo+json',
-   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly/items'},
-  {'rel': 'parent',
-   'type': 'application/json',
-   'href': 'https://openveda.cloud/api/stac/'},
-  {'rel': 'root',
-   'type': 'application/json',
-   'href': 'https://openveda.cloud/api/stac/'},
-  {'rel': 'self',
-   'type': 'application/json',
-   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly'}],
- 'title': 'NO₂',
- 'assets': {'thumbnail': {'href': 'https://thumbnails.openveda.cloud/no2--dataset-cover.jpg',
-   'type': 'image/jpeg',
-   'roles': ['thumbnail'],
-   'title': 'Thumbnail',
-   'description': 'Photo by [Mick Truyts](https://unsplash.com/photos/x6WQeNYJC1w) (Power plant shooting steam at the sky)'}},
- 'extent': {'spatial': {'bbox': [[-180.0, -90.0, 180.0, 90.0]]},
-  'temporal': {'interval': [['2016-01-01T00:00:00+00:00',
-     '2022-12-31T00:00:00+00:00']]}},
- 'license': 'MIT',
- 'renders': {'dashboard': {'bidx': [1],
-   'title': 'VEDA Dashboard Render Parameters',
-   'assets': ['cog_default'],
-   'rescale': [[0, 15000000000000000]],
-   'resampling': 'bilinear',
-   'color_formula': 'gamma r 1.05',
-   'colormap_name': 'rdbu_r'}},
- 'providers': [{'url': 'https://disc.gsfc.nasa.gov/',
-   'name': 'NASA Goddard Earth Sciences Data and Information Services Center',
-   'roles': ['producer', 'processor']},
-  {'url': 'https://www.earthdata.nasa.gov/dashboard/',
-   'name': 'NASA VEDA',
-   'roles': ['host']}],
- 'summaries': {'datetime': ['2016-01-01T00:00:00Z', '2023-09-30T00:00:00Z']},
- 'description': 'Darker colors indicate higher nitrogen dioxide (NO₂) levels and more activity. Lighter colors indicate lower levels of NO₂ and less activity. Missing pixels indicate areas of no data most likely associated with cloud cover or snow.',
- 'item_assets': {'cog_default': {'type': 'image/tiff; application=geotiff; profile=cloud-optimized',
-   'roles': ['data', 'layer'],
-   'title': 'Default COG Layer',
-   'description': 'Cloud optimized default layer to display on map'}},
- 'stac_version': '1.0.0',
- 'stac_extensions': ['https://stac-extensions.github.io/item-assets/v1.0.0/schema.json',
-  'https://stac-extensions.github.io/render/v1.0.0/schema.json'],
- 'dashboard:is_periodic': True,
- 'dashboard:time_density': 'month'}</code></pre>
+<div class="callout-title-container flex-fill">
+Note
 </div>
 </div>
-<p>Examining the contents of our <code>collection</code> under <code>summaries</code> we see that the data is available from January 2015 to December 2022. By looking at the <code>dashboard:time density</code> we observe that the periodic frequency of these observations is monthly.</p>
-<div id="cell-10" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check total number of items available</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_name<span class="sc">}</span><span class="ss">/items?limit=100"</span>).json()[<span class="st">"features"</span>]</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Found </span><span class="sc">{</span><span class="bu">len</span>(items)<span class="sc">}</span><span class="ss"> items"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Found 93 items</code></pre>
+<div class="callout-body-container callout-body">
+<p>When specifying a commit identifier such as <strong>HEAD</strong> or a <strong>branch name</strong>, such a commit identifier may reference different commits over time because it represents a <em>logical</em> commit, not a <em>specific</em> commit. In the case of <strong>HEAD</strong> or a <strong>branch name</strong>, it represents the <em>latest</em> commit on the specified branch (whichever <em>specific</em> commit that happens to be at the current moment).</p>
+<p>This means that each time you choose to build your image using such a <em>logical</em> value for <strong>Git Ref</strong>, the system will rebuild your image if the logical reference points to a different commit than it did the last time you built your image. This is useful for making a series of alternating commits and builds during “development” of your image.</p>
 </div>
 </div>
-<p>This makes sense as there are 7 years between 2016 - 2022, with 12 months per year, meaning 84 records in total.</p>
-<p>Below, we’ll provide the max range of values to apply to visualizations of all items in the collection (<code>rescale_values</code>).</p>
-<div id="cell-12" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rescale_values <span class="op">=</span> {</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"max"</span>: <span class="dv">50064805976866816</span>,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"min"</span>: <span class="op">-</span><span class="dv">1018382487283302</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Once you’ve specified both <strong>Repository</strong> and <strong>Git Ref</strong>, click the <strong>Build image</strong> button to trigger repo2docker to build your image (which may take several minutes), and you should see log messages appear below the <strong>Build image</strong> button, similar to the following:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/build-logs-new-build-started.png" class="img-fluid figure-img"></p>
+<figcaption>Building a new image</figcaption>
+</figure>
 </div>
-</section>
-<section id="exploring-changes-in-nitrogen-oxide-no₂-related-to-changes-in-human-behavior---using-the-raster-api" class="level2">
-<h2 class="anchored" data-anchor-id="exploring-changes-in-nitrogen-oxide-no₂-related-to-changes-in-human-behavior---using-the-raster-api">Exploring Changes in Nitrogen Oxide (NO₂) Related to Changes in Human Behavior - Using the Raster API</h2>
-<p>We will explore changes in air quality due to changes in human behaviour resulting from the COVID-19 pandemic. With people largely confined to their homes to reduce the spread of the novel coronavirus, scientists were anticipated there were likely to be fewer cars, planes, and ships emitting fossil fuel pollution. In this notebook, we’ll explore the impacts these government lockdowns had on specific air pollutants (i.e., NO₂) and explore these changes over time. We’ll then visualize the outputs on a map using <code>folium</code>.</p>
-<div id="cell-14" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to access the year value from each item more easily, this will let us query more explicity by year and month (e.g., 2020-02)</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> {item[<span class="st">"properties"</span>][<span class="st">"start_datetime"</span>][:<span class="dv">7</span>]: item <span class="cf">for</span> item <span class="kw">in</span> items} </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Once your image is built, you should see something similar to this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/build-logs-new-build-finished.png" class="img-fluid figure-img"></p>
+<figcaption>Image build has finished</figcaption>
+</figure>
 </div>
-<p>Now we will pass the item id, collection name, and <code>rescaling_factor</code> to the <code>Raster API</code> endpoint. We will do this twice times, once for February 2020 and again for February 2022, so that we can visualize each event independently.</p>
-<div id="cell-16" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>february_2020_tile <span class="op">=</span> requests.get(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>items[<span class="st">'2020-02'</span>][<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>items[<span class="st">'2020-02'</span>][<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool"</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>, </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>february_2020_tile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>{'tilejson': '2.2.0',
- 'version': '1.0.0',
- 'scheme': 'xyz',
- 'tiles': ['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly&amp;item=OMI_trno2_0.10x0.10_202002_Col3_V4.nc&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool&amp;rescale=-1018382487283302%2C50064805976866816'],
- 'minzoom': 0,
- 'maxzoom': 24,
- 'bounds': [-180.0, -90.0, 180.0, 90.0],
- 'center': [0.0, 0.0, 0]}</code></pre>
+<p>At this point, your image is ready for use. As with all other environment options, select your desired <strong>Resource Allocation</strong> and click the <strong>Start</strong> button to launch a Docker container using your custom image.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
 </div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>february_2022_tile <span class="op">=</span> requests.get(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>items[<span class="st">'2022-02'</span>][<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>items[<span class="st">'2022-02'</span>][<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool"</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>, </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>february_2022_tile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>{'tilejson': '2.2.0',
- 'version': '1.0.0',
- 'scheme': 'xyz',
- 'tiles': ['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly&amp;item=OMI_trno2_0.10x0.10_202202_Col3_V4.nc&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool&amp;rescale=-1018382487283302%2C50064805976866816'],
- 'minzoom': 0,
- 'maxzoom': 24,
- 'bounds': [-180.0, -90.0, 180.0, 90.0],
- 'center': [0.0, 0.0, 0]}</code></pre>
+<div class="callout-body-container callout-body">
+<p>When your server is ready, the conda environment named “notebook” will be activated for you. Even if your repository contains an <code>environment.yml</code> file with a <code>name</code> entry, the name specified within your file will be ignored. While all dependencies in your file will be installed, the name of the environment will always be “notebook.”</p>
 </div>
 </div>
-</section>
-<section id="seeing-rebounds-in-no₂" class="level2">
-<h2 class="anchored" data-anchor-id="seeing-rebounds-in-no₂">Seeing Rebounds in NO₂</h2>
-<p>Air pollutants with short lifespans, like NO₂, decreased dramatically with COVID-related shutdowns in the spring of 2020 (see lefthand side map). As the world began to re-open and mobility restrictions eased, travel increased and alongside it NO₂ pollutants. Air quality levels are now returning to pre-pandemic levels (see righthand side map).</p>
-<p>Scroll and zoom within the maps below, the side-by-side comparison will follow wherever you explore. Darker purples indicate higher NO₂ levels and more activity. Lighter blues indicate lower levels of NO₂ and less activity.</p>
-<div id="cell-19" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We'll import folium to map and folium.plugins to allow mapping side-by-side</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium.plugins</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Set initial zoom and map for NO2 Layer</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.plugins.DualMap(location<span class="op">=</span>(<span class="fl">33.6901</span>, <span class="fl">118.9325</span>), zoom_start<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># February 2020</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>map_layer_2020 <span class="op">=</span> TileLayer(</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>february_2020_tile[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"VEDA"</span>,</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>map_layer_2020.add_to(m.m1)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># February 2022</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>map_layer_2022 <span class="op">=</span> TileLayer(</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>february_2022_tile[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"VEDA"</span>,</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>map_layer_2022.add_to(m.m2)</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>m</span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
-<html>
-<head>
-    
-    <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
-    
-        <script>
-            L_NO_TOUCH = false;
-            L_DISABLE_3D = false;
-        </script>
-    
-    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
-    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
-    <script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;></script>
-    <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
-    <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
-    
-            <meta name=&quot;viewport&quot; content=&quot;width=device-width,
-                initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
-            <style>
-                #map_e32927666b28d271958699eb75c9b3de {
-                    position: absolute;
-                    width: 50.0%;
-                    height: 100.0%;
-                    left: 0.0%;
-                    top: 0.0%;
-                }
-                .leaflet-container { font-size: 1rem; }
-            </style>
-        
-    
-            <meta name=&quot;viewport&quot; content=&quot;width=device-width,
-                initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
-            <style>
-                #map_bbaf0c0bd1a55e590749e405c5e26755 {
-                    position: absolute;
-                    width: 50.0%;
-                    height: 100.0%;
-                    left: 50.0%;
-                    top: 0.0%;
-                }
-                .leaflet-container { font-size: 1rem; }
-            </style>
-        
-    <script src=&quot;https://cdn.jsdelivr.net/gh/jieter/Leaflet.Sync/L.Map.Sync.min.js&quot;></script>
-</head>
-<body>
-    
-    
-            <div class=&quot;folium-map&quot; id=&quot;map_e32927666b28d271958699eb75c9b3de&quot; ></div>
-        
-    
-            <div class=&quot;folium-map&quot; id=&quot;map_bbaf0c0bd1a55e590749e405c5e26755&quot; ></div>
-        
-</body>
-<script>
-    
-    
-            var map_e32927666b28d271958699eb75c9b3de = L.map(
-                &quot;map_e32927666b28d271958699eb75c9b3de&quot;,
-                {
-                    center: [33.6901, 118.9325],
-                    crs: L.CRS.EPSG3857,
-                    zoom: 5,
-                    zoomControl: true,
-                    preferCanvas: false,
-                }
-            );
-
-            
-
-        
-    
-            var tile_layer_43eced198f351a1c0d707a9014da2382 = L.tileLayer(
-                &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            );
-        
-    
-            tile_layer_43eced198f351a1c0d707a9014da2382.addTo(map_e32927666b28d271958699eb75c9b3de);
-        
-    
-            var tile_layer_88bc1f63e04a991c779b5da7850e12cb = L.tileLayer(
-                &quot;https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly\u0026item=OMI_trno2_0.10x0.10_202002_Col3_V4.nc\u0026assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=cool\u0026rescale=-1018382487283302%2C50064805976866816&quot;,
-                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 0.8, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            );
-        
-    
-            tile_layer_88bc1f63e04a991c779b5da7850e12cb.addTo(map_e32927666b28d271958699eb75c9b3de);
-        
-    
-            var map_bbaf0c0bd1a55e590749e405c5e26755 = L.map(
-                &quot;map_bbaf0c0bd1a55e590749e405c5e26755&quot;,
-                {
-                    center: [33.6901, 118.9325],
-                    crs: L.CRS.EPSG3857,
-                    zoom: 5,
-                    zoomControl: true,
-                    preferCanvas: false,
-                }
-            );
-
-            
-
-        
-    
-            var tile_layer_60683b9265ccf303db1f8fcbff7b5bdb = L.tileLayer(
-                &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            );
-        
-    
-            tile_layer_60683b9265ccf303db1f8fcbff7b5bdb.addTo(map_bbaf0c0bd1a55e590749e405c5e26755);
-        
-    
-            var tile_layer_ca6be6d014cdfc7a72ce05073ade86d6 = L.tileLayer(
-                &quot;https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly\u0026item=OMI_trno2_0.10x0.10_202202_Col3_V4.nc\u0026assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=cool\u0026rescale=-1018382487283302%2C50064805976866816&quot;,
-                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 0.8, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
-            );
-        
-    
-            tile_layer_ca6be6d014cdfc7a72ce05073ade86d6.addTo(map_bbaf0c0bd1a55e590749e405c5e26755);
-        
-    
-            map_e32927666b28d271958699eb75c9b3de.sync(map_bbaf0c0bd1a55e590749e405c5e26755);
-            map_bbaf0c0bd1a55e590749e405c5e26755.sync(map_e32927666b28d271958699eb75c9b3de);
-        
-</script>
-</html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
-</div>
-</div>
-</section>
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>In this case study we have successfully visualized how NASA monitors NO₂ emissions from space. By showcasing lockdown (February 2020) and post-lockdown (February 2022) snapshots of air quality side-by-side, we demonstrate how quickly atmospheric NO₂ responds to reductions in emissions and human behavior.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1625,13 +1379,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../notebooks/datasets/volcano-so2-monitoring.html" class="pagination-link" aria-label="Monitoring Volcanic Sulfur Dioxide Emissions">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Monitoring Volcanic Sulfur Dioxide Emissions</span>
+      <a href="../../nasa-veda-platform/scientific-computing/github-authentication.html" class="pagination-link" aria-label="How to push to GitHub from the VEDA JupyterHub">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">How to push to GitHub from the VEDA JupyterHub</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../notebooks/datasets/nldas_time_series.html" class="pagination-link" aria-label="Creating Timeseries with NLDAS-3 Sample Data">
-        <span class="nav-page-text">Creating Timeseries with NLDAS-3 Sample Data</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../nasa-veda-platform/scientific-computing/getting-access.html" class="pagination-link" aria-label="Getting access">
+        <span class="nav-page-text">Getting access</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1643,7 +1397,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/nasa-impact/veda-docs/blob/main/notebooks/datasets/air-quality-covid.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/nasa-veda-platform/scientific-computing/custom-environments.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
