@@ -2,11 +2,13 @@
 title: How to use a custom environment in the VEDA JupyterHub
 ---
 
-The VEDA JupyterHub lists a few pre-configured environments (collections of Python or R libraries and/or other software) as **Server Options** intended to cover most common geospatial data science needs. These
-are effectively pre-built Docker images ready for users to launch.
+The VEDA JupyterHub lists a few pre-configured environments (collections of
+Python or R libraries and/or other software) as **Server Options** intended to
+cover most common geospatial data science needs.  These are pre-built Docker
+images ready for users to launch.
 
-If you need a different configuration, there are two options for launching a *custom
-environment*:
+If you need a different configuration, there are two options for launching a
+*custom environment*:
 
 - **Use some other pre-built, public Docker image** (see
   [Environment: Other](#environment-other))
@@ -17,8 +19,8 @@ Each option is covered in the following sections.
 
 ## Environment: Other
 
-If you are aware of an existing pre-built, *publicly accessible Docker image* that
-meets your needs, on the **Server Options** page, open the **Environment**
+If you are aware of an existing pre-built, *publicly accessible Docker image*
+that meets your needs, on the **Server Options** page, open the **Environment**
 drop-down list, choose **Other...**, and specify the public identifier of the
 image in the **Custom image** field.
 
@@ -34,15 +36,24 @@ the `latest` tag, so a tag must be supplied.
 
 When the hostname of the image registry is not specified, it defaults to
 `docker.io`, the canonical hostname of the official Docker registry.  Therefore,
-the following 2 image identifiers are equivalent:
+the following custom image identifiers are equivalent:
 
-* `pangeo/pangeo-notebook:latest` (as shown in the screenshot above)
-* `docker.io/pangeo/pangeo-notebook:latest` (including a registry hostname prefix)
+- `pangeo/pangeo-notebook:2025.01.10` (registry hostname is _implicitly_ `docker.io`)
+- `docker.io/pangeo/pangeo-notebook:2025.01.10`
 
-If you wish to use an image hosted in a regsistry other than `docker.io`, you
-must explicitly specify the hostname of the registry.  Note the intervening `/`
-between the hostname and the remainder of the identifier shown in the second
-bulleted item above.
+If you wish to use an image hosted in a registry other than `docker.io`, the
+custom image identifier must also include the registry hostname (in addition to
+a name and a tag).  For example, images hosted in the GitHub Container Registry
+use the hostname `ghrc.io`, such as this "Tidyverse based R image with Python":
+`ghcr.io/nmfs-opensci/container-images/py-rocket-base:4.4-3.10`
+
+::: {.callout-warning}
+If you specify `latest` for the image tag, keep in mind that the image tagged
+`latest` may change over time, always referring to the latest published version.
+If you wish to "pin" the image each time you launch an environment, then use a
+specific tag, as shown in the examples above, to ensure you're launching an
+environment from the same image version each time.
+:::
 
 Once you have specified your custom image, choose your desired **Resource
 Allocation** and press the **Start** button at the bottom of the form to launch
@@ -53,8 +64,7 @@ your environment.
 When you wish to use a custom environment, but are not aware of a publicly
 available Docker image that suits your needs, the **Environment** option **Build
 your own image** provides a relatively easy and convenient means for building
-and using your desired environment (image), without requiring knowledge of
-Docker.
+your desired image, without requiring knowledge of Docker.
 
 This option leverages the
 [repo2docker](https://repo2docker.readthedocs.io/en/stable/index.html) tool to
@@ -68,32 +78,40 @@ for use with repo2docker.
 
 ### Describing Your Image
 
-The beauty of leveraging **repo2docker** is that it will use the contents of a
-public code repository (repo) to build a Docker image, doing all of the heavy
-lifting for you.  You do not need to know how to write a `Dockerfile` because it
-generates one for you.  Hence the name *repo2docker*.
+The beauty of **repo2docker** is that it will use the contents of a public code
+repository (repo) to build a Docker image, doing all of the heavy lifting for
+you.  You do not need to know how to write a `Dockerfile` because it generates
+one for you.  Hence the name *repo2docker*.
 
 In brief, repo2docker allows you to describe the following within a public
-GitHub repository:
+GitHub repository (for full details, see [Configuring your repository]):
 
-- A **list of dependencies** to install, specified via various files (such as
-  `environment.yml`, `requirements.txt`, or `apt.txt`, among others), and are
-  installed **in addition to** a [base set of dependencies].
-- *Optionally*, a **post-build script** to run after all dependencies are
-  installed (this must be named [postBuild])
-- *Optionally*, a **pre-session script** to run each time you start a server
-  with your image (this must be named [start])
+- A **list of packages and runtimes** to install (**in addition to** a
+  [base set of packages]), specified via various files, such as the following
+  (among others):
+  - `environment.yml`: for any kind of conda package (and/or `pip` package),
+    including specific versions of programming languages
+  - `install.R`: for R packages (if not using `environment.yml`)
+  - `requirements.txt`: for `pip` packages (if not using `environment.yml`)
+  - `runtime.txt`: for specifying versions of runtimes (such as Python or R)
+    when other files (such as `install.R` and `requirements.txt`) do not support
+    doing so
+  - `apt.txt`: for specifying Ubuntu packages installed via `apt`
+- *Optionally*, a **post-build script** to run after all packages and runtimes
+  are installed (this must be named [postBuild])
+- *Optionally*, a **pre-session script** to run each time you launch a new
+  environment with your image (this must be named [start])
 
 Such files from your repository are used to construct a `Dockerfile` file on
-your behalf, so you don't have to write one yourself, unless your really want
-to.  If your repo contains a `Dockerfile`, repo2docker will ignore all other
-files in your repo that it would otherwise use to generate a `Dockerfile`, and
-simply use the `Dockerfile` from your repo.
+your behalf, so you don't have to write one yourself, unless you really want to.
+If your repo contains a `Dockerfile`, repo2docker will ignore all other files in
+your repo that it would otherwise use to generate a `Dockerfile`, and simply use
+the `Dockerfile` from your repo directly.
 
 For complete details on what repo2docker supports, see the following:
 
-- [Where to put configuration files]
 - [Configuring your repository]
+- [Where to put configuration files]
 - [Architecture]
 - [Frequently Asked Questions (FAQ)]
 - [Example repositories]
@@ -118,11 +136,25 @@ either of the following forms:
   is either a GitHub *username* or *organization* (`binder-examples` in this
   example).
 
-In the **Git Ref** field, if you want repo2docker to use the most recent
-versions of files from the default branch of the repository (typically `main`),
-then use the default value **HEAD** to indicate the most recent commit.
-Alternatively, you may specify a **branch name**, a **tag**, or a specific
-**commit identifier** to indicate a different commit for repo2docker to use.
+In the **Git Ref** field, if you want repo2docker to use the most recent changes
+(latest commit) on the default branch of the repository (typically `main`), then
+use the default value **HEAD** to indicate the latest commit.  Alternatively,
+you may specify a **branch name**, a **tag**, or a specific **commit
+identifier** to indicate a different commit for repo2docker to use.
+
+::: {.callout-note}
+When specifying a commit identifier such as **HEAD** or a **branch name**, such
+a commit identifier may reference different commits over time because it
+represents a *logical* commit, not a *specific* commit.  In the case of **HEAD**
+or a **branch name**, it represents the *latest* commit on the specified branch
+(whichever *specific* commit that happens to be at the current moment).
+
+This means that each time you choose to build your image using such a *logical*
+value for **Git Ref**, the system will rebuild your image if the logical
+reference points to a different commit than it did the last time you built your
+image.  This is useful for making a series of alternating commits and builds
+during "development" of your image.
+:::
 
 Once you've specified both **Repository** and **Git Ref**, click the **Build
 image** button to trigger repo2docker to build your image (which may take
@@ -135,15 +167,9 @@ Once your image is built, you should see something similar to this:
 
 ![Image build has finished](images/build-logs-new-build-finished.png)
 
-The next time you click **Build image** for the same values of **Repository**
-and **Git Ref**, if the Git Ref refers to the same commit in the repository as
-it did when you last clicked **Build image**, the previously built image will be
-reused, and you should again see the message highlighted above, but it should
-appear much more quickly since no new build is necessary in this case.
-
-Once your image has been built, it's ready for use.  As with all other
-environment options, select your desired **Resource Allocation** and click the
-**Start** button to launch a Docker container using your custom image.
+At this point, your image is ready for use.  As with all other environment
+options, select your desired **Resource Allocation** and click the **Start**
+button to launch a Docker container using your custom image.
 
 ::: {.callout-note}
 When your server is ready, the conda environment named "notebook" will be
@@ -153,7 +179,7 @@ all dependencies in your file will be installed, the name of the environment
 will always be "notebook."
 :::
 
-[base set of dependencies]:
+[base set of packages]:
   https://github.com/jupyterhub/repo2docker/blob/HEAD/repo2docker/buildpacks/conda/environment.yml
 [postBuild]:
   https://repo2docker.readthedocs.io/en/stable/config_files.html#postbuild-run-code-after-installing-the-environment
