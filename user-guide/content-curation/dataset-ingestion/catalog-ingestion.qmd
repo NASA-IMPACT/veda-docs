@@ -1,0 +1,119 @@
+---
+title: "Catalog Ingestion"
+subtitle: "How to load metadata with our STAC API"
+---
+
+## STEP III: Create dataset definitions
+
+The next step is to divide all the data into logical collections. A collection is basically what it sounds like, a collection of data files that share the same properties like, the data it's measuring, the periodicity, the spatial region, etc. For example, current VEDA datasets like `no2-mean` and `no2-diff` should be two different collections, because one measures the mean levels of nitrogen dioxide and the other the differences in observed levels. Likewise, datasets like `no2-monthly` and `no2-yearly` should be different because the periodicity is different.
+
+Once you have logically grouped the datasets into collections, you will need to create dataset definitions for each of these collections. The data definition is a json file that contains some metadata of the dataset and information on how to discover these datasets in the s3 bucket. An example is shown below:
+
+`lis-global-da-evap.json`
+
+```json
+{
+  "collection": "lis-global-da-evap",
+  "title": "Evapotranspiration - LIS 10km Global DA",
+  "description": "Gridded total evapotranspiration (in kg m-2 s-1) from 10km global LIS with assimilation",
+  "license": "CC0-1.0",
+  "is_periodic": true,
+  "time_density": "day",
+  "spatial_extent": {
+    "xmin": -179.95,
+    "ymin": -59.45,
+    "xmax": 179.95,
+    "ymax": 83.55
+  },
+  "temporal_extent": {
+    "startdate": "2002-08-02T00:00:00Z",
+    "enddate": "2021-12-01T00:00:00Z"
+  },
+  "sample_files": [
+    "s3://veda-data-store-staging/EIS/COG/LIS_GLOBAL_DA/Evap/LIS_Evap_200208020000.d01.cog.tif"
+  ],
+  "discovery_items": [
+    {
+      "dry_run": false,
+      "prefix": "EIS/COG/LIS_GLOBAL_DA/Evap/",
+      "bucket": "veda-data-store-staging",
+      "filename_regex": "(.*)LIS_Evap_(.*).tif$",
+      "datetime_range": "day"
+    }
+  ]
+}
+```
+<details>
+    <summary><strong>Click to show field descriptions</strong></summary>
+
+The following table describes what each of these fields mean:
+
+| field  | description  | allowed value | example
+|---|---|---|---|
+|  `collection` | the id of the collection  | lowercase letters with optional "-" delimeters  | `no2-monthly-avg` |
+|  `title` | a short human readable title for the collection  |  string with 5-6 words | "Average  NO2 measurements (Monthly)" |
+|  `description` | a detailed description for the dataset | should include what the data is, what sensor was used to measure, where the data was pulled/derived from, etc  |  |
+|  `license` | license for data use; Default open license: `CC0-1.0`  |  [SPDX license id](https://spdx.org/licenses/) | `CC0-1.0 ` |
+|  `is_periodic` | is the data periodic? specifies if the data files repeat at a uniform time interval | `true` \| `false`  | `true`
+|  `time_density` | the time step in which we want to navigate the dataset in the dashboard | `year` \| `month` \| `day` \| `hour` \| `minute` \| `null`  |
+|  `spatial_extent` | the spatial extent of the collection; a bounding box that includes all the data files in the collection   |   | `{"xmin": -180, "ymin": -90, "xmax": 180, "ymax": 90}` |
+|  `spatial_extent["xmin"]` |  left x coordinate of the spatial extent bounding box  | -180 <= xmin <= 180; xmin < xmax  | `23` |
+|  `spatial_extent["ymin"]` |  bottom y coordinate of the spatial extent bounding box  | -90 <= ymin <= 90; ymin < ymax  | `-40` |
+|  `spatial_extent["xmax"]` |  right x coordinate of the spatial extent bounding box  | -180 <= xmax <= 180; xmax > xmin  | `150` |
+|  `spatial_extent["ymax"]` |  top y coordinate of the spatial extent bounding box  | -90 <= ymax <= 90; ymax > ymin  | `40` |
+|  `temporal_extent` | temporal extent that covers all the data files in the collection  |   | `{"start_date": "2002-08-02T00:00:00Z", "end_date": "2021-12-01T00:00:00Z"}` |
+|  `temporal_extent["start_date"]` | the `start_date` of the dataset  | iso datetime that ends in `Z`  | `2002-08-02T00:00:00Z` |
+|  `temporal_extent["end_date"]` | the `end_date` of the dataset  | iso datetime that ends in `Z`  | `2021-12-01T00:00:00Z` |
+|  `sample_files` | a list of s3 urls for the sample files that go into the collection  |   | `[ "s3://veda-data-store-staging/no2-diff/no2-diff_201506.tif", "s3://veda-data-store-staging/no2-diff/no2-diff_201507.tif"]` |
+|  `discovery_items["discovery"]` |  where to discover the data from; currently supported are s3 buckets and cmr | `s3` \| `cmr` | `s3` |
+|  `discovery_items["cogify"]` |  does the file need to be converted to a cloud optimized geptiff (COG)? `false` if it is already a COG | `true` \| `false`  | `false` |
+|  `discovery_items["upload"]` | does it need to be uploaded to the veda s3 bucket? `false` if it already exists in `veda-data-store-staging` |  `true` \| `false` | `false` |
+|  `discovery_items["dry_run"]` | if set to `true`, the items will go through the pipeline, but won't actually publish to the stac catalog; useful for testing purposes | `true` \| `false`  | `false` |
+|  `discovery_items["bucket"]` | the s3 bucket where the data is uploaded to | any bucket that the data pipelines has access to | `veda-data-store-staging` \| `climatedashboard-data` \| `{any-public-bucket}` | `veda-data-store-staging` |
+|  `discovery_items["prefix"]`| within the s3 bucket, the prefix or path to the "folder" where the data files exist | any valid path winthin the bucket  | `EIS/COG/LIS_GLOBAL_DA/Evap/` |
+|  `discovery_items["filename_regex"]` |  a common filename pattern that all the files in the collection follow | a valid regex expression  | `(.*)LIS_Evap_(.*).cog.tif$` |
+|  `discovery_items["datetime_range"]` | based on the naming convention in [STEP I](#STEP I: Prepare the data), the datetime range to be extracted from the filename |  `year` \| `month` \| `day` | `year` |
+
+</details>
+
+
+> Note: If you are unable to complete the following steps or have a new type of data that does not work with the example docs, open an issue in the [veda-data](https://github.com/NASA-IMPACT/veda-data) GitHub repository.
+
+
+
+## STEP IV: Publication
+
+The publication process involves 3 steps:
+
+1. [VEDA] Publishing to the staging STAC catalog `https://staging.openveda.cloud`
+2. [EIS] Reviewing the collection/items published to the dev STAC catalog
+3. [VEDA] Publishing to the production STAC catalog `https://openveda.cloud` by submitting the configuration you just created in a pull request to the [veda-data repo](https://github.com/NASA-IMPACT/veda-data?tab=readme-ov-file#dataset-submission-process).
+
+To use the VEDA Workflows API to schedule ingestion/publication of the data follow these steps:
+
+### Prerequisite: obtain credentials from a VEDA team member
+
+Ask a VEDA team member to create `Cognito` credentials (username and password) for VEDA authentication.
+
+### Sign in to the workflows API docs using your credentials
+
+Open the workflows API at [staging.openveda.cloud/api/workflows/docs](https://staging.openveda.cloud/api/workflows/docs) in a second browser tab and click the green authorize button at the upper right to authenticate your session with your username and password (you will be temporarily redirected to a login widget and then back to the workflows-api docs). 
+
+### `/dataset/validate`
+After creating your [dataset definition](#step-iii-create-dataset-definitions), copy the printed json and paste it into the `/dataset/validate` input in the workflows-api docs page in the second tab. Note that if you navigate away from this page you will need to click authorize again.
+
+Choose `POST dataset/validate` in the **Dataset** section of the workflows-api docs. Click 'Try it Out` and paste your json into the **Request body** and then **Execute**
+
+If the json is valid, the response will confirm that it is ready to be published on the VEDA Platform. 
+
+### `/dataset/publish`
+
+Now that you have validated your dataset, you can initiate a workflow and publish the dataset to the VEDA Platform. 
+
+Choose `POST dataset/publish` in the **Dataset** section of the workflows-api docs. Click 'Try it Out` and paste your json into the **Request body** and then **Execute**
+
+On success, you will recieve a success message containing the id of your workflow, for example
+
+```
+{"message":"Successfully published collection: geoglam. 1  workflows initiated.","workflows_ids":["db6a2097-3e4c-45a3-a772-0c11e6da8b44"]}
+```
