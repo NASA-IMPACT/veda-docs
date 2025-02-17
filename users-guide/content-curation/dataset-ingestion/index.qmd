@@ -1,0 +1,40 @@
+---
+title: "Dataset Ingestion"
+subtitle: "Guide to ingesting and publishing data to the VEDA data store & STAC API"
+---
+
+VEDA uses a centralized [Spatio-Temporal Asset Catalog (STAC)](https://stacspec.org/) for data dissemination and prefers to host datasets in cloud-object storage ([AWS S3](https://aws.amazon.com/s3/) in the region `us-west-2`)
+in the cloud-optimized file formats [Cloud-Optimized GeoTIFF (COG)](https://www.cogeo.org/) and [Zarr](https://zarr.dev/), which enables viewing and efficient access in the cloud directly
+from the original datafiles without copies or multiple versions.
+
+
+## Steps for ingesting a dataset
+
+For dataset ingestion, generally four steps are required. Depending on the capacity of the dataset provider, some of the steps can be completed by the VEDA team on request.
+
+The data ingestion process requires `Cognito` credentials (username and password). In order to retrieve these credentials, you'll need to contact a member of the VEDA Data Services Team at [veda@uah.edu](mailto:veda@uah.edu) who can set up an account and credentials for you. The first time you log in using the `Cognito Client`, you will be prompted to set a new password.
+
+Complete as many steps of the process as you have capacity or authorization to. You will initially publish to a staging catalog where you can review the data before publishing to the public production catalog. Please follow the steps and guides outlined below: 
+
+1. Transform datasets to conform with cloud-optimized file formats - see [file preparation](./file-preparation.qmd)
+2. Upload files to storage (may be skipped, if data is cloud-optimized and in `us-west-2`)
+3. Load those records into the STAGING VEDA STAC - see [catalog ingestion](./catalog-ingestion.qmd)
+4. Finally, when you are satisfied with how your data look in the staging catalog, open a [veda-data](https://github.com/NASA-IMPACT/veda-data) pull request with the configuration you used to publish to the staging catalog. When this PR is approved, the data will be published to the production catalog at openveda.cloud!
+
+::: {.callout-note title="If the above instructions do not cover the data you want to ingest and/or if you could use extra help getting started"}
+Open a dedicated [pull request in the veda-data repository](https://github.com/NASA-IMPACT/veda-data). Please read through these docs fully first as you they will help supply the information required to complete the PR. Use this ["new dataset" template to open a new issue and get started](https://github.com/NASA-IMPACT/veda-data/issues/new?assignees=&labels=dataset&projects=&template=new-dataset.yaml&title=New+Dataset%3A+%3Cdataset+title%3E). 
+:::
+
+## End to end ingest example
+For a walk through of the full process outlined above, please refer to this [example notebook](example-template/example-geoglam-ingest.ipynb). This notebook uses the `GEOGLAM June 2023` to ingest this file [CropMonitor_2023_06_28.tif](./example-template/CropMonitor_2023_06_28.tif) into VEDA's staging STAC catalog. 
+
+::: {.callout-warning title="This is an actual ingest and will update the staging STAC catalog"} 
+Please use this as a guide for the ingestion process (and required dataset defintions), replacing the GEOGLAM dataset metadata and file with your own data. 
+:::
+
+Stuck on how to develop compliant metadata records for your dataset? 
+
+Checkout the following notebooks and resources to help provide you with the STAC metadata required to [create the dataset definitions needed for catalog ingestion](https://nasa-impact.github.io/veda-docs/content-curation/dataset-ingestion/catalog-ingestion.html).
+
+- **How to create STAC Collections**: see this [example notebook](/users-guide/notebooks/veda-operations/stac-collection-creation.html) and related STAC [conventions](./stac-collection-conventions.qmd) 
+- **How to create STAC Items**:  see this [example notebook](/users-guide/notebooks/veda-operations/stac-item-creation.html) and [conventions](./stac-item-conventions.qmd).
