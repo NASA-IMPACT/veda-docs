@@ -757,7 +757,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="approach">Approach</h2>
 <ol type="1">
 <li>Identify available dates and temporal frequency of observations for a given collection</li>
-<li>Pass STAC item into raster API <code>/stac/tilejson.json</code> endpoint</li>
+<li>Pass STAC item into raster API <code>collections</code> endpoint</li>
 <li>Get time series statistics over available time period to identify seasonal trends</li>
 <li>Visualize peak by displaying the tile in <code>folium</code></li>
 <li>Visualize time series of raster images</li>
@@ -805,7 +805,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    'href': 'https://openveda.cloud/api/stac/'},
   {'rel': 'self',
    'type': 'application/json',
-   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm'}],
+   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm'},
+  {'rel': 'http://www.opengis.net/def/rel/ogc/1.0/queryables',
+   'type': 'application/schema+json',
+   'title': 'Queryables',
+   'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm/queryables'}],
  'title': '',
  'assets': {'thumbnail': {'href': 'https://thumbnails.openveda.cloud/ocean-production--dataset-cover.jpg',
    'type': 'image/jpeg',
@@ -911,7 +915,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
@@ -919,7 +923,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_8576685b7544e36985499ddca10c823e {
+                #map_698df1392e8bc9c012427a6371d10e90 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -933,14 +937,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_8576685b7544e36985499ddca10c823e&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_698df1392e8bc9c012427a6371d10e90&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_8576685b7544e36985499ddca10c823e = L.map(
-                &quot;map_8576685b7544e36985499ddca10c823e&quot;,
+            var map_698df1392e8bc9c012427a6371d10e90 = L.map(
+                &quot;map_698df1392e8bc9c012427a6371d10e90&quot;,
                 {
                     center: [-22.42146, 14.268801],
                     crs: L.CRS.EPSG3857,
@@ -954,34 +958,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_7d715f3f2243a936cc9810965e885f59 = L.tileLayer(
+            var tile_layer_63ccd12819a66a0ff2c9616a9ab2190b = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_7d715f3f2243a936cc9810965e885f59.addTo(map_8576685b7544e36985499ddca10c823e);
+            tile_layer_63ccd12819a66a0ff2c9616a9ab2190b.addTo(map_698df1392e8bc9c012427a6371d10e90);
         
     
 
-        function geo_json_59591149f12fc36e6381a75796c9e509_onEachFeature(feature, layer) {
+        function geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94_onEachFeature(feature, layer) {
             layer.on({
             });
         };
-        var geo_json_59591149f12fc36e6381a75796c9e509 = L.geoJson(null, {
-                onEachFeature: geo_json_59591149f12fc36e6381a75796c9e509_onEachFeature,
+        var geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94 = L.geoJson(null, {
+                onEachFeature: geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94_onEachFeature,
             
         });
 
-        function geo_json_59591149f12fc36e6381a75796c9e509_add (data) {
-            geo_json_59591149f12fc36e6381a75796c9e509
+        function geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94_add (data) {
+            geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94
                 .addData(data);
         }
-            geo_json_59591149f12fc36e6381a75796c9e509_add({&quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.686159004559698, -21.700046934333145], [13.686159004559698, -23.241974326585833], [14.753560168039911, -23.241974326585833], [14.753560168039911, -21.700046934333145], [13.686159004559698, -21.700046934333145]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;properties&quot;: {}, &quot;type&quot;: &quot;Feature&quot;});
+            geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94_add({&quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.686159004559698, -21.700046934333145], [13.686159004559698, -23.241974326585833], [14.753560168039911, -23.241974326585833], [14.753560168039911, -21.700046934333145], [13.686159004559698, -21.700046934333145]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;properties&quot;: {}, &quot;type&quot;: &quot;Feature&quot;});
+        geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94.setStyle(function(feature) {return feature.properties.style;});
 
         
     
-            geo_json_59591149f12fc36e6381a75796c9e509.addTo(map_8576685b7544e36985499ddca10c823e);
+            geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94.addTo(map_698df1392e8bc9c012427a6371d10e90);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -1022,7 +1027,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    'type': 'application/geo+json',
    'href': 'https://openveda.cloud/api/stac/collections/MO_NPP_npp_vgpm/items/A_202012.L3m_MO_NPP_npp_vgpm_4km'},
   {'title': 'Map of Item',
-   'href': 'https://openveda.cloud/api/raster/stac/map?collection=MO_NPP_npp_vgpm&amp;item=A_202012.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;rescale=0%2C1500&amp;colormap_name=jet',
+   'href': 'https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202012.L3m_MO_NPP_npp_vgpm_4km/map?assets=cog_default&amp;rescale=0%2C1500&amp;colormap_name=jet',
    'rel': 'preview',
    'type': 'text/html'}],
  'assets': {'cog_default': {'href': 's3://veda-data-store/MO_NPP_npp_vgpm/A_202012.L3m_MO_NPP_npp_vgpm_4km.tif',
@@ -1085,7 +1090,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     0.0,
     1.0]},
   'rendered_preview': {'title': 'Rendered preview',
-   'href': 'https://openveda.cloud/api/raster/stac/preview.png?collection=MO_NPP_npp_vgpm&amp;item=A_202012.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;rescale=0%2C1500&amp;colormap_name=jet',
+   'href': 'https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202012.L3m_MO_NPP_npp_vgpm_4km/preview.png?assets=cog_default&amp;rescale=0%2C1500&amp;colormap_name=jet',
    'rel': 'preview',
    'roles': ['overview'],
    'type': 'image/png'}},
@@ -1126,8 +1131,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> [generate_stats(item, walvis_bay_aoi) <span class="cf">for</span> item <span class="kw">in</span> items]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 52.5 ms, sys: 348 µs, total: 52.8 ms
-Wall time: 7.7 s</code></pre>
+<pre><code>CPU times: user 34.8 ms, sys: 6.43 ms, total: 41.2 ms
+Wall time: 8.95 s</code></pre>
 </div>
 </div>
 <p>With the function provided above, we can generate statistics for our AOI. In the example below, we’ll explore sample statistics available from one of the tiles.</p>
@@ -1136,30 +1141,30 @@ Wall time: 7.7 s</code></pre>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>{'statistics': {'b1': {'min': 3040.676025390625,
    'max': 20105.990234375,
-   'mean': 7803.88623046875,
-   'count': 625.0,
-   'sum': 4877429.0,
-   'std': 3784.4446091863997,
-   'median': 6578.16162109375,
+   'mean': 7886.51904296875,
+   'count': 609.6600341796875,
+   'sum': 4808095.5,
+   'std': 3789.4372933194186,
+   'median': 6633.59912109375,
    'majority': 8848.3544921875,
    'minority': 3040.676025390625,
-   'unique': 615.0,
-   'histogram': [[149.0, 154.0, 91.0, 76.0, 50.0, 37.0, 24.0, 26.0, 10.0, 8.0],
+   'unique': 621.0,
+   'histogram': [[149, 155, 93, 78, 52, 37, 24, 26, 10, 8],
     [3040.676025390625,
      4747.20751953125,
-     6453.73876953125,
+     6453.7392578125,
      8160.2705078125,
      9866.8017578125,
      11573.3330078125,
-     13279.8642578125,
-     14986.3955078125,
+     13279.865234375,
+     14986.396484375,
      16692.927734375,
      18399.458984375,
      20105.990234375]],
-   'valid_percent': 64.97,
-   'masked_pixels': 337.0,
-   'valid_pixels': 625.0,
-   'percentile_2': 3431.018310546875,
+   'valid_percent': 61.6,
+   'masked_pixels': 394.0,
+   'valid_pixels': 632.0,
+   'percentile_2': 3456.19189453125,
    'percentile_98': 17551.427734375}},
  'start_datetime': '2020-11-01T00:00:00+00:00'}</code></pre>
 </div>
@@ -1245,7 +1250,7 @@ Wall time: 7.7 s</code></pre>
 </div>
 <div id="cell-31" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>october_tile <span class="op">=</span> requests.get(</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>items[<span class="dv">2</span>][<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>items[<span class="dv">2</span>][<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>items[<span class="dv">2</span>][<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">/items/</span><span class="sc">{</span>items[<span class="dv">2</span>][<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis"</span></span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
@@ -1255,7 +1260,7 @@ Wall time: 7.7 s</code></pre>
 <pre><code>{'tilejson': '2.2.0',
  'version': '1.0.0',
  'scheme': 'xyz',
- 'tiles': ['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202010.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875'],
+ 'tiles': ['https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202010.L3m_MO_NPP_npp_vgpm_4km/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875'],
  'minzoom': 0,
  'maxzoom': 24,
  'bounds': [-180.0000050868518,
@@ -1307,7 +1312,7 @@ Wall time: 7.7 s</code></pre>
     <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
@@ -1315,7 +1320,7 @@ Wall time: 7.7 s</code></pre>
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_3af1b42e153065037cc92d6d999c6ec1 {
+                #map_8cc4784fb78b5b979d8a8881e7d1cdb6 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1329,14 +1334,14 @@ Wall time: 7.7 s</code></pre>
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_3af1b42e153065037cc92d6d999c6ec1&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_8cc4784fb78b5b979d8a8881e7d1cdb6&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_3af1b42e153065037cc92d6d999c6ec1 = L.map(
-                &quot;map_3af1b42e153065037cc92d6d999c6ec1&quot;,
+            var map_8cc4784fb78b5b979d8a8881e7d1cdb6 = L.map(
+                &quot;map_8cc4784fb78b5b979d8a8881e7d1cdb6&quot;,
                 {
                     center: [-22.42146, 14.268801],
                     crs: L.CRS.EPSG3857,
@@ -1350,22 +1355,22 @@ Wall time: 7.7 s</code></pre>
 
         
     
-            var tile_layer_7f6f9e8ae8b0232696de6b1da8346eea = L.tileLayer(
+            var tile_layer_33921020c141633d59b66c70d77b502f = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_7f6f9e8ae8b0232696de6b1da8346eea.addTo(map_3af1b42e153065037cc92d6d999c6ec1);
+            tile_layer_33921020c141633d59b66c70d77b502f.addTo(map_8cc4784fb78b5b979d8a8881e7d1cdb6);
         
     
-            var tile_layer_e1100dc7eb3dda8d733864679db68116 = L.tileLayer(
-                &quot;https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm\u0026item=A_202010.L3m_MO_NPP_npp_vgpm_4km\u0026assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=viridis\u0026rescale=14.516647338867188%2C34561.35546875&quot;,
-                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            var tile_layer_307246466c0a059762aac1b02a5d27c0 = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202010.L3m_MO_NPP_npp_vgpm_4km/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=viridis\u0026rescale=14.516647338867188%2C34561.35546875&quot;,
+                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_e1100dc7eb3dda8d733864679db68116.addTo(map_3af1b42e153065037cc92d6d999c6ec1);
+            tile_layer_307246466c0a059762aac1b02a5d27c0.addTo(map_8cc4784fb78b5b979d8a8881e7d1cdb6);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -1382,25 +1387,25 @@ Wall time: 7.7 s</code></pre>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> items:</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    tiles <span class="op">=</span> requests.get(</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>item[<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>item[<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>items[<span class="dv">2</span>][<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">/items/</span><span class="sc">{</span>items[<span class="dv">2</span>][<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"&amp;assets=cog_default"</span></span>
 <span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis"</span></span>
 <span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    ).json()</span>
 <span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(tiles[<span class="st">"tiles"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202012.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202011.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202010.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202009.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202008.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202007.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202006.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202005.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202004.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202003.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202002.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
-['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=MO_NPP_npp_vgpm&amp;item=A_202001.L3m_MO_NPP_npp_vgpm_4km&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']</code></pre>
+<pre><code>['https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202010.L3m_MO_NPP_npp_vgpm_4km/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202010.L3m_MO_NPP_npp_vgpm_4km/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202010.L3m_MO_NPP_npp_vgpm_4km/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202010.L3m_MO_NPP_npp_vgpm_4km/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202010.L3m_MO_NPP_npp_vgpm_4km/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202010.L3m_MO_NPP_npp_vgpm_4km/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202010.L3m_MO_NPP_npp_vgpm_4km/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202010.L3m_MO_NPP_npp_vgpm_4km/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202010.L3m_MO_NPP_npp_vgpm_4km/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202010.L3m_MO_NPP_npp_vgpm_4km/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202010.L3m_MO_NPP_npp_vgpm_4km/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']
+['https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202010.L3m_MO_NPP_npp_vgpm_4km/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=viridis&amp;rescale=14.516647338867188%2C34561.35546875']</code></pre>
 </div>
 </div>
 <p>Since we found the tiles to be presented in reverse time order, we’ll revise this in the code below. We’ll use <code>reversed()</code> to do so.</p>
