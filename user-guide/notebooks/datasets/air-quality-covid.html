@@ -756,7 +756,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="approach">Approach</h2>
 <ol type="1">
 <li>Identify available dates and temporal frequency of observations for a given collection - NO₂</li>
-<li>Pass the STAC item into raster API <code>/stac/tilejson.json</code> endpoint</li>
+<li>Pass the STAC item into raster API <code>collections</code> endpoint</li>
 <li>We’ll visualize two tiles (side-by-side) allowing for comparison of each of the time points using <code>folium.plugins.DualMap</code></li>
 </ol>
 </section>
@@ -800,7 +800,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    'href': 'https://openveda.cloud/api/stac/'},
   {'rel': 'self',
    'type': 'application/json',
-   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly'}],
+   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly'},
+  {'rel': 'http://www.opengis.net/def/rel/ogc/1.0/queryables',
+   'type': 'application/schema+json',
+   'title': 'Queryables',
+   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly/queryables'}],
  'title': 'NO₂',
  'assets': {'thumbnail': {'href': 'https://thumbnails.openveda.cloud/no2--dataset-cover.jpg',
    'type': 'image/jpeg',
@@ -837,7 +841,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  'dashboard:time_density': 'month'}</code></pre>
 </div>
 </div>
-<p>Examining the contents of our <code>collection</code> under <code>summaries</code> we see that the data is available from January 2015 to December 2022. By looking at the <code>dashboard:time density</code> we observe that the periodic frequency of these observations is monthly.</p>
+<p>Examining the contents of our <code>collection</code> under <code>summaries</code> we see that the data is available from January 2015 to September 2023. By looking at the <code>dashboard:time density</code> we observe that the periodic frequency of these observations is monthly.</p>
 <div id="cell-10" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check total number of items available</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_name<span class="sc">}</span><span class="ss">/items?limit=100"</span>).json()[<span class="st">"features"</span>]</span>
@@ -846,7 +850,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>Found 93 items</code></pre>
 </div>
 </div>
-<p>This makes sense as there are 7 years between 2016 - 2022, with 12 months per year, meaning 84 records in total.</p>
+<p>This makes sense as there are 8 years between 2016 - 2023, with 12 months per year, meaning 96 possible records. Since our dataset ends in September, we subtract 3 months to give us a total of 93 items.</p>
 <p>Below, we’ll provide the max range of values to apply to visualizations of all items in the collection (<code>rescale_values</code>).</p>
 <div id="cell-12" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rescale_values <span class="op">=</span> {</span>
@@ -865,7 +869,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Now we will pass the item id, collection name, and <code>rescaling_factor</code> to the <code>Raster API</code> endpoint. We will do this twice times, once for February 2020 and again for February 2022, so that we can visualize each event independently.</p>
 <div id="cell-16" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>february_2020_tile <span class="op">=</span> requests.get(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>items[<span class="st">'2020-02'</span>][<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>items[<span class="st">'2020-02'</span>][<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>items[<span class="st">'2020-02'</span>][<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">/items/</span><span class="sc">{</span>items[<span class="st">'2020-02'</span>][<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool"</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>, </span>
@@ -875,7 +879,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>{'tilejson': '2.2.0',
  'version': '1.0.0',
  'scheme': 'xyz',
- 'tiles': ['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly&amp;item=OMI_trno2_0.10x0.10_202002_Col3_V4.nc&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool&amp;rescale=-1018382487283302%2C50064805976866816'],
+ 'tiles': ['https://openveda.cloud/api/raster/collections/no2-monthly/items/OMI_trno2_0.10x0.10_202002_Col3_V4.nc/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool&amp;rescale=-1018382487283302%2C50064805976866816'],
  'minzoom': 0,
  'maxzoom': 24,
  'bounds': [-180.0, -90.0, 180.0, 90.0],
@@ -884,7 +888,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div id="cell-17" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>february_2022_tile <span class="op">=</span> requests.get(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/stac/tilejson.json?collection=</span><span class="sc">{</span>items[<span class="st">'2022-02'</span>][<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">&amp;item=</span><span class="sc">{</span>items[<span class="st">'2022-02'</span>][<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>items[<span class="st">'2022-02'</span>][<span class="st">'collection'</span>]<span class="sc">}</span><span class="ss">/items/</span><span class="sc">{</span>items[<span class="st">'2022-02'</span>][<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool"</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values[<span class="st">'min'</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values[<span class="st">'max'</span>]<span class="sc">}</span><span class="ss">"</span>, </span>
@@ -894,7 +898,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>{'tilejson': '2.2.0',
  'version': '1.0.0',
  'scheme': 'xyz',
- 'tiles': ['https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly&amp;item=OMI_trno2_0.10x0.10_202202_Col3_V4.nc&amp;assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool&amp;rescale=-1018382487283302%2C50064805976866816'],
+ 'tiles': ['https://openveda.cloud/api/raster/collections/no2-monthly/items/OMI_trno2_0.10x0.10_202202_Col3_V4.nc/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=cool&amp;rescale=-1018382487283302%2C50064805976866816'],
  'minzoom': 0,
  'maxzoom': 24,
  'bounds': [-180.0, -90.0, 180.0, 90.0],
@@ -952,7 +956,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
@@ -960,7 +964,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_e32927666b28d271958699eb75c9b3de {
+                #map_5c580dfb463638fd141c9f35e26e764a {
                     position: absolute;
                     width: 50.0%;
                     height: 100.0%;
@@ -974,7 +978,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_bbaf0c0bd1a55e590749e405c5e26755 {
+                #map_182773b58f4c85e85d56761b3fdd307b {
                     position: absolute;
                     width: 50.0%;
                     height: 100.0%;
@@ -989,17 +993,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_e32927666b28d271958699eb75c9b3de&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_5c580dfb463638fd141c9f35e26e764a&quot; ></div>
         
     
-            <div class=&quot;folium-map&quot; id=&quot;map_bbaf0c0bd1a55e590749e405c5e26755&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_182773b58f4c85e85d56761b3fdd307b&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_e32927666b28d271958699eb75c9b3de = L.map(
-                &quot;map_e32927666b28d271958699eb75c9b3de&quot;,
+            var map_5c580dfb463638fd141c9f35e26e764a = L.map(
+                &quot;map_5c580dfb463638fd141c9f35e26e764a&quot;,
                 {
                     center: [33.6901, 118.9325],
                     crs: L.CRS.EPSG3857,
@@ -1013,26 +1017,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_43eced198f351a1c0d707a9014da2382 = L.tileLayer(
+            var tile_layer_d7403ada74d0a75486a18ee0b5f43416 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_43eced198f351a1c0d707a9014da2382.addTo(map_e32927666b28d271958699eb75c9b3de);
+            tile_layer_d7403ada74d0a75486a18ee0b5f43416.addTo(map_5c580dfb463638fd141c9f35e26e764a);
         
     
-            var tile_layer_88bc1f63e04a991c779b5da7850e12cb = L.tileLayer(
-                &quot;https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly\u0026item=OMI_trno2_0.10x0.10_202002_Col3_V4.nc\u0026assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=cool\u0026rescale=-1018382487283302%2C50064805976866816&quot;,
-                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 0.8, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            var tile_layer_5785cc3f5a418b0e27c8bd61af058158 = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/collections/no2-monthly/items/OMI_trno2_0.10x0.10_202002_Col3_V4.nc/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=cool\u0026rescale=-1018382487283302%2C50064805976866816&quot;,
+                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 0.8, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_88bc1f63e04a991c779b5da7850e12cb.addTo(map_e32927666b28d271958699eb75c9b3de);
+            tile_layer_5785cc3f5a418b0e27c8bd61af058158.addTo(map_5c580dfb463638fd141c9f35e26e764a);
         
     
-            var map_bbaf0c0bd1a55e590749e405c5e26755 = L.map(
-                &quot;map_bbaf0c0bd1a55e590749e405c5e26755&quot;,
+            var map_182773b58f4c85e85d56761b3fdd307b = L.map(
+                &quot;map_182773b58f4c85e85d56761b3fdd307b&quot;,
                 {
                     center: [33.6901, 118.9325],
                     crs: L.CRS.EPSG3857,
@@ -1046,26 +1050,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_60683b9265ccf303db1f8fcbff7b5bdb = L.tileLayer(
+            var tile_layer_223fcae3834456c7abbdbc4f06b72f0c = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_60683b9265ccf303db1f8fcbff7b5bdb.addTo(map_bbaf0c0bd1a55e590749e405c5e26755);
+            tile_layer_223fcae3834456c7abbdbc4f06b72f0c.addTo(map_182773b58f4c85e85d56761b3fdd307b);
         
     
-            var tile_layer_ca6be6d014cdfc7a72ce05073ade86d6 = L.tileLayer(
-                &quot;https://openveda.cloud/api/raster/stac/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?collection=no2-monthly\u0026item=OMI_trno2_0.10x0.10_202202_Col3_V4.nc\u0026assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=cool\u0026rescale=-1018382487283302%2C50064805976866816&quot;,
-                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 0.8, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            var tile_layer_20b594d3b02cb64d2f08f778883e20a4 = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/collections/no2-monthly/items/OMI_trno2_0.10x0.10_202202_Col3_V4.nc/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=cool\u0026rescale=-1018382487283302%2C50064805976866816&quot;,
+                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 0.8, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_ca6be6d014cdfc7a72ce05073ade86d6.addTo(map_bbaf0c0bd1a55e590749e405c5e26755);
+            tile_layer_20b594d3b02cb64d2f08f778883e20a4.addTo(map_182773b58f4c85e85d56761b3fdd307b);
         
     
-            map_e32927666b28d271958699eb75c9b3de.sync(map_bbaf0c0bd1a55e590749e405c5e26755);
-            map_bbaf0c0bd1a55e590749e405c5e26755.sync(map_e32927666b28d271958699eb75c9b3de);
+            map_5c580dfb463638fd141c9f35e26e764a.sync(map_182773b58f4c85e85d56761b3fdd307b);
+            map_182773b58f4c85e85d56761b3fdd307b.sync(map_5c580dfb463638fd141c9f35e26e764a);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
