@@ -1,0 +1,98 @@
+---
+title: "How To Make Your Own Dashboard"
+subtitle: "Even if you already have a website, you can use the tools"
+---
+
+# Using the VEDA Dashboard in Your Own Projects
+
+VEDA was designed as an **open, accessible, and powerful platform** to help science teams communicate insights hidden in large-scale geospatial data.
+
+- Built to work with **cloud-optimized formats** like COGs.
+- Enables rapid, compelling storytelling at scale.
+- Open-source under permissive licenses to encourage broad use and innovation.
+
+Our goal is to lower the barriers to entry for scientists to talk about their work, for users to learn about and explore geospatial data, and for geospatial data to come alive in ways it never has before. 
+
+Whether you want a turnkey dashboard, individual components, or a foundation for your own innovation, we want the VEDA Dashboard to be flexible and modular enough for your needs.
+
+As VEDA grows, we want to make it straightforward for organizations outside of NASA to use and extend these tools. If you have any feedback on the tools or your ability to use them, please reach out to veda@uah.edu
+
+This document shares guidance on how you can adopt the VEDA Dashboard in a way that fits your needs.
+
+## Getting Started
+
+If you are going to use the VEDA Dashboard for your own purposes, we assume that you will be self-hosting your own website and data. 
+- That website and data could all be VEDA tools, so if you're starting from scratch, don't worry! Visit the [top-level instructions](/Users/anthonyboyd/Documents/Github/veda-docs/open-source-ecosystem/creating-your-own-instance/index.qmd) for using VEDA.
+
+The primary repository for the VEDA Dashboard is here: 
+- [veda-ui Github](https://github.com/NASA-IMPACT/veda-ui)
+
+We have created a Template Dashboard to showcase how you can pull in veda-ui and create a website compiled with NextJS. 
+You can explore and review that implementation here:
+- [Template Dashboard GitHub](https://github.com/NASA-IMPACT/next-veda-ui)
+That Template Dashboard is live here:
+- [Template Dashboard](https://veda-ui-next-test.netlify.app/)
+
+## Choosing Your Path: How to Use VEDA
+
+Depending on your goals and technical preferences, there are three main ways to leverage the VEDA Dashboard:
+
+### Do you want the full VEDA Dashboard?
+
+#### Fork (for Light Customizations)
+
+If you mainly want to make small edits, adjusting styling, adding datasets, or updating content, then forking the [Template Dashboard GitHub](https://github.com/NASA-IMPACT/next-veda-ui) repository is faster and easier.
+
+- Benefit from updates to core VEDA functionality
+
+**When to choose this:**
+
+- You want to keep pace with VEDA updates.
+- You anticipate modest design or content changes.
+- You value simplicity and speed.
+- You are also using other VEDA tools and patterns, such as STAC and eoAPI.
+
+#### Manual Clone (for Heavy Customizations)
+
+If you plan to deeply customize the dashboar, —changing core logic, workflows, or integrating tightly with your systems, we recommend **manually cloning** the [Template Dashboard GitHub](https://github.com/NASA-IMPACT/next-veda-ui) repository.
+
+- This approach gives you full control and flexibility.
+- Best if you envision significant changes beyond design or content.
+
+**When to choose this:**
+
+- You need to build specialized workflows.
+- You plan to tightly integrate with internal systems.
+- You plan to make extensive changes to look and feel or the website-building components such as navigation, footer, etc.
+
+### You already have a website, and want to include parts of the VEDA Dashboard
+
+####3. Use VEDA as an NPM Package (for Component Integration)
+
+If you already have a robust web presence but want to use VEDA's powerful **tools** and **widgets**—such as data stories or analysis tools, then you can simply import them as an NPM package.
+
+- Allows you to selectively integrate VEDA components into your existing site.
+- Take advantage of novel storytelling and COG (Cloud-Optimized GeoTIFF) capabilities without a full rebuild.
+
+**When to choose this:**
+
+- You want to enhance your existing website
+- You already have a preferred CMS tool for managing your site
+
+---
+
+## Content Management Options
+
+Content in VEDA is designed to be **easily managed**.
+
+- **Default:** Content is stored in simple, human-readable **MDX files**. Editors can write, edit, and customize pages directly.
+- **Optional:** We have prototyped an integration with [Strapi CMS](https://strapi.io/), providing a more familiar, GUI-based editing experience for non-technical users.
+- **Flexible:** We have extended the [MDX Editor](https://mdxeditor.dev/) to allow customization and story editing directly within your existing CMS or backend platform.
+
+This flexibility ensures that both technical and non-technical teams can collaborate seamlessly.
+
+---
+
+If you have questions, ideas, or would like support adopting VEDA, we welcome collaboration.
+
+**Let us know how we can help!** email us at veda@uah.edu
