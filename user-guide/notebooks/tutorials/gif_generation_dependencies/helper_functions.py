@@ -16,8 +16,8 @@ from scipy.ndimage import binary_dilation
 
 
 # Constants
-STAC_API_URL = "https://staging-stac.delta-backend.com"
-RASTER_API_URL = "https://staging-raster.delta-backend.com"
+STAC_API_URL = "https://openveda.cloud/api/stac"
+RASTER_API_URL = "https://openveda.cloud/api/raster"
 
 # Collection we'll be using to generate the GIF
 collection = "no2-monthly"
