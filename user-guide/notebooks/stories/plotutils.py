@@ -24,7 +24,7 @@ from PIL import Image as pilImage
 import plotly.graph_objects as go
 
 
-def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipud, matplot_ramp, zoom_level, save_tif=False, tif_filename=None, crs=None):
+def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipud, matplot_ramp, zoom_level, save_tif=False, tif_filename=None, crs=None, opacity=0.8):
     """
     Plot a selected day's xarray data on an interactive Folium map with a colorbar.
 
@@ -167,7 +167,7 @@ def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipu
     ImageOverlay(
         image=rgba,
         bounds=[[lat_bottom, lon_left], [lat_top, lon_right]],
-        opacity=0.8,
+        opacity=opacity,
         origin="lower",                # ensures array[0] is the bottom row
         mercator_project=True          # ← this warps your Plate Carrée array into 3857
     ).add_to(m)
@@ -272,6 +272,7 @@ def plot_folium_from_STAC_with_legend(
     attribution: str = "",
     show_control: bool = True,
     crs: str = "EPSG4326",
+    opacity: float = 0.8
     
 ) -> folium.Map:
 
@@ -291,7 +292,8 @@ def plot_folium_from_STAC_with_legend(
         name=layer_name,
         overlay=False,
         control=show_control,
-        tms=False
+        tms=False,
+        opacity = opacity
     ).add_to(m)
 
     # sample the Matplotlib colormap
