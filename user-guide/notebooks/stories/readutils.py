@@ -6,6 +6,8 @@ from datetime import datetime as dt
 from typing import Dict, List, Optional
 from tqdm import tqdm
 import re
+from pystac_client import Client
+
 
 def list_files(bucket_name, prefix, region, file_extension):
     """
@@ -189,6 +191,12 @@ def load_datasets_from_keys(
         daily_datasets[day] = datasets
 
     return daily_datasets
+
+
+def list_stac_providers(stac_api_url):
+    root = Client.open(stac_api_url)
+    providers = [p.id for p in root.get_children()]
+    providers = sorted(providers)
 
 
 
