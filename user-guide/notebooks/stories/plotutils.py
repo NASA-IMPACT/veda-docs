@@ -63,15 +63,16 @@ def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipu
     lats = da.lat.values
     data = da.values
 
-    # after you select da and extract lons/lats …
+    # 1) true grid‐cell edges, as Python floats
     dx = float(lons[1] - lons[0])
     dy = float(lats[1] - lats[0])
 
-    #build edge bounds for plotting
-    lon_left   = lon_min - dx/2
-    lon_right  = lon_max + dx/2
-    lat_bottom = lat_min - dy/2
-    lat_top    = lat_max + dy/2
+    lon_left   = float(lons.min() - dx/2)
+    lon_right  = float(lons.max() + dx/2)
+    lat_bottom = float(lats.min() - dy/2)
+    lat_top    = float(lats.max() + dy/2)
+
+
 
     #center on the true middle
     center_lat = (lat_bottom + lat_top) / 2
@@ -158,6 +159,10 @@ def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipu
     # — after you've computed `normed` (shape [ny, nx]) and the half-cell edges:
     rgba = cm.get_cmap(matplot_ramp)(normed)         # shape [ny, nx, 4], floats 0–1
     
+    # convert RGBA [0–1] → uint8 [0–255] → pure‐Python nested lists
+    rgba_uint8 = (rgba * 255).astype("uint8")
+    image_list = rgba_uint8.tolist()
+    
     m = Map(
         location=[ (lat_bottom+lat_top)/2, (lon_left+lon_right)/2 ],
         zoom_start=zoom_level
@@ -165,7 +170,7 @@ def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipu
     TileLayer("CartoDB positron").add_to(m)
     
     ImageOverlay(
-        image=rgba,
+        image=image_list,
         bounds=[[lat_bottom, lon_left], [lat_top, lon_right]],
         opacity=opacity,
         origin="lower",                # ensures array[0] is the bottom row
@@ -410,7 +415,7 @@ def matplotlib_gif(
         gl.xformatter = LONGITUDE_FORMATTER
         gl.yformatter = LATITUDE_FORMATTER
 
-        ax.set_title(f"{pd.to_datetime(t).strftime('%Y-%m-%d')}")
+        ax.set_title(f"{pd.to_datetime(t).strftime('%Y-%m-%d %H:%M')}")
 
         buf = io.BytesIO()
         plt.savefig(buf, format="png", bbox_inches="tight")
