@@ -872,13 +872,13 @@ ul.task-list li input[type="checkbox"] {
 <section id="steps-for-ingesting-a-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="steps-for-ingesting-a-dataset">Steps for ingesting a dataset</h2>
 <p>For dataset ingestion, generally four steps are required. Depending on the capacity of the dataset provider, some of the steps can be completed by the VEDA team on request.</p>
-<p>The data ingestion process requires <code>Cognito</code> credentials (username and password). In order to retrieve these credentials, you’ll need to contact a member of the VEDA Data Services Team at <a href="mailto:veda@uah.edu">veda@uah.edu</a> who can set up an account and credentials for you. The first time you log in using the <code>Cognito Client</code>, you will be prompted to set a new password.</p>
+<p>The data ingestion process requires <code>Keycloak</code> credentials (username and password). In order to set up authentication via Keycloak, see <a href="TODO">Setting Up Keycloak</a>. If you need assistance, you can contact a member of the VEDA Data Services Team at <a href="mailto:veda@uah.edu">veda@uah.edu</a> who can set up an account and credentials for you. The first time you log in using the <code>Cognito Client</code>, you will be prompted to set a new password.</p>
 <p>Complete as many steps of the process as you have capacity or authorization to. You will initially publish to a staging catalog where you can review the data before publishing to the public production catalog. Please follow the steps and guides outlined below:</p>
 <ol type="1">
 <li>Transform datasets to conform with cloud-optimized file formats - see <a href="../../../user-guide/content-curation/dataset-ingestion/file-preparation.html">file preparation</a></li>
 <li>Upload files to storage (may be skipped, if data is cloud-optimized and in <code>us-west-2</code>)</li>
 <li>Load those records into the STAGING VEDA STAC - see <a href="../../../user-guide/content-curation/dataset-ingestion/catalog-ingestion.html">catalog ingestion</a></li>
-<li>Finally, when you are satisfied with how your data look in the staging catalog, open a <a href="https://github.com/NASA-IMPACT/veda-data">veda-data</a> pull request with the configuration you used to publish to the staging catalog. When this PR is approved, the data will be published to the production catalog at openveda.cloud!</li>
+<li>Finally, when you are satisfied with how your data look in the staging catalog, request a review on the <a href="https://github.com/NASA-IMPACT/veda-data">veda-data</a> pull request that the Ingest UI opened with the configuration you used to publish to the staging catalog. When this PR is approved, the data will be published to the production catalog at openveda.cloud!</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled" title="If the above instructions do not cover the data you want to ingest and/or if you could use extra help getting started">
 <div class="callout-header d-flex align-content-center">
