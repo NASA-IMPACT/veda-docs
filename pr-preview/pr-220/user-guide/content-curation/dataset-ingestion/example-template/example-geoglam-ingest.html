@@ -933,14 +933,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="approach" class="level1">
 <h1>Approach</h1>
-<p>This notebook is intented to be used as a reference for data providers who want to add new datasets to the VEDA Dashboard. As always it is important that the data provider has read the documentation for <a href="https://nasa-impact.github.io/veda-docs/content-curation/dataset-ingestion/">Data Ingestion</a> before moving forward with this notebook example.</p>
-<p>For example purposes, we will walk the end user through adding the GEOGLAM June 2023 dataset directly to the VEDA Dashboard.</p>
+<p>This notebook is intended to be used as a reference for data providers who want to add new datasets to the VEDA Dashboard. Please read the documentation for <a href="https://nasa-impact.github.io/veda-docs/content-curation/dataset-ingestion/">Data Ingestion</a> before moving forward with this notebook example.</p>
+<p>For example purposes, we will walk you through adding the GEOGLAM June 2023 dataset directly to the VEDA Dashboard.</p>
 <ol type="1">
 <li>Validate the GeoTIFF</li>
 <li>Upload the file to the staging S3 bucket (<code>veda-data-store-staging</code>)</li>
-<li>Use the workflows-api (<a href="https://staging.openveda.cloud/api/workflows/docs">staging.openveda.cloud/api/workflows/docs</a>) to generate STAC metadata for the file and add to the staging STAC catalog (<a href="https://staging.openveda.cloud">staging.openveda.cloud</a>)</li>
+<li>Use the Ingest UI (<a href="https://ingest.openveda.cloud/">ingest.openveda.cloud/</a>) to generate STAC metadata for the file and add to the staging STAC catalog (<a href="https://staging.openveda.cloud">staging.openveda.cloud</a>)</li>
 </ol>
-<p>When the data has been published to the STAC metadata catalog for this <code>geoglam</code> collection, which is already configured for the dashboard, it will be available in the <a href="https://www.earthdata.nasa.gov/dashboard">VEDA Dashboard</a></p>
+<p>When the data has been published to the STAC metadata catalog for this <code>geoglam</code> collection, which is already configured for the dashboard, it will be available in the <a href="https://www.earthdata.nasa.gov/dashboard">VEDA Dashboard</a>.</p>
 <section id="validate-data-format" class="level2">
 <h2 class="anchored" data-anchor-id="validate-data-format">1. Validate data format</h2>
 <p>Below we will import some geospatial tools for validation and define some of the variables to be used including the <code>TARGET_FILENAME</code> for the datafile you want to upload. Note that in this example we will demonstrate the ingestion of GEOGLAM’s June 2023 data. It is important that the file you want to upload (e.g., <code>CropMonitor_2023_06_28.tif</code> ) is located in the same repository folder as this notebook.</p>
@@ -952,7 +952,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In the cell below we are using <code>TARGET_FILENAME</code> to revise the <code>LOCAL_FILE_PATH</code> into the correct file format as advised in the <code>File preparation</code> <a href="https://nasa-impact.github.io/veda-docs/content-curation/dataset-ingestion/file-preparation.html">documentation</a>. See example formats in the link provided.</p>
+<p>In the cell below, we are using <code>TARGET_FILENAME</code> to revise the <code>LOCAL_FILE_PATH</code> into the correct file format as advised in the <code>File preparation</code> <a href="https://nasa-impact.github.io/veda-docs/content-curation/dataset-ingestion/file-preparation.html">documentation</a>. See example formats in the link provided.</p>
 <p>If the <code>LOCAL_FILE_PATH</code> is already properly formatted, then both <code>LOCAL_FILE_PATH</code> and <code>TARGET_FILENAME</code> will be identical.</p>
 <div id="ed0999b4-36c2-4bcf-8ab6-bcd8738deb52" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>LOCAL_FILE_PATH <span class="op">=</span> <span class="st">"CropMonitor_2023_06_28.tif"</span></span>
@@ -960,7 +960,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>TARGET_FILENAME <span class="op">=</span> <span class="ss">f"CropMonitor_</span><span class="sc">{</span>YEAR<span class="sc">}{</span>MONTH<span class="sc">:02}</span><span class="ss">.tif"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The following code is used to test whether the data format you are planning to upload is Cloud Optimized GeoTiff (COG) that enables more efficient workflows in the cloud environment. If the validation process identifies that it is not a COG, it will convert it into one.</p>
+<p>The following code is used to test whether the data format you are planning to upload is a Cloud Optimized GeoTiff (COG) which enables more efficient workflows in the cloud environment. If the validation process identifies that file is not a COG, it will convert it into one.</p>
 <div id="286370d2-953b-4bc7-8b43-7db4250a4dd9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>file_is_a_cog <span class="op">=</span> rio_cogeo.cog_validate(LOCAL_FILE_PATH)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> file_is_a_cog:</span>
@@ -984,7 +984,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="use-the-ingest-ui-to-add-this-geoglam-item-to-the-staging-catalog" class="level2">
 <h2 class="anchored" data-anchor-id="use-the-ingest-ui-to-add-this-geoglam-item-to-the-staging-catalog">3. Use the Ingest UI to add this geoglam item to the staging catalog</h2>
-<p>For this step, open the Ingest UI at <a href="https://ingest.openveda.cloud/">ingest.openveda.cloud</a> in a second browser tab and click the “Sign in with Keycloak” button to authenticate your session. You will be temporarily redirected to CILogon and can use any Identity Provider to authorize. Then you will be redirected back to the Ingest UI. The cells below will guide you through how to use the Ingest UI to stage your data.</p>
+<p>For this step, open the Ingest UI at <a href="https://ingest.openveda.cloud/">ingest.openveda.cloud</a> in a second browser tab and click the “Sign in with Keycloak” button to authenticate your session. You will be temporarily redirected to CILogon. Please use an Identity Provider that is associated to your primary email address to authorize. Then you will be redirected back to the Ingest UI. The cells below will guide you through how to use the Ingest UI to stage your data.</p>
 <section id="a.-construct-dataset-definition" class="level3">
 <h3 class="anchored" data-anchor-id="a.-construct-dataset-definition">3a. Construct dataset definition</h3>
 <p>Here, the data provider will construct the dataset definition (and supporting metadata) that will be used for dataset ingestion. It is imperative that these values are correct and align to the data the provider is planning to upload to the VEDA Platform. For example, make sure that the <code>startdate</code> and <code>enddate</code> are realistic (e.g., an <code>"enddate":"2023-06-31T23:59:59Z"</code> would be an incorrect value for June, as it contains only 31 days).</p>
@@ -1214,14 +1214,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="b.-validate-dataset-definition" class="level3">
 <h3 class="anchored" data-anchor-id="b.-validate-dataset-definition">3b. Validate dataset definition</h3>
-<p>After composing your dataset definition, navigate to “Create Ingest” in the Ingest UI. There you will see headers for <code>Form</code> and <code>Manual JSON Edit</code>. Navigate to the <code>Manual JSON Edit</code> page and copy the printed json and paste it into the input on the page.</p>
+<p>After composing your dataset definition, navigate to “Create Ingest” in the Ingest UI. There, you will see headers for <code>Form</code> and <code>Manual JSON Edit</code>. Navigate to the <code>Manual JSON Edit</code> page and copy the printed json and paste it into the input on the page.</p>
 <p>If the json is valid, the response will confirm that it is ready to be published on the VEDA Platform. Otherwise, you will see a note at the bottom of the webpage in red that says <code>Invalid JSON format.</code></p>
 </section>
 <section id="c.-publish-to-stac" class="level3">
 <h3 class="anchored" data-anchor-id="c.-publish-to-stac">3c. Publish to STAC</h3>
 <p>Now that you have validated your dataset, you can initiate a workflow and publish the dataset to the VEDA Platform.</p>
 <p>In the <code>Form</code> page of the Ingest UI, you can click <code>Submit</code> to submit your data ingestion.</p>
-<p>On success, a veda-data GitHub Pull Request will be opened containing your ingest request and a GitHub Actions workflow will be kicked off to publish your dataset to staging. A member from the VEDA Data Services team will review your PR to see if it is ready for production ingestion.</p>
+<p>On success, a <a href="https://github.com/NASA-IMPACT/veda-data/pulls">veda-data GitHub Pull Request</a> will be opened containing your ingest request and a GitHub Actions workflow will be kicked off to publish your dataset to staging. A member from the VEDA Data Services team will review your PR to see if it is ready for production ingestion.</p>
 <p>Congratulations! You have now successfully uploaded a COG dataset to the <a href="https://www.earthdata.nasa.gov/dashboard/">VEDA Dashboard</a>. You can now explore the data catalog to verify the ingestion process has worked successfully, as now uploaded data should be ready for viewing and exploration.</p>
 
 
