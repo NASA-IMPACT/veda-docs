@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
 <link href="../../../user-guide/data-services/apis/raster-api.html" rel="next">
-<link href="../../../user-guide/data-services/data-ingestion.html" rel="prev">
+<link href="../../../user-guide/data-services/setup-keycloak.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
@@ -42,9 +42,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-f5e329c7025d3749e01ee46641530714.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark-ede87453c2f33eaa32d6177a74dba995.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../../site_libs/bootstrap/bootstrap-f5e329c7025d3749e01ee46641530714.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-9b4caa2115199f7fcce8bca7ad5f0bce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-35e3645126583ff2c09f7cbdb3c8f42c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-9b4caa2115199f7fcce8bca7ad5f0bce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -522,6 +522,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">VEDA Data Ingestion Services</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/data-services/setup-keycloak.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setting Up Keycloak</span></a>
+  </div>
+</li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../../user-guide/data-services/apis/index.html" class="sidebar-item-text sidebar-link active">
@@ -887,6 +893,7 @@ ul.task-list li input[type="checkbox"] {
 <li>STAC API (metadata): <a href="https://openveda.cloud/api/stac/docs">openveda.cloud/api/stac/docs</a></li>
 <li>List collections: <a href="https://openveda.cloud/api/stac/collections">openveda.cloud/api/stac/collections</a></li>
 <li>Raster API (tiling): <a href="https://openveda.cloud/api/raster/docs">openveda.cloud/api/raster/docs</a></li>
+<li>Features API (vector data): <a href="https://openveda.cloud/api/features/docs">openveda.cloud/api/features/docs</a> - see also the <a href="../user-guide/notebooks/tutorials/mapping-fires.html">usage tutorial</a></li>
 </ul>
 </section>
 <section id="staging-maintenance-will-be-announced" class="level3">
@@ -897,7 +904,6 @@ ul.task-list li input[type="checkbox"] {
 <li>List collections: <a href="https://staging.openveda.cloud/api/stac/collections">staging.openveda.cloud/api/stac/collections</a></li>
 <li>Raster API (map tiles and timeseries): <a href="https://staging.openveda.cloud/api/raster/docs">staging.openveda.cloud/api/raster/docs</a></li>
 <li>Features API (vector data): <a href="https://firenrt.delta-backend.com">firenrt.delta-backend.com</a> - see also the <a href="../user-guide/notebooks/tutorials/mapping-fires.html">usage tutorial</a></li>
-<li>Workflows API (request airflow ingestions): <a href="https://staging.openveda.cloud/api/workflows/docs">staging.openveda.cloud/api/workflows/docs</a></li>
 <li>STAC viewer (experimental): <a href="https://staging.openveda.cloud/api/stac/index.html">staging.openveda.cloud/api/stac/index.html</a></li>
 </ul>
 </section>
@@ -1347,8 +1353,8 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../../user-guide/data-services/data-ingestion.html" class="pagination-link" aria-label="VEDA Data Ingestion Services">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">VEDA Data Ingestion Services</span>
+      <a href="../../../user-guide/data-services/setup-keycloak.html" class="pagination-link" aria-label="Setting Up Keycloak">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Setting Up Keycloak</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

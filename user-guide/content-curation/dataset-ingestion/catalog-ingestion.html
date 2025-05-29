@@ -77,9 +77,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-f5e329c7025d3749e01ee46641530714.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark-ede87453c2f33eaa32d6177a74dba995.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../../site_libs/bootstrap/bootstrap-f5e329c7025d3749e01ee46641530714.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-9b4caa2115199f7fcce8bca7ad5f0bce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-35e3645126583ff2c09f7cbdb3c8f42c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-9b4caa2115199f7fcce8bca7ad5f0bce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -557,6 +557,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">VEDA Data Ingestion Services</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/data-services/setup-keycloak.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setting Up Keycloak</span></a>
+  </div>
+</li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../../user-guide/data-services/apis/index.html" class="sidebar-item-text sidebar-link">
@@ -877,10 +883,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#step-iii-create-dataset-definitions" id="toc-step-iii-create-dataset-definitions" class="nav-link active" data-scroll-target="#step-iii-create-dataset-definitions">STEP III: Create dataset definitions</a></li>
   <li><a href="#step-iv-publication" id="toc-step-iv-publication" class="nav-link" data-scroll-target="#step-iv-publication">STEP IV: Publication</a>
   <ul class="collapse">
-  <li><a href="#prerequisite-obtain-credentials-from-a-veda-team-member" id="toc-prerequisite-obtain-credentials-from-a-veda-team-member" class="nav-link" data-scroll-target="#prerequisite-obtain-credentials-from-a-veda-team-member">Prerequisite: obtain credentials from a VEDA team member</a></li>
-  <li><a href="#sign-in-to-the-workflows-api-docs-using-your-credentials" id="toc-sign-in-to-the-workflows-api-docs-using-your-credentials" class="nav-link" data-scroll-target="#sign-in-to-the-workflows-api-docs-using-your-credentials">Sign in to the workflows API docs using your credentials</a></li>
-  <li><a href="#datasetvalidate" id="toc-datasetvalidate" class="nav-link" data-scroll-target="#datasetvalidate"><code>/dataset/validate</code></a></li>
-  <li><a href="#datasetpublish" id="toc-datasetpublish" class="nav-link" data-scroll-target="#datasetpublish"><code>/dataset/publish</code></a></li>
+  <li><a href="#sign-in-to-the-veda-ingest-ui-using-keycloak" id="toc-sign-in-to-the-veda-ingest-ui-using-keycloak" class="nav-link" data-scroll-target="#sign-in-to-the-veda-ingest-ui-using-keycloak">Sign in to the VEDA Ingest UI using Keycloak</a></li>
+  <li><a href="#create-ingest" id="toc-create-ingest" class="nav-link" data-scroll-target="#create-ingest">Create Ingest</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/user-guide/content-curation/dataset-ingestion/catalog-ingestion.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -919,8 +923,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"title"</span><span class="fu">:</span> <span class="st">"Evapotranspiration - LIS 10km Global DA"</span><span class="fu">,</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"description"</span><span class="fu">:</span> <span class="st">"Gridded total evapotranspiration (in kg m-2 s-1) from 10km global LIS with assimilation"</span><span class="fu">,</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"license"</span><span class="fu">:</span> <span class="st">"CC0-1.0"</span><span class="fu">,</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"is_periodic"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"time_density"</span><span class="fu">:</span> <span class="st">"day"</span><span class="fu">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"dashboard:is_periodic"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"dashboard:time_density"</span><span class="fu">:</span> <span class="st">"day"</span><span class="fu">,</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"spatial_extent"</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"xmin"</span><span class="fu">:</span> <span class="fl">-179.95</span><span class="fu">,</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"ymin"</span><span class="fu">:</span> <span class="fl">-59.45</span><span class="fu">,</span></span>
@@ -984,13 +988,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><code>CC0-1.0</code></td>
 </tr>
 <tr class="odd">
-<td><code>is_periodic</code></td>
+<td><code>dashboard:is_periodic</code></td>
 <td>is the data periodic? specifies if the data files repeat at a uniform time interval</td>
 <td><code>true</code> | <code>false</code></td>
 <td><code>true</code></td>
 </tr>
 <tr class="even">
-<td><code>time_density</code></td>
+<td><code>dashboard:time_density</code></td>
 <td>the time step in which we want to navigate the dataset in the dashboard</td>
 <td><code>year</code> | <code>month</code> | <code>day</code> | <code>hour</code> | <code>minute</code> | <code>null</code></td>
 <td></td>
@@ -1112,27 +1116,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>[EIS] Reviewing the collection/items published to the dev STAC catalog</li>
 <li>[VEDA] Publishing to the production STAC catalog <code>https://openveda.cloud</code> by submitting the configuration you just created in a pull request to the <a href="https://github.com/NASA-IMPACT/veda-data?tab=readme-ov-file#dataset-submission-process">veda-data repo</a>.</li>
 </ol>
-<p>To use the VEDA Workflows API to schedule ingestion/publication of the data follow these steps:</p>
-<section id="prerequisite-obtain-credentials-from-a-veda-team-member" class="level3">
-<h3 class="anchored" data-anchor-id="prerequisite-obtain-credentials-from-a-veda-team-member">Prerequisite: obtain credentials from a VEDA team member</h3>
-<p>Ask a VEDA team member to create <code>Cognito</code> credentials (username and password) for VEDA authentication.</p>
+<section id="sign-in-to-the-veda-ingest-ui-using-keycloak" class="level3">
+<h3 class="anchored" data-anchor-id="sign-in-to-the-veda-ingest-ui-using-keycloak">Sign in to the VEDA Ingest UI using Keycloak</h3>
+<p>Open the Ingest UI at <a href="https://ingest.openveda.cloud/">ingest.openveda.cloud</a> in a second browser tab and click the “Sign in with Keycloak” button to authenticate your session. You will be temporarily redirected to CILogon. Please use an Identity Provider that is associated to your primary work or institution email address to authorize. Then you will be redirected back to the Ingest UI.</p>
 </section>
-<section id="sign-in-to-the-workflows-api-docs-using-your-credentials" class="level3">
-<h3 class="anchored" data-anchor-id="sign-in-to-the-workflows-api-docs-using-your-credentials">Sign in to the workflows API docs using your credentials</h3>
-<p>Open the workflows API at <a href="https://staging.openveda.cloud/api/workflows/docs">staging.openveda.cloud/api/workflows/docs</a> in a second browser tab and click the green authorize button at the upper right to authenticate your session with your username and password (you will be temporarily redirected to a login widget and then back to the workflows-api docs).</p>
-</section>
-<section id="datasetvalidate" class="level3">
-<h3 class="anchored" data-anchor-id="datasetvalidate"><code>/dataset/validate</code></h3>
-<p>After creating your <a href="#step-iii-create-dataset-definitions">dataset definition</a>, copy the printed json and paste it into the <code>/dataset/validate</code> input in the workflows-api docs page in the second tab. Note that if you navigate away from this page you will need to click authorize again.</p>
-<p>Choose <code>POST dataset/validate</code> in the <strong>Dataset</strong> section of the workflows-api docs. Click ’Try it Out` and paste your json into the <strong>Request body</strong> and then <strong>Execute</strong></p>
-<p>If the json is valid, the response will confirm that it is ready to be published on the VEDA Platform.</p>
-</section>
-<section id="datasetpublish" class="level3">
-<h3 class="anchored" data-anchor-id="datasetpublish"><code>/dataset/publish</code></h3>
-<p>Now that you have validated your dataset, you can initiate a workflow and publish the dataset to the VEDA Platform.</p>
-<p>Choose <code>POST dataset/publish</code> in the <strong>Dataset</strong> section of the workflows-api docs. Click ’Try it Out` and paste your json into the <strong>Request body</strong> and then <strong>Execute</strong></p>
-<p>On success, you will recieve a success message containing the id of your workflow, for example</p>
-<pre><code>{"message":"Successfully published collection: geoglam. 1  workflows initiated.","workflows_ids":["db6a2097-3e4c-45a3-a772-0c11e6da8b44"]}</code></pre>
+<section id="create-ingest" class="level3">
+<h3 class="anchored" data-anchor-id="create-ingest">Create Ingest</h3>
+<p>After composing your <a href="#step-iii-create-dataset-definitions">dataset definition</a>, navigate to “Create Ingest” in the Ingest UI.</p>
+<p>There, you will see headers for <code>Form</code> and <code>Manual JSON Edit</code>. Navigate to the <code>Manual JSON Edit</code> page and copy the printed json and paste it into the input on the page.</p>
+<p>If the json is valid, the response will confirm that it is ready to be published on the VEDA Platform. Otherwise, you will see a note at the bottom of the webpage in red that says <code>Invalid JSON format.</code></p>
+<p>In the <code>Form</code> page of the Ingest UI, you can click <code>Submit</code> to submit your data ingestion.</p>
+<p>On success, a <a href="https://github.com/NASA-IMPACT/veda-data/pulls">veda-data GitHub Pull Request</a> will be opened containing your ingest request and a GitHub Actions workflow will be kicked off to publish your dataset to staging. A member from the VEDA Data Services team will review your PR to see if it is ready for production ingestion.</p>
 
 
 </section>

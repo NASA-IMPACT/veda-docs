@@ -80,9 +80,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../site_libs/bootstrap/bootstrap-f5e329c7025d3749e01ee46641530714.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../../site_libs/bootstrap/bootstrap-dark-ede87453c2f33eaa32d6177a74dba995.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../../../site_libs/bootstrap/bootstrap-f5e329c7025d3749e01ee46641530714.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-9b4caa2115199f7fcce8bca7ad5f0bce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-dark-35e3645126583ff2c09f7cbdb3c8f42c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../../site_libs/bootstrap/bootstrap-9b4caa2115199f7fcce8bca7ad5f0bce.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -560,6 +560,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">VEDA Data Ingestion Services</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../user-guide/data-services/setup-keycloak.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setting Up Keycloak</span></a>
+  </div>
+</li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../../../user-guide/data-services/apis/index.html" class="sidebar-item-text sidebar-link">
@@ -881,7 +887,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#validate-data-format" id="toc-validate-data-format" class="nav-link" data-scroll-target="#validate-data-format">1. Validate data format</a></li>
   <li><a href="#upload-file-to-s3" id="toc-upload-file-to-s3" class="nav-link" data-scroll-target="#upload-file-to-s3">2. Upload file to S3</a></li>
-  <li><a href="#use-the-workflows-api-to-add-this-geoglam-item-to-the-staging-catalog" id="toc-use-the-workflows-api-to-add-this-geoglam-item-to-the-staging-catalog" class="nav-link" data-scroll-target="#use-the-workflows-api-to-add-this-geoglam-item-to-the-staging-catalog">3. Use the workflows-api to add this geoglam item to the staging catalog</a>
+  <li><a href="#use-the-ingest-ui-to-add-this-geoglam-item-to-the-staging-catalog" id="toc-use-the-ingest-ui-to-add-this-geoglam-item-to-the-staging-catalog" class="nav-link" data-scroll-target="#use-the-ingest-ui-to-add-this-geoglam-item-to-the-staging-catalog">3. Use the Ingest UI to add this geoglam item to the staging catalog</a>
   <ul class="collapse">
   <li><a href="#a.-construct-dataset-definition" id="toc-a.-construct-dataset-definition" class="nav-link" data-scroll-target="#a.-construct-dataset-definition">3a. Construct dataset definition</a></li>
   <li><a href="#b.-validate-dataset-definition" id="toc-b.-validate-dataset-definition" class="nav-link" data-scroll-target="#b.-validate-dataset-definition">3b. Validate dataset definition</a></li>
@@ -933,14 +939,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="approach" class="level1">
 <h1>Approach</h1>
-<p>This notebook is intented to be used as a reference for data providers who want to add new datasets to the VEDA Dashboard. As always it is important that the data provider has read the documentation for <a href="https://nasa-impact.github.io/veda-docs/content-curation/dataset-ingestion/">Data Ingestion</a> before moving forward with this notebook example.</p>
-<p>For example purposes, we will walk the end user through adding the GEOGLAM June 2023 dataset directly to the VEDA Dashboard.</p>
+<p>This notebook is intended to be used as a reference for data providers who want to add new datasets to the VEDA Dashboard. Please read the documentation for <a href="https://nasa-impact.github.io/veda-docs/content-curation/dataset-ingestion/">Data Ingestion</a> before moving forward with this notebook example.</p>
+<p>For example purposes, we will walk you through adding the GEOGLAM June 2023 dataset directly to the VEDA Dashboard.</p>
 <ol type="1">
 <li>Validate the GeoTIFF</li>
 <li>Upload the file to the staging S3 bucket (<code>veda-data-store-staging</code>)</li>
-<li>Use the workflows-api (<a href="https://staging.openveda.cloud/api/workflows/docs">staging.openveda.cloud/api/workflows/docs</a>) to generate STAC metadata for the file and add to the staging STAC catalog (<a href="https://staging.openveda.cloud">staging.openveda.cloud</a>)</li>
+<li>Use the Ingest UI (<a href="https://ingest.openveda.cloud/">ingest.openveda.cloud/</a>) to generate STAC metadata for the file and add to the staging STAC catalog (<a href="https://staging.openveda.cloud">staging.openveda.cloud</a>)</li>
 </ol>
-<p>When the data has been published to the STAC metadata catalog for this <code>geoglam</code> collection, which is already configured for the dashboard, it will be available in the <a href="https://www.earthdata.nasa.gov/dashboard">VEDA Dashboard</a></p>
+<p>When the data has been published to the STAC metadata catalog for this <code>geoglam</code> collection, which is already configured for the dashboard, it will be available in the <a href="https://www.earthdata.nasa.gov/dashboard">VEDA Dashboard</a>.</p>
 <section id="validate-data-format" class="level2">
 <h2 class="anchored" data-anchor-id="validate-data-format">1. Validate data format</h2>
 <p>Below we will import some geospatial tools for validation and define some of the variables to be used including the <code>TARGET_FILENAME</code> for the datafile you want to upload. Note that in this example we will demonstrate the ingestion of GEOGLAM’s June 2023 data. It is important that the file you want to upload (e.g., <code>CropMonitor_2023_06_28.tif</code> ) is located in the same repository folder as this notebook.</p>
@@ -952,7 +958,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In the cell below we are using <code>TARGET_FILENAME</code> to revise the <code>LOCAL_FILE_PATH</code> into the correct file format as advised in the <code>File preparation</code> <a href="https://nasa-impact.github.io/veda-docs/content-curation/dataset-ingestion/file-preparation.html">documentation</a>. See example formats in the link provided.</p>
+<p>In the cell below, we are using <code>TARGET_FILENAME</code> to revise the <code>LOCAL_FILE_PATH</code> into the correct file format as advised in the <code>File preparation</code> <a href="https://nasa-impact.github.io/veda-docs/content-curation/dataset-ingestion/file-preparation.html">documentation</a>. See example formats in the link provided.</p>
 <p>If the <code>LOCAL_FILE_PATH</code> is already properly formatted, then both <code>LOCAL_FILE_PATH</code> and <code>TARGET_FILENAME</code> will be identical.</p>
 <div id="ed0999b4-36c2-4bcf-8ab6-bcd8738deb52" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>LOCAL_FILE_PATH <span class="op">=</span> <span class="st">"CropMonitor_2023_06_28.tif"</span></span>
@@ -960,7 +966,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>TARGET_FILENAME <span class="op">=</span> <span class="ss">f"CropMonitor_</span><span class="sc">{</span>YEAR<span class="sc">}{</span>MONTH<span class="sc">:02}</span><span class="ss">.tif"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The following code is used to test whether the data format you are planning to upload is Cloud Optimized GeoTiff (COG) that enables more efficient workflows in the cloud environment. If the validation process identifies that it is not a COG, it will convert it into one.</p>
+<p>The following code is used to test whether the data format you are planning to upload is a Cloud Optimized GeoTiff (COG) which enables more efficient workflows in the cloud environment. If the validation process identifies that file is not a COG, it will convert it into one.</p>
 <div id="286370d2-953b-4bc7-8b43-7db4250a4dd9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>file_is_a_cog <span class="op">=</span> rio_cogeo.cog_validate(LOCAL_FILE_PATH)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> file_is_a_cog:</span>
@@ -982,17 +988,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    s3.upload_file(LOCAL_FILE_PATH, KEY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="use-the-workflows-api-to-add-this-geoglam-item-to-the-staging-catalog" class="level2">
-<h2 class="anchored" data-anchor-id="use-the-workflows-api-to-add-this-geoglam-item-to-the-staging-catalog">3. Use the workflows-api to add this geoglam item to the staging catalog</h2>
-<p>For this step, open the workflows API at <a href="https://staging.openveda.cloud/api/workflows/docs">staging.openveda.cloud/api/workflows/docs</a> in a second browser tab and click the green authorize button at the upper right to authenticate your session with your username and password (you will be temporarily redirected to a login widget and then back to the workflows-api docs). The cells below will guide you through the process of configuiring your request jsons for each endpoint demonstrated and you will copy the cell outputs into the workflows API in your second tab.</p>
+<section id="use-the-ingest-ui-to-add-this-geoglam-item-to-the-staging-catalog" class="level2">
+<h2 class="anchored" data-anchor-id="use-the-ingest-ui-to-add-this-geoglam-item-to-the-staging-catalog">3. Use the Ingest UI to add this geoglam item to the staging catalog</h2>
+<p>For this step, open the Ingest UI at <a href="https://ingest.openveda.cloud/">ingest.openveda.cloud</a> in a second browser tab and click the “Sign in with Keycloak” button to authenticate your session. You will be temporarily redirected to CILogon. Please use an Identity Provider that is associated to your primary work or institution email address to authorize. Then you will be redirected back to the Ingest UI. The cells below will guide you through how to use the Ingest UI to stage your data.</p>
 <section id="a.-construct-dataset-definition" class="level3">
 <h3 class="anchored" data-anchor-id="a.-construct-dataset-definition">3a. Construct dataset definition</h3>
-<p>Here the data provider will construct the dataset definition (and supporting metadata) that will be used for dataset ingestion. It is imperative that these values are correct and align to the data the provider is planning to upload to the VEDA Platform. For example, make sure that the <code>startdate</code> and <code>enddate</code> are realistic (e.g., an <code>"enddate":"2023-06-31T23:59:59Z"</code> would be an incorrect value for June, as it contains only 31 days).</p>
-<p>For further detail on metadata required for entries in the VEDA STAC to work with the VEDA Dashboard, see documentation <a href="https://nasa-impact.github.io/veda-docs/content-curation/dataset-ingestion/stac-collection-conventions.html">here.</a> In particular, note recommendations for the fields <code>is_periodic</code> and <code>time_density</code>. For example, in the code block below we define the <code>is_periodic</code> field as <code>False</code> because we are ingesting only one month of data. Even though we know that the monthly observations are provided routinely by GEOGLAM, we will only have a single file to ingest and so do not have a temporal range of items in the collection with a monthly time density to generate a time picker from the available data.</p>
+<p>Here, the data provider will construct the dataset definition (and supporting metadata) that will be used for dataset ingestion. It is imperative that these values are correct and align to the data the provider is planning to upload to the VEDA Platform. For example, make sure that the <code>startdate</code> and <code>enddate</code> are realistic (e.g., an <code>"enddate":"2023-06-31T23:59:59Z"</code> would be an incorrect value for June, as it contains only 31 days).</p>
+<p>For further detail on metadata required for entries in the VEDA STAC to work with the VEDA Dashboard, see documentation <a href="https://nasa-impact.github.io/veda-docs/content-curation/dataset-ingestion/stac-collection-conventions.html">here.</a> In particular, note recommendations for the fields <code>dashboard:is_periodic</code> and <code>dashboard:time_density</code>. For example, in the code block below we define the <code>dashboard:is_periodic</code> field as <code>False</code> because we are ingesting only one month of data. Even though we know that the monthly observations are provided routinely by GEOGLAM, we will only have a single file to ingest and so do not have a temporal range of items in the collection with a monthly time density to generate a time picker from the available data.</p>
 <blockquote class="blockquote">
 <p><strong>Note</strong> Several OPTIONAL properties are added to this dataset config for completeness. Your dataset json does NOT need to include these optional properties * <code>assets</code> * <code>item_assets</code> * <code>renders</code></p>
 </blockquote>
-<div id="4a046ad1-c5ad-4212-ac33-bb7c3e0f7a97" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}" data-execution_count="5">
+<div id="4a046ad1-c5ad-4212-ac33-bb7c3e0f7a97" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> {</span>
@@ -1011,8 +1017,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    },</span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"license"</span>: <span class="st">"MIT"</span>,</span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"description"</span>: <span class="st">"The Crop Monitors were designed to provide a public good of open, timely, science-driven information on crop conditions in support of market transparency for the G20 Agricultural Market Information System (AMIS). Reflecting an international, multi-source, consensus assessment of crop growing conditions, status, and agro-climatic factors likely to impact global production, focusing on the major producing and trading countries for the four primary crops monitored by AMIS (wheat, maize, rice, and soybeans). The Crop Monitor for AMIS brings together over 40 partners from national, regional (i.e. sub-continental), and global monitoring systems, space agencies, agriculture organizations and universities. Read more: https://cropmonitor.org/index.php/about/aboutus/"</span>,</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"is_periodic"</span>: <span class="va">False</span>,</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"time_density"</span>: <span class="st">"month"</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"dashboard:is_periodic"</span>: <span class="va">False</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"dashboard:time_density"</span>: <span class="st">"month"</span>,</span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">## </span><span class="al">NOTE</span><span class="co">: email the veda team at veda@uah.edu to upload a new thumbnail for your dataset</span></span>
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"assets"</span>: {</span>
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"thumbnail"</span>: {</span>
@@ -1103,8 +1109,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   },
   "license": "MIT",
   "description": "The Crop Monitors were designed to provide a public good of open, timely, science-driven information on crop conditions in support of market transparency for the G20 Agricultural Market Information System (AMIS). Reflecting an international, multi-source, consensus assessment of crop growing conditions, status, and agro-climatic factors likely to impact global production, focusing on the major producing and trading countries for the four primary crops monitored by AMIS (wheat, maize, rice, and soybeans). The Crop Monitor for AMIS brings together over 40 partners from national, regional (i.e. sub-continental), and global monitoring systems, space agencies, agriculture organizations and universities. Read more: https://cropmonitor.org/index.php/about/aboutus/",
-  "is_periodic": false,
-  "time_density": "month",
+  "dashboard:is_periodic": false,
+  "dashboard:time_density": "month",
   "assets": {
     "thumbnail": {
       "href": "https://thumbnails.openveda.cloud/geoglam--dataset-cover.jpg",
@@ -1214,16 +1220,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="b.-validate-dataset-definition" class="level3">
 <h3 class="anchored" data-anchor-id="b.-validate-dataset-definition">3b. Validate dataset definition</h3>
-<p>After composing your dataset definition, copy the printed json and paste it into the <code>/dataset/validate</code> input in the workflows-api docs page in the second tab. Note that if you navigate away from this page you will need to click authorize again.</p>
-<p>Choose <code>POST dataset/validate</code> in the <strong>Dataset</strong> section of the API docs at <a href="https://staging.openveda.cloud/api/workflows/docs">staging.openveda.cloud/api/workflows/docs</a>. Click ’Try it Out` and paste your json into the <strong>Request body</strong> and then <strong>Execute</strong></p>
-<p>If the json is valid, the response will confirm that it is ready to be published on the VEDA Platform.</p>
+<p>After composing your dataset definition, navigate to “Create Ingest” in the Ingest UI. There, you will see headers for <code>Form</code> and <code>Manual JSON Edit</code>. Navigate to the <code>Manual JSON Edit</code> page and copy the printed json and paste it into the input on the page.</p>
+<p>If the json is valid, the response will confirm that it is ready to be published on the VEDA Platform. Otherwise, you will see a note at the bottom of the webpage in red that says <code>Invalid JSON format.</code></p>
 </section>
 <section id="c.-publish-to-stac" class="level3">
 <h3 class="anchored" data-anchor-id="c.-publish-to-stac">3c. Publish to STAC</h3>
 <p>Now that you have validated your dataset, you can initiate a workflow and publish the dataset to the VEDA Platform.</p>
-<p>Choose <code>POST dataset/publish</code> in the <strong>Dataset</strong> section of the API docs at <a href="https://staging.openveda.cloud/api/workflows/docs">staging.openveda.cloud/api/workflows/docs</a>. Click ’Try it Out` and paste your json into the <strong>Request body</strong> and then <strong>Execute</strong></p>
-<p>On success, you will recieve a success message containing the id of your workflow, for example</p>
-<pre><code>{"message":"Successfully published collection: geoglam. 1  workflows initiated.","workflows_ids":["db6a2097-3e4c-45a3-a772-0c11e6da8b44"]}</code></pre>
+<p>In the <code>Form</code> page of the Ingest UI, you can click <code>Submit</code> to submit your data ingestion.</p>
+<p>On success, a <a href="https://github.com/NASA-IMPACT/veda-data/pulls">veda-data GitHub Pull Request</a> will be opened containing your ingest request and a GitHub Actions workflow will be kicked off to publish your dataset to staging. A member from the VEDA Data Services team will review your PR to see if it is ready for production ingestion.</p>
 <p>Congratulations! You have now successfully uploaded a COG dataset to the <a href="https://www.earthdata.nasa.gov/dashboard/">VEDA Dashboard</a>. You can now explore the data catalog to verify the ingestion process has worked successfully, as now uploaded data should be ready for viewing and exploration.</p>
 
 
