@@ -2030,186 +2030,106 @@
     ]
   },
   {
-    "objectID": "user-guide/data-services/data-ingestion.html",
-    "href": "user-guide/data-services/data-ingestion.html",
-    "title": "VEDA Data Ingestion Services",
+    "objectID": "user-guide/data-services/setup-keycloak.html",
+    "href": "user-guide/data-services/setup-keycloak.html",
+    "title": "Setting Up Keycloak",
     "section": "",
-    "text": "VEDA’s data ingestion services are designed to handle and manage the flow of data from various sources efficiently. The system integrates with Self Managed Apache Airflow for orchestrating and scheduling data pipelines, and APIs to facilitate and manage data ingestion tasks.\n\n\n\nSelf Managed Apache Airflow Instance\n\nAirflow orchestrates various data ingestion tasks and workflows. It supports scheduling, monitoring, and managing pipelines, described using Directed Acyclic Graphs (DAGs).\nFor details on how to deploy, configure, or modify our Airflow instance, refer to the veda-data-airflow repository.\n\nIngest APIs\n\nThe Ingest API facilitates data ingestion from multiple sources and manages the data flow into VEDA’s system. This API is included in veda-backend\nTo learn how to interact with these APIs as a user, consult the Dataset Ingestion Guide.",
+    "text": "Users can authenticate to access VEDA services such as JupyterHub, APIs, Monitoring or Ingest UI using Keycloak. Once you successfully log in you will need to contact a member of the VEDA Data Services Team at veda@uah.edu who can set up permissions for your account.\nWhen logging into a service, users will be redirected to CILogon to choose an identity provider. We recommend you use your work or educational institution email.\n\n\n\nCI Logon Example"
+  },
+  {
+    "objectID": "user-guide/data-services/index.html",
+    "href": "user-guide/data-services/index.html",
+    "title": "Data Services",
+    "section": "",
+    "text": "The Data Services on the NASA VEDA platform are:\n\nVEDA Data Store: selected data products in Analysis Ready Cloud-Optimized (ARCO) formats\nSpatio Temporal Asset Catalog (STAC): catalog for datasets exposed on the NASA Earthdata VEDA platform and partner platforms\nData access APIs\nData transformation & publication services: services for data transformation, ingestion and publication to the VEDA data catalog\n\nA technical architecture diagram of how all of these work together can be found in the software architecture description.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "Usage Example Notebook Submission",
+      "Data Services"
+    ]
+  },
+  {
+    "objectID": "user-guide/data-services/index.html#services",
+    "href": "user-guide/data-services/index.html#services",
+    "title": "Data Services",
+    "section": "",
+    "text": "The Data Services on the NASA VEDA platform are:\n\nVEDA Data Store: selected data products in Analysis Ready Cloud-Optimized (ARCO) formats\nSpatio Temporal Asset Catalog (STAC): catalog for datasets exposed on the NASA Earthdata VEDA platform and partner platforms\nData access APIs\nData transformation & publication services: services for data transformation, ingestion and publication to the VEDA data catalog\n\nA technical architecture diagram of how all of these work together can be found in the software architecture description.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "Usage Example Notebook Submission",
+      "Data Services"
+    ]
+  },
+  {
+    "objectID": "user-guide/data-services/data-store.html",
+    "href": "user-guide/data-services/data-store.html",
+    "title": "VEDA Data Store",
+    "section": "",
+    "text": "The VEDA Data Store consists of cloud object storage (AWS S3 in us-west-2) and a central Spatio-Temporal Asset Catalog (STAC) that exposes the datasets.",
     "crumbs": [
       "User Guide",
       "Data Access and Data Management",
-      "VEDA Data Ingestion Services"
+      "VEDA Data Store"
     ]
   },
   {
-    "objectID": "user-guide/data-services/data-ingestion.html#overview",
-    "href": "user-guide/data-services/data-ingestion.html#overview",
-    "title": "VEDA Data Ingestion Services",
-    "section": "",
-    "text": "VEDA’s data ingestion services are designed to handle and manage the flow of data from various sources efficiently. The system integrates with Self Managed Apache Airflow for orchestrating and scheduling data pipelines, and APIs to facilitate and manage data ingestion tasks.\n\n\n\nSelf Managed Apache Airflow Instance\n\nAirflow orchestrates various data ingestion tasks and workflows. It supports scheduling, monitoring, and managing pipelines, described using Directed Acyclic Graphs (DAGs).\nFor details on how to deploy, configure, or modify our Airflow instance, refer to the veda-data-airflow repository.\n\nIngest APIs\n\nThe Ingest API facilitates data ingestion from multiple sources and manages the data flow into VEDA’s system. This API is included in veda-backend\nTo learn how to interact with these APIs as a user, consult the Dataset Ingestion Guide.",
+    "objectID": "user-guide/data-services/data-store.html#dataset-selection",
+    "href": "user-guide/data-services/data-store.html#dataset-selection",
+    "title": "VEDA Data Store",
+    "section": "Dataset selection",
+    "text": "Dataset selection\nThe VEDA Data Store is meant for\n\nNovel datasets produced by NASA Earth data scientists to be presented on the VEDA Dashboard or shared with other science users on VEDA, but not (yet) suited for publication in one of the EOSDIS Distributed Active Archive Centers (DAAC)\nNon-authoritative cloud-optimized versions of Datasets from a DAAC\nOther datasets that do not have an authoritative, cloud-optimized source, to be published or used within the VEDA platform",
     "crumbs": [
       "User Guide",
       "Data Access and Data Management",
-      "VEDA Data Ingestion Services"
+      "VEDA Data Store"
     ]
   },
   {
-    "objectID": "user-guide/data-services/apis/index.html",
-    "href": "user-guide/data-services/apis/index.html",
-    "title": "APIs",
-    "section": "",
-    "text": "Most of the VEDA APIs are hosted out of a single project (veda-backend) that combines multiple standalone services.",
+    "objectID": "user-guide/data-services/data-store.html#browsing-the-data-store",
+    "href": "user-guide/data-services/data-store.html#browsing-the-data-store",
+    "title": "VEDA Data Store",
+    "section": "Browsing the Data Store",
+    "text": "Browsing the Data Store\nThe main public interface is the STAC browser and APIs that provide access to the data using various protocols.",
     "crumbs": [
       "User Guide",
       "Data Access and Data Management",
-      "APIs"
+      "VEDA Data Store"
     ]
   },
   {
-    "objectID": "user-guide/data-services/apis/index.html#environments",
-    "href": "user-guide/data-services/apis/index.html#environments",
-    "title": "APIs",
-    "section": "Environments",
-    "text": "Environments\nWhile some of our services are already very mature, VEDA is currently in the build-up phase. Therefore, we do not yet have a production environment for users. Maintenance on the staging environment will be announced internally and selected known stakeholders will be informed of any larger changes.\n\nProduction (stable):\n\nSTAC browser: openveda.cloud\nSTAC API (metadata): openveda.cloud/api/stac/docs\nList collections: openveda.cloud/api/stac/collections\nRaster API (tiling): openveda.cloud/api/raster/docs\nFeatures API (vector data): openveda.cloud/api/features/docs - see also the usage tutorial\n\n\n\nStaging (maintenance will be announced):\n\nSTAC browser: staging.openveda.cloud\nSTAC API (metadata): staging.openveda.cloud/api/stac/docs\nList collections: staging.openveda.cloud/api/stac/collections\nRaster API (map tiles and timeseries): staging.openveda.cloud/api/raster/docs\nFeatures API (vector data): firenrt.delta-backend.com - see also the usage tutorial\nSTAC viewer (experimental): staging.openveda.cloud/api/stac/index.html",
+    "objectID": "user-guide/data-services/data-store.html#contributing-data",
+    "href": "user-guide/data-services/data-store.html#contributing-data",
+    "title": "VEDA Data Store",
+    "section": "Contributing data",
+    "text": "Contributing data\nThe process of data ingestion into the VEDA Data Store is under active development.\nPlease see our docs on dataset ingestion.",
     "crumbs": [
       "User Guide",
       "Data Access and Data Management",
-      "APIs"
+      "VEDA Data Store"
     ]
   },
   {
-    "objectID": "user-guide/data-services/apis/index.html#using-tile-layers-in-external-services",
-    "href": "user-guide/data-services/apis/index.html#using-tile-layers-in-external-services",
-    "title": "APIs",
-    "section": "Using tile layers in external services",
-    "text": "Using tile layers in external services\n\nUI for single tile layers\nAs you can see from our API docs referenced above, our raster API provides WMTS and XYZ tiles for public consumption.\nFor any layer you are seeing in the VEDA dataset Explorer, you can retrieve the tile URL:\n\n\n\nVEDA Dashboard Exploration API grab\n\n\nAnd paste that into any client that loads these tiles, like QGIS, ArcGIS, Leaflet, even online tools such as geojson.io or felt.com.\n\n\nSTAC for layer timeseries\nIf you want to integrate tile layer time series into your application, you will need to fetch the information about which time steps exist and what the layer URLs are from our Spatio Tempoeral Asset Catalog (STAC) API (see above).\nThat is because, unfortunately, neither XYZ nor WMTS have time series capabilities (unlike good old WMS, which our services do not provide, though).\nYou can see how to retrieve time steps and tile layer URLs from these tutorial Python notebooks (mostly REST API calls):\n\nUsing /stac/tilejson.json with STAC collection and item IDs\nCreating layers from filters and mosaics (advanced)\n\nIt comes down to querying for STAC items (timesteps) and then asking the Raster API for tilejson.json specifications for the items you are interested in.\nOnce you retrieved the WMTS or XYZ layer URLs this way, you can use them seamlessly with all mapping clients.",
-    "crumbs": [
-      "User Guide",
-      "Data Access and Data Management",
-      "APIs"
-    ]
-  },
-  {
-    "objectID": "open-source-ecosystem/architecture.html",
-    "href": "open-source-ecosystem/architecture.html",
-    "title": "Software Architecture",
+    "objectID": "open-source-ecosystem/creating-your-own-instance/index.html",
+    "href": "open-source-ecosystem/creating-your-own-instance/index.html",
+    "title": "Using VEDA For Your Own Team",
     "section": "",
-    "text": "Architecture diagram\n\n\n\nThis diagram shows a high level overview of the components in the the VEDA Open-Source Ecosystem. See the repositories page for links to software used for VEDA services.",
+    "text": "The modular VEDA platform architecture provides a blueprint on how prominent open-source tools for geospatial data discovery, access, and analysis can be used together to provide a basis for research and science communication with geospatial data. Depending on your needs, you might use the VEDA software ecosystem as a tool for:\n\nEfficient data storage using a cloud-optimized Data Catalog\nBackend Data Services to provide easy access to your data organized in STAC\nCloud computing with your own tailored JupyterHub environment\nBrowser-based visualization and storytelling using the Dashboard’s cloud-native tools\n\nSee Software Architecture for more information on how all of these pieces fit together.\nThere are many options for how to use the VEDA software ecosystem, depending on your needs and existing set of tools.\nReach out to us at veda@uah.edu if you need help navigating the options.",
     "crumbs": [
       "The VEDA Open Source Ecosystem",
-      "Software Architecture"
+      "Using VEDA For Your Own Team"
     ]
   },
   {
-    "objectID": "open-source-ecosystem/architecture.html#architecture",
-    "href": "open-source-ecosystem/architecture.html#architecture",
-    "title": "Software Architecture",
+    "objectID": "open-source-ecosystem/creating-your-own-instance/index.html#veda-is-a-suite-of-open-source-tools",
+    "href": "open-source-ecosystem/creating-your-own-instance/index.html#veda-is-a-suite-of-open-source-tools",
+    "title": "Using VEDA For Your Own Team",
     "section": "",
-    "text": "Architecture diagram\n\n\n\nThis diagram shows a high level overview of the components in the the VEDA Open-Source Ecosystem. See the repositories page for links to software used for VEDA services.",
+    "text": "The modular VEDA platform architecture provides a blueprint on how prominent open-source tools for geospatial data discovery, access, and analysis can be used together to provide a basis for research and science communication with geospatial data. Depending on your needs, you might use the VEDA software ecosystem as a tool for:\n\nEfficient data storage using a cloud-optimized Data Catalog\nBackend Data Services to provide easy access to your data organized in STAC\nCloud computing with your own tailored JupyterHub environment\nBrowser-based visualization and storytelling using the Dashboard’s cloud-native tools\n\nSee Software Architecture for more information on how all of these pieces fit together.\nThere are many options for how to use the VEDA software ecosystem, depending on your needs and existing set of tools.\nReach out to us at veda@uah.edu if you need help navigating the options.",
     "crumbs": [
       "The VEDA Open Source Ecosystem",
-      "Software Architecture"
-    ]
-  },
-  {
-    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html",
-    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html",
-    "title": "How To Make Your Own Dashboard",
-    "section": "",
-    "text": "VEDA provides the software architecture for an open, accessible, and powerful platform to help science teams communicate insights hidden in large-scale geospatial data.\n\nBuilt to work with cloud-optimized formats like COG and the emerging web-optimized Zarr.\nEnables rapid, compelling storytelling at scale.\nOpen-source under permissive licenses to encourage broad use and innovation.\n\nOur goal is to lower the barriers to entry for scientists to talk about their work, for users to learn about and explore geospatial data, and for geospatial data to come alive in ways it never has before.\nWhether you want a turnkey dashboard, individual components, or a foundation for your own innovation, we want the VEDA Dashboard to be flexible and modular enough for your needs.\nAs the number of projects that depend on VEDA grows, we want to make it straightforward for organizations outside of NASA to use and extend these tools. If you have any feedback on the tools or your ability to use them, please reach out to veda@uah.edu\nThis document shares guidance on how you can adopt the VEDA Dashboard in a way that fits your needs.\n\n\nIf you are going to use the VEDA Dashboard for your own purposes, we assume that you will be self-hosting your own website and data. - That website and data could all be VEDA tools, so if you’re starting from scratch, don’t worry! Visit the top-level instructions for using VEDA.\nThe primary repository for the VEDA Dashboard is here: - veda-ui Github\nWe have created a Template Dashboard to showcase how you can pull in veda-ui and create a website compiled with NextJS. You can explore and review that implementation here: - Template Dashboard GitHub That Template Dashboard is live here: - Template Dashboard\n\n\n\nDepending on your goals and technical preferences, there are three main ways to leverage the VEDA Dashboard:\n\n\n\n\nIn this case, we recommend manually cloning the Template Dashboard GitHub repository. This will allow you to adjust styling, add any custom features, and manage your own content.\n\nThis approach gives you full control and flexibility\nBenefit from updates to core VEDA functionality\n\nWhen to choose this:\n\nYou value simplicity and speed.\nYou are also using other VEDA tools and patterns, such as STAC and eoAPI.\nYou don’t already have a web presence for your project, or you are interested in completely replacing your current website\n\n\n\n\n\n\n\nIf you already have a robust web presence but want to use VEDA’s powerful tools and widgets—such as data stories or analysis tools, then you can simply import them as an NPM package.\n\nAllows you to selectively integrate VEDA components into your existing site.\nTake advantage of novel storytelling and COG (Cloud-Optimized GeoTIFF) capabilities without a full rebuild.\n\nWhen to choose this:\n\nYou want to enhance your existing website\nYou already have a preferred CMS tool for managing your site\n\n\n\n\n\n\n\nThe VEDA Dashboard is designed for content to be easily managed.\n\nDefault: Content is stored in simple, human-readable MDX files. Editors can write, edit, and customize pages directly.\nOptional: We have prototyped an integration with Strapi CMS, providing a more familiar, GUI-based editing experience for non-technical users.\nFlexible: We have extended the MDX Editor to allow customization and story editing directly within your existing CMS or backend platform.\n\nThis flexibility ensures that both technical and non-technical teams can collaborate seamlessly.\n\nIf you have questions, ideas, or would like support adopting VEDA, we welcome collaboration.\nLet us know how we can help! email us at veda@uah.edu",
-    "crumbs": [
-      "The VEDA Open Source Ecosystem",
-      "Using VEDA For Your Own Team",
-      "How To Make Your Own Dashboard"
-    ]
-  },
-  {
-    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#getting-started",
-    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#getting-started",
-    "title": "How To Make Your Own Dashboard",
-    "section": "",
-    "text": "If you are going to use the VEDA Dashboard for your own purposes, we assume that you will be self-hosting your own website and data. - That website and data could all be VEDA tools, so if you’re starting from scratch, don’t worry! Visit the top-level instructions for using VEDA.\nThe primary repository for the VEDA Dashboard is here: - veda-ui Github\nWe have created a Template Dashboard to showcase how you can pull in veda-ui and create a website compiled with NextJS. You can explore and review that implementation here: - Template Dashboard GitHub That Template Dashboard is live here: - Template Dashboard",
-    "crumbs": [
-      "The VEDA Open Source Ecosystem",
-      "Using VEDA For Your Own Team",
-      "How To Make Your Own Dashboard"
-    ]
-  },
-  {
-    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#choosing-your-path-how-to-use-veda",
-    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#choosing-your-path-how-to-use-veda",
-    "title": "How To Make Your Own Dashboard",
-    "section": "",
-    "text": "Depending on your goals and technical preferences, there are three main ways to leverage the VEDA Dashboard:\n\n\n\n\nIn this case, we recommend manually cloning the Template Dashboard GitHub repository. This will allow you to adjust styling, add any custom features, and manage your own content.\n\nThis approach gives you full control and flexibility\nBenefit from updates to core VEDA functionality\n\nWhen to choose this:\n\nYou value simplicity and speed.\nYou are also using other VEDA tools and patterns, such as STAC and eoAPI.\nYou don’t already have a web presence for your project, or you are interested in completely replacing your current website\n\n\n\n\n\n\n\nIf you already have a robust web presence but want to use VEDA’s powerful tools and widgets—such as data stories or analysis tools, then you can simply import them as an NPM package.\n\nAllows you to selectively integrate VEDA components into your existing site.\nTake advantage of novel storytelling and COG (Cloud-Optimized GeoTIFF) capabilities without a full rebuild.\n\nWhen to choose this:\n\nYou want to enhance your existing website\nYou already have a preferred CMS tool for managing your site",
-    "crumbs": [
-      "The VEDA Open Source Ecosystem",
-      "Using VEDA For Your Own Team",
-      "How To Make Your Own Dashboard"
-    ]
-  },
-  {
-    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#content-management-options",
-    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#content-management-options",
-    "title": "How To Make Your Own Dashboard",
-    "section": "",
-    "text": "The VEDA Dashboard is designed for content to be easily managed.\n\nDefault: Content is stored in simple, human-readable MDX files. Editors can write, edit, and customize pages directly.\nOptional: We have prototyped an integration with Strapi CMS, providing a more familiar, GUI-based editing experience for non-technical users.\nFlexible: We have extended the MDX Editor to allow customization and story editing directly within your existing CMS or backend platform.\n\nThis flexibility ensures that both technical and non-technical teams can collaborate seamlessly.\n\nIf you have questions, ideas, or would like support adopting VEDA, we welcome collaboration.\nLet us know how we can help! email us at veda@uah.edu",
-    "crumbs": [
-      "The VEDA Open Source Ecosystem",
-      "Using VEDA For Your Own Team",
-      "How To Make Your Own Dashboard"
-    ]
-  },
-  {
-    "objectID": "open-source-ecosystem/index.html",
-    "href": "open-source-ecosystem/index.html",
-    "title": "The VEDA Open Source Ecosystem",
-    "section": "",
-    "text": "Below are resources for prospective platform providers and contributors to the open source ecosystem that VEDA leverages to provide science data platforms.\n\nSoftware architecture\nCode repositories of redeployable software components\nExternal resources for learning and reference\n\nIf you are interested in setting up your own platform based on VEDA open-source software, please email the VEDA team at veda@uah.edu and we will provide further direction.",
-    "crumbs": [
-      "The VEDA Open Source Ecosystem"
-    ]
-  },
-  {
-    "objectID": "open-source-ecosystem/index.html#the-ecosystem",
-    "href": "open-source-ecosystem/index.html#the-ecosystem",
-    "title": "The VEDA Open Source Ecosystem",
-    "section": "",
-    "text": "Below are resources for prospective platform providers and contributors to the open source ecosystem that VEDA leverages to provide science data platforms.\n\nSoftware architecture\nCode repositories of redeployable software components\nExternal resources for learning and reference\n\nIf you are interested in setting up your own platform based on VEDA open-source software, please email the VEDA team at veda@uah.edu and we will provide further direction.",
-    "crumbs": [
-      "The VEDA Open Source Ecosystem"
-    ]
-  },
-  {
-    "objectID": "open-source-ecosystem/external-resources.html",
-    "href": "open-source-ecosystem/external-resources.html",
-    "title": "External Resources",
-    "section": "",
-    "text": "This list is intended for scientists who want to get started with cloud-based, collaborative, open geospatial data analysis, or those looking to refresh their knowledge. It is by no means complete, but contains pointers to more elaborate resources. We anticipate this list to evolve as our platform and use cases evolve. Suggestions for additional resources or topics are highly welcome.\n\n\n\nGit - for managing code versions\nConda - for managing dependencies\nJupyter - for running code\n\n\n\n\n\nData Carpentry geospatial course\nUW course on Geospatial Data Analysis with Python\nGeographic data book - emphasis on vector data\n\n\n\n\n\nCloud-Optimized Geospatial Formats Guide\nNASA Openscapes Earthdata Cloud Cookbook\nCryoCloud JupyterBook\nProject Pythia - Pangeo’s education hub\nPlanetary Computer\nGeospatial Computing Platform library of training resources (by Python package)\n\n\n\n\n\nUW GeoHackWeek\nUW OceanHackWeek\n\n\n\n\n\nBlog series on latest trends and resources in geospatial - entry-level",
-    "crumbs": [
-      "The VEDA Open Source Ecosystem",
-      "External Resources"
-    ]
-  },
-  {
-    "objectID": "open-source-ecosystem/external-resources.html#learning-about-open-source-cloud-native-geospatial",
-    "href": "open-source-ecosystem/external-resources.html#learning-about-open-source-cloud-native-geospatial",
-    "title": "External Resources",
-    "section": "",
-    "text": "This list is intended for scientists who want to get started with cloud-based, collaborative, open geospatial data analysis, or those looking to refresh their knowledge. It is by no means complete, but contains pointers to more elaborate resources. We anticipate this list to evolve as our platform and use cases evolve. Suggestions for additional resources or topics are highly welcome.\n\n\n\nGit - for managing code versions\nConda - for managing dependencies\nJupyter - for running code\n\n\n\n\n\nData Carpentry geospatial course\nUW course on Geospatial Data Analysis with Python\nGeographic data book - emphasis on vector data\n\n\n\n\n\nCloud-Optimized Geospatial Formats Guide\nNASA Openscapes Earthdata Cloud Cookbook\nCryoCloud JupyterBook\nProject Pythia - Pangeo’s education hub\nPlanetary Computer\nGeospatial Computing Platform library of training resources (by Python package)\n\n\n\n\n\nUW GeoHackWeek\nUW OceanHackWeek\n\n\n\n\n\nBlog series on latest trends and resources in geospatial - entry-level",
-    "crumbs": [
-      "The VEDA Open Source Ecosystem",
-      "External Resources"
-    ]
-  },
-  {
-    "objectID": "open-source-ecosystem/external-resources.html#related-projects",
-    "href": "open-source-ecosystem/external-resources.html#related-projects",
-    "title": "External Resources",
-    "section": "Related projects",
-    "text": "Related projects\n\nMicrosoft Planetary Computer\nCopernicus Data Space Ecosystems\nEarth Observation Exploitation Platform Common Architecture (EOEPCA)\nEarth Observing Dashboard by ESA, NASA, and JAXA",
-    "crumbs": [
-      "The VEDA Open Source Ecosystem",
-      "External Resources"
+      "Using VEDA For Your Own Team"
     ]
   },
   {
@@ -2290,99 +2210,186 @@
     ]
   },
   {
-    "objectID": "open-source-ecosystem/creating-your-own-instance/index.html",
-    "href": "open-source-ecosystem/creating-your-own-instance/index.html",
-    "title": "Using VEDA For Your Own Team",
+    "objectID": "open-source-ecosystem/external-resources.html",
+    "href": "open-source-ecosystem/external-resources.html",
+    "title": "External Resources",
     "section": "",
-    "text": "The modular VEDA platform architecture provides a blueprint on how prominent open-source tools for geospatial data discovery, access, and analysis can be used together to provide a basis for research and science communication with geospatial data. Depending on your needs, you might use the VEDA software ecosystem as a tool for:\n\nEfficient data storage using a cloud-optimized Data Catalog\nBackend Data Services to provide easy access to your data organized in STAC\nCloud computing with your own tailored JupyterHub environment\nBrowser-based visualization and storytelling using the Dashboard’s cloud-native tools\n\nSee Software Architecture for more information on how all of these pieces fit together.\nThere are many options for how to use the VEDA software ecosystem, depending on your needs and existing set of tools.\nReach out to us at veda@uah.edu if you need help navigating the options.",
+    "text": "This list is intended for scientists who want to get started with cloud-based, collaborative, open geospatial data analysis, or those looking to refresh their knowledge. It is by no means complete, but contains pointers to more elaborate resources. We anticipate this list to evolve as our platform and use cases evolve. Suggestions for additional resources or topics are highly welcome.\n\n\n\nGit - for managing code versions\nConda - for managing dependencies\nJupyter - for running code\n\n\n\n\n\nData Carpentry geospatial course\nUW course on Geospatial Data Analysis with Python\nGeographic data book - emphasis on vector data\n\n\n\n\n\nCloud-Optimized Geospatial Formats Guide\nNASA Openscapes Earthdata Cloud Cookbook\nCryoCloud JupyterBook\nProject Pythia - Pangeo’s education hub\nPlanetary Computer\nGeospatial Computing Platform library of training resources (by Python package)\n\n\n\n\n\nUW GeoHackWeek\nUW OceanHackWeek\n\n\n\n\n\nBlog series on latest trends and resources in geospatial - entry-level",
     "crumbs": [
       "The VEDA Open Source Ecosystem",
-      "Using VEDA For Your Own Team"
+      "External Resources"
     ]
   },
   {
-    "objectID": "open-source-ecosystem/creating-your-own-instance/index.html#veda-is-a-suite-of-open-source-tools",
-    "href": "open-source-ecosystem/creating-your-own-instance/index.html#veda-is-a-suite-of-open-source-tools",
-    "title": "Using VEDA For Your Own Team",
+    "objectID": "open-source-ecosystem/external-resources.html#learning-about-open-source-cloud-native-geospatial",
+    "href": "open-source-ecosystem/external-resources.html#learning-about-open-source-cloud-native-geospatial",
+    "title": "External Resources",
     "section": "",
-    "text": "The modular VEDA platform architecture provides a blueprint on how prominent open-source tools for geospatial data discovery, access, and analysis can be used together to provide a basis for research and science communication with geospatial data. Depending on your needs, you might use the VEDA software ecosystem as a tool for:\n\nEfficient data storage using a cloud-optimized Data Catalog\nBackend Data Services to provide easy access to your data organized in STAC\nCloud computing with your own tailored JupyterHub environment\nBrowser-based visualization and storytelling using the Dashboard’s cloud-native tools\n\nSee Software Architecture for more information on how all of these pieces fit together.\nThere are many options for how to use the VEDA software ecosystem, depending on your needs and existing set of tools.\nReach out to us at veda@uah.edu if you need help navigating the options.",
+    "text": "This list is intended for scientists who want to get started with cloud-based, collaborative, open geospatial data analysis, or those looking to refresh their knowledge. It is by no means complete, but contains pointers to more elaborate resources. We anticipate this list to evolve as our platform and use cases evolve. Suggestions for additional resources or topics are highly welcome.\n\n\n\nGit - for managing code versions\nConda - for managing dependencies\nJupyter - for running code\n\n\n\n\n\nData Carpentry geospatial course\nUW course on Geospatial Data Analysis with Python\nGeographic data book - emphasis on vector data\n\n\n\n\n\nCloud-Optimized Geospatial Formats Guide\nNASA Openscapes Earthdata Cloud Cookbook\nCryoCloud JupyterBook\nProject Pythia - Pangeo’s education hub\nPlanetary Computer\nGeospatial Computing Platform library of training resources (by Python package)\n\n\n\n\n\nUW GeoHackWeek\nUW OceanHackWeek\n\n\n\n\n\nBlog series on latest trends and resources in geospatial - entry-level",
     "crumbs": [
       "The VEDA Open Source Ecosystem",
-      "Using VEDA For Your Own Team"
+      "External Resources"
     ]
   },
   {
-    "objectID": "user-guide/data-services/data-store.html",
-    "href": "user-guide/data-services/data-store.html",
-    "title": "VEDA Data Store",
+    "objectID": "open-source-ecosystem/external-resources.html#related-projects",
+    "href": "open-source-ecosystem/external-resources.html#related-projects",
+    "title": "External Resources",
+    "section": "Related projects",
+    "text": "Related projects\n\nMicrosoft Planetary Computer\nCopernicus Data Space Ecosystems\nEarth Observation Exploitation Platform Common Architecture (EOEPCA)\nEarth Observing Dashboard by ESA, NASA, and JAXA",
+    "crumbs": [
+      "The VEDA Open Source Ecosystem",
+      "External Resources"
+    ]
+  },
+  {
+    "objectID": "open-source-ecosystem/index.html",
+    "href": "open-source-ecosystem/index.html",
+    "title": "The VEDA Open Source Ecosystem",
     "section": "",
-    "text": "The VEDA Data Store consists of cloud object storage (AWS S3 in us-west-2) and a central Spatio-Temporal Asset Catalog (STAC) that exposes the datasets.",
+    "text": "Below are resources for prospective platform providers and contributors to the open source ecosystem that VEDA leverages to provide science data platforms.\n\nSoftware architecture\nCode repositories of redeployable software components\nExternal resources for learning and reference\n\nIf you are interested in setting up your own platform based on VEDA open-source software, please email the VEDA team at veda@uah.edu and we will provide further direction.",
     "crumbs": [
-      "User Guide",
-      "Data Access and Data Management",
-      "VEDA Data Store"
+      "The VEDA Open Source Ecosystem"
     ]
   },
   {
-    "objectID": "user-guide/data-services/data-store.html#dataset-selection",
-    "href": "user-guide/data-services/data-store.html#dataset-selection",
-    "title": "VEDA Data Store",
-    "section": "Dataset selection",
-    "text": "Dataset selection\nThe VEDA Data Store is meant for\n\nNovel datasets produced by NASA Earth data scientists to be presented on the VEDA Dashboard or shared with other science users on VEDA, but not (yet) suited for publication in one of the EOSDIS Distributed Active Archive Centers (DAAC)\nNon-authoritative cloud-optimized versions of Datasets from a DAAC\nOther datasets that do not have an authoritative, cloud-optimized source, to be published or used within the VEDA platform",
-    "crumbs": [
-      "User Guide",
-      "Data Access and Data Management",
-      "VEDA Data Store"
-    ]
-  },
-  {
-    "objectID": "user-guide/data-services/data-store.html#browsing-the-data-store",
-    "href": "user-guide/data-services/data-store.html#browsing-the-data-store",
-    "title": "VEDA Data Store",
-    "section": "Browsing the Data Store",
-    "text": "Browsing the Data Store\nThe main public interface is the STAC browser and APIs that provide access to the data using various protocols.",
-    "crumbs": [
-      "User Guide",
-      "Data Access and Data Management",
-      "VEDA Data Store"
-    ]
-  },
-  {
-    "objectID": "user-guide/data-services/data-store.html#contributing-data",
-    "href": "user-guide/data-services/data-store.html#contributing-data",
-    "title": "VEDA Data Store",
-    "section": "Contributing data",
-    "text": "Contributing data\nThe process of data ingestion into the VEDA Data Store is under active development.\nPlease see our docs on dataset ingestion.",
-    "crumbs": [
-      "User Guide",
-      "Data Access and Data Management",
-      "VEDA Data Store"
-    ]
-  },
-  {
-    "objectID": "user-guide/data-services/index.html",
-    "href": "user-guide/data-services/index.html",
-    "title": "Data Services",
+    "objectID": "open-source-ecosystem/index.html#the-ecosystem",
+    "href": "open-source-ecosystem/index.html#the-ecosystem",
+    "title": "The VEDA Open Source Ecosystem",
     "section": "",
-    "text": "The Data Services on the NASA VEDA platform are:\n\nVEDA Data Store: selected data products in Analysis Ready Cloud-Optimized (ARCO) formats\nSpatio Temporal Asset Catalog (STAC): catalog for datasets exposed on the NASA Earthdata VEDA platform and partner platforms\nData access APIs\nData transformation & publication services: services for data transformation, ingestion and publication to the VEDA data catalog\n\nA technical architecture diagram of how all of these work together can be found in the software architecture description.",
+    "text": "Below are resources for prospective platform providers and contributors to the open source ecosystem that VEDA leverages to provide science data platforms.\n\nSoftware architecture\nCode repositories of redeployable software components\nExternal resources for learning and reference\n\nIf you are interested in setting up your own platform based on VEDA open-source software, please email the VEDA team at veda@uah.edu and we will provide further direction.",
     "crumbs": [
-      "User Guide",
-      "Content Curation",
-      "Usage Example Notebook Submission",
-      "Data Services"
+      "The VEDA Open Source Ecosystem"
     ]
   },
   {
-    "objectID": "user-guide/data-services/index.html#services",
-    "href": "user-guide/data-services/index.html#services",
-    "title": "Data Services",
+    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html",
+    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html",
+    "title": "How To Make Your Own Dashboard",
     "section": "",
-    "text": "The Data Services on the NASA VEDA platform are:\n\nVEDA Data Store: selected data products in Analysis Ready Cloud-Optimized (ARCO) formats\nSpatio Temporal Asset Catalog (STAC): catalog for datasets exposed on the NASA Earthdata VEDA platform and partner platforms\nData access APIs\nData transformation & publication services: services for data transformation, ingestion and publication to the VEDA data catalog\n\nA technical architecture diagram of how all of these work together can be found in the software architecture description.",
+    "text": "VEDA provides the software architecture for an open, accessible, and powerful platform to help science teams communicate insights hidden in large-scale geospatial data.\n\nBuilt to work with cloud-optimized formats like COG and the emerging web-optimized Zarr.\nEnables rapid, compelling storytelling at scale.\nOpen-source under permissive licenses to encourage broad use and innovation.\n\nOur goal is to lower the barriers to entry for scientists to talk about their work, for users to learn about and explore geospatial data, and for geospatial data to come alive in ways it never has before.\nWhether you want a turnkey dashboard, individual components, or a foundation for your own innovation, we want the VEDA Dashboard to be flexible and modular enough for your needs.\nAs the number of projects that depend on VEDA grows, we want to make it straightforward for organizations outside of NASA to use and extend these tools. If you have any feedback on the tools or your ability to use them, please reach out to veda@uah.edu\nThis document shares guidance on how you can adopt the VEDA Dashboard in a way that fits your needs.\n\n\nIf you are going to use the VEDA Dashboard for your own purposes, we assume that you will be self-hosting your own website and data. - That website and data could all be VEDA tools, so if you’re starting from scratch, don’t worry! Visit the top-level instructions for using VEDA.\nThe primary repository for the VEDA Dashboard is here: - veda-ui Github\nWe have created a Template Dashboard to showcase how you can pull in veda-ui and create a website compiled with NextJS. You can explore and review that implementation here: - Template Dashboard GitHub That Template Dashboard is live here: - Template Dashboard\n\n\n\nDepending on your goals and technical preferences, there are three main ways to leverage the VEDA Dashboard:\n\n\n\n\nIn this case, we recommend manually cloning the Template Dashboard GitHub repository. This will allow you to adjust styling, add any custom features, and manage your own content.\n\nThis approach gives you full control and flexibility\nBenefit from updates to core VEDA functionality\n\nWhen to choose this:\n\nYou value simplicity and speed.\nYou are also using other VEDA tools and patterns, such as STAC and eoAPI.\nYou don’t already have a web presence for your project, or you are interested in completely replacing your current website\n\n\n\n\n\n\n\nIf you already have a robust web presence but want to use VEDA’s powerful tools and widgets—such as data stories or analysis tools, then you can simply import them as an NPM package.\n\nAllows you to selectively integrate VEDA components into your existing site.\nTake advantage of novel storytelling and COG (Cloud-Optimized GeoTIFF) capabilities without a full rebuild.\n\nWhen to choose this:\n\nYou want to enhance your existing website\nYou already have a preferred CMS tool for managing your site\n\n\n\n\n\n\n\nThe VEDA Dashboard is designed for content to be easily managed.\n\nDefault: Content is stored in simple, human-readable MDX files. Editors can write, edit, and customize pages directly.\nOptional: We have prototyped an integration with Strapi CMS, providing a more familiar, GUI-based editing experience for non-technical users.\nFlexible: We have extended the MDX Editor to allow customization and story editing directly within your existing CMS or backend platform.\n\nThis flexibility ensures that both technical and non-technical teams can collaborate seamlessly.\n\nIf you have questions, ideas, or would like support adopting VEDA, we welcome collaboration.\nLet us know how we can help! email us at veda@uah.edu",
+    "crumbs": [
+      "The VEDA Open Source Ecosystem",
+      "Using VEDA For Your Own Team",
+      "How To Make Your Own Dashboard"
+    ]
+  },
+  {
+    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#getting-started",
+    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#getting-started",
+    "title": "How To Make Your Own Dashboard",
+    "section": "",
+    "text": "If you are going to use the VEDA Dashboard for your own purposes, we assume that you will be self-hosting your own website and data. - That website and data could all be VEDA tools, so if you’re starting from scratch, don’t worry! Visit the top-level instructions for using VEDA.\nThe primary repository for the VEDA Dashboard is here: - veda-ui Github\nWe have created a Template Dashboard to showcase how you can pull in veda-ui and create a website compiled with NextJS. You can explore and review that implementation here: - Template Dashboard GitHub That Template Dashboard is live here: - Template Dashboard",
+    "crumbs": [
+      "The VEDA Open Source Ecosystem",
+      "Using VEDA For Your Own Team",
+      "How To Make Your Own Dashboard"
+    ]
+  },
+  {
+    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#choosing-your-path-how-to-use-veda",
+    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#choosing-your-path-how-to-use-veda",
+    "title": "How To Make Your Own Dashboard",
+    "section": "",
+    "text": "Depending on your goals and technical preferences, there are three main ways to leverage the VEDA Dashboard:\n\n\n\n\nIn this case, we recommend manually cloning the Template Dashboard GitHub repository. This will allow you to adjust styling, add any custom features, and manage your own content.\n\nThis approach gives you full control and flexibility\nBenefit from updates to core VEDA functionality\n\nWhen to choose this:\n\nYou value simplicity and speed.\nYou are also using other VEDA tools and patterns, such as STAC and eoAPI.\nYou don’t already have a web presence for your project, or you are interested in completely replacing your current website\n\n\n\n\n\n\n\nIf you already have a robust web presence but want to use VEDA’s powerful tools and widgets—such as data stories or analysis tools, then you can simply import them as an NPM package.\n\nAllows you to selectively integrate VEDA components into your existing site.\nTake advantage of novel storytelling and COG (Cloud-Optimized GeoTIFF) capabilities without a full rebuild.\n\nWhen to choose this:\n\nYou want to enhance your existing website\nYou already have a preferred CMS tool for managing your site",
+    "crumbs": [
+      "The VEDA Open Source Ecosystem",
+      "Using VEDA For Your Own Team",
+      "How To Make Your Own Dashboard"
+    ]
+  },
+  {
+    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#content-management-options",
+    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#content-management-options",
+    "title": "How To Make Your Own Dashboard",
+    "section": "",
+    "text": "The VEDA Dashboard is designed for content to be easily managed.\n\nDefault: Content is stored in simple, human-readable MDX files. Editors can write, edit, and customize pages directly.\nOptional: We have prototyped an integration with Strapi CMS, providing a more familiar, GUI-based editing experience for non-technical users.\nFlexible: We have extended the MDX Editor to allow customization and story editing directly within your existing CMS or backend platform.\n\nThis flexibility ensures that both technical and non-technical teams can collaborate seamlessly.\n\nIf you have questions, ideas, or would like support adopting VEDA, we welcome collaboration.\nLet us know how we can help! email us at veda@uah.edu",
+    "crumbs": [
+      "The VEDA Open Source Ecosystem",
+      "Using VEDA For Your Own Team",
+      "How To Make Your Own Dashboard"
+    ]
+  },
+  {
+    "objectID": "open-source-ecosystem/architecture.html",
+    "href": "open-source-ecosystem/architecture.html",
+    "title": "Software Architecture",
+    "section": "",
+    "text": "Architecture diagram\n\n\n\nThis diagram shows a high level overview of the components in the the VEDA Open-Source Ecosystem. See the repositories page for links to software used for VEDA services.",
+    "crumbs": [
+      "The VEDA Open Source Ecosystem",
+      "Software Architecture"
+    ]
+  },
+  {
+    "objectID": "open-source-ecosystem/architecture.html#architecture",
+    "href": "open-source-ecosystem/architecture.html#architecture",
+    "title": "Software Architecture",
+    "section": "",
+    "text": "Architecture diagram\n\n\n\nThis diagram shows a high level overview of the components in the the VEDA Open-Source Ecosystem. See the repositories page for links to software used for VEDA services.",
+    "crumbs": [
+      "The VEDA Open Source Ecosystem",
+      "Software Architecture"
+    ]
+  },
+  {
+    "objectID": "user-guide/data-services/apis/index.html",
+    "href": "user-guide/data-services/apis/index.html",
+    "title": "APIs",
+    "section": "",
+    "text": "Most of the VEDA APIs are hosted out of a single project (veda-backend) that combines multiple standalone services.",
     "crumbs": [
       "User Guide",
-      "Content Curation",
-      "Usage Example Notebook Submission",
-      "Data Services"
+      "Data Access and Data Management",
+      "APIs"
+    ]
+  },
+  {
+    "objectID": "user-guide/data-services/apis/index.html#environments",
+    "href": "user-guide/data-services/apis/index.html#environments",
+    "title": "APIs",
+    "section": "Environments",
+    "text": "Environments\nWhile some of our services are already very mature, VEDA is currently in the build-up phase. Therefore, we do not yet have a production environment for users. Maintenance on the staging environment will be announced internally and selected known stakeholders will be informed of any larger changes.\n\nProduction (stable):\n\nSTAC browser: openveda.cloud\nSTAC API (metadata): openveda.cloud/api/stac/docs\nList collections: openveda.cloud/api/stac/collections\nRaster API (tiling): openveda.cloud/api/raster/docs\nFeatures API (vector data): openveda.cloud/api/features/docs - see also the usage tutorial\n\n\n\nStaging (maintenance will be announced):\n\nSTAC browser: staging.openveda.cloud\nSTAC API (metadata): staging.openveda.cloud/api/stac/docs\nList collections: staging.openveda.cloud/api/stac/collections\nRaster API (map tiles and timeseries): staging.openveda.cloud/api/raster/docs\nFeatures API (vector data): firenrt.delta-backend.com - see also the usage tutorial\nSTAC viewer (experimental): staging.openveda.cloud/api/stac/index.html",
+    "crumbs": [
+      "User Guide",
+      "Data Access and Data Management",
+      "APIs"
+    ]
+  },
+  {
+    "objectID": "user-guide/data-services/apis/index.html#using-tile-layers-in-external-services",
+    "href": "user-guide/data-services/apis/index.html#using-tile-layers-in-external-services",
+    "title": "APIs",
+    "section": "Using tile layers in external services",
+    "text": "Using tile layers in external services\n\nUI for single tile layers\nAs you can see from our API docs referenced above, our raster API provides WMTS and XYZ tiles for public consumption.\nFor any layer you are seeing in the VEDA dataset Explorer, you can retrieve the tile URL:\n\n\n\nVEDA Dashboard Exploration API grab\n\n\nAnd paste that into any client that loads these tiles, like QGIS, ArcGIS, Leaflet, even online tools such as geojson.io or felt.com.\n\n\nSTAC for layer timeseries\nIf you want to integrate tile layer time series into your application, you will need to fetch the information about which time steps exist and what the layer URLs are from our Spatio Tempoeral Asset Catalog (STAC) API (see above).\nThat is because, unfortunately, neither XYZ nor WMTS have time series capabilities (unlike good old WMS, which our services do not provide, though).\nYou can see how to retrieve time steps and tile layer URLs from these tutorial Python notebooks (mostly REST API calls):\n\nUsing /stac/tilejson.json with STAC collection and item IDs\nCreating layers from filters and mosaics (advanced)\n\nIt comes down to querying for STAC items (timesteps) and then asking the Raster API for tilejson.json specifications for the items you are interested in.\nOnce you retrieved the WMTS or XYZ layer URLs this way, you can use them seamlessly with all mapping clients.",
+    "crumbs": [
+      "User Guide",
+      "Data Access and Data Management",
+      "APIs"
+    ]
+  },
+  {
+    "objectID": "user-guide/data-services/data-ingestion.html",
+    "href": "user-guide/data-services/data-ingestion.html",
+    "title": "VEDA Data Ingestion Services",
+    "section": "",
+    "text": "VEDA’s data ingestion services are designed to handle and manage the flow of data from various sources efficiently. The system integrates with Self Managed Apache Airflow for orchestrating and scheduling data pipelines, and APIs to facilitate and manage data ingestion tasks.\n\n\n\nSelf Managed Apache Airflow Instance\n\nAirflow orchestrates various data ingestion tasks and workflows. It supports scheduling, monitoring, and managing pipelines, described using Directed Acyclic Graphs (DAGs).\nFor details on how to deploy, configure, or modify our Airflow instance, refer to the veda-data-airflow repository.\n\nIngest APIs\n\nThe Ingest API facilitates data ingestion from multiple sources and manages the data flow into VEDA’s system. This API is included in veda-backend\nTo learn how to interact with these APIs as a user, consult the Dataset Ingestion Guide.",
+    "crumbs": [
+      "User Guide",
+      "Data Access and Data Management",
+      "VEDA Data Ingestion Services"
+    ]
+  },
+  {
+    "objectID": "user-guide/data-services/data-ingestion.html#overview",
+    "href": "user-guide/data-services/data-ingestion.html#overview",
+    "title": "VEDA Data Ingestion Services",
+    "section": "",
+    "text": "VEDA’s data ingestion services are designed to handle and manage the flow of data from various sources efficiently. The system integrates with Self Managed Apache Airflow for orchestrating and scheduling data pipelines, and APIs to facilitate and manage data ingestion tasks.\n\n\n\nSelf Managed Apache Airflow Instance\n\nAirflow orchestrates various data ingestion tasks and workflows. It supports scheduling, monitoring, and managing pipelines, described using Directed Acyclic Graphs (DAGs).\nFor details on how to deploy, configure, or modify our Airflow instance, refer to the veda-data-airflow repository.\n\nIngest APIs\n\nThe Ingest API facilitates data ingestion from multiple sources and manages the data flow into VEDA’s system. This API is included in veda-backend\nTo learn how to interact with these APIs as a user, consult the Dataset Ingestion Guide.",
+    "crumbs": [
+      "User Guide",
+      "Data Access and Data Management",
+      "VEDA Data Ingestion Services"
     ]
   },
   {
@@ -2507,7 +2514,7 @@
     "href": "user-guide/content-curation/dataset-ingestion/index.html#steps-for-ingesting-a-dataset",
     "title": "Dataset Ingestion",
     "section": "Steps for ingesting a dataset",
-    "text": "Steps for ingesting a dataset\nFor dataset ingestion, generally four steps are required. Depending on the capacity of the dataset provider, some of the steps can be completed by the VEDA team on request.\nThe data ingestion process requires authenticating using Keycloak and an Identity Provider listed by CILogon, typically your work email. In order to set up authentication via Keycloak, see Setting Up Keycloak. If you need assistance, you can contact a member of the VEDA Data Services Team at veda@uah.edu who can set up permissions for you.\nComplete as many steps of the process as you have capacity or authorization to. You will initially publish to a staging catalog where you can review the data before publishing to the public production catalog. Please follow the steps and guides outlined below:\n\nTransform datasets to conform with cloud-optimized file formats - see file preparation\nUpload files to storage (may be skipped, if data is cloud-optimized and in us-west-2)\nLoad those records into the STAGING VEDA STAC - see catalog ingestion\nFinally, when you are satisfied with how your data look in the staging catalog, request a review on the veda-data pull request that the Ingest UI opened with the configuration you used to publish to the staging catalog. When this PR is approved, the data will be published to the production catalog at openveda.cloud!\n\n\n\n\n\n\n\nIf the above instructions do not cover the data you want to ingest and/or if you could use extra help getting started\n\n\n\nOpen a dedicated pull request in the veda-data repository. Please read through these docs fully first as you they will help supply the information required to complete the PR. Use this “new dataset” template to open a new issue and get started.",
+    "text": "Steps for ingesting a dataset\nFor dataset ingestion, generally four steps are required. Depending on the capacity of the dataset provider, some of the steps can be completed by the VEDA team on request.\nThe data ingestion process requires authenticating using Keycloak and an Identity Provider listed by CILogon. See Setting Up Keycloak for more details.\nComplete as many steps of the process as you have capacity or authorization to. You will initially publish to a staging catalog where you can review the data before publishing to the public production catalog. Please follow the steps and guides outlined below:\n\nTransform datasets to conform with cloud-optimized file formats - see file preparation\nUpload files to storage (may be skipped, if data is cloud-optimized and in us-west-2)\nLoad those records into the STAGING VEDA STAC - see catalog ingestion\nFinally, when you are satisfied with how your data look in the staging catalog, request a review on the veda-data pull request that the Ingest UI opened with the configuration you used to publish to the staging catalog. When this PR is approved, the data will be published to the production catalog at openveda.cloud!\n\n\n\n\n\n\n\nIf the above instructions do not cover the data you want to ingest and/or if you could use extra help getting started\n\n\n\nOpen a dedicated pull request in the veda-data repository. Please read through these docs fully first as you they will help supply the information required to complete the PR. Use this “new dataset” template to open a new issue and get started.",
     "crumbs": [
       "User Guide",
       "Content Curation",
