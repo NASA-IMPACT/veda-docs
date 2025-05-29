@@ -17,8 +17,8 @@ Once you have logically grouped the datasets into collections, you will need to 
   "title": "Evapotranspiration - LIS 10km Global DA",
   "description": "Gridded total evapotranspiration (in kg m-2 s-1) from 10km global LIS with assimilation",
   "license": "CC0-1.0",
-  "is_periodic": true,
-  "time_density": "day",
+  "dashboard:is_periodic": true,
+  "dashboard:time_density": "day",
   "spatial_extent": {
     "xmin": -179.95,
     "ymin": -59.45,
@@ -54,8 +54,8 @@ The following table describes what each of these fields mean:
 |  `title` | a short human readable title for the collection  |  string with 5-6 words | "Average  NO2 measurements (Monthly)" |
 |  `description` | a detailed description for the dataset | should include what the data is, what sensor was used to measure, where the data was pulled/derived from, etc  |  |
 |  `license` | license for data use; Default open license: `CC0-1.0`  |  [SPDX license id](https://spdx.org/licenses/) | `CC0-1.0 ` |
-|  `is_periodic` | is the data periodic? specifies if the data files repeat at a uniform time interval | `true` \| `false`  | `true`
-|  `time_density` | the time step in which we want to navigate the dataset in the dashboard | `year` \| `month` \| `day` \| `hour` \| `minute` \| `null`  |
+|  `dashboard:is_periodic` | is the data periodic? specifies if the data files repeat at a uniform time interval | `true` \| `false`  | `true`
+|  `dashboard:time_density` | the time step in which we want to navigate the dataset in the dashboard | `year` \| `month` \| `day` \| `hour` \| `minute` \| `null`  |
 |  `spatial_extent` | the spatial extent of the collection; a bounding box that includes all the data files in the collection   |   | `{"xmin": -180, "ymin": -90, "xmax": 180, "ymax": 90}` |
 |  `spatial_extent["xmin"]` |  left x coordinate of the spatial extent bounding box  | -180 <= xmin <= 180; xmin < xmax  | `23` |
 |  `spatial_extent["ymin"]` |  bottom y coordinate of the spatial extent bounding box  | -90 <= ymin <= 90; ymin < ymax  | `-40` |
