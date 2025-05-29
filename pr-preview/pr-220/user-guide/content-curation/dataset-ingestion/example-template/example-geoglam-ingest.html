@@ -988,11 +988,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="a.-construct-dataset-definition" class="level3">
 <h3 class="anchored" data-anchor-id="a.-construct-dataset-definition">3a. Construct dataset definition</h3>
 <p>Here, the data provider will construct the dataset definition (and supporting metadata) that will be used for dataset ingestion. It is imperative that these values are correct and align to the data the provider is planning to upload to the VEDA Platform. For example, make sure that the <code>startdate</code> and <code>enddate</code> are realistic (e.g., an <code>"enddate":"2023-06-31T23:59:59Z"</code> would be an incorrect value for June, as it contains only 31 days).</p>
-<p>For further detail on metadata required for entries in the VEDA STAC to work with the VEDA Dashboard, see documentation <a href="https://nasa-impact.github.io/veda-docs/content-curation/dataset-ingestion/stac-collection-conventions.html">here.</a> In particular, note recommendations for the fields <code>is_periodic</code> and <code>time_density</code>. For example, in the code block below we define the <code>is_periodic</code> field as <code>False</code> because we are ingesting only one month of data. Even though we know that the monthly observations are provided routinely by GEOGLAM, we will only have a single file to ingest and so do not have a temporal range of items in the collection with a monthly time density to generate a time picker from the available data.</p>
+<p>For further detail on metadata required for entries in the VEDA STAC to work with the VEDA Dashboard, see documentation <a href="https://nasa-impact.github.io/veda-docs/content-curation/dataset-ingestion/stac-collection-conventions.html">here.</a> In particular, note recommendations for the fields <code>dashboard:is_periodic</code> and <code>dashboard:time_density</code>. For example, in the code block below we define the <code>dashboard:is_periodic</code> field as <code>False</code> because we are ingesting only one month of data. Even though we know that the monthly observations are provided routinely by GEOGLAM, we will only have a single file to ingest and so do not have a temporal range of items in the collection with a monthly time density to generate a time picker from the available data.</p>
 <blockquote class="blockquote">
 <p><strong>Note</strong> Several OPTIONAL properties are added to this dataset config for completeness. Your dataset json does NOT need to include these optional properties * <code>assets</code> * <code>item_assets</code> * <code>renders</code></p>
 </blockquote>
-<div id="4a046ad1-c5ad-4212-ac33-bb7c3e0f7a97" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}" data-execution_count="5">
+<div id="4a046ad1-c5ad-4212-ac33-bb7c3e0f7a97" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> {</span>
@@ -1011,8 +1011,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    },</span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"license"</span>: <span class="st">"MIT"</span>,</span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"description"</span>: <span class="st">"The Crop Monitors were designed to provide a public good of open, timely, science-driven information on crop conditions in support of market transparency for the G20 Agricultural Market Information System (AMIS). Reflecting an international, multi-source, consensus assessment of crop growing conditions, status, and agro-climatic factors likely to impact global production, focusing on the major producing and trading countries for the four primary crops monitored by AMIS (wheat, maize, rice, and soybeans). The Crop Monitor for AMIS brings together over 40 partners from national, regional (i.e. sub-continental), and global monitoring systems, space agencies, agriculture organizations and universities. Read more: https://cropmonitor.org/index.php/about/aboutus/"</span>,</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"is_periodic"</span>: <span class="va">False</span>,</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"time_density"</span>: <span class="st">"month"</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"dashboard:is_periodic"</span>: <span class="va">False</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"dashboard:time_density"</span>: <span class="st">"month"</span>,</span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">## </span><span class="al">NOTE</span><span class="co">: email the veda team at veda@uah.edu to upload a new thumbnail for your dataset</span></span>
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"assets"</span>: {</span>
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"thumbnail"</span>: {</span>
@@ -1103,8 +1103,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   },
   "license": "MIT",
   "description": "The Crop Monitors were designed to provide a public good of open, timely, science-driven information on crop conditions in support of market transparency for the G20 Agricultural Market Information System (AMIS). Reflecting an international, multi-source, consensus assessment of crop growing conditions, status, and agro-climatic factors likely to impact global production, focusing on the major producing and trading countries for the four primary crops monitored by AMIS (wheat, maize, rice, and soybeans). The Crop Monitor for AMIS brings together over 40 partners from national, regional (i.e. sub-continental), and global monitoring systems, space agencies, agriculture organizations and universities. Read more: https://cropmonitor.org/index.php/about/aboutus/",
-  "is_periodic": false,
-  "time_density": "month",
+  "dashboard:is_periodic": false,
+  "dashboard:time_density": "month",
   "assets": {
     "thumbnail": {
       "href": "https://thumbnails.openveda.cloud/geoglam--dataset-cover.jpg",
