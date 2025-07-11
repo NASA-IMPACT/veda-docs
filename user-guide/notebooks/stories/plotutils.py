@@ -1,5 +1,4 @@
 import folium
-import folium.plugins
 from folium import Map, TileLayer, Element
 from folium.raster_layers import ImageOverlay
 from folium.plugins import FloatImage
@@ -9,7 +8,6 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors  # ensure proper norm
 import matplotlib.ticker as mticker
 import io
-import os
 import base64
 import pandas as pd  # needed for date formatting
 import rioxarray as rxr
@@ -19,9 +17,8 @@ import matplotlib.cm as cm
 import imageio.v2 as imageio
 import cartopy.crs as ccrs
 from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
-from IPython.display import Image
+from IPython.display import Image, display
 from PIL import Image as pilImage
-import plotly.graph_objects as go
 
 
 def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipud, matplot_ramp, zoom_level, save_tif=False, tif_filename=None, crs=None, opacity=0.8):
@@ -263,7 +260,11 @@ def plot_folium_from_STAC(
 
 
 def plot_hdf4_as_png(directory, extension, variable_name, colorbar_label, plot_title):
-
+    """
+    NOTE: This function requires the following imports to work:
+    - dateutils (custom module)
+    - from pyhdf.SD import SD, SDC
+    """
     # List of HDF files
     group_dict = dateutils.group_files_by_year_and_day_EARTHDATA(directory, extension)
 
@@ -349,4 +350,244 @@ def matplotlib_gif(
     imageio.mimsave(gif_savename, frames, duration=duration, loop=0)
     display(Image(filename=gif_savename))
     print("✅ Saved GIF →", gif_savename)
+
+
+def load_preview(path: str, target_width: int = 800) -> np.ndarray:
+    """
+    Load an image from disk, resize it to a given width while preserving aspect ratio,
+    and return its pixel data as a NumPy array.
+    
+    Parameters
+    ----------
+    path : str
+        Filesystem path to the input image.
+    target_width : int, optional
+        Desired width of the output image in pixels. The height will be scaled
+        to preserve the original aspect ratio. Default is 800.
+        
+    Returns
+    -------
+    np.ndarray
+        A 3-dimensional NumPy array representing the resized image (height, width, channels).
+    """
+    # Open the image and compute new height to preserve aspect ratio
+    img = pilImage.open(path)
+    original_width, original_height = img.size
+    new_height = int(target_width * original_height / original_width)
+    # Resize with high-quality resampling and convert to array
+    resized = img.resize((target_width, new_height), pilImage.LANCZOS)
+    return np.array(resized)
+
+
+def create_hbox_slider(img1_path, img2_path, width=800):
+    """
+    Create an interactive image blending slider with HBox layout.
+    
+    Parameters
+    ----------
+    img1_path : str
+        Path to the first image
+    img2_path : str
+        Path to the second image
+    width : int, optional
+        Target width for resizing images. Default is 800.
+    """
+    import ipywidgets as widgets
+    from IPython.display import display
+    
+    # Load and resize images
+    img1 = load_preview(img1_path, width)
+    img2 = load_preview(img2_path, width)
+    
+    # Ensure both images have the same dimensions
+    min_height = min(img1.shape[0], img2.shape[0])
+    min_width = min(img1.shape[1], img2.shape[1])
+    img1 = img1[:min_height, :min_width]
+    img2 = img2[:min_height, :min_width]
+    
+    # Create output widget for displaying the blended image
+    output = widgets.Output()
+    
+    # Create slider widget
+    slider = widgets.IntSlider(
+        value=50,
+        min=0,
+        max=100,
+        step=1,
+        description='Blend:',
+        style={'description_width': 'initial'},
+        layout=widgets.Layout(width='500px')
+    )
+    
+    # Create label to show current blend percentage
+    label = widgets.Label(value='50%')
+    
+    def update_image(change):
+        """Update the displayed image based on slider value"""
+        blend = change['new'] / 100
+        label.value = f"{change['new']}%"
+        
+        with output:
+            output.clear_output(wait=True)
+            plt.figure(figsize=(10, 8))
+            blended = (1 - blend) * img1 + blend * img2
+            plt.imshow(blended.astype(np.uint8))
+            plt.axis('off')
+            plt.title(f'Image 1: {100-change["new"]}% | Image 2: {change["new"]}%')
+            plt.tight_layout()
+            plt.show()
+    
+    # Display initial blended image (50/50)
+    with output:
+        plt.figure(figsize=(10, 8))
+        blended = 0.5 * img1 + 0.5 * img2
+        plt.imshow(blended.astype(np.uint8))
+        plt.axis('off')
+        plt.title('Image 1: 50% | Image 2: 50%')
+        plt.tight_layout()
+        plt.show()
+    
+    # Connect slider to update function
+    slider.observe(update_image, names='value')
+    
+    # Create layout with controls on top and image below
+    controls = widgets.HBox([slider, label])
+    display(widgets.VBox([controls, output]))
+
+
+def plot_folium_from_VEDA_STAC(
+    tiles_url_template: str,
+    center_coords: list,
+    zoom_level: int = 6,
+    rescale: tuple = (0, 1),
+    colormap_name: str = "viridis",
+    layer_name: str = "VEDA Data",
+    date: str = None,
+    colorbar_caption: str = "Value",
+    attribution: str = "VEDA",
+    tile_name: str = None,
+    opacity: float = 0.8,
+    width: str = "100%", 
+    height: str = "500px",
+    capitalize_cmap: bool = False
+) -> folium.Map:
+    """
+    Create a Folium map displaying VEDA STAC data with a colorbar and title.
+    
+    Parameters
+    ----------
+    tiles_url_template : str
+        The tile URL template from VEDA STAC (with {z}, {x}, {y} placeholders)
+    center_coords : list
+        [latitude, longitude] for map center
+    zoom_level : int, optional
+        Initial zoom level (default 6)
+    rescale : tuple, optional
+        (vmin, vmax) values for data scaling (default (0, 1))
+    colormap_name : str, optional
+        Name of the colormap (default "viridis")
+    layer_name : str, optional
+        Display name for the layer and title (default "VEDA Data")
+    date : str, optional
+        Date string for the title (e.g., '2022-05-11T00:00:00Z')
+    colorbar_caption : str, optional
+        Caption for the colorbar legend (default "Value")
+    attribution : str, optional
+        Attribution text for the tiles (default "VEDA")
+    tile_name : str, optional
+        Name for the tile layer in layer control (defaults to layer_name)
+    opacity : float, optional
+        Layer opacity (default 0.8)
+    width : str, optional
+        Map width (default "100%")
+    height : str, optional
+        Map height (default "500px")
+    capitalize_cmap : bool, optional
+        Whether to apply alternating capitalization to colormap name (default False)
+        
+    Returns
+    -------
+    folium.Map
+        The configured Folium map object
+    """
+    # Apply colormap name transformation if requested
+    if capitalize_cmap:
+        cmap_name = "".join(
+            c.upper() if i % 2 == 0 else c.lower()
+            for i, c in enumerate(colormap_name)
+        )
+    else:
+        cmap_name = colormap_name
+    
+    # Use layer_name for tile_name if not provided
+    if tile_name is None:
+        tile_name = layer_name
+    
+    # Extract rescale values
+    vmin_val, vmax_val = rescale
+    
+    # Initialize the Folium Map
+    m = folium.Map(
+        location=center_coords,
+        zoom_start=zoom_level,
+        width=width,
+        height=height,
+        control_scale=True,
+        crs="EPSG3857"
+    )
+    
+    # Add the Tile Layer to the Map
+    folium.TileLayer(
+        tiles=tiles_url_template,
+        attr=attribution,
+        name=tile_name,
+        overlay=True,
+        control=True,
+        tms=False,
+        opacity=opacity
+    ).add_to(m)
+    
+    # Add Layer Control
+    folium.LayerControl().add_to(m)
+    
+    # Add Colorbar (Legend)
+    steps = 10
+    mpl_cmap = plt.get_cmap(cmap_name)
+    colors = [mpl_cmap(i / (steps - 1)) for i in range(steps)]
+    
+    legend = LinearColormap(
+        colors=colors,
+        vmin=vmin_val,
+        vmax=vmax_val,
+        caption=colorbar_caption
+    ).to_step(steps)
+    
+    legend.add_to(m)
+    
+    # Add Dynamic Title if date is provided
+    if date:
+        try:
+            formatted_date = pd.to_datetime(date).strftime('%B %d, %Y')
+        except Exception:
+            formatted_date = str(date)
+        
+        title_html = f"""
+          <div style="
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            font-size: 18px;
+            font-weight: bold;
+            background: rgba(255,255,255,0.8);
+            padding: 4px 8px;
+            border-radius: 4px;
+          ">
+            {layer_name} — {formatted_date}
+          </div>
+        """
+        m.get_root().html.add_child(Element(title_html))
+    
+    return m
 
