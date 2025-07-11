@@ -1,5 +1,4 @@
 import folium
-import folium.plugins
 from folium import Map, TileLayer, Element
 from folium.raster_layers import ImageOverlay
 from folium.plugins import FloatImage
@@ -9,7 +8,6 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors  # ensure proper norm
 import matplotlib.ticker as mticker
 import io
-import os
 import base64
 import pandas as pd  # needed for date formatting
 import rioxarray as rxr
@@ -19,9 +17,9 @@ import matplotlib.cm as cm
 import imageio.v2 as imageio
 import cartopy.crs as ccrs
 from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
-from IPython.display import Image
+from IPython.display import Image, display
 from PIL import Image as pilImage
-import plotly.graph_objects as go
+import ipywidgets as widgets
 
 
 def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipud, matplot_ramp, zoom_level, save_tif=False, tif_filename=None, crs=None, opacity=0.8):
@@ -210,60 +208,12 @@ def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipu
     return m
 
 
-
-def plot_folium_from_STAC(
-    tile_url: str,
-    center: Tuple[float, float],
-    zoom_start: int = 6,
-    width: str = "100%",
-    height: str = "600px",
-    attribution: str = "",
-    layer_name: str = "Base Layer",
-    show_control: bool = True
-) -> folium.Map:
-    """
-    Create and return a Folium map with a single TileLayer.
-
-    Args:
-        tile_url: URL template for the tile layer (e.g. from TileJSON 'tiles'[0]).
-        center: Tuple of (latitude, longitude) to center the map on.
-        zoom_start: Initial zoom level (default 6).
-        width: Width of the map container (e.g. '100%' or '800px').
-        height: Height of the map container (e.g. '600px' or '400px').
-        attribution: Text to show in the lower-right attribution control.
-        layer_name: Name for the TileLayer in the layer control.
-        show_control: Whether to add a LayerControl (default True).
-
-    Returns:
-        A folium.Map object ready for display in Jupyter (or to save to HTML).
-    """
-    # Initialize map
-    m = Map(
-        location=center,
-        zoom_start=zoom_start,
-        width=width,
-        height=height,
-        control_scale=True
-    )
-
-    # Add the tile layer
-    TileLayer(
-        tiles=tile_url,
-        attr=attribution,
-        name=layer_name,
-        overlay=False,
-        control=show_control
-    ).add_to(m)
-
-    # Optionally add the layer control
-    if show_control:
-        folium.LayerControl(position="topright", collapsed=False).add_to(m)
-
-    return m
-
-
 def plot_hdf4_as_png(directory, extension, variable_name, colorbar_label, plot_title):
-
+    """
+    NOTE: This function requires the following imports to work:
+    - dateutils (custom module)
+    - from pyhdf.SD import SD, SDC
+    """
     # List of HDF files
     group_dict = dateutils.group_files_by_year_and_day_EARTHDATA(directory, extension)
 
@@ -349,4 +299,207 @@ def matplotlib_gif(
     imageio.mimsave(gif_savename, frames, duration=duration, loop=0)
     display(Image(filename=gif_savename))
     print("✅ Saved GIF →", gif_savename)
+
+
+def load_preview(path: str, target_width: int = 800) -> np.ndarray:
+    """
+    Load an image from disk, resize it to a given width while preserving aspect ratio,
+    and return its pixel data as a NumPy array.
+    
+    Parameters
+    ----------
+    path : str
+        Filesystem path to the input image.
+    target_width : int, optional
+        Desired width of the output image in pixels. The height will be scaled
+        to preserve the original aspect ratio. Default is 800.
+        
+    Returns
+    -------
+    np.ndarray
+        A 3-dimensional NumPy array representing the resized image (height, width, channels).
+    """
+    # Open the image and compute new height to preserve aspect ratio
+    img = pilImage.open(path)
+    original_width, original_height = img.size
+    new_height = int(target_width * original_height / original_width)
+    # Resize with high-quality resampling and convert to array
+    resized = img.resize((target_width, new_height), pilImage.LANCZOS)
+    return np.array(resized)
+
+
+def create_animated_blend(img1_path, img2_path, width=800, num_frames=20):
+    """Create an animated transition between images"""
+    from PIL import Image
+    import io
+    from IPython.display import Image as IPImage, display
+    
+    # Load images
+    img1 = load_preview(img1_path, width)
+    img2 = load_preview(img2_path, width)
+    
+    # Ensure same dimensions
+    min_height = min(img1.shape[0], img2.shape[0])
+    min_width = min(img1.shape[1], img2.shape[1])
+    img1 = img1[:min_height, :min_width]
+    img2 = img2[:min_height, :min_width]
+    
+    # Create frames
+    frames = []
+    for i in range(num_frames):
+        blend = i / (num_frames - 1)
+        blended = (1 - blend) * img1 + blend * img2
+        
+        # Convert to PIL Image
+        pil_img = Image.fromarray(blended.astype(np.uint8))
+        frames.append(pil_img)
+    
+    # Add reverse transition
+    frames.extend(reversed(frames[1:-1]))
+    
+    # Save as GIF
+    output = io.BytesIO()
+    frames[0].save(output, format='GIF', save_all=True, 
+                   append_images=frames[1:], duration=100, loop=0)
+    
+    # Display
+    output.seek(0)
+    display(IPImage(data=output.read()))
+
+
+def plot_folium_from_VEDA_STAC(
+    tiles_url_template: str,
+    center_coords: list,
+    zoom_level: int = 6,
+    rescale: tuple = (0, 1),
+    colormap_name: str = "viridis",
+    layer_name: str = "VEDA Data",
+    date: str = None,
+    colorbar_caption: str = "Value",
+    attribution: str = "VEDA",
+    tile_name: str = None,
+    opacity: float = 0.8,
+    width: str = "100%", 
+    height: str = "500px",
+    capitalize_cmap: bool = False
+) -> folium.Map:
+    """
+    Create a Folium map displaying VEDA STAC data with a colorbar and title.
+    
+    Parameters
+    ----------
+    tiles_url_template : str
+        The tile URL template from VEDA STAC (with {z}, {x}, {y} placeholders)
+    center_coords : list
+        [latitude, longitude] for map center
+    zoom_level : int, optional
+        Initial zoom level (default 6)
+    rescale : tuple, optional
+        (vmin, vmax) values for data scaling (default (0, 1))
+    colormap_name : str, optional
+        Name of the colormap (default "viridis")
+    layer_name : str, optional
+        Display name for the layer and title (default "VEDA Data")
+    date : str, optional
+        Date string for the title (e.g., '2022-05-11T00:00:00Z')
+    colorbar_caption : str, optional
+        Caption for the colorbar legend (default "Value")
+    attribution : str, optional
+        Attribution text for the tiles (default "VEDA")
+    tile_name : str, optional
+        Name for the tile layer in layer control (defaults to layer_name)
+    opacity : float, optional
+        Layer opacity (default 0.8)
+    width : str, optional
+        Map width (default "100%")
+    height : str, optional
+        Map height (default "500px")
+    capitalize_cmap : bool, optional
+        Whether to apply alternating capitalization to colormap name (default False)
+        
+    Returns
+    -------
+    folium.Map
+        The configured Folium map object
+    """
+    # Apply colormap name transformation if requested
+    if capitalize_cmap:
+        cmap_name = "".join(
+            c.upper() if i % 2 == 0 else c.lower()
+            for i, c in enumerate(colormap_name)
+        )
+    else:
+        cmap_name = colormap_name
+    
+    # Use layer_name for tile_name if not provided
+    if tile_name is None:
+        tile_name = layer_name
+    
+    # Extract rescale values
+    vmin_val, vmax_val = rescale
+    
+    # Initialize the Folium Map
+    m = folium.Map(
+        location=center_coords,
+        zoom_start=zoom_level,
+        width=width,
+        height=height,
+        control_scale=True,
+        crs="EPSG3857"
+    )
+    
+    # Add the Tile Layer to the Map
+    folium.TileLayer(
+        tiles=tiles_url_template,
+        attr=attribution,
+        name=tile_name,
+        overlay=True,
+        control=True,
+        tms=False,
+        opacity=opacity
+    ).add_to(m)
+    
+    # Add Layer Control
+    folium.LayerControl().add_to(m)
+    
+    # Add Colorbar (Legend)
+    steps = 10
+    mpl_cmap = plt.get_cmap(cmap_name)
+    colors = [mpl_cmap(i / (steps - 1)) for i in range(steps)]
+    
+    legend = LinearColormap(
+        colors=colors,
+        vmin=vmin_val,
+        vmax=vmax_val,
+        caption=colorbar_caption
+    ).to_step(steps)
+    
+    legend.add_to(m)
+    
+    # Add Dynamic Title if date is provided
+    if date:
+        try:
+            formatted_date = pd.to_datetime(date).strftime('%B %d, %Y')
+        except Exception:
+            formatted_date = str(date)
+        
+        title_html = f"""
+          <div style="
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            font-size: 18px;
+            font-weight: bold;
+            background: rgba(255,255,255,0.8);
+            padding: 4px 8px;
+            border-radius: 4px;
+          ">
+            {layer_name} — {formatted_date}
+          </div>
+        """
+        m.get_root().html.add_child(Element(title_html))
+    
+    return m
 
