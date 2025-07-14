@@ -20,6 +20,7 @@ from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
 from IPython.display import Image, display
 from PIL import Image as pilImage
 import ipywidgets as widgets
+import io
 
 
 def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipud, matplot_ramp, zoom_level, save_tif=False, tif_filename=None, crs=None, opacity=0.8):
@@ -328,43 +329,81 @@ def load_preview(path: str, target_width: int = 800) -> np.ndarray:
     return np.array(resized)
 
 
-def create_animated_blend(img1_path, img2_path, width=800, num_frames=20):
-    """Create an animated transition between images"""
-    from PIL import Image
-    import io
-    from IPython.display import Image as IPImage, display
+def create_pausable_blend_slider(img1_path, img2_path, width=800):
+    """
+    Creates an interactive slider to blend between two images,
+    allowing the user to "pause" on any blend percentage.
+
+    Parameters:
+        img1_path (str): Filesystem path to the first input image (bottom layer).
+        img2_path (str): Filesystem path to the second input image (top layer).
+        width (int): Desired width of the output image in pixels. Height scaled to preserve aspect ratio.
+
+    Returns:
+        ipywidgets.VBox: An interactive widget containing the slider and the blended image.
+    """
+    # Load images using the helper function
+    try:
+        img1 = load_preview(img1_path, width)
+        img2 = load_preview(img2_path, width)
+    except FileNotFoundError as e:
+        print(f"Error loading images: {e}")
+        # Return an empty widget or raise the error further
+        return widgets.Label("Error: Image files not found. Cannot create blend slider.")
     
-    # Load images
-    img1 = load_preview(img1_path, width)
-    img2 = load_preview(img2_path, width)
-    
-    # Ensure same dimensions
+    # Ensure same dimensions for blending
     min_height = min(img1.shape[0], img2.shape[0])
     min_width = min(img1.shape[1], img2.shape[1])
     img1 = img1[:min_height, :min_width]
     img2 = img2[:min_height, :min_width]
-    
-    # Create frames
-    frames = []
-    for i in range(num_frames):
-        blend = i / (num_frames - 1)
-        blended = (1 - blend) * img1 + blend * img2
-        
-        # Convert to PIL Image
-        pil_img = Image.fromarray(blended.astype(np.uint8))
-        frames.append(pil_img)
-    
-    # Add reverse transition
-    frames.extend(reversed(frames[1:-1]))
-    
-    # Save as GIF
-    output = io.BytesIO()
-    frames[0].save(output, format='GIF', save_all=True, 
-                   append_images=frames[1:], duration=100, loop=0)
-    
-    # Display
-    output.seek(0)
-    display(IPImage(data=output.read()))
+
+    # Create an Output widget to display the dynamically updated image
+    output_image_widget = widgets.Output()
+
+    # Create a FloatSlider widget for blending
+    blend_slider = widgets.FloatSlider(
+        value=0.50,  # Start with img1 fully visible (0% blend towards img2)
+        min=0.0,
+        max=1.0,
+        step=0.01,
+        description='Blend:',
+        continuous_update=True, # Update image as slider is dragged
+        orientation='horizontal',
+        readout=True,
+        readout_format='.0%', # Display value as percentage
+    )
+
+    # Define the update function that will be called when the slider value changes
+    def update_image_display(change):
+        with output_image_widget: # Direct output to this widget
+            output_image_widget.clear_output(wait=True) # Clear previous image
+            
+            blend_factor = change['new'] # Get the new slider value (0.0 to 1.0)
+            
+            # Perform the image blending
+            blended_array = (1 - blend_factor) * img1 + blend_factor * img2
+            
+            # Convert the blended NumPy array back to a PIL Image
+            pil_blended_img = pilImage.fromarray(blended_array.astype(np.uint8))
+            
+            # Convert PIL Image to bytes in PNG format for display in Jupyter
+            img_byte_arr = io.BytesIO()
+            pil_blended_img.save(img_byte_arr, format='PNG')
+            img_byte_arr.seek(0) # Rewind to the beginning of the BytesIO object
+            
+            # Display the image
+            display(Image(data=img_byte_arr.read()))
+
+    # Link the slider's value changes to the update function
+    blend_slider.observe(update_image_display, names='value')
+
+    # Initial display of the image when the widget is first created
+    # Call the update function once with the initial slider value
+    update_image_display({'new': blend_slider.value})
+
+    # Return a VBox (vertical box) containing the slider and the image output
+    # This VBox is the interactive widget that will be displayed in Jupyter
+    return widgets.VBox([blend_slider, output_image_widget])
 
 
 def plot_folium_from_VEDA_STAC(
