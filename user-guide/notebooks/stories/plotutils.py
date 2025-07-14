@@ -5,22 +5,20 @@ from folium.plugins import FloatImage
 import numpy as np
 import xarray as xr
 import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors  # ensure proper norm
+import matplotlib.colors as mcolors
 import matplotlib.ticker as mticker
+import matplotlib.cm as cm
 import io
 import base64
-import pandas as pd  # needed for date formatting
-import rioxarray as rxr
+import pandas as pd
 from typing import Tuple
 from branca.colormap import LinearColormap
-import matplotlib.cm as cm
 import imageio.v2 as imageio
 import cartopy.crs as ccrs
 from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
 from IPython.display import Image, display
 from PIL import Image as pilImage
 import ipywidgets as widgets
-import io
 
 
 def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipud, matplot_ramp, zoom_level, save_tif=False, tif_filename=None, crs=None, opacity=0.8):
