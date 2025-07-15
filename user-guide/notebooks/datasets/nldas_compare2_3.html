@@ -78,9 +78,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-83a2d0441f44c9117bbf6dbf767ff1c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark-a2f21d9bc83c635186cf92255e1d25e7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../../site_libs/bootstrap/bootstrap-83a2d0441f44c9117bbf6dbf767ff1c0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-91dc8946692df554bfda92f2727cb578.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-b3777fe0d607a4ae39931145c7b416a4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-91dc8946692df554bfda92f2727cb578.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -968,12 +968,7 @@ Learn more
 <div id="cell-4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium.plugins</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> folium <span class="im">import</span> Map, TileLayer</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> branca</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium.plugins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -1043,24 +1038,31 @@ Learn more
   'type': 'Feature',
   'links': [{'rel': 'collection',
     'type': 'application/json',
-    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas2'},
+    'href': 'https://openveda.cloud/api/stac/collections/nldas2'},
    {'rel': 'parent',
     'type': 'application/json',
-    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas2'},
+    'href': 'https://openveda.cloud/api/stac/collections/nldas2'},
    {'rel': 'root',
     'type': 'application/json',
-    'href': 'https://staging.openveda.cloud/api/stac/'},
+    'href': 'https://openveda.cloud/api/stac/'},
    {'rel': 'self',
     'type': 'application/geo+json',
-    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas2/items/nldas2_LIS_HIST_202102'},
+    'href': 'https://openveda.cloud/api/stac/collections/nldas2/items/nldas2_LIS_HIST_202102'},
    {'title': 'Map of Item',
-    'href': 'https://staging.openveda.cloud/api/raster/collections/nldas2/items/nldas2_LIS_HIST_202102/map?bidx=1&amp;assets=cog_default&amp;unscale=False&amp;colormap=%7B%221%22%3A+%5B120%2C+120%2C+120%5D%2C+%222%22%3A+%5B130%2C+65%2C+0%5D%2C+%223%22%3A+%5B66%2C+207%2C+56%5D%2C+%224%22%3A+%5B245%2C+239%2C+0%5D%2C+%225%22%3A+%5B241%2C+89%2C+32%5D%2C+%226%22%3A+%5B168%2C+0%2C+0%5D%2C+%227%22%3A+%5B0%2C+143%2C+201%5D%7D&amp;max_size=1024&amp;resampling=nearest&amp;return_mask=True',
+    'href': 'https://openveda.cloud/api/raster/collections/nldas2/items/nldas2_LIS_HIST_202102/map?assets=cog_default&amp;rescale=0%2C200&amp;colormap_name=magma',
     'rel': 'preview',
     'type': 'text/html'}],
-  'assets': {'cog_default': {'href': 's3://veda-data-store-staging/EIS/nldas2monthly/nldas2_LIS_HIST_202102.tif',
-    'type': 'image/tiff; application=geotiff; profile=cloud-optimized',
+  'assets': {'cog_default': {'href': 's3://veda-data-store/nldas2/nldas2_LIS_HIST_202102.tif',
+    'type': 'image/tiff; application=geotiff',
     'roles': ['data', 'layer'],
     'title': 'Default COG Layer',
+    'proj:bbox': [-168.98000671647551,
+     7.019999961559591,
+     -51.93999145246978,
+     72.06000091582078],
+    'proj:epsg': 4326,
+    'proj:wkt2': 'GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]',
+    'proj:shape': [1626, 2926],
     'description': 'Cloud optimized default layer to display on map',
     'raster:bands': [{'scale': 1.0,
       'nodata': -9999.0,
@@ -1069,24 +1071,48 @@ Learn more
       'data_type': 'float32',
       'histogram': {'max': 574.3709106445312,
        'min': -4.244315147399902,
-       'count': 11.0,
-       'buckets': [75701.0,
-        14093.0,
-        5868.0,
-        2149.0,
-        419.0,
-        204.0,
-        128.0,
-        63.0,
-        36.0,
-        12.0]},
+       'count': 11,
+       'buckets': [75701, 14093, 5868, 2149, 419, 204, 128, 63, 36, 12]},
       'statistics': {'mean': 40.024527986379255,
        'stddev': 50.011235463160766,
        'maximum': 574.3709106445312,
        'minimum': -4.244315147399902,
-       'valid_percent': 16.90532483552632}}]},
+       'valid_percent': 16.90532483552632}}],
+    'proj:geometry': {'type': 'Polygon',
+     'coordinates': [[[-168.98000671647551, 7.019999961559591],
+       [-51.93999145246978, 7.019999961559591],
+       [-51.93999145246978, 72.06000091582078],
+       [-168.98000671647551, 72.06000091582078],
+       [-168.98000671647551, 7.019999961559591]]]},
+    'proj:projjson': {'id': {'code': 4326, 'authority': 'EPSG'},
+     'name': 'WGS 84',
+     'type': 'GeographicCRS',
+     'datum': {'name': 'World Geodetic System 1984',
+      'type': 'GeodeticReferenceFrame',
+      'ellipsoid': {'name': 'WGS 84',
+       'semi_major_axis': 6378137,
+       'inverse_flattening': 298.257223563}},
+     '$schema': 'https://proj.org/schemas/v0.7/projjson.schema.json',
+     'coordinate_system': {'axis': [{'name': 'Geodetic latitude',
+        'unit': 'degree',
+        'direction': 'north',
+        'abbreviation': 'Lat'},
+       {'name': 'Geodetic longitude',
+        'unit': 'degree',
+        'direction': 'east',
+        'abbreviation': 'Lon'}],
+      'subtype': 'ellipsoidal'}},
+    'proj:transform': [0.04000000521668002,
+     0.0,
+     -168.98000671647551,
+     0.0,
+     -0.0400000005868765,
+     72.06000091582078,
+     0.0,
+     0.0,
+     1.0]},
    'rendered_preview': {'title': 'Rendered preview',
-    'href': 'https://staging.openveda.cloud/api/raster/collections/nldas2/items/nldas2_LIS_HIST_202102/preview.png?bidx=1&amp;assets=cog_default&amp;unscale=False&amp;colormap=%7B%221%22%3A+%5B120%2C+120%2C+120%5D%2C+%222%22%3A+%5B130%2C+65%2C+0%5D%2C+%223%22%3A+%5B66%2C+207%2C+56%5D%2C+%224%22%3A+%5B245%2C+239%2C+0%5D%2C+%225%22%3A+%5B241%2C+89%2C+32%5D%2C+%226%22%3A+%5B168%2C+0%2C+0%5D%2C+%227%22%3A+%5B0%2C+143%2C+201%5D%7D&amp;max_size=1024&amp;resampling=nearest&amp;return_mask=True',
+    'href': 'https://openveda.cloud/api/raster/collections/nldas2/items/nldas2_LIS_HIST_202102/preview.png?assets=cog_default&amp;rescale=0%2C200&amp;colormap_name=magma',
     'rel': 'preview',
     'roles': ['overview'],
     'type': 'image/png'}},
@@ -1097,32 +1123,11 @@ Learn more
      [-168.98000671647551, 72.06000091582078],
      [-168.98000671647551, 7.019999961559591]]]},
   'collection': 'nldas2',
-  'properties': {'proj:bbox': [-168.98000671647551,
-    7.019999961559591,
-    -51.93999145246978,
-    72.06000091582078],
-   'proj:epsg': 4326.0,
-   'proj:shape': [1626.0, 2926.0],
-   'end_datetime': '2021-02-28T00:00:00',
-   'proj:geometry': {'type': 'Polygon',
-    'coordinates': [[[-168.98000671647551, 7.019999961559591],
-      [-51.93999145246978, 7.019999961559591],
-      [-51.93999145246978, 72.06000091582078],
-      [-168.98000671647551, 72.06000091582078],
-      [-168.98000671647551, 7.019999961559591]]]},
-   'proj:transform': [0.04000000521668002,
-    0.0,
-    -168.98000671647551,
-    0.0,
-    -0.0400000005868765,
-    72.06000091582078,
-    0.0,
-    0.0,
-    1.0],
-   'start_datetime': '2021-02-01T00:00:00'},
+  'properties': {'end_datetime': '2021-02-28T00:00:00+00:00',
+   'start_datetime': '2021-02-01T00:00:00+00:00'},
   'stac_version': '1.0.0',
-  'stac_extensions': ['https://stac-extensions.github.io/projection/v1.0.0/schema.json',
-   'https://stac-extensions.github.io/raster/v1.1.0/schema.json']},
+  'stac_extensions': ['https://stac-extensions.github.io/raster/v1.1.0/schema.json',
+   'https://stac-extensions.github.io/projection/v1.1.0/schema.json']},
  {'id': 'nldas3_LIS_HIST_202102',
   'bbox': [-168.98000671647551,
    7.019999961559591,
@@ -1131,24 +1136,31 @@ Learn more
   'type': 'Feature',
   'links': [{'rel': 'collection',
     'type': 'application/json',
-    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas3'},
+    'href': 'https://openveda.cloud/api/stac/collections/nldas3'},
    {'rel': 'parent',
     'type': 'application/json',
-    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas3'},
+    'href': 'https://openveda.cloud/api/stac/collections/nldas3'},
    {'rel': 'root',
     'type': 'application/json',
-    'href': 'https://staging.openveda.cloud/api/stac/'},
+    'href': 'https://openveda.cloud/api/stac/'},
    {'rel': 'self',
     'type': 'application/geo+json',
-    'href': 'https://staging.openveda.cloud/api/stac/collections/nldas3/items/nldas3_LIS_HIST_202102'},
+    'href': 'https://openveda.cloud/api/stac/collections/nldas3/items/nldas3_LIS_HIST_202102'},
    {'title': 'Map of Item',
-    'href': 'https://staging.openveda.cloud/api/raster/collections/nldas3/items/nldas3_LIS_HIST_202102/map?bidx=1&amp;assets=cog_default&amp;unscale=False&amp;colormap=%7B%221%22%3A+%5B120%2C+120%2C+120%5D%2C+%222%22%3A+%5B130%2C+65%2C+0%5D%2C+%223%22%3A+%5B66%2C+207%2C+56%5D%2C+%224%22%3A+%5B245%2C+239%2C+0%5D%2C+%225%22%3A+%5B241%2C+89%2C+32%5D%2C+%226%22%3A+%5B168%2C+0%2C+0%5D%2C+%227%22%3A+%5B0%2C+143%2C+201%5D%7D&amp;max_size=1024&amp;resampling=nearest&amp;return_mask=True',
+    'href': 'https://openveda.cloud/api/raster/collections/nldas3/items/nldas3_LIS_HIST_202102/map?assets=cog_default&amp;rescale=0%2C200&amp;colormap_name=magma',
     'rel': 'preview',
     'type': 'text/html'}],
-  'assets': {'cog_default': {'href': 's3://veda-data-store-staging/EIS/nldas3monthly/nldas3_LIS_HIST_202102.tif',
-    'type': 'image/tiff; application=geotiff; profile=cloud-optimized',
+  'assets': {'cog_default': {'href': 's3://veda-data-store/nldas3/nldas3_LIS_HIST_202102.tif',
+    'type': 'image/tiff; application=geotiff',
     'roles': ['data', 'layer'],
     'title': 'Default COG Layer',
+    'proj:bbox': [-168.98000671647551,
+     7.019999961559591,
+     -51.93999145246978,
+     72.06000091582078],
+    'proj:epsg': 4326,
+    'proj:wkt2': 'GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]',
+    'proj:shape': [1626, 2926],
     'description': 'Cloud optimized default layer to display on map',
     'raster:bands': [{'scale': 1.0,
       'nodata': -9999.0,
@@ -1157,24 +1169,48 @@ Learn more
       'data_type': 'float32',
       'histogram': {'max': 428.0843200683594,
        'min': -0.022795898839831352,
-       'count': 11.0,
-       'buckets': [217417.0,
-        29857.0,
-        15254.0,
-        7576.0,
-        3011.0,
-        1122.0,
-        488.0,
-        77.0,
-        9.0,
-        2.0]},
+       'count': 11,
+       'buckets': [217417, 29857, 15254, 7576, 3011, 1122, 488, 77, 9, 2]},
       'statistics': {'mean': 30.96841488575868,
        'stddev': 41.008411449510426,
        'maximum': 428.0843200683594,
        'minimum': -0.022795898839831352,
-       'valid_percent': 47.08281935307018}}]},
+       'valid_percent': 47.08281935307018}}],
+    'proj:geometry': {'type': 'Polygon',
+     'coordinates': [[[-168.98000671647551, 7.019999961559591],
+       [-51.93999145246978, 7.019999961559591],
+       [-51.93999145246978, 72.06000091582078],
+       [-168.98000671647551, 72.06000091582078],
+       [-168.98000671647551, 7.019999961559591]]]},
+    'proj:projjson': {'id': {'code': 4326, 'authority': 'EPSG'},
+     'name': 'WGS 84',
+     'type': 'GeographicCRS',
+     'datum': {'name': 'World Geodetic System 1984',
+      'type': 'GeodeticReferenceFrame',
+      'ellipsoid': {'name': 'WGS 84',
+       'semi_major_axis': 6378137,
+       'inverse_flattening': 298.257223563}},
+     '$schema': 'https://proj.org/schemas/v0.7/projjson.schema.json',
+     'coordinate_system': {'axis': [{'name': 'Geodetic latitude',
+        'unit': 'degree',
+        'direction': 'north',
+        'abbreviation': 'Lat'},
+       {'name': 'Geodetic longitude',
+        'unit': 'degree',
+        'direction': 'east',
+        'abbreviation': 'Lon'}],
+      'subtype': 'ellipsoidal'}},
+    'proj:transform': [0.04000000521668002,
+     0.0,
+     -168.98000671647551,
+     0.0,
+     -0.0400000005868765,
+     72.06000091582078,
+     0.0,
+     0.0,
+     1.0]},
    'rendered_preview': {'title': 'Rendered preview',
-    'href': 'https://staging.openveda.cloud/api/raster/collections/nldas3/items/nldas3_LIS_HIST_202102/preview.png?bidx=1&amp;assets=cog_default&amp;unscale=False&amp;colormap=%7B%221%22%3A+%5B120%2C+120%2C+120%5D%2C+%222%22%3A+%5B130%2C+65%2C+0%5D%2C+%223%22%3A+%5B66%2C+207%2C+56%5D%2C+%224%22%3A+%5B245%2C+239%2C+0%5D%2C+%225%22%3A+%5B241%2C+89%2C+32%5D%2C+%226%22%3A+%5B168%2C+0%2C+0%5D%2C+%227%22%3A+%5B0%2C+143%2C+201%5D%7D&amp;max_size=1024&amp;resampling=nearest&amp;return_mask=True',
+    'href': 'https://openveda.cloud/api/raster/collections/nldas3/items/nldas3_LIS_HIST_202102/preview.png?assets=cog_default&amp;rescale=0%2C200&amp;colormap_name=magma',
     'rel': 'preview',
     'roles': ['overview'],
     'type': 'image/png'}},
@@ -1185,32 +1221,11 @@ Learn more
      [-168.98000671647551, 72.06000091582078],
      [-168.98000671647551, 7.019999961559591]]]},
   'collection': 'nldas3',
-  'properties': {'proj:bbox': [-168.98000671647551,
-    7.019999961559591,
-    -51.93999145246978,
-    72.06000091582078],
-   'proj:epsg': 4326.0,
-   'proj:shape': [1626.0, 2926.0],
-   'end_datetime': '2021-02-28T00:00:00',
-   'proj:geometry': {'type': 'Polygon',
-    'coordinates': [[[-168.98000671647551, 7.019999961559591],
-      [-51.93999145246978, 7.019999961559591],
-      [-51.93999145246978, 72.06000091582078],
-      [-168.98000671647551, 72.06000091582078],
-      [-168.98000671647551, 7.019999961559591]]]},
-   'proj:transform': [0.04000000521668002,
-    0.0,
-    -168.98000671647551,
-    0.0,
-    -0.0400000005868765,
-    72.06000091582078,
-    0.0,
-    0.0,
-    1.0],
-   'start_datetime': '2021-02-01T00:00:00'},
+  'properties': {'end_datetime': '2021-02-28T00:00:00+00:00',
+   'start_datetime': '2021-02-01T00:00:00+00:00'},
   'stac_version': '1.0.0',
-  'stac_extensions': ['https://stac-extensions.github.io/projection/v1.0.0/schema.json',
-   'https://stac-extensions.github.io/raster/v1.1.0/schema.json']})</code></pre>
+  'stac_extensions': ['https://stac-extensions.github.io/raster/v1.1.0/schema.json',
+   'https://stac-extensions.github.io/projection/v1.1.0/schema.json']})</code></pre>
 </div>
 </div>
 <div id="cell-12" class="cell" data-execution_count="8">
@@ -1222,19 +1237,21 @@ Learn more
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>rescale_values2 <span class="op">=</span> item_stats2[<span class="st">'minimum'</span>], item_stats2[<span class="st">'maximum'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-13" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Query the raster API for the NLDAS-3 tile</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>tiles3 <span class="op">=</span> requests.get(</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id3<span class="sc">}</span><span class="ss">/items/</span><span class="sc">{</span>item3[<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">/tilejson.json?"</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=rdbu_r"</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values3[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values3[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>tiles3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Query the raster API for the NLDAS-3 tile</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>tiles3 <span class="op">=</span> requests.get(</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id3<span class="sc">}</span><span class="ss">/items/</span><span class="sc">{</span>item3[<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=rdbu_r"</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values3[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values3[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>).json()</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>tiles3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>{'tilejson': '2.2.0',
  'version': '1.0.0',
  'scheme': 'xyz',
- 'tiles': ['https://staging.openveda.cloud/api/raster/collections/nldas3/items/nldas3_LIS_HIST_202102/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=rdbu_r&amp;rescale=-0.022795898839831352%2C428.0843200683594'],
+ 'tiles': ['https://openveda.cloud/api/raster/collections/nldas3/items/nldas3_LIS_HIST_202102/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=rdbu_r&amp;rescale=-0.022795898839831352%2C428.0843200683594'],
  'minzoom': 0,
  'maxzoom': 24,
  'bounds': [-168.98000671647551,
@@ -1247,7 +1264,7 @@ Learn more
 <div id="cell-14" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Query the raster API for the NLDAS-2 tile</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>tiles2 <span class="op">=</span> requests.get(</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id2<span class="sc">}</span><span class="ss">/items/</span><span class="sc">{</span>item2[<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">/tilejson.json?"</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id2<span class="sc">}</span><span class="ss">/items/</span><span class="sc">{</span>item2[<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;assets=cog_default"</span></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&amp;color_formula=gamma+r+1.05&amp;colormap_name=rdbu_r"</span></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>rescale_values2[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>rescale_values2[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
@@ -1257,7 +1274,7 @@ Learn more
 <pre><code>{'tilejson': '2.2.0',
  'version': '1.0.0',
  'scheme': 'xyz',
- 'tiles': ['https://staging.openveda.cloud/api/raster/collections/nldas2/items/nldas2_LIS_HIST_202102/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=rdbu_r&amp;rescale=-4.244315147399902%2C574.3709106445312'],
+ 'tiles': ['https://openveda.cloud/api/raster/collections/nldas2/items/nldas2_LIS_HIST_202102/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=rdbu_r&amp;rescale=-4.244315147399902%2C574.3709106445312'],
  'minzoom': 0,
  'maxzoom': 24,
  'bounds': [-168.98000671647551,
@@ -1274,11 +1291,11 @@ Learn more
 <h4 class="anchored" data-anchor-id="notice-the-differences-in-extent-and-resolution-between-the-two-versions.">Notice the differences in extent and resolution between the two versions.</h4>
 <div id="cell-17" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and display a DualMap to visualize NLDAS-2 and NLDAS-3 data side-by-side</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>map_layer2 <span class="op">=</span> TileLayer(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>map_layer2 <span class="op">=</span> folium.TileLayer(</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>tiles2[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"VEDA"</span>,</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>map_layer3 <span class="op">=</span> TileLayer(</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>map_layer3 <span class="op">=</span> folium.TileLayer(</span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>tiles3[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"VEDA"</span>,</span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -1306,7 +1323,7 @@ Learn more
     <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
@@ -1314,7 +1331,7 @@ Learn more
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_31ce12db7c6da4ba6760737be39a736d {
+                #map_0744ba4717c21b0b79239025e69fa292 {
                     position: absolute;
                     width: 50.0%;
                     height: 100.0%;
@@ -1328,7 +1345,7 @@ Learn more
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_66cc814b51e3907030cb998320f53fe0 {
+                #map_909cba0106919e2ff190473661d4497e {
                     position: absolute;
                     width: 50.0%;
                     height: 100.0%;
@@ -1343,17 +1360,17 @@ Learn more
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_31ce12db7c6da4ba6760737be39a736d&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_0744ba4717c21b0b79239025e69fa292&quot; ></div>
         
     
-            <div class=&quot;folium-map&quot; id=&quot;map_66cc814b51e3907030cb998320f53fe0&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_909cba0106919e2ff190473661d4497e&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_31ce12db7c6da4ba6760737be39a736d = L.map(
-                &quot;map_31ce12db7c6da4ba6760737be39a736d&quot;,
+            var map_0744ba4717c21b0b79239025e69fa292 = L.map(
+                &quot;map_0744ba4717c21b0b79239025e69fa292&quot;,
                 {
                     center: [39.0, -110.0],
                     crs: L.CRS.EPSG3857,
@@ -1367,26 +1384,26 @@ Learn more
 
         
     
-            var tile_layer_a722b6f12c9c582e586a26ed9e42b63d = L.tileLayer(
+            var tile_layer_079c0c7f51b6df259905ab4f08d6926b = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_a722b6f12c9c582e586a26ed9e42b63d.addTo(map_31ce12db7c6da4ba6760737be39a736d);
+            tile_layer_079c0c7f51b6df259905ab4f08d6926b.addTo(map_0744ba4717c21b0b79239025e69fa292);
         
     
-            var tile_layer_8e8b37940308b2e60f3b03d8d7a5a6a2 = L.tileLayer(
-                &quot;https://staging.openveda.cloud/api/raster/collections/nldas2/items/nldas2_LIS_HIST_202102/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=rdbu_r\u0026rescale=-4.244315147399902%2C574.3709106445312&quot;,
-                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            var tile_layer_bf42ee7d6df68bfa49574fc385cff512 = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/collections/nldas2/items/nldas2_LIS_HIST_202102/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=rdbu_r\u0026rescale=-4.244315147399902%2C574.3709106445312&quot;,
+                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_8e8b37940308b2e60f3b03d8d7a5a6a2.addTo(map_31ce12db7c6da4ba6760737be39a736d);
+            tile_layer_bf42ee7d6df68bfa49574fc385cff512.addTo(map_0744ba4717c21b0b79239025e69fa292);
         
     
-            var map_66cc814b51e3907030cb998320f53fe0 = L.map(
-                &quot;map_66cc814b51e3907030cb998320f53fe0&quot;,
+            var map_909cba0106919e2ff190473661d4497e = L.map(
+                &quot;map_909cba0106919e2ff190473661d4497e&quot;,
                 {
                     center: [39.0, -110.0],
                     crs: L.CRS.EPSG3857,
@@ -1400,26 +1417,26 @@ Learn more
 
         
     
-            var tile_layer_1bd9750ac0a4ee44842d867186edc096 = L.tileLayer(
+            var tile_layer_e13cda8ae043c200a15c4566072bb934 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_1bd9750ac0a4ee44842d867186edc096.addTo(map_66cc814b51e3907030cb998320f53fe0);
+            tile_layer_e13cda8ae043c200a15c4566072bb934.addTo(map_909cba0106919e2ff190473661d4497e);
         
     
-            var tile_layer_fb18b8527e67fb3dd445cb2ee7f28791 = L.tileLayer(
-                &quot;https://staging.openveda.cloud/api/raster/collections/nldas3/items/nldas3_LIS_HIST_202102/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=rdbu_r\u0026rescale=-0.022795898839831352%2C428.0843200683594&quot;,
-                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            var tile_layer_0aa9a269dbbf5ce078b56cb9ad85bcf3 = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/collections/nldas3/items/nldas3_LIS_HIST_202102/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=rdbu_r\u0026rescale=-0.022795898839831352%2C428.0843200683594&quot;,
+                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
             );
         
     
-            tile_layer_fb18b8527e67fb3dd445cb2ee7f28791.addTo(map_66cc814b51e3907030cb998320f53fe0);
+            tile_layer_0aa9a269dbbf5ce078b56cb9ad85bcf3.addTo(map_909cba0106919e2ff190473661d4497e);
         
     
-            map_31ce12db7c6da4ba6760737be39a736d.sync(map_66cc814b51e3907030cb998320f53fe0);
-            map_66cc814b51e3907030cb998320f53fe0.sync(map_31ce12db7c6da4ba6760737be39a736d);
+            map_0744ba4717c21b0b79239025e69fa292.sync(map_909cba0106919e2ff190473661d4497e);
+            map_909cba0106919e2ff190473661d4497e.sync(map_0744ba4717c21b0b79239025e69fa292);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
