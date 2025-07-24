@@ -11,7 +11,7 @@ VEDA provides the software architecture for an **open, accessible, and powerful 
 - Enables rapid, compelling storytelling at scale.
 - Open-source under permissive licenses to encourage broad use and innovation.
 
-Our goal is to lower the barriers to entry for scientists to talk about their work, for users to learn about and explore geospatial data, and for geospatial data to come alive in ways it never has before. 
+Our goal is to lower the barriers to entry for scientists to talk about their work, for users to learn about and explore geospatial data, and for geospatial data to come alive in ways it never has before.
 
 Whether you want a turnkey dashboard, individual components, or a foundation for your own innovation, we want the VEDA Dashboard to be flexible and modular enough for your needs.
 
@@ -21,13 +21,13 @@ This document shares guidance on how you can adopt the VEDA Dashboard in a way t
 
 ## Getting Started
 
-If you are going to use the VEDA Dashboard for your own purposes, we assume that you will be self-hosting your own website and data. 
+If you are going to use the VEDA Dashboard for your own purposes, we assume that you will be self-hosting your own website and data.
 - That website and data could all be VEDA tools, so if you're starting from scratch, don't worry! Visit the [top-level instructions](open-source-ecosystem/creating-your-own-instance/index.qmd) for using VEDA.
 
-The primary repository for the VEDA Dashboard is here: 
+The primary repository for the VEDA Dashboard is here:
 - [veda-ui Github](https://github.com/NASA-IMPACT/veda-ui)
 
-We have created a Template Dashboard to showcase how you can pull in veda-ui and create a website compiled with NextJS. 
+We have created a Template Dashboard to showcase how you can pull in veda-ui and create a website compiled with NextJS.
 You can explore and review that implementation here:
 - [Template Dashboard GitHub](https://github.com/NASA-IMPACT/next-veda-ui)
 That Template Dashboard is live here:
@@ -41,7 +41,7 @@ Depending on your goals and technical preferences, there are three main ways to 
 
 #### Clone the Template Dashboard
 
-In this case, we recommend **manually cloning** the [Template Dashboard GitHub](https://github.com/NASA-IMPACT/next-veda-ui) repository. This will allow you to adjust styling, add any custom features, and manage your own content. 
+In this case, we recommend **manually cloning** the [Template Dashboard GitHub](https://github.com/NASA-IMPACT/next-veda-ui) repository. This will allow you to adjust styling, add any custom features, and manage your own content.
 
 - This approach gives you full control and flexibility
 - Benefit from updates to core VEDA functionality
@@ -56,7 +56,7 @@ In this case, we recommend **manually cloning** the [Template Dashboard GitHub](
 
 #### Use VEDA as an NPM Package (for Component Integration)
 
-If you already have a robust web presence but want to use VEDA's powerful **tools** and **widgets**—such as data stories or analysis tools, then you can simply import them as an NPM package.
+If you already have a robust web presence but want to use VEDA's powerful **tools** and **widgets**—such as data stories or analysis tools, then you can simply import them as an NPM package. The package is published under `@teamimpact/veda-ui`.
 
 - Allows you to selectively integrate VEDA components into your existing site.
 - Take advantage of novel storytelling and COG (Cloud-Optimized GeoTIFF) capabilities without a full rebuild.
@@ -65,6 +65,16 @@ If you already have a robust web presence but want to use VEDA's powerful **tool
 
 - You want to enhance your existing website
 - You already have a preferred CMS tool for managing your site
+
+Currently available components, hooks and providers:
+
+Providers and Hooks: `DevseedUiThemeProvider`, `VedaUIProvider`, `ReactQueryProvider`, `useTimelineDatasetAtom`, `useFiltersWithQS`
+
+UI Components: `Block`, `Image`, `MapBlock`, `ScrollytellingBlock`, `Figure`, `Prose`, `MDXImage`, `Caption`, `Chapter`, `Chart`, `Table`, `CompareImage`, `Embed`, `PageHeader`, `PageFooter`, `DefaultCard`, `FlagCard`, `Widget`, `PageHero`
+
+Page Components: `CatalogContent`, `ExplorationAndAnalysis`, `StoriesHubContent`, `DatasetSelectorModal`
+
+**Note:** VEDA is in the process of migrating the remaining components to the USWDS system. If you need additional UI primitives to build custom components within VEDA, we recommend using [USWDS](https://designsystem.digital.gov/) or [react-uswds](https://github.com/trussworks/react-uswds) (if using React).
 
 ---
 
