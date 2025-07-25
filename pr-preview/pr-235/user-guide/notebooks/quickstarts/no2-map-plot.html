@@ -966,9 +966,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <div id="5e4e46f1-892c-45fe-956b-fa0752c0e70e" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> JSON</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="declare-your-collection-of-interest" class="level2">
@@ -995,9 +993,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> response.ok, response.text</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> response.json()</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>JSON(collection)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>&lt;IPython.core.display.JSON object&gt;</code></pre>
+<pre><code>{'id': 'no2-monthly',
+ 'type': 'Collection',
+ 'links': [{'rel': 'items',
+   'type': 'application/geo+json',
+   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly/items'},
+  {'rel': 'parent',
+   'type': 'application/json',
+   'href': 'https://openveda.cloud/api/stac/'},
+  {'rel': 'root',
+   'type': 'application/json',
+   'href': 'https://openveda.cloud/api/stac/'},
+  {'rel': 'self',
+   'type': 'application/json',
+   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly'},
+  {'rel': 'http://www.opengis.net/def/rel/ogc/1.0/queryables',
+   'type': 'application/schema+json',
+   'title': 'Queryables',
+   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly/queryables'}],
+ 'title': 'NO₂',
+ 'assets': {'thumbnail': {'href': 'https://thumbnails.openveda.cloud/no2--dataset-cover.jpg',
+   'type': 'image/jpeg',
+   'roles': ['thumbnail'],
+   'title': 'Thumbnail',
+   'description': 'Photo by [Mick Truyts](https://unsplash.com/photos/x6WQeNYJC1w) (Power plant shooting steam at the sky)'}},
+ 'extent': {'spatial': {'bbox': [[-180.0, -90.0, 180.0, 90.0]]},
+  'temporal': {'interval': [['2016-01-01T00:00:00+00:00',
+     '2022-12-31T00:00:00+00:00']]}},
+ 'license': 'MIT',
+ 'renders': {'dashboard': {'bidx': [1],
+   'title': 'VEDA Dashboard Render Parameters',
+   'assets': ['cog_default'],
+   'rescale': [[0, 15000000000000000]],
+   'resampling': 'bilinear',
+   'color_formula': 'gamma r 1.05',
+   'colormap_name': 'rdbu_r'}},
+ 'providers': [{'url': 'https://disc.gsfc.nasa.gov/',
+   'name': 'NASA Goddard Earth Sciences Data and Information Services Center',
+   'roles': ['producer', 'processor']},
+  {'url': 'https://www.earthdata.nasa.gov/dashboard/',
+   'name': 'NASA VEDA',
+   'roles': ['host']}],
+ 'summaries': {'datetime': ['2016-01-01T00:00:00Z', '2023-09-30T00:00:00Z']},
+ 'description': 'Darker colors indicate higher nitrogen dioxide (NO₂) levels and more activity. Lighter colors indicate lower levels of NO₂ and less activity. Missing pixels indicate areas of no data most likely associated with cloud cover or snow.',
+ 'item_assets': {'cog_default': {'type': 'image/tiff; application=geotiff; profile=cloud-optimized',
+   'roles': ['data', 'layer'],
+   'title': 'Default COG Layer',
+   'description': 'Cloud optimized default layer to display on map'}},
+ 'stac_version': '1.0.0',
+ 'stac_extensions': ['https://stac-extensions.github.io/item-assets/v1.0.0/schema.json',
+  'https://stac-extensions.github.io/render/v1.0.0/schema.json'],
+ 'dashboard:is_periodic': True,
+ 'dashboard:time_density': 'month'}</code></pre>
 </div>
 </div>
 </section>
@@ -1025,9 +1074,92 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Let’s take a look at that one item.</p>
 <div id="79a63492-b9be-4278-85f8-5464fcd9d142" class="cell" data-tags="[]" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> items[<span class="dv">0</span>]</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>JSON(item)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>item</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>&lt;IPython.core.display.JSON object&gt;</code></pre>
+<pre><code>{'id': 'OMI_trno2_0.10x0.10_202101_Col3_V4.nc',
+ 'bbox': [-180.0, -90.0, 180.0, 90.0],
+ 'type': 'Feature',
+ 'links': [{'rel': 'collection',
+   'type': 'application/json',
+   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly'},
+  {'rel': 'parent',
+   'type': 'application/json',
+   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly'},
+  {'rel': 'root',
+   'type': 'application/json',
+   'href': 'https://openveda.cloud/api/stac/'},
+  {'rel': 'self',
+   'type': 'application/geo+json',
+   'href': 'https://openveda.cloud/api/stac/collections/no2-monthly/items/OMI_trno2_0.10x0.10_202101_Col3_V4.nc'},
+  {'title': 'Map of Item',
+   'href': 'https://openveda.cloud/api/raster/collections/no2-monthly/items/OMI_trno2_0.10x0.10_202101_Col3_V4.nc/map?bidx=1&amp;assets=cog_default&amp;rescale=0%2C15000000000000000&amp;resampling=bilinear&amp;color_formula=gamma+r+1.05&amp;colormap_name=rdbu_r',
+   'rel': 'preview',
+   'type': 'text/html'}],
+ 'assets': {'cog_default': {'href': 's3://veda-data-store/no2-monthly/OMI_trno2_0.10x0.10_202101_Col3_V4.nc.tif',
+   'type': 'image/tiff; application=geotiff',
+   'roles': ['data', 'layer'],
+   'title': 'Default COG Layer',
+   'proj:bbox': [-180.0, -90.0, 180.0, 90.0],
+   'proj:epsg': 4326,
+   'proj:wkt2': 'GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]',
+   'proj:shape': [1800, 3600],
+   'description': 'Cloud optimized default layer to display on map',
+   'raster:bands': [{'scale': 1.0,
+     'nodata': -1.2676506002282294e+30,
+     'offset': 0.0,
+     'sampling': 'area',
+     'data_type': 'float32',
+     'histogram': {'max': 35781585143857150,
+      'min': -4107596126486528.0,
+      'count': 11,
+      'buckets': [7437, 432387, 2866, 699, 356, 207, 76, 27, 7, 1]},
+     'statistics': {'mean': 367152773066762.6,
+      'stddev': 961254458662885.4,
+      'maximum': 35781585143857150,
+      'minimum': -4107596126486528.0,
+      'valid_percent': 84.69829559326172}}],
+   'proj:geometry': {'type': 'Polygon',
+    'coordinates': [[[-180.0, -90.0],
+      [180.0, -90.0],
+      [180.0, 90.0],
+      [-180.0, 90.0],
+      [-180.0, -90.0]]]},
+   'proj:projjson': {'id': {'code': 4326, 'authority': 'EPSG'},
+    'name': 'WGS 84',
+    'type': 'GeographicCRS',
+    'datum': {'name': 'World Geodetic System 1984',
+     'type': 'GeodeticReferenceFrame',
+     'ellipsoid': {'name': 'WGS 84',
+      'semi_major_axis': 6378137,
+      'inverse_flattening': 298.257223563}},
+    '$schema': 'https://proj.org/schemas/v0.4/projjson.schema.json',
+    'coordinate_system': {'axis': [{'name': 'Geodetic latitude',
+       'unit': 'degree',
+       'direction': 'north',
+       'abbreviation': 'Lat'},
+      {'name': 'Geodetic longitude',
+       'unit': 'degree',
+       'direction': 'east',
+       'abbreviation': 'Lon'}],
+     'subtype': 'ellipsoidal'}},
+   'proj:transform': [0.1, 0.0, -180.0, 0.0, -0.1, 90.0, 0.0, 0.0, 1.0]},
+  'rendered_preview': {'title': 'Rendered preview',
+   'href': 'https://openveda.cloud/api/raster/collections/no2-monthly/items/OMI_trno2_0.10x0.10_202101_Col3_V4.nc/preview.png?bidx=1&amp;assets=cog_default&amp;rescale=0%2C15000000000000000&amp;resampling=bilinear&amp;color_formula=gamma+r+1.05&amp;colormap_name=rdbu_r',
+   'rel': 'preview',
+   'roles': ['overview'],
+   'type': 'image/png'}},
+ 'geometry': {'type': 'Polygon',
+  'coordinates': [[[-180, -90],
+    [180, -90],
+    [180, 90],
+    [-180, 90],
+    [-180, -90]]]},
+ 'collection': 'no2-monthly',
+ 'properties': {'end_datetime': '2021-01-31T00:00:00+00:00',
+  'start_datetime': '2021-01-01T00:00:00+00:00'},
+ 'stac_version': '1.0.0',
+ 'stac_extensions': ['https://stac-extensions.github.io/raster/v1.1.0/schema.json',
+  'https://stac-extensions.github.io/projection/v1.1.0/schema.json']}</code></pre>
 </div>
 </div>
 <div id="7bc42fff" class="cell" data-execution_count="6">
@@ -1093,7 +1225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_5e838233afcbb305ea71b62bd51dc401 {
+                #map_6c9d50c08a7278452c51be1a2c5eabfd {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1130,14 +1262,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_5e838233afcbb305ea71b62bd51dc401&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_6c9d50c08a7278452c51be1a2c5eabfd&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_5e838233afcbb305ea71b62bd51dc401 = L.map(
-                &quot;map_5e838233afcbb305ea71b62bd51dc401&quot;,
+            var map_6c9d50c08a7278452c51be1a2c5eabfd = L.map(
+                &quot;map_6c9d50c08a7278452c51be1a2c5eabfd&quot;,
                 {
                     center: [0.0, 0.0],
                     crs: L.CRS.EPSG3857,
@@ -1154,7 +1286,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_5d4699b888393545109589b4f5d32f24 = L.tileLayer(
+            var tile_layer_936a8b0cdabfc444ce8b36a61045172e = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/collections/no2-monthly/items/OMI_trno2_0.10x0.10_202101_Col3_V4.nc/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=rdbu_r\u0026rescale=-4107596126486528.0%2C35781585143857150&quot;,
                 {
   &quot;minZoom&quot;: 3,
@@ -1171,7 +1303,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             );
         
     
-            tile_layer_5d4699b888393545109589b4f5d32f24.addTo(map_5e838233afcbb305ea71b62bd51dc401);
+            tile_layer_936a8b0cdabfc444ce8b36a61045172e.addTo(map_6c9d50c08a7278452c51be1a2c5eabfd);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
