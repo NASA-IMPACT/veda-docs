@@ -1,20 +1,8 @@
 ---
-"title: RStudio VEDA S3 Bucket Access\n",
-"description: Setting environment variables to access VEDA S3 buckets within RStudio\n",
-"author: Alex Mandel, Sheyenne Kirkland\n",
-"date: August 7, 2025\n",
-"execute:\n",
-"  cache: true\n",
-"  freeze: true\n",
-"format: html"
+title: RStudio VEDA S3 Bucket Access
 ---
 
-## Run This File
-You can launch this notebook in VEDA JupyterHub by clicking the link below.
-
-[Launch in VEDA JupyterHub (requires access)](https://hub.openveda.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&urlpath=lab/tree/veda-docs/user-guide/notebooks/quickstarts/rstudio-bucket-access.qmd&branch=main)
-
-## Approach
+## Overview
 Users of the RStudio image in the VEDA Jupyterhub cannot access VEDA AWS buckets the same way Python Pangeo users can. This is because RStudio does not read global system environmental variables, which is where VEDA’s AWS credentials are set. In this example, we will:
 
 1. Set environment variables
@@ -30,7 +18,7 @@ Sys.setenv(AWS_WEB_IDENTITY_TOKEN_FILE="/var/run/secrets/eks.amazonaws.com/servi
 
 ## Access Data in a VEDA S3 Bucket
 
-Read necessary library
+Load package(s)
 
 ```{r}
 library(terra)
