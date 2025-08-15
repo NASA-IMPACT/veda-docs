@@ -1010,20 +1010,13 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="1aafe340" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>importlib.<span class="bu">reload</span>(putils)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="30">
-<pre><code>&lt;module 'plotutils' from '/Users/klesinger/github/veda-docs/user-guide/notebooks/stories/plotutils.py'&gt;</code></pre>
-</div>
-</div>
 <div id="8fc9234c-975b-485d-bfb3-d9100ff3b12d" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For retrieving data already catalogued in VEDA STAC</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/stac"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/raster"</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Open STAC client designed for interacting with SpatioTemporal Asset Catalog (STAC) APIs and Catalogs</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>client_STAC <span class="op">=</span> Client.<span class="bu">open</span>(STAC_API_URL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For retrieving data already catalogued in VEDA STAC</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/stac"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/raster"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Open STAC client designed for interacting with SpatioTemporal Asset Catalog (STAC) APIs and Catalogs</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>client_STAC <span class="op">=</span> Client.<span class="bu">open</span>(STAC_API_URL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="overview" class="level2">
@@ -1042,27 +1035,27 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <section id="choose-variable-and-retrieve-json-from-veda-stac-catalogue" class="level2">
 <h2 class="anchored" data-anchor-id="choose-variable-and-retrieve-json-from-veda-stac-catalogue">Choose variable and retrieve json from VEDA STAC catalogue</h2>
 <div id="f1ef497a-4fa7-499c-8237-21f4cad1d45b" class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Change collection_ID and date</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"tornadoes-2024-paths"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-05-31"</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id], datetime<span class="op">=</span>date)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(results.items())</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(items) <span class="op">!=</span> <span class="dv">0</span>, <span class="st">"No items found"</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> items[<span class="dv">0</span>]</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> item.get_collection()</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the dashboard render block</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>dashboard_render <span class="op">=</span> collection.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> dashboard_render[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the same information as tornado paths for vmin and vmax range</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>(vmin, vmax) <span class="op">=</span> (<span class="dv">0</span>,<span class="dv">6</span>)</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Change collection_ID and date</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"tornadoes-2024-paths"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-05-31"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id], datetime<span class="op">=</span>date)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(results.items())</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(items) <span class="op">!=</span> <span class="dv">0</span>, <span class="st">"No items found"</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> items[<span class="dv">0</span>]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> item.get_collection()</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the dashboard render block</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>dashboard_render <span class="op">=</span> collection.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> dashboard_render[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the same information as tornado paths for vmin and vmax range</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>(vmin, vmax) <span class="op">=</span> (<span class="dv">0</span>,<span class="dv">6</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
 
 
@@ -1913,21 +1906,21 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 </div>
 </div>
 <div id="b3bafa71-607c-49cc-9e5f-8f3d2f882410" class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> <span class="st">"tornado_ef_scale"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build endpoint URL. Do not add rescale parameters with discrete data</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>response.raise_for_status()</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>tiles <span class="op">=</span> response.json()</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tiles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> <span class="st">"tornado_ef_scale"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build endpoint URL. Do not add rescale parameters with discrete data</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>response.raise_for_status()</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>tiles <span class="op">=</span> response.json()</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tiles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'tilejson': '2.2.0', 'version': '1.0.0', 'scheme': 'xyz', 'tiles': ['https://openveda.cloud/api/raster/collections/tornadoes-2024-paths/items/Tornado_Tracks_cog_2024-05-31/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;colormap_name=tornado_ef_scale'], 'minzoom': 0, 'maxzoom': 24, 'bounds': [-103.501720443, 18.467731627, -66.701720443, 46.592731627], 'center': [-85.101720443, 32.530231627, 0]}</code></pre>
 </div>
@@ -1936,9 +1929,9 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <section id="plot-data" class="level2">
 <h2 class="anchored" data-anchor-id="plot-data">Plot data</h2>
 <div id="9d17e195" class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First we will present the different basemaps that we have access to underlay beneath our tile requests</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For the first map, we will utilize the 'esri-satellite-labels' map layer</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>putils.get_available_basemaps()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First we will present the different basemaps that we have access to underlay beneath our tile requests</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For the first map, we will utilize the 'esri-satellite-labels' map layer</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>putils.get_available_basemaps()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="34">
 <pre><code>{'openstreetmap': 'OpenStreetMap standard tiles',
  'cartodb-positron': 'Light gray CartoDB basemap (subtle, good for data visualization)',
@@ -1949,54 +1942,54 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 </div>
 </div>
 <div id="9af1c710-0423-4d3e-9c93-4fff13d1dab5" class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define EF scale categories with specific colors to replicate predefined colorscale in VEDA backend. </span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Colors have been predifined in veda-backend https://github.com/NASA-IMPACT/veda-backend/tree/develop/raster_api/runtime/src/cmap_data#tornadoes-colormap</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>ef_categories <span class="op">=</span> [</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"color"</span>: <span class="st">"#add8e6"</span>, <span class="st">"label"</span>: <span class="st">"EF0"</span>, <span class="st">"value"</span>: <span class="dv">0</span>},  <span class="co"># Light blue</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"color"</span>: <span class="st">"#90ee90"</span>, <span class="st">"label"</span>: <span class="st">"EF1"</span>, <span class="st">"value"</span>: <span class="dv">1</span>},  <span class="co"># Green</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"color"</span>: <span class="st">"#ffe71f"</span>, <span class="st">"label"</span>: <span class="st">"EF2"</span>, <span class="st">"value"</span>: <span class="dv">2</span>},  <span class="co"># Yellow</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"color"</span>: <span class="st">"#ffa500"</span>, <span class="st">"label"</span>: <span class="st">"EF3"</span>, <span class="st">"value"</span>: <span class="dv">3</span>},  <span class="co"># Orange</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"color"</span>: <span class="st">"#ff0000"</span>, <span class="st">"label"</span>: <span class="st">"EF4"</span>, <span class="st">"value"</span>: <span class="dv">4</span>},  <span class="co"># Red</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"color"</span>: <span class="st">"#ff00ff"</span>, <span class="st">"label"</span>: <span class="st">"EF5"</span>, <span class="st">"value"</span>: <span class="dv">5</span>},  <span class="co"># Pink</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"color"</span>: <span class="st">"#b3bcc9"</span>, <span class="st">"label"</span>: <span class="st">"EFU"</span>, <span class="st">"value"</span>: <span class="dv">6</span>}   <span class="co"># Gray-blue (Unknown)</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract colors from ef_categories</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>ef_colors <span class="op">=</span> [cat[<span class="st">"color"</span>] <span class="cf">for</span> cat <span class="kw">in</span> ef_categories]</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>n_bins <span class="op">=</span> <span class="bu">len</span>(ef_colors)</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a discrete colormap</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>cmap_tornado <span class="op">=</span> mpl.colors.ListedColormap(ef_colors, name<span class="op">=</span><span class="st">'tornado_ef_scale'</span>)</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Register the colormap with matplotlib using the new method [for newer matplotlib versions (3.5+)]</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    plt.colormaps.register(cmap_tornado)</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span>:</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span> <span class="co">#Custom colormap scale already applied. This is necessary if you re-run this cell block.</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_from_VEDA_STAC(</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    tiles_url_template<span class="op">=</span>tiles[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">41.31</span>, <span class="op">-</span><span class="fl">94.46</span>],</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    rescale<span class="op">=</span>(vmin, vmax),</span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    colormap_name<span class="op">=</span><span class="st">'tornado_ef_scale'</span>,</span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    custom_colors<span class="op">=</span>ef_categories,</span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    capitalize_cmap<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    layer_name<span class="op">=</span><span class="st">"Tornado Tracks"</span>,</span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    date<span class="op">=</span><span class="st">"(March-May 2024)"</span>,</span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    colorbar_caption<span class="op">=</span><span class="st">"EF Rating"</span>,</span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    attribution<span class="op">=</span><span class="st">"VEDA - NWS DAT Tornado Tracks"</span>,</span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>    tile_name<span class="op">=</span><span class="st">"Tornado Tracks (March-May 2024)"</span>,</span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
-<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>    remove_default_legend<span class="op">=</span><span class="va">False</span>,  <span class="co"># Only show custom legend</span></span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">"esri-satellite-labels"</span>  <span class="co"># Use ESRI satellite with city/town labels</span></span>
-<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
-<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define EF scale categories with specific colors to replicate predefined colorscale in VEDA backend. </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Colors have been predifined in veda-backend https://github.com/NASA-IMPACT/veda-backend/tree/develop/raster_api/runtime/src/cmap_data#tornadoes-colormap</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>ef_categories <span class="op">=</span> [</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"color"</span>: <span class="st">"#add8e6"</span>, <span class="st">"label"</span>: <span class="st">"EF0"</span>, <span class="st">"value"</span>: <span class="dv">0</span>},  <span class="co"># Light blue</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"color"</span>: <span class="st">"#90ee90"</span>, <span class="st">"label"</span>: <span class="st">"EF1"</span>, <span class="st">"value"</span>: <span class="dv">1</span>},  <span class="co"># Green</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"color"</span>: <span class="st">"#ffe71f"</span>, <span class="st">"label"</span>: <span class="st">"EF2"</span>, <span class="st">"value"</span>: <span class="dv">2</span>},  <span class="co"># Yellow</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"color"</span>: <span class="st">"#ffa500"</span>, <span class="st">"label"</span>: <span class="st">"EF3"</span>, <span class="st">"value"</span>: <span class="dv">3</span>},  <span class="co"># Orange</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"color"</span>: <span class="st">"#ff0000"</span>, <span class="st">"label"</span>: <span class="st">"EF4"</span>, <span class="st">"value"</span>: <span class="dv">4</span>},  <span class="co"># Red</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"color"</span>: <span class="st">"#ff00ff"</span>, <span class="st">"label"</span>: <span class="st">"EF5"</span>, <span class="st">"value"</span>: <span class="dv">5</span>},  <span class="co"># Pink</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    {<span class="st">"color"</span>: <span class="st">"#b3bcc9"</span>, <span class="st">"label"</span>: <span class="st">"EFU"</span>, <span class="st">"value"</span>: <span class="dv">6</span>}   <span class="co"># Gray-blue (Unknown)</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract colors from ef_categories</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>ef_colors <span class="op">=</span> [cat[<span class="st">"color"</span>] <span class="cf">for</span> cat <span class="kw">in</span> ef_categories]</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>n_bins <span class="op">=</span> <span class="bu">len</span>(ef_colors)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a discrete colormap</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>cmap_tornado <span class="op">=</span> mpl.colors.ListedColormap(ef_colors, name<span class="op">=</span><span class="st">'tornado_ef_scale'</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Register the colormap with matplotlib using the new method [for newer matplotlib versions (3.5+)]</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    plt.colormaps.register(cmap_tornado)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span>:</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span> <span class="co">#Custom colormap scale already applied. This is necessary if you re-run this cell block.</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_from_VEDA_STAC(</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    tiles_url_template<span class="op">=</span>tiles[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">41.31</span>, <span class="op">-</span><span class="fl">94.46</span>],</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    rescale<span class="op">=</span>(vmin, vmax),</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    colormap_name<span class="op">=</span><span class="st">'tornado_ef_scale'</span>,</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    custom_colors<span class="op">=</span>ef_categories,</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    capitalize_cmap<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>    layer_name<span class="op">=</span><span class="st">"Tornado Tracks"</span>,</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    date<span class="op">=</span><span class="st">"(March-May 2024)"</span>,</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    colorbar_caption<span class="op">=</span><span class="st">"EF Rating"</span>,</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>    attribution<span class="op">=</span><span class="st">"VEDA - NWS DAT Tornado Tracks"</span>,</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>    tile_name<span class="op">=</span><span class="st">"Tornado Tracks (March-May 2024)"</span>,</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>    remove_default_legend<span class="op">=</span><span class="va">False</span>,  <span class="co"># Only show custom legend</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">"esri-satellite-labels"</span>  <span class="co"># Use ESRI satellite with city/town labels</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="35">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
 <html>
@@ -2280,27 +2273,27 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <h1>Example: NWS Tornado Polygons (March-May 2024)</h1>
 <p>Pull the NWS Tornado Polygon data from the VEDA STAC catalog and visualize</p>
 <div id="965db310-ee99-4af3-96a8-00e63854351d" class="cell" data-execution_count="36">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Change collection_ID and date</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"tornadoes-2024-polygons"</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-05-31"</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id], datetime<span class="op">=</span>date)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(results.items())</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(items) <span class="op">!=</span> <span class="dv">0</span>, <span class="st">"No items found"</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> items[<span class="dv">0</span>]</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> item.get_collection()</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the dashboard render block</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>dashboard_render <span class="op">=</span> collection.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> dashboard_render[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Use 0-6 range to include EFU (Unknown) category (the same as the last map for tornado tracks)</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>(vmin, vmax) <span class="op">=</span> (<span class="dv">0</span>,<span class="dv">6</span>)</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Change collection_ID and date</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"tornadoes-2024-polygons"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-05-31"</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id], datetime<span class="op">=</span>date)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(results.items())</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(items) <span class="op">!=</span> <span class="dv">0</span>, <span class="st">"No items found"</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> items[<span class="dv">0</span>]</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> item.get_collection()</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the dashboard render block</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>dashboard_render <span class="op">=</span> collection.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> dashboard_render[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Use 0-6 range to include EFU (Unknown) category (the same as the last map for tornado tracks)</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>(vmin, vmax) <span class="op">=</span> (<span class="dv">0</span>,<span class="dv">6</span>)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="36">
 
 
@@ -3171,23 +3164,23 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 </div>
 </div>
 <div id="bdba0ec8-aced-4a16-a5ad-e261aa586cfd" class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the same tornado_ef_scale colormap for polygons</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> <span class="st">"tornado_ef_scale"</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Build endpoint URL - NO RESCALE for discrete categorical data</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Removed rescale completely - let the server use raw integer values</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>response.raise_for_status()</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>tiles <span class="op">=</span> response.json()</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>tiles</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the same tornado_ef_scale colormap for polygons</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> <span class="st">"tornado_ef_scale"</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Build endpoint URL - NO RESCALE for discrete categorical data</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Removed rescale completely - let the server use raw integer values</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>response.raise_for_status()</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>tiles <span class="op">=</span> response.json()</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>tiles</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="37">
 <pre><code>{'tilejson': '2.2.0',
  'version': '1.0.0',
@@ -3203,29 +3196,29 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 </div>
 </div>
 <div id="f6183652-36ca-4d4f-af4e-41070e813092" class="cell" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the base map using the unified function (ef_categories already defined above)</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: Not passing rescale for discrete data</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_from_VEDA_STAC(</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    tiles_url_template<span class="op">=</span>tiles[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">40.50</span>, <span class="op">-</span><span class="fl">84.05</span>],</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">12</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    rescale<span class="op">=</span>(vmin, vmax),</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    colormap_name<span class="op">=</span><span class="st">'tornado_ef_scale'</span>,</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    custom_colors<span class="op">=</span>ef_categories,</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    capitalize_cmap<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    layer_name<span class="op">=</span><span class="st">"Tornado Tracks [Polygons]"</span>,</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    date<span class="op">=</span><span class="st">"(March-May 2024)"</span>,</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    colorbar_caption<span class="op">=</span><span class="st">"EF Rating"</span>,</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    attribution<span class="op">=</span><span class="st">"VEDA - NWS DAT Tornado Polygons"</span>,</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    tile_name<span class="op">=</span><span class="st">"Tornado Tracks [Polygons] (March-May 2024)"</span>,</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    remove_default_legend<span class="op">=</span><span class="va">True</span>,  <span class="co"># Only show custom legend</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">"esri-satellite-labels"</span>  <span class="co"># Use ESRI satellite with city/town labels</span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the base map using the unified function (ef_categories already defined above)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: Not passing rescale for discrete data</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_from_VEDA_STAC(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    tiles_url_template<span class="op">=</span>tiles[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">40.50</span>, <span class="op">-</span><span class="fl">84.05</span>],</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">12</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    rescale<span class="op">=</span>(vmin, vmax),</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    colormap_name<span class="op">=</span><span class="st">'tornado_ef_scale'</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    custom_colors<span class="op">=</span>ef_categories,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    capitalize_cmap<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    layer_name<span class="op">=</span><span class="st">"Tornado Tracks [Polygons]"</span>,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    date<span class="op">=</span><span class="st">"(March-May 2024)"</span>,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    colorbar_caption<span class="op">=</span><span class="st">"EF Rating"</span>,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    attribution<span class="op">=</span><span class="st">"VEDA - NWS DAT Tornado Polygons"</span>,</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    tile_name<span class="op">=</span><span class="st">"Tornado Tracks [Polygons] (March-May 2024)"</span>,</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    remove_default_legend<span class="op">=</span><span class="va">True</span>,  <span class="co"># Only show custom legend</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">"esri-satellite-labels"</span>  <span class="co"># Use ESRI satellite with city/town labels</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="38">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
 <html>
@@ -3509,26 +3502,26 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <p>Pull the NASA Black Marble Nightlights data from from the VEDA STAC catalog and visualize</p>
 <p>NASA’s Black Marble night lights dataset provides satellite images of Earth at night, capturing the light pollution from cities, roads, and other human activity. These images are collected by the Visible Infrared Imaging Radiometer Suite (VIIRS) sensor on the Suomi National Polar-orbiting Partnership (NPP) satellite, and can be used to examine changes in illumination over time. In this story, night lights data is used to assess changes before and after a tornado impacts a town, highlighting areas affected by power outages that may cause recovery slowdowns.</p>
 <div id="d55ccd28-c8ba-47cf-bfd3-03c3a8cd5beb" class="cell" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Change collection_ID and date</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"lakeview-nightlights-tornadoes-2024"</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-03-14"</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id], datetime<span class="op">=</span>date)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(results.items())</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(items) <span class="op">!=</span> <span class="dv">0</span>, <span class="st">"No items found"</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> items[<span class="dv">0</span>]</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> item.get_collection()</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the dashboard render block</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>dashboard_render <span class="op">=</span> collection.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> dashboard_render[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>((vmin, vmax),) <span class="op">=</span> dashboard_render[<span class="st">"rescale"</span>]</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Change collection_ID and date</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"lakeview-nightlights-tornadoes-2024"</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-03-14"</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id], datetime<span class="op">=</span>date)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(results.items())</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(items) <span class="op">!=</span> <span class="dv">0</span>, <span class="st">"No items found"</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> items[<span class="dv">0</span>]</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> item.get_collection()</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the dashboard render block</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>dashboard_render <span class="op">=</span> collection.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> dashboard_render[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>((vmin, vmax),) <span class="op">=</span> dashboard_render[<span class="st">"rescale"</span>]</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="39">
 
 
@@ -4452,51 +4445,51 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 </div>
 </div>
 <div id="6b3f9709-09bc-43ef-b3fd-d89f3c0cd5e9" class="cell" data-execution_count="40">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#colormap_name = "tornado_ef_scale"</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> <span class="st">"bwr"</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Build endpoint URL without worrying about trailing slashes</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;color_formula=gamma+r+1.05&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax<span class="sc">}</span><span class="ss">"</span>,</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>response.raise_for_status()</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>tiles <span class="op">=</span> response.json()</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tiles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#colormap_name = "tornado_ef_scale"</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> <span class="st">"bwr"</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Build endpoint URL without worrying about trailing slashes</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;color_formula=gamma+r+1.05&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>response.raise_for_status()</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>tiles <span class="op">=</span> response.json()</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tiles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'tilejson': '2.2.0', 'version': '1.0.0', 'scheme': 'xyz', 'tiles': ['https://openveda.cloud/api/raster/collections/lakeview-nightlights-tornadoes-2024/items/nightlights_LakeviewOH_diff_cog_2024-03-14/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=bwr&amp;rescale=-150%2C150'], 'minzoom': 0, 'maxzoom': 24, 'bounds': [-84.2954, 40.20127368220017, -83.57612536287245, 40.69122631779985], 'center': [-83.93576268143622, 40.446250000000006, 0]}</code></pre>
 </div>
 </div>
 <div id="f283977b-e862-4f2d-9032-414d974a35b4" class="cell" data-execution_count="41">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the new plot_folium_from_VEDA_STAC function</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_from_VEDA_STAC(</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_template<span class="op">=</span>tiles[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">40.496</span>, <span class="op">-</span><span class="fl">83.884</span>],</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="fl">12.5</span>,</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    rescale<span class="op">=</span>(vmin, vmax),</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    colormap_name<span class="op">=</span>colormap_name,</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    capitalize_cmap<span class="op">=</span><span class="va">False</span>,  <span class="co"># to better match VEDA colors and matplotlib colors</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    layer_name<span class="op">=</span><span class="st">"Black Marble Nightlights"</span>,</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    date<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>date<span class="sc">}</span><span class="ss">T00:00:00Z"</span>,</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    colorbar_caption<span class="op">=</span><span class="st">"Artificial Light"</span>,</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    attribution<span class="op">=</span><span class="st">"VEDA Black Marble Nightlights"</span>,</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    tile_name<span class="op">=</span><span class="st">"Black Marble Nightlights"</span>,</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">"cartodb-dark"</span>  <span class="co"># Use dark basemap for better nightlight visibility</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Visualization of Indian Lake, Ohio showing large decreases in artificial light emissions after an EF-3 tornado on March 14, 2024."</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the new plot_folium_from_VEDA_STAC function</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_from_VEDA_STAC(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_template<span class="op">=</span>tiles[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">40.496</span>, <span class="op">-</span><span class="fl">83.884</span>],</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="fl">12.5</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    rescale<span class="op">=</span>(vmin, vmax),</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    colormap_name<span class="op">=</span>colormap_name,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    capitalize_cmap<span class="op">=</span><span class="va">False</span>,  <span class="co"># to better match VEDA colors and matplotlib colors</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    layer_name<span class="op">=</span><span class="st">"Black Marble Nightlights"</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    date<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>date<span class="sc">}</span><span class="ss">T00:00:00Z"</span>,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    colorbar_caption<span class="op">=</span><span class="st">"Artificial Light"</span>,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    attribution<span class="op">=</span><span class="st">"VEDA Black Marble Nightlights"</span>,</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    tile_name<span class="op">=</span><span class="st">"Black Marble Nightlights"</span>,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">"cartodb-dark"</span>  <span class="co"># Use dark basemap for better nightlight visibility</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Visualization of Indian Lake, Ohio showing large decreases in artificial light emissions after an EF-3 tornado on March 14, 2024."</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Visualization of Indian Lake, Ohio showing large decreases in artificial light emissions after an EF-3 tornado on March 14, 2024.</code></pre>
 </div>
@@ -4720,61 +4713,61 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <p>Pull the DOW7 radar data from from the VEDA STAC catalog and visualize using a side-by-side layer slider</p>
 <p>The Doppler on Wheels (DOW) radar, which is mounted on vehicles and can get closer to storms, can be examined in cases where it was deployed in order to gather more detailed information than the NWS regional WSR-88D radars. DOW radars are typically used for research and can capture clearer, higher-resolution data on tornadoes, while WSR-88D provides a wider view but with slightly less detail.</p>
 <div id="7213b9f2-8444-462b-a994-3e8cbb6beed2" class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve both DOW7 reflectivity and velocity data from VEDA STAC</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-04-26"</span> <span class="co">#Use the same date for both reflectivity and velocity</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ── DOW7 Base Reflectivity ─────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Get reflectivity collection and tiles</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>collection_id_refl <span class="op">=</span> <span class="st">"tornadoes-2024-dow-refl-harlan"</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>results_refl <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id_refl], datetime<span class="op">=</span>date)</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>items_refl <span class="op">=</span> <span class="bu">list</span>(results_refl.items())</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>item_refl <span class="op">=</span> items_refl[<span class="dv">0</span>]</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>collection_refl <span class="op">=</span> item_refl.get_collection()</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>dashboard_render_refl <span class="op">=</span> collection_refl.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>assets_refl <span class="op">=</span> dashboard_render_refl[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>((vmin_refl, vmax_refl),) <span class="op">=</span> dashboard_render_refl[<span class="st">"rescale"</span>]</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> collection_refl.extra_fields[<span class="st">'renders'</span>][<span class="st">'dashboard'</span>][<span class="st">'colormap_name'</span>]</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Build reflectivity tile URL</span></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>response_refl <span class="op">=</span> requests.get(</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id_refl<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item_refl<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets_refl<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;color_formula=gamma+r+1.05&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin_refl<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax_refl<span class="sc">}</span><span class="ss">"</span>,</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>response_refl.raise_for_status()</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>tiles_refl <span class="op">=</span> response_refl.json()</span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="co"># ── DOW7 Velocity ─────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Get velocity collection and tiles</span></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>collection_id_vel <span class="op">=</span> <span class="st">"tornadoes-2024-dow-v-harlan"</span></span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>results_vel <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id_vel], datetime<span class="op">=</span>date)</span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>items_vel <span class="op">=</span> <span class="bu">list</span>(results_vel.items())</span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>item_vel <span class="op">=</span> items_vel[<span class="dv">0</span>]</span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>collection_vel <span class="op">=</span> item_vel.get_collection()</span>
-<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>dashboard_render_vel <span class="op">=</span> collection_vel.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
-<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>assets_vel <span class="op">=</span> dashboard_render_vel[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
-<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a>((vmin_vel, vmax_vel),) <span class="op">=</span> dashboard_render_vel[<span class="st">"rescale"</span>]</span>
-<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> collection_vel.extra_fields[<span class="st">'renders'</span>][<span class="st">'dashboard'</span>][<span class="st">'colormap_name'</span>]</span>
-<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Build velocity tile URL</span></span>
-<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>response_vel <span class="op">=</span> requests.get(</span>
-<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id_vel<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item_vel<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
-<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets_vel<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;color_formula=gamma+r+1.05&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin_vel<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax_vel<span class="sc">}</span><span class="ss">"</span>,</span>
-<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a>response_vel.raise_for_status()</span>
-<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a>tiles_vel <span class="op">=</span> response_vel.json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve both DOW7 reflectivity and velocity data from VEDA STAC</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-04-26"</span> <span class="co">#Use the same date for both reflectivity and velocity</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ── DOW7 Base Reflectivity ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Get reflectivity collection and tiles</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>collection_id_refl <span class="op">=</span> <span class="st">"tornadoes-2024-dow-refl-harlan"</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>results_refl <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id_refl], datetime<span class="op">=</span>date)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>items_refl <span class="op">=</span> <span class="bu">list</span>(results_refl.items())</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>item_refl <span class="op">=</span> items_refl[<span class="dv">0</span>]</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>collection_refl <span class="op">=</span> item_refl.get_collection()</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>dashboard_render_refl <span class="op">=</span> collection_refl.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>assets_refl <span class="op">=</span> dashboard_render_refl[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>((vmin_refl, vmax_refl),) <span class="op">=</span> dashboard_render_refl[<span class="st">"rescale"</span>]</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> collection_refl.extra_fields[<span class="st">'renders'</span>][<span class="st">'dashboard'</span>][<span class="st">'colormap_name'</span>]</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Build reflectivity tile URL</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>response_refl <span class="op">=</span> requests.get(</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id_refl<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item_refl<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets_refl<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;color_formula=gamma+r+1.05&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin_refl<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax_refl<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>response_refl.raise_for_status()</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>tiles_refl <span class="op">=</span> response_refl.json()</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="co"># ── DOW7 Velocity ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Get velocity collection and tiles</span></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>collection_id_vel <span class="op">=</span> <span class="st">"tornadoes-2024-dow-v-harlan"</span></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>results_vel <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id_vel], datetime<span class="op">=</span>date)</span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>items_vel <span class="op">=</span> <span class="bu">list</span>(results_vel.items())</span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>item_vel <span class="op">=</span> items_vel[<span class="dv">0</span>]</span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>collection_vel <span class="op">=</span> item_vel.get_collection()</span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>dashboard_render_vel <span class="op">=</span> collection_vel.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>assets_vel <span class="op">=</span> dashboard_render_vel[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>((vmin_vel, vmax_vel),) <span class="op">=</span> dashboard_render_vel[<span class="st">"rescale"</span>]</span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> collection_vel.extra_fields[<span class="st">'renders'</span>][<span class="st">'dashboard'</span>][<span class="st">'colormap_name'</span>]</span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Build velocity tile URL</span></span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>response_vel <span class="op">=</span> requests.get(</span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id_vel<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item_vel<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets_vel<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;color_formula=gamma+r+1.05&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin_vel<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax_vel<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>response_vel.raise_for_status()</span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>tiles_vel <span class="op">=</span> response_vel.json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="22a738e8" class="cell" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#View DOW7 reflectivity collection</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>collection_refl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#View DOW7 reflectivity collection</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>collection_refl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="43">
 
 
@@ -5689,8 +5682,8 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 </div>
 </div>
 <div id="618ba9da" class="cell" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#View DOW7 velocity collection</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>collection_vel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#View DOW7 velocity collection</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>collection_vel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="44">
 
 
@@ -6605,29 +6598,29 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 </div>
 </div>
 <div id="f01b3d85" class="cell" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the new plot_folium_SidebySide_layer_from_VEDA_STAC function from plotutils</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_SidebySide_layer_from_VEDA_STAC(</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_left<span class="op">=</span>tiles_refl[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    tiles_url_right<span class="op">=</span>tiles_vel[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">41.668</span>, <span class="op">-</span><span class="fl">95.372</span>],</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">14</span>,</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"DOW7 Comparison — Harlan, IA — April 26, 2024"</span>,</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    label_left<span class="op">=</span><span class="st">"← Reflectivity (-10 to 50 dBZ)"</span>,</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    label_right<span class="op">=</span><span class="st">"Velocity (-75 to 75 m/s) →"</span>,</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    layer_name_left<span class="op">=</span><span class="st">"DOW7 Reflectivity"</span>,</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    layer_name_right<span class="op">=</span><span class="st">"DOW7 Velocity"</span>,</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">'esri-satellite-labels'</span>,</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="st">"100%"</span></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Interactive side-by-side comparison of DOW7 reflectivity and velocity data."</span>)</span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Drag the vertical slider to reveal more of either dataset."</span>)</span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the new plot_folium_SidebySide_layer_from_VEDA_STAC function from plotutils</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_SidebySide_layer_from_VEDA_STAC(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_left<span class="op">=</span>tiles_refl[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    tiles_url_right<span class="op">=</span>tiles_vel[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">41.668</span>, <span class="op">-</span><span class="fl">95.372</span>],</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">14</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"DOW7 Comparison — Harlan, IA — April 26, 2024"</span>,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    label_left<span class="op">=</span><span class="st">"← Reflectivity (-10 to 50 dBZ)"</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    label_right<span class="op">=</span><span class="st">"Velocity (-75 to 75 m/s) →"</span>,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    layer_name_left<span class="op">=</span><span class="st">"DOW7 Reflectivity"</span>,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    layer_name_right<span class="op">=</span><span class="st">"DOW7 Velocity"</span>,</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">'esri-satellite-labels'</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="st">"100%"</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Interactive side-by-side comparison of DOW7 reflectivity and velocity data."</span>)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Drag the vertical slider to reveal more of either dataset."</span>)</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Interactive side-by-side comparison of DOW7 reflectivity and velocity data.
 Drag the vertical slider to reveal more of either dataset.
@@ -6898,26 +6891,26 @@ Drag the vertical slider to reveal more of either dataset.
 <h1>Example: DOW7 Correlation Coefficient (Radar)</h1>
 <p>Pull the DOW7 radar data from from the VEDA STAC catalog and visualize</p>
 <div id="2461b25d-de5d-42b1-b30d-464185144021" class="cell" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Change collection_ID and date</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"tornadoes-2024-dow-rhohv-greenfield"</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-05-21"</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id], datetime<span class="op">=</span>date)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(results.items())</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(items) <span class="op">!=</span> <span class="dv">0</span>, <span class="st">"No items found"</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> items[<span class="dv">0</span>]</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> item.get_collection()</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the dashboard render block</span></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>dashboard_render <span class="op">=</span> collection.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> dashboard_render[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>((vmin, vmax),) <span class="op">=</span> dashboard_render[<span class="st">"rescale"</span>]</span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Change collection_ID and date</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"tornadoes-2024-dow-rhohv-greenfield"</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-05-21"</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id], datetime<span class="op">=</span>date)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(results.items())</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(items) <span class="op">!=</span> <span class="dv">0</span>, <span class="st">"No items found"</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> items[<span class="dv">0</span>]</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> item.get_collection()</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the dashboard render block</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>dashboard_render <span class="op">=</span> collection.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> dashboard_render[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>((vmin, vmax),) <span class="op">=</span> dashboard_render[<span class="st">"rescale"</span>]</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="46">
 
 
@@ -7832,49 +7825,49 @@ Drag the vertical slider to reveal more of either dataset.
 </div>
 </div>
 <div id="f76739f7-236f-4b6f-be79-8772248e1f92" class="cell" data-execution_count="47">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> <span class="st">"turbo"</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build endpoint URL without worrying about trailing slashes</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;color_formula=gamma+r+1.05&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax<span class="sc">}</span><span class="ss">"</span>,</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>response.raise_for_status()</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>tiles <span class="op">=</span> response.json()</span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tiles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> <span class="st">"turbo"</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build endpoint URL without worrying about trailing slashes</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;color_formula=gamma+r+1.05&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>response.raise_for_status()</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>tiles <span class="op">=</span> response.json()</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tiles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'tilejson': '2.2.0', 'version': '1.0.0', 'scheme': 'xyz', 'tiles': ['https://openveda.cloud/api/raster/collections/tornadoes-2024-dow-rhohv-greenfield/items/DOW_Greenfield_RHOHV_cog_v2_2024-05-21/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=turbo&amp;rescale=0%2C1'], 'minzoom': 0, 'maxzoom': 24, 'bounds': [-94.5, 41.275, -94.4, 41.325], 'center': [-94.45, 41.3, 0]}</code></pre>
 </div>
 </div>
 <div id="9c112371-86d5-4097-8c73-d9b510560cda" class="cell" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the new plot_folium_from_VEDA_STAC function</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_from_VEDA_STAC(</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_template<span class="op">=</span>tiles[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">41.3036</span>, <span class="op">-</span><span class="fl">94.4569</span>],</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    rescale<span class="op">=</span>(vmin, vmax),</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    colormap_name<span class="op">=</span>colormap_name,</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    capitalize_cmap<span class="op">=</span><span class="va">False</span>,  <span class="co"># to better match VEDA colors and matplotlib colors</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    layer_name<span class="op">=</span><span class="st">"DOW7 Correlation Coefficient (Greenfield, IA)"</span>,</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    date<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>date<span class="sc">}</span><span class="ss">T00:00:00Z"</span>,</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    attribution<span class="op">=</span><span class="st">"DOW7 Correlation Coefficient (Greenfield, IA)"</span>,</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    tile_name<span class="op">=</span><span class="st">"DOW7 Correlation Coefficient (Greenfield, IA)"</span>,</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">"esri-satellite-labels"</span>  <span class="co"># Use satellite with labels for better context</span></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DOW-collected correlation coefficient values from the Greenfield, Iowa EF-4 tornado on May 21, 2024 as it was impacting Greenfield."</span></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the new plot_folium_from_VEDA_STAC function</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_from_VEDA_STAC(</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_template<span class="op">=</span>tiles[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">41.3036</span>, <span class="op">-</span><span class="fl">94.4569</span>],</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    rescale<span class="op">=</span>(vmin, vmax),</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    colormap_name<span class="op">=</span>colormap_name,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    capitalize_cmap<span class="op">=</span><span class="va">False</span>,  <span class="co"># to better match VEDA colors and matplotlib colors</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    layer_name<span class="op">=</span><span class="st">"DOW7 Correlation Coefficient (Greenfield, IA)"</span>,</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    date<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>date<span class="sc">}</span><span class="ss">T00:00:00Z"</span>,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    attribution<span class="op">=</span><span class="st">"DOW7 Correlation Coefficient (Greenfield, IA)"</span>,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    tile_name<span class="op">=</span><span class="st">"DOW7 Correlation Coefficient (Greenfield, IA)"</span>,</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">"esri-satellite-labels"</span>  <span class="co"># Use satellite with labels for better context</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DOW-collected correlation coefficient values from the Greenfield, Iowa EF-4 tornado on May 21, 2024 as it was impacting Greenfield."</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>DOW-collected correlation coefficient values from the Greenfield, Iowa EF-4 tornado on May 21, 2024 as it was impacting Greenfield.</code></pre>
 </div>
@@ -8118,26 +8111,26 @@ Drag the vertical slider to reveal more of either dataset.
 <h1>Example: DOW7-Derived Maximum Velocity Swath (Radar)</h1>
 <p>Pull the DOW7 radar data from from the VEDA STAC catalog and visualize</p>
 <div id="efb13664-1597-478a-b8e5-fac20e6ac481" class="cell" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Change collection_ID and date</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"tornadoes-2024-dow-vmax-greenfield"</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-05-21"</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id], datetime<span class="op">=</span>date)</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(results.items())</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(items) <span class="op">!=</span> <span class="dv">0</span>, <span class="st">"No items found"</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> items[<span class="dv">0</span>]</span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> item.get_collection()</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the dashboard render block</span></span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>dashboard_render <span class="op">=</span> collection.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> dashboard_render[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>((vmin, vmax),) <span class="op">=</span> dashboard_render[<span class="st">"rescale"</span>]</span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Change collection_ID and date</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"tornadoes-2024-dow-vmax-greenfield"</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-05-21"</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id], datetime<span class="op">=</span>date)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(results.items())</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(items) <span class="op">!=</span> <span class="dv">0</span>, <span class="st">"No items found"</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> items[<span class="dv">0</span>]</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> item.get_collection()</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the dashboard render block</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>dashboard_render <span class="op">=</span> collection.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> dashboard_render[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>((vmin, vmax),) <span class="op">=</span> dashboard_render[<span class="st">"rescale"</span>]</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="49">
 
 
@@ -9052,50 +9045,50 @@ Drag the vertical slider to reveal more of either dataset.
 </div>
 </div>
 <div id="14d08573-78ea-45bf-baf0-58cddf840401" class="cell" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> <span class="st">"gist_ncar"</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build endpoint URL without worrying about trailing slashes</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;color_formula=gamma+r+1.05&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax<span class="sc">}</span><span class="ss">"</span>,</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>response.raise_for_status()</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>tiles <span class="op">=</span> response.json()</span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tiles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> <span class="st">"gist_ncar"</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build endpoint URL without worrying about trailing slashes</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;color_formula=gamma+r+1.05&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>response.raise_for_status()</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>tiles <span class="op">=</span> response.json()</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tiles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'tilejson': '2.2.0', 'version': '1.0.0', 'scheme': 'xyz', 'tiles': ['https://openveda.cloud/api/raster/collections/tornadoes-2024-dow-vmax-greenfield/items/DOW_Vmax_Greenfield_mph_cog_2024-05-21/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=gist_ncar&amp;rescale=55%2C250'], 'minzoom': 0, 'maxzoom': 24, 'bounds': [-94.4784, 41.29080000000008, -94.416, 41.31980000000008], 'center': [-94.4472, 41.30530000000008, 0]}</code></pre>
 </div>
 </div>
 <div id="b062836d-83f6-414d-91d2-9255e0b46a3c" class="cell" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the new plot_folium_from_VEDA_STAC function</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_from_VEDA_STAC(</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_template<span class="op">=</span>tiles[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">41.3036</span>, <span class="op">-</span><span class="fl">94.4569</span>],</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    rescale<span class="op">=</span>(vmin, vmax),</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    colormap_name<span class="op">=</span>colormap_name,</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    capitalize_cmap<span class="op">=</span><span class="va">False</span>,  <span class="co"># to better match VEDA colors and matplotlib colors</span></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    layer_name<span class="op">=</span><span class="st">"DOW7-Derived Maximum Velocity (Greenfield, IA)"</span>,</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    date<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>date<span class="sc">}</span><span class="ss">T00:00:00Z"</span>,</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    colorbar_caption<span class="op">=</span><span class="st">"m/s"</span>,</span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    attribution<span class="op">=</span><span class="st">"DOW7-Derived Maximum Velocity  (Greenfield, IA)"</span>,</span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    tile_name<span class="op">=</span><span class="st">"DOW7-Derived Maximum Velocity (Greenfield, IA)"</span>,</span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">"esri-satellite-labels"</span>  <span class="co"># Use satellite with labels for better context</span></span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
-<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DOW-collected correlation coefficient values from the Greenfield, Iowa EF-4 tornado on May 21, 2024 as it was impacting Greenfield."</span></span>
-<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
-<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the new plot_folium_from_VEDA_STAC function</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_from_VEDA_STAC(</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_template<span class="op">=</span>tiles[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">41.3036</span>, <span class="op">-</span><span class="fl">94.4569</span>],</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    rescale<span class="op">=</span>(vmin, vmax),</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    colormap_name<span class="op">=</span>colormap_name,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    capitalize_cmap<span class="op">=</span><span class="va">False</span>,  <span class="co"># to better match VEDA colors and matplotlib colors</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    layer_name<span class="op">=</span><span class="st">"DOW7-Derived Maximum Velocity (Greenfield, IA)"</span>,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    date<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>date<span class="sc">}</span><span class="ss">T00:00:00Z"</span>,</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    colorbar_caption<span class="op">=</span><span class="st">"m/s"</span>,</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    attribution<span class="op">=</span><span class="st">"DOW7-Derived Maximum Velocity  (Greenfield, IA)"</span>,</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    tile_name<span class="op">=</span><span class="st">"DOW7-Derived Maximum Velocity (Greenfield, IA)"</span>,</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">"esri-satellite-labels"</span>  <span class="co"># Use satellite with labels for better context</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DOW-collected correlation coefficient values from the Greenfield, Iowa EF-4 tornado on May 21, 2024 as it was impacting Greenfield."</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>DOW-collected correlation coefficient values from the Greenfield, Iowa EF-4 tornado on May 21, 2024 as it was impacting Greenfield.</code></pre>
 </div>
@@ -9335,26 +9328,26 @@ Drag the vertical slider to reveal more of either dataset.
 </div>
 </div>
 <div id="e1a973b8" class="cell" data-execution_count="52">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Change collection_ID and date</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"ps-greenfield-pre-tornadoes-2024"</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-05-20"</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id], datetime<span class="op">=</span>date)</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(results.items())</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(items) <span class="op">!=</span> <span class="dv">0</span>, <span class="st">"No items found"</span></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> items[<span class="dv">0</span>]</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> item.get_collection()</span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the dashboard render block</span></span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>dashboard_render <span class="op">=</span> collection.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> dashboard_render[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>((vmin, vmax),) <span class="op">=</span> dashboard_render[<span class="st">"rescale"</span>]</span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Change collection_ID and date</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"ps-greenfield-pre-tornadoes-2024"</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-05-20"</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id], datetime<span class="op">=</span>date)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(results.items())</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(items) <span class="op">!=</span> <span class="dv">0</span>, <span class="st">"No items found"</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> items[<span class="dv">0</span>]</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> item.get_collection()</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the dashboard render block</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>dashboard_render <span class="op">=</span> collection.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> dashboard_render[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>((vmin, vmax),) <span class="op">=</span> dashboard_render[<span class="st">"rescale"</span>]</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="52">
 
 
@@ -10301,36 +10294,36 @@ Drag the vertical slider to reveal more of either dataset.
 <section id="pre-tornado" class="level2">
 <h2 class="anchored" data-anchor-id="pre-tornado">Pre-Tornado</h2>
 <div id="g0zklfvn8i" class="cell" data-execution_count="53">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>date_pre <span class="op">=</span> <span class="st">"2024-05-20"</span>  <span class="co"># Select date one day before tornado </span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>collection_id_pre <span class="op">=</span> <span class="st">"ps-greenfield-pre-tornadoes-2024"</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>results_pre <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id_pre], datetime<span class="op">=</span>date_pre)</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>items_pre <span class="op">=</span> <span class="bu">list</span>(results_pre.items())</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>item_pre <span class="op">=</span> items_pre[<span class="dv">0</span>]</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>collection_pre <span class="op">=</span> item_pre.get_collection()</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>dashboard_render_pre <span class="op">=</span> collection_pre.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>assets_pre <span class="op">=</span> dashboard_render_pre[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>((vmin_pre, vmax_pre),) <span class="op">=</span> dashboard_render_pre[<span class="st">"rescale"</span>]</span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>bidx_pre <span class="op">=</span> dashboard_render_pre.get(<span class="st">"bidx"</span>, [<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>])</span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>response_pre <span class="op">=</span> requests.get(</span>
-<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id_pre<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item_pre<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
-<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets_pre<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;bidx=</span><span class="sc">{</span>bidx_pre[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">&amp;bidx=</span><span class="sc">{</span>bidx_pre[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">&amp;bidx=</span><span class="sc">{</span>bidx_pre[<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin_pre<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax_pre<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;resampling=bilinear"</span></span>
-<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>response_pre.raise_for_status()</span>
-<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>tiles_pre <span class="op">=</span> response_pre.json()</span>
-<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tiles_pre)</span>
-<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a>collection_pre</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>date_pre <span class="op">=</span> <span class="st">"2024-05-20"</span>  <span class="co"># Select date one day before tornado </span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>collection_id_pre <span class="op">=</span> <span class="st">"ps-greenfield-pre-tornadoes-2024"</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>results_pre <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id_pre], datetime<span class="op">=</span>date_pre)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>items_pre <span class="op">=</span> <span class="bu">list</span>(results_pre.items())</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>item_pre <span class="op">=</span> items_pre[<span class="dv">0</span>]</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>collection_pre <span class="op">=</span> item_pre.get_collection()</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>dashboard_render_pre <span class="op">=</span> collection_pre.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>assets_pre <span class="op">=</span> dashboard_render_pre[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>((vmin_pre, vmax_pre),) <span class="op">=</span> dashboard_render_pre[<span class="st">"rescale"</span>]</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>bidx_pre <span class="op">=</span> dashboard_render_pre.get(<span class="st">"bidx"</span>, [<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>])</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>response_pre <span class="op">=</span> requests.get(</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id_pre<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item_pre<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets_pre<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;bidx=</span><span class="sc">{</span>bidx_pre[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">&amp;bidx=</span><span class="sc">{</span>bidx_pre[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">&amp;bidx=</span><span class="sc">{</span>bidx_pre[<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin_pre<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax_pre<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;resampling=bilinear"</span></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>response_pre.raise_for_status()</span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>tiles_pre <span class="op">=</span> response_pre.json()</span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tiles_pre)</span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>collection_pre</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'tilejson': '2.2.0', 'version': '1.0.0', 'scheme': 'xyz', 'tiles': ['https://openveda.cloud/api/raster/collections/ps-greenfield-pre-tornadoes-2024/items/Planet_Greenfield_Before_cog_2024-05-20/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;bidx=3&amp;bidx=2&amp;bidx=1&amp;rescale=0%2C2500&amp;resampling=bilinear'], 'minzoom': 0, 'maxzoom': 24, 'bounds': [-94.57407952376526, 41.20937000457795, -94.17411959542935, 41.432508029615924], 'center': [-94.37409955959731, 41.32093901709693, 0]}</code></pre>
 </div>
@@ -11277,45 +11270,45 @@ Drag the vertical slider to reveal more of either dataset.
 <section id="post-tornado" class="level2">
 <h2 class="anchored" data-anchor-id="post-tornado">Post-Tornado</h2>
 <div id="gc0d3a4crpj" class="cell" data-execution_count="54">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>collection_id_post <span class="op">=</span> <span class="st">"ps-greenfield-post-tornadoes-2024"</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>date_post <span class="op">=</span> <span class="st">"2024-05-22"</span>  <span class="co"># Select date one day after tornado </span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>results_post <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id_post], datetime<span class="op">=</span>date_post)</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>items_post <span class="op">=</span> <span class="bu">list</span>(results_post.items())</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(items_post) <span class="op">!=</span> <span class="dv">0</span>, <span class="st">"No items found"</span></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>item_post <span class="op">=</span> items_post[<span class="dv">0</span>]</span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>collection_post <span class="op">=</span> item_post.get_collection()</span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the dashboard render block</span></span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>dashboard_render_post <span class="op">=</span> collection_post.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>assets_post <span class="op">=</span> dashboard_render_post[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>((vmin_post, vmax_post),) <span class="op">=</span> dashboard_render_post[<span class="st">"rescale"</span>]</span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Special handling for RGB bands - post tornado uses different band order (1,2,3)</span></span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>bidx_post <span class="op">=</span> dashboard_render_post.get(<span class="st">"bidx"</span>, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])  <span class="co"># RGB band order for post</span></span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request for Post-Tornado ─────────────────────────────────────────────────────────────────────</span></span>
-<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>response_post <span class="op">=</span> requests.get(</span>
-<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id_post<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item_post<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
-<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets_post<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;bidx=</span><span class="sc">{</span>bidx_post[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">&amp;bidx=</span><span class="sc">{</span>bidx_post[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">&amp;bidx=</span><span class="sc">{</span>bidx_post[<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>  <span class="co"># RGB bands (1,2,3 for post)</span></span>
-<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin_post<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax_post<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;resampling=bilinear"</span></span>
-<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a>response_post.raise_for_status()</span>
-<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-36"><a href="#cb38-36" aria-hidden="true" tabindex="-1"></a>tiles_post <span class="op">=</span> response_post.json()</span>
-<span id="cb38-37"><a href="#cb38-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tiles_post)</span>
-<span id="cb38-38"><a href="#cb38-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-39"><a href="#cb38-39" aria-hidden="true" tabindex="-1"></a>collection_post</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>collection_id_post <span class="op">=</span> <span class="st">"ps-greenfield-post-tornadoes-2024"</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>date_post <span class="op">=</span> <span class="st">"2024-05-22"</span>  <span class="co"># Select date one day after tornado </span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>results_post <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id_post], datetime<span class="op">=</span>date_post)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>items_post <span class="op">=</span> <span class="bu">list</span>(results_post.items())</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(items_post) <span class="op">!=</span> <span class="dv">0</span>, <span class="st">"No items found"</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>item_post <span class="op">=</span> items_post[<span class="dv">0</span>]</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>collection_post <span class="op">=</span> item_post.get_collection()</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the dashboard render block</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>dashboard_render_post <span class="op">=</span> collection_post.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>assets_post <span class="op">=</span> dashboard_render_post[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>((vmin_post, vmax_post),) <span class="op">=</span> dashboard_render_post[<span class="st">"rescale"</span>]</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Special handling for RGB bands - post tornado uses different band order (1,2,3)</span></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>bidx_post <span class="op">=</span> dashboard_render_post.get(<span class="st">"bidx"</span>, [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])  <span class="co"># RGB band order for post</span></span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request for Post-Tornado ─────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>response_post <span class="op">=</span> requests.get(</span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id_post<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item_post<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets_post<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;bidx=</span><span class="sc">{</span>bidx_post[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">&amp;bidx=</span><span class="sc">{</span>bidx_post[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">&amp;bidx=</span><span class="sc">{</span>bidx_post[<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>  <span class="co"># RGB bands (1,2,3 for post)</span></span>
+<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin_post<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax_post<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;resampling=bilinear"</span></span>
+<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a>response_post.raise_for_status()</span>
+<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a>tiles_post <span class="op">=</span> response_post.json()</span>
+<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tiles_post)</span>
+<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a>collection_post</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'tilejson': '2.2.0', 'version': '1.0.0', 'scheme': 'xyz', 'tiles': ['https://openveda.cloud/api/raster/collections/ps-greenfield-post-tornadoes-2024/items/Planet_Greenfield_After_cog_2024-05-22/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;bidx=1&amp;bidx=2&amp;bidx=3&amp;rescale=0%2C255&amp;resampling=bilinear'], 'minzoom': 0, 'maxzoom': 24, 'bounds': [-94.78355154698768, 41.12696496878226, -94.3507332170628, 41.464387283686655], 'center': [-94.56714238202524, 41.295676126234454, 0]}</code></pre>
 </div>
@@ -12262,25 +12255,25 @@ Drag the vertical slider to reveal more of either dataset.
 <section id="side-by-side-comparison-before-and-after-the-tornado" class="level2">
 <h2 class="anchored" data-anchor-id="side-by-side-comparison-before-and-after-the-tornado">Side-by-Side Comparison: Before and After the Tornado</h2>
 <div id="9801hkznaop" class="cell" data-execution_count="55">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create side-by-side comparison using the create_side_by_side_map function</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>m_comparison <span class="op">=</span> putils.plot_folium_SidebySide_layer_from_VEDA_STAC(</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_left<span class="op">=</span>tiles_pre[<span class="st">"tiles"</span>][<span class="dv">0</span>],  <span class="co"># Pre-tornado (May 20)</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    tiles_url_right<span class="op">=</span>tiles_post[<span class="st">"tiles"</span>][<span class="dv">0</span>],  <span class="co"># Post-tornado (May 22)</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">41.3036</span>, <span class="op">-</span><span class="fl">94.4569</span>],  <span class="co"># Greenfield, Iowa</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">15</span>,</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"PlanetScope: Greenfield, IA"</span>,</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    label_left<span class="op">=</span><span class="st">"← Pre-Tornado (May 20)"</span>,</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    label_right<span class="op">=</span><span class="st">"Post-Tornado (May 22) →"</span>,</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>    layer_name_left<span class="op">=</span><span class="st">"PlanetScope Pre-Tornado"</span>,</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    layer_name_right<span class="op">=</span><span class="st">"PlanetScope Post-Tornado"</span>,</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">1.0</span>,  <span class="co"># Full opacity for satellite imagery</span></span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">'cartodb-positron'</span>,  <span class="co"># Light basemap</span></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="st">"100%"</span></span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the comparison map</span></span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>m_comparison</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create side-by-side comparison using the create_side_by_side_map function</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>m_comparison <span class="op">=</span> putils.plot_folium_SidebySide_layer_from_VEDA_STAC(</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_left<span class="op">=</span>tiles_pre[<span class="st">"tiles"</span>][<span class="dv">0</span>],  <span class="co"># Pre-tornado (May 20)</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    tiles_url_right<span class="op">=</span>tiles_post[<span class="st">"tiles"</span>][<span class="dv">0</span>],  <span class="co"># Post-tornado (May 22)</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">41.3036</span>, <span class="op">-</span><span class="fl">94.4569</span>],  <span class="co"># Greenfield, Iowa</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">15</span>,</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"PlanetScope: Greenfield, IA"</span>,</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    label_left<span class="op">=</span><span class="st">"← Pre-Tornado (May 20)"</span>,</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    label_right<span class="op">=</span><span class="st">"Post-Tornado (May 22) →"</span>,</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    layer_name_left<span class="op">=</span><span class="st">"PlanetScope Pre-Tornado"</span>,</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    layer_name_right<span class="op">=</span><span class="st">"PlanetScope Post-Tornado"</span>,</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">1.0</span>,  <span class="co"># Full opacity for satellite imagery</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">'cartodb-positron'</span>,  <span class="co"># Light basemap</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="st">"100%"</span></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the comparison map</span></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>m_comparison</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="55">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
 <html>
@@ -12526,13 +12519,13 @@ Drag the vertical slider to reveal more of either dataset.
 <h1>Clean Up (Optional)</h1>
 <p>Remove any <strong>core</strong> files that were created if the kernel crashed.</p>
 <div id="7bd64da5-fdb4-44d8-a0dc-3ed4b1160a12" class="cell" data-execution_count="56">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find all core files in the current directory</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> core_path <span class="kw">in</span> glob.glob(<span class="st">"core.*"</span>):</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>        os.remove(core_path)</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Removed </span><span class="sc">{</span>core_path<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">OSError</span> <span class="im">as</span> e:</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Error removing </span><span class="sc">{</span>core_path<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find all core files in the current directory</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> core_path <span class="kw">in</span> glob.glob(<span class="st">"core.*"</span>):</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>        os.remove(core_path)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Removed </span><span class="sc">{</span>core_path<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">OSError</span> <span class="im">as</span> e:</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Error removing </span><span class="sc">{</span>core_path<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
