@@ -72,12 +72,9 @@ def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipu
     lat_bottom = float(lats.min() - dy/2)
     lat_top    = float(lats.max() + dy/2)
 
-
-
     #center on the true middle
     center_lat = (lat_bottom + lat_top) / 2
     center_lon = (lon_left   + lon_right) / 2
-
 
     # Flip latitudes if needed
     if flipud and lats[0] < lats[-1]:
