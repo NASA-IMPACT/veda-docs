@@ -845,7 +845,13 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
     opacity: float = 0.8,
     basemap_style: str = 'esri-satellite-labels',
     height: str = "800px",
-    width: str = "100%"
+    width: str = "100%",
+    colormap_left: str = None,
+    colormap_right: str = None,
+    rescale_left: tuple = None,
+    rescale_right: tuple = None,
+    units_left: str = None,
+    units_right: str = None
 ) -> folium.Map:
     """
     Create a Folium map with side-by-side layer comparison using a draggable slider.
@@ -884,6 +890,18 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
         Map height as CSS string (default "800px")
     width : str, optional
         Map width as CSS string (default "100%")
+    colormap_left : str, optional
+        Name of matplotlib colormap for left layer (e.g., 'turbo')
+    colormap_right : str, optional
+        Name of matplotlib colormap for right layer (e.g., 'seismic')
+    rescale_left : tuple, optional
+        (vmin, vmax) values for left layer colorbar
+    rescale_right : tuple, optional
+        (vmin, vmax) values for right layer colorbar
+    units_left : str, optional
+        Units for left colorbar (e.g., 'dBZ')
+    units_right : str, optional
+        Units for right colorbar (e.g., 'm/s')
         
     Returns
     -------
@@ -986,7 +1004,62 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
     """
     m.get_root().html.add_child(Element(title_html))
     
-    # Add labels for left and right panels
+    # Helper function to generate HTML colorbar
+    def generate_html_colorbar(colormap_name, vmin, vmax, units=None):
+        if not colormap_name or vmin is None or vmax is None:
+            return ""
+        
+        # Get matplotlib colormap
+        try:
+            cmap = plt.get_cmap(colormap_name)
+        except:
+            return ""
+        
+        # Generate gradient CSS
+        n_stops = 10
+        gradient_stops = []
+        for i in range(n_stops):
+            ratio = i / (n_stops - 1)
+            rgba = cmap(ratio)
+            color = f"rgba({int(rgba[0]*255)}, {int(rgba[1]*255)}, {int(rgba[2]*255)}, 1)"
+            gradient_stops.append(f"{color} {ratio*100}%")
+        
+        gradient_css = f"linear-gradient(to right, {', '.join(gradient_stops)})"
+        
+        # Format units string
+        units_str = f" {units}" if units else ""
+        
+        return f"""
+        <div style="margin-top: 8px; background: rgba(255,255,255,0.9); padding: 4px; border-radius: 3px;">
+            <div style="
+                width: 150px;
+                height: 20px;
+                background: {gradient_css};
+                border: 1px solid #ccc;
+                margin: 0 auto;
+            "></div>
+            <div style="display: flex; justify-content: space-between; width: 150px; font-size: 11px; margin-top: 2px;">
+                <span>{vmin}{units_str}</span>
+                <span>{vmax}{units_str}</span>
+            </div>
+        </div>
+        """
+    
+    # Generate colorbars HTML if needed
+    left_colorbar_html = ""
+    right_colorbar_html = ""
+    
+    if colormap_left and rescale_left:
+        left_colorbar_html = generate_html_colorbar(
+            colormap_left, rescale_left[0], rescale_left[1], units_left
+        )
+    
+    if colormap_right and rescale_right:
+        right_colorbar_html = generate_html_colorbar(
+            colormap_right, rescale_right[0], rescale_right[1], units_right
+        )
+    
+    # Add labels for left and right panels with optional colorbars
     labels_html = f"""
     <div style="
         position: fixed;
@@ -1001,7 +1074,8 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     ">
-        {label_left}
+        <div style="text-align: center;">{label_left}</div>
+        {left_colorbar_html}
     </div>
     <div style="
         position: fixed;
@@ -1016,7 +1090,8 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     ">
-        {label_right}
+        <div style="text-align: center;">{label_right}</div>
+        {right_colorbar_html}
     </div>
     """
     m.get_root().html.add_child(Element(labels_html))
