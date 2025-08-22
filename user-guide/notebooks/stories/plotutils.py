@@ -447,6 +447,49 @@ def add_basemap_to_map(m: folium.Map, basemap_style: str) -> None:
         raise RuntimeError(f"Failed to add basemap '{basemap_style}': {str(e)}")
 
 
+def add_map_title(m: folium.Map, title_text: str, top_position: int = 10) -> None:
+    """
+    Add a centered title to a Folium map.
+    
+    Parameters
+    ----------
+    m : folium.Map
+        The Folium map object to add the title to
+    title_text : str
+        The text to display in the title
+    top_position : int, optional
+        Distance from top of map in pixels (default 10)
+        
+    Returns
+    -------
+    None
+        Modifies the map in place by adding the title HTML
+    """
+    if not title_text:
+        return
+        
+    title_html = f"""
+    <div style="
+        position: fixed;
+        top: {top_position}px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        font-size: 18px;
+        font-weight: bold;
+        background: rgba(255,255,255,0.8);
+        padding: 8px 20px;
+        min-width: 750px;
+        text-align: center;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    ">
+        {title_text}
+    </div>
+    """
+    m.get_root().html.add_child(Element(title_html))
+
+
 def add_custom_html_legend(m: folium.Map, custom_colors: list, colorbar_caption: str, 
                            position: str = "top", top_offset: int = 50) -> None:
     """
@@ -769,6 +812,11 @@ def plot_folium_from_VEDA_STAC(
     # Add Layer Control
     folium.LayerControl().add_to(m)
     
+    # Determine if title exists and its position
+    has_title = date is not None
+    title_bottom = 45 if has_title else 0  # Title box extends to about 45px from top (10px top + 18px font + 16px padding + border)
+    colorbar_top = title_bottom + 15 if has_title else 50  # Add 15px spacing after title, or default 50px
+    
     # Handle colorbar/legend with clear, mutually exclusive logic
     if custom_colors:
         # For categorical data, ONLY use HTML legend (no LinearColormap)
@@ -839,7 +887,7 @@ def plot_folium_from_VEDA_STAC(
             colorbar_html = f"""
             <div style="
                 position: fixed;
-                top: 50px;
+                top: {colorbar_top}px;
                 left: 50%;
                 transform: translateX(-50%);
                 z-index: 1000;
@@ -876,7 +924,7 @@ def plot_folium_from_VEDA_STAC(
     # Add custom HTML legend if provided
     if custom_colors:
         try:
-            add_custom_html_legend(m, custom_colors, colorbar_caption, position="top", top_offset=50)
+            add_custom_html_legend(m, custom_colors, colorbar_caption, position="top", top_offset=colorbar_top)
         except (ValueError, TypeError) as e:
             print(f"Warning: Could not add custom legend: {e}")
     
@@ -890,23 +938,8 @@ def plot_folium_from_VEDA_STAC(
             # Convert standard date formats
             formatted_date = pd.to_datetime(date).strftime('%B %d, %Y')
         
-        title_html = f"""
-          <div style="
-            position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            font-size: 18px;
-            font-weight: bold;
-            background: rgba(255,255,255,0.8);
-            padding: 4px 8px;
-            border-radius: 4px;
-          ">
-            {layer_name} — {formatted_date}
-          </div>
-        """
-        m.get_root().html.add_child(Element(title_html))
+        title_text = f"{layer_name} — {formatted_date}"
+        add_map_title(m, title_text, top_position=10)
     
     return m
 
@@ -1064,24 +1097,7 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
     folium.LayerControl().add_to(m)
     
     # Add title to the map
-    title_html = f"""
-    <div style="
-        position: fixed;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1000;
-        font-size: 18px;
-        font-weight: bold;
-        background: rgba(255,255,255,0.9);
-        padding: 8px 12px;
-        border-radius: 4px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    ">
-        {title}
-    </div>
-    """
-    m.get_root().html.add_child(Element(title_html))
+    add_map_title(m, title, top_position=10)
     
     # Helper function to generate HTML colorbar
     def generate_html_colorbar(colormap_name, vmin, vmax, units=None):
