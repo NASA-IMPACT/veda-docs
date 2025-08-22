@@ -569,6 +569,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Setting Up Keycloak</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/data-services/rstudio-s3-access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RStudio VEDA S3 Bucket Access</span></a>
+  </div>
+</li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../../user-guide/data-services/apis/index.html" class="sidebar-item-text sidebar-link">
@@ -1947,7 +1953,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
  None: 'No basemap (transparent background)'}</code></pre>
 </div>
 </div>
-<div id="9af1c710-0423-4d3e-9c93-4fff13d1dab5" class="cell" data-execution_count="8">
+<div id="9af1c710-0423-4d3e-9c93-4fff13d1dab5" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define EF scale categories with specific colors to replicate predefined colorscale in VEDA backend. </span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Colors have been predifined in veda-backend https://github.com/NASA-IMPACT/veda-backend/tree/develop/raster_api/runtime/src/cmap_data#tornadoes-colormap</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1996,7 +2002,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
 <span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
 <html>
 <head>
@@ -2016,7 +2022,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_506f4a4619318c7e81895138efa802ad {
+                #map_d2eedeb0e6eabe2b5fb5975670416653 {
                     position: relative;
                     width: 100.0%;
                     height: 800.0px;
@@ -2069,7 +2075,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
           </div>
         
     
-            <div class=&quot;folium-map&quot; id=&quot;map_506f4a4619318c7e81895138efa802ad&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_d2eedeb0e6eabe2b5fb5975670416653&quot; ></div>
         
     
     <div style=&quot;
@@ -2170,8 +2176,8 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <script>
     
     
-            var map_506f4a4619318c7e81895138efa802ad = L.map(
-                &quot;map_506f4a4619318c7e81895138efa802ad&quot;,
+            var map_d2eedeb0e6eabe2b5fb5975670416653 = L.map(
+                &quot;map_d2eedeb0e6eabe2b5fb5975670416653&quot;,
                 {
                     center: [41.31, -94.46],
                     crs: L.CRS.EPSG3857,
@@ -2183,13 +2189,13 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 
                 }
             );
-            L.control.scale().addTo(map_506f4a4619318c7e81895138efa802ad);
+            L.control.scale().addTo(map_d2eedeb0e6eabe2b5fb5975670416653);
 
             
 
         
     
-            var tile_layer_edc88e7a8044310f264c4407c4dd6b03 = L.tileLayer(
+            var tile_layer_57128305c4e55a5696bd7bc641477109 = L.tileLayer(
                 &quot;https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -2206,10 +2212,10 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
             );
         
     
-            tile_layer_edc88e7a8044310f264c4407c4dd6b03.addTo(map_506f4a4619318c7e81895138efa802ad);
+            tile_layer_57128305c4e55a5696bd7bc641477109.addTo(map_d2eedeb0e6eabe2b5fb5975670416653);
         
     
-            var tile_layer_4451184b510b6dd9b8fad4c5618325b1 = L.tileLayer(
+            var tile_layer_68333a7a81afa12661eed5196981aeb7 = L.tileLayer(
                 &quot;https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer/tile/{z}/{y}/{x}&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -2226,10 +2232,10 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
             );
         
     
-            tile_layer_4451184b510b6dd9b8fad4c5618325b1.addTo(map_506f4a4619318c7e81895138efa802ad);
+            tile_layer_68333a7a81afa12661eed5196981aeb7.addTo(map_d2eedeb0e6eabe2b5fb5975670416653);
         
     
-            var tile_layer_7bcb35a4d857e66c0646f8a75cbb188b = L.tileLayer(
+            var tile_layer_c73656810d494a0eeda2a50d4b12442f = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/collections/tornadoes-2024-paths/items/Tornado_Tracks_cog_2024-05-31/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026colormap_name=tornado_ef_scale&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -2246,27 +2252,27 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
             );
         
     
-            tile_layer_7bcb35a4d857e66c0646f8a75cbb188b.addTo(map_506f4a4619318c7e81895138efa802ad);
+            tile_layer_c73656810d494a0eeda2a50d4b12442f.addTo(map_d2eedeb0e6eabe2b5fb5975670416653);
         
     
-            var layer_control_a873b097d3b871a7e256131ce821bcc7_layers = {
+            var layer_control_653e321d95a7040572f0f56031a1dce7_layers = {
                 base_layers : {
-                    &quot;ESRI Satellite&quot; : tile_layer_edc88e7a8044310f264c4407c4dd6b03,
+                    &quot;ESRI Satellite&quot; : tile_layer_57128305c4e55a5696bd7bc641477109,
                 },
                 overlays :  {
-                    &quot;Place Labels&quot; : tile_layer_4451184b510b6dd9b8fad4c5618325b1,
-                    &quot;Tornado Tracks (March-May 2024)&quot; : tile_layer_7bcb35a4d857e66c0646f8a75cbb188b,
+                    &quot;Place Labels&quot; : tile_layer_68333a7a81afa12661eed5196981aeb7,
+                    &quot;Tornado Tracks (March-May 2024)&quot; : tile_layer_c73656810d494a0eeda2a50d4b12442f,
                 },
             };
-            let layer_control_a873b097d3b871a7e256131ce821bcc7 = L.control.layers(
-                layer_control_a873b097d3b871a7e256131ce821bcc7_layers.base_layers,
-                layer_control_a873b097d3b871a7e256131ce821bcc7_layers.overlays,
+            let layer_control_653e321d95a7040572f0f56031a1dce7 = L.control.layers(
+                layer_control_653e321d95a7040572f0f56031a1dce7_layers.base_layers,
+                layer_control_653e321d95a7040572f0f56031a1dce7_layers.overlays,
                 {
   &quot;position&quot;: &quot;topright&quot;,
   &quot;collapsed&quot;: true,
   &quot;autoZIndex&quot;: true,
 }
-            ).addTo(map_506f4a4619318c7e81895138efa802ad);
+            ).addTo(map_d2eedeb0e6eabe2b5fb5975670416653);
 
         
 </script>
@@ -2278,7 +2284,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <section id="example-nws-tornado-polygons-march-may-2024" class="level1">
 <h1>Example: NWS Tornado Polygons (March-May 2024)</h1>
 <p>Pull the NWS Tornado Polygon data from the VEDA STAC catalog and visualize</p>
-<div id="965db310-ee99-4af3-96a8-00e63854351d" class="cell" data-execution_count="9">
+<div id="965db310-ee99-4af3-96a8-00e63854351d" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"tornadoes-2024-polygons"</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-05-31"</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2299,7 +2305,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>(vmin, vmax) <span class="op">=</span> (<span class="dv">0</span>,<span class="dv">6</span>)</span>
 <span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="8">
 
 
 <style>
@@ -3168,7 +3174,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 </div>
 </div>
 </div>
-<div id="bdba0ec8-aced-4a16-a5ad-e261aa586cfd" class="cell" data-execution_count="10">
+<div id="bdba0ec8-aced-4a16-a5ad-e261aa586cfd" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the same tornado_ef_scale colormap for polygons</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> <span class="st">"tornado_ef_scale"</span></span>
@@ -3186,7 +3192,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>tiles <span class="op">=</span> response.json()</span>
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>tiles</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>{'tilejson': '2.2.0',
  'version': '1.0.0',
  'scheme': 'xyz',
@@ -3200,7 +3206,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
  'center': [-88.34727736513193, 37.42233953352921, 0]}</code></pre>
 </div>
 </div>
-<div id="f6183652-36ca-4d4f-af4e-41070e813092" class="cell" data-execution_count="11">
+<div id="f6183652-36ca-4d4f-af4e-41070e813092" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the base map using the unified function (ef_categories already defined above)</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co">: Not passing rescale for discrete data</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_from_VEDA_STAC(</span>
@@ -3224,7 +3230,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
 <span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
 <html>
 <head>
@@ -3244,7 +3250,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_8fc3de809379d6c5df90e6e48e8b0fc1 {
+                #map_89d64365332fea3f856fef0bb3e43122 {
                     position: relative;
                     width: 100.0%;
                     height: 800.0px;
@@ -3297,7 +3303,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
           </div>
         
     
-            <div class=&quot;folium-map&quot; id=&quot;map_8fc3de809379d6c5df90e6e48e8b0fc1&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_89d64365332fea3f856fef0bb3e43122&quot; ></div>
         
     
     <div style=&quot;
@@ -3398,8 +3404,8 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <script>
     
     
-            var map_8fc3de809379d6c5df90e6e48e8b0fc1 = L.map(
-                &quot;map_8fc3de809379d6c5df90e6e48e8b0fc1&quot;,
+            var map_89d64365332fea3f856fef0bb3e43122 = L.map(
+                &quot;map_89d64365332fea3f856fef0bb3e43122&quot;,
                 {
                     center: [40.3, -84.05],
                     crs: L.CRS.EPSG3857,
@@ -3411,13 +3417,13 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 
                 }
             );
-            L.control.scale().addTo(map_8fc3de809379d6c5df90e6e48e8b0fc1);
+            L.control.scale().addTo(map_89d64365332fea3f856fef0bb3e43122);
 
             
 
         
     
-            var tile_layer_15cb9f6ad8876ed0192b1302f38d77a5 = L.tileLayer(
+            var tile_layer_a7ad6772576477e7c5c7f5be1f7b55de = L.tileLayer(
                 &quot;https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -3434,10 +3440,10 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
             );
         
     
-            tile_layer_15cb9f6ad8876ed0192b1302f38d77a5.addTo(map_8fc3de809379d6c5df90e6e48e8b0fc1);
+            tile_layer_a7ad6772576477e7c5c7f5be1f7b55de.addTo(map_89d64365332fea3f856fef0bb3e43122);
         
     
-            var tile_layer_027f40c29369edbf4c87a0e1d3dbb9b6 = L.tileLayer(
+            var tile_layer_9d241f38e12f22be1b3f5e897bf8823e = L.tileLayer(
                 &quot;https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer/tile/{z}/{y}/{x}&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -3454,10 +3460,10 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
             );
         
     
-            tile_layer_027f40c29369edbf4c87a0e1d3dbb9b6.addTo(map_8fc3de809379d6c5df90e6e48e8b0fc1);
+            tile_layer_9d241f38e12f22be1b3f5e897bf8823e.addTo(map_89d64365332fea3f856fef0bb3e43122);
         
     
-            var tile_layer_b651dd4aa14a5daadd1fd53934f7755a = L.tileLayer(
+            var tile_layer_ff05cf58682890ed517cf11fae106068 = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/collections/tornadoes-2024-polygons/items/Tornado_Polygons_2024-05-31_cog/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026colormap_name=tornado_ef_scale&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -3474,27 +3480,27 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
             );
         
     
-            tile_layer_b651dd4aa14a5daadd1fd53934f7755a.addTo(map_8fc3de809379d6c5df90e6e48e8b0fc1);
+            tile_layer_ff05cf58682890ed517cf11fae106068.addTo(map_89d64365332fea3f856fef0bb3e43122);
         
     
-            var layer_control_14603dfcf62606cf94c4c73a02eeeeb9_layers = {
+            var layer_control_8d64332b34fcf4f748930417264f1dd6_layers = {
                 base_layers : {
-                    &quot;ESRI Satellite&quot; : tile_layer_15cb9f6ad8876ed0192b1302f38d77a5,
+                    &quot;ESRI Satellite&quot; : tile_layer_a7ad6772576477e7c5c7f5be1f7b55de,
                 },
                 overlays :  {
-                    &quot;Place Labels&quot; : tile_layer_027f40c29369edbf4c87a0e1d3dbb9b6,
-                    &quot;Tornado Tracks [Polygons] (March-May 2024)&quot; : tile_layer_b651dd4aa14a5daadd1fd53934f7755a,
+                    &quot;Place Labels&quot; : tile_layer_9d241f38e12f22be1b3f5e897bf8823e,
+                    &quot;Tornado Tracks [Polygons] (March-May 2024)&quot; : tile_layer_ff05cf58682890ed517cf11fae106068,
                 },
             };
-            let layer_control_14603dfcf62606cf94c4c73a02eeeeb9 = L.control.layers(
-                layer_control_14603dfcf62606cf94c4c73a02eeeeb9_layers.base_layers,
-                layer_control_14603dfcf62606cf94c4c73a02eeeeb9_layers.overlays,
+            let layer_control_8d64332b34fcf4f748930417264f1dd6 = L.control.layers(
+                layer_control_8d64332b34fcf4f748930417264f1dd6_layers.base_layers,
+                layer_control_8d64332b34fcf4f748930417264f1dd6_layers.overlays,
                 {
   &quot;position&quot;: &quot;topright&quot;,
   &quot;collapsed&quot;: true,
   &quot;autoZIndex&quot;: true,
 }
-            ).addTo(map_8fc3de809379d6c5df90e6e48e8b0fc1);
+            ).addTo(map_89d64365332fea3f856fef0bb3e43122);
 
         
 </script>
@@ -3506,7 +3512,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <h1>Example: Black Marble Nightlights</h1>
 <p>Pull the NASA Black Marble Nightlights data from from the VEDA STAC catalog and visualize</p>
 <p>NASA’s Black Marble night lights dataset provides satellite images of Earth at night, capturing the light pollution from cities, roads, and other human activity. These images are collected by the Visible Infrared Imaging Radiometer Suite (VIIRS) sensor on the Suomi National Polar-orbiting Partnership (NPP) satellite, and can be used to examine changes in illumination over time. In this story, night lights data is used to assess changes before and after a tornado impacts a town, highlighting areas affected by power outages that may cause recovery slowdowns.</p>
-<div id="d55ccd28-c8ba-47cf-bfd3-03c3a8cd5beb" class="cell" data-execution_count="12">
+<div id="d55ccd28-c8ba-47cf-bfd3-03c3a8cd5beb" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"lakeview-nightlights-tornadoes-2024"</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-03-14"</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3526,7 +3532,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>((vmin, vmax),) <span class="op">=</span> dashboard_render[<span class="st">"rescale"</span>]</span>
 <span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div class="cell-output cell-output-display" data-execution_count="11">
 
 
 <style>
@@ -4448,7 +4454,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 </div>
 </div>
 </div>
-<div id="6b3f9709-09bc-43ef-b3fd-d89f3c0cd5e9" class="cell" data-execution_count="13">
+<div id="6b3f9709-09bc-43ef-b3fd-d89f3c0cd5e9" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> <span class="st">"bwr"</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -4469,7 +4475,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <pre><code>{'tilejson': '2.2.0', 'version': '1.0.0', 'scheme': 'xyz', 'tiles': ['https://openveda.cloud/api/raster/collections/lakeview-nightlights-tornadoes-2024/items/nightlights_LakeviewOH_diff_cog_2024-03-14/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=bwr&amp;rescale=-150%2C150'], 'minzoom': 0, 'maxzoom': 24, 'bounds': [-84.2954, 40.20127368220017, -83.57612536287245, 40.69122631779985], 'center': [-83.93576268143622, 40.446250000000006, 0]}</code></pre>
 </div>
 </div>
-<div id="f283977b-e862-4f2d-9032-414d974a35b4" class="cell" data-execution_count="16">
+<div id="f283977b-e862-4f2d-9032-414d974a35b4" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the new plot_folium_from_VEDA_STAC function</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_from_VEDA_STAC(</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_template<span class="op">=</span>tiles[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
@@ -4496,7 +4502,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <div class="cell-output cell-output-stdout">
 <pre><code>Visualization of Indian Lake, Ohio showing large decreases in artificial light emissions after an EF-3 tornado on March 14, 2024.</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
 <html>
 <head>
@@ -4516,7 +4522,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_6d53fbbaad162eaab379a276c506f12b {
+                #map_45266030bcdeed1380fc0c1c6a071fb6 {
                     position: relative;
                     width: 100.0%;
                     height: 800.0px;
@@ -4570,14 +4576,14 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
           </div>
         
     
-            <div class=&quot;folium-map&quot; id=&quot;map_6d53fbbaad162eaab379a276c506f12b&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_45266030bcdeed1380fc0c1c6a071fb6&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_6d53fbbaad162eaab379a276c506f12b = L.map(
-                &quot;map_6d53fbbaad162eaab379a276c506f12b&quot;,
+            var map_45266030bcdeed1380fc0c1c6a071fb6 = L.map(
+                &quot;map_45266030bcdeed1380fc0c1c6a071fb6&quot;,
                 {
                     center: [40.496, -83.884],
                     crs: L.CRS.EPSG3857,
@@ -4589,13 +4595,13 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 
                 }
             );
-            L.control.scale().addTo(map_6d53fbbaad162eaab379a276c506f12b);
+            L.control.scale().addTo(map_45266030bcdeed1380fc0c1c6a071fb6);
 
             
 
         
     
-            var tile_layer_58eae38b7fd3d971f5ff01340d65f604 = L.tileLayer(
+            var tile_layer_0df206e67b47fa1a4af50985e5a3362f = L.tileLayer(
                 &quot;https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -4612,10 +4618,10 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
             );
         
     
-            tile_layer_58eae38b7fd3d971f5ff01340d65f604.addTo(map_6d53fbbaad162eaab379a276c506f12b);
+            tile_layer_0df206e67b47fa1a4af50985e5a3362f.addTo(map_45266030bcdeed1380fc0c1c6a071fb6);
         
     
-            var tile_layer_4c19f3d5a994f154008bc39b12206271 = L.tileLayer(
+            var tile_layer_381863af38d4d484911271df7ca65ddd = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/collections/lakeview-nightlights-tornadoes-2024/items/nightlights_LakeviewOH_diff_cog_2024-03-14/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=bwr\u0026rescale=-150%2C150&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -4632,66 +4638,66 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
             );
         
     
-            tile_layer_4c19f3d5a994f154008bc39b12206271.addTo(map_6d53fbbaad162eaab379a276c506f12b);
+            tile_layer_381863af38d4d484911271df7ca65ddd.addTo(map_45266030bcdeed1380fc0c1c6a071fb6);
         
     
-            var layer_control_981a82552d111265b84f99e01ba937b4_layers = {
+            var layer_control_c8a4277d06bcaa9e6439779f8f647fb9_layers = {
                 base_layers : {
-                    &quot;CartoDB Dark&quot; : tile_layer_58eae38b7fd3d971f5ff01340d65f604,
+                    &quot;CartoDB Dark&quot; : tile_layer_0df206e67b47fa1a4af50985e5a3362f,
                 },
                 overlays :  {
-                    &quot;Black Marble Nightlights (Indian Lake, OH)&quot; : tile_layer_4c19f3d5a994f154008bc39b12206271,
+                    &quot;Black Marble Nightlights (Indian Lake, OH)&quot; : tile_layer_381863af38d4d484911271df7ca65ddd,
                 },
             };
-            let layer_control_981a82552d111265b84f99e01ba937b4 = L.control.layers(
-                layer_control_981a82552d111265b84f99e01ba937b4_layers.base_layers,
-                layer_control_981a82552d111265b84f99e01ba937b4_layers.overlays,
+            let layer_control_c8a4277d06bcaa9e6439779f8f647fb9 = L.control.layers(
+                layer_control_c8a4277d06bcaa9e6439779f8f647fb9_layers.base_layers,
+                layer_control_c8a4277d06bcaa9e6439779f8f647fb9_layers.overlays,
                 {
   &quot;position&quot;: &quot;topright&quot;,
   &quot;collapsed&quot;: true,
   &quot;autoZIndex&quot;: true,
 }
-            ).addTo(map_6d53fbbaad162eaab379a276c506f12b);
+            ).addTo(map_45266030bcdeed1380fc0c1c6a071fb6);
 
         
     
-    var color_map_4f049356591415c6df8ce4c6950d13b1 = {};
+    var color_map_c6f2ab527f0a2bbefdb5dce185bf197c = {};
 
     
-    color_map_4f049356591415c6df8ce4c6950d13b1.color = d3.scale.threshold()
+    color_map_c6f2ab527f0a2bbefdb5dce185bf197c.color = d3.scale.threshold()
               .domain([-150.0, -149.3987975951904, -148.79759519038078, -148.19639278557113, -147.59519038076152, -146.9939879759519, -146.3927855711423, -145.79158316633266, -145.19038076152304, -144.58917835671343, -143.98797595190382, -143.38677354709418, -142.78557114228457, -142.18436873747495, -141.58316633266534, -140.9819639278557, -140.3807615230461, -139.77955911823648, -139.17835671342687, -138.57715430861722, -137.9759519038076, -137.374749498998, -136.7735470941884, -136.17234468937875, -135.57114228456913, -134.96993987975952, -134.3687374749499, -133.76753507014027, -133.16633266533066, -132.56513026052104, -131.96392785571143, -131.3627254509018, -130.76152304609218, -130.16032064128257, -129.55911823647295, -128.95791583166334, -128.3567134268537, -127.75551102204409, -127.15430861723448, -126.55310621242485, -125.95190380761522, -125.35070140280561, -124.749498997996, -124.14829659318637, -123.54709418837675, -122.94589178356713, -122.34468937875752, -121.7434869739479, -121.14228456913827, -120.54108216432866, -119.93987975951904, -119.33867735470942, -118.73747494989979, -118.13627254509018, -117.53507014028057, -116.93386773547094, -116.33266533066131, -115.7314629258517, -115.13026052104209, -114.52905811623246, -113.92785571142284, -113.32665330661322, -112.72545090180361, -112.12424849699399, -111.52304609218436, -110.92184368737475, -110.32064128256513, -109.71943887775551, -109.11823647294588, -108.51703406813627, -107.91583166332666, -107.31462925851704, -106.71342685370742, -106.11222444889779, -105.51102204408818, -104.90981963927857, -104.30861723446894, -103.70741482965931, -103.1062124248497, -102.50501002004009, -101.90380761523046, -101.30260521042084, -100.70140280561122, -100.10020040080161, -99.49899799599199, -98.89779559118236, -98.29659318637275, -97.69539078156313, -97.09418837675351, -96.49298597194388, -95.89178356713427, -95.29058116232466, -94.68937875751503, -94.0881763527054, -93.48697394789579, -92.88577154308618, -92.28456913827655, -91.68336673346693, -91.08216432865731, -90.4809619238477, -89.87975951903807, -89.27855711422845, -88.67735470941884, -88.07615230460922, -87.4749498997996, -86.87374749498997, -86.27254509018036, -85.67134268537075, -85.07014028056112, -84.46893787575151, -83.86773547094188, -83.26653306613227, -82.66533066132264, -82.06412825651303, -81.4629258517034, -80.86172344689379, -80.26052104208416, -79.65931863727455, -79.05811623246493, -78.45691382765531, -77.85571142284569, -77.25450901803607, -76.65330661322645, -76.05210420841684, -75.45090180360721, -74.8496993987976, -74.24849699398797, -73.64729458917836, -73.04609218436873, -72.44488977955912, -71.84368737474949, -71.24248496993988, -70.64128256513025, -70.04008016032064, -69.43887775551102, -68.8376753507014, -68.23647294589178, -67.63527054108216, -67.03406813627255, -66.43286573146293, -65.83166332665331, -65.23046092184369, -64.62925851703407, -64.02805611222445, -63.426853707414836, -62.82565130260521, -62.2244488977956, -61.62324649298597, -61.02204408817636, -60.42084168336673, -59.81963927855712, -59.21843687374749, -58.61723446893788, -58.016032064128254, -57.41482965931864, -56.813627254509015, -56.2124248496994, -55.611222444889776, -55.010020040080164, -54.40881763527054, -53.807615230460925, -53.2064128256513, -52.605210420841686, -52.00400801603206, -51.40280561122245, -50.80160320641282, -50.20040080160321, -49.59919839679358, -48.99799599198397, -48.39679358717434, -47.79559118236473, -47.194388777555105, -46.59318637274549, -45.991983967935866, -45.390781563126254, -44.78957915831663, -44.188376753507015, -43.58717434869739, -42.985971943887776, -42.38476953907815, -41.78356713426854, -41.18236472945891, -40.5811623246493, -39.979959919839686, -39.37875751503006, -38.77755511022045, -38.17635270541082, -37.57515030060121, -36.97394789579158, -36.37274549098197, -35.77154308617234, -35.17034068136273, -34.569138276553105, -33.96793587174349, -33.366733466933866, -32.76553106212425, -32.16432865731463, -31.563126252505015, -30.961923847695388, -30.360721442885776, -29.75951903807615, -29.158316633266537, -28.55711422845691, -27.9559118236473, -27.354709418837672, -26.75350701402806, -26.152304609218433, -25.55110220440882, -24.949899799599194, -24.348697394789582, -23.747494989979955, -23.146292585170343, -22.545090180360717, -21.943887775551104, -21.342685370741492, -20.74148296593185, -20.14028056112224, -19.539078156312627, -18.937875751503014, -18.336673346693374, -17.73547094188376, -17.13426853707415, -16.533066132264537, -15.931863727454896, -15.330661322645284, -14.729458917835672, -14.12825651302606, -13.527054108216447, -12.925851703406806, -12.324649298597194, -11.723446893787582, -11.12224448897797, -10.521042084168329, -9.919839679358716, -9.318637274549104, -8.717434869739492, -8.116232464929851, -7.515030060120239, -6.913827655310627, -6.312625250501014, -5.711422845691374, -5.110220440881761, -4.509018036072149, -3.9078156312625367, -3.306613226452896, -2.7054108216432837, -2.1042084168336714, -1.5030060120240591, -0.9018036072144184, -0.30060120240480614, 0.30060120240480614, 0.9018036072144184, 1.5030060120240591, 2.1042084168336714, 2.7054108216432837, 3.306613226452896, 3.9078156312625367, 4.509018036072149, 5.110220440881761, 5.711422845691374, 6.312625250501014, 6.913827655310627, 7.515030060120239, 8.116232464929851, 8.717434869739492, 9.318637274549104, 9.919839679358716, 10.521042084168329, 11.12224448897797, 11.723446893787582, 12.324649298597194, 12.925851703406806, 13.527054108216447, 14.12825651302606, 14.729458917835672, 15.330661322645284, 15.931863727454896, 16.533066132264537, 17.13426853707415, 17.73547094188376, 18.336673346693374, 18.937875751503014, 19.539078156312627, 20.14028056112224, 20.74148296593185, 21.342685370741492, 21.943887775551104, 22.545090180360717, 23.14629258517033, 23.74749498997997, 24.348697394789582, 24.949899799599194, 25.551102204408807, 26.152304609218447, 26.75350701402806, 27.354709418837672, 27.955911823647284, 28.557114228456925, 29.158316633266537, 29.75951903807615, 30.36072144288576, 30.961923847695402, 31.563126252505015, 32.16432865731463, 32.76553106212424, 33.36673346693388, 33.96793587174349, 34.569138276553105, 35.17034068136272, 35.77154308617236, 36.37274549098197, 36.97394789579158, 37.575150300601194, 38.176352705410835, 38.77755511022045, 39.37875751503006, 39.97995991983967, 40.58116232464931, 41.182364729458925, 41.78356713426854, 42.38476953907815, 42.98597194388776, 43.5871743486974, 44.188376753507015, 44.78957915831663, 45.39078156312624, 45.99198396793588, 46.59318637274549, 47.194388777555105, 47.79559118236472, 48.39679358717436, 48.99799599198397, 49.59919839679358, 50.200400801603195, 50.801603206412835, 51.40280561122245, 52.00400801603206, 52.60521042084167, 53.20641282565131, 53.807615230460925, 54.40881763527054, 55.01002004008015, 55.61122244488979, 56.2124248496994, 56.813627254509015, 57.41482965931863, 58.01603206412827, 58.61723446893788, 59.21843687374749, 59.819639278557105, 60.420841683366746, 61.02204408817636, 61.62324649298597, 62.22444889779558, 62.82565130260522, 63.426853707414836, 64.02805611222445, 64.62925851703406, 65.2304609218437, 65.83166332665331, 66.43286573146293, 67.03406813627254, 67.63527054108218, 68.23647294589179, 68.8376753507014, 69.43887775551102, 70.04008016032063, 70.64128256513027, 71.24248496993988, 71.84368737474949, 72.4448897795591, 73.04609218436875, 73.64729458917836, 74.24849699398797, 74.84969939879758, 75.45090180360722, 76.05210420841684, 76.65330661322645, 77.25450901803606, 77.8557114228457, 78.45691382765531, 79.05811623246493, 79.65931863727454, 80.26052104208418, 80.86172344689379, 81.4629258517034, 82.06412825651302, 82.66533066132266, 83.26653306613227, 83.86773547094188, 84.4689378757515, 85.07014028056113, 85.67134268537075, 86.27254509018036, 86.87374749498997, 87.47494989979961, 88.07615230460922, 88.67735470941884, 89.27855711422845, 89.87975951903809, 90.4809619238477, 91.08216432865731, 91.68336673346693, 92.28456913827657, 92.88577154308618, 93.48697394789579, 94.0881763527054, 94.68937875751504, 95.29058116232466, 95.89178356713427, 96.49298597194388, 97.0941883767535, 97.69539078156313, 98.29659318637275, 98.89779559118236, 99.49899799599197, 100.10020040080161, 100.70140280561122, 101.30260521042084, 101.90380761523045, 102.50501002004009, 103.1062124248497, 103.70741482965931, 104.30861723446893, 104.90981963927857, 105.51102204408818, 106.11222444889779, 106.7134268537074, 107.31462925851702, 107.91583166332663, 108.5170340681363, 109.11823647294591, 109.71943887775552, 110.32064128256513, 110.92184368737475, 111.52304609218436, 112.12424849699397, 112.72545090180358, 113.32665330661325, 113.92785571142286, 114.52905811623248, 115.13026052104209, 115.7314629258517, 116.33266533066131, 116.93386773547093, 117.53507014028054, 118.13627254509021, 118.73747494989982, 119.33867735470943, 119.93987975951904, 120.54108216432866, 121.14228456913827, 121.74348697394788, 122.3446893787575, 122.9458917835671, 123.54709418837678, 124.14829659318639, 124.749498997996, 125.35070140280561, 125.95190380761522, 126.55310621242484, 127.15430861723445, 127.75551102204406, 128.35671342685373, 128.95791583166334, 129.55911823647295, 130.16032064128257, 130.76152304609218, 131.3627254509018, 131.9639278557114, 132.56513026052102, 133.16633266533069, 133.7675350701403, 134.3687374749499, 134.96993987975952, 135.57114228456913, 136.17234468937875, 136.77354709418836, 137.37474949899797, 137.97595190380764, 138.57715430861725, 139.17835671342687, 139.77955911823648, 140.3807615230461, 140.9819639278557, 141.58316633266531, 142.18436873747493, 142.7855711422846, 143.3867735470942, 143.98797595190382, 144.58917835671343, 145.19038076152304, 145.79158316633266, 146.39278557114227, 146.99398797595188, 147.59519038076155, 148.19639278557116, 148.79759519038078, 149.3987975951904, 150.0])
               .range(['#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#0000ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#3838ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#7070ffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#aaaaffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#e2e2ffff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffe2e2ff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ffaaaaff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff7070ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff3838ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff', '#ff0000ff']);
     
 
-    color_map_4f049356591415c6df8ce4c6950d13b1.x = d3.scale.linear()
+    color_map_c6f2ab527f0a2bbefdb5dce185bf197c.x = d3.scale.linear()
               .domain([-150.0, 150.0])
               .range([0, 450 - 50]);
 
-    color_map_4f049356591415c6df8ce4c6950d13b1.legend = L.control({position: 'topright'});
-    color_map_4f049356591415c6df8ce4c6950d13b1.legend.onAdd = function (map) {var div = L.DomUtil.create('div', 'legend'); return div};
-    color_map_4f049356591415c6df8ce4c6950d13b1.legend.addTo(map_6d53fbbaad162eaab379a276c506f12b);
+    color_map_c6f2ab527f0a2bbefdb5dce185bf197c.legend = L.control({position: 'topright'});
+    color_map_c6f2ab527f0a2bbefdb5dce185bf197c.legend.onAdd = function (map) {var div = L.DomUtil.create('div', 'legend'); return div};
+    color_map_c6f2ab527f0a2bbefdb5dce185bf197c.legend.addTo(map_45266030bcdeed1380fc0c1c6a071fb6);
 
-    color_map_4f049356591415c6df8ce4c6950d13b1.xAxis = d3.svg.axis()
-        .scale(color_map_4f049356591415c6df8ce4c6950d13b1.x)
+    color_map_c6f2ab527f0a2bbefdb5dce185bf197c.xAxis = d3.svg.axis()
+        .scale(color_map_c6f2ab527f0a2bbefdb5dce185bf197c.x)
         .orient(&quot;top&quot;)
         .tickSize(1)
         .tickValues([-150.0, '', -90.0, '', -30.0, '', 30.0, '', 90.0, '', 150.0, '']);
 
-    color_map_4f049356591415c6df8ce4c6950d13b1.svg = d3.select(&quot;.legend.leaflet-control&quot;).append(&quot;svg&quot;)
+    color_map_c6f2ab527f0a2bbefdb5dce185bf197c.svg = d3.select(&quot;.legend.leaflet-control&quot;).append(&quot;svg&quot;)
         .attr(&quot;id&quot;, 'legend')
         .attr(&quot;width&quot;, 450)
         .attr(&quot;height&quot;, 40);
 
-    color_map_4f049356591415c6df8ce4c6950d13b1.g = color_map_4f049356591415c6df8ce4c6950d13b1.svg.append(&quot;g&quot;)
+    color_map_c6f2ab527f0a2bbefdb5dce185bf197c.g = color_map_c6f2ab527f0a2bbefdb5dce185bf197c.svg.append(&quot;g&quot;)
         .attr(&quot;class&quot;, &quot;key&quot;)
         .attr(&quot;fill&quot;, &quot;black&quot;)
         .attr(&quot;transform&quot;, &quot;translate(25,16)&quot;);
 
-    color_map_4f049356591415c6df8ce4c6950d13b1.g.selectAll(&quot;rect&quot;)
-        .data(color_map_4f049356591415c6df8ce4c6950d13b1.color.range().map(function(d, i) {
+    color_map_c6f2ab527f0a2bbefdb5dce185bf197c.g.selectAll(&quot;rect&quot;)
+        .data(color_map_c6f2ab527f0a2bbefdb5dce185bf197c.color.range().map(function(d, i) {
           return {
-            x0: i ? color_map_4f049356591415c6df8ce4c6950d13b1.x(color_map_4f049356591415c6df8ce4c6950d13b1.color.domain()[i - 1]) : color_map_4f049356591415c6df8ce4c6950d13b1.x.range()[0],
-            x1: i < color_map_4f049356591415c6df8ce4c6950d13b1.color.domain().length ? color_map_4f049356591415c6df8ce4c6950d13b1.x(color_map_4f049356591415c6df8ce4c6950d13b1.color.domain()[i]) : color_map_4f049356591415c6df8ce4c6950d13b1.x.range()[1],
+            x0: i ? color_map_c6f2ab527f0a2bbefdb5dce185bf197c.x(color_map_c6f2ab527f0a2bbefdb5dce185bf197c.color.domain()[i - 1]) : color_map_c6f2ab527f0a2bbefdb5dce185bf197c.x.range()[0],
+            x1: i < color_map_c6f2ab527f0a2bbefdb5dce185bf197c.color.domain().length ? color_map_c6f2ab527f0a2bbefdb5dce185bf197c.x(color_map_c6f2ab527f0a2bbefdb5dce185bf197c.color.domain()[i]) : color_map_c6f2ab527f0a2bbefdb5dce185bf197c.x.range()[1],
             z: d
           };
         }))
@@ -4701,7 +4707,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
         .attr(&quot;width&quot;, function(d) { return d.x1 - d.x0; })
         .style(&quot;fill&quot;, function(d) { return d.z; });
 
-    color_map_4f049356591415c6df8ce4c6950d13b1.g.call(color_map_4f049356591415c6df8ce4c6950d13b1.xAxis).append(&quot;text&quot;)
+    color_map_c6f2ab527f0a2bbefdb5dce185bf197c.g.call(color_map_c6f2ab527f0a2bbefdb5dce185bf197c.xAxis).append(&quot;text&quot;)
         .attr(&quot;class&quot;, &quot;caption&quot;)
         .attr(&quot;y&quot;, 21)
         .attr(&quot;fill&quot;, &quot;black&quot;)
@@ -4715,7 +4721,7 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <h1>Example: DOW7 Base Reflectivity and Velocity (Radar)</h1>
 <p>Pull the DOW7 radar data from from the VEDA STAC catalog and visualize using a side-by-side layer slider</p>
 <p>The Doppler on Wheels (DOW) radar, which is mounted on vehicles and can get closer to storms, can be examined in cases where it was deployed in order to gather more detailed information than the NWS regional WSR-88D radars. DOW radars are typically used for research and can capture clearer, higher-resolution data on tornadoes, while WSR-88D provides a wider view but with slightly less detail.</p>
-<div id="7213b9f2-8444-462b-a994-3e8cbb6beed2" class="cell" data-execution_count="38">
+<div id="7213b9f2-8444-462b-a994-3e8cbb6beed2" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve both DOW7 reflectivity and velocity data from VEDA STAC</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-04-26"</span> <span class="co">#Use the same date for both reflectivity and velocity</span></span>
@@ -4768,10 +4774,10 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>response_vel.raise_for_status()</span>
 <span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>tiles_vel <span class="op">=</span> response_vel.json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="22a738e8" class="cell" data-execution_count="39">
+<div id="22a738e8" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#View DOW7 reflectivity collection</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>collection_refl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="39">
+<div class="cell-output cell-output-display" data-execution_count="15">
 
 
 <style>
@@ -5684,10 +5690,10 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 </div>
 </div>
 </div>
-<div id="618ba9da" class="cell" data-execution_count="40">
+<div id="618ba9da" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#View DOW7 velocity collection</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>collection_vel</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="40">
+<div class="cell-output cell-output-display" data-execution_count="16">
 
 
 <style>
@@ -6600,36 +6606,47 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 </div>
 </div>
 </div>
-<div id="f01b3d85" class="cell" data-execution_count="41">
+<div id="f01b3d85" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the new plot_folium_SidebySide_layer_from_VEDA_STAC function from plotutils</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_SidebySide_layer_from_VEDA_STAC(</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_left<span class="op">=</span>tiles_refl[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    tiles_url_right<span class="op">=</span>tiles_vel[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">41.668</span>, <span class="op">-</span><span class="fl">95.372</span>],</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">14</span>,</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"DOW7 Comparison — Harlan, IA — April 26, 2024"</span>,</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    label_left<span class="op">=</span><span class="st">"← Reflectivity (-10 to 50 dBZ)"</span>,</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    label_right<span class="op">=</span><span class="st">"Velocity (-75 to 75 m/s) →"</span>,</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    layer_name_left<span class="op">=</span><span class="st">"DOW7 Reflectivity"</span>,</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    layer_name_right<span class="op">=</span><span class="st">"DOW7 Velocity"</span>,</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">'esri-satellite-labels'</span>,</span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="st">"100%"</span></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Interactive side-by-side comparison of DOW7 reflectivity and velocity data."</span>)</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Drag the vertical slider to reveal more of either dataset."</span>)</span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the colormap names from the collections</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>colormap_refl <span class="op">=</span> collection_refl.extra_fields[<span class="st">'renders'</span>][<span class="st">'dashboard'</span>][<span class="st">'colormap_name'</span>]</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>colormap_vel <span class="op">=</span> collection_vel.extra_fields[<span class="st">'renders'</span>][<span class="st">'dashboard'</span>][<span class="st">'colormap_name'</span>]</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_SidebySide_layer_from_VEDA_STAC(</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    tiles_url_left<span class="op">=</span>tiles_refl[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    tiles_url_right<span class="op">=</span>tiles_vel[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">41.668</span>, <span class="op">-</span><span class="fl">95.372</span>],</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">14</span>,</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"DOW7 Comparison — Harlan, IA — April 26, 2024"</span>,</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    label_left<span class="op">=</span><span class="st">"← Reflectivity"</span>,</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    label_right<span class="op">=</span><span class="st">"Velocity →"</span>,</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    layer_name_left<span class="op">=</span><span class="st">"DOW7 Reflectivity"</span>,</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    layer_name_right<span class="op">=</span><span class="st">"DOW7 Velocity"</span>,</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">'esri-satellite-labels'</span>,</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="st">"100%"</span>,</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># New parameters for HTML colorbars</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    colormap_left<span class="op">=</span>colormap_refl,</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>    colormap_right<span class="op">=</span>colormap_vel,</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>    rescale_left<span class="op">=</span>(vmin_refl, vmax_refl),</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>    rescale_right<span class="op">=</span>(vmin_vel, vmax_vel),</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>    units_left<span class="op">=</span><span class="st">"dBZ"</span>,</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    units_right<span class="op">=</span><span class="st">"m/s"</span></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Interactive side-by-side comparison of DOW7 reflectivity and velocity data."</span>)</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Drag the vertical slider to reveal more of either dataset."</span>)</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Interactive side-by-side comparison of DOW7 reflectivity and velocity data.
 Drag the vertical slider to reveal more of either dataset.
 </code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="41">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
 <html>
 <head>
@@ -6649,7 +6666,7 @@ Drag the vertical slider to reveal more of either dataset.
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_3ca96b556da2d21e28064b7bfefca351 {
+                #map_880b2c91c441839765db2b4e4c53c6e9 {
                     position: relative;
                     width: 100.0%;
                     height: 800.0px;
@@ -6717,7 +6734,22 @@ Drag the vertical slider to reveal more of either dataset.
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     &quot;>
-        ← Reflectivity (-10 to 50 dBZ)
+        <div style=&quot;text-align: center;&quot;>← Reflectivity</div>
+        
+        <div style=&quot;margin-top: 8px; background: rgba(255,255,255,0.9); padding: 4px; border-radius: 3px;&quot;>
+            <div style=&quot;
+                width: 150px;
+                height: 20px;
+                background: linear-gradient(to right, rgba(48, 18, 59, 1) 0.0%, rgba(69, 96, 214, 1) 11.11111111111111%, rgba(54, 168, 249, 1) 22.22222222222222%, rgba(26, 228, 182, 1) 33.33333333333333%, rgba(113, 253, 95, 1) 44.44444444444444%, rgba(200, 238, 51, 1) 55.55555555555556%, rgba(249, 186, 56, 1) 66.66666666666666%, rgba(245, 104, 23, 1) 77.77777777777779%, rgba(201, 41, 3, 1) 88.88888888888889%, rgba(122, 4, 2, 1) 100.0%);
+                border: 1px solid #ccc;
+                margin: 0 auto;
+            &quot;></div>
+            <div style=&quot;display: flex; justify-content: space-between; width: 150px; font-size: 11px; margin-top: 2px;&quot;>
+                <span>-10 dBZ</span>
+                <span>50 dBZ</span>
+            </div>
+        </div>
+        
     </div>
     <div style=&quot;
         position: fixed;
@@ -6732,7 +6764,22 @@ Drag the vertical slider to reveal more of either dataset.
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     &quot;>
-        Velocity (-75 to 75 m/s) →
+        <div style=&quot;text-align: center;&quot;>Velocity →</div>
+        
+        <div style=&quot;margin-top: 8px; background: rgba(255,255,255,0.9); padding: 4px; border-radius: 3px;&quot;>
+            <div style=&quot;
+                width: 150px;
+                height: 20px;
+                background: linear-gradient(to right, rgba(0, 0, 76, 1) 0.0%, rgba(0, 0, 154, 1) 11.11111111111111%, rgba(0, 0, 233, 1) 22.22222222222222%, rgba(85, 85, 255, 1) 33.33333333333333%, rgba(197, 197, 255, 1) 44.44444444444444%, rgba(255, 197, 197, 1) 55.55555555555556%, rgba(255, 85, 85, 1) 66.66666666666666%, rgba(239, 0, 0, 1) 77.77777777777779%, rgba(183, 0, 0, 1) 88.88888888888889%, rgba(127, 0, 0, 1) 100.0%);
+                border: 1px solid #ccc;
+                margin: 0 auto;
+            &quot;></div>
+            <div style=&quot;display: flex; justify-content: space-between; width: 150px; font-size: 11px; margin-top: 2px;&quot;>
+                <span>-75 m/s</span>
+                <span>75 m/s</span>
+            </div>
+        </div>
+        
     </div>
     
     
@@ -6754,14 +6801,14 @@ Drag the vertical slider to reveal more of either dataset.
     </div>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_3ca96b556da2d21e28064b7bfefca351&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_880b2c91c441839765db2b4e4c53c6e9&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_3ca96b556da2d21e28064b7bfefca351 = L.map(
-                &quot;map_3ca96b556da2d21e28064b7bfefca351&quot;,
+            var map_880b2c91c441839765db2b4e4c53c6e9 = L.map(
+                &quot;map_880b2c91c441839765db2b4e4c53c6e9&quot;,
                 {
                     center: [41.668, -95.372],
                     crs: L.CRS.EPSG3857,
@@ -6773,13 +6820,13 @@ Drag the vertical slider to reveal more of either dataset.
 
                 }
             );
-            L.control.scale().addTo(map_3ca96b556da2d21e28064b7bfefca351);
+            L.control.scale().addTo(map_880b2c91c441839765db2b4e4c53c6e9);
 
             
 
         
     
-            var tile_layer_61f73836c4f59c43ea42f94e4aa3e68d = L.tileLayer(
+            var tile_layer_fa0368521ff004853c8f9f8ee09d2657 = L.tileLayer(
                 &quot;https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -6796,10 +6843,10 @@ Drag the vertical slider to reveal more of either dataset.
             );
         
     
-            tile_layer_61f73836c4f59c43ea42f94e4aa3e68d.addTo(map_3ca96b556da2d21e28064b7bfefca351);
+            tile_layer_fa0368521ff004853c8f9f8ee09d2657.addTo(map_880b2c91c441839765db2b4e4c53c6e9);
         
     
-            var tile_layer_995892002cbe62bdab4c964c1893c91c = L.tileLayer(
+            var tile_layer_6bc9fadb842fe0c29878e02eada16756 = L.tileLayer(
                 &quot;https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer/tile/{z}/{y}/{x}&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -6816,10 +6863,10 @@ Drag the vertical slider to reveal more of either dataset.
             );
         
     
-            tile_layer_995892002cbe62bdab4c964c1893c91c.addTo(map_3ca96b556da2d21e28064b7bfefca351);
+            tile_layer_6bc9fadb842fe0c29878e02eada16756.addTo(map_880b2c91c441839765db2b4e4c53c6e9);
         
     
-            var tile_layer_9692a2822f19163cb3be2da1f0723488 = L.tileLayer(
+            var tile_layer_812c40a0f89fe47f06a15bef9ab48182 = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/collections/tornadoes-2024-dow-refl-harlan/items/DOW_Harlan_REFL_cog_v2_2024-04-26/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=turbo\u0026rescale=-10%2C50&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -6836,10 +6883,10 @@ Drag the vertical slider to reveal more of either dataset.
             );
         
     
-            tile_layer_9692a2822f19163cb3be2da1f0723488.addTo(map_3ca96b556da2d21e28064b7bfefca351);
+            tile_layer_812c40a0f89fe47f06a15bef9ab48182.addTo(map_880b2c91c441839765db2b4e4c53c6e9);
         
     
-            var tile_layer_ab2c9e59dafb43391a1272ee34dd9d81 = L.tileLayer(
+            var tile_layer_edbbfd8c45a6536d7c6602a663aca838 = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/collections/tornadoes-2024-dow-v-harlan/items/DOW_Harlan_V_cog_v2_2024-04-26/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=seismic\u0026rescale=-75%2C75&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -6856,33 +6903,33 @@ Drag the vertical slider to reveal more of either dataset.
             );
         
     
-            tile_layer_ab2c9e59dafb43391a1272ee34dd9d81.addTo(map_3ca96b556da2d21e28064b7bfefca351);
+            tile_layer_edbbfd8c45a6536d7c6602a663aca838.addTo(map_880b2c91c441839765db2b4e4c53c6e9);
         
     
-            var side_by_side_layers_987b084deb47abb6a0a3e7d4c2bd8f65 = L.control.sideBySide(
-                tile_layer_9692a2822f19163cb3be2da1f0723488, tile_layer_ab2c9e59dafb43391a1272ee34dd9d81
-            ).addTo(map_3ca96b556da2d21e28064b7bfefca351);
+            var side_by_side_layers_cb10c3e8635be8a520389ab2c72b38a4 = L.control.sideBySide(
+                tile_layer_812c40a0f89fe47f06a15bef9ab48182, tile_layer_edbbfd8c45a6536d7c6602a663aca838
+            ).addTo(map_880b2c91c441839765db2b4e4c53c6e9);
         
     
-            var layer_control_645fedc7b08ec9bb6e10710130a7736f_layers = {
+            var layer_control_4a5ed96c7b63a784f7c695971545d886_layers = {
                 base_layers : {
-                    &quot;ESRI Satellite&quot; : tile_layer_61f73836c4f59c43ea42f94e4aa3e68d,
+                    &quot;ESRI Satellite&quot; : tile_layer_fa0368521ff004853c8f9f8ee09d2657,
                 },
                 overlays :  {
-                    &quot;Place Labels&quot; : tile_layer_995892002cbe62bdab4c964c1893c91c,
-                    &quot;DOW7 Reflectivity&quot; : tile_layer_9692a2822f19163cb3be2da1f0723488,
-                    &quot;DOW7 Velocity&quot; : tile_layer_ab2c9e59dafb43391a1272ee34dd9d81,
+                    &quot;Place Labels&quot; : tile_layer_6bc9fadb842fe0c29878e02eada16756,
+                    &quot;DOW7 Reflectivity&quot; : tile_layer_812c40a0f89fe47f06a15bef9ab48182,
+                    &quot;DOW7 Velocity&quot; : tile_layer_edbbfd8c45a6536d7c6602a663aca838,
                 },
             };
-            let layer_control_645fedc7b08ec9bb6e10710130a7736f = L.control.layers(
-                layer_control_645fedc7b08ec9bb6e10710130a7736f_layers.base_layers,
-                layer_control_645fedc7b08ec9bb6e10710130a7736f_layers.overlays,
+            let layer_control_4a5ed96c7b63a784f7c695971545d886 = L.control.layers(
+                layer_control_4a5ed96c7b63a784f7c695971545d886_layers.base_layers,
+                layer_control_4a5ed96c7b63a784f7c695971545d886_layers.overlays,
                 {
   &quot;position&quot;: &quot;topright&quot;,
   &quot;collapsed&quot;: true,
   &quot;autoZIndex&quot;: true,
 }
-            ).addTo(map_3ca96b556da2d21e28064b7bfefca351);
+            ).addTo(map_880b2c91c441839765db2b4e4c53c6e9);
 
         
 </script>
@@ -6893,7 +6940,7 @@ Drag the vertical slider to reveal more of either dataset.
 <section id="example-dow7-correlation-coefficient-radar" class="level1">
 <h1>Example: DOW7 Correlation Coefficient (Radar)</h1>
 <p>Pull the DOW7 radar data from from the VEDA STAC catalog and visualize</p>
-<div id="2461b25d-de5d-42b1-b30d-464185144021" class="cell" data-execution_count="22">
+<div id="2461b25d-de5d-42b1-b30d-464185144021" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve both DOW7 correlation coefficient and velocity data from VEDA STAC</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-05-21"</span> <span class="co">#Use the same date for both reflectivity and velocity</span></span>
@@ -6911,13 +6958,13 @@ Drag the vertical slider to reveal more of either dataset.
 <span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>((vmin_rhohv, vmax_rhohv),) <span class="op">=</span> dashboard_render_rhohv[<span class="st">"rescale"</span>]</span>
 <span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> collection_rhohv.extra_fields[<span class="st">'renders'</span>][<span class="st">'dashboard'</span>][<span class="st">'colormap_name'</span>]</span>
 <span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Build reflectivity tile URL</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Build correlation coefficient tile URL</span></span>
 <span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>response_rhohv <span class="op">=</span> requests.get(</span>
 <span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id_rhohv<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item_rhohv<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
 <span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets_rhohv<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;color_formula=gamma+r+1.05&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin_refl<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax_refl<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin_rhohv<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax_rhohv<span class="sc">}</span><span class="ss">"</span>,</span>
 <span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>response_rhohv.raise_for_status()</span>
 <span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>tiles_rhohv <span class="op">=</span> response_rhohv.json()</span>
@@ -6946,38 +6993,49 @@ Drag the vertical slider to reveal more of either dataset.
 <span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a>response_vel.raise_for_status()</span>
 <span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a>tiles_vel <span class="op">=</span> response_vel.json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="f89a00f6-ac59-486e-9af7-5f1d42d1bab1" class="cell" data-execution_count="24">
+<div id="f89a00f6-ac59-486e-9af7-5f1d42d1bab1" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the new plot_folium_SidebySide_layer_from_VEDA_STAC function from plotutils</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_SidebySide_layer_from_VEDA_STAC(</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_left<span class="op">=</span>tiles_refl[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    tiles_url_right<span class="op">=</span>tiles_vel[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">41.3036</span>, <span class="op">-</span><span class="fl">94.4569</span>],</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">16</span>,</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"DOW7 Comparison — Greenfield, IA — May 21, 2024"</span>,</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    label_left<span class="op">=</span><span class="st">"← Correlation Coefficient (0 to 1)"</span>,</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    label_right<span class="op">=</span><span class="st">"Velocity (-75 to 75 m/s) →"</span>,</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    layer_name_left<span class="op">=</span><span class="st">"DOW7 Correlation Coefficient"</span>,</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    layer_name_right<span class="op">=</span><span class="st">"DOW7 Velocity"</span>,</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">'esri-satellite-labels'</span>,</span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="st">"100%"</span></span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Interactive side-by-side comparison of DOW7 correlation coefficient and velocity data."</span>)</span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Drag the vertical slider to reveal more of either dataset."</span>)</span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The lower correlation coefficient values that are collocated with the high velocities indicate the tornado throwing debris in the air."</span>)</span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
-<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the colormap names from the collections</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>colormap_rhohv <span class="op">=</span> collection_rhohv.extra_fields[<span class="st">'renders'</span>][<span class="st">'dashboard'</span>][<span class="st">'colormap_name'</span>]</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>colormap_vel <span class="op">=</span> collection_vel.extra_fields[<span class="st">'renders'</span>][<span class="st">'dashboard'</span>][<span class="st">'colormap_name'</span>]</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_SidebySide_layer_from_VEDA_STAC(</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    tiles_url_left<span class="op">=</span>tiles_rhohv[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    tiles_url_right<span class="op">=</span>tiles_vel[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">41.3036</span>, <span class="op">-</span><span class="fl">94.4569</span>],</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="dv">16</span>,</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">"DOW7 Comparison — Greenfield, IA — May 21, 2024"</span>,</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    label_left<span class="op">=</span><span class="st">"← Correlation Coefficient"</span>,</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    label_right<span class="op">=</span><span class="st">"Velocity →"</span>,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    layer_name_left<span class="op">=</span><span class="st">"DOW7 Correlation Coefficient"</span>,</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    layer_name_right<span class="op">=</span><span class="st">"DOW7 Velocity"</span>,</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">'esri-satellite-labels'</span>,</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="st">"100%"</span>,</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># New parameters for HTML colorbars</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>    colormap_left<span class="op">=</span>colormap_rhohv,</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>    colormap_right<span class="op">=</span>colormap_vel,</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>    rescale_left<span class="op">=</span>(vmin_rhohv, vmax_rhohv),</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>    rescale_right<span class="op">=</span>(vmin_vel, vmax_vel),</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>    units_left<span class="op">=</span><span class="st">""</span>,  <span class="co"># Correlation coefficient is unitless</span></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>    units_right<span class="op">=</span><span class="st">"m/s"</span></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Interactive side-by-side comparison of DOW7 correlation coefficient and velocity data."</span>)</span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Drag the vertical slider to reveal more of either dataset."</span>)</span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The lower correlation coefficient values that are collocated with the high velocities indicate the tornado throwing debris in the air."</span>)</span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Interactive side-by-side comparison of DOW7 correlation coefficient and velocity data.
 Drag the vertical slider to reveal more of either dataset.
 The lower correlation coefficient values that are collocated with the high velocities indicate the tornado throwing debris in the air.
 </code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
 <html>
 <head>
@@ -6997,7 +7055,7 @@ The lower correlation coefficient values that are collocated with the high veloc
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_26e5e02073e36b82dcfe23a8844792b6 {
+                #map_39c36108913b555af0569e2f3ea39caa {
                     position: relative;
                     width: 100.0%;
                     height: 800.0px;
@@ -7065,7 +7123,22 @@ The lower correlation coefficient values that are collocated with the high veloc
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     &quot;>
-        ← Correlation Coefficient (0 to 1)
+        <div style=&quot;text-align: center;&quot;>← Correlation Coefficient</div>
+        
+        <div style=&quot;margin-top: 8px; background: rgba(255,255,255,0.9); padding: 4px; border-radius: 3px;&quot;>
+            <div style=&quot;
+                width: 150px;
+                height: 20px;
+                background: linear-gradient(to right, rgba(48, 18, 59, 1) 0.0%, rgba(69, 96, 214, 1) 11.11111111111111%, rgba(54, 168, 249, 1) 22.22222222222222%, rgba(26, 228, 182, 1) 33.33333333333333%, rgba(113, 253, 95, 1) 44.44444444444444%, rgba(200, 238, 51, 1) 55.55555555555556%, rgba(249, 186, 56, 1) 66.66666666666666%, rgba(245, 104, 23, 1) 77.77777777777779%, rgba(201, 41, 3, 1) 88.88888888888889%, rgba(122, 4, 2, 1) 100.0%);
+                border: 1px solid #ccc;
+                margin: 0 auto;
+            &quot;></div>
+            <div style=&quot;display: flex; justify-content: space-between; width: 150px; font-size: 11px; margin-top: 2px;&quot;>
+                <span>0</span>
+                <span>1</span>
+            </div>
+        </div>
+        
     </div>
     <div style=&quot;
         position: fixed;
@@ -7080,7 +7153,22 @@ The lower correlation coefficient values that are collocated with the high veloc
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     &quot;>
-        Velocity (-75 to 75 m/s) →
+        <div style=&quot;text-align: center;&quot;>Velocity →</div>
+        
+        <div style=&quot;margin-top: 8px; background: rgba(255,255,255,0.9); padding: 4px; border-radius: 3px;&quot;>
+            <div style=&quot;
+                width: 150px;
+                height: 20px;
+                background: linear-gradient(to right, rgba(0, 0, 76, 1) 0.0%, rgba(0, 0, 154, 1) 11.11111111111111%, rgba(0, 0, 233, 1) 22.22222222222222%, rgba(85, 85, 255, 1) 33.33333333333333%, rgba(197, 197, 255, 1) 44.44444444444444%, rgba(255, 197, 197, 1) 55.55555555555556%, rgba(255, 85, 85, 1) 66.66666666666666%, rgba(239, 0, 0, 1) 77.77777777777779%, rgba(183, 0, 0, 1) 88.88888888888889%, rgba(127, 0, 0, 1) 100.0%);
+                border: 1px solid #ccc;
+                margin: 0 auto;
+            &quot;></div>
+            <div style=&quot;display: flex; justify-content: space-between; width: 150px; font-size: 11px; margin-top: 2px;&quot;>
+                <span>-75 m/s</span>
+                <span>75 m/s</span>
+            </div>
+        </div>
+        
     </div>
     
     
@@ -7102,14 +7190,14 @@ The lower correlation coefficient values that are collocated with the high veloc
     </div>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_26e5e02073e36b82dcfe23a8844792b6&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_39c36108913b555af0569e2f3ea39caa&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_26e5e02073e36b82dcfe23a8844792b6 = L.map(
-                &quot;map_26e5e02073e36b82dcfe23a8844792b6&quot;,
+            var map_39c36108913b555af0569e2f3ea39caa = L.map(
+                &quot;map_39c36108913b555af0569e2f3ea39caa&quot;,
                 {
                     center: [41.3036, -94.4569],
                     crs: L.CRS.EPSG3857,
@@ -7121,13 +7209,13 @@ The lower correlation coefficient values that are collocated with the high veloc
 
                 }
             );
-            L.control.scale().addTo(map_26e5e02073e36b82dcfe23a8844792b6);
+            L.control.scale().addTo(map_39c36108913b555af0569e2f3ea39caa);
 
             
 
         
     
-            var tile_layer_eb5709c7d69189a02303264eff58c918 = L.tileLayer(
+            var tile_layer_2520013e4dab6d96646f911dcbd657e6 = L.tileLayer(
                 &quot;https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -7144,10 +7232,10 @@ The lower correlation coefficient values that are collocated with the high veloc
             );
         
     
-            tile_layer_eb5709c7d69189a02303264eff58c918.addTo(map_26e5e02073e36b82dcfe23a8844792b6);
+            tile_layer_2520013e4dab6d96646f911dcbd657e6.addTo(map_39c36108913b555af0569e2f3ea39caa);
         
     
-            var tile_layer_baca95091e5b3ff970fea2ecf98b1ed3 = L.tileLayer(
+            var tile_layer_591cced69b59baaef7f67178f722c15c = L.tileLayer(
                 &quot;https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer/tile/{z}/{y}/{x}&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -7164,10 +7252,10 @@ The lower correlation coefficient values that are collocated with the high veloc
             );
         
     
-            tile_layer_baca95091e5b3ff970fea2ecf98b1ed3.addTo(map_26e5e02073e36b82dcfe23a8844792b6);
+            tile_layer_591cced69b59baaef7f67178f722c15c.addTo(map_39c36108913b555af0569e2f3ea39caa);
         
     
-            var tile_layer_51ba7a4b8cd5ea1ecba08155c28a74ba = L.tileLayer(
+            var tile_layer_4f8cc79b56527ea4ab038c7be3304f0a = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/collections/tornadoes-2024-dow-rhohv-greenfield/items/DOW_Greenfield_RHOHV_cog_v2_2024-05-21/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=turbo\u0026rescale=0%2C1&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -7184,10 +7272,10 @@ The lower correlation coefficient values that are collocated with the high veloc
             );
         
     
-            tile_layer_51ba7a4b8cd5ea1ecba08155c28a74ba.addTo(map_26e5e02073e36b82dcfe23a8844792b6);
+            tile_layer_4f8cc79b56527ea4ab038c7be3304f0a.addTo(map_39c36108913b555af0569e2f3ea39caa);
         
     
-            var tile_layer_22b6a25c5e6ad179d94d0db133e19114 = L.tileLayer(
+            var tile_layer_3bcdb97286b64f5f42198600e966a21b = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/collections/tornadoes-2024-dow-vg-greenfield/items/DOW_Greenfield_VG_cog_v2_2024-05-21/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=seismic\u0026rescale=-75%2C75&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -7204,33 +7292,33 @@ The lower correlation coefficient values that are collocated with the high veloc
             );
         
     
-            tile_layer_22b6a25c5e6ad179d94d0db133e19114.addTo(map_26e5e02073e36b82dcfe23a8844792b6);
+            tile_layer_3bcdb97286b64f5f42198600e966a21b.addTo(map_39c36108913b555af0569e2f3ea39caa);
         
     
-            var side_by_side_layers_cfb04d7b4522ab6b6400131d71ea5a8d = L.control.sideBySide(
-                tile_layer_51ba7a4b8cd5ea1ecba08155c28a74ba, tile_layer_22b6a25c5e6ad179d94d0db133e19114
-            ).addTo(map_26e5e02073e36b82dcfe23a8844792b6);
+            var side_by_side_layers_79fd0589142bd270f358022a0a663529 = L.control.sideBySide(
+                tile_layer_4f8cc79b56527ea4ab038c7be3304f0a, tile_layer_3bcdb97286b64f5f42198600e966a21b
+            ).addTo(map_39c36108913b555af0569e2f3ea39caa);
         
     
-            var layer_control_57538643f1ada37371992f424673bcc0_layers = {
+            var layer_control_72d346e373480d91236a177f18e9df39_layers = {
                 base_layers : {
-                    &quot;ESRI Satellite&quot; : tile_layer_eb5709c7d69189a02303264eff58c918,
+                    &quot;ESRI Satellite&quot; : tile_layer_2520013e4dab6d96646f911dcbd657e6,
                 },
                 overlays :  {
-                    &quot;Place Labels&quot; : tile_layer_baca95091e5b3ff970fea2ecf98b1ed3,
-                    &quot;DOW7 Correlation Coefficient&quot; : tile_layer_51ba7a4b8cd5ea1ecba08155c28a74ba,
-                    &quot;DOW7 Velocity&quot; : tile_layer_22b6a25c5e6ad179d94d0db133e19114,
+                    &quot;Place Labels&quot; : tile_layer_591cced69b59baaef7f67178f722c15c,
+                    &quot;DOW7 Correlation Coefficient&quot; : tile_layer_4f8cc79b56527ea4ab038c7be3304f0a,
+                    &quot;DOW7 Velocity&quot; : tile_layer_3bcdb97286b64f5f42198600e966a21b,
                 },
             };
-            let layer_control_57538643f1ada37371992f424673bcc0 = L.control.layers(
-                layer_control_57538643f1ada37371992f424673bcc0_layers.base_layers,
-                layer_control_57538643f1ada37371992f424673bcc0_layers.overlays,
+            let layer_control_72d346e373480d91236a177f18e9df39 = L.control.layers(
+                layer_control_72d346e373480d91236a177f18e9df39_layers.base_layers,
+                layer_control_72d346e373480d91236a177f18e9df39_layers.overlays,
                 {
   &quot;position&quot;: &quot;topright&quot;,
   &quot;collapsed&quot;: true,
   &quot;autoZIndex&quot;: true,
 }
-            ).addTo(map_26e5e02073e36b82dcfe23a8844792b6);
+            ).addTo(map_39c36108913b555af0569e2f3ea39caa);
 
         
 </script>
@@ -7241,7 +7329,7 @@ The lower correlation coefficient values that are collocated with the high veloc
 <section id="example-dow7-derived-maximum-velocity-swath-radar" class="level1">
 <h1>Example: DOW7-Derived Maximum Velocity Swath (Radar)</h1>
 <p>Pull the DOW7 radar data from from the VEDA STAC catalog and visualize</p>
-<div id="efb13664-1597-478a-b8e5-fac20e6ac481" class="cell" data-execution_count="25">
+<div id="efb13664-1597-478a-b8e5-fac20e6ac481" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"tornadoes-2024-dow-vmax-greenfield"</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-05-21"</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -7261,7 +7349,7 @@ The lower correlation coefficient values that are collocated with the high veloc
 <span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>((vmin, vmax),) <span class="op">=</span> dashboard_render[<span class="st">"rescale"</span>]</span>
 <span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="25">
+<div class="cell-output cell-output-display" data-execution_count="20">
 
 
 <style>
@@ -8174,7 +8262,7 @@ The lower correlation coefficient values that are collocated with the high veloc
 </div>
 </div>
 </div>
-<div id="14d08573-78ea-45bf-baf0-58cddf840401" class="cell" data-execution_count="26">
+<div id="14d08573-78ea-45bf-baf0-58cddf840401" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> <span class="st">"gist_ncar"</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -8195,7 +8283,7 @@ The lower correlation coefficient values that are collocated with the high veloc
 <pre><code>{'tilejson': '2.2.0', 'version': '1.0.0', 'scheme': 'xyz', 'tiles': ['https://openveda.cloud/api/raster/collections/tornadoes-2024-dow-vmax-greenfield/items/DOW_Vmax_Greenfield_mph_cog_2024-05-21/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=gist_ncar&amp;rescale=55%2C250'], 'minzoom': 0, 'maxzoom': 24, 'bounds': [-94.4784, 41.29080000000008, -94.416, 41.31980000000008], 'center': [-94.4472, 41.30530000000008, 0]}</code></pre>
 </div>
 </div>
-<div id="b062836d-83f6-414d-91d2-9255e0b46a3c" class="cell" data-execution_count="33">
+<div id="b062836d-83f6-414d-91d2-9255e0b46a3c" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the new plot_folium_from_VEDA_STAC function</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_from_VEDA_STAC(</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_template<span class="op">=</span>tiles[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
@@ -8222,7 +8310,7 @@ The lower correlation coefficient values that are collocated with the high veloc
 <div class="cell-output cell-output-stdout">
 <pre><code>DOW-derived maximum velocity values from the Greenfield, Iowa EF-4 tornado on May 21, 2024 through Greenfield.</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="33">
+<div class="cell-output cell-output-display" data-execution_count="22">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
 <html>
 <head>
@@ -8242,7 +8330,7 @@ The lower correlation coefficient values that are collocated with the high veloc
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_85d7b52fa3361047e288d46ec5116c7c {
+                #map_9604a465b2e2fda357f1f77b92e774f5 {
                     position: relative;
                     width: 100.0%;
                     height: 800.0px;
@@ -8296,14 +8384,14 @@ The lower correlation coefficient values that are collocated with the high veloc
           </div>
         
     
-            <div class=&quot;folium-map&quot; id=&quot;map_85d7b52fa3361047e288d46ec5116c7c&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_9604a465b2e2fda357f1f77b92e774f5&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_85d7b52fa3361047e288d46ec5116c7c = L.map(
-                &quot;map_85d7b52fa3361047e288d46ec5116c7c&quot;,
+            var map_9604a465b2e2fda357f1f77b92e774f5 = L.map(
+                &quot;map_9604a465b2e2fda357f1f77b92e774f5&quot;,
                 {
                     center: [41.3036, -94.4569],
                     crs: L.CRS.EPSG3857,
@@ -8315,13 +8403,13 @@ The lower correlation coefficient values that are collocated with the high veloc
 
                 }
             );
-            L.control.scale().addTo(map_85d7b52fa3361047e288d46ec5116c7c);
+            L.control.scale().addTo(map_9604a465b2e2fda357f1f77b92e774f5);
 
             
 
         
     
-            var tile_layer_8da0bab04ea7ee80dd3819203cab5f67 = L.tileLayer(
+            var tile_layer_ccc57bd051baf6bdc8c8e9772ff4ae3c = L.tileLayer(
                 &quot;https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -8338,10 +8426,10 @@ The lower correlation coefficient values that are collocated with the high veloc
             );
         
     
-            tile_layer_8da0bab04ea7ee80dd3819203cab5f67.addTo(map_85d7b52fa3361047e288d46ec5116c7c);
+            tile_layer_ccc57bd051baf6bdc8c8e9772ff4ae3c.addTo(map_9604a465b2e2fda357f1f77b92e774f5);
         
     
-            var tile_layer_3454436f56a6c01bdb37947feff7092f = L.tileLayer(
+            var tile_layer_afc14deb22b12d2d97e02915c6e5f4c1 = L.tileLayer(
                 &quot;https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer/tile/{z}/{y}/{x}&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -8358,10 +8446,10 @@ The lower correlation coefficient values that are collocated with the high veloc
             );
         
     
-            tile_layer_3454436f56a6c01bdb37947feff7092f.addTo(map_85d7b52fa3361047e288d46ec5116c7c);
+            tile_layer_afc14deb22b12d2d97e02915c6e5f4c1.addTo(map_9604a465b2e2fda357f1f77b92e774f5);
         
     
-            var tile_layer_2a6474a4a69184147ac24574e4961e9d = L.tileLayer(
+            var tile_layer_ee2323dfab993e7ecdb3d10a20d77659 = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/collections/tornadoes-2024-dow-vmax-greenfield/items/DOW_Vmax_Greenfield_mph_cog_2024-05-21/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=gist_ncar\u0026rescale=55%2C250&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -8378,67 +8466,67 @@ The lower correlation coefficient values that are collocated with the high veloc
             );
         
     
-            tile_layer_2a6474a4a69184147ac24574e4961e9d.addTo(map_85d7b52fa3361047e288d46ec5116c7c);
+            tile_layer_ee2323dfab993e7ecdb3d10a20d77659.addTo(map_9604a465b2e2fda357f1f77b92e774f5);
         
     
-            var layer_control_7a3f568d69382eacb2fae8523f50d759_layers = {
+            var layer_control_752517238388447dc8b22c52dc1e57d9_layers = {
                 base_layers : {
-                    &quot;ESRI Satellite&quot; : tile_layer_8da0bab04ea7ee80dd3819203cab5f67,
+                    &quot;ESRI Satellite&quot; : tile_layer_ccc57bd051baf6bdc8c8e9772ff4ae3c,
                 },
                 overlays :  {
-                    &quot;Place Labels&quot; : tile_layer_3454436f56a6c01bdb37947feff7092f,
-                    &quot;DOW7-Derived Maximum Velocity (Greenfield, IA)&quot; : tile_layer_2a6474a4a69184147ac24574e4961e9d,
+                    &quot;Place Labels&quot; : tile_layer_afc14deb22b12d2d97e02915c6e5f4c1,
+                    &quot;DOW7-Derived Maximum Velocity (Greenfield, IA)&quot; : tile_layer_ee2323dfab993e7ecdb3d10a20d77659,
                 },
             };
-            let layer_control_7a3f568d69382eacb2fae8523f50d759 = L.control.layers(
-                layer_control_7a3f568d69382eacb2fae8523f50d759_layers.base_layers,
-                layer_control_7a3f568d69382eacb2fae8523f50d759_layers.overlays,
+            let layer_control_752517238388447dc8b22c52dc1e57d9 = L.control.layers(
+                layer_control_752517238388447dc8b22c52dc1e57d9_layers.base_layers,
+                layer_control_752517238388447dc8b22c52dc1e57d9_layers.overlays,
                 {
   &quot;position&quot;: &quot;topright&quot;,
   &quot;collapsed&quot;: true,
   &quot;autoZIndex&quot;: true,
 }
-            ).addTo(map_85d7b52fa3361047e288d46ec5116c7c);
+            ).addTo(map_9604a465b2e2fda357f1f77b92e774f5);
 
         
     
-    var color_map_ea0945d54f1bf3e8143ce1c9a8736b09 = {};
+    var color_map_8347a176623e0bfe545cffbd6c2188fd = {};
 
     
-    color_map_ea0945d54f1bf3e8143ce1c9a8736b09.color = d3.scale.threshold()
+    color_map_8347a176623e0bfe545cffbd6c2188fd.color = d3.scale.threshold()
               .domain([55.0, 55.390781563126254, 55.78156312625251, 56.17234468937876, 56.56312625250501, 56.95390781563126, 57.344689378757515, 57.73547094188377, 58.12625250501002, 58.51703406813627, 58.90781563126252, 59.298597194388776, 59.68937875751503, 60.08016032064128, 60.47094188376754, 60.86172344689379, 61.25250501002004, 61.64328657314629, 62.034068136272545, 62.4248496993988, 62.81563126252505, 63.2064128256513, 63.59719438877755, 63.987975951903806, 64.37875751503006, 64.76953907815631, 65.16032064128257, 65.55110220440882, 65.94188376753507, 66.33266533066133, 66.72344689378758, 67.11422845691382, 67.50501002004007, 67.89579158316633, 68.28657314629258, 68.67735470941884, 69.06813627254509, 69.45891783567134, 69.8496993987976, 70.24048096192385, 70.6312625250501, 71.02204408817636, 71.4128256513026, 71.80360721442887, 72.1943887775551, 72.58517034068136, 72.97595190380761, 73.36673346693387, 73.75751503006012, 74.14829659318637, 74.53907815631263, 74.92985971943888, 75.32064128256513, 75.71142284569139, 76.10220440881764, 76.49298597194388, 76.88376753507015, 77.27454909819639, 77.66533066132264, 78.0561122244489, 78.44689378757515, 78.8376753507014, 79.22845691382766, 79.61923847695391, 80.01002004008016, 80.40080160320642, 80.79158316633266, 81.18236472945893, 81.57314629258516, 81.96392785571142, 82.35470941883767, 82.74549098196393, 83.13627254509018, 83.52705410821643, 83.91783567134269, 84.30861723446894, 84.6993987975952, 85.09018036072145, 85.4809619238477, 85.87174348697394, 86.26252505010021, 86.65330661322645, 87.04408817635272, 87.43486973947896, 87.82565130260521, 88.21643286573146, 88.60721442885772, 88.99799599198397, 89.38877755511022, 89.77955911823648, 90.17034068136272, 90.56112224448898, 90.95190380761522, 91.34268537074149, 91.73346693386773, 92.12424849699399, 92.51503006012024, 92.90581162324649, 93.29659318637275, 93.687374749499, 94.07815631262525, 94.4689378757515, 94.85971943887776, 95.250501002004, 95.64128256513027, 96.03206412825651, 96.42284569138278, 96.81362725450902, 97.20440881763527, 97.59519038076152, 97.98597194388778, 98.37675350701403, 98.76753507014028, 99.15831663326654, 99.54909819639278, 99.93987975951904, 100.33066132264528, 100.72144288577155, 101.11222444889779, 101.50300601202404, 101.8937875751503, 102.28456913827655, 102.6753507014028, 103.06613226452906, 103.45691382765531, 103.84769539078155, 104.23847695390782, 104.62925851703406, 105.02004008016033, 105.41082164328657, 105.80160320641284, 106.19238476953907, 106.58316633266533, 106.97394789579158, 107.36472945891784, 107.75551102204409, 108.14629258517034, 108.5370741482966, 108.92785571142284, 109.3186372745491, 109.70941883767534, 110.10020040080161, 110.49098196392785, 110.88176352705412, 111.27254509018036, 111.66332665330661, 112.05410821643287, 112.44488977955912, 112.83567134268537, 113.22645290581163, 113.61723446893788, 114.00801603206412, 114.39879759519039, 114.78957915831663, 115.1803607214429, 115.57114228456913, 115.96192384769539, 116.35270541082164, 116.7434869739479, 117.13426853707415, 117.5250501002004, 117.91583166332666, 118.3066132264529, 118.69739478957916, 119.08817635270542, 119.47895791583166, 119.86973947895791, 120.26052104208416, 120.65130260521042, 121.04208416833667, 121.43286573146293, 121.82364729458918, 122.21442885771543, 122.60521042084169, 122.99599198396794, 123.3867735470942, 123.77755511022045, 124.16833667334669, 124.55911823647294, 124.9498997995992, 125.34068136272545, 125.7314629258517, 126.12224448897796, 126.51302605210421, 126.90380761523046, 127.29458917835672, 127.68537074148297, 128.07615230460922, 128.46693386773546, 128.85771543086173, 129.24849699398797, 129.6392785571142, 130.03006012024048, 130.42084168336675, 130.81162324649299, 131.20240480961922, 131.5931863727455, 131.98396793587176, 132.374749498998, 132.76553106212424, 133.1563126252505, 133.54709418837675, 133.937875751503, 134.32865731462925, 134.71943887775552, 135.11022044088176, 135.501002004008, 135.89178356713427, 136.28256513026054, 136.67334669338678, 137.06412825651302, 137.45490981963928, 137.84569138276555, 138.23647294589176, 138.62725450901803, 139.0180360721443, 139.40881763527054, 139.79959919839678, 140.19038076152304, 140.5811623246493, 140.97194388777555, 141.3627254509018, 141.75350701402806, 142.14428857715433, 142.53507014028057, 142.9258517034068, 143.31663326653307, 143.7074148296593, 144.09819639278555, 144.48897795591182, 144.8797595190381, 145.27054108216433, 145.66132264529057, 146.05210420841684, 146.4428857715431, 146.83366733466934, 147.22444889779558, 147.61523046092185, 148.0060120240481, 148.39679358717433, 148.7875751503006, 149.17835671342687, 149.5691382765531, 149.95991983967934, 150.3507014028056, 150.74148296593188, 151.13226452905812, 151.52304609218436, 151.91382765531063, 152.3046092184369, 152.6953907815631, 153.08617234468937, 153.47695390781564, 153.86773547094188, 154.25851703406812, 154.6492985971944, 155.04008016032066, 155.4308617234469, 155.82164328657313, 156.2124248496994, 156.60320641282567, 156.9939879759519, 157.38476953907815, 157.77555110220442, 158.16633266533066, 158.5571142284569, 158.94789579158316, 159.33867735470943, 159.72945891783567, 160.1202404809619, 160.51102204408818, 160.90180360721445, 161.2925851703407, 161.68336673346693, 162.0741482965932, 162.46492985971943, 162.85571142284567, 163.24649298597194, 163.6372745490982, 164.02805611222445, 164.4188376753507, 164.80961923847696, 165.20040080160322, 165.59118236472946, 165.9819639278557, 166.37274549098197, 166.76352705410824, 167.15430861723445, 167.54509018036072, 167.93587174348698, 168.32665330661322, 168.71743486973946, 169.10821643286573, 169.498997995992, 169.88977955911824, 170.28056112224448, 170.67134268537075, 171.062124248497, 171.45290581162325, 171.8436873747495, 172.23446893787576, 172.625250501002, 173.01603206412824, 173.4068136272545, 173.79759519038078, 174.18837675350701, 174.57915831663325, 174.96993987975952, 175.3607214428858, 175.75150300601203, 176.14228456913827, 176.53306613226454, 176.92384769539078, 177.31462925851702, 177.70541082164328, 178.09619238476955, 178.4869739478958, 178.87775551102203, 179.2685370741483, 179.65931863727457, 180.0501002004008, 180.44088176352705, 180.8316633266533, 181.22244488977955, 181.6132264529058, 182.00400801603206, 182.39478957915833, 182.78557114228457, 183.17635270541084, 183.56713426853707, 183.9579158316633, 184.34869739478958, 184.73947895791582, 185.1302605210421, 185.52104208416833, 185.9118236472946, 186.30260521042084, 186.6933867735471, 187.08416833667334, 187.4749498997996, 187.86573146292585, 188.2565130260521, 188.64729458917836, 189.0380761523046, 189.42885771543087, 189.8196392785571, 190.21042084168337, 190.6012024048096, 190.99198396793588, 191.38276553106212, 191.7735470941884, 192.16432865731463, 192.5551102204409, 192.94589178356713, 193.33667334669337, 193.72745490981964, 194.11823647294588, 194.50901803607215, 194.8997995991984, 195.29058116232466, 195.6813627254509, 196.07214428857716, 196.4629258517034, 196.85370741482967, 197.2444889779559, 197.63527054108218, 198.02605210420842, 198.41683366733466, 198.80761523046093, 199.19839679358716, 199.58917835671343, 199.97995991983967, 200.37074148296594, 200.76152304609218, 201.15230460921845, 201.5430861723447, 201.93386773547095, 202.3246492985972, 202.71543086172343, 203.1062124248497, 203.49699398797594, 203.8877755511022, 204.27855711422845, 204.66933867735472, 205.06012024048096, 205.45090180360722, 205.84168336673346, 206.23246492985973, 206.62324649298597, 207.01402805611224, 207.40480961923848, 207.79559118236472, 208.18637274549098, 208.57715430861722, 208.9679358717435, 209.35871743486973, 209.749498997996, 210.14028056112224, 210.5310621242485, 210.92184368737475, 211.31262525050101, 211.70340681362725, 212.0941883767535, 212.48496993987976, 212.875751503006, 213.26653306613227, 213.6573146292585, 214.04809619238478, 214.43887775551102, 214.82965931863728, 215.22044088176352, 215.6112224448898, 216.00200400801603, 216.3927855711423, 216.78356713426854, 217.17434869739478, 217.56513026052104, 217.95591182364728, 218.34669338677355, 218.7374749498998, 219.12825651302606, 219.5190380761523, 219.90981963927857, 220.3006012024048, 220.69138276553107, 221.0821643286573, 221.47294589178355, 221.86372745490982, 222.25450901803606, 222.64529058116233, 223.03607214428857, 223.42685370741484, 223.81763527054107, 224.20841683366734, 224.59919839679358, 224.98997995991985, 225.3807615230461, 225.77154308617236, 226.1623246492986, 226.55310621242484, 226.9438877755511, 227.33466933867734, 227.7254509018036, 228.11623246492985, 228.50701402805612, 228.89779559118236, 229.28857715430863, 229.67935871743487, 230.07014028056113, 230.46092184368737, 230.85170340681364, 231.24248496993988, 231.63326653306612, 232.0240480961924, 232.41482965931863, 232.8056112224449, 233.19639278557113, 233.5871743486974, 233.97795591182364, 234.3687374749499, 234.75951903807615, 235.15030060120242, 235.54108216432866, 235.9318637274549, 236.32264529058116, 236.7134268537074, 237.10420841683367, 237.4949899799599, 237.88577154308618, 238.27655310621242, 238.6673346693387, 239.05811623246493, 239.4488977955912, 239.83967935871743, 240.2304609218437, 240.62124248496994, 241.01202404809618, 241.40280561122245, 241.7935871743487, 242.18436873747495, 242.5751503006012, 242.96593186372746, 243.3567134268537, 243.74749498997997, 244.1382765531062, 244.52905811623248, 244.91983967935872, 245.31062124248496, 245.70140280561122, 246.09218436873746, 246.48296593186373, 246.87374749498997, 247.26452905811624, 247.65531062124248, 248.04609218436875, 248.43687374749499, 248.82765531062125, 249.2184368737475, 249.60921843687376, 250.0])
               .range(['#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000080ff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#000effff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#00ffe5ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#26f000ff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#96ff1bff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ffe900ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff7005ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#ff00c3ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#e074f1ff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff', '#fff8ffff']);
     
 
-    color_map_ea0945d54f1bf3e8143ce1c9a8736b09.x = d3.scale.linear()
+    color_map_8347a176623e0bfe545cffbd6c2188fd.x = d3.scale.linear()
               .domain([55.0, 250.0])
               .range([0, 450 - 50]);
 
-    color_map_ea0945d54f1bf3e8143ce1c9a8736b09.legend = L.control({position: 'topright'});
-    color_map_ea0945d54f1bf3e8143ce1c9a8736b09.legend.onAdd = function (map) {var div = L.DomUtil.create('div', 'legend'); return div};
-    color_map_ea0945d54f1bf3e8143ce1c9a8736b09.legend.addTo(map_85d7b52fa3361047e288d46ec5116c7c);
+    color_map_8347a176623e0bfe545cffbd6c2188fd.legend = L.control({position: 'topright'});
+    color_map_8347a176623e0bfe545cffbd6c2188fd.legend.onAdd = function (map) {var div = L.DomUtil.create('div', 'legend'); return div};
+    color_map_8347a176623e0bfe545cffbd6c2188fd.legend.addTo(map_9604a465b2e2fda357f1f77b92e774f5);
 
-    color_map_ea0945d54f1bf3e8143ce1c9a8736b09.xAxis = d3.svg.axis()
-        .scale(color_map_ea0945d54f1bf3e8143ce1c9a8736b09.x)
+    color_map_8347a176623e0bfe545cffbd6c2188fd.xAxis = d3.svg.axis()
+        .scale(color_map_8347a176623e0bfe545cffbd6c2188fd.x)
         .orient(&quot;top&quot;)
         .tickSize(1)
         .tickValues([55.0, '', 94.0, '', 133.0, '', 172.0, '', 211.0, '', 250.0, '']);
 
-    color_map_ea0945d54f1bf3e8143ce1c9a8736b09.svg = d3.select(&quot;.legend.leaflet-control&quot;).append(&quot;svg&quot;)
+    color_map_8347a176623e0bfe545cffbd6c2188fd.svg = d3.select(&quot;.legend.leaflet-control&quot;).append(&quot;svg&quot;)
         .attr(&quot;id&quot;, 'legend')
         .attr(&quot;width&quot;, 450)
         .attr(&quot;height&quot;, 40);
 
-    color_map_ea0945d54f1bf3e8143ce1c9a8736b09.g = color_map_ea0945d54f1bf3e8143ce1c9a8736b09.svg.append(&quot;g&quot;)
+    color_map_8347a176623e0bfe545cffbd6c2188fd.g = color_map_8347a176623e0bfe545cffbd6c2188fd.svg.append(&quot;g&quot;)
         .attr(&quot;class&quot;, &quot;key&quot;)
         .attr(&quot;fill&quot;, &quot;black&quot;)
         .attr(&quot;transform&quot;, &quot;translate(25,16)&quot;);
 
-    color_map_ea0945d54f1bf3e8143ce1c9a8736b09.g.selectAll(&quot;rect&quot;)
-        .data(color_map_ea0945d54f1bf3e8143ce1c9a8736b09.color.range().map(function(d, i) {
+    color_map_8347a176623e0bfe545cffbd6c2188fd.g.selectAll(&quot;rect&quot;)
+        .data(color_map_8347a176623e0bfe545cffbd6c2188fd.color.range().map(function(d, i) {
           return {
-            x0: i ? color_map_ea0945d54f1bf3e8143ce1c9a8736b09.x(color_map_ea0945d54f1bf3e8143ce1c9a8736b09.color.domain()[i - 1]) : color_map_ea0945d54f1bf3e8143ce1c9a8736b09.x.range()[0],
-            x1: i < color_map_ea0945d54f1bf3e8143ce1c9a8736b09.color.domain().length ? color_map_ea0945d54f1bf3e8143ce1c9a8736b09.x(color_map_ea0945d54f1bf3e8143ce1c9a8736b09.color.domain()[i]) : color_map_ea0945d54f1bf3e8143ce1c9a8736b09.x.range()[1],
+            x0: i ? color_map_8347a176623e0bfe545cffbd6c2188fd.x(color_map_8347a176623e0bfe545cffbd6c2188fd.color.domain()[i - 1]) : color_map_8347a176623e0bfe545cffbd6c2188fd.x.range()[0],
+            x1: i < color_map_8347a176623e0bfe545cffbd6c2188fd.color.domain().length ? color_map_8347a176623e0bfe545cffbd6c2188fd.x(color_map_8347a176623e0bfe545cffbd6c2188fd.color.domain()[i]) : color_map_8347a176623e0bfe545cffbd6c2188fd.x.range()[1],
             z: d
           };
         }))
@@ -8448,7 +8536,7 @@ The lower correlation coefficient values that are collocated with the high veloc
         .attr(&quot;width&quot;, function(d) { return d.x1 - d.x0; })
         .style(&quot;fill&quot;, function(d) { return d.z; });
 
-    color_map_ea0945d54f1bf3e8143ce1c9a8736b09.g.call(color_map_ea0945d54f1bf3e8143ce1c9a8736b09.xAxis).append(&quot;text&quot;)
+    color_map_8347a176623e0bfe545cffbd6c2188fd.g.call(color_map_8347a176623e0bfe545cffbd6c2188fd.xAxis).append(&quot;text&quot;)
         .attr(&quot;class&quot;, &quot;caption&quot;)
         .attr(&quot;y&quot;, 21)
         .attr(&quot;fill&quot;, &quot;black&quot;)
@@ -8463,7 +8551,7 @@ The lower correlation coefficient values that are collocated with the high veloc
 <p>High-resolution satellite imagery from PlanetScope showing Greenfield, Iowa before the tornado impact and afterwards.</p>
 <section id="pre-tornado" class="level2">
 <h2 class="anchored" data-anchor-id="pre-tornado">Pre-Tornado</h2>
-<div id="g0zklfvn8i" class="cell" data-execution_count="29">
+<div id="g0zklfvn8i" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>date_pre <span class="op">=</span> <span class="st">"2024-05-20"</span>  <span class="co"># Select date one day before tornado </span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>collection_id_pre <span class="op">=</span> <span class="st">"ps-greenfield-pre-tornadoes-2024"</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -8497,7 +8585,7 @@ The lower correlation coefficient values that are collocated with the high veloc
 <div class="cell-output cell-output-stdout">
 <pre><code>{'tilejson': '2.2.0', 'version': '1.0.0', 'scheme': 'xyz', 'tiles': ['https://openveda.cloud/api/raster/collections/ps-greenfield-pre-tornadoes-2024/items/Planet_Greenfield_Before_cog_2024-05-20/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;bidx=3&amp;bidx=2&amp;bidx=1&amp;rescale=0%2C2500&amp;resampling=bilinear'], 'minzoom': 0, 'maxzoom': 24, 'bounds': [-94.57407952376526, 41.20937000457795, -94.17411959542935, 41.432508029615924], 'center': [-94.37409955959731, 41.32093901709693, 0]}</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="29">
+<div class="cell-output cell-output-display" data-execution_count="23">
 
 
 <style>
@@ -9439,7 +9527,7 @@ The lower correlation coefficient values that are collocated with the high veloc
 </section>
 <section id="post-tornado" class="level2">
 <h2 class="anchored" data-anchor-id="post-tornado">Post-Tornado</h2>
-<div id="gc0d3a4crpj" class="cell" data-execution_count="30">
+<div id="gc0d3a4crpj" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>collection_id_post <span class="op">=</span> <span class="st">"ps-greenfield-post-tornadoes-2024"</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>date_post <span class="op">=</span> <span class="st">"2024-05-22"</span>  <span class="co"># Select date one day after tornado </span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -9482,7 +9570,7 @@ The lower correlation coefficient values that are collocated with the high veloc
 <div class="cell-output cell-output-stdout">
 <pre><code>{'tilejson': '2.2.0', 'version': '1.0.0', 'scheme': 'xyz', 'tiles': ['https://openveda.cloud/api/raster/collections/ps-greenfield-post-tornadoes-2024/items/Planet_Greenfield_After_cog_2024-05-22/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;bidx=1&amp;bidx=2&amp;bidx=3&amp;rescale=0%2C255&amp;resampling=bilinear'], 'minzoom': 0, 'maxzoom': 24, 'bounds': [-94.78355154698768, 41.12696496878226, -94.3507332170628, 41.464387283686655], 'center': [-94.56714238202524, 41.295676126234454, 0]}</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="30">
+<div class="cell-output cell-output-display" data-execution_count="24">
 
 
 <style>
@@ -10424,7 +10512,7 @@ The lower correlation coefficient values that are collocated with the high veloc
 </section>
 <section id="side-by-side-comparison-before-and-after-the-tornado" class="level2">
 <h2 class="anchored" data-anchor-id="side-by-side-comparison-before-and-after-the-tornado">Side-by-Side Comparison: Before and After the Tornado</h2>
-<div id="9801hkznaop" class="cell" data-execution_count="31">
+<div id="9801hkznaop" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create side-by-side comparison using the create_side_by_side_map function</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>m_comparison <span class="op">=</span> putils.plot_folium_SidebySide_layer_from_VEDA_STAC(</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_left<span class="op">=</span>tiles_pre[<span class="st">"tiles"</span>][<span class="dv">0</span>],  <span class="co"># Pre-tornado (May 20)</span></span>
@@ -10444,7 +10532,7 @@ The lower correlation coefficient values that are collocated with the high veloc
 <span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the comparison map</span></span>
 <span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>m_comparison</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
+<div class="cell-output cell-output-display" data-execution_count="25">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
 <html>
 <head>
@@ -10464,7 +10552,7 @@ The lower correlation coefficient values that are collocated with the high veloc
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_2ca7e80bfc5bf261aacb07bedd8aade4 {
+                #map_af1a928c8aae606b15a0ff29b365afcf {
                     position: relative;
                     width: 100.0%;
                     height: 800.0px;
@@ -10532,7 +10620,8 @@ The lower correlation coefficient values that are collocated with the high veloc
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     &quot;>
-        ← Pre-Tornado (May 20)
+        <div style=&quot;text-align: center;&quot;>← Pre-Tornado (May 20)</div>
+        
     </div>
     <div style=&quot;
         position: fixed;
@@ -10547,7 +10636,8 @@ The lower correlation coefficient values that are collocated with the high veloc
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     &quot;>
-        Post-Tornado (May 22) →
+        <div style=&quot;text-align: center;&quot;>Post-Tornado (May 22) →</div>
+        
     </div>
     
     
@@ -10569,14 +10659,14 @@ The lower correlation coefficient values that are collocated with the high veloc
     </div>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_2ca7e80bfc5bf261aacb07bedd8aade4&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_af1a928c8aae606b15a0ff29b365afcf&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_2ca7e80bfc5bf261aacb07bedd8aade4 = L.map(
-                &quot;map_2ca7e80bfc5bf261aacb07bedd8aade4&quot;,
+            var map_af1a928c8aae606b15a0ff29b365afcf = L.map(
+                &quot;map_af1a928c8aae606b15a0ff29b365afcf&quot;,
                 {
                     center: [41.3036, -94.4569],
                     crs: L.CRS.EPSG3857,
@@ -10588,13 +10678,13 @@ The lower correlation coefficient values that are collocated with the high veloc
 
                 }
             );
-            L.control.scale().addTo(map_2ca7e80bfc5bf261aacb07bedd8aade4);
+            L.control.scale().addTo(map_af1a928c8aae606b15a0ff29b365afcf);
 
             
 
         
     
-            var tile_layer_b84bb6538e4fa3fca0e5557d6dc8e423 = L.tileLayer(
+            var tile_layer_3b0f0d3457283000eff4b4175b404e82 = L.tileLayer(
                 &quot;https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -10611,10 +10701,10 @@ The lower correlation coefficient values that are collocated with the high veloc
             );
         
     
-            tile_layer_b84bb6538e4fa3fca0e5557d6dc8e423.addTo(map_2ca7e80bfc5bf261aacb07bedd8aade4);
+            tile_layer_3b0f0d3457283000eff4b4175b404e82.addTo(map_af1a928c8aae606b15a0ff29b365afcf);
         
     
-            var tile_layer_9408c3c86fe0b87810cff3d923ce2d53 = L.tileLayer(
+            var tile_layer_a4848b67f54326186c9e33682b2e617c = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/collections/ps-greenfield-pre-tornadoes-2024/items/Planet_Greenfield_Before_cog_2024-05-20/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026bidx=3\u0026bidx=2\u0026bidx=1\u0026rescale=0%2C2500\u0026resampling=bilinear&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -10631,10 +10721,10 @@ The lower correlation coefficient values that are collocated with the high veloc
             );
         
     
-            tile_layer_9408c3c86fe0b87810cff3d923ce2d53.addTo(map_2ca7e80bfc5bf261aacb07bedd8aade4);
+            tile_layer_a4848b67f54326186c9e33682b2e617c.addTo(map_af1a928c8aae606b15a0ff29b365afcf);
         
     
-            var tile_layer_55d0cd36d9c903dd4f50ee46d8390928 = L.tileLayer(
+            var tile_layer_1e616e9c27a463ca3b3c8dfb6e90e276 = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/collections/ps-greenfield-post-tornadoes-2024/items/Planet_Greenfield_After_cog_2024-05-22/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026bidx=1\u0026bidx=2\u0026bidx=3\u0026rescale=0%2C255\u0026resampling=bilinear&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -10651,32 +10741,32 @@ The lower correlation coefficient values that are collocated with the high veloc
             );
         
     
-            tile_layer_55d0cd36d9c903dd4f50ee46d8390928.addTo(map_2ca7e80bfc5bf261aacb07bedd8aade4);
+            tile_layer_1e616e9c27a463ca3b3c8dfb6e90e276.addTo(map_af1a928c8aae606b15a0ff29b365afcf);
         
     
-            var side_by_side_layers_4ad0268e4a94f48b857d7940efbe970b = L.control.sideBySide(
-                tile_layer_9408c3c86fe0b87810cff3d923ce2d53, tile_layer_55d0cd36d9c903dd4f50ee46d8390928
-            ).addTo(map_2ca7e80bfc5bf261aacb07bedd8aade4);
+            var side_by_side_layers_e34aa6325d65ee7cc41d98436663078e = L.control.sideBySide(
+                tile_layer_a4848b67f54326186c9e33682b2e617c, tile_layer_1e616e9c27a463ca3b3c8dfb6e90e276
+            ).addTo(map_af1a928c8aae606b15a0ff29b365afcf);
         
     
-            var layer_control_16a92e2c5aa66ed98af32467878f70e6_layers = {
+            var layer_control_94325c70fced16b8f893dee9064441cf_layers = {
                 base_layers : {
-                    &quot;CartoDB Positron&quot; : tile_layer_b84bb6538e4fa3fca0e5557d6dc8e423,
+                    &quot;CartoDB Positron&quot; : tile_layer_3b0f0d3457283000eff4b4175b404e82,
                 },
                 overlays :  {
-                    &quot;PlanetScope Pre-Tornado&quot; : tile_layer_9408c3c86fe0b87810cff3d923ce2d53,
-                    &quot;PlanetScope Post-Tornado&quot; : tile_layer_55d0cd36d9c903dd4f50ee46d8390928,
+                    &quot;PlanetScope Pre-Tornado&quot; : tile_layer_a4848b67f54326186c9e33682b2e617c,
+                    &quot;PlanetScope Post-Tornado&quot; : tile_layer_1e616e9c27a463ca3b3c8dfb6e90e276,
                 },
             };
-            let layer_control_16a92e2c5aa66ed98af32467878f70e6 = L.control.layers(
-                layer_control_16a92e2c5aa66ed98af32467878f70e6_layers.base_layers,
-                layer_control_16a92e2c5aa66ed98af32467878f70e6_layers.overlays,
+            let layer_control_94325c70fced16b8f893dee9064441cf = L.control.layers(
+                layer_control_94325c70fced16b8f893dee9064441cf_layers.base_layers,
+                layer_control_94325c70fced16b8f893dee9064441cf_layers.overlays,
                 {
   &quot;position&quot;: &quot;topright&quot;,
   &quot;collapsed&quot;: true,
   &quot;autoZIndex&quot;: true,
 }
-            ).addTo(map_2ca7e80bfc5bf261aacb07bedd8aade4);
+            ).addTo(map_af1a928c8aae606b15a0ff29b365afcf);
 
         
 </script>
@@ -10688,7 +10778,7 @@ The lower correlation coefficient values that are collocated with the high veloc
 <section id="clean-up-optional" class="level1">
 <h1>Clean Up (Optional)</h1>
 <p>Remove any <strong>core</strong> files that were created if the kernel crashed.</p>
-<div id="7bd64da5-fdb4-44d8-a0dc-3ed4b1160a12" class="cell" data-execution_count="56">
+<div id="7bd64da5-fdb4-44d8-a0dc-3ed4b1160a12" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find all core files in the current directory</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> core_path <span class="kw">in</span> glob.glob(<span class="st">"core.*"</span>):</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
