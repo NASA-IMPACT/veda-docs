@@ -776,19 +776,101 @@ def plot_folium_from_VEDA_STAC(
         pass  # Don't add LinearColormap for categorical data
         
     elif not remove_default_legend:
-        # For continuous data, add LinearColormap
+        # For continuous data, add HTML gradient colorbar centered under title
         steps = 10
-        mpl_cmap = plt.get_cmap(cmap_name)
-        colors = [mpl_cmap(i / (steps - 1)) for i in range(steps)]
-        
-        legend = LinearColormap(
-            colors=colors,
-            vmin=vmin_val,
-            vmax=vmax_val,
-            caption=colorbar_caption
-        ).to_step(steps)
-        
-        legend.add_to(m)
+        try:
+            mpl_cmap = plt.get_cmap(cmap_name)
+            
+            # Generate gradient CSS for continuous colormap
+            gradient_stops = []
+            for i in range(100):  # More stops for smoother gradient
+                ratio = i / 99
+                rgba = mpl_cmap(ratio)
+                color = f"rgba({int(rgba[0]*255)}, {int(rgba[1]*255)}, {int(rgba[2]*255)}, 1)"
+                gradient_stops.append(f"{color} {ratio*100}%")
+            
+            gradient_css = f"linear-gradient(to right, {', '.join(gradient_stops)})"
+            
+            # Calculate tick values (like LinearColormap does)
+            tick_values = []
+            for i in range(steps + 1):
+                val = vmin_val + (vmax_val - vmin_val) * i / steps
+                # Format based on magnitude
+                if abs(val) >= 1000:
+                    tick_values.append(f"{val:.2e}")
+                elif abs(val) >= 5:
+                    # Large numbers (>=5): round to whole numbers
+                    tick_values.append(str(int(round(val))))
+                elif val == 0:
+                    tick_values.append("0")
+                else:
+                    # Small numbers (<5): use 2 decimal places
+                    tick_values.append(f"{val:.2f}")
+            
+            # Create tick marks HTML
+            tick_marks_html = ""
+            tick_labels_html = ""
+            for i, tick_val in enumerate(tick_values):
+                position = (i / (len(tick_values) - 1)) * 100
+                # Tick mark
+                tick_marks_html += f'''
+                    <div style="
+                        position: absolute;
+                        left: {position}%;
+                        top: 0;
+                        width: 1px;
+                        height: 8px;
+                        background: black;
+                    "></div>
+                '''
+                # Tick label
+                tick_labels_html += f'''
+                    <div style="
+                        position: absolute;
+                        left: {position}%;
+                        transform: translateX(-50%);
+                        top: 10px;
+                        font-size: 11px;
+                        white-space: nowrap;
+                    ">{tick_val}</div>
+                '''
+            
+            # Create centered colorbar HTML matching LinearColormap style
+            colorbar_html = f"""
+            <div style="
+                position: fixed;
+                top: 50px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1000;
+                background: white;
+                padding: 15px 20px 10px 20px;
+                border-radius: 4px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            ">
+                <div style="
+                    position: relative;
+                    width: 450px;
+                    height: 15px;
+                    background: {gradient_css};
+                    border: 1px solid black;
+                    margin: 0 auto;
+                ">
+                    <div style="position: relative; width: 100%; height: 100%;">
+                        {tick_marks_html}
+                    </div>
+                    <div style="position: relative; width: 100%; height: 30px;">
+                        {tick_labels_html}
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 25px; font-size: 12px;">
+                    {colorbar_caption}
+                </div>
+            </div>
+            """
+            m.get_root().html.add_child(Element(colorbar_html))
+        except Exception as e:
+            print(f"Warning: Could not create gradient colorbar: {e}")
     # else: remove_default_legend=True and no custom_colors = no legend at all
     
     # Add custom HTML legend if provided
