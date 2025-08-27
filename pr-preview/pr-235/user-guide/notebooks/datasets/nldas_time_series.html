@@ -988,7 +988,7 @@ Learn more
 
 <section id="about-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="about-the-data">About the Data</h2>
-<p>NLDAS is a widely used land modeling environment that generates estimates of land surface fluxes and states such as soil moisture, snow, and streamflow. These estimates are critical for drought and flood monitoring, water availability and water resource management, climate assessments, and other uses. NLDAS-3 is the next generation version of NLDAS-2, and offers significant improvements such as improved spatial resolution (12.5km to 1km), expanded domain (CONUS to North and Central America), reduced data latency (3.5 days to near real-time), and assimilation of NASA remote sensing data, among others. (see Earthdata VEDA Data Story (https://www.earthdata.nasa.gov/dashboard/stories/nldas)). Please note that the NLDAS-3 precipitation data provided here is a sample dataset still in development, and will not be the final NLDAS-3 product when it is released.</p>
+<p>NLDAS is a widely used land modeling environment that generates estimates of land surface fluxes and states such as soil moisture, snow, and streamflow. These estimates are critical for drought and flood monitoring, water availability and water resource management, climate assessments, and other uses. NLDAS-3 is the next generation version of NLDAS-2, and offers significant improvements such as improved spatial resolution (12.5km to 1km), expanded domain (CONUS to North and Central America), reduced data latency (3.5 days to near real-time), and assimilation of NASA remote sensing data, among others. (see <a href="https://www.earthdata.nasa.gov/dashboard/stories/nldas">Earthdata VEDA Data Story</a>). Please note that the NLDAS-3 precipitation data provided here is a sample dataset still in development, and will not be the final NLDAS-3 product when it is released.</p>
 <p>This notebook is intended to visualize the sample NLDAS-3 monthly-averaged precipitation forcing data via a timeseries.</p>
 <section id="using-the-veda-stac-to-create-a-timeseries" class="level3">
 <h3 class="anchored" data-anchor-id="using-the-veda-stac-to-create-a-timeseries">Using the VEDA STAC to Create a Timeseries</h3>
@@ -1044,7 +1044,7 @@ Learn more
 </section>
 <section id="define-an-aoi" class="level2">
 <h2 class="anchored" data-anchor-id="define-an-aoi">Define an AOI</h2>
-<p>Let’s create a bounding box to explore the area of interest (AOI) in Texas</p>
+<p>Let’s create a bounding box to explore the area of interest (AOI) in Texas. In this example we will use geojson to construct a <code>Polygon</code> geometry representing the bounding box. For bounding boxes it is often simpler to use a bounding box (list of 4 floats) instead. This example demonstrates how you can construct more complicated geometries.</p>
 <div id="25859087-8dbf-4d4c-9751-e3b4626c8797" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>texas_dallas_aoi <span class="op">=</span> {</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"type"</span>: <span class="st">"Feature"</span>,</span>
@@ -1095,7 +1095,7 @@ Learn more
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_03a5c805c091663c612dd8c8df0d41bb {
+                #map_f0a9d6b9c80bf13347a504d053b97cce {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1132,14 +1132,14 @@ Learn more
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_03a5c805c091663c612dd8c8df0d41bb&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_f0a9d6b9c80bf13347a504d053b97cce&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_03a5c805c091663c612dd8c8df0d41bb = L.map(
-                &quot;map_03a5c805c091663c612dd8c8df0d41bb&quot;,
+            var map_f0a9d6b9c80bf13347a504d053b97cce = L.map(
+                &quot;map_f0a9d6b9c80bf13347a504d053b97cce&quot;,
                 {
                     center: [32.81, -96.93],
                     crs: L.CRS.EPSG3857,
@@ -1156,7 +1156,7 @@ Learn more
 
         
     
-            var tile_layer_8c69498a460d42e1c3cdd9fa3930bc19 = L.tileLayer(
+            var tile_layer_c962bcd5eadb2104274db5fba01121af = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -1173,32 +1173,32 @@ Learn more
             );
         
     
-            tile_layer_8c69498a460d42e1c3cdd9fa3930bc19.addTo(map_03a5c805c091663c612dd8c8df0d41bb);
+            tile_layer_c962bcd5eadb2104274db5fba01121af.addTo(map_f0a9d6b9c80bf13347a504d053b97cce);
         
     
 
-        function geo_json_acb2130204a203f9e7ad375882ff6dd6_onEachFeature(feature, layer) {
+        function geo_json_f8856318936424a99ce018b6d70ab7ce_onEachFeature(feature, layer) {
 
             layer.on({
             });
         };
-        var geo_json_acb2130204a203f9e7ad375882ff6dd6 = L.geoJson(null, {
-                onEachFeature: geo_json_acb2130204a203f9e7ad375882ff6dd6_onEachFeature,
+        var geo_json_f8856318936424a99ce018b6d70ab7ce = L.geoJson(null, {
+                onEachFeature: geo_json_f8856318936424a99ce018b6d70ab7ce_onEachFeature,
             
             ...{
 }
         });
 
-        function geo_json_acb2130204a203f9e7ad375882ff6dd6_add (data) {
-            geo_json_acb2130204a203f9e7ad375882ff6dd6
+        function geo_json_f8856318936424a99ce018b6d70ab7ce_add (data) {
+            geo_json_f8856318936424a99ce018b6d70ab7ce
                 .addData(data);
         }
-            geo_json_acb2130204a203f9e7ad375882ff6dd6_add({&quot;geometry&quot;: {&quot;coordinates&quot;: [[[-96.1, 32.28], [-96.1, 33.28], [-97.58, 33.28], [-97.58, 32.28], [-96.1, 32.28]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;properties&quot;: {}, &quot;type&quot;: &quot;Feature&quot;});
-        geo_json_acb2130204a203f9e7ad375882ff6dd6.setStyle(function(feature) {return feature.properties.style;});
+            geo_json_f8856318936424a99ce018b6d70ab7ce_add({&quot;geometry&quot;: {&quot;coordinates&quot;: [[[-96.1, 32.28], [-96.1, 33.28], [-97.58, 33.28], [-97.58, 32.28], [-96.1, 32.28]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;properties&quot;: {}, &quot;type&quot;: &quot;Feature&quot;});
+        geo_json_f8856318936424a99ce018b6d70ab7ce.setStyle(function(feature) {return feature.properties.style;});
 
         
     
-            geo_json_acb2130204a203f9e7ad375882ff6dd6.addTo(map_03a5c805c091663c612dd8c8df0d41bb);
+            geo_json_f8856318936424a99ce018b6d70ab7ce.addTo(map_f0a9d6b9c80bf13347a504d053b97cce);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -3099,8 +3099,8 @@ Learn more
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>generate_stats(item_collection[<span class="dv">0</span>], texas_dallas_aoi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 4.59 ms, sys: 0 ns, total: 4.59 ms
-Wall time: 420 ms</code></pre>
+<pre><code>CPU times: user 4.92 ms, sys: 341 µs, total: 5.26 ms
+Wall time: 405 ms</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>{'min': 5.5441460609436035,
@@ -3155,11 +3155,11 @@ Wall time: 420 ms</code></pre>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    ]</span>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> client.gather(futures)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 2.73 s, sys: 208 ms, total: 2.94 s
-Wall time: 27.3 s</code></pre>
+<pre><code>CPU times: user 3.04 s, sys: 246 ms, total: 3.29 s
+Wall time: 25.4 s</code></pre>
 </div>
 </div>
-<p>The performance improvement vs a normal loop depends on how many threads dask has access to. In this case it took 27 seconds, or about 4 times faster than running them one by one in a loop.</p>
+<p>The performance improvement vs a normal loop depends on how many threads dask has access to. In this case it took 25 seconds, or about 4 times faster than running them one by one in a loop.</p>
 </section>
 </section>
 <section id="construct-a-dataframe" class="level3">
