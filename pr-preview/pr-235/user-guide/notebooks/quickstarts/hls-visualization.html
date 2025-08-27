@@ -993,7 +993,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://www.l3harrisgeospatial.com/Learn/Blogs/Blog-Details/ArtMID/10198/ArticleID/15691/The-Many-Band-Combinations-of-Landsat-8">Landsat 8 Bands and Combinations Blog</a></li>
 <li><a href="https://lpdaac.usgs.gov/products/hlss30v002/">HLSS30 Dataset Landing Page</a></li>
 <li><a href="https://gisgeography.com/sentinel-2-bands-combinations/">Sentinel 2 Bands and Combinations Blog</a></li>
-<li><a href="https://github.com/radiantearth/stac-api-spec/tree/master/fragments/filter#examples">CQL2 STAC-API Examples</a></li>
+<li><a href="https://github.com/stac-api-extensions/filter?tab=readme-ov-file#examples">CQL2 STAC-API Examples</a></li>
+<li><a href="https://developmentseed.org/cql2-rs/latest/playground/">CQL2 Playground</a></li>
 </ul>
 <div id="cell-4" class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
@@ -1036,7 +1037,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="first-search-the-stac-api-to-find-the-specific-dates-available-within-timeframe-of-interest-hurricane-ida" class="level3">
 <h3 class="anchored" data-anchor-id="first-search-the-stac-api-to-find-the-specific-dates-available-within-timeframe-of-interest-hurricane-ida">First, search the STAC API to find the specific dates available within timeframe of interest (Hurricane Ida)</h3>
 <p>To focus on a specific point in time, we will restrict the temporal range when defining the item search in the example below.</p>
-<p>Note: For STAC there are more succinct ways of filtering, but we will use full cql2-json syntax in this example so that the filter are reusable with the Raster API.</p>
+<p>Note: For STAC there are more succinct ways of filtering, but we will use full <a href="https://docs.ogc.org/is/21-065r2/21-065r2.html">cql2-json</a> syntax in this example so that the filter are reusable with the Raster API.</p>
 <div id="cell-8" class="cell" data-tags="[]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>collections_filter <span class="op">=</span> {</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"op"</span>: <span class="st">"="</span>,</span>
@@ -1217,7 +1218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_f068529ef38c25bc6636bb9563371413 {
+                #map_5423693c848ab01d7290010b35d46666 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1254,14 +1255,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_f068529ef38c25bc6636bb9563371413&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_5423693c848ab01d7290010b35d46666&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_f068529ef38c25bc6636bb9563371413 = L.map(
-                &quot;map_f068529ef38c25bc6636bb9563371413&quot;,
+            var map_5423693c848ab01d7290010b35d46666 = L.map(
+                &quot;map_5423693c848ab01d7290010b35d46666&quot;,
                 {
                     center: [30.210818000000003, -90.349537],
                     crs: L.CRS.EPSG3857,
@@ -1278,7 +1279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_33a7b7e105bffcea3690f0b617f9c9b5 = L.tileLayer(
+            var tile_layer_949af62025d3519c572fb9c34f3b77a5 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -1295,10 +1296,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             );
         
     
-            tile_layer_33a7b7e105bffcea3690f0b617f9c9b5.addTo(map_f068529ef38c25bc6636bb9563371413);
+            tile_layer_949af62025d3519c572fb9c34f3b77a5.addTo(map_5423693c848ab01d7290010b35d46666);
         
     
-            var tile_layer_017e8e68c723ae0ca5601df68c21dd7d = L.tileLayer(
+            var tile_layer_b05dbb455f25e284d1ab67b201b6cf34 = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/searches/60c4cc6fc305665fce131dc218f2bb46/tiles/WebMercatorQuad/{z}/{x}/{y}?algorithm=swir\u0026assets=B12\u0026assets=B8A\u0026assets=B04&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -1315,7 +1316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             );
         
     
-            tile_layer_017e8e68c723ae0ca5601df68c21dd7d.addTo(map_f068529ef38c25bc6636bb9563371413);
+            tile_layer_b05dbb455f25e284d1ab67b201b6cf34.addTo(map_5423693c848ab01d7290010b35d46666);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -1406,7 +1407,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_ab55b462e54471a98019d4cb65e93c2b {
+                #map_bcc08511cfa176cd1f4ddf2e9128a4a9 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1443,14 +1444,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_ab55b462e54471a98019d4cb65e93c2b&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_bcc08511cfa176cd1f4ddf2e9128a4a9&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_ab55b462e54471a98019d4cb65e93c2b = L.map(
-                &quot;map_ab55b462e54471a98019d4cb65e93c2b&quot;,
+            var map_bcc08511cfa176cd1f4ddf2e9128a4a9 = L.map(
+                &quot;map_bcc08511cfa176cd1f4ddf2e9128a4a9&quot;,
                 {
                     center: [30.210818000000003, -90.349537],
                     crs: L.CRS.EPSG3857,
@@ -1467,7 +1468,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_489aeeacdedf58723e68fb2f81bba035 = L.tileLayer(
+            var tile_layer_0d79aef3875f4346edd0d12f2a3b5db9 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -1484,10 +1485,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             );
         
     
-            tile_layer_489aeeacdedf58723e68fb2f81bba035.addTo(map_ab55b462e54471a98019d4cb65e93c2b);
+            tile_layer_0d79aef3875f4346edd0d12f2a3b5db9.addTo(map_bcc08511cfa176cd1f4ddf2e9128a4a9);
         
     
-            var tile_layer_e9c5c5f51c135872bd70d360b6c80484 = L.tileLayer(
+            var tile_layer_815e830dec12e9deee854cc4d12e3d16 = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/searches/60c4cc6fc305665fce131dc218f2bb46/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B08\u0026assets=B04\u0026expression=%28B08_b1-B04_b1%29%2F%28B08_b1%2BB04_b1%29\u0026rescale=0%2C1\u0026colormap_name=rdylgn&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -1504,7 +1505,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             );
         
     
-            tile_layer_e9c5c5f51c135872bd70d360b6c80484.addTo(map_ab55b462e54471a98019d4cb65e93c2b);
+            tile_layer_815e830dec12e9deee854cc4d12e3d16.addTo(map_bcc08511cfa176cd1f4ddf2e9128a4a9);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -1621,7 +1622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_9fc7c7be8c77ff5252ced0625764a7ef {
+                #map_ead160590b603a08bc3c64b85d2e899d {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1658,14 +1659,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_9fc7c7be8c77ff5252ced0625764a7ef&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_ead160590b603a08bc3c64b85d2e899d&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_9fc7c7be8c77ff5252ced0625764a7ef = L.map(
-                &quot;map_9fc7c7be8c77ff5252ced0625764a7ef&quot;,
+            var map_ead160590b603a08bc3c64b85d2e899d = L.map(
+                &quot;map_ead160590b603a08bc3c64b85d2e899d&quot;,
                 {
                     center: [18.464629000000002, -65.638847],
                     crs: L.CRS.EPSG3857,
@@ -1682,7 +1683,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_bd9bd6ab85ce8568657161b1caf25757 = L.tileLayer(
+            var tile_layer_53a3254365a03a3b2588403f54802369 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -1699,10 +1700,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             );
         
     
-            tile_layer_bd9bd6ab85ce8568657161b1caf25757.addTo(map_9fc7c7be8c77ff5252ced0625764a7ef);
+            tile_layer_53a3254365a03a3b2588403f54802369.addTo(map_ead160590b603a08bc3c64b85d2e899d);
         
     
-            var tile_layer_0e743f6ebe6321dec576592eb1f8e03b = L.tileLayer(
+            var tile_layer_ebd56948ab4ce8af482281c034d1c70c = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/searches/9ec7cd46837baea23d27089fd99a39d2/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B03\u0026assets=B05\u0026expression=%28B03_b1-B05_b1%29%2F%28B03_b1%2BB05_b1%29\u0026rescale=0%2C1\u0026colormap_name=viridis&quot;,
                 {
   &quot;minZoom&quot;: 0,
@@ -1719,7 +1720,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             );
         
     
-            tile_layer_0e743f6ebe6321dec576592eb1f8e03b.addTo(map_9fc7c7be8c77ff5252ced0625764a7ef);
+            tile_layer_ebd56948ab4ce8af482281c034d1c70c.addTo(map_ead160590b603a08bc3c64b85d2e899d);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
