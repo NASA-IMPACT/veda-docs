@@ -1007,10 +1007,13 @@ Learn more
 <li>JSON API: https://openveda.cloud/api/stac/collections</li>
 <li>STAC Browser: http://openveda.cloud</li>
 </ul>
+<div class="alert alert-block alert-success">
+<p>Replace <code>"no2-monthly"</code> in the following cell with the collection id that you are interested in.</p>
+</div>
 <div id="2ffe563a-42e5-4c7a-a23e-1e71085c265f" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/stac"</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"no2-monthly"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="alert alert-block alert-success">
 <p>Next step is to get STAC objects from the STAC API. We use <code>pystac-client</code> to do a search. Here is an some example of what that might look like.</p>
@@ -1021,7 +1024,7 @@ Learn more
 <p>Use <code>pystac_client</code> to search the STAC collection for a particular area of interest within specified datetime bounds.</p>
 <div id="876ad293-e942-4820-909f-e85d01afa843" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> [<span class="op">-</span><span class="fl">180.0</span>, <span class="op">-</span><span class="fl">90.0</span>, <span class="fl">180.0</span>, <span class="fl">90.0</span>]</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>datetime <span class="op">=</span> <span class="st">"2000-01-01/2022-01-02"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>datetime <span class="op">=</span> <span class="st">"2020-01-01/2021-01-02"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="34b4fe77-baef-403c-b293-c2f48afb7b0d" class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>catalog <span class="op">=</span> Client.<span class="bu">open</span>(STAC_API_URL)</span>
@@ -1029,11 +1032,11 @@ Learn more
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>search <span class="op">=</span> catalog.search(</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    bbox<span class="op">=</span>bbox, datetime<span class="op">=</span>datetime, collections<span class="op">=</span>[collection_id], limit<span class="op">=</span><span class="dv">1000</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(search.items())</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Found </span><span class="sc">{</span><span class="bu">len</span>(items)<span class="sc">}</span><span class="ss"> items"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>item_collection <span class="op">=</span> search.item_collection()</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Found </span><span class="sc">{</span><span class="bu">len</span>(item_collection)<span class="sc">}</span><span class="ss"> items"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="alert alert-block alert-success">
-<p>The next step is often to define an Area of Interest. Note that it is preferred to get large geojson objects directly from their source rather than storing them in this repository or inlining them in the notebook. Here is an example of what that might look like.</p>
+<p>The next step is often to define an Area of Interest. Note that it is preferred to get large geojson objects directly from their source rather than storing them in this repository or inlining them in the notebook. Here is an example of what that might look like. Also if you are planning on using the geojson in a POST to the Raster API know that it cannot be larger than 64Kb (<a href="https://github.com/NASA-IMPACT/veda-backend/issues/505">Github issue</a>)</p>
 </div>
 </section>
 <section id="define-an-aoi" class="level2">
@@ -1054,9 +1057,7 @@ Learn more
 <div id="ba0fa4c5-4ff5-4906-a8a2-8e308f184c45" class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>aoi <span class="op">=</span> result[<span class="st">"features"</span>][<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="alert alert-block alert-success">
-<p>Next some notebooks read in the data. If you are using the raster API to trigger computation server side skip this section. Here is an example of reading the data in using <code>stackstac</code> and clipping using <code>rasterio</code>.</p>
-</div>
+<p>Use folium to take a look at the AOI</p>
 <div id="dc63a056-959d-4121-ba57-10a8ce496274" class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.Map(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>[<span class="dv">40</span>, <span class="dv">0</span>],</span>
@@ -1066,19 +1067,25 @@ Learn more
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>folium.GeoJson(aoi, name<span class="op">=</span><span class="st">"AOI"</span>).add_to(m)</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="alert alert-block alert-success">
+<p>Next some notebooks read in the data. If you are using the raster API to trigger computation server side skip this section. Here is an example of reading the data in using <code>stackstac</code> and clipping using <code>rasterio</code>.</p>
+</div>
 </section>
 <section id="read-data" class="level2">
 <h2 class="anchored" data-anchor-id="read-data">Read data</h2>
 <p>Create an <code>xarray.DataSet</code> using <code>stackstac</code></p>
 <div id="ff6f9457-5898-4671-a7ef-5e93e14840d5" class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a workaround that is planning to move up into stackstac itself</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio <span class="im">as</span> rio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="4d36aacb-8e00-449d-978f-6bcad6adcc5c" class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>da <span class="op">=</span> stackstac.stack(search.item_collection())</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>da</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># workaround for lack of stackstac support for projection extension v2</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>da <span class="op">=</span> stackstac.stack(item_collection, epsg<span class="op">=</span><span class="dv">4326</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># assign the time coordinate to the start time</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>da <span class="op">=</span> da.assign_coords({<span class="st">"time"</span>: pd.to_datetime(da.start_datetime)})</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>da</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="clip-the-data-to-aoi" class="level2">

@@ -985,7 +985,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="about-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="about-the-data">About the Data</h2>
-<p>A small subset of HLS data has been ingested to the VEDA datastore to visually explore data using the Raster API, which is a VEDA instance of (<a href="https://github.com/stac-utils/titiler-pgstac">pgstac-titiler</a>). This limited subset includes a two granules for dates before and after Hurricane Maria in 2017 and Hurricane Ida in 2021.</p>
+<p>A small subset of HLS data has been ingested to the VEDA datastore to visually explore data using the Raster API, which is a VEDA instance of (<a href="https://github.com/stac-utils/titiler-pgstac">pgstac-titiler</a>). This limited subset includes two granules for dates before and after Hurricane Maria in 2017 and Hurricane Ida in 2021.</p>
 <p>Note about HLS datasets: The Sentinel and Landsat assets have been “harmonized” in the sense that these products have been generated to use the same spatial resolution and grid system. Thus these 2 HLS S30 and L30 productscan be used interchangeably in algorithms. However, the individual band assets are specific to each provider. This notebook focuses on displaying HLS data with a dynamic tiler so separate examples are provided for rendering the unique band assets of each collection.</p>
 <p><strong>Additional Resources</strong></p>
 <ul>
@@ -993,7 +993,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://www.l3harrisgeospatial.com/Learn/Blogs/Blog-Details/ArtMID/10198/ArticleID/15691/The-Many-Band-Combinations-of-Landsat-8">Landsat 8 Bands and Combinations Blog</a></li>
 <li><a href="https://lpdaac.usgs.gov/products/hlss30v002/">HLSS30 Dataset Landing Page</a></li>
 <li><a href="https://gisgeography.com/sentinel-2-bands-combinations/">Sentinel 2 Bands and Combinations Blog</a></li>
-<li><a href="https://github.com/radiantearth/stac-api-spec/tree/master/fragments/filter#examples">CQL2 STAC-API Examples</a></li>
+<li><a href="https://github.com/stac-api-extensions/filter?tab=readme-ov-file#examples">CQL2 STAC-API Examples</a></li>
+<li><a href="https://developmentseed.org/cql2-rs/latest/playground/">CQL2 Playground</a></li>
 </ul>
 <div id="cell-4" class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
@@ -1028,14 +1029,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Search criteria for events in both HLS Events collections</span></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>maria_bbox <span class="op">=</span> [<span class="op">-</span><span class="fl">66.167596</span>, <span class="fl">17.961538</span>, <span class="op">-</span><span class="fl">65.110098</span>, <span class="fl">18.96772</span>]</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>maria_temporal_range <span class="op">=</span> [<span class="st">"2017-06-06T00:00:00Z"</span>, <span class="st">"2017-11-30T00:00:00Z"</span>]</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>maria_temporal_range <span class="op">=</span> [<span class="st">"2017-10-02T00:00:00Z"</span>, <span class="st">"2017-10-17T00:00:00Z"</span>]</span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>ida_bbox <span class="op">=</span> [<span class="op">-</span><span class="fl">90.932637</span>, <span class="fl">29.705366</span>, <span class="op">-</span><span class="fl">89.766437</span>, <span class="fl">30.71627</span>]</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>ida_temporal_range <span class="op">=</span> [<span class="st">"2021-07-01T00:00:00Z"</span>, <span class="st">"2021-10-28T00:00:00Z"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>ida_temporal_range <span class="op">=</span> [<span class="st">"2021-09-02T00:00:00Z"</span>, <span class="st">"2021-09-17T00:00:00Z"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="first-search-the-stac-api-to-find-the-specific-dates-available-within-timeframe-of-interest-hurricane-ida" class="level3">
 <h3 class="anchored" data-anchor-id="first-search-the-stac-api-to-find-the-specific-dates-available-within-timeframe-of-interest-hurricane-ida">First, search the STAC API to find the specific dates available within timeframe of interest (Hurricane Ida)</h3>
 <p>To focus on a specific point in time, we will restrict the temporal range when defining the item search in the example below.</p>
+<p>Note: For STAC there are more succinct ways of filtering, but we will use full <a href="https://docs.ogc.org/is/21-065r2/21-065r2.html">cql2-json</a> syntax in this example so that the filter are reusable with the Raster API.</p>
 <div id="cell-8" class="cell" data-tags="[]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>collections_filter <span class="op">=</span> {</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"op"</span>: <span class="st">"="</span>,</span>
@@ -1052,98 +1054,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Additional filters can be applied for other search criteria like &lt;= maximum eo:cloud_cover in item properties</span></span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>cloud_filter <span class="op">=</span> {<span class="st">"op"</span>: <span class="st">"&lt;="</span>, <span class="st">"args"</span>: [{<span class="st">"property"</span>: <span class="st">"eo:cloud_cover"</span>}, <span class="dv">80</span>]}</span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>search_body <span class="op">=</span> {</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter-lang"</span>: <span class="st">"cql2-json"</span>,</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"limit"</span>: <span class="dv">100</span>,</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sortby"</span>: [{<span class="st">"direction"</span>: <span class="st">"asc"</span>, <span class="st">"field"</span>: <span class="st">"properties.datetime"</span>}],</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"context"</span>: <span class="st">"on"</span>,  <span class="co"># add context for a summary of matched results</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify cql2-json filter language in search body and add sort by datetime</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>search_body <span class="op">=</span> {</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter-lang"</span>: <span class="st">"cql2-json"</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"limit"</span>: <span class="dv">100</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sortby"</span>: [{<span class="st">"direction"</span>: <span class="st">"asc"</span>, <span class="st">"field"</span>: <span class="st">"properties.datetime"</span>}],</span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter"</span>: {</span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"op"</span>: <span class="st">"and"</span>,</span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"args"</span>: [collections_filter, spatial_filter, temporal_filter, cloud_filter],</span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    },</span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Note this search body can also be used for a stac item search</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>stac_items_response <span class="op">=</span> requests.post(</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/search"</span>,</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>search_body,</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Check how many items were matched in search</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"search context:"</span>, stac_items_response[<span class="st">"context"</span>])</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over search results to get an array of item datetimes</span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>[item[<span class="st">"properties"</span>][<span class="st">"datetime"</span>] <span class="cf">for</span> item <span class="kw">in</span> stac_items_response[<span class="st">"features"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>stac_items_response <span class="op">=</span> requests.post(</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/search"</span>,</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>search_body,</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>).json()</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Check how many items were matched in search</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of items returned:"</span>, stac_items_response[<span class="st">"numberMatched"</span>])</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over search results to get an array of item datetimes</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>[item[<span class="st">"properties"</span>][<span class="st">"datetime"</span>] <span class="cf">for</span> item <span class="kw">in</span> stac_items_response[<span class="st">"features"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>search context: {'limit': 100, 'matched': 14, 'returned': 14}</code></pre>
+<pre><code>Number of items returned: 2</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>['2021-07-14T16:55:15.122720+00:00',
- '2021-07-24T16:55:15.112940+00:00',
- '2021-07-29T16:55:16.405890+00:00',
- '2021-08-08T16:55:15.798510+00:00',
- '2021-08-13T16:55:13.394950+00:00',
- '2021-08-23T16:55:11.785040+00:00',
- '2021-09-02T16:55:09.568600+00:00',
- '2021-09-07T16:55:13.430530+00:00',
- '2021-09-22T16:55:10.763010+00:00',
- '2021-09-27T16:55:17.027350+00:00',
- '2021-10-07T16:55:18.213640+00:00',
- '2021-10-12T16:55:14.209080+00:00',
- '2021-10-17T16:55:18.517600+00:00',
- '2021-10-22T16:55:14.670710+00:00']</code></pre>
+<pre><code>['2021-09-02T16:55:09.568600+00:00', '2021-09-07T16:55:13.430530+00:00']</code></pre>
 </div>
 </div>
 </section>
 </section>
 <section id="visualizing-the-data-on-a-map" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-the-data-on-a-map">Visualizing the data on a map</h2>
-<p>The VEDA backend is based on <a href="https://github.com/developmentseed/eoAPI#earth-observation-api">eoAPI</a>, an application for searching and tiling earth observation STAC records. The application uses titiler-pgstac for dynamically mosaicing cloud optimized data from a registerd STAC API search.</p>
-<p>To use the dynamic tiler, <a href="https://github.com/stac-utils/titiler-pgstac/blob/master/docs/intro.md#mosaic">register a STAC item search and then use the registered search ID to dynamically mosaic the search results on the map</a>.</p>
+<p>The VEDA backend is based on <a href="https://github.com/developmentseed/eoAPI#earth-observation-api">eoAPI</a>, an application for searching and tiling earth observation STAC records. The application uses titiler-pgstac for dynamically mosaicing cloud optimized data from a registered STAC API search.</p>
+<p>To use the dynamic tiler, <a href="https://github.com/stac-utils/titiler-pgstac/blob/master/docs/intro.md#mosaic">register a STAC item search and then use the registered search ID to dynamically mosaic the search results on the map</a></p>
 <section id="update-the-temporal-range-in-search-body-and-register-that-search-with-the-raster-api" class="level3">
 <h3 class="anchored" data-anchor-id="update-the-temporal-range-in-search-body-and-register-that-search-with-the-raster-api">Update the temporal range in search body and register that search with the Raster API</h3>
 <p>The registered search id can be reused for alternate map layer visualizations.</p>
 <div id="cell-11" class="cell" data-tags="[]" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Restricted date range</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>restricted_temporal_filter <span class="op">=</span> {</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"op"</span>: <span class="st">"t_intersects"</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"args"</span>: [</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"property"</span>: <span class="st">"datetime"</span>},</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        {<span class="st">"interval"</span>: [<span class="st">"2021-10-16T00:00:00Z"</span>, <span class="st">"2021-10-18T00:00:00Z"</span>]},</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify cql2-json filter language in search body</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>search_body <span class="op">=</span> {</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter-lang"</span>: <span class="st">"cql2-json"</span>,</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter"</span>: {</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"op"</span>: <span class="st">"and"</span>,</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"args"</span>: [collections_filter, spatial_filter, restricted_temporal_filter],</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    },</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>mosaic_response <span class="op">=</span> requests.post(</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/searches/register"</span>,</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>search_body,</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(mosaic_response, indent<span class="op">=</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mosaic_response <span class="op">=</span> requests.post(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/searches/register"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>search_body,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>).json()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.dumps(mosaic_response, indent<span class="op">=</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{
-  "id": "7743bcb31bff7151aff7e5508785fce1",
+  "id": "60c4cc6fc305665fce131dc218f2bb46",
   "links": [
     {
-      "href": "https://openveda.cloud/api/raster/searches/7743bcb31bff7151aff7e5508785fce1/info",
+      "href": "https://openveda.cloud/api/raster/searches/60c4cc6fc305665fce131dc218f2bb46/info",
       "rel": "metadata",
       "title": "Mosaic metadata"
     },
     {
-      "href": "https://openveda.cloud/api/raster/searches/7743bcb31bff7151aff7e5508785fce1/{tileMatrixSetId}/tilejson.json",
+      "href": "https://openveda.cloud/api/raster/searches/60c4cc6fc305665fce131dc218f2bb46/{tileMatrixSetId}/tilejson.json",
       "rel": "tilejson",
       "templated": true,
       "title": "Link for TileJSON (Template URL)"
     },
     {
-      "href": "https://openveda.cloud/api/raster/searches/7743bcb31bff7151aff7e5508785fce1/{tileMatrixSetId}/WMTSCapabilities.xml",
+      "href": "https://openveda.cloud/api/raster/searches/60c4cc6fc305665fce131dc218f2bb46/{tileMatrixSetId}/WMTSCapabilities.xml",
       "rel": "wmts",
       "templated": true,
       "title": "Link for WMTS (Template URL)"
@@ -1187,11 +1157,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>{
   "tilejson": "2.2.0",
-  "name": "7743bcb31bff7151aff7e5508785fce1",
+  "name": "60c4cc6fc305665fce131dc218f2bb46",
   "version": "1.0.0",
   "scheme": "xyz",
   "tiles": [
-    "https://openveda.cloud/api/raster/searches/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?algorithm=swir&amp;assets=B12&amp;assets=B8A&amp;assets=B04"
+    "https://openveda.cloud/api/raster/searches/60c4cc6fc305665fce131dc218f2bb46/tiles/WebMercatorQuad/{z}/{x}/{y}?algorithm=swir&amp;assets=B12&amp;assets=B8A&amp;assets=B04"
   ],
   "minzoom": 6,
   "maxzoom": 12,
@@ -1234,21 +1204,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <head>
     
     <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
-    
-        <script>
-            L_NO_TOUCH = false;
-            L_DISABLE_3D = false;
-        </script>
-    
-    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
     <script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;></script>
     <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
     <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
@@ -1256,7 +1218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_3492b269ab9f0096a0379a7e3cc6f5f2 {
+                #map_5423693c848ab01d7290010b35d46666 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1265,25 +1227,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 }
                 .leaflet-container { font-size: 1rem; }
             </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
         
 </head>
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_3492b269ab9f0096a0379a7e3cc6f5f2&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_5423693c848ab01d7290010b35d46666&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_3492b269ab9f0096a0379a7e3cc6f5f2 = L.map(
-                &quot;map_3492b269ab9f0096a0379a7e3cc6f5f2&quot;,
+            var map_5423693c848ab01d7290010b35d46666 = L.map(
+                &quot;map_5423693c848ab01d7290010b35d46666&quot;,
                 {
                     center: [30.210818000000003, -90.349537],
                     crs: L.CRS.EPSG3857,
-                    zoom: 11,
-                    zoomControl: true,
-                    preferCanvas: false,
+                    ...{
+  &quot;zoom&quot;: 11,
+  &quot;zoomControl&quot;: true,
+  &quot;preferCanvas&quot;: false,
+}
+
                 }
             );
 
@@ -1291,22 +1279,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_a12781b66470395250a6489a97cccd25 = L.tileLayer(
+            var tile_layer_949af62025d3519c572fb9c34f3b77a5 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 19,
+  &quot;maxNativeZoom&quot;: 19,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 1,
+}
+
             );
         
     
-            tile_layer_a12781b66470395250a6489a97cccd25.addTo(map_3492b269ab9f0096a0379a7e3cc6f5f2);
+            tile_layer_949af62025d3519c572fb9c34f3b77a5.addTo(map_5423693c848ab01d7290010b35d46666);
         
     
-            var tile_layer_dbc197ca711efaafd713199adc70b406 = L.tileLayer(
-                &quot;https://openveda.cloud/api/raster/searches/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?algorithm=swir\u0026assets=B12\u0026assets=B8A\u0026assets=B04&quot;,
-                {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            var tile_layer_b05dbb455f25e284d1ab67b201b6cf34 = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/searches/60c4cc6fc305665fce131dc218f2bb46/tiles/WebMercatorQuad/{z}/{x}/{y}?algorithm=swir\u0026assets=B12\u0026assets=B8A\u0026assets=B04&quot;,
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 18,
+  &quot;maxNativeZoom&quot;: 18,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;Mosaic&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 1,
+}
+
             );
         
     
-            tile_layer_dbc197ca711efaafd713199adc70b406.addTo(map_3492b269ab9f0096a0379a7e3cc6f5f2);
+            tile_layer_b05dbb455f25e284d1ab67b201b6cf34.addTo(map_5423693c848ab01d7290010b35d46666);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -1338,11 +1348,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>{
   "tilejson": "2.2.0",
-  "name": "7743bcb31bff7151aff7e5508785fce1",
+  "name": "60c4cc6fc305665fce131dc218f2bb46",
   "version": "1.0.0",
   "scheme": "xyz",
   "tiles": [
-    "https://openveda.cloud/api/raster/searches/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B08&amp;assets=B04&amp;expression=%28B08_b1-B04_b1%29%2F%28B08_b1%2BB04_b1%29&amp;rescale=0%2C1&amp;colormap_name=rdylgn"
+    "https://openveda.cloud/api/raster/searches/60c4cc6fc305665fce131dc218f2bb46/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B08&amp;assets=B04&amp;expression=%28B08_b1-B04_b1%29%2F%28B08_b1%2BB04_b1%29&amp;rescale=0%2C1&amp;colormap_name=rdylgn"
   ],
   "minzoom": 6,
   "maxzoom": 12,
@@ -1383,21 +1393,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <head>
     
     <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
-    
-        <script>
-            L_NO_TOUCH = false;
-            L_DISABLE_3D = false;
-        </script>
-    
-    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
     <script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;></script>
     <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
     <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
@@ -1405,7 +1407,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_c898fdd66d2e8111355dd99cbdeb36dd {
+                #map_bcc08511cfa176cd1f4ddf2e9128a4a9 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1414,25 +1416,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 }
                 .leaflet-container { font-size: 1rem; }
             </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
         
 </head>
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_c898fdd66d2e8111355dd99cbdeb36dd&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_bcc08511cfa176cd1f4ddf2e9128a4a9&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_c898fdd66d2e8111355dd99cbdeb36dd = L.map(
-                &quot;map_c898fdd66d2e8111355dd99cbdeb36dd&quot;,
+            var map_bcc08511cfa176cd1f4ddf2e9128a4a9 = L.map(
+                &quot;map_bcc08511cfa176cd1f4ddf2e9128a4a9&quot;,
                 {
                     center: [30.210818000000003, -90.349537],
                     crs: L.CRS.EPSG3857,
-                    zoom: 11,
-                    zoomControl: true,
-                    preferCanvas: false,
+                    ...{
+  &quot;zoom&quot;: 11,
+  &quot;zoomControl&quot;: true,
+  &quot;preferCanvas&quot;: false,
+}
+
                 }
             );
 
@@ -1440,22 +1468,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_072c2d274f3b5de06d73a6e16061ac54 = L.tileLayer(
+            var tile_layer_0d79aef3875f4346edd0d12f2a3b5db9 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 19,
+  &quot;maxNativeZoom&quot;: 19,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 1,
+}
+
             );
         
     
-            tile_layer_072c2d274f3b5de06d73a6e16061ac54.addTo(map_c898fdd66d2e8111355dd99cbdeb36dd);
+            tile_layer_0d79aef3875f4346edd0d12f2a3b5db9.addTo(map_bcc08511cfa176cd1f4ddf2e9128a4a9);
         
     
-            var tile_layer_327ca89add025f85e6559835ea933052 = L.tileLayer(
-                &quot;https://openveda.cloud/api/raster/searches/7743bcb31bff7151aff7e5508785fce1/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B08\u0026assets=B04\u0026expression=%28B08_b1-B04_b1%29%2F%28B08_b1%2BB04_b1%29\u0026rescale=0%2C1\u0026colormap_name=rdylgn&quot;,
-                {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            var tile_layer_815e830dec12e9deee854cc4d12e3d16 = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/searches/60c4cc6fc305665fce131dc218f2bb46/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B08\u0026assets=B04\u0026expression=%28B08_b1-B04_b1%29%2F%28B08_b1%2BB04_b1%29\u0026rescale=0%2C1\u0026colormap_name=rdylgn&quot;,
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 18,
+  &quot;maxNativeZoom&quot;: 18,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;Mosaic&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 1,
+}
+
             );
         
     
-            tile_layer_327ca89add025f85e6559835ea933052.addTo(map_c898fdd66d2e8111355dd99cbdeb36dd);
+            tile_layer_815e830dec12e9deee854cc4d12e3d16.addTo(map_bcc08511cfa176cd1f4ddf2e9128a4a9);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -1495,10 +1545,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    ]</span>
 <span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify cql2-json filter language in search body and add context for a summary of matched results</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify cql2-json filter language in search body and add sort by datetime</span></span>
 <span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>search_body <span class="op">=</span> {</span>
 <span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter-lang"</span>: <span class="st">"cql2-json"</span>,</span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"context"</span>: <span class="st">"on"</span>,</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sortby"</span>: [{<span class="st">"direction"</span>: <span class="st">"asc"</span>, <span class="st">"field"</span>: <span class="st">"properties.datetime"</span>}],</span>
 <span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter"</span>: {</span>
 <span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"op"</span>: <span class="st">"and"</span>,</span>
 <span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"args"</span>: [</span>
@@ -1509,131 +1559,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Note this search body can also be used for a stac item search </span></span>
-<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>stac_items_response <span class="op">=</span> requests.post(</span>
-<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/search"</span>,</span>
-<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>search_body,</span>
-<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Check how many items were matched in searc</span></span>
-<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"search context:"</span>, stac_items_response[<span class="st">"context"</span>])</span>
-<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over search results to get an array of unique item datetimes</span></span>
-<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a>datetimes <span class="op">=</span> []</span>
-<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> stac_items_response[<span class="st">"features"</span>]</span>
-<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a>datetimes <span class="op">+=</span> [item[<span class="st">"properties"</span>][<span class="st">"datetime"</span>] <span class="cf">for</span> item <span class="kw">in</span> features]</span>
-<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a>next_link <span class="op">=</span> <span class="bu">next</span>((link <span class="cf">for</span> link <span class="kw">in</span> stac_items_response[<span class="st">"links"</span>] <span class="cf">if</span> link[<span class="st">"rel"</span>] <span class="op">==</span> <span class="st">"next"</span>), <span class="va">None</span>)</span>
-<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> next_link:</span>
-<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a>    stac_items_response <span class="op">=</span> requests.post(</span>
-<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/search"</span>,</span>
-<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>        json<span class="op">=</span>next_link[<span class="st">"body"</span>],</span>
-<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a>    ).json()</span>
-<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a>    features <span class="op">=</span> stac_items_response[<span class="st">"features"</span>]</span>
-<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a>    datetimes <span class="op">+=</span> [item[<span class="st">"properties"</span>][<span class="st">"datetime"</span>] <span class="cf">for</span> item <span class="kw">in</span> features]</span>
-<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a>    next_link <span class="op">=</span> <span class="bu">next</span>((link <span class="cf">for</span> link <span class="kw">in</span> stac_items_response[<span class="st">"links"</span>] <span class="cf">if</span> link[<span class="st">"rel"</span>] <span class="op">==</span> <span class="st">"next"</span>), <span class="va">False</span>)</span>
-<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a><span class="bu">sorted</span>(datetimes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>search context: {'limit': 10, 'matched': 9, 'returned': 9}</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>['2017-06-06T14:43:41.335694+00:00',
- '2017-06-22T14:43:47.156698+00:00',
- '2017-07-24T14:43:56.898518+00:00',
- '2017-08-09T14:44:03.584741+00:00',
- '2017-08-25T14:44:07.854507+00:00',
- '2017-09-26T14:44:14.813967+00:00',
- '2017-10-12T14:44:19.576858+00:00',
- '2017-11-13T14:44:17.834919+00:00',
- '2017-11-29T14:44:11.126689+00:00']</code></pre>
-</div>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>mosaic_response <span class="op">=</span> requests.post(</span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/searches/register"</span>,</span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>search_body,</span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-23" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Restricted date range </span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>restricted_temporal_filter <span class="op">=</span> {</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"op"</span>: <span class="st">"t_intersects"</span>,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"args"</span>: [</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        { <span class="st">"property"</span>: <span class="st">"datetime"</span> },</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        { <span class="st">"interval"</span> : [ <span class="st">"2017-10-11T00:00:00Z"</span>, <span class="st">"2017-10-13T00:00:00Z"</span>] }</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    ]</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify cql2-json filter language in search body</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>search_body <span class="op">=</span> {</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter-lang"</span>: <span class="st">"cql2-json"</span>,</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"filter"</span>: {</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"op"</span>: <span class="st">"and"</span>,</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"args"</span>: [</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>            collections_filter,</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>            spatial_filter,</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>            restricted_temporal_filter</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>        ]</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>mosaic_response <span class="op">=</span> requests.post(</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">}</span><span class="ss">/searches/register"</span>,</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    json<span class="op">=</span>search_body,</span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>).json()</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up format for Map API url</span></span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Get base url for tiler from the register mosaic request</span></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>tiles_href <span class="op">=</span> <span class="bu">next</span>(link[<span class="st">"href"</span>] <span class="cf">for</span> link <span class="kw">in</span> mosaic_response[<span class="st">"links"</span>] <span class="cf">if</span> link[<span class="st">"rel"</span>]<span class="op">==</span><span class="st">"tilejson"</span>)</span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Use default tile matrix set</span></span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>tile_matrix_set_id <span class="op">=</span> <span class="st">"WebMercatorQuad"</span></span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>tilejson_response <span class="op">=</span> requests.get(</span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>    tiles_href.<span class="bu">format</span>(tileMatrixSetId<span class="op">=</span>tile_matrix_set_id),</span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{</span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Info to add to the tilejson response</span></span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minzoom"</span>: <span class="dv">6</span>,</span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"maxzoom"</span>: <span class="dv">12</span>,</span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"assets"</span>: l30_ndwi_assets,</span>
-<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">"expression"</span>: l30_ndwi_expression,</span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>        <span class="st">"rescale"</span>: l30_ndwi_rescaling,</span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>        <span class="st">"colormap_name"</span>: <span class="st">"viridis"</span></span>
-<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up format for Map API url</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Get base url for tiler from the register mosaic request</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>tiles_href <span class="op">=</span> <span class="bu">next</span>(link[<span class="st">"href"</span>] <span class="cf">for</span> link <span class="kw">in</span> mosaic_response[<span class="st">"links"</span>] <span class="cf">if</span> link[<span class="st">"rel"</span>]<span class="op">==</span><span class="st">"tilejson"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use default tile matrix set</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>tile_matrix_set_id <span class="op">=</span> <span class="st">"WebMercatorQuad"</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>tilejson_response <span class="op">=</span> requests.get(</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    tiles_href.<span class="bu">format</span>(tileMatrixSetId<span class="op">=</span>tile_matrix_set_id),</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    params<span class="op">=</span>{</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Info to add to the tilejson response</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"minzoom"</span>: <span class="dv">6</span>,</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"maxzoom"</span>: <span class="dv">12</span>,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"assets"</span>: l30_ndwi_assets,</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"expression"</span>: l30_ndwi_expression,</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"rescale"</span>: l30_ndwi_rescaling,</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"colormap_name"</span>: <span class="st">"viridis"</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-24" class="cell" data-tags="[]" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use bbox initial zoom and map</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up a map located w/in event bounds</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>zoom_start <span class="op">=</span> <span class="dv">11</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Map(</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span><span class="st">"OpenStreetMap"</span>,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>((maria_bbox[<span class="dv">1</span>] <span class="op">+</span> maria_bbox[<span class="dv">3</span>]) <span class="op">/</span> <span class="dv">2</span>,(maria_bbox[<span class="dv">0</span>] <span class="op">+</span> maria_bbox[<span class="dv">2</span>]) <span class="op">/</span> <span class="dv">2</span>),</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    zoom_start<span class="op">=</span>zoom_start</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the formatted map layer</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>map_layer <span class="op">=</span> TileLayer(</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>tilejson_response[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"Mosaic"</span>,  </span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>map_layer.add_to(m)</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use bbox initial zoom and map</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up a map located w/in event bounds</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>zoom_start <span class="op">=</span> <span class="dv">11</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> Map(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span><span class="st">"OpenStreetMap"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    location<span class="op">=</span>((maria_bbox[<span class="dv">1</span>] <span class="op">+</span> maria_bbox[<span class="dv">3</span>]) <span class="op">/</span> <span class="dv">2</span>,(maria_bbox[<span class="dv">0</span>] <span class="op">+</span> maria_bbox[<span class="dv">2</span>]) <span class="op">/</span> <span class="dv">2</span>),</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    zoom_start<span class="op">=</span>zoom_start</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the formatted map layer</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>map_layer <span class="op">=</span> TileLayer(</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    tiles<span class="op">=</span>tilejson_response[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    attr<span class="op">=</span><span class="st">"Mosaic"</span>,  </span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>map_layer.add_to(m)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
 <html>
 <head>
     
     <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
-    
-        <script>
-            L_NO_TOUCH = false;
-            L_DISABLE_3D = false;
-        </script>
-    
-    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
     <script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;></script>
     <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
     <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
-    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
     <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
@@ -1641,7 +1622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_36ac4bc808e02cef2c8d4599ba73947b {
+                #map_ead160590b603a08bc3c64b85d2e899d {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1650,25 +1631,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 }
                 .leaflet-container { font-size: 1rem; }
             </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
         
 </head>
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_36ac4bc808e02cef2c8d4599ba73947b&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_ead160590b603a08bc3c64b85d2e899d&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_36ac4bc808e02cef2c8d4599ba73947b = L.map(
-                &quot;map_36ac4bc808e02cef2c8d4599ba73947b&quot;,
+            var map_ead160590b603a08bc3c64b85d2e899d = L.map(
+                &quot;map_ead160590b603a08bc3c64b85d2e899d&quot;,
                 {
                     center: [18.464629000000002, -65.638847],
                     crs: L.CRS.EPSG3857,
-                    zoom: 11,
-                    zoomControl: true,
-                    preferCanvas: false,
+                    ...{
+  &quot;zoom&quot;: 11,
+  &quot;zoomControl&quot;: true,
+  &quot;preferCanvas&quot;: false,
+}
+
                 }
             );
 
@@ -1676,22 +1683,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_633b3871da27c87fbcca98dcba775f8a = L.tileLayer(
+            var tile_layer_53a3254365a03a3b2588403f54802369 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 19,
+  &quot;maxNativeZoom&quot;: 19,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 1,
+}
+
             );
         
     
-            tile_layer_633b3871da27c87fbcca98dcba775f8a.addTo(map_36ac4bc808e02cef2c8d4599ba73947b);
+            tile_layer_53a3254365a03a3b2588403f54802369.addTo(map_ead160590b603a08bc3c64b85d2e899d);
         
     
-            var tile_layer_d81707b9d1c22ad01a46cc112c864504 = L.tileLayer(
-                &quot;https://openveda.cloud/api/raster/searches/61809545320d5ea343d57453af06b818/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B03\u0026assets=B05\u0026expression=%28B03_b1-B05_b1%29%2F%28B03_b1%2BB05_b1%29\u0026rescale=0%2C1\u0026colormap_name=viridis&quot;,
-                {&quot;attribution&quot;: &quot;Mosaic&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 18, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+            var tile_layer_ebd56948ab4ce8af482281c034d1c70c = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/searches/9ec7cd46837baea23d27089fd99a39d2/tiles/WebMercatorQuad/{z}/{x}/{y}?assets=B03\u0026assets=B05\u0026expression=%28B03_b1-B05_b1%29%2F%28B03_b1%2BB05_b1%29\u0026rescale=0%2C1\u0026colormap_name=viridis&quot;,
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 18,
+  &quot;maxNativeZoom&quot;: 18,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;Mosaic&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 1,
+}
+
             );
         
     
-            tile_layer_d81707b9d1c22ad01a46cc112c864504.addTo(map_36ac4bc808e02cef2c8d4599ba73947b);
+            tile_layer_ebd56948ab4ce8af482281c034d1c70c.addTo(map_ead160590b603a08bc3c64b85d2e899d);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>

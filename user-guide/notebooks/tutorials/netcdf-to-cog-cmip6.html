@@ -974,12 +974,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="step-0---installs">Step 0 - Installs</h3>
 <div id="321f9841-3c04-4aff-9276-0a2ca1425b9b" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rasterio  <span class="co"># noqa</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rio_cogeo.cogeo</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rioxarray  <span class="co"># noqa</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> s3fs</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rasterio.io <span class="im">import</span> MemoryFile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rio_cogeo.cogeo</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rioxarray  <span class="co"># noqa</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> s3fs</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rasterio.io <span class="im">import</span> MemoryFile</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="step-1---inspect-source-netcdf" class="level3">
@@ -1025,13 +1024,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
 }
 
-html[theme=dark],
-body[data-theme=dark],
+html[theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"],
 body.vscode-dark {
   --xr-font-color0: rgba(255, 255, 255, 1);
   --xr-font-color2: rgba(255, 255, 255, 0.54);
   --xr-font-color3: rgba(255, 255, 255, 0.38);
-  --xr-border-color: #1F1F1F;
+  --xr-border-color: #1f1f1f;
   --xr-disabled-color: #515151;
   --xr-background-color: #111111;
   --xr-background-color-row-even: #111111;
@@ -1076,7 +1076,7 @@ body.vscode-dark {
 .xr-sections {
   padding-left: 0 !important;
   display: grid;
-  grid-template-columns: 150px auto auto 1fr 20px 20px;
+  grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
 }
 
 .xr-section-item {
@@ -1084,7 +1084,9 @@ body.vscode-dark {
 }
 
 .xr-section-item input {
-  display: none;
+  display: inline-block;
+  opacity: 0;
+  height: 0;
 }
 
 .xr-section-item input + label {
@@ -1094,6 +1096,10 @@ body.vscode-dark {
 .xr-section-item input:enabled + label {
   cursor: pointer;
   color: var(--xr-font-color2);
+}
+
+.xr-section-item input:focus + label {
+  border: 2px solid var(--xr-font-color0);
 }
 
 .xr-section-item input:enabled + label:hover {
@@ -1117,7 +1123,7 @@ body.vscode-dark {
 
 .xr-section-summary-in + label:before {
   display: inline-block;
-  content: '►';
+  content: "►";
   font-size: 11px;
   width: 15px;
   text-align: center;
@@ -1128,7 +1134,7 @@ body.vscode-dark {
 }
 
 .xr-section-summary-in:checked + label:before {
-  content: '▼';
+  content: "▼";
 }
 
 .xr-section-summary-in:checked + label > span {
@@ -1200,15 +1206,15 @@ body.vscode-dark {
 }
 
 .xr-dim-list:before {
-  content: '(';
+  content: "(";
 }
 
 .xr-dim-list:after {
-  content: ')';
+  content: ")";
 }
 
 .xr-dim-list li:not(:last-child):after {
-  content: ',';
+  content: ",";
   padding-right: 5px;
 }
 
@@ -1376,18 +1382,18 @@ Data variables: (12/13)
     FWI_P25  (lat, lon) float32 3MB ...
     FWI_P50  (lat, lon) float32 3MB ...
     FWI_P75  (lat, lon) float32 3MB ...
-    FWI_P95  (lat, lon) float32 3MB ...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-4899af4e-6437-4cd0-afe2-2528ca21dfdf" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-4899af4e-6437-4cd0-afe2-2528ca21dfdf" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">lat</span>: 600</li><li><span class="xr-has-index">lon</span>: 1440</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-f76ef1b4-87bc-46a6-a6fb-d4f67ceec89b" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-f76ef1b4-87bc-46a6-a6fb-d4f67ceec89b" class="xr-section-summary">Coordinates: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lat</span></div><div class="xr-var-dims">(lat)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-59.88 -59.62 ... 89.62 89.88</div><input id="attrs-4e490faa-c9c5-4b0c-9e25-636289625d59" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4e490faa-c9c5-4b0c-9e25-636289625d59" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-238f0a69-11c4-42e6-a231-3c724178e439" class="xr-var-data-in" type="checkbox"><label for="data-238f0a69-11c4-42e6-a231-3c724178e439" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>axis :</span></dt><dd>Y</dd></dl></div><div class="xr-var-data"><pre>array([-59.875, -59.625, -59.375, ...,  89.375,  89.625,  89.875])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lon</span></div><div class="xr-var-dims">(lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.125 0.375 0.625 ... 359.6 359.9</div><input id="attrs-4a37a7b5-fe34-4318-9253-f2473b32603e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4a37a7b5-fe34-4318-9253-f2473b32603e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-24b3db0b-792b-4756-bafb-c2045f9b24e9" class="xr-var-data-in" type="checkbox"><label for="data-24b3db0b-792b-4756-bafb-c2045f9b24e9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>axis :</span></dt><dd>X</dd></dl></div><div class="xr-var-data"><pre>array([1.25000e-01, 3.75000e-01, 6.25000e-01, ..., 3.59375e+02, 3.59625e+02,
-       3.59875e+02])</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-a1db7667-0476-4ce3-a952-2d485bb2579b" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-a1db7667-0476-4ce3-a952-2d485bb2579b" class="xr-section-summary">Data variables: <span>(13)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>FFMC</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-811cecb2-6e38-45b7-806e-9dbdc23e79f2" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-811cecb2-6e38-45b7-806e-9dbdc23e79f2" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8f518eae-f339-47fc-86dd-9a0f62ea0320" class="xr-var-data-in" type="checkbox"><label for="data-8f518eae-f339-47fc-86dd-9a0f62ea0320" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>DMC</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-a60a2c90-4fe1-45e0-b206-5fed83c70216" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-a60a2c90-4fe1-45e0-b206-5fed83c70216" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5bd1a1b1-4f56-42aa-b9d6-b80afcaa0770" class="xr-var-data-in" type="checkbox"><label for="data-5bd1a1b1-4f56-42aa-b9d6-b80afcaa0770" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>DC</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-ad57d58d-e5da-4b2a-b6ae-7a1ff16d924c" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-ad57d58d-e5da-4b2a-b6ae-7a1ff16d924c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a3f5a1dc-6a32-42f9-b715-4ed9ab52ead4" class="xr-var-data-in" type="checkbox"><label for="data-a3f5a1dc-6a32-42f9-b715-4ed9ab52ead4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>ISI</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-4dd3b344-555e-40f2-8cb5-81861aa90f06" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-4dd3b344-555e-40f2-8cb5-81861aa90f06" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-bde513ab-a13f-4d3e-b8d9-761accf82af0" class="xr-var-data-in" type="checkbox"><label for="data-bde513ab-a13f-4d3e-b8d9-761accf82af0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>BUI</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-fa8a0159-01f4-44c3-a208-be6de4b9bd3d" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-fa8a0159-01f4-44c3-a208-be6de4b9bd3d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1409f40e-8e20-4055-b8ca-c999c7eb5a63" class="xr-var-data-in" type="checkbox"><label for="data-1409f40e-8e20-4055-b8ca-c999c7eb5a63" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-84476f2e-2e90-42e5-a2f2-bec3b95f6622" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-84476f2e-2e90-42e5-a2f2-bec3b95f6622" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-10ee0c51-4127-414e-ae7f-fb3935a75bd7" class="xr-var-data-in" type="checkbox"><label for="data-10ee0c51-4127-414e-ae7f-fb3935a75bd7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI_N15</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">uint16</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-952ef2bb-a0cf-4378-938a-f59e1d2718d0" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-952ef2bb-a0cf-4378-938a-f59e1d2718d0" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b3373987-db4c-4721-8b17-34c6ec150f56" class="xr-var-data-in" type="checkbox"><label for="data-b3373987-db4c-4721-8b17-34c6ec150f56" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=uint16]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI_N30</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">uint16</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-c5a161ae-6d4b-49df-a339-cfea74147602" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-c5a161ae-6d4b-49df-a339-cfea74147602" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0e447fe6-a57c-45cc-a58c-5c59024805d7" class="xr-var-data-in" type="checkbox"><label for="data-0e447fe6-a57c-45cc-a58c-5c59024805d7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=uint16]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI_N45</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">uint16</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-86842b98-6c71-41ed-801a-f88298d02801" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-86842b98-6c71-41ed-801a-f88298d02801" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-801dee05-d888-4e70-aa40-94f60635f118" class="xr-var-data-in" type="checkbox"><label for="data-801dee05-d888-4e70-aa40-94f60635f118" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=uint16]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI_P25</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-db526961-dff1-4f02-8d8a-b5f78d3f3bc9" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-db526961-dff1-4f02-8d8a-b5f78d3f3bc9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6da6c675-6caa-44ad-b9ee-116d35900769" class="xr-var-data-in" type="checkbox"><label for="data-6da6c675-6caa-44ad-b9ee-116d35900769" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI_P50</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-7789bbd7-4445-4fa5-af2f-bab499758fc7" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-7789bbd7-4445-4fa5-af2f-bab499758fc7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-aa89a94f-4ac6-428f-8154-4d4c442e4a16" class="xr-var-data-in" type="checkbox"><label for="data-aa89a94f-4ac6-428f-8154-4d4c442e4a16" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI_P75</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-81a6dbb6-5013-4114-9504-f845aec53917" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-81a6dbb6-5013-4114-9504-f845aec53917" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-df24aaf9-3998-499f-9b34-da4a2da64e6e" class="xr-var-data-in" type="checkbox"><label for="data-df24aaf9-3998-499f-9b34-da4a2da64e6e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI_P95</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-d99e9791-7bd0-46b4-a74b-fe67f2927cbb" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-d99e9791-7bd0-46b4-a74b-fe67f2927cbb" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-98849d6c-2be0-4e3a-85a9-ba0194770f1b" class="xr-var-data-in" type="checkbox"><label for="data-98849d6c-2be0-4e3a-85a9-ba0194770f1b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-5b1d42b4-8387-4406-af6f-7ad13f8e872f" class="xr-section-summary-in" type="checkbox"><label for="section-5b1d42b4-8387-4406-af6f-7ad13f8e872f" class="xr-section-summary">Indexes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-846054b5-d98b-4346-821c-ffef9dc00246" class="xr-index-data-in" type="checkbox"><label for="index-846054b5-d98b-4346-821c-ffef9dc00246" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-59.875, -59.625, -59.375, -59.125, -58.875, -58.625, -58.375, -58.125,
+    FWI_P95  (lat, lon) float32 3MB ...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-0e854118-268d-4f04-963e-a1d911933a14" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-0e854118-268d-4f04-963e-a1d911933a14" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">lat</span>: 600</li><li><span class="xr-has-index">lon</span>: 1440</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-2960ef6d-1de0-43dd-9839-4452f78f9308" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-2960ef6d-1de0-43dd-9839-4452f78f9308" class="xr-section-summary">Coordinates: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lat</span></div><div class="xr-var-dims">(lat)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-59.88 -59.62 ... 89.62 89.88</div><input id="attrs-a459afd4-5493-468d-8a58-c276fa5bf64f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-a459afd4-5493-468d-8a58-c276fa5bf64f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d2e4e4ad-d38b-43de-8dc3-d8ea3e2fbe7e" class="xr-var-data-in" type="checkbox"><label for="data-d2e4e4ad-d38b-43de-8dc3-d8ea3e2fbe7e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>axis :</span></dt><dd>Y</dd></dl></div><div class="xr-var-data"><pre>array([-59.875, -59.625, -59.375, ...,  89.375,  89.625,  89.875], shape=(600,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lon</span></div><div class="xr-var-dims">(lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.125 0.375 0.625 ... 359.6 359.9</div><input id="attrs-c5bf2e00-9b06-438c-bf88-0a23dc730b75" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c5bf2e00-9b06-438c-bf88-0a23dc730b75" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-70a9e3d1-8f64-4a85-a89c-774e7e247cc8" class="xr-var-data-in" type="checkbox"><label for="data-70a9e3d1-8f64-4a85-a89c-774e7e247cc8" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>axis :</span></dt><dd>X</dd></dl></div><div class="xr-var-data"><pre>array([1.25000e-01, 3.75000e-01, 6.25000e-01, ..., 3.59375e+02, 3.59625e+02,
+       3.59875e+02], shape=(1440,))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-bd756cc3-0cc7-4558-83fd-a150cc3d278e" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-bd756cc3-0cc7-4558-83fd-a150cc3d278e" class="xr-section-summary">Data variables: <span>(13)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>FFMC</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-10f0be2f-9e51-4c36-aa72-d044f7e3597d" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-10f0be2f-9e51-4c36-aa72-d044f7e3597d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6715264a-1d1d-4082-9adc-05ce6b0c8156" class="xr-var-data-in" type="checkbox"><label for="data-6715264a-1d1d-4082-9adc-05ce6b0c8156" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>DMC</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-197ae159-6602-43f2-a5d4-71427ce99452" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-197ae159-6602-43f2-a5d4-71427ce99452" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7d80d536-2e82-45f5-abda-3f13ec4de9df" class="xr-var-data-in" type="checkbox"><label for="data-7d80d536-2e82-45f5-abda-3f13ec4de9df" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>DC</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-138f287f-14fb-4dc3-921f-992371ba26dd" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-138f287f-14fb-4dc3-921f-992371ba26dd" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3b26bb9c-c1bb-4b6d-b444-8be1d795d84b" class="xr-var-data-in" type="checkbox"><label for="data-3b26bb9c-c1bb-4b6d-b444-8be1d795d84b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>ISI</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-aa2453b3-5547-4d75-96db-4804974d4694" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-aa2453b3-5547-4d75-96db-4804974d4694" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-365a615b-1819-4473-8876-3de8126ff087" class="xr-var-data-in" type="checkbox"><label for="data-365a615b-1819-4473-8876-3de8126ff087" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>BUI</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-79b81cc2-9a41-4048-98e3-b716643f5044" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-79b81cc2-9a41-4048-98e3-b716643f5044" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e8a90b1b-c2cb-4e16-831f-65b54b39a9c1" class="xr-var-data-in" type="checkbox"><label for="data-e8a90b1b-c2cb-4e16-831f-65b54b39a9c1" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-cc48e488-d7c2-4cd8-85db-7a933070eaea" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-cc48e488-d7c2-4cd8-85db-7a933070eaea" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-376c1221-7289-477a-ab89-ce9dbe15ceb5" class="xr-var-data-in" type="checkbox"><label for="data-376c1221-7289-477a-ab89-ce9dbe15ceb5" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI_N15</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">uint16</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-fe11f87d-94c8-4128-a1f9-9f953cb5e990" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-fe11f87d-94c8-4128-a1f9-9f953cb5e990" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-dc6ae063-a028-4ea0-9c53-2bd09ebb72d4" class="xr-var-data-in" type="checkbox"><label for="data-dc6ae063-a028-4ea0-9c53-2bd09ebb72d4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=uint16]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI_N30</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">uint16</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-42aba8e8-100b-4418-94d5-f1a4bc24d4ab" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-42aba8e8-100b-4418-94d5-f1a4bc24d4ab" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b3057e26-7c5a-4ac2-9684-14b8c08e5580" class="xr-var-data-in" type="checkbox"><label for="data-b3057e26-7c5a-4ac2-9684-14b8c08e5580" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=uint16]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI_N45</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">uint16</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-b3dd44dc-3896-4eed-bb66-5053938b4da7" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-b3dd44dc-3896-4eed-bb66-5053938b4da7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-74c158c8-2fbc-493a-93bd-4e59cc06181e" class="xr-var-data-in" type="checkbox"><label for="data-74c158c8-2fbc-493a-93bd-4e59cc06181e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=uint16]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI_P25</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-1f3e5574-2120-4797-94f1-b46d4882a158" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-1f3e5574-2120-4797-94f1-b46d4882a158" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-33453ba7-175a-451b-83e4-190a26c802dc" class="xr-var-data-in" type="checkbox"><label for="data-33453ba7-175a-451b-83e4-190a26c802dc" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI_P50</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-490aa599-4d32-436a-bd5b-145f60651d24" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-490aa599-4d32-436a-bd5b-145f60651d24" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0f942390-65ac-453d-841c-ed23bd0a0968" class="xr-var-data-in" type="checkbox"><label for="data-0f942390-65ac-453d-841c-ed23bd0a0968" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI_P75</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-f03d3373-3252-4b1a-8526-61d6546809e1" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-f03d3373-3252-4b1a-8526-61d6546809e1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1bf819b2-ddbf-437e-afe2-c667858ade84" class="xr-var-data-in" type="checkbox"><label for="data-1bf819b2-ddbf-437e-afe2-c667858ade84" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>FWI_P95</span></div><div class="xr-var-dims">(lat, lon)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-4e4d4787-cfa7-4c46-8add-fc421ed0fda4" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-4e4d4787-cfa7-4c46-8add-fc421ed0fda4" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-cf56ac89-c494-47e3-9bb4-735fbe1376c9" class="xr-var-data-in" type="checkbox"><label for="data-cf56ac89-c494-47e3-9bb4-735fbe1376c9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>[864000 values with dtype=float32]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-72c17aa0-93f3-4358-93a1-dcdb9440937c" class="xr-section-summary-in" type="checkbox"><label for="section-72c17aa0-93f3-4358-93a1-dcdb9440937c" class="xr-section-summary">Indexes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-223bc21e-843f-4d10-ba4a-a89b91ab69f7" class="xr-index-data-in" type="checkbox"><label for="index-223bc21e-843f-4d10-ba4a-a89b91ab69f7" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-59.875, -59.625, -59.375, -59.125, -58.875, -58.625, -58.375, -58.125,
        -57.875, -57.625,
        ...
         87.625,  87.875,  88.125,  88.375,  88.625,  88.875,  89.125,  89.375,
         89.625,  89.875],
-      dtype='float64', name='lat', length=600))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>lon</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-04ca0d36-312a-47e6-901b-faf5dccbf9bd" class="xr-index-data-in" type="checkbox"><label for="index-04ca0d36-312a-47e6-901b-faf5dccbf9bd" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([  0.125,   0.375,   0.625,   0.875,   1.125,   1.375,   1.625,   1.875,
+      dtype='float64', name='lat', length=600))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>lon</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-d6fd8d50-88b9-42e0-b140-ce16ebaf8efd" class="xr-index-data-in" type="checkbox"><label for="index-d6fd8d50-88b9-42e0-b140-ce16ebaf8efd" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([  0.125,   0.375,   0.625,   0.875,   1.125,   1.375,   1.625,   1.875,
          2.125,   2.375,
        ...
        357.625, 357.875, 358.125, 358.375, 358.625, 358.875, 359.125, 359.375,
        359.625, 359.875],
-      dtype='float64', name='lon', length=1440))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-94d2e456-e19c-450e-8310-88351efc7aab" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-94d2e456-e19c-450e-8310-88351efc7aab" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
+      dtype='float64', name='lon', length=1440))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-c9bdfdd2-d0d4-488c-8ffb-603ea3329759" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-c9bdfdd2-d0d4-488c-8ffb-603ea3329759" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
 </div>
 </div>
 </section>
@@ -1419,7 +1425,7 @@ Data variables: (12/13)
  'source': '&lt;File-like object S3FileSystem, cmip6-staging/Sample/FWI/Yearly/MME/MME50_historical_fwi_metrics_yearly_2014.nc&gt;',
  'original_shape': (600, 1440),
  'dtype': dtype('&lt;f4'),
- '_FillValue': nan}</code></pre>
+ '_FillValue': np.float32(nan)}</code></pre>
 </div>
 </div>
 </section>
@@ -1462,13 +1468,14 @@ Data variables: (12/13)
   --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
 }
 
-html[theme=dark],
-body[data-theme=dark],
+html[theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"],
 body.vscode-dark {
   --xr-font-color0: rgba(255, 255, 255, 1);
   --xr-font-color2: rgba(255, 255, 255, 0.54);
   --xr-font-color3: rgba(255, 255, 255, 0.38);
-  --xr-border-color: #1F1F1F;
+  --xr-border-color: #1f1f1f;
   --xr-disabled-color: #515151;
   --xr-background-color: #111111;
   --xr-background-color-row-even: #111111;
@@ -1513,7 +1520,7 @@ body.vscode-dark {
 .xr-sections {
   padding-left: 0 !important;
   display: grid;
-  grid-template-columns: 150px auto auto 1fr 20px 20px;
+  grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
 }
 
 .xr-section-item {
@@ -1521,7 +1528,9 @@ body.vscode-dark {
 }
 
 .xr-section-item input {
-  display: none;
+  display: inline-block;
+  opacity: 0;
+  height: 0;
 }
 
 .xr-section-item input + label {
@@ -1531,6 +1540,10 @@ body.vscode-dark {
 .xr-section-item input:enabled + label {
   cursor: pointer;
   color: var(--xr-font-color2);
+}
+
+.xr-section-item input:focus + label {
+  border: 2px solid var(--xr-font-color0);
 }
 
 .xr-section-item input:enabled + label:hover {
@@ -1554,7 +1567,7 @@ body.vscode-dark {
 
 .xr-section-summary-in + label:before {
   display: inline-block;
-  content: '►';
+  content: "►";
   font-size: 11px;
   width: 15px;
   text-align: center;
@@ -1565,7 +1578,7 @@ body.vscode-dark {
 }
 
 .xr-section-summary-in:checked + label:before {
-  content: '▼';
+  content: "▼";
 }
 
 .xr-section-summary-in:checked + label > span {
@@ -1637,15 +1650,15 @@ body.vscode-dark {
 }
 
 .xr-dim-list:before {
-  content: '(';
+  content: "(";
 }
 
 .xr-dim-list:after {
-  content: ')';
+  content: ")";
 }
 
 .xr-dim-list li:not(:last-child):after {
-  content: ',';
+  content: ",";
   padding-right: 5px;
 }
 
@@ -1796,19 +1809,19 @@ dl.xr-attrs {
   fill: currentColor;
 }
 </style><pre class="xr-text-repr-fallback">&lt;xarray.DataArray 'lat' (lat: 600)&gt; Size: 5kB
-array([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875])
+array([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875], shape=(600,))
 Coordinates:
   * lat      (lat) float64 5kB 89.88 89.62 89.38 89.12 ... -59.38 -59.62 -59.88
 Attributes:
     units:          degrees_north
     standard_name:  latitude
     long_name:      latitude
-    axis:           Y</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'lat'</div><ul class="xr-dim-list"><li><span class="xr-has-index">lat</span>: 600</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-7328e512-b9b4-47ac-a118-b84fec16a5c2" class="xr-array-in" type="checkbox" checked=""><label for="section-7328e512-b9b4-47ac-a118-b84fec16a5c2" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>89.88 89.62 89.38 89.12 88.88 ... -58.88 -59.12 -59.38 -59.62 -59.88</span></div><div class="xr-array-data"><pre>array([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875])</pre></div></div></li><li class="xr-section-item"><input id="section-74ca69ed-6b59-4826-b17b-669e7878d6bf" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-74ca69ed-6b59-4826-b17b-669e7878d6bf" class="xr-section-summary">Coordinates: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lat</span></div><div class="xr-var-dims">(lat)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">89.88 89.62 89.38 ... -59.62 -59.88</div><input id="attrs-b978a8d1-f01c-43a6-8bb9-b66abe4872f6" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b978a8d1-f01c-43a6-8bb9-b66abe4872f6" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-426f2fc1-9ef5-4b10-8d7b-1cce0d34f582" class="xr-var-data-in" type="checkbox"><label for="data-426f2fc1-9ef5-4b10-8d7b-1cce0d34f582" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>axis :</span></dt><dd>Y</dd></dl></div><div class="xr-var-data"><pre>array([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875])</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-42ed9dc2-c6ef-4411-9930-eae9675fca7a" class="xr-section-summary-in" type="checkbox"><label for="section-42ed9dc2-c6ef-4411-9930-eae9675fca7a" class="xr-section-summary">Indexes: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-c95300ea-9313-4757-a083-d50578e3dbd5" class="xr-index-data-in" type="checkbox"><label for="index-c95300ea-9313-4757-a083-d50578e3dbd5" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([ 89.875,  89.625,  89.375,  89.125,  88.875,  88.625,  88.375,  88.125,
+    axis:           Y</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'lat'</div><ul class="xr-dim-list"><li><span class="xr-has-index">lat</span>: 600</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-04a0812d-690d-4b86-b280-22e946499416" class="xr-array-in" type="checkbox" checked=""><label for="section-04a0812d-690d-4b86-b280-22e946499416" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>89.88 89.62 89.38 89.12 88.88 ... -58.88 -59.12 -59.38 -59.62 -59.88</span></div><div class="xr-array-data"><pre>array([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875], shape=(600,))</pre></div></div></li><li class="xr-section-item"><input id="section-e60e6ee8-d10e-4713-b338-788d38d7d75b" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-e60e6ee8-d10e-4713-b338-788d38d7d75b" class="xr-section-summary">Coordinates: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lat</span></div><div class="xr-var-dims">(lat)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">89.88 89.62 89.38 ... -59.62 -59.88</div><input id="attrs-0d980e09-39da-483a-9524-58535dbb5851" class="xr-var-attrs-in" type="checkbox"><label for="attrs-0d980e09-39da-483a-9524-58535dbb5851" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5cb34941-a72f-4354-bcfa-070e8473cf23" class="xr-var-data-in" type="checkbox"><label for="data-5cb34941-a72f-4354-bcfa-070e8473cf23" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>axis :</span></dt><dd>Y</dd></dl></div><div class="xr-var-data"><pre>array([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875], shape=(600,))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-6e7ffb53-73ec-4cde-a957-06f2198a43e8" class="xr-section-summary-in" type="checkbox"><label for="section-6e7ffb53-73ec-4cde-a957-06f2198a43e8" class="xr-section-summary">Indexes: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-938948a2-d7dc-4120-8e43-9beb86e3975d" class="xr-index-data-in" type="checkbox"><label for="index-938948a2-d7dc-4120-8e43-9beb86e3975d" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([ 89.875,  89.625,  89.375,  89.125,  88.875,  88.625,  88.375,  88.125,
         87.875,  87.625,
        ...
        -57.625, -57.875, -58.125, -58.375, -58.625, -58.875, -59.125, -59.375,
        -59.625, -59.875],
-      dtype='float64', name='lat', length=600))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-20f3165f-ff65-4a43-b66b-e773dc1b2b84" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-20f3165f-ff65-4a43-b66b-e773dc1b2b84" class="xr-section-summary">Attributes: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>axis :</span></dt><dd>Y</dd></dl></div></li></ul></div></div>
+      dtype='float64', name='lat', length=600))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-d1d22fe2-26a6-4217-a2b4-0bc11d65330f" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-d1d22fe2-26a6-4217-a2b4-0bc11d65330f" class="xr-section-summary">Attributes: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>axis :</span></dt><dd>Y</dd></dl></div></li></ul></div></div>
 </div>
 </div>
 <p>We would also like the longitude axis to range from -180 to 180 degrees east, instead of 0 to 360 degrees east (matter of taste, not convention).</p>
@@ -1846,13 +1859,14 @@ Attributes:
   --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
 }
 
-html[theme=dark],
-body[data-theme=dark],
+html[theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"],
 body.vscode-dark {
   --xr-font-color0: rgba(255, 255, 255, 1);
   --xr-font-color2: rgba(255, 255, 255, 0.54);
   --xr-font-color3: rgba(255, 255, 255, 0.38);
-  --xr-border-color: #1F1F1F;
+  --xr-border-color: #1f1f1f;
   --xr-disabled-color: #515151;
   --xr-background-color: #111111;
   --xr-background-color-row-even: #111111;
@@ -1897,7 +1911,7 @@ body.vscode-dark {
 .xr-sections {
   padding-left: 0 !important;
   display: grid;
-  grid-template-columns: 150px auto auto 1fr 20px 20px;
+  grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
 }
 
 .xr-section-item {
@@ -1905,7 +1919,9 @@ body.vscode-dark {
 }
 
 .xr-section-item input {
-  display: none;
+  display: inline-block;
+  opacity: 0;
+  height: 0;
 }
 
 .xr-section-item input + label {
@@ -1915,6 +1931,10 @@ body.vscode-dark {
 .xr-section-item input:enabled + label {
   cursor: pointer;
   color: var(--xr-font-color2);
+}
+
+.xr-section-item input:focus + label {
+  border: 2px solid var(--xr-font-color0);
 }
 
 .xr-section-item input:enabled + label:hover {
@@ -1938,7 +1958,7 @@ body.vscode-dark {
 
 .xr-section-summary-in + label:before {
   display: inline-block;
-  content: '►';
+  content: "►";
   font-size: 11px;
   width: 15px;
   text-align: center;
@@ -1949,7 +1969,7 @@ body.vscode-dark {
 }
 
 .xr-section-summary-in:checked + label:before {
-  content: '▼';
+  content: "▼";
 }
 
 .xr-section-summary-in:checked + label > span {
@@ -2021,15 +2041,15 @@ body.vscode-dark {
 }
 
 .xr-dim-list:before {
-  content: '(';
+  content: "(";
 }
 
 .xr-dim-list:after {
-  content: ')';
+  content: ")";
 }
 
 .xr-dim-list li:not(:last-child):after {
-  content: ',';
+  content: ",";
   padding-right: 5px;
 }
 
@@ -2180,14 +2200,17 @@ dl.xr-attrs {
   fill: currentColor;
 }
 </style><pre class="xr-text-repr-fallback">&lt;xarray.DataArray 'lon' (lon: 1440)&gt; Size: 12kB
-array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875])
+array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875],
+      shape=(1440,))
 Coordinates:
-  * lon      (lon) float64 12kB -179.9 -179.6 -179.4 ... 179.4 179.6 179.9</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'lon'</div><ul class="xr-dim-list"><li><span class="xr-has-index">lon</span>: 1440</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-3a0bbd81-9749-46dc-994f-8b0d6d94a05e" class="xr-array-in" type="checkbox" checked=""><label for="section-3a0bbd81-9749-46dc-994f-8b0d6d94a05e" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>-179.9 -179.6 -179.4 -179.1 -178.9 ... 178.9 179.1 179.4 179.6 179.9</span></div><div class="xr-array-data"><pre>array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875])</pre></div></div></li><li class="xr-section-item"><input id="section-e0310e59-9040-49da-8bac-8b22c5f009df" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-e0310e59-9040-49da-8bac-8b22c5f009df" class="xr-section-summary">Coordinates: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lon</span></div><div class="xr-var-dims">(lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-179.9 -179.6 ... 179.6 179.9</div><input id="attrs-5d658da2-ea6d-4387-8093-d796b3cfafbc" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-5d658da2-ea6d-4387-8093-d796b3cfafbc" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b341a880-ac79-41be-a346-446ee090efeb" class="xr-var-data-in" type="checkbox"><label for="data-b341a880-ac79-41be-a346-446ee090efeb" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875])</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-19f9c195-d4e7-473d-b7a5-922b2ac7b9c8" class="xr-section-summary-in" type="checkbox"><label for="section-19f9c195-d4e7-473d-b7a5-922b2ac7b9c8" class="xr-section-summary">Indexes: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lon</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-5be4178d-8f19-4fe4-b9ba-16d18bb700e8" class="xr-index-data-in" type="checkbox"><label for="index-5be4178d-8f19-4fe4-b9ba-16d18bb700e8" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-179.875, -179.625, -179.375, -179.125, -178.875, -178.625, -178.375,
+  * lon      (lon) float64 12kB -179.9 -179.6 -179.4 ... 179.4 179.6 179.9</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'lon'</div><ul class="xr-dim-list"><li><span class="xr-has-index">lon</span>: 1440</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-8be2e2a0-18dc-49d9-8efa-93bf70fde238" class="xr-array-in" type="checkbox" checked=""><label for="section-8be2e2a0-18dc-49d9-8efa-93bf70fde238" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>-179.9 -179.6 -179.4 -179.1 -178.9 ... 178.9 179.1 179.4 179.6 179.9</span></div><div class="xr-array-data"><pre>array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875],
+      shape=(1440,))</pre></div></div></li><li class="xr-section-item"><input id="section-2a929d2a-c57b-4271-ada4-0794787e5926" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-2a929d2a-c57b-4271-ada4-0794787e5926" class="xr-section-summary">Coordinates: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lon</span></div><div class="xr-var-dims">(lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-179.9 -179.6 ... 179.6 179.9</div><input id="attrs-639a4da5-06f4-4e41-8c3a-5d0f21f9b754" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-639a4da5-06f4-4e41-8c3a-5d0f21f9b754" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1eb5c8f8-4912-46af-aa9a-84108093ced2" class="xr-var-data-in" type="checkbox"><label for="data-1eb5c8f8-4912-46af-aa9a-84108093ced2" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875],
+      shape=(1440,))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-e4c4fa73-d957-4d39-877a-83067317ba10" class="xr-section-summary-in" type="checkbox"><label for="section-e4c4fa73-d957-4d39-877a-83067317ba10" class="xr-section-summary">Indexes: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lon</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-9ba5bd65-9981-433d-a9e2-f7cabbfeb098" class="xr-index-data-in" type="checkbox"><label for="index-9ba5bd65-9981-433d-a9e2-f7cabbfeb098" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-179.875, -179.625, -179.375, -179.125, -178.875, -178.625, -178.375,
        -178.125, -177.875, -177.625,
        ...
         177.625,  177.875,  178.125,  178.375,  178.625,  178.875,  179.125,
         179.375,  179.625,  179.875],
-      dtype='float64', name='lon', length=1440))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-21317251-c542-4e79-bc13-29a788116d75" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-21317251-c542-4e79-bc13-29a788116d75" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
+      dtype='float64', name='lon', length=1440))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-87000c8c-1171-4d64-b5ef-72bd9116e81f" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-87000c8c-1171-4d64-b5ef-72bd9116e81f" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
 </div>
 </div>
 <p>Check that the data still looks right, just rotated along x-axis:</p>
@@ -2236,13 +2259,14 @@ Coordinates:
   --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
 }
 
-html[theme=dark],
-body[data-theme=dark],
+html[theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"],
 body.vscode-dark {
   --xr-font-color0: rgba(255, 255, 255, 1);
   --xr-font-color2: rgba(255, 255, 255, 0.54);
   --xr-font-color3: rgba(255, 255, 255, 0.38);
-  --xr-border-color: #1F1F1F;
+  --xr-border-color: #1f1f1f;
   --xr-disabled-color: #515151;
   --xr-background-color: #111111;
   --xr-background-color-row-even: #111111;
@@ -2287,7 +2311,7 @@ body.vscode-dark {
 .xr-sections {
   padding-left: 0 !important;
   display: grid;
-  grid-template-columns: 150px auto auto 1fr 20px 20px;
+  grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
 }
 
 .xr-section-item {
@@ -2295,7 +2319,9 @@ body.vscode-dark {
 }
 
 .xr-section-item input {
-  display: none;
+  display: inline-block;
+  opacity: 0;
+  height: 0;
 }
 
 .xr-section-item input + label {
@@ -2305,6 +2331,10 @@ body.vscode-dark {
 .xr-section-item input:enabled + label {
   cursor: pointer;
   color: var(--xr-font-color2);
+}
+
+.xr-section-item input:focus + label {
+  border: 2px solid var(--xr-font-color0);
 }
 
 .xr-section-item input:enabled + label:hover {
@@ -2328,7 +2358,7 @@ body.vscode-dark {
 
 .xr-section-summary-in + label:before {
   display: inline-block;
-  content: '►';
+  content: "►";
   font-size: 11px;
   width: 15px;
   text-align: center;
@@ -2339,7 +2369,7 @@ body.vscode-dark {
 }
 
 .xr-section-summary-in:checked + label:before {
-  content: '▼';
+  content: "▼";
 }
 
 .xr-section-summary-in:checked + label > span {
@@ -2411,15 +2441,15 @@ body.vscode-dark {
 }
 
 .xr-dim-list:before {
-  content: '(';
+  content: "(";
 }
 
 .xr-dim-list:after {
-  content: ')';
+  content: ")";
 }
 
 .xr-dim-list li:not(:last-child):after {
-  content: ',';
+  content: ",";
   padding-right: 5px;
 }
 
@@ -2574,24 +2604,25 @@ dl.xr-attrs {
 Coordinates:
   * lat          (lat) float64 5kB 89.88 89.62 89.38 ... -59.38 -59.62 -59.88
   * lon          (lon) float64 12kB -179.9 -179.6 -179.4 ... 179.4 179.6 179.9
-    spatial_ref  int64 8B 0</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'FFMC'</div><ul class="xr-dim-list"><li><span class="xr-has-index">lat</span>: 600</li><li><span class="xr-has-index">lon</span>: 1440</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-88fcdd6b-4ef4-4563-9051-4e70afb3ce30" class="xr-array-in" type="checkbox" checked=""><label for="section-88fcdd6b-4ef4-4563-9051-4e70afb3ce30" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>...</span></div><div class="xr-array-data"><pre>[864000 values with dtype=float32]</pre></div></div></li><li class="xr-section-item"><input id="section-c1554cac-e208-4568-a771-caaef79a715f" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-c1554cac-e208-4568-a771-caaef79a715f" class="xr-section-summary">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lat</span></div><div class="xr-var-dims">(lat)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">89.88 89.62 89.38 ... -59.62 -59.88</div><input id="attrs-de5a0d56-0470-4d4b-8a91-83511bf6c31e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-de5a0d56-0470-4d4b-8a91-83511bf6c31e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-973194f3-00f9-4332-a59b-2f8223d95767" class="xr-var-data-in" type="checkbox"><label for="data-973194f3-00f9-4332-a59b-2f8223d95767" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>axis :</span></dt><dd>Y</dd></dl></div><div class="xr-var-data"><pre>array([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lon</span></div><div class="xr-var-dims">(lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-179.9 -179.6 ... 179.6 179.9</div><input id="attrs-101fbfb3-9c28-44cd-aa7e-2cc32e660aeb" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-101fbfb3-9c28-44cd-aa7e-2cc32e660aeb" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3d7a7b14-27cf-4bef-83ab-270d1ee843e3" class="xr-var-data-in" type="checkbox"><label for="data-3d7a7b14-27cf-4bef-83ab-270d1ee843e3" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>spatial_ref</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">0</div><input id="attrs-0a9f23e7-ba7c-4b94-a89e-6ccba9c3cb26" class="xr-var-attrs-in" type="checkbox"><label for="attrs-0a9f23e7-ba7c-4b94-a89e-6ccba9c3cb26" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-62056c00-c288-4893-b741-124ec8f0eab6" class="xr-var-data-in" type="checkbox"><label for="data-62056c00-c288-4893-b741-124ec8f0eab6" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>crs_wkt :</span></dt><dd>GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>semi_minor_axis :</span></dt><dd>6356752.314245179</dd><dt><span>inverse_flattening :</span></dt><dd>298.257223563</dd><dt><span>reference_ellipsoid_name :</span></dt><dd>WGS 84</dd><dt><span>longitude_of_prime_meridian :</span></dt><dd>0.0</dd><dt><span>prime_meridian_name :</span></dt><dd>Greenwich</dd><dt><span>geographic_crs_name :</span></dt><dd>WGS 84</dd><dt><span>horizontal_datum_name :</span></dt><dd>World Geodetic System 1984</dd><dt><span>grid_mapping_name :</span></dt><dd>latitude_longitude</dd><dt><span>spatial_ref :</span></dt><dd>GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]</dd></dl></div><div class="xr-var-data"><pre>array(0)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-ad350e54-36a4-44d7-98cc-575f7ba99164" class="xr-section-summary-in" type="checkbox"><label for="section-ad350e54-36a4-44d7-98cc-575f7ba99164" class="xr-section-summary">Indexes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-908964c1-f1be-477b-99eb-3f031ba60b0d" class="xr-index-data-in" type="checkbox"><label for="index-908964c1-f1be-477b-99eb-3f031ba60b0d" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([ 89.875,  89.625,  89.375,  89.125,  88.875,  88.625,  88.375,  88.125,
+    spatial_ref  int64 8B 0</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'FFMC'</div><ul class="xr-dim-list"><li><span class="xr-has-index">lat</span>: 600</li><li><span class="xr-has-index">lon</span>: 1440</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-cd850dff-d4df-4736-8ed0-d784732a0329" class="xr-array-in" type="checkbox" checked=""><label for="section-cd850dff-d4df-4736-8ed0-d784732a0329" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>...</span></div><div class="xr-array-data"><pre>[864000 values with dtype=float32]</pre></div></div></li><li class="xr-section-item"><input id="section-1156722c-d457-4a96-b1a0-2f9cd4cc0516" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-1156722c-d457-4a96-b1a0-2f9cd4cc0516" class="xr-section-summary">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lat</span></div><div class="xr-var-dims">(lat)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">89.88 89.62 89.38 ... -59.62 -59.88</div><input id="attrs-e6603a88-5b3d-47e1-84b5-6aea3cbc8b57" class="xr-var-attrs-in" type="checkbox"><label for="attrs-e6603a88-5b3d-47e1-84b5-6aea3cbc8b57" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-455e1691-48af-4675-9b25-633350fe7850" class="xr-var-data-in" type="checkbox"><label for="data-455e1691-48af-4675-9b25-633350fe7850" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>axis :</span></dt><dd>Y</dd></dl></div><div class="xr-var-data"><pre>array([ 89.875,  89.625,  89.375, ..., -59.375, -59.625, -59.875], shape=(600,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">lon</span></div><div class="xr-var-dims">(lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-179.9 -179.6 ... 179.6 179.9</div><input id="attrs-bb9b90fc-62a6-46b4-882a-7aca725cfd48" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-bb9b90fc-62a6-46b4-882a-7aca725cfd48" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ada56f40-0b0c-475b-b5b3-5826424f915f" class="xr-var-data-in" type="checkbox"><label for="data-ada56f40-0b0c-475b-b5b3-5826424f915f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([-179.875, -179.625, -179.375, ...,  179.375,  179.625,  179.875],
+      shape=(1440,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>spatial_ref</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">0</div><input id="attrs-45b2e41f-57a5-4e38-b4ed-655684f1fdf3" class="xr-var-attrs-in" type="checkbox"><label for="attrs-45b2e41f-57a5-4e38-b4ed-655684f1fdf3" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1fe539e9-78b9-4f7c-8e1d-fc4165e3fb24" class="xr-var-data-in" type="checkbox"><label for="data-1fe539e9-78b9-4f7c-8e1d-fc4165e3fb24" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>crs_wkt :</span></dt><dd>GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>semi_minor_axis :</span></dt><dd>6356752.314245179</dd><dt><span>inverse_flattening :</span></dt><dd>298.257223563</dd><dt><span>reference_ellipsoid_name :</span></dt><dd>WGS 84</dd><dt><span>longitude_of_prime_meridian :</span></dt><dd>0.0</dd><dt><span>prime_meridian_name :</span></dt><dd>Greenwich</dd><dt><span>geographic_crs_name :</span></dt><dd>WGS 84</dd><dt><span>horizontal_datum_name :</span></dt><dd>World Geodetic System 1984</dd><dt><span>grid_mapping_name :</span></dt><dd>latitude_longitude</dd><dt><span>spatial_ref :</span></dt><dd>GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]</dd></dl></div><div class="xr-var-data"><pre>array(0)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-d4f29639-5b5d-44c8-b2b9-aafef60715f7" class="xr-section-summary-in" type="checkbox"><label for="section-d4f29639-5b5d-44c8-b2b9-aafef60715f7" class="xr-section-summary">Indexes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>lat</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-46297978-fa5f-446f-b890-4aab95c115fc" class="xr-index-data-in" type="checkbox"><label for="index-46297978-fa5f-446f-b890-4aab95c115fc" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([ 89.875,  89.625,  89.375,  89.125,  88.875,  88.625,  88.375,  88.125,
         87.875,  87.625,
        ...
        -57.625, -57.875, -58.125, -58.375, -58.625, -58.875, -59.125, -59.375,
        -59.625, -59.875],
-      dtype='float64', name='lat', length=600))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>lon</div></div><div class="xr-index-preview">PandasIndex</div><div></div><input id="index-c399b8d3-9985-4d5d-9c9b-508d4e71ffe8" class="xr-index-data-in" type="checkbox"><label for="index-c399b8d3-9985-4d5d-9c9b-508d4e71ffe8" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-179.875, -179.625, -179.375, -179.125, -178.875, -178.625, -178.375,
+      dtype='float64', name='lat', length=600))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>lon</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-3f547593-0f99-43e8-8864-2ac3e824f857" class="xr-index-data-in" type="checkbox"><label for="index-3f547593-0f99-43e8-8864-2ac3e824f857" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([-179.875, -179.625, -179.375, -179.125, -178.875, -178.625, -178.375,
        -178.125, -177.875, -177.625,
        ...
         177.625,  177.875,  178.125,  178.375,  178.625,  178.875,  179.125,
         179.375,  179.625,  179.875],
-      dtype='float64', name='lon', length=1440))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-29eaa108-85f0-4c45-aac4-338ad9ca581d" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-29eaa108-85f0-4c45-aac4-338ad9ca581d" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
+      dtype='float64', name='lon', length=1440))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-7254bd5d-7f66-46a3-b128-dca9083c0188" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-7254bd5d-7f66-46a3-b128-dca9083c0188" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
 </div>
 </div>
 <p>Check CRS</p>
 <div id="42294e28-bbc8-42b6-8279-3ef35d03f5d0" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>da.rio.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>CRS.from_epsg(4326)</code></pre>
+<pre><code>CRS.from_wkt('GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]')</code></pre>
 </div>
 </div>
 <p>Check <a href="https://www.perrygeo.com/python-affine-transforms.html">affine image transform</a>:</p>

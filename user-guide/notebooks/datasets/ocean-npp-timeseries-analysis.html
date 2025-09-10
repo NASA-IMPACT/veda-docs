@@ -1114,14 +1114,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <head>
     
     <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
-    
-        <script>
-            L_NO_TOUCH = false;
-            L_DISABLE_3D = false;
-        </script>
-    
-    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
     <script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;></script>
     <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
@@ -1136,7 +1128,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_698df1392e8bc9c012427a6371d10e90 {
+                #map_579612f1556df9542928db11a2f8d241 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1145,25 +1137,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 }
                 .leaflet-container { font-size: 1rem; }
             </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
         
 </head>
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_698df1392e8bc9c012427a6371d10e90&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_579612f1556df9542928db11a2f8d241&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_698df1392e8bc9c012427a6371d10e90 = L.map(
-                &quot;map_698df1392e8bc9c012427a6371d10e90&quot;,
+            var map_579612f1556df9542928db11a2f8d241 = L.map(
+                &quot;map_579612f1556df9542928db11a2f8d241&quot;,
                 {
                     center: [-22.42146, 14.268801],
                     crs: L.CRS.EPSG3857,
-                    zoom: 8,
-                    zoomControl: true,
-                    preferCanvas: false,
+                    ...{
+  &quot;zoom&quot;: 8,
+  &quot;zoomControl&quot;: true,
+  &quot;preferCanvas&quot;: false,
+}
+
                 }
             );
 
@@ -1171,35 +1189,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_63ccd12819a66a0ff2c9616a9ab2190b = L.tileLayer(
+            var tile_layer_411e73e6a682ba2e51972184f63fb958 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 19,
+  &quot;maxNativeZoom&quot;: 19,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 1,
+}
+
             );
         
     
-            tile_layer_63ccd12819a66a0ff2c9616a9ab2190b.addTo(map_698df1392e8bc9c012427a6371d10e90);
+            tile_layer_411e73e6a682ba2e51972184f63fb958.addTo(map_579612f1556df9542928db11a2f8d241);
         
     
 
-        function geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94_onEachFeature(feature, layer) {
+        function geo_json_ad0d64ceeb8338f2b0cb6b4a2b61d8a1_onEachFeature(feature, layer) {
+
             layer.on({
             });
         };
-        var geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94 = L.geoJson(null, {
-                onEachFeature: geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94_onEachFeature,
+        var geo_json_ad0d64ceeb8338f2b0cb6b4a2b61d8a1 = L.geoJson(null, {
+                onEachFeature: geo_json_ad0d64ceeb8338f2b0cb6b4a2b61d8a1_onEachFeature,
             
+            ...{
+}
         });
 
-        function geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94_add (data) {
-            geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94
+        function geo_json_ad0d64ceeb8338f2b0cb6b4a2b61d8a1_add (data) {
+            geo_json_ad0d64ceeb8338f2b0cb6b4a2b61d8a1
                 .addData(data);
         }
-            geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94_add({&quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.686159004559698, -21.700046934333145], [13.686159004559698, -23.241974326585833], [14.753560168039911, -23.241974326585833], [14.753560168039911, -21.700046934333145], [13.686159004559698, -21.700046934333145]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;properties&quot;: {}, &quot;type&quot;: &quot;Feature&quot;});
-        geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94.setStyle(function(feature) {return feature.properties.style;});
+            geo_json_ad0d64ceeb8338f2b0cb6b4a2b61d8a1_add({&quot;geometry&quot;: {&quot;coordinates&quot;: [[[13.686159004559698, -21.700046934333145], [13.686159004559698, -23.241974326585833], [14.753560168039911, -23.241974326585833], [14.753560168039911, -21.700046934333145], [13.686159004559698, -21.700046934333145]]], &quot;type&quot;: &quot;Polygon&quot;}, &quot;properties&quot;: {}, &quot;type&quot;: &quot;Feature&quot;});
+        geo_json_ad0d64ceeb8338f2b0cb6b4a2b61d8a1.setStyle(function(feature) {return feature.properties.style;});
 
         
     
-            geo_json_d7247b1bcc8ee8a5dd302b1bff5a8f94.addTo(map_698df1392e8bc9c012427a6371d10e90);
+            geo_json_ad0d64ceeb8338f2b0cb6b4a2b61d8a1.addTo(map_579612f1556df9542928db11a2f8d241);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -1344,8 +1376,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> [generate_stats(item, walvis_bay_aoi) <span class="cf">for</span> item <span class="kw">in</span> items]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 34.8 ms, sys: 6.43 ms, total: 41.2 ms
-Wall time: 8.95 s</code></pre>
+<pre><code>CPU times: user 45.7 ms, sys: 4.54 ms, total: 50.2 ms
+Wall time: 5.41 s</code></pre>
 </div>
 </div>
 <p>With the function provided above, we can generate statistics for our AOI. In the example below, we’ll explore sample statistics available from one of the tiles.</p>
@@ -1511,14 +1543,6 @@ Wall time: 8.95 s</code></pre>
 <head>
     
     <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
-    
-        <script>
-            L_NO_TOUCH = false;
-            L_DISABLE_3D = false;
-        </script>
-    
-    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
     <script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;></script>
     <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
@@ -1533,7 +1557,7 @@ Wall time: 8.95 s</code></pre>
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_8cc4784fb78b5b979d8a8881e7d1cdb6 {
+                #map_422e8756066bb00b2a24c21fdf573219 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1542,25 +1566,51 @@ Wall time: 8.95 s</code></pre>
                 }
                 .leaflet-container { font-size: 1rem; }
             </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
         
 </head>
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_8cc4784fb78b5b979d8a8881e7d1cdb6&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_422e8756066bb00b2a24c21fdf573219&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_8cc4784fb78b5b979d8a8881e7d1cdb6 = L.map(
-                &quot;map_8cc4784fb78b5b979d8a8881e7d1cdb6&quot;,
+            var map_422e8756066bb00b2a24c21fdf573219 = L.map(
+                &quot;map_422e8756066bb00b2a24c21fdf573219&quot;,
                 {
                     center: [-22.42146, 14.268801],
                     crs: L.CRS.EPSG3857,
-                    zoom: 8,
-                    zoomControl: true,
-                    preferCanvas: false,
+                    ...{
+  &quot;zoom&quot;: 8,
+  &quot;zoomControl&quot;: true,
+  &quot;preferCanvas&quot;: false,
+}
+
                 }
             );
 
@@ -1568,22 +1618,44 @@ Wall time: 8.95 s</code></pre>
 
         
     
-            var tile_layer_33921020c141633d59b66c70d77b502f = L.tileLayer(
+            var tile_layer_6fd66689743a7034134b1f931bc76539 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 19,
+  &quot;maxNativeZoom&quot;: 19,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 1,
+}
+
             );
         
     
-            tile_layer_33921020c141633d59b66c70d77b502f.addTo(map_8cc4784fb78b5b979d8a8881e7d1cdb6);
+            tile_layer_6fd66689743a7034134b1f931bc76539.addTo(map_422e8756066bb00b2a24c21fdf573219);
         
     
-            var tile_layer_307246466c0a059762aac1b02a5d27c0 = L.tileLayer(
+            var tile_layer_444c5fbf65cc18878bb37348fbe1cddd = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/collections/MO_NPP_npp_vgpm/items/A_202010.L3m_MO_NPP_npp_vgpm_4km/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=viridis\u0026rescale=14.516647338867188%2C34561.35546875&quot;,
-                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 18,
+  &quot;maxNativeZoom&quot;: 18,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;VEDA&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 1,
+}
+
             );
         
     
-            tile_layer_307246466c0a059762aac1b02a5d27c0.addTo(map_8cc4784fb78b5b979d8a8881e7d1cdb6);
+            tile_layer_444c5fbf65cc18878bb37348fbe1cddd.addTo(map_422e8756066bb00b2a24c21fdf573219);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>

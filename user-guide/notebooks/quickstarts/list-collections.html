@@ -979,16 +979,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="list-collections">List collections</h2>
 <div id="cell-6" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>collections <span class="op">=</span> <span class="bu">list</span>(catalog.get_collections())</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> collection <span class="kw">in</span> <span class="bu">sorted</span>(collections, key<span class="op">=</span><span class="kw">lambda</span> x: x.title):</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(collection.title)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> collection <span class="kw">in</span> <span class="bu">sorted</span>(collections, key<span class="op">=</span><span class="kw">lambda</span> x: x.title <span class="kw">or</span> x.<span class="bu">id</span>):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(collection.title <span class="kw">or</span> collection.<span class="bu">id</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-0-100 cm Volumetric Soil Moisture (%)
+<pre><code>0-100 cm Volumetric Soil Moisture (%)
+AB/SK/MB Clipper Snowfall Footprint
+ASSR Parcel Damage - Eaton and Palisades Fires (2025)
 Aerosol Optical Depth (AOD)
 Annual LAI maps for 2003 and 2021 (Bangladesh)
 Annual land cover maps for 2001 and 2020
 Black Marble High Definition Nightlights 1 band Dataset
 Black Marble High Definition Nightlights Monthly Dataset
+Black Marble Night Lights (Greenville OH Tornado Damage)
+Black Marble Night Lights (Houston, TX 2021 Deep Freeze)
+Black Marble Night Lights (Lakeview OH Tornado Damage; Difference)
+Black Marble Night Lights - 2025 Burma Earthquake
+Blizzard Alley
+Blizzard Count 1950-2021
+Brightness Temperature (Band 31)
+Brightness Temperature (Band I5)
 Burn Area Reflectance Classification for Thomas Fire
 CLIMDEX ACCESS CM2 SSP125 tmaxXF
 CLIMDEX ACCESS CM2 SSP245 tmaxXF
@@ -1006,15 +1015,36 @@ Camp Fire Domain: MODIS NDVI Difference
 Camp Fire Domain: MODIS WSA Albedo Difference
 Change in ET for 2020 fires using LIS outputs
 Change in transpiration for 2020 fires using LIS outputs
+Colorado Low Snowfall Footprint
+DOW7 Correlation Coefficient (Greenfield, IA)
+DOW7 Correlation Coefficient (Harlan, IA)
+DOW7 Differential Reflectivity (Greenfield, IA)
+DOW7 Differential Reflectivity (Harlan, IA)
+DOW7 Reflectivity (Greenfield, IA)
+DOW7 Reflectivity (Harlan, IA)
+DOW7 Spectrum Width (Greenfield, IA)
+DOW7 Spectrum Width (Harlan, IA)
+DOW7 Velocity (Ground; Greenfield, IA)
+DOW7 Velocity (Ground; Harlan, IA)
 Damage Probability Derived from UCONN GERs Lab After Hurricane Ian
+Derived Maximum Velocity (Greenfield, IA; DOW7)
 ECCO sea-surface height change from 1992 to 2017
 EMIT Landfill Plumes
+ERA5 Reanalysis – 10 Meter Wind (Select Events)
+ERA5 Reanalysis – 2 Meter Temperature (Select Events)
+ERA5 Reanalysis – Cloud Fraction (Select Events)
+ERA5 Reanalysis – Mean Sea Level Pressure (Select Events)
+Eaton and Palisades Fires (2025) Above Groud Biomass
+Eaton and Palisades Fires (2025) Fire Radiative Power
+Eaton and Palisades Fires (2025) Slope
 Evapotranspiration - LIS 10km Global DA
 FLDAS Surface Soil Moisture Anomalies
 False Color Pre and Post Flood
 Fire Perimeters
 GEOGLAM Crop Monitor
+GOES Imagery - Bombogenesis (Select Event)
 GPM IMERG data of 2023 Medicane Daniel
+GPM_3IMERGDF
 GRDI BUILT Constituent Raster
 GRDI CDR Constituent Raster
 GRDI Filled Missing Values Count
@@ -1057,12 +1087,15 @@ Gridded Daily OCO-2 Carbon Dioxide assimilated dataset
 Gross Primary Productivity - LIS 10km Global DA
 Gross Primary Productivity Trend - LIS 10km Global DA
 Groundwater Storage - LIS 10km Global DA
+HLS Disturbance Product - Hurricane Helene
+HLS False Color Imagery (2025 LA fires)
 HLS SWIR FalseColor Composite
 HLS-calculated BAIS2 burned area
 HLS-derived NDVI difference for Assessing Impacts from Hurricane Iann
 HLS-derived entropy difference for Assessing impacts from Hurricane Ian
 HLSL30.002 Environmental Justice Events
 HLSS30.002 Environmental Justice Events
+HRRR 10 Meter Wind Gusts (2025 LA Fires)
 Houston AOD: Difference Between 2000-2009 &amp; 2010-2019
 Houston LST (Diff)
 Houston Land Cover
@@ -1072,16 +1105,63 @@ Houston land surface temperature during daytime - decadal average
 Hurricane Ida - Blue Tarps PlanetScope Image
 Hurricane Ida - Detected Blue Tarps
 ICESat-2 L4 Monthly Gridded Sea Ice Thickness (COGs)
+IMERG Total Precipitation - 2025 Texas Flood
+IMERG Total Precipitation - Hurricane Helene
+ISRIC World Soil Texture Classification
+Impactful Landslides Kernel Density - Hurricane Helene
+LA County Significant Ecological Areas (SEA)
 Landsat 8 Nighttime Thermal Imagery
+MAXAR Commercial Satellite Imagery (2025 Eaton Fire)
+MAXAR Commercial Satellite Imagery (2025 Texas Flood - Post)
+MAXAR Commercial Satellite Imagery (2025 Texas Flood - Pre)
+MERRA2 Reanalysis – 10 Meter Wind (Select Events)
+MERRA2 Reanalysis – 2 Meter Temperature (Select Events)
+MERRA2 Reanalysis – Cloud Fraction (Select Events)
+MERRA2 Reanalysis – Mean Sea Level Pressure (Select Events)
+MODIS Aersol Optical Depth (AOD) for May 12, 2022
+MODIS LST for Texas on June 23, 2023
+MO_NPP_npp_vgpm
 MTBS Burn Severity
 Maximum Fire Radiative Power for Thomas Fire
+Miller A Snowfall Footprint
+Miller B Snowfall Footprint
+NC DHHS Flood Extent - Hurricane Helene
+NCEI Wind Gusts for 05/12/2022
 NCEO Africa Aboveground Woody Biomass 2017
+NDVI Difference for Pre and Post-Hurricane Ida from PlanetScope
+NDVI for Pre and Post-Hurricane Ida from PlanetScope
+NDWI Difference for Pre and Post-Hurricane Ida from PlanetScope
+NDWI for Pre and Post-Hurricane Ida from PlanetScope
+NLCD Land Use Land Cover Classifications
+NLCD Urbanization
+NLDAS-2 Precipitation Forcing Dataset
+NLDAS-3 Precipitation Forcing Dataset
 NO₂
 NO₂ (Diff)
+NWS Tornado Tracks (May 12, 2022)
+NWS Tornado Tracks (Paths) from MAM 2024
+NWS Tornado Tracks from MAM 2024
 New Urbanization from 2001-2019 (NLCD)
 Normalized difference vegetation index from HLS
+Nor’easter Snowfall Footprint
 OMI/Aura Sulfur Dioxide (SO2) Total Column L3 1 day Best Pixel in 0.25 degree x 0.25 degree V3 as Cloud-Optimized GeoTIFFs (COGs)
 OMI_trno2 - 0.10 x 0.10 Annual as Cloud-Optimized GeoTIFFs (COGs)
+PACE - North Atlantic Chlorophyll-a for 2024-2025
+Panhandle Hooker Snowfall Footprint
+Planet TrueColor Satellite Imagery (Barnsdall OK Tornado Damage)
+Planet TrueColor Satellite Imagery (Greenfield IA Tornado Damage - Post)
+Planet TrueColor Satellite Imagery (Greenfield IA Tornado Damage - Pre)
+Planet TrueColor Satellite Imagery (Hartington NE Derecho Damage)
+Planet TrueColor Satellite Imagery (Portage MI Tornado Damage)
+Planet TrueColor Satellite Imagery (Rock Valley IA Derecho Damage)
+Planet TrueColor Satellite Imagery (Winchester IN, Lakeview OH Tornado Damage)
+Planet TrueColor Satellite Imagery Difference (Greenfield IA Tornado Damage)
+PlanetScope Satellite Imagery (2025 Burma Earthquake - Post)
+PlanetScope Satellite Imagery (2025 Burma Earthquake - Pre)
+PlanetScope Satellite Imagery (2025 Eaton Fire)
+PlanetScope Satellite Imagery (Asheville NC - Hurricane Helene - During)
+PlanetScope Satellite Imagery (NC Hurricane Helene - Pre)
+PlanetScope Satellite Imagery (NC/TN Hurricane Helene - Post)
 Population Density Maps using satellite imagery built by Meta
 Projected changes to winter (January, February, and March) average daily air temperature
 Projected changes to winter (January, February, and March) average daily air temperature
@@ -1092,6 +1172,13 @@ Projections of Snow Water Equivalent (SWE) - SSP5-8.5
 Projections of Snow Water Equivalent (SWE) Losses - SSP2-4.5
 Projections of Snow Water Equivalent (SWE) Losses - SSP5-8.5
 Recovery Proxy Maps
+Regional Snowfall Index Accumulated Snowfall (Select Events)
+S2 East-West Deformation - 2025 Burma Earthquake
+S2 NDVI Difference - Hurricane Helene
+S2 North-South Deformation - 2025 Burma Earthquake
+SPORT Sea Surface Temperature (K)
+Salt Marsh Classification Pre-Ida (Southern Louisiana)
+Salt Marshes Difference for Pre and Post-Hurricane Ida
 Selected Landsat 7 through 9 Surface Reflectance Scenes for Lake Balaton
 Selected Landsat 7 through 9 Surface Reflectance Scenes for Lake Biwa
 Selected Landsat 7 through 9 Surface Reflectance Scenes for Tonlé Sap
@@ -1118,9 +1205,16 @@ Surface runoff - LIS 10km Global DA
 Terrestrial Water Storage (TWS) Anomalies
 Terrestrial Water Storage - LIS 10km Global DA
 Terrestrial Water Storage Trend - LIS 10km Global DA
+Texas Water Development Board Cursory Floodplain Dataset (10 Year Recurrence)- 2025 Texas Flood AOI
+Texas Water Development Board Cursory Floodplain Dataset (100 Year Recurrence)- 2025 Texas Flood AOI
+Texas Water Development Board Cursory Floodplain Dataset (500 Year Recurrence)- 2025 Texas Flood AOI
 Togo Agriculture
 Total Precipitation - LIS 10km Global DA
 Trend in Terrestrial Water Storage (TWS) Anomalies
+USGS Landslide Hazard Estimate Model - Hurricane Helene
+USGS Landslides Inventory - Hurricane Helene
+VIIRS Night Lights Derecho
+WLDAS Soil Moisture Content (0-10cm)
 disalexi-etsuppression</code></pre>
 </div>
 </div>

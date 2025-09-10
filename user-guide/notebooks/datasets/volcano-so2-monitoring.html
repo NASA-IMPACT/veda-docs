@@ -1164,14 +1164,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <head>
     
     <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
-    
-        <script>
-            L_NO_TOUCH = false;
-            L_DISABLE_3D = false;
-        </script>
-    
-    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
     <script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;></script>
     <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
@@ -1186,7 +1178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_512a64a845d7ba7b7189651011399486 {
+                #map_211c755bf7024fbc494891e7a9c40985 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1195,25 +1187,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 }
                 .leaflet-container { font-size: 1rem; }
             </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
         
 </head>
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_512a64a845d7ba7b7189651011399486&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_211c755bf7024fbc494891e7a9c40985&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_512a64a845d7ba7b7189651011399486 = L.map(
-                &quot;map_512a64a845d7ba7b7189651011399486&quot;,
+            var map_211c755bf7024fbc494891e7a9c40985 = L.map(
+                &quot;map_211c755bf7024fbc494891e7a9c40985&quot;,
                 {
                     center: [-0.915435, -89.57216],
                     crs: L.CRS.EPSG3857,
-                    zoom: 7,
-                    zoomControl: true,
-                    preferCanvas: false,
+                    ...{
+  &quot;zoom&quot;: 7,
+  &quot;zoomControl&quot;: true,
+  &quot;preferCanvas&quot;: false,
+}
+
                 }
             );
 
@@ -1221,22 +1239,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_355be7fc2a224a3fc585c38b26551dbc = L.tileLayer(
+            var tile_layer_a2e2894a82cfaea8da32b128896d2c52 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 19,
+  &quot;maxNativeZoom&quot;: 19,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 1,
+}
+
             );
         
     
-            tile_layer_355be7fc2a224a3fc585c38b26551dbc.addTo(map_512a64a845d7ba7b7189651011399486);
+            tile_layer_a2e2894a82cfaea8da32b128896d2c52.addTo(map_211c755bf7024fbc494891e7a9c40985);
         
     
-            var tile_layer_d395698e287f9449105be8df1f0f739b = L.tileLayer(
+            var tile_layer_75bfc5488571cd19de4a5622d48625eb = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/collections/OMSO2PCA-COG/items/OMSO2PCA_LUT_SCD_2005/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=viridis\u0026rescale=0%2C1&quot;,
-                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 0.6, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 18,
+  &quot;maxNativeZoom&quot;: 18,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;VEDA&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 0.6,
+}
+
             );
         
     
-            tile_layer_d395698e287f9449105be8df1f0f739b.addTo(map_512a64a845d7ba7b7189651011399486);
+            tile_layer_75bfc5488571cd19de4a5622d48625eb.addTo(map_211c755bf7024fbc494891e7a9c40985);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -1274,14 +1314,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <head>
     
     <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
-    
-        <script>
-            L_NO_TOUCH = false;
-            L_DISABLE_3D = false;
-        </script>
-    
-    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
     <script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;></script>
     <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
@@ -1296,7 +1328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_14ce8cc63e4aae57e22389250d04e31d {
+                #map_7fc02d3d50148eaa24803e395254ca43 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1305,25 +1337,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 }
                 .leaflet-container { font-size: 1rem; }
             </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
         
 </head>
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_14ce8cc63e4aae57e22389250d04e31d&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_7fc02d3d50148eaa24803e395254ca43&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_14ce8cc63e4aae57e22389250d04e31d = L.map(
-                &quot;map_14ce8cc63e4aae57e22389250d04e31d&quot;,
+            var map_7fc02d3d50148eaa24803e395254ca43 = L.map(
+                &quot;map_7fc02d3d50148eaa24803e395254ca43&quot;,
                 {
                     center: [53.018234, 158.67016],
                     crs: L.CRS.EPSG3857,
-                    zoom: 7,
-                    zoomControl: true,
-                    preferCanvas: false,
+                    ...{
+  &quot;zoom&quot;: 7,
+  &quot;zoomControl&quot;: true,
+  &quot;preferCanvas&quot;: false,
+}
+
                 }
             );
 
@@ -1331,22 +1389,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_5ec528773ae081c69b055d43f339023e = L.tileLayer(
+            var tile_layer_49075fa8bdc20f5634f0a0d35b9a7d25 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 19,
+  &quot;maxNativeZoom&quot;: 19,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 1,
+}
+
             );
         
     
-            tile_layer_5ec528773ae081c69b055d43f339023e.addTo(map_14ce8cc63e4aae57e22389250d04e31d);
+            tile_layer_49075fa8bdc20f5634f0a0d35b9a7d25.addTo(map_7fc02d3d50148eaa24803e395254ca43);
         
     
-            var tile_layer_3a9a1071fadf9104a4a5e24930cb03f2 = L.tileLayer(
+            var tile_layer_a0f32c97887a881d8671d024b8434b4a = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/collections/OMSO2PCA-COG/items/OMSO2PCA_LUT_SCD_2009/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=viridis\u0026rescale=0%2C1&quot;,
-                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 0.6, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 18,
+  &quot;maxNativeZoom&quot;: 18,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;VEDA&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 0.6,
+}
+
             );
         
     
-            tile_layer_3a9a1071fadf9104a4a5e24930cb03f2.addTo(map_14ce8cc63e4aae57e22389250d04e31d);
+            tile_layer_a0f32c97887a881d8671d024b8434b4a.addTo(map_7fc02d3d50148eaa24803e395254ca43);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
@@ -1384,14 +1464,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <head>
     
     <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
-    
-        <script>
-            L_NO_TOUCH = false;
-            L_DISABLE_3D = false;
-        </script>
-    
-    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
     <script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;></script>
     <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
@@ -1406,7 +1478,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <meta name=&quot;viewport&quot; content=&quot;width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
             <style>
-                #map_60c8bdd8c51fd1209b2e3a085f619c09 {
+                #map_5ab56ad1f4a51da20ad2d4b2e8344174 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -1415,25 +1487,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 }
                 .leaflet-container { font-size: 1rem; }
             </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
         
 </head>
 <body>
     
     
-            <div class=&quot;folium-map&quot; id=&quot;map_60c8bdd8c51fd1209b2e3a085f619c09&quot; ></div>
+            <div class=&quot;folium-map&quot; id=&quot;map_5ab56ad1f4a51da20ad2d4b2e8344174&quot; ></div>
         
 </body>
 <script>
     
     
-            var map_60c8bdd8c51fd1209b2e3a085f619c09 = L.map(
-                &quot;map_60c8bdd8c51fd1209b2e3a085f619c09&quot;,
+            var map_5ab56ad1f4a51da20ad2d4b2e8344174 = L.map(
+                &quot;map_5ab56ad1f4a51da20ad2d4b2e8344174&quot;,
                 {
                     center: [65.0294256, -18.39387],
                     crs: L.CRS.EPSG3857,
-                    zoom: 6,
-                    zoomControl: true,
-                    preferCanvas: false,
+                    ...{
+  &quot;zoom&quot;: 6,
+  &quot;zoomControl&quot;: true,
+  &quot;preferCanvas&quot;: false,
+}
+
                 }
             );
 
@@ -1441,22 +1539,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
         
     
-            var tile_layer_94e8e06fb73c27f8461d6d4bf3951b2b = L.tileLayer(
+            var tile_layer_03fc1f78c86715a006232041dc8f47c6 = L.tileLayer(
                 &quot;https://tile.openstreetmap.org/{z}/{x}/{y}.png&quot;,
-                {&quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;, &quot;detectRetina&quot;: false, &quot;maxNativeZoom&quot;: 19, &quot;maxZoom&quot;: 19, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 1, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 19,
+  &quot;maxNativeZoom&quot;: 19,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 1,
+}
+
             );
         
     
-            tile_layer_94e8e06fb73c27f8461d6d4bf3951b2b.addTo(map_60c8bdd8c51fd1209b2e3a085f619c09);
+            tile_layer_03fc1f78c86715a006232041dc8f47c6.addTo(map_5ab56ad1f4a51da20ad2d4b2e8344174);
         
     
-            var tile_layer_bfb28b1f1ed67c137adb506ec022aa45 = L.tileLayer(
+            var tile_layer_43d9567c71542d5d4671dd24c0b2c428 = L.tileLayer(
                 &quot;https://openveda.cloud/api/raster/collections/OMSO2PCA-COG/items/OMSO2PCA_LUT_SCD_2021/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=viridis\u0026rescale=0%2C1&quot;,
-                {&quot;attribution&quot;: &quot;VEDA&quot;, &quot;detectRetina&quot;: false, &quot;maxZoom&quot;: 18, &quot;minZoom&quot;: 0, &quot;noWrap&quot;: false, &quot;opacity&quot;: 0.6, &quot;subdomains&quot;: &quot;abc&quot;, &quot;tms&quot;: false}
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 18,
+  &quot;maxNativeZoom&quot;: 18,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;VEDA&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 0.6,
+}
+
             );
         
     
-            tile_layer_bfb28b1f1ed67c137adb506ec022aa45.addTo(map_60c8bdd8c51fd1209b2e3a085f619c09);
+            tile_layer_43d9567c71542d5d4671dd24c0b2c428.addTo(map_5ab56ad1f4a51da20ad2d4b2e8344174);
         
 </script>
 </html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
