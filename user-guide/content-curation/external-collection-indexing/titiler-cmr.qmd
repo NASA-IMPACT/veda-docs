@@ -17,7 +17,9 @@ Titiler-CMR extends the TiTiler library to work directly with CMR-registered dat
 
 ## Architecture
 
-```mermaid
+```{mermaid}
+%%| fig-width: 10
+%%| fig-height: 6
 graph LR
     A[VEDA Dashboard] --> B[Titiler-CMR API]
     B --> C[NASA CMR]
@@ -28,7 +30,16 @@ graph LR
     B --> H[Dynamic Tiles]
     B --> I[Statistics API]
     B --> J[STAC Metadata]
+    
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#fff3e0
+    style D fill:#f1f8e9
 ```
+
+::: {.callout-note}
+**Architecture Overview**: VEDA Dashboard connects to Titiler-CMR API, which interfaces with NASA's CMR to access external data storage containing NetCDF, COG, and Zarr files. Titiler-CMR generates dynamic tiles, provides statistical analysis, and creates STAC-compliant metadata.
+:::
 
 ## Configuration Example: GPM Precipitation
 
