@@ -1,0 +1,275 @@
+---
+title: Titiler-CMR Integration
+subtitle: Indexing CMR datasets using Titiler-CMR for dynamic visualization
+---
+
+[Titiler-CMR](https://developmentseed.org/titiler-cmr/) provides a powerful bridge between NASA's Common Metadata Repository (CMR) and dynamic tile generation for visualization in VEDA. This integration enables access to thousands of CMR-registered datasets without requiring data migration.
+
+## Overview
+
+Titiler-CMR extends the TiTiler library to work directly with CMR-registered datasets, providing:
+
+- **Dynamic Tile Generation**: On-demand tile creation from NetCDF, COG, and Zarr files
+- **Multi-Backend Support**: Supports both xarray (NetCDF/Zarr) and rasterio (COG) backends
+- **Temporal Queries**: Access time series data across dataset granules
+- **Statistical Analysis**: Compute zonal statistics for arbitrary geometries
+- **STAC Integration**: Generate STAC-compliant metadata for external datasets
+
+## Architecture
+
+```mermaid
+graph LR
+    A[VEDA Dashboard] --> B[Titiler-CMR API]
+    B --> C[NASA CMR]
+    C --> D[External Data Storage]
+    D --> E[NetCDF Files]
+    D --> F[COG Files]
+    D --> G[Zarr Stores]
+    B --> H[Dynamic Tiles]
+    B --> I[Statistics API]
+    B --> J[STAC Metadata]
+```
+
+## Configuration Example: GPM Precipitation
+
+Here's a real-world example using the GPM IMERG Daily precipitation dataset. The complete configuration is available in [`examples/gpm-precipitation-config.json`](./examples/gpm-precipitation-config.json).
+
+### Collection Configuration
+
+```json
+{
+  "type": "Collection",
+  "id": "GPM_3IMERGDF",
+  "stac_version": "1.0.0",
+  "description": "GPM IMERG Final Daily precipitation estimates",
+  "collection_concept_id": "C2723754864-GES_DISC",
+  "cube:dimensions": {
+    "time": {
+      "extent": ["1998-01-01T00:00:00Z", null],
+      "description": "time",
+      "step": "P1D",
+      "type": "temporal"
+    },
+    "lon": {
+      "axis": "x",
+      "extent": [-179.95, 179.95],
+      "description": "Longitude",
+      "reference_system": 4326,
+      "type": "spatial"
+    },
+    "lat": {
+      "axis": "y",
+      "extent": [-89.95, 89.95],
+      "description": "Latitude",
+      "reference_system": 4326,
+      "type": "spatial"
+    }
+  },
+  "summaries": {
+    "precipitation": {
+      "type": "data",
+      "description": "Daily precipitation rate",
+      "dimensions": ["time", "lon", "lat"],
+      "unit": "mm/day",
+      "attrs": {
+        "units": "mm/day",
+        "long_name": "Daily mean precipitation rate"
+      },
+      "renders": "precipitation"
+    }
+  },
+  "renders": {
+    "precipitation": {
+      "title": "Precipitation",
+      "resampling": "average",
+      "colormap_name": "blues",
+      "rescale": [[0, 48]],
+      "backend": "xarray"
+    }
+  }
+}
+```
+
+### Key Configuration Elements
+
+#### Backend Selection
+- **`xarray`**: For NetCDF and Zarr datasets with multidimensional data
+- **`rasterio`**: For Cloud-Optimized GeoTIFF (COG) files
+
+#### CMR Integration
+- **`collection_concept_id`**: Links to the CMR collection (e.g., "C2723754864-GES_DISC")
+- **`cube:dimensions`**: Defines spatial and temporal dimensions
+- **`summaries`**: Describes available data variables
+
+#### Rendering Configuration
+- **`renders`**: Defines visualization parameters for each variable
+- **`colormap_name`**: Specifies color scheme for visualization
+- **`rescale`**: Sets data range for color mapping
+- **`resampling`**: Controls how data is aggregated at different zoom levels
+
+## API Usage Examples
+
+### Tile Generation
+
+Generate dynamic tiles for a specific date and variable:
+
+```bash
+GET /WebMercatorQuad/tilejson.json?concept_id=C2723754864-GES_DISC&datetime=2024-01-15&backend=xarray&variable=precipitation&rescale=0,50&colormap_name=blues
+```
+
+### Statistical Analysis
+
+Compute statistics for a geographic region:
+
+```bash
+POST /statistics?concept_id=C2723754864-GES_DISC&datetime=2024-01-15&backend=xarray&variable=precipitation
+Content-Type: application/json
+
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[...]]
+  }
+}
+```
+
+### Time Series Access
+
+Access temporal data across multiple granules:
+
+```bash
+GET /time-series?concept_id=C2723754864-GES_DISC&datetime=2024-01-01/2024-01-31&backend=xarray&variable=precipitation&lat=40.7&lon=-74.0
+```
+
+## Implementation Steps
+
+### 1. Identify CMR Dataset
+
+Use NASA's Earthdata Search or programmatic access to find your dataset:
+
+```python
+import earthaccess
+
+# Search for datasets
+datasets = earthaccess.search_datasets(
+    keyword="GPM IMERG",
+    provider="GES_DISC"
+)
+
+# Get concept ID
+concept_id = datasets[0]["meta"]["concept-id"]
+print(f"Concept ID: {concept_id}")
+```
+
+### 2. Explore Dataset Structure
+
+Examine the data structure to understand variables and dimensions:
+
+```python
+import xarray as xr
+
+# Access a sample granule
+results = earthaccess.search_data(
+    concept_id=concept_id,
+    temporal=("2024-01-15", "2024-01-16"),
+    count=1
+)
+
+# Open with xarray
+fs = earthaccess.get_fsspec_https_session()
+ds = xr.open_dataset(
+    fs.open(results[0].data_links(access="external")[0]),
+    engine="h5netcdf"
+)
+
+print("Variables:", list(ds.data_vars))
+print("Dimensions:", list(ds.dims))
+```
+
+### 3. Create Collection Configuration
+
+Build a STAC collection configuration based on the dataset structure:
+
+```json
+{
+  "type": "Collection",
+  "id": "YOUR_DATASET_ID",
+  "collection_concept_id": "YOUR_CONCEPT_ID",
+  "cube:dimensions": {
+    // Define spatial and temporal dimensions
+  },
+  "summaries": {
+    // Define data variables
+  },
+  "renders": {
+    // Configure visualization parameters
+  }
+}
+```
+
+### 4. Test Configuration
+
+Validate the configuration using Titiler-CMR endpoints:
+
+```python
+import httpx
+
+# Test tile generation
+response = httpx.get(
+    "https://staging.openveda.cloud/api/titiler-cmr/WebMercatorQuad/tilejson.json",
+    params={
+        "concept_id": concept_id,
+        "datetime": "2024-01-15",
+        "backend": "xarray",
+        "variable": "your_variable",
+        "rescale": "0,50"
+    }
+)
+
+print(response.json())
+```
+
+### 5. Submit to VEDA
+
+Add your collection configuration to the VEDA data repository for staging and production deployment.
+
+## Best Practices
+
+### Performance Optimization
+
+1. **Chunk Size**: Ensure datasets have appropriate chunk sizes for efficient access
+2. **Zoom Levels**: Set appropriate min/max zoom levels to prevent excessive queries
+3. **Caching**: Leverage HTTP caching headers for frequently accessed tiles
+4. **Rescaling**: Use appropriate data ranges to optimize visualization
+
+### Error Handling
+
+1. **Temporal Validation**: Ensure datetime parameters match dataset availability
+2. **Variable Validation**: Verify variable names match dataset structure
+3. **Spatial Bounds**: Respect dataset spatial coverage limits
+4. **Backend Selection**: Use correct backend for data format
+
+### Security Considerations
+
+1. **Authentication**: Handle Earthdata Login credentials securely
+2. **Rate Limiting**: Respect CMR and data provider rate limits
+3. **Access Control**: Verify data access permissions
+4. **CORS**: Configure appropriate CORS headers for web applications
+
+## Related Resources
+
+- [Titiler-CMR Documentation](https://developmentseed.org/titiler-cmr/)
+- [NASA CMR API](https://cmr.earthdata.nasa.gov/search/)
+- [Earthdata Access](https://github.com/nsidc/earthaccess)
+- [STAC Specification](https://stacspec.org/)
+- [Xarray Documentation](https://docs.xarray.dev/)
+
+## Support
+
+For assistance with Titiler-CMR integration:
+
+1. Review the [Titiler-CMR examples](https://developmentseed.org/titiler-cmr/dev/examples/)
+2. Check existing [VEDA data configurations](https://github.com/NASA-IMPACT/veda-data)
+3. Open an issue in the [veda-data repository](https://github.com/NASA-IMPACT/veda-data/issues)
+4. Contact the VEDA team for complex integration requirements
