@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -61,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
@@ -71,18 +71,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../user-guide/notebooks/quickstarts/timeseries-rioxarray-stackstac.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-befe23ebd2f54d8af2c8a89d1a1611f1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-fd91f4bc0eb4eb6afa2c21a465b47335.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark-07bafab7b122106732862fca8bfd1e9f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../../site_libs/bootstrap/bootstrap-fd91f4bc0eb4eb6afa2c21a465b47335.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-c16d2075821f60783b9dd602420178f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-d923747b48259b0bc07d7b5d7b088e92.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-c16d2075821f60783b9dd602420178f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -110,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <script defer="" data-domain="nasa-impact.github.io/veda-docs" src="https://plausible.io/js/script.js"></script>
@@ -305,7 +306,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="../../../index.html" class="sidebar-logo-link">
-      <img src="https://visex.netlify.app/graphics/nasa-veda-logo-pos.svg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="https://visex.netlify.app/graphics/nasa-veda-logo-pos.svg" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="https://visex.netlify.app/graphics/nasa-veda-logo-pos.svg" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://www.earthdata.nasa.gov/esds/veda" title="earthdata.nasa.gov/esds/veda" class="quarto-navigation-tool px-1" aria-label="earthdata.nasa.gov/esds/veda"><i class="bi bi-info-circle"></i></a>
@@ -415,8 +417,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../user-guide/notebooks/veda-operations/generate-cmip6-kerchunk-historical.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Generate Kerchunk Reference from CMIP6 NetCDF files</span></a>
+  <a href="../../../user-guide/notebooks/veda-operations/generate-cmip6-virtual-zarr-historical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generate Virtual Zarr from CMIP6 NetCDF files</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
@@ -442,8 +444,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../user-guide/notebooks/veda-operations/publish-cmip6-kerchunk-stac.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Publishing a CMIP6 Kerchunk Reference to STAC</span></a>
+  <a href="../../../user-guide/notebooks/veda-operations/publish-cmip6-virtual-zarr-stac.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Publishing CMIP6 Virtual Zarr to STAC</span></a>
   </div>
 </li>
       </ul>
@@ -997,10 +999,10 @@ Learn more
 <p>This is the Gridded Daily OCO-2 Carbon Dioxide assimilated dataset. More information can be found at: <a href="https://catalog.data.gov/dataset/oco-2-geos-level-3-daily-0-5x0-625-assimilated-co2-v10r-oco2-geos-l3co2-day-at-ges-disc-72b15">OCO-2 GEOS Level 3 daily, 0.5x0.625 assimilated CO2 V10r (OCO2_GEOS_L3CO2_DAY)</a></p>
 <p>The data has been converted to zarr format and published to the development version of the VEDA STAC Catalog.</p>
 <div id="a0fac22c-8704-4ee8-9288-1c7a7eb4fcdc" class="cell" data-tags="[]" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pystac</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pystac</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hvplot.xarray  <span class="co"># noqa</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hvplot.xarray  <span class="co"># noqa</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <script type="esms-options">{"shimMode": true}</script><style>*[data-root-id],
 *[data-root-id] > * {
@@ -1596,16 +1598,16 @@ if (window.Jupyter !== undefined) {
 <li>STAC Browser: https://openveda.cloud</li>
 </ul>
 <div id="501ff16f-de0a-4ba6-826b-42c5048f054b" class="cell" data-tags="[]" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/stac"</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"oco2-geos-l3-daily"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/stac"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"oco2-geos-l3-daily"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="get-stac-collection" class="level2">
 <h2 class="anchored" data-anchor-id="get-stac-collection">Get STAC collection</h2>
 <p>Use <code>pystac</code> to access the STAC collection.</p>
 <div id="4e877ef7-e8b1-4a92-8ec2-564af08358e3" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> pystac.Collection.from_file(<span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>collection</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> pystac.Collection.from_file(<span class="ss">f"</span><span class="sc">{</span>STAC_API_URL<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>collection</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 
 
@@ -2967,7 +2969,7 @@ if (window.Jupyter !== undefined) {
 </div>
 <p>We can see that there is one zarr asset:</p>
 <div id="df49815a-a2b6-44da-a986-823b0262adfa" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>collection.get_assets(media_type<span class="op">=</span><span class="st">"application/vnd+zarr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>collection.get_assets(media_type<span class="op">=</span><span class="st">"application/vnd+zarr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>{'zarr': &lt;Asset href=s3://veda-data-store/oco2-geos-l3-daily/OCO2_GEOS_L3CO2_day.zarr&gt;}</code></pre>
 </div>
@@ -2977,10 +2979,10 @@ if (window.Jupyter !== undefined) {
 <h2 class="anchored" data-anchor-id="read-from-zarr-to-xarray">Read from zarr to xarray</h2>
 <p>With the url pointing to the Zarr store, you can create an xarray dataset backed by a dask array.</p>
 <div id="331fd8d7-37f8-4b1c-b8a0-106256909dc7" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> collection.assets[<span class="st">"zarr"</span>].href</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> collection.assets[<span class="st">"zarr"</span>].href</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_dataset(url, engine<span class="op">=</span><span class="st">"zarr"</span>, chunks<span class="op">=</span><span class="st">"auto"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>ds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>ds</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -3379,38 +3381,38 @@ Attributes: (12/25)
        '2015-01-03T12:00:00.000000000', ..., '2021-11-02T12:00:00.000000000',
        '2021-11-03T12:00:00.000000000', '2021-11-04T12:00:00.000000000'],
       shape=(2500,), dtype='datetime64[ns]')</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-67c7a87b-198d-444b-a095-558423cc0fe1" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-67c7a87b-198d-444b-a095-558423cc0fe1" class="xr-section-summary">Data variables: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>XCO2</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(200, 200, 200), meta=np.ndarray&gt;</div><input id="attrs-d6a22247-45d9-463a-8696-6bb5953d6576" class="xr-var-attrs-in" type="checkbox"><label for="attrs-d6a22247-45d9-463a-8696-6bb5953d6576" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-054c9d6b-4f33-4cfa-9f60-5f3285b21d8a" class="xr-var-data-in" type="checkbox"><label for="data-054c9d6b-4f33-4cfa-9f60-5f3285b21d8a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Assimilated dry-air column average CO2 daily mean</dd><dt><span>units :</span></dt><dd>mol CO2/mol dry</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>3.87 GiB</td>
 <td>61.04 MiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(2500, 361, 576)</td>
 <td>(200, 200, 200)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">78 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float64 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -3422,38 +3424,38 @@ Attributes: (12/25)
 </tbody>
 </table>
 </div></li><li class="xr-var-item"><div class="xr-var-name"><span>XCO2PREC</span></div><div class="xr-var-dims">(time, lat, lon)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(200, 200, 200), meta=np.ndarray&gt;</div><input id="attrs-6794291f-210a-4123-a284-a563dc20f484" class="xr-var-attrs-in" type="checkbox"><label for="attrs-6794291f-210a-4123-a284-a563dc20f484" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-bb7be9df-e36d-4ba7-ba64-6a20fbb8498b" class="xr-var-data-in" type="checkbox"><label for="data-bb7be9df-e36d-4ba7-ba64-6a20fbb8498b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Precision of dry-air column average CO2 daily mean from Desroziers et al. (2005) diagnostic</dd><dt><span>units :</span></dt><dd>mol CO2/mol dry</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>3.87 GiB</td>
 <td>61.04 MiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(2500, 361, 576)</td>
 <td>(200, 200, 200)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">78 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float64 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -3488,7 +3490,7 @@ Attributes: (12/25)
 </div>
 <p>In <code>xarray</code> you can inspect just one data variable using dot notation:</p>
 <div id="0b96ec71-5246-4f62-a21d-385c73b89bff" class="cell" data-tags="[]" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ds.XCO2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ds.XCO2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
@@ -3869,38 +3871,38 @@ Coordinates:
 Attributes:
     long_name:  Assimilated dry-air column average CO2 daily mean
     units:      mol CO2/mol dry</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name">'XCO2'</div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 2500</li><li><span class="xr-has-index">lat</span>: 361</li><li><span class="xr-has-index">lon</span>: 576</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-9fb8cc01-798b-4c5b-946e-65868059bfbc" class="xr-array-in" type="checkbox" checked=""><label for="section-9fb8cc01-798b-4c5b-946e-65868059bfbc" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>dask.array&lt;chunksize=(200, 200, 200), meta=np.ndarray&gt;</span></div><div class="xr-array-data">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<td><table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
+<td></td>
 <th data-quarto-table-cell-role="th">Array</th>
 <th data-quarto-table-cell-role="th">Chunk</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Bytes</td>
+<th data-quarto-table-cell-role="th">Bytes</th>
 <td>3.87 GiB</td>
 <td>61.04 MiB</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shape</td>
+<th data-quarto-table-cell-role="th">Shape</th>
 <td>(2500, 361, 576)</td>
 <td>(200, 200, 200)</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Dask graph</td>
+<th data-quarto-table-cell-role="th">Dask graph</th>
 <td colspan="2">78 chunks in 2 graph layers</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Data type</td>
+<th data-quarto-table-cell-role="th">Data type</th>
 <td colspan="2">float64 numpy.ndarray</td>
 </tr>
 </tbody>
@@ -3942,7 +3944,7 @@ Attributes:
 <h2 class="anchored" data-anchor-id="plot-data">Plot data</h2>
 <p>We can plot the XCO2 variable as an interactive map (with date slider) using <code>hvplot</code>.</p>
 <div id="ab65eb4a-6cca-4233-84e5-681d6e0124e4" class="cell" data-tags="[]" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ds.XCO2.hvplot(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ds.XCO2.hvplot(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"lon"</span>,</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"lat"</span>,</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    groupby<span class="op">=</span><span class="st">"time"</span>,</span>
@@ -3951,7 +3953,7 @@ Attributes:
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    aggregator<span class="op">=</span><span class="st">"mean"</span>,</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    widget_location<span class="op">=</span><span class="st">"bottom"</span>,</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    frame_width<span class="op">=</span><span class="dv">600</span>,</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 
 </div>
@@ -4103,13 +4105,14 @@ Attributes:
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
