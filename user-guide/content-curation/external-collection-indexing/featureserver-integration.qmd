@@ -1,0 +1,201 @@
+---
+title: FeatureServer Integration
+subtitle: Converting ArcGIS FeatureServer services to STAC collections
+---
+
+ArcGIS FeatureServer services provide access to vector datasets including points, lines, and polygons. This page covers FeatureServer-specific configuration and examples.
+
+::: {.callout-note}
+**Prerequisites**: Before using FeatureServer integration, complete the [ArcGIS Server Integration setup](./arcgis-server-integration.qmd#installation-and-setup) including pyarc2stac installation.
+:::
+
+## FeatureServer Resources
+
+- [pyarc2stac FeatureServer Example](https://github.com/NASA-IMPACT/pyarc2stac/blob/main/examples/FeatureServer_to_STAC.ipynb)
+- [GeoJSON Specification](https://geojson.org/)
+- [ArcGIS FeatureServer Documentation](https://developers.arcgis.com/rest/services-reference/enterprise/feature-service.htm)
+
+::: {.callout-tip}
+For general ArcGIS Server integration support, troubleshooting, and additional resources, see the [ArcGIS Server Integration](./arcgis-server-integration.qmd#support) page.
+:::
+
+## FeatureServer Specialization
+
+FeatureServer integration is specifically designed for:
+
+- **Vector-Based Datasets**: Point, line, and polygon features with rich attribute data
+- **Timeless Collections**: Often static or infrequently updated boundary and reference datasets
+- **Attribute-Rich Data**: Features with extensive metadata and descriptive attributes requiring preservation
+
+## Example: Climate Projections FeatureServer
+
+This example demonstrates FeatureServer integration using a climate and coastal inundation projections service:
+
+```python
+# Climate projections FeatureServer with multiple feature layers
+feature_server_url = "https://services3.arcgis.com/0Fs3HcaFfvzXvm7w/ArcGIS/rest/services/Climate_Mapping_Resilience_and_Adaptation_(CMRA)_Climate_and_Coastal_Inundation_Projections/FeatureServer"
+
+# FeatureServer-specific inspection
+collection = reader.generate_stac()
+
+# Check feature layers and their schemas (FeatureServer specialty)
+feature_links = [link for link in collection.links if link.rel == "featureserver"]
+if feature_links:
+    feature_link = feature_links[0]
+    layers = feature_link.extra_fields.get('featureserver:layers', {})
+    print(f"Available feature layers: {list(layers.keys())}")
+    
+    # Inspect layer schemas
+    for layer_name, layer_info in layers.items():
+        if 'fields' in layer_info:
+            field_names = [f['name'] for f in layer_info['fields']]
+            print(f"  {layer_name} fields: {field_names[:5]}...")  # Show first 5 fields
+
+# Check timeless configuration (common for FeatureServer)
+is_timeless = collection.extra_fields.get('dashboard:is_timeless', False)
+print(f"Timeless dataset: {is_timeless}")
+
+# Check geometry types
+for layer_name, layer_info in layers.items():
+    geom_type = layer_info.get('geometryType', 'Unknown')
+    print(f"  {layer_name}: {geom_type}")
+```
+
+## Configuration Structure
+
+### Complete Example Configuration
+
+Based on the Climate Mapping Resilience and Adaptation projections FeatureServer:
+
+```json
+{
+  "type": "Collection",
+  "id": "climate_mapping_resilience_and_adaptation_(cmra)_climate_and_coastal_inundation_projections",
+  "stac_version": "1.1.0",
+  "description": "Climate mapping resilience and adaptation climate and coastal inundation projections for vulnerability assessment and planning.",
+  "links": [
+    {
+      "rel": "featureserver",
+      "href": "https://services3.arcgis.com/0Fs3HcaFfvzXvm7w/ArcGIS/rest/services/Climate_Mapping_Resilience_and_Adaptation_(CMRA)_Climate_and_Coastal_Inundation_Projections/FeatureServer",
+      "type": "application/json",
+      "title": "ArcGIS FeatureServer",
+      "featureserver:layers": {
+        "0": "Counties",
+        "1": "Tracts", 
+        "2": "American Indian/Alaska Native/Native Hawaiian Areas"
+      }
+    },
+    {
+      "rel": "via",
+      "href": "https://services3.arcgis.com/0Fs3HcaFfvzXvm7w/ArcGIS/rest/services/Climate_Mapping_Resilience_and_Adaptation_(CMRA)_Climate_and_Coastal_Inundation_Projections/FeatureServer",
+      "type": "text/html", 
+      "title": "Parent ArcGIS server url"
+    }
+  ],
+  "dashboard:is_timeless": true,
+  "extent": {
+    "spatial": {
+      "bbox": [[-179.23110125118885, -14.601806016382575, 179.8596657289939, 71.43978570694523]]
+    },
+    "temporal": {
+      "interval": [[null, null]]
+    }
+  },
+  "license": "not-applicable",
+  "item_assets": {}
+}
+```
+
+### Key Configuration Elements
+
+#### FeatureServer Link
+Provides direct access to the original FeatureServer:
+
+```json
+{
+  "links": [{
+    "rel": "featureserver",
+    "href": "https://server.com/FeatureServer",
+    "type": "application/json",
+    "title": "ArcGIS FeatureServer",
+    "featureserver:layers": {
+      "0": "Counties",
+      "1": "Tracts",
+      "2": "Tribal Areas"
+    }
+  }]
+}
+```
+
+#### Timeless Data Indicator
+Most FeatureServer data is timeless (static features):
+
+```json
+{
+  "dashboard:is_timeless": true,
+  "extent": {
+    "temporal": {
+      "interval": [[null, null]]
+    }
+  }
+}
+```
+
+#### Layer Information
+Maps layer IDs to descriptive names:
+
+```json
+{
+  "featureserver:layers": {
+    "0": "Primary Features",
+    "1": "Reference Data",
+    "2": "Administrative Boundaries"
+  }
+}
+```
+
+
+
+## FeatureServer-Specific Best Practices
+
+### Attribute and Schema Validation
+
+1. **Field Schema Verification**: Ensure attribute schemas are complete
+   ```python
+   # Check for required fields in feature layers
+   for layer in service_info.get('layers', []):
+       layer_info = requests.get(f"{feature_server_url}/{layer['id']}?f=pjson").json()
+       fields = layer_info.get('fields', [])
+       
+       # Check for essential fields
+       field_names = [f['name'] for f in fields]
+       if 'OBJECTID' not in field_names:
+           print(f"⚠️  Layer {layer['name']} missing OBJECTID field")
+   ```
+
+2. **Geometry Type Validation**: Verify feature geometry consistency
+   ```python
+   # Ensure geometry types are properly defined
+   for layer in layers:
+       geom_type = layer.get('geometryType')
+       if not geom_type:
+           print(f"⚠️  Layer {layer['name']} missing geometry type")
+       elif geom_type not in ['esriGeometryPoint', 'esriGeometryPolyline', 'esriGeometryPolygon']:
+           print(f"⚠️  Layer {layer['name']} has unexpected geometry type: {geom_type}")
+   ```
+   ```
+
+## Related Resources
+
+- [pyarc2stac FeatureServer Example](https://github.com/NASA-IMPACT/pyarc2stac/blob/main/examples/FeatureServer_to_STAC.ipynb)
+- [ArcGIS FeatureServer Documentation](https://developers.arcgis.com/rest/services-reference/enterprise/feature-service.htm)
+- [STAC Specification](https://stacspec.org/)
+- [GeoJSON Specification](https://geojson.org/)
+
+## Support
+
+For FeatureServer integration assistance:
+
+1. Review the [complete working example](https://github.com/NASA-IMPACT/pyarc2stac/blob/main/examples/FeatureServer_to_STAC.ipynb)
+2. Check the [pyarc2stac test cases](https://github.com/NASA-IMPACT/pyarc2stac/blob/main/tests/test_featureserver.py)
+3. Open an issue in the [pyarc2stac repository](https://github.com/NASA-IMPACT/pyarc2stac/issues)

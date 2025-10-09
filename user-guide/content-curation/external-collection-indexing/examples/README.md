@@ -1,8 +1,8 @@
 # External Collection Configuration Examples
 
-This directory contains example configuration files for indexing external datasets in VEDA using Titiler-CMR.
+This directory contains example configuration files for indexing external datasets in VEDA using both Titiler-CMR and pyarc2stac.
 
-## Available Examples
+## Titiler-CMR Examples
 
 ### GPM Precipitation (gpm-precipitation-config.json)
 
@@ -22,6 +22,55 @@ This example demonstrates:
 - Rendering configuration for precipitation data
 - Metadata structure following STAC conventions
 
+## ArcGIS Server Examples
+
+### ESI MapServer (esi-mapserver-config.json)
+
+SERVIR Global Evaporative Stress Index 4-week MapServer service:
+
+- **Service**: Global ESI 4-Week MapServer
+- **Format**: Styled map layers
+- **Temporal Coverage**: 2001-present (weekly)
+- **Spatial Resolution**: 5 km
+- **Update Frequency**: Weekly
+
+This example demonstrates:
+- Multi-layer MapServer configuration
+- WMS integration for visualization
+- Time-enabled service handling
+- Layer-based rendering configuration
+
+### Soil Moisture ImageServer (soil-moisture-imageserver-config.json)
+
+NASA disasters test soil moisture percentile ImageServer:
+
+- **Service**: LIS VSM Percentile 10cm ImageServer
+- **Format**: Multidimensional raster data
+- **Temporal Coverage**: Daily time series
+- **Spatial Coverage**: Continental United States
+- **Variables**: Soil moisture percentiles
+
+This example demonstrates:
+- Datacube extension for multidimensional data
+- Variable and dimension definitions
+- Temporal data handling
+- ImageServer-specific configuration
+
+### Climate Projections FeatureServer (climate-projections-featureserver-config.json)
+
+Climate resilience and adaptation projections FeatureServer:
+
+- **Service**: CMRA Climate and Coastal Inundation Projections
+- **Format**: Vector features (polygons)
+- **Coverage**: Counties, tracts, and tribal areas
+- **Data Type**: Climate projection and vulnerability data
+
+This example demonstrates:
+- Multi-layer FeatureServer configuration
+- Timeless data handling
+- Feature layer metadata
+- Administrative boundary data structure
+
 ## Using These Examples
 
 1. **Copy Configuration**: Start with an example configuration closest to your dataset
@@ -33,6 +82,8 @@ This example demonstrates:
 
 ## Testing Configurations
 
+### Testing Titiler-CMR Configurations
+
 Before deploying to VEDA, test your configuration using the Titiler-CMR API:
 
 ```bash
@@ -41,6 +92,24 @@ curl "https://staging.openveda.cloud/api/titiler-cmr/WebMercatorQuad/tilejson.js
 
 # Test info endpoint
 curl "https://staging.openveda.cloud/api/titiler-cmr/info?concept_id=YOUR_CONCEPT_ID&datetime=2024-01-15&backend=xarray"
+```
+
+### Testing ArcGIS Server Configurations
+
+For ArcGIS Server integrations, test using pyarc2stac:
+
+```python
+from pyarc2stac.ArcReader import ArcReader
+
+# Test service accessibility
+service_url = "https://your-arcgis-server.com/rest/services/YourService/ImageServer"
+reader = ArcReader(server_url=service_url)
+
+# Generate and validate collection
+collection = reader.generate_stac()
+collection.validate()
+
+print(f"✅ Generated collection: {collection.id}")
 ```
 
 ## Contributing Examples
