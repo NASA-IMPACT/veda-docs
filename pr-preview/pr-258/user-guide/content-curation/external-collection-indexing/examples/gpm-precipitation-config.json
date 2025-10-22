@@ -1,0 +1,214 @@
+{
+  "type": "Collection",
+  "id": "GPM_3IMERGDF",
+  "stac_version": "1.0.0",
+  "description": "Version 07 is the current version of the data set. The Integrated Multi-satellitE Retrievals for GPM (IMERG) is a NASA product estimating global surface precipitation rates at a high resolution of 0.1° every half-hour beginning 2000. This dataset is the GPM Level 3 IMERG Final Daily 10 x 10 km (GPM_3IMERGDF) derived from the half-hourly GPM_3IMERGHH.",
+  "links": [],
+  "stac_extensions": [
+    "https://stac-extensions.github.io/datacube/v2.2.0/schema.json"
+  ],
+  "collection_concept_id": "C2723754864-GES_DISC",
+  "cube:dimensions": {
+    "time": {
+      "extent": [
+        "1998-01-01T00:00:00Z",
+        null
+      ],
+      "description": "time",
+      "step": "P1D",
+      "type": "temporal"
+    },
+    "lon": {
+      "axis": "x",
+      "extent": [
+        -179.9499969482422,
+        179.9499969482422
+      ],
+      "description": "Longitude",
+      "reference_system": 4326,
+      "type": "spatial"
+    },
+    "lat": {
+      "axis": "y",
+      "extent": [
+        -89.9499969482422,
+        89.9499969482422
+      ],
+      "description": "Latitude",
+      "reference_system": 4326,
+      "type": "spatial"
+    }
+  },
+  "summaries": {
+    "precipitation": {
+      "type": "data",
+      "description": "Daily mean precipitation rate (combined microwave-IR) estimate",
+      "dimensions": [
+        "time",
+        "lon",
+        "lat"
+      ],
+      "unit": "mm/day",
+      "attrs": {
+        "units": "mm/day",
+        "long_name": "Daily mean precipitation rate (combined microwave-IR) estimate"
+      },
+      "shape": [
+        null,
+        3600,
+        1800
+      ],
+      "chunks": [
+        1,
+        3600,
+        900
+      ],
+      "renders": "precipitation"
+    },
+    "precipitation_cnt": {
+      "type": "data",
+      "description": "Count of all valid half-hourly precipitation retrievals for the day",
+      "dimensions": [
+        "time",
+        "lon",
+        "lat"
+      ],
+      "unit": "count",
+      "attrs": {
+        "units": "count",
+        "long_name": "Count of all valid half-hourly precipitation retrievals for the day"
+      },
+      "shape": [
+        null,
+        3600,
+        1800
+      ],
+      "chunks": [
+        1,
+        3600,
+        900
+      ]
+    },
+    "MWprecipitation": {
+      "type": "data",
+      "description": "Daily mean High Quality precipitation rate from all available microwave sources",
+      "dimensions": [
+        "time",
+        "lon",
+        "lat"
+      ],
+      "unit": "mm/day",
+      "attrs": {
+        "units": "mm/day",
+        "long_name": "Daily mean High Quality precipitation rate from all available microwave sources"
+      },
+      "shape": [
+        null,
+        3600,
+        1800
+      ],
+      "chunks": [
+        1,
+        3600,
+        900
+      ],
+      "renders": "MWprecipitation"
+    },
+    "randomError": {
+      "type": "data",
+      "description": "Root-mean-square error estimate for combined microwave-IR daily precipitation rate",
+      "dimensions": [
+        "time",
+        "lon",
+        "lat"
+      ],
+      "unit": "mm/day",
+      "attrs": {
+        "units": "mm/day",
+        "long_name": "Root-mean-square error estimate for combined microwave-IR daily precipitation rate"
+      },
+      "shape": [
+        null,
+        3600,
+        1800
+      ],
+      "chunks": [
+        1,
+        3600,
+        900
+      ],
+      "renders": "randomError"
+    },
+    "probabilityLiquidPrecipitation": {
+      "type": "data",
+      "description": "Probability of liquid precipitation estimated with a diagnostic parameterization using ancillary data",
+      "dimensions": [
+        "time",
+        "lon",
+        "lat"
+      ],
+      "unit": "percent",
+      "attrs": {
+        "units": "percent",
+        "long_name": "Probability of liquid precipitation",
+        "description": "Probability of liquid precipitation estimated with a diagnostic parameterization using ancillary data. 0=missing values; 1=likely solid; 100=likely liquid or no precipitation."
+      },
+      "shape": [
+        null,
+        3600,
+        1800
+      ],
+      "chunks": [
+        1,
+        3600,
+        900
+      ]
+    }
+  },
+  "renders": {
+    "precipitation": {
+      "title": "Precipitation Rate",
+      "resampling": "average",
+      "colormap_name": "blues",
+      "rescale": [
+        [
+          0,
+          48
+        ]
+      ],
+      "backend": "xarray"
+    },
+    "MWprecipitation": {
+      "title": "Microwave Precipitation Rate",
+      "resampling": "average",
+      "colormap_name": "blues",
+      "rescale": [
+        [
+          0,
+          48
+        ]
+      ],
+      "backend": "xarray"
+    },
+    "randomError": {
+      "title": "Precipitation Random Error",
+      "resampling": "average",
+      "colormap_name": "viridis",
+      "rescale": [
+        [
+          0,
+          10
+        ]
+      ],
+      "backend": "xarray"
+    }
+  },
+  "providers": [
+    {
+      "name": "NASA Goddard Earth Sciences Data and Information Services Center (GES DISC)",
+      "roles": [],
+      "url": "https://disc.gsfc.nasa.gov/"
+    }
+  ],
+  "item_assets": {}
+}
