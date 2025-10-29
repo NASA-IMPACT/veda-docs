@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_3b29f4ab2602d2f4fcae947270cf6839 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 800.0px;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/digidem/leaflet-side-by-side@2.0.0/leaflet-side-by-side.min.js"></script>
+</head>
+<body>
+    
+    
+    <div style="
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        font-size: 18px;
+        font-weight: bold;
+        background: rgba(255,255,255,0.9);
+        padding: 8px 12px;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    ">
+        DOW7 Comparison: Reflectivity vs Velocity — Harlan, IA — April 26, 2024
+    </div>
+    
+    
+    <div style="
+        position: fixed;
+        top: 60px;
+        left: 25%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        font-size: 14px;
+        font-weight: bold;
+        background: rgba(255,255,255,0.9);
+        padding: 5px 10px;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    ">
+        ← Reflectivity (-10 to 50 dBZ)
+    </div>
+    <div style="
+        position: fixed;
+        top: 60px;
+        right: 25%;
+        transform: translateX(50%);
+        z-index: 1000;
+        font-size: 14px;
+        font-weight: bold;
+        background: rgba(255,255,255,0.9);
+        padding: 5px 10px;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    ">
+        Velocity (-75 to 75 m/s) →
+    </div>
+    
+    
+        <div style="
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            font-size: 13px;
+            background: rgba(255,255,255,0.9);
+            padding: 8px 12px;
+            border-radius: 4px;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        ">
+            Drag the slider to compare DOW-collected reflectivity and velocity values
+        </div>
+        
+    
+            <div class="folium-map" id="map_3b29f4ab2602d2f4fcae947270cf6839" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_3b29f4ab2602d2f4fcae947270cf6839 = L.map(
+                "map_3b29f4ab2602d2f4fcae947270cf6839",
+                {
+                    center: [41.668, -95.372],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 14,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_3b29f4ab2602d2f4fcae947270cf6839);
+
+            
+
+        
+    
+            var tile_layer_31c7a36c6888ff32d63d138ad43a0d43 = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Esri",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_31c7a36c6888ff32d63d138ad43a0d43.addTo(map_3b29f4ab2602d2f4fcae947270cf6839);
+        
+    
+            var tile_layer_c7e404cb3bde4580e226b0d9fe26a3d2 = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Esri",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_c7e404cb3bde4580e226b0d9fe26a3d2.addTo(map_3b29f4ab2602d2f4fcae947270cf6839);
+        
+    
+            var tile_layer_3c4597437253edcd8ea2d563b7ddba81 = L.tileLayer(
+                "https://example.com/reflectivity/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "DOW7 Reflectivity",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 0.8,
+}
+
+            );
+        
+    
+            tile_layer_3c4597437253edcd8ea2d563b7ddba81.addTo(map_3b29f4ab2602d2f4fcae947270cf6839);
+        
+    
+            var tile_layer_e0892991564df9a8d615c5bb7dcaf696 = L.tileLayer(
+                "https://example.com/velocity/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "DOW7 Velocity",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 0.8,
+}
+
+            );
+        
+    
+            tile_layer_e0892991564df9a8d615c5bb7dcaf696.addTo(map_3b29f4ab2602d2f4fcae947270cf6839);
+        
+    
+            var side_by_side_layers_4cd90125537b0b95cfd821c0fe0e8a88 = L.control.sideBySide(
+                tile_layer_3c4597437253edcd8ea2d563b7ddba81, tile_layer_e0892991564df9a8d615c5bb7dcaf696
+            ).addTo(map_3b29f4ab2602d2f4fcae947270cf6839);
+        
+    
+            var layer_control_3ebcd799778d45f76d365141dcbb1001_layers = {
+                base_layers : {
+                    "ESRI Satellite" : tile_layer_31c7a36c6888ff32d63d138ad43a0d43,
+                },
+                overlays :  {
+                    "Place Labels" : tile_layer_c7e404cb3bde4580e226b0d9fe26a3d2,
+                    "DOW7 Reflectivity" : tile_layer_3c4597437253edcd8ea2d563b7ddba81,
+                    "DOW7 Velocity" : tile_layer_e0892991564df9a8d615c5bb7dcaf696,
+                },
+            };
+            let layer_control_3ebcd799778d45f76d365141dcbb1001 = L.control.layers(
+                layer_control_3ebcd799778d45f76d365141dcbb1001_layers.base_layers,
+                layer_control_3ebcd799778d45f76d365141dcbb1001_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_3b29f4ab2602d2f4fcae947270cf6839);
+
+        
+</script>
+</html>
