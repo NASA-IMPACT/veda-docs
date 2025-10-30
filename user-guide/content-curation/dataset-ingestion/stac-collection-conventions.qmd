@@ -10,11 +10,11 @@ Dashboard-specific notes that supplement the full [stac-api collection specifica
 | **Field &/or Extension** | **Recommendations** | 
 | --- | --- |
 | **id** | If dataset exists in NASA's Earthdata or presumably from some other data provider like ESA, use that ID. If appropriate, add a suffix for any additional processing that has been performed, e.g. "OMSO2PCA_cog". If dataset is not from NASA's Earthdata, we can use a human readable name with underscores like "facebook_population_density". |
-| **dashboard extension** | To support the delta-ui we have added two new fields in a proposed dashboard extension. For now we are just adding the fields but after testing things out, we can formalize the extension with a [hosted json schema](https://github.com/stac-extensions/template). **_Dashboard extension properties are only required for collections that will be viewed in the delta-ui dashboard._** |
+| **dashboard extension** | To support the veda-ui we have added two new fields in a proposed dashboard extension. For now we are just adding the fields but after testing things out, we can formalize the extension with a [hosted json schema](https://github.com/stac-extensions/template). **_Dashboard extension properties are only required for collections that will be viewed in the veda-ui dashboard._** |
 | **dashboard:is_periodic** | `True/False` This boolean is used when summarizing the collection—if the collection is periodic, the temporal range of the items in the collection and the time density are all the front end needs to generate a time picker. If the items in the collection are not periodic, a complete list of the unique item datetimes is needed. |
 | **dashboard:time_density** | `year`, `month`, `day`, `hour`, `minute`, or `null`. These time steps should be treated as enum when the extension is formalized. For collections with a single time snapshot this value is null. |
-| **item_assets** | [stac-extension/item_assets](https://github.com/stac-extensions/item-assets/blob/main/README.md) is used to explain the assets that are provided for each item in the collection. We’re not providing thumbnails yet, but this example below includes a thumbnail asset to illustrate how the extension will be used. The population of this property is not automated, the creator of the collection writes the item assets documentation. **_Item assets are only required for collections that will be viewed in the delta-ui dashboard._** |
-| **summaries**| The implementation of this [core stac-spec](https://github.com/radiantearth/stac-api-spec/blob/master/stac-spec/collection-spec/collection-spec.md#summaries) field is use-case specific. Our implementation is intended to support the dashboard and will supply datetime and raster statistics for the default map layer asset across the entire collection. **_Currently summaries are manually updated with a delta-ui specific [user defined function in pgstac](https://github.com/NASA-IMPACT/veda-backend/issues/31)._** |
+| **item_assets** | [stac-extension/item_assets](https://github.com/stac-extensions/item-assets/blob/main/README.md) is used to explain the assets that are provided for each item in the collection. We’re not providing thumbnails yet, but this example below includes a thumbnail asset to illustrate how the extension will be used. The population of this property is not automated, the creator of the collection writes the item assets documentation. **_Item assets are only required for collections that will be viewed in the veda-ui dashboard._** |
+| **summaries**| The implementation of this [core stac-spec](https://github.com/radiantearth/stac-api-spec/blob/master/stac-spec/collection-spec/collection-spec.md#summaries) field is use-case specific. Our implementation is intended to support the dashboard and will supply datetime and raster statistics for the default map layer asset across the entire collection. **_Currently summaries are manually updated with a veda-ui specific [user defined function in pgstac](https://github.com/NASA-IMPACT/veda-backend/issues/31)._** |
 | **title and description** | Use these properties to provide specific information about the collection to API users and catalog browsers. These properties correspond to [dataset name and info in the covid-api](https://github.com/NASA-IMPACT/covid-api/blob/develop/covid_api/db/static/datasets/no2-diff.json) but the delta dashboard will use delta-config to set these values in the UI so the information in our stac collections will be for data curators and API users. |
 | **collection name style choices** | Prefer lower-case kebab-case collection names. Decision: Should names align with underlying data identifiers or should it be an interpreted name? `omi-trno2-dhrm` and `omi-trno2-dhrm-difference` vs `no2-monthly` and `no2-monthly-diff`; `bmhd-30m-monthly` vs `nightlights-hd-monthly`  |
 | **license** | [SPDX license id](https://spdx.org/licenses/), license is likely available in CMR but we may need to research other sources of data. Default open license: `CC0-1.0`  |
@@ -43,7 +43,7 @@ Dashboard-specific notes that supplement the full [stac-api collection specifica
   }
 ```
 
-**summaries example for periodic collection**
+**summaries example for non-periodic collection**
 ```
 "summaries": {
     "datetime": ["2016-01-01T00:00:00Z", "2022-01-01T00:00:00Z"],
@@ -54,7 +54,7 @@ Dashboard-specific notes that supplement the full [stac-api collection specifica
   }
 ```
 
-**summaries example for non-periodic collection**
+**summaries example for periodic collection**
 ```
 "summaries": {
     "datetime": [
