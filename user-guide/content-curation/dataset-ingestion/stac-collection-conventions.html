@@ -916,7 +916,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td><strong>dashboard extension</strong></td>
-<td>To support the delta-ui we have added two new fields in a proposed dashboard extension. For now we are just adding the fields but after testing things out, we can formalize the extension with a <a href="https://github.com/stac-extensions/template">hosted json schema</a>. <strong><em>Dashboard extension properties are only required for collections that will be viewed in the delta-ui dashboard.</em></strong></td>
+<td>To support the veda-ui we have added two new fields in a proposed dashboard extension. For now we are just adding the fields but after testing things out, we can formalize the extension with a <a href="https://github.com/stac-extensions/template">hosted json schema</a>. <strong><em>Dashboard extension properties are only required for collections that will be viewed in the veda-ui dashboard.</em></strong></td>
 </tr>
 <tr class="odd">
 <td><strong>dashboard:is_periodic</strong></td>
@@ -928,11 +928,11 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td><strong>item_assets</strong></td>
-<td><a href="https://github.com/stac-extensions/item-assets/blob/main/README.md">stac-extension/item_assets</a> is used to explain the assets that are provided for each item in the collection. We’re not providing thumbnails yet, but this example below includes a thumbnail asset to illustrate how the extension will be used. The population of this property is not automated, the creator of the collection writes the item assets documentation. <strong><em>Item assets are only required for collections that will be viewed in the delta-ui dashboard.</em></strong></td>
+<td><a href="https://github.com/stac-extensions/item-assets/blob/main/README.md">stac-extension/item_assets</a> is used to explain the assets that are provided for each item in the collection. We’re not providing thumbnails yet, but this example below includes a thumbnail asset to illustrate how the extension will be used. The population of this property is not automated, the creator of the collection writes the item assets documentation. <strong><em>Item assets are only required for collections that will be viewed in the veda-ui dashboard.</em></strong></td>
 </tr>
 <tr class="even">
 <td><strong>summaries</strong></td>
-<td>The implementation of this <a href="https://github.com/radiantearth/stac-api-spec/blob/master/stac-spec/collection-spec/collection-spec.md#summaries">core stac-spec</a> field is use-case specific. Our implementation is intended to support the dashboard and will supply datetime and raster statistics for the default map layer asset across the entire collection. <strong><em>Currently summaries are manually updated with a delta-ui specific <a href="https://github.com/NASA-IMPACT/veda-backend/issues/31">user defined function in pgstac</a>.</em></strong></td>
+<td>The implementation of this <a href="https://github.com/radiantearth/stac-api-spec/blob/master/stac-spec/collection-spec/collection-spec.md#summaries">core stac-spec</a> field is use-case specific. Our implementation is intended to support the dashboard and will supply datetime and raster statistics for the default map layer asset across the entire collection. <strong><em>Currently summaries are manually updated with a veda-ui specific <a href="https://github.com/NASA-IMPACT/veda-backend/issues/31">user defined function in pgstac</a>.</em></strong></td>
 </tr>
 <tr class="odd">
 <td><strong>title and description</strong></td>
@@ -969,7 +969,7 @@ ul.task-list li input[type="checkbox"] {
       "description": "Cloud optimized default layer to display on map"
     }
   }</code></pre>
-<p><strong>summaries example for periodic collection</strong></p>
+<p><strong>summaries example for non-periodic collection</strong></p>
 <pre><code>"summaries": {
     "datetime": ["2016-01-01T00:00:00Z", "2022-01-01T00:00:00Z"],
     "cog_default": {
@@ -977,7 +977,7 @@ ul.task-list li input[type="checkbox"] {
       "min": -6618294421291008
     }
   }</code></pre>
-<p><strong>summaries example for non-periodic collection</strong></p>
+<p><strong>summaries example for periodic collection</strong></p>
 <pre><code>"summaries": {
     "datetime": [
       "2020-01-01T00:00:00Z",
