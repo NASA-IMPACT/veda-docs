@@ -1,0 +1,101 @@
+---
+title: External Collection Indexing
+subtitle: Indexing external datasets in the VEDA catalog without data migration
+---
+
+External collection indexing allows VEDA to provide access to datasets hosted on external systems without requiring data migration to VEDA's data store. This approach is particularly useful for:
+
+- Large datasets that are already optimized for cloud access
+- Datasets with strict data governance requirements
+- Collections maintained by external organizations
+- Time-sensitive data where migration would introduce delays
+
+## Overview
+
+VEDA supports indexing external collections through integration with NASA's Common Metadata Repository (CMR) via [Titiler-CMR](https://developmentseed.org/titiler-cmr/), which provides dynamic tiling and visualization capabilities for CMR-registered datasets.
+
+## Key Benefits
+
+- **No Data Duplication**: Access datasets in their original location
+- **Real-time Access**: No synchronization delays
+- **Reduced Storage Costs**: Leverages existing infrastructure
+- **Maintained Provenance**: Data remains with authoritative source
+- **API Consistency**: Same VEDA interface for both internal and external data
+
+## Supported Formats
+
+External collection indexing supports datasets in:
+
+- **NetCDF**: Multi-dimensional scientific data (via xarray backend)
+- **Cloud-Optimized GeoTIFF (COG)**: Raster datasets optimized for cloud access
+- **Zarr**: Chunked, compressed N-dimensional arrays
+
+## Integration Methods
+
+### Titiler-CMR Integration
+
+The primary method for external collection indexing uses Titiler-CMR to provide:
+
+- Dynamic tile generation from CMR-registered datasets
+- Multi-backend support (xarray, rasterio)
+- Statistical analysis capabilities
+- Time series API support
+
+[Learn more about Titiler-CMR Integration →](./titiler-cmr.qmd)
+
+### ArcGIS Server Integration
+
+The pyarc2stac library enables integration with ArcGIS Server services:
+
+- ImageServer, MapServer, and FeatureServer support
+- Automatic STAC collection generation
+- WMS integration for visualization
+- Datacube extension support for multidimensional data
+
+[Learn more about ArcGIS Server Integration →](./arcgis-server-integration.qmd)
+
+## Requirements
+
+To index an external collection in VEDA:
+
+1. **CMR Registration**: Dataset must be registered in NASA's CMR
+2. **Cloud-Optimized Format**: Data should be in COG, NetCDF, or Zarr format
+3. **Public Access**: Dataset must be publicly accessible or use standard authentication
+4. **Metadata Compliance**: Collection metadata should follow STAC conventions where possible
+
+## Getting Started
+
+1. **Identify Dataset**: Locate the CMR concept ID for your dataset
+2. **Configure Collection**: Create a STAC collection configuration
+3. **Test Access**: Verify data accessibility through Titiler-CMR
+4. **Submit Configuration**: Add collection to VEDA's staging environment
+5. **Review and Deploy**: Test in staging before production deployment
+
+### Quick Example
+
+For the GPM precipitation dataset:
+
+```bash
+# 1. Find the dataset in CMR
+curl "https://cmr.earthdata.nasa.gov/search/collections.json?short_name=GPM_3IMERGDF"
+
+# 2. Test Titiler-CMR access
+curl "https://staging.openveda.cloud/api/titiler-cmr/info?concept_id=C2723754864-GES_DISC&datetime=2024-01-15&backend=xarray"
+
+# 3. Generate tiles for visualization
+curl "https://staging.openveda.cloud/api/titiler-cmr/WebMercatorQuad/tilejson.json?concept_id=C2723754864-GES_DISC&datetime=2024-01-15&backend=xarray&variable=precipitation&rescale=0,50&colormap_name=blues"
+```
+
+## Example Use Cases
+
+### Titiler-CMR Use Cases
+- **NASA Earth Science Data**: GPM precipitation, MODIS imagery, MUR SST
+- **Interagency Datasets**: NOAA, USGS, and other federal agency data
+- **International Collaborations**: ESA, JAXA, and partner organization datasets
+- **Real-time Monitoring**: Weather, climate, and environmental monitoring data
+
+### ArcGIS Server Use Cases
+- **State and Local Data**: Regional climate data, land use datasets
+- **Commercial Services**: Third-party geospatial service providers
+- **Institutional Repositories**: University and research organization data
+- **Operational Services**: Emergency management, disaster response data

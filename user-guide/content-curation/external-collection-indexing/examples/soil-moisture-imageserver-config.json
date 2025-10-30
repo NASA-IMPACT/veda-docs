@@ -1,0 +1,111 @@
+{
+  "type": "Collection",
+  "id": "disasters_test_lis_vsm_percentile_10cm",
+  "stac_version": "1.1.0",
+  "description": "Soil moisture percentile data from Land Information System (LIS) for disaster monitoring applications. This dataset provides volumetric soil moisture percentiles for the top 10cm of soil.",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/render/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/datacube/v2.2.0/schema.json"
+  ],
+  "links": [
+    {
+      "rel": "wms",
+      "href": "https://gis.earthdata.nasa.gov/UAT/services/disasters_test/lis_vsm_percentile_10cm/ImageServer/WMSServer",
+      "type": "image/png",
+      "title": "Visualized through a WMS",
+      "wms:layers": [
+        "lis_vsm_percentile_10cm",
+        "VSM_Percentile_0_10cm"
+      ],
+      "wms:styles": [
+        "default"
+      ]
+    },
+    {
+      "rel": "via",
+      "href": "https://gis.earthdata.nasa.gov/UAT/rest/services/disasters_test/lis_vsm_percentile_10cm/ImageServer",
+      "type": "text/html",
+      "title": "Parent ArcGIS server url"
+    }
+  ],
+  "renders": {
+    "lis_vsm_percentile_10cm": {
+      "layers": "lis_vsm_percentile_10cm"
+    },
+    "vsm_percentile_0_10cm": {
+      "layers": "VSM_Percentile_0_10cm"
+    }
+  },
+  "cube:variables": {
+    "lis_vsm_percentile_10cm": {
+      "type": "data",
+      "attrs": {
+        "Count": 27,
+        "Minimum": 45857,
+        "Maximum": 45886,
+        "Interval": 1,
+        "IntervalUnit": "Days",
+        "HasRegularIntervals": false,
+        "HasRanges": false
+      },
+      "dimensions": [
+        "StdTime"
+      ]
+    },
+    "VSM_Percentile_0_10cm": {
+      "type": "data",
+      "attrs": {
+        "Count": 31,
+        "Minimum": 45857,
+        "Maximum": 45887,
+        "Interval": 1,
+        "IntervalUnit": "Days",
+        "HasRegularIntervals": true
+      },
+      "dimensions": [
+        "StdTime"
+      ]
+    }
+  },
+  "cube:dimensions": {
+    "StdTime": {
+      "type": "temporal",
+      "step": "P1D",
+      "extent": [
+        "2025-07-19T00:00:00Z",
+        "2025-08-17T00:00:00Z"
+      ],
+      "values": [
+        "2025-07-19T00:00:00Z",
+        "2025-07-20T00:00:00Z",
+        "2025-07-21T00:00:00Z"
+      ]
+    }
+  },
+  "dashboard:is_periodic": true,
+  "dashboard:time_density": "day",
+  "dashboard:time_interval": "P1D",
+  "title": "Disasters Test LIS VSM Percentile 10cm",
+  "extent": {
+    "spatial": {
+      "bbox": [
+        [
+          -124.93999999989579,
+          25.054242740487126,
+          -67.0699999998994,
+          52.930000000213646
+        ]
+      ]
+    },
+    "temporal": {
+      "interval": [
+        [
+          "2025-07-19T00:00:00Z",
+          "2025-08-18T00:00:00Z"
+        ]
+      ]
+    }
+  },
+  "license": "not-applicable",
+  "item_assets": {}
+}
