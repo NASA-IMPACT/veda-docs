@@ -1,0 +1,244 @@
+---
+title: ArcGIS Server Integration
+subtitle: Indexing ArcGIS Server services using pyarc2stac for STAC collection creation
+---
+
+The [pyarc2stac](https://github.com/NASA-IMPACT/pyarc2stac) library provides seamless integration between ArcGIS Server services and STAC collections, enabling VEDA to index and access geospatial data from ArcGIS Server endpoints without requiring data migration.
+
+## Overview
+
+ArcGIS Server hosts various types of geospatial services that can be converted to STAC collections for integration with VEDA. The pyarc2stac library automatically extracts metadata from ArcGIS services and generates STAC-compliant collection documents.
+
+## Supported ArcGIS Services
+
+| Service Type | Use Cases |
+|--------------|-----------|
+| **ImageServer** | Satellite imagery, raster analysis, multidimensional data |
+| **MapServer** | Visualized map services, layer-based data |
+| **FeatureServer** | Vector data, administrative boundaries, point datasets |
+
+## Key Features
+
+- **Automatic Metadata Extraction**: Pulls spatial extent, temporal coverage, and descriptive metadata
+- **WMS Integration**: Generates WMS links for visualization in VEDA Dashboard
+- **Datacube Support**: Handles multidimensional ImageServer data with proper datacube extensions
+- **STAC Compliance**: Generates valid STAC collections following specification standards
+- **Render Configuration**: Automatically configures visualization parameters
+
+## Architecture
+
+```{mermaid}
+graph LR
+    A[ArcGIS Server] --> B[pyarc2stac Library]
+    B --> C[STAC Collection]
+    C --> D[VEDA Catalog]
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#fff3e0
+    subgraph "ArcGIS Services"
+        E[ImageServer]
+        F[MapServer] 
+        G[FeatureServer]
+    end
+    
+    E --> B
+    F --> B
+    G --> B
+    
+    subgraph "VEDA Integration"
+        H[Dashboard Visualization]
+        I[API Access]
+        J[Data Discovery]
+    end
+    
+    D --> H
+    D --> I
+    D --> J
+```
+
+## Installation and Setup
+
+### Prerequisites
+
+```bash
+# Install pyarc2stac
+pip install git+https://github.com/NASA-IMPACT/pyarc2stac.git@main
+
+# Required dependencies
+pip install pystac requests pyproj beautifulsoup4
+```
+
+### Basic Usage
+
+```python
+from pyarc2stac.ArcReader import ArcReader
+
+# Initialize reader with ArcGIS service URL
+reader = ArcReader(server_url="https://example.com/arcgis/rest/services/ServiceName/ImageServer")
+
+# Generate STAC collection
+collection = reader.generate_stac()
+
+# Save to JSON file
+reader.save_collection_to_json("my_collection.json")
+```
+
+## Service-Specific Integration
+
+### ImageServer Integration
+Ideal for raster datasets, satellite imagery, and multidimensional scientific data.
+
+[Learn more about ImageServer Integration →](./imageserver-integration.qmd)
+
+### MapServer Integration  
+Perfect for visualized map services with multiple layers and styling.
+
+[Learn more about MapServer Integration →](./mapserver-integration.qmd)
+
+### FeatureServer Integration
+Designed for vector datasets, administrative boundaries, and point-based data.
+
+[Learn more about FeatureServer Integration →](./featureserver-integration.qmd)
+
+## Configuration Examples
+
+### Basic Collection Structure
+
+All pyarc2stac-generated collections follow this basic structure:
+
+```json
+{
+  "type": "Collection",
+  "id": "service_name",
+  "stac_version": "1.1.0",
+  "description": "Extracted from ArcGIS service metadata",
+  "extent": {
+    "spatial": {"bbox": [...]},
+    "temporal": {"interval": [...]}
+  },
+  "links": [...],
+  "license": "not-applicable",
+  "item_assets": {}
+}
+```
+
+### Service-Specific Extensions
+
+Each service type adds specific extensions and metadata:
+
+#### ImageServer
+```json
+{
+  "stac_extensions": [
+    "https://stac-extensions.github.io/render/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/datacube/v2.2.0/schema.json"
+  ],
+  "cube:variables": {...},
+  "cube:dimensions": {...},
+  "renders": {...}
+}
+```
+
+#### MapServer
+```json
+{
+  "stac_extensions": [
+    "https://stac-extensions.github.io/render/v2.0.0/schema.json"
+  ],
+  "renders": {...},
+  "links": [{
+    "rel": "wms",
+    "href": "...",
+    "wms:layers": [...],
+    "wms:styles": ["default"]
+  }]
+}
+```
+
+#### FeatureServer
+```json
+{
+  "links": [{
+    "rel": "featureserver",
+    "href": "...",
+    "featureserver:layers": {...}
+  }]
+}
+```
+
+## Implementation Workflow
+
+### 1. Service Discovery
+Identify ArcGIS services suitable for VEDA integration:
+
+```python
+# Validate service accessibility
+import requests
+
+service_url = "https://example.com/arcgis/rest/services/ServiceName/ImageServer"
+response = requests.get(f"{service_url}?f=pjson")
+
+if response.status_code == 200:
+    service_info = response.json()
+    print(f"Service: {service_info.get('name', 'Unknown')}")
+    print(f"Type: {service_info.get('serviceDataType', 'Unknown')}")
+else:
+    print("Service not accessible")
+```
+
+### 2. Metadata Extraction
+Generate STAC collection with automatic metadata extraction:
+
+```python
+from pyarc2stac.ArcReader import ArcReader
+
+reader = ArcReader(server_url=service_url)
+collection = reader.generate_stac()
+
+# Inspect generated metadata
+print(f"Collection ID: {collection.id}")
+print(f"Spatial Extent: {collection.extent.spatial.bboxes}")
+print(f"Temporal Extent: {collection.extent.temporal.intervals}")
+```
+
+### 3. Configuration Validation
+Validate the generated STAC collection:
+
+```python
+# Validate STAC compliance
+try:
+    collection.validate()
+    print("✅ Collection is valid STAC")
+except Exception as e:
+    print(f"❌ Validation error: {e}")
+```
+
+### 4. Integration Testing
+Test integration with VEDA components:
+
+```python
+# Test WMS links (for ImageServer/MapServer)
+wms_links = [link for link in collection.links if link.rel == "wms"]
+if wms_links:
+    print(f"WMS endpoint: {wms_links[0].href}")
+    
+# Test render configuration
+if hasattr(collection, 'extra_fields') and 'renders' in collection.extra_fields:
+    print(f"Render configs: {list(collection.extra_fields['renders'].keys())}")
+```
+
+## Related Resources
+
+- [pyarc2stac GitHub Repository](https://github.com/NASA-IMPACT/pyarc2stac)
+- [ArcGIS REST API Documentation](https://developers.arcgis.com/rest/)
+- [STAC Specification](https://stacspec.org/)
+- [VEDA Dataset Configuration Guide](../dashboard-configuration/dataset-configuration.qmd)
+
+## Support
+
+For assistance with ArcGIS Server integration:
+
+1. Review the [pyarc2stac examples](https://github.com/NASA-IMPACT/pyarc2stac/tree/main/examples)
+2. Check [existing issues](https://github.com/NASA-IMPACT/pyarc2stac/issues) for known problems
+3. Open a new issue in the [pyarc2stac repository](https://github.com/NASA-IMPACT/pyarc2stac/issues/new)
+4. Consult the [VEDA data repository](https://github.com/NASA-IMPACT/veda-data) for similar configurations

@@ -1,0 +1,178 @@
+---
+title: MapServer Integration
+subtitle: Converting ArcGIS MapServer services to STAC collections
+---
+
+ArcGIS MapServer services provide pre-styled, visualized map layers optimized for display and visualization. This page covers MapServer-specific configuration and examples.
+
+::: {.callout-note}
+**Prerequisites**: Before using MapServer integration, complete the [ArcGIS Server Integration](./arcgis-server-integration.qmd#installation-and-setup) including pyarc2stac installation and basic usage patterns.
+:::
+
+## MapServer Resources
+
+- [pyarc2stac MapServer Example](https://github.com/NASA-IMPACT/pyarc2stac/blob/main/examples/MapServer_to_STAC.ipynb)
+- [WMS Specification](https://www.ogc.org/standard/wms/)
+- [ArcGIS MapServer Documentation](https://developers.arcgis.com/rest/services-reference/enterprise/map-service.htm)
+
+::: {.callout-tip}
+For general ArcGIS Server integration support, troubleshooting, and additional resources, see the [ArcGIS Server Integration](./arcgis-server-integration.qmd#support) page.
+:::
+
+## MapServer Specialization
+
+MapServer integration is specifically designed for:
+
+- **Pre-styled Visualizations**: Services with built-in symbology and rendering
+- **Multi-layer Services**: Complex services with multiple thematic layers requiring individual styling
+- **WMS-optimized Services**: Services primarily designed for map visualization rather than data analysis
+
+## Example: SERVIR ESI Drought Monitoring
+
+This example demonstrates MapServer integration using SERVIR Global's Evapotranspiration Stress Index (ESI) service:
+
+```python
+# ESI MapServer with multiple styled layers
+map_server_url = "https://gis1.servirglobal.net/arcgis/rest/services/Global/ESI_4WK/MapServer"
+
+# MapServer-specific inspection
+collection = reader.generate_stac()
+
+# Check WMS layers (MapServer specialty)
+wms_links = [link for link in collection.links if link.rel == "wms"]
+if wms_links:
+    wms_link = wms_links[0]
+    layers = wms_link.extra_fields.get('wms:layers', [])
+    print(f"Available WMS layers: {layers}")
+    
+    # Check styling options
+    styles = wms_link.extra_fields.get('wms:styles', [])
+    print(f"Available styles: {styles}")
+
+# Check render configurations (key for MapServer visualization)
+if 'renders' in collection.extra_fields:
+    renders = collection.extra_fields['renders']
+    print(f"Render configurations: {list(renders.keys())}")
+    
+    # Inspect render details
+    for render_name, render_config in renders.items():
+        print(f"  {render_name}: layers={render_config.get('layers', 'Unknown')}")
+```
+
+## Configuration Structure
+
+### Complete Example Configuration
+
+Based on the SERVIR Global ESI 4-week service:
+
+```json
+{
+  "type": "Collection",
+  "id": "global_esi_4wk",
+  "stac_version": "1.1.0",
+  "description": "The Evaporative Stress Index (ESI) reveals regions of drought where vegetation is stressed due to lack of water. The ESI can capture early signals of flash drought and is produced weekly at 5-kilometer resolution for the entire globe.",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/render/v2.0.0/schema.json"
+  ],
+  "links": [
+    {
+      "rel": "wms",
+      "href": "https://gis1.servirglobal.net/arcgis/services/Global/ESI_4WK/MapServer/WMSServer?request=GetCapabilities&service=WMS",
+      "type": "image/png",
+      "title": "Visualized through a WMS",
+      "wms:layers": ["1", "2", "3"],
+      "wms:styles": ["default"]
+    },
+    {
+      "rel": "via", 
+      "href": "https://gis1.servirglobal.net/arcgis/rest/services/Global/ESI_4WK/MapServer",
+      "type": "text/html",
+      "title": "Parent ArcGIS server url"
+    }
+  ],
+  "renders": {
+    "image": {
+      "layers": "1"
+    },
+    "footprint": {
+      "layers": "2"  
+    },
+    "boundary": {
+      "layers": "3"
+    }
+  },
+  "dashboard:is_periodic": true,
+  "dashboard:time_density": "day",
+  "dashboard:time_interval": "P7D",
+  "extent": {
+    "spatial": {
+      "bbox": [[-180, -60, 180.0000000000001, 90.00000000000009]]
+    },
+    "temporal": {
+      "interval": [["2001-01-02T00:00:00Z", "2025-02-19T00:00:00Z"]]
+    }
+  },
+  "license": "not-applicable",
+  "item_assets": {}
+}
+```
+
+### Key Configuration Elements
+
+#### Layer-Based Rendering
+MapServer collections use layer IDs for render configuration:
+
+```json
+{
+  "renders": {
+    "primary_data": {
+      "layers": "1"
+    },
+    "reference_layer": {
+      "layers": "2"
+    },
+    "boundaries": {
+      "layers": "3"
+    }
+  }
+}
+```
+
+#### WMS Configuration
+Provides Web Map Service access for all layers:
+
+```json
+{
+  "links": [{
+    "rel": "wms",
+    "href": "https://server.com/MapServer/WMSServer?request=GetCapabilities&service=WMS",
+    "type": "image/png",
+    "title": "Visualized through a WMS",
+    "wms:layers": ["1", "2", "3"],
+    "wms:styles": ["default"]
+  }]
+}
+```
+
+#### Time-Enabled Services
+For time-enabled MapServer services:
+
+```json
+{
+  "dashboard:is_periodic": true,
+  "dashboard:time_density": "day", 
+  "dashboard:time_interval": "P7D"
+}
+```
+
+
+
+## MapServer Resources
+
+- [pyarc2stac MapServer Example](https://github.com/NASA-IMPACT/pyarc2stac/blob/main/examples/MapServer_to_STAC.ipynb)
+- [WMS Specification](https://www.ogc.org/standard/wms/)
+- [ArcGIS MapServer Documentation](https://developers.arcgis.com/rest/services-reference/enterprise/map-service.htm)
+
+::: {.callout-tip}
+For general ArcGIS Server integration support, troubleshooting, and additional resources, see the [ArcGIS Server Integration](./arcgis-server-integration.qmd#support) page.
+:::
