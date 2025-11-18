@@ -2022,6 +2022,336 @@
     ]
   },
   {
+    "objectID": "user-guide/content-curation/external-collection-indexing/titiler-cmr.html",
+    "href": "user-guide/content-curation/external-collection-indexing/titiler-cmr.html",
+    "title": "Titiler-CMR Integration",
+    "section": "",
+    "text": "Titiler-CMR provides a powerful bridge between NASA’s Common Metadata Repository (CMR) and dynamic tile generation for visualization in VEDA. This integration enables access to thousands of CMR-registered datasets without requiring data migration.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "Titiler-CMR Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/titiler-cmr.html#overview",
+    "href": "user-guide/content-curation/external-collection-indexing/titiler-cmr.html#overview",
+    "title": "Titiler-CMR Integration",
+    "section": "Overview",
+    "text": "Overview\nTitiler-CMR extends the TiTiler library to work directly with CMR-registered datasets, providing:\n\nDynamic Tile Generation: On-demand tile creation from NetCDF, COG, and Zarr files\nMulti-Backend Support: Supports both xarray (NetCDF/Zarr) and rasterio (COG) backends\nTemporal Queries: Access time series data across dataset granules\nStatistical Analysis: Compute zonal statistics for arbitrary geometries\nSTAC Integration: Generate STAC-compliant metadata for external datasets",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "Titiler-CMR Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/titiler-cmr.html#architecture",
+    "href": "user-guide/content-curation/external-collection-indexing/titiler-cmr.html#architecture",
+    "title": "Titiler-CMR Integration",
+    "section": "Architecture",
+    "text": "Architecture\n\n\n\n\n\ngraph LR\n    A[VEDA Dashboard] --&gt; B[Titiler-CMR API]\n    B --&gt; C[NASA CMR]\n    C --&gt; D[External Data Storage]\n    D --&gt; E[NetCDF Files]\n    D --&gt; F[COG Files]\n    D --&gt; G[Zarr Stores]\n    B --&gt; H[Dynamic Tiles]\n    B --&gt; I[Statistics API]\n    B --&gt; J[STAC Metadata]\n    \n    style A fill:#e1f5fe\n    style B fill:#f3e5f5\n    style C fill:#fff3e0\n    style D fill:#f1f8e9\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nArchitecture Overview: VEDA Dashboard connects to Titiler-CMR API, which interfaces with NASA’s CMR to access external data storage containing NetCDF, COG, and Zarr files. Titiler-CMR generates dynamic tiles, provides statistical analysis, and creates STAC-compliant metadata.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "Titiler-CMR Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/titiler-cmr.html#configuration-example-gpm-precipitation",
+    "href": "user-guide/content-curation/external-collection-indexing/titiler-cmr.html#configuration-example-gpm-precipitation",
+    "title": "Titiler-CMR Integration",
+    "section": "Configuration Example: GPM Precipitation",
+    "text": "Configuration Example: GPM Precipitation\nHere’s a real-world example using the GPM IMERG Daily precipitation dataset. The complete configuration is available in examples/gpm-precipitation-config.json.\n\nCollection Configuration\n{\n  \"type\": \"Collection\",\n  \"id\": \"GPM_3IMERGDF\",\n  \"stac_version\": \"1.0.0\",\n  \"description\": \"GPM IMERG Final Daily precipitation estimates\",\n  \"collection_concept_id\": \"C2723754864-GES_DISC\",\n  \"cube:dimensions\": {\n    \"time\": {\n      \"extent\": [\"1998-01-01T00:00:00Z\", null],\n      \"description\": \"time\",\n      \"step\": \"P1D\",\n      \"type\": \"temporal\"\n    },\n    \"lon\": {\n      \"axis\": \"x\",\n      \"extent\": [-179.95, 179.95],\n      \"description\": \"Longitude\",\n      \"reference_system\": 4326,\n      \"type\": \"spatial\"\n    },\n    \"lat\": {\n      \"axis\": \"y\",\n      \"extent\": [-89.95, 89.95],\n      \"description\": \"Latitude\",\n      \"reference_system\": 4326,\n      \"type\": \"spatial\"\n    }\n  },\n  \"summaries\": {\n    \"precipitation\": {\n      \"type\": \"data\",\n      \"description\": \"Daily precipitation rate\",\n      \"dimensions\": [\"time\", \"lon\", \"lat\"],\n      \"unit\": \"mm/day\",\n      \"attrs\": {\n        \"units\": \"mm/day\",\n        \"long_name\": \"Daily mean precipitation rate\"\n      },\n      \"renders\": \"precipitation\"\n    }\n  },\n  \"renders\": {\n    \"precipitation\": {\n      \"title\": \"Precipitation\",\n      \"resampling\": \"average\",\n      \"colormap_name\": \"blues\",\n      \"rescale\": [[0, 48]],\n      \"backend\": \"xarray\"\n    }\n  }\n}\n\n\nKey Configuration Elements\n\nBackend Selection\n\nxarray: For NetCDF and Zarr datasets with multidimensional data\nrasterio: For Cloud-Optimized GeoTIFF (COG) files\n\n\n\nCMR Integration\n\ncollection_concept_id: Links to the CMR collection (e.g., “C2723754864-GES_DISC”)\ncube:dimensions: Defines spatial and temporal dimensions\nsummaries: Describes available data variables\n\n\n\nRendering Configuration\n\nrenders: Defines visualization parameters for each variable\ncolormap_name: Specifies color scheme for visualization\nrescale: Sets data range for color mapping\nresampling: Controls how data is aggregated at different zoom levels",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "Titiler-CMR Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/titiler-cmr.html#api-usage-examples",
+    "href": "user-guide/content-curation/external-collection-indexing/titiler-cmr.html#api-usage-examples",
+    "title": "Titiler-CMR Integration",
+    "section": "API Usage Examples",
+    "text": "API Usage Examples\n\nTile Generation\nGenerate dynamic tiles for a specific date and variable:\nGET /WebMercatorQuad/tilejson.json?concept_id=C2723754864-GES_DISC&datetime=2024-01-15&backend=xarray&variable=precipitation&rescale=0,50&colormap_name=blues\n\n\nStatistical Analysis\nCompute statistics for a geographic region:\nPOST /statistics?concept_id=C2723754864-GES_DISC&datetime=2024-01-15&backend=xarray&variable=precipitation\nContent-Type: application/json\n\n{\n  \"type\": \"Feature\",\n  \"geometry\": {\n    \"type\": \"Polygon\",\n    \"coordinates\": [[...]]\n  }\n}\n\n\nTime Series Access\nAccess temporal data across multiple granules:\nGET /time-series?concept_id=C2723754864-GES_DISC&datetime=2024-01-01/2024-01-31&backend=xarray&variable=precipitation&lat=40.7&lon=-74.0",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "Titiler-CMR Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/titiler-cmr.html#related-resources",
+    "href": "user-guide/content-curation/external-collection-indexing/titiler-cmr.html#related-resources",
+    "title": "Titiler-CMR Integration",
+    "section": "Related Resources",
+    "text": "Related Resources\n\nTitiler-CMR Documentation\nNASA CMR API\nEarthdata Access\nSTAC Specification\nXarray Documentation",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "Titiler-CMR Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/titiler-cmr.html#support",
+    "href": "user-guide/content-curation/external-collection-indexing/titiler-cmr.html#support",
+    "title": "Titiler-CMR Integration",
+    "section": "Support",
+    "text": "Support\nFor assistance with Titiler-CMR integration:\n\nReview the Titiler-CMR examples\nCheck existing VEDA data configurations\nOpen an issue in the veda-data repository\nContact the VEDA team for complex integration requirements",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "Titiler-CMR Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/index.html",
+    "href": "user-guide/content-curation/external-collection-indexing/index.html",
+    "title": "External Collection Indexing",
+    "section": "",
+    "text": "External collection indexing allows VEDA to provide access to datasets hosted on external systems without requiring data migration to VEDA’s data store. This approach is particularly useful for:",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/index.html#overview",
+    "href": "user-guide/content-curation/external-collection-indexing/index.html#overview",
+    "title": "External Collection Indexing",
+    "section": "Overview",
+    "text": "Overview\nVEDA supports indexing external collections through integration with NASA’s Common Metadata Repository (CMR) via Titiler-CMR, which provides dynamic tiling and visualization capabilities for CMR-registered datasets.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/index.html#key-benefits",
+    "href": "user-guide/content-curation/external-collection-indexing/index.html#key-benefits",
+    "title": "External Collection Indexing",
+    "section": "Key Benefits",
+    "text": "Key Benefits\n\nNo Data Duplication: Access datasets in their original location\nReal-time Access: No synchronization delays\nReduced Storage Costs: Leverages existing infrastructure\nMaintained Provenance: Data remains with authoritative source\nAPI Consistency: Same VEDA interface for both internal and external data",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/index.html#supported-formats",
+    "href": "user-guide/content-curation/external-collection-indexing/index.html#supported-formats",
+    "title": "External Collection Indexing",
+    "section": "Supported Formats",
+    "text": "Supported Formats\nExternal collection indexing supports datasets in:\n\nNetCDF: Multi-dimensional scientific data (via xarray backend)\nCloud-Optimized GeoTIFF (COG): Raster datasets optimized for cloud access\nZarr: Chunked, compressed N-dimensional arrays",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/index.html#integration-methods",
+    "href": "user-guide/content-curation/external-collection-indexing/index.html#integration-methods",
+    "title": "External Collection Indexing",
+    "section": "Integration Methods",
+    "text": "Integration Methods\n\nTitiler-CMR Integration\nThe primary method for external collection indexing uses Titiler-CMR to provide:\n\nDynamic tile generation from CMR-registered datasets\nMulti-backend support (xarray, rasterio)\nStatistical analysis capabilities\nTime series API support\n\nLearn more about Titiler-CMR Integration →\n\n\nArcGIS Server Integration\nThe pyarc2stac library enables integration with ArcGIS Server services:\n\nImageServer, MapServer, and FeatureServer support\nAutomatic STAC collection generation\nWMS integration for visualization\nDatacube extension support for multidimensional data\n\nLearn more about ArcGIS Server Integration →",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/index.html#requirements",
+    "href": "user-guide/content-curation/external-collection-indexing/index.html#requirements",
+    "title": "External Collection Indexing",
+    "section": "Requirements",
+    "text": "Requirements\nTo index an external collection in VEDA:\n\nCMR Registration: Dataset must be registered in NASA’s CMR\nCloud-Optimized Format: Data should be in COG, NetCDF, or Zarr format\nPublic Access: Dataset must be publicly accessible or use standard authentication\nMetadata Compliance: Collection metadata should follow STAC conventions where possible",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/index.html#getting-started",
+    "href": "user-guide/content-curation/external-collection-indexing/index.html#getting-started",
+    "title": "External Collection Indexing",
+    "section": "Getting Started",
+    "text": "Getting Started\n\nIdentify Dataset: Locate the CMR concept ID for your dataset\nConfigure Collection: Create a STAC collection configuration\nTest Access: Verify data accessibility through Titiler-CMR\nSubmit Configuration: Add collection to VEDA’s staging environment\nReview and Deploy: Test in staging before production deployment\n\n\nQuick Example\nFor the GPM precipitation dataset:\n# 1. Find the dataset in CMR\ncurl \"https://cmr.earthdata.nasa.gov/search/collections.json?short_name=GPM_3IMERGDF\"\n\n# 2. Test Titiler-CMR access\ncurl \"https://staging.openveda.cloud/api/titiler-cmr/info?concept_id=C2723754864-GES_DISC&datetime=2024-01-15&backend=xarray\"\n\n# 3. Generate tiles for visualization\ncurl \"https://staging.openveda.cloud/api/titiler-cmr/WebMercatorQuad/tilejson.json?concept_id=C2723754864-GES_DISC&datetime=2024-01-15&backend=xarray&variable=precipitation&rescale=0,50&colormap_name=blues\"",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/index.html#example-use-cases",
+    "href": "user-guide/content-curation/external-collection-indexing/index.html#example-use-cases",
+    "title": "External Collection Indexing",
+    "section": "Example Use Cases",
+    "text": "Example Use Cases\n\nTitiler-CMR Use Cases\n\nNASA Earth Science Data: GPM precipitation, MODIS imagery, MUR SST\nInteragency Datasets: NOAA, USGS, and other federal agency data\nInternational Collaborations: ESA, JAXA, and partner organization datasets\nReal-time Monitoring: Weather, climate, and environmental monitoring data\n\n\n\nArcGIS Server Use Cases\n\nState and Local Data: Regional climate data, land use datasets\nCommercial Services: Third-party geospatial service providers\nInstitutional Repositories: University and research organization data\nOperational Services: Emergency management, disaster response data",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html",
+    "href": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html",
+    "title": "ArcGIS Server Integration",
+    "section": "",
+    "text": "The pyarc2stac library provides seamless integration between ArcGIS Server services and STAC collections, enabling VEDA to index and access geospatial data from ArcGIS Server endpoints without requiring data migration.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#overview",
+    "href": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#overview",
+    "title": "ArcGIS Server Integration",
+    "section": "Overview",
+    "text": "Overview\nArcGIS Server hosts various types of geospatial services that can be converted to STAC collections for integration with VEDA. The pyarc2stac library automatically extracts metadata from ArcGIS services and generates STAC-compliant collection documents.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#supported-arcgis-services",
+    "href": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#supported-arcgis-services",
+    "title": "ArcGIS Server Integration",
+    "section": "Supported ArcGIS Services",
+    "text": "Supported ArcGIS Services\n\n\n\n\n\n\n\nService Type\nUse Cases\n\n\n\n\nImageServer\nSatellite imagery, raster analysis, multidimensional data\n\n\nMapServer\nVisualized map services, layer-based data\n\n\nFeatureServer\nVector data, administrative boundaries, point datasets",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#key-features",
+    "href": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#key-features",
+    "title": "ArcGIS Server Integration",
+    "section": "Key Features",
+    "text": "Key Features\n\nAutomatic Metadata Extraction: Pulls spatial extent, temporal coverage, and descriptive metadata\nWMS Integration: Generates WMS links for visualization in VEDA Dashboard\nDatacube Support: Handles multidimensional ImageServer data with proper datacube extensions\nSTAC Compliance: Generates valid STAC collections following specification standards\nRender Configuration: Automatically configures visualization parameters",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#architecture",
+    "href": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#architecture",
+    "title": "ArcGIS Server Integration",
+    "section": "Architecture",
+    "text": "Architecture\n\n\n\n\n\ngraph LR\n    A[ArcGIS Server] --&gt; B[pyarc2stac Library]\n    B --&gt; C[STAC Collection]\n    C --&gt; D[VEDA Catalog]\n    style A fill:#e1f5fe\n    style B fill:#f3e5f5\n    style C fill:#fff3e0\n    subgraph \"ArcGIS Services\"\n        E[ImageServer]\n        F[MapServer] \n        G[FeatureServer]\n    end\n    \n    E --&gt; B\n    F --&gt; B\n    G --&gt; B\n    \n    subgraph \"VEDA Integration\"\n        H[Dashboard Visualization]\n        I[API Access]\n        J[Data Discovery]\n    end\n    \n    D --&gt; H\n    D --&gt; I\n    D --&gt; J",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#installation-and-setup",
+    "href": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#installation-and-setup",
+    "title": "ArcGIS Server Integration",
+    "section": "Installation and Setup",
+    "text": "Installation and Setup\n\nPrerequisites\n# Install pyarc2stac\npip install git+https://github.com/NASA-IMPACT/pyarc2stac.git@main\n\n# Required dependencies\npip install pystac requests pyproj beautifulsoup4\n\n\nBasic Usage\nfrom pyarc2stac.ArcReader import ArcReader\n\n# Initialize reader with ArcGIS service URL\nreader = ArcReader(server_url=\"https://example.com/arcgis/rest/services/ServiceName/ImageServer\")\n\n# Generate STAC collection\ncollection = reader.generate_stac()\n\n# Save to JSON file\nreader.save_collection_to_json(\"my_collection.json\")",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#service-specific-integration",
+    "href": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#service-specific-integration",
+    "title": "ArcGIS Server Integration",
+    "section": "Service-Specific Integration",
+    "text": "Service-Specific Integration\n\nImageServer Integration\nIdeal for raster datasets, satellite imagery, and multidimensional scientific data.\nLearn more about ImageServer Integration →\n\n\nMapServer Integration\nPerfect for visualized map services with multiple layers and styling.\nLearn more about MapServer Integration →\n\n\nFeatureServer Integration\nDesigned for vector datasets, administrative boundaries, and point-based data.\nLearn more about FeatureServer Integration →",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#configuration-examples",
+    "href": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#configuration-examples",
+    "title": "ArcGIS Server Integration",
+    "section": "Configuration Examples",
+    "text": "Configuration Examples\n\nBasic Collection Structure\nAll pyarc2stac-generated collections follow this basic structure:\n{\n  \"type\": \"Collection\",\n  \"id\": \"service_name\",\n  \"stac_version\": \"1.1.0\",\n  \"description\": \"Extracted from ArcGIS service metadata\",\n  \"extent\": {\n    \"spatial\": {\"bbox\": [...]},\n    \"temporal\": {\"interval\": [...]}\n  },\n  \"links\": [...],\n  \"license\": \"not-applicable\",\n  \"item_assets\": {}\n}\n\n\nService-Specific Extensions\nEach service type adds specific extensions and metadata:\n\nImageServer\n{\n  \"stac_extensions\": [\n    \"https://stac-extensions.github.io/render/v2.0.0/schema.json\",\n    \"https://stac-extensions.github.io/datacube/v2.2.0/schema.json\"\n  ],\n  \"cube:variables\": {...},\n  \"cube:dimensions\": {...},\n  \"renders\": {...}\n}\n\n\nMapServer\n{\n  \"stac_extensions\": [\n    \"https://stac-extensions.github.io/render/v2.0.0/schema.json\"\n  ],\n  \"renders\": {...},\n  \"links\": [{\n    \"rel\": \"wms\",\n    \"href\": \"...\",\n    \"wms:layers\": [...],\n    \"wms:styles\": [\"default\"]\n  }]\n}\n\n\nFeatureServer\n{\n  \"links\": [{\n    \"rel\": \"featureserver\",\n    \"href\": \"...\",\n    \"featureserver:layers\": {...}\n  }]\n}",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#implementation-workflow",
+    "href": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#implementation-workflow",
+    "title": "ArcGIS Server Integration",
+    "section": "Implementation Workflow",
+    "text": "Implementation Workflow\n\n1. Service Discovery\nIdentify ArcGIS services suitable for VEDA integration:\n# Validate service accessibility\nimport requests\n\nservice_url = \"https://example.com/arcgis/rest/services/ServiceName/ImageServer\"\nresponse = requests.get(f\"{service_url}?f=pjson\")\n\nif response.status_code == 200:\n    service_info = response.json()\n    print(f\"Service: {service_info.get('name', 'Unknown')}\")\n    print(f\"Type: {service_info.get('serviceDataType', 'Unknown')}\")\nelse:\n    print(\"Service not accessible\")\n\n\n2. Metadata Extraction\nGenerate STAC collection with automatic metadata extraction:\nfrom pyarc2stac.ArcReader import ArcReader\n\nreader = ArcReader(server_url=service_url)\ncollection = reader.generate_stac()\n\n# Inspect generated metadata\nprint(f\"Collection ID: {collection.id}\")\nprint(f\"Spatial Extent: {collection.extent.spatial.bboxes}\")\nprint(f\"Temporal Extent: {collection.extent.temporal.intervals}\")\n\n\n3. Configuration Validation\nValidate the generated STAC collection:\n# Validate STAC compliance\ntry:\n    collection.validate()\n    print(\"✅ Collection is valid STAC\")\nexcept Exception as e:\n    print(f\"❌ Validation error: {e}\")\n\n\n4. Integration Testing\nTest integration with VEDA components:\n# Test WMS links (for ImageServer/MapServer)\nwms_links = [link for link in collection.links if link.rel == \"wms\"]\nif wms_links:\n    print(f\"WMS endpoint: {wms_links[0].href}\")\n    \n# Test render configuration\nif hasattr(collection, 'extra_fields') and 'renders' in collection.extra_fields:\n    print(f\"Render configs: {list(collection.extra_fields['renders'].keys())}\")",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#related-resources",
+    "href": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#related-resources",
+    "title": "ArcGIS Server Integration",
+    "section": "Related Resources",
+    "text": "Related Resources\n\npyarc2stac GitHub Repository\nArcGIS REST API Documentation\nSTAC Specification\nVEDA Dataset Configuration Guide",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#support",
+    "href": "user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html#support",
+    "title": "ArcGIS Server Integration",
+    "section": "Support",
+    "text": "Support\nFor assistance with ArcGIS Server integration:\n\nReview the pyarc2stac examples\nCheck existing issues for known problems\nOpen a new issue in the pyarc2stac repository\nConsult the VEDA data repository for similar configurations",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration"
+    ]
+  },
+  {
     "objectID": "user-guide/content-curation/docs-and-notebooks.html",
     "href": "user-guide/content-curation/docs-and-notebooks.html",
     "title": "Usage Example Notebook Submission",
@@ -2884,6 +3214,300 @@
     "crumbs": [
       "User Guide",
       "Content Curation"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/mapserver-integration.html",
+    "href": "user-guide/content-curation/external-collection-indexing/mapserver-integration.html",
+    "title": "MapServer Integration",
+    "section": "",
+    "text": "ArcGIS MapServer services provide pre-styled, visualized map layers optimized for display and visualization. This page covers MapServer-specific configuration and examples.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "MapServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/mapserver-integration.html#mapserver-resources",
+    "href": "user-guide/content-curation/external-collection-indexing/mapserver-integration.html#mapserver-resources",
+    "title": "MapServer Integration",
+    "section": "MapServer Resources",
+    "text": "MapServer Resources\n\npyarc2stac MapServer Example\nWMS Specification\nArcGIS MapServer Documentation\n\n\n\n\n\n\n\nTip\n\n\n\nFor general ArcGIS Server integration support, troubleshooting, and additional resources, see the ArcGIS Server Integration page.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "MapServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/mapserver-integration.html#mapserver-specialization",
+    "href": "user-guide/content-curation/external-collection-indexing/mapserver-integration.html#mapserver-specialization",
+    "title": "MapServer Integration",
+    "section": "MapServer Specialization",
+    "text": "MapServer Specialization\nMapServer integration is specifically designed for:\n\nPre-styled Visualizations: Services with built-in symbology and rendering\nMulti-layer Services: Complex services with multiple thematic layers requiring individual styling\nWMS-optimized Services: Services primarily designed for map visualization rather than data analysis",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "MapServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/mapserver-integration.html#example-servir-esi-drought-monitoring",
+    "href": "user-guide/content-curation/external-collection-indexing/mapserver-integration.html#example-servir-esi-drought-monitoring",
+    "title": "MapServer Integration",
+    "section": "Example: SERVIR ESI Drought Monitoring",
+    "text": "Example: SERVIR ESI Drought Monitoring\nThis example demonstrates MapServer integration using SERVIR Global’s Evapotranspiration Stress Index (ESI) service:\n# ESI MapServer with multiple styled layers\nmap_server_url = \"https://gis1.servirglobal.net/arcgis/rest/services/Global/ESI_4WK/MapServer\"\n\n# MapServer-specific inspection\ncollection = reader.generate_stac()\n\n# Check WMS layers (MapServer specialty)\nwms_links = [link for link in collection.links if link.rel == \"wms\"]\nif wms_links:\n    wms_link = wms_links[0]\n    layers = wms_link.extra_fields.get('wms:layers', [])\n    print(f\"Available WMS layers: {layers}\")\n    \n    # Check styling options\n    styles = wms_link.extra_fields.get('wms:styles', [])\n    print(f\"Available styles: {styles}\")\n\n# Check render configurations (key for MapServer visualization)\nif 'renders' in collection.extra_fields:\n    renders = collection.extra_fields['renders']\n    print(f\"Render configurations: {list(renders.keys())}\")\n    \n    # Inspect render details\n    for render_name, render_config in renders.items():\n        print(f\"  {render_name}: layers={render_config.get('layers', 'Unknown')}\")",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "MapServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/mapserver-integration.html#configuration-structure",
+    "href": "user-guide/content-curation/external-collection-indexing/mapserver-integration.html#configuration-structure",
+    "title": "MapServer Integration",
+    "section": "Configuration Structure",
+    "text": "Configuration Structure\n\nComplete Example Configuration\nBased on the SERVIR Global ESI 4-week service:\n{\n  \"type\": \"Collection\",\n  \"id\": \"global_esi_4wk\",\n  \"stac_version\": \"1.1.0\",\n  \"description\": \"The Evaporative Stress Index (ESI) reveals regions of drought where vegetation is stressed due to lack of water. The ESI can capture early signals of flash drought and is produced weekly at 5-kilometer resolution for the entire globe.\",\n  \"stac_extensions\": [\n    \"https://stac-extensions.github.io/render/v2.0.0/schema.json\"\n  ],\n  \"links\": [\n    {\n      \"rel\": \"wms\",\n      \"href\": \"https://gis1.servirglobal.net/arcgis/services/Global/ESI_4WK/MapServer/WMSServer?request=GetCapabilities&service=WMS\",\n      \"type\": \"image/png\",\n      \"title\": \"Visualized through a WMS\",\n      \"wms:layers\": [\"1\", \"2\", \"3\"],\n      \"wms:styles\": [\"default\"]\n    },\n    {\n      \"rel\": \"via\", \n      \"href\": \"https://gis1.servirglobal.net/arcgis/rest/services/Global/ESI_4WK/MapServer\",\n      \"type\": \"text/html\",\n      \"title\": \"Parent ArcGIS server url\"\n    }\n  ],\n  \"renders\": {\n    \"image\": {\n      \"layers\": \"1\"\n    },\n    \"footprint\": {\n      \"layers\": \"2\"  \n    },\n    \"boundary\": {\n      \"layers\": \"3\"\n    }\n  },\n  \"dashboard:is_periodic\": true,\n  \"dashboard:time_density\": \"day\",\n  \"dashboard:time_interval\": \"P7D\",\n  \"extent\": {\n    \"spatial\": {\n      \"bbox\": [[-180, -60, 180.0000000000001, 90.00000000000009]]\n    },\n    \"temporal\": {\n      \"interval\": [[\"2001-01-02T00:00:00Z\", \"2025-02-19T00:00:00Z\"]]\n    }\n  },\n  \"license\": \"not-applicable\",\n  \"item_assets\": {}\n}\n\n\nKey Configuration Elements\n\nLayer-Based Rendering\nMapServer collections use layer IDs for render configuration:\n{\n  \"renders\": {\n    \"primary_data\": {\n      \"layers\": \"1\"\n    },\n    \"reference_layer\": {\n      \"layers\": \"2\"\n    },\n    \"boundaries\": {\n      \"layers\": \"3\"\n    }\n  }\n}\n\n\nWMS Configuration\nProvides Web Map Service access for all layers:\n{\n  \"links\": [{\n    \"rel\": \"wms\",\n    \"href\": \"https://server.com/MapServer/WMSServer?request=GetCapabilities&service=WMS\",\n    \"type\": \"image/png\",\n    \"title\": \"Visualized through a WMS\",\n    \"wms:layers\": [\"1\", \"2\", \"3\"],\n    \"wms:styles\": [\"default\"]\n  }]\n}\n\n\nTime-Enabled Services\nFor time-enabled MapServer services:\n{\n  \"dashboard:is_periodic\": true,\n  \"dashboard:time_density\": \"day\", \n  \"dashboard:time_interval\": \"P7D\"\n}",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "MapServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/mapserver-integration.html#mapserver-resources-1",
+    "href": "user-guide/content-curation/external-collection-indexing/mapserver-integration.html#mapserver-resources-1",
+    "title": "MapServer Integration",
+    "section": "MapServer Resources",
+    "text": "MapServer Resources\n\npyarc2stac MapServer Example\nWMS Specification\nArcGIS MapServer Documentation\n\n\n\n\n\n\n\nTip\n\n\n\nFor general ArcGIS Server integration support, troubleshooting, and additional resources, see the ArcGIS Server Integration page.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "MapServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html",
+    "href": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html",
+    "title": "FeatureServer Integration",
+    "section": "",
+    "text": "ArcGIS FeatureServer services provide access to vector datasets including points, lines, and polygons. This page covers FeatureServer-specific configuration and examples.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "FeatureServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html#featureserver-resources",
+    "href": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html#featureserver-resources",
+    "title": "FeatureServer Integration",
+    "section": "FeatureServer Resources",
+    "text": "FeatureServer Resources\n\npyarc2stac FeatureServer Example\nGeoJSON Specification\nArcGIS FeatureServer Documentation\n\n\n\n\n\n\n\nTip\n\n\n\nFor general ArcGIS Server integration support, troubleshooting, and additional resources, see the ArcGIS Server Integration page.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "FeatureServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html#featureserver-specialization",
+    "href": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html#featureserver-specialization",
+    "title": "FeatureServer Integration",
+    "section": "FeatureServer Specialization",
+    "text": "FeatureServer Specialization\nFeatureServer integration is specifically designed for:\n\nVector-Based Datasets: Point, line, and polygon features with rich attribute data\nTimeless Collections: Often static or infrequently updated boundary and reference datasets\nAttribute-Rich Data: Features with extensive metadata and descriptive attributes requiring preservation",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "FeatureServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html#example-climate-projections-featureserver",
+    "href": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html#example-climate-projections-featureserver",
+    "title": "FeatureServer Integration",
+    "section": "Example: Climate Projections FeatureServer",
+    "text": "Example: Climate Projections FeatureServer\nThis example demonstrates FeatureServer integration using a climate and coastal inundation projections service:\n# Climate projections FeatureServer with multiple feature layers\nfeature_server_url = \"https://services3.arcgis.com/0Fs3HcaFfvzXvm7w/ArcGIS/rest/services/Climate_Mapping_Resilience_and_Adaptation_(CMRA)_Climate_and_Coastal_Inundation_Projections/FeatureServer\"\n\n# FeatureServer-specific inspection\ncollection = reader.generate_stac()\n\n# Check feature layers and their schemas (FeatureServer specialty)\nfeature_links = [link for link in collection.links if link.rel == \"featureserver\"]\nif feature_links:\n    feature_link = feature_links[0]\n    layers = feature_link.extra_fields.get('featureserver:layers', {})\n    print(f\"Available feature layers: {list(layers.keys())}\")\n    \n    # Inspect layer schemas\n    for layer_name, layer_info in layers.items():\n        if 'fields' in layer_info:\n            field_names = [f['name'] for f in layer_info['fields']]\n            print(f\"  {layer_name} fields: {field_names[:5]}...\")  # Show first 5 fields\n\n# Check timeless configuration (common for FeatureServer)\nis_timeless = collection.extra_fields.get('dashboard:is_timeless', False)\nprint(f\"Timeless dataset: {is_timeless}\")\n\n# Check geometry types\nfor layer_name, layer_info in layers.items():\n    geom_type = layer_info.get('geometryType', 'Unknown')\n    print(f\"  {layer_name}: {geom_type}\")",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "FeatureServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html#configuration-structure",
+    "href": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html#configuration-structure",
+    "title": "FeatureServer Integration",
+    "section": "Configuration Structure",
+    "text": "Configuration Structure\n\nComplete Example Configuration\nBased on the Climate Mapping Resilience and Adaptation projections FeatureServer:\n{\n  \"type\": \"Collection\",\n  \"id\": \"climate_mapping_resilience_and_adaptation_(cmra)_climate_and_coastal_inundation_projections\",\n  \"stac_version\": \"1.1.0\",\n  \"description\": \"Climate mapping resilience and adaptation climate and coastal inundation projections for vulnerability assessment and planning.\",\n  \"links\": [\n    {\n      \"rel\": \"featureserver\",\n      \"href\": \"https://services3.arcgis.com/0Fs3HcaFfvzXvm7w/ArcGIS/rest/services/Climate_Mapping_Resilience_and_Adaptation_(CMRA)_Climate_and_Coastal_Inundation_Projections/FeatureServer\",\n      \"type\": \"application/json\",\n      \"title\": \"ArcGIS FeatureServer\",\n      \"featureserver:layers\": {\n        \"0\": \"Counties\",\n        \"1\": \"Tracts\", \n        \"2\": \"American Indian/Alaska Native/Native Hawaiian Areas\"\n      }\n    },\n    {\n      \"rel\": \"via\",\n      \"href\": \"https://services3.arcgis.com/0Fs3HcaFfvzXvm7w/ArcGIS/rest/services/Climate_Mapping_Resilience_and_Adaptation_(CMRA)_Climate_and_Coastal_Inundation_Projections/FeatureServer\",\n      \"type\": \"text/html\", \n      \"title\": \"Parent ArcGIS server url\"\n    }\n  ],\n  \"dashboard:is_timeless\": true,\n  \"extent\": {\n    \"spatial\": {\n      \"bbox\": [[-179.23110125118885, -14.601806016382575, 179.8596657289939, 71.43978570694523]]\n    },\n    \"temporal\": {\n      \"interval\": [[null, null]]\n    }\n  },\n  \"license\": \"not-applicable\",\n  \"item_assets\": {}\n}\n\n\nKey Configuration Elements\n\nFeatureServer Link\nProvides direct access to the original FeatureServer:\n{\n  \"links\": [{\n    \"rel\": \"featureserver\",\n    \"href\": \"https://server.com/FeatureServer\",\n    \"type\": \"application/json\",\n    \"title\": \"ArcGIS FeatureServer\",\n    \"featureserver:layers\": {\n      \"0\": \"Counties\",\n      \"1\": \"Tracts\",\n      \"2\": \"Tribal Areas\"\n    }\n  }]\n}\n\n\nTimeless Data Indicator\nMost FeatureServer data is timeless (static features):\n{\n  \"dashboard:is_timeless\": true,\n  \"extent\": {\n    \"temporal\": {\n      \"interval\": [[null, null]]\n    }\n  }\n}\n\n\nLayer Information\nMaps layer IDs to descriptive names:\n{\n  \"featureserver:layers\": {\n    \"0\": \"Primary Features\",\n    \"1\": \"Reference Data\",\n    \"2\": \"Administrative Boundaries\"\n  }\n}",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "FeatureServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html#featureserver-specific-best-practices",
+    "href": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html#featureserver-specific-best-practices",
+    "title": "FeatureServer Integration",
+    "section": "FeatureServer-Specific Best Practices",
+    "text": "FeatureServer-Specific Best Practices\n\nAttribute and Schema Validation\n\nField Schema Verification: Ensure attribute schemas are complete\n# Check for required fields in feature layers\nfor layer in service_info.get('layers', []):\n    layer_info = requests.get(f\"{feature_server_url}/{layer['id']}?f=pjson\").json()\n    fields = layer_info.get('fields', [])\n\n    # Check for essential fields\n    field_names = [f['name'] for f in fields]\n    if 'OBJECTID' not in field_names:\n        print(f\"⚠️  Layer {layer['name']} missing OBJECTID field\")\nGeometry Type Validation: Verify feature geometry consistency\n# Ensure geometry types are properly defined\nfor layer in layers:\n    geom_type = layer.get('geometryType')\n    if not geom_type:\n        print(f\"⚠️  Layer {layer['name']} missing geometry type\")\n    elif geom_type not in ['esriGeometryPoint', 'esriGeometryPolyline', 'esriGeometryPolygon']:\n        print(f\"⚠️  Layer {layer['name']} has unexpected geometry type: {geom_type}\")\n```",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "FeatureServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html#related-resources",
+    "href": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html#related-resources",
+    "title": "FeatureServer Integration",
+    "section": "Related Resources",
+    "text": "Related Resources\n\npyarc2stac FeatureServer Example\nArcGIS FeatureServer Documentation\nSTAC Specification\nGeoJSON Specification",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "FeatureServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html#support",
+    "href": "user-guide/content-curation/external-collection-indexing/featureserver-integration.html#support",
+    "title": "FeatureServer Integration",
+    "section": "Support",
+    "text": "Support\nFor FeatureServer integration assistance:\n\nReview the complete working example\nCheck the pyarc2stac test cases\nOpen an issue in the pyarc2stac repository",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "FeatureServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/imageserver-integration.html",
+    "href": "user-guide/content-curation/external-collection-indexing/imageserver-integration.html",
+    "title": "ImageServer Integration",
+    "section": "",
+    "text": "ArcGIS ImageServer services provide access to raster datasets, satellite imagery, and multidimensional scientific data. This page covers ImageServer-specific configuration and examples.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "ImageServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/imageserver-integration.html#imageserver-specialization",
+    "href": "user-guide/content-curation/external-collection-indexing/imageserver-integration.html#imageserver-specialization",
+    "title": "ImageServer Integration",
+    "section": "ImageServer Specialization",
+    "text": "ImageServer Specialization\nImageServer integration is specifically designed for:\n\nMultidimensional Data: Time series datasets with multiple variables and datacube extensions\nScientific Rasters: Climate data with complex temporal dimensions\nVariable-Rich Datasets: Services with multiple data variables requiring individual render configurations\nTemporal Analysis: Datasets requiring sophisticated time series handling",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "ImageServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/imageserver-integration.html#example-soil-moisture-imageserver",
+    "href": "user-guide/content-curation/external-collection-indexing/imageserver-integration.html#example-soil-moisture-imageserver",
+    "title": "ImageServer Integration",
+    "section": "Example: Soil Moisture ImageServer",
+    "text": "Example: Soil Moisture ImageServer\nThis example demonstrates ImageServer integration using a NASA disasters test service with multidimensional soil moisture data:\n# Soil moisture ImageServer with multidimensional data\nimage_server_url = \"https://gis.earthdata.nasa.gov/UAT/rest/services/disasters_test/lis_vsm_percentile_10cm/ImageServer\"\n\n# ImageServer-specific inspection\ncollection = reader.generate_stac()\n\n# Check datacube variables (ImageServer specialty)\nif 'cube:variables' in collection.extra_fields:\n    variables = collection.extra_fields['cube:variables']\n    print(f\"Variables: {list(variables.keys())}\")\n    \n    for var_name, var_info in variables.items():\n        print(f\"  {var_name}: {var_info.get('dimensions', [])}\")\n\n# Check temporal dimensions (key for ImageServer)\nif 'cube:dimensions' in collection.extra_fields:\n    dimensions = collection.extra_fields['cube:dimensions']\n    time_dim = dimensions.get('StdTime', {})\n    print(f\"Time step: {time_dim.get('step', 'Unknown')}\")\n    print(f\"Time extent: {time_dim.get('extent', 'Unknown')}\")",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "ImageServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/imageserver-integration.html#configuration-structure",
+    "href": "user-guide/content-curation/external-collection-indexing/imageserver-integration.html#configuration-structure",
+    "title": "ImageServer Integration",
+    "section": "Configuration Structure",
+    "text": "Configuration Structure\n\nComplete Example Configuration\nBased on the disasters test soil moisture ImageServer:\n{\n  \"type\": \"Collection\",\n  \"id\": \"disasters_test_lis_vsm_percentile_10cm\",\n  \"stac_version\": \"1.1.0\",\n  \"description\": \"Soil moisture percentile data for disaster monitoring\",\n  \"stac_extensions\": [\n    \"https://stac-extensions.github.io/render/v2.0.0/schema.json\",\n    \"https://stac-extensions.github.io/datacube/v2.2.0/schema.json\"\n  ],\n  \"links\": [\n    {\n      \"rel\": \"wms\",\n      \"href\": \"https://gis.earthdata.nasa.gov/UAT/services/disasters_test/lis_vsm_percentile_10cm/ImageServer/WMSServer\",\n      \"type\": \"image/png\", \n      \"title\": \"Visualized through a WMS\",\n      \"wms:layers\": [\n        \"lis_vsm_percentile_10cm\",\n        \"VSM_Percentile_0_10cm\"\n      ],\n      \"wms:styles\": [\"default\"]\n    },\n    {\n      \"rel\": \"via\",\n      \"href\": \"https://gis.earthdata.nasa.gov/UAT/rest/services/disasters_test/lis_vsm_percentile_10cm/ImageServer\",\n      \"type\": \"text/html\",\n      \"title\": \"Parent ArcGIS server url\"\n    }\n  ],\n  \"renders\": {\n    \"lis_vsm_percentile_10cm\": {\n      \"layers\": \"lis_vsm_percentile_10cm\"\n    },\n    \"vsm_percentile_0_10cm\": {\n      \"layers\": \"VSM_Percentile_0_10cm\"  \n    }\n  },\n  \"cube:variables\": {\n    \"lis_vsm_percentile_10cm\": {\n      \"type\": \"data\",\n      \"attrs\": {\n        \"Count\": 27,\n        \"Minimum\": 45857,\n        \"Maximum\": 45886,\n        \"Interval\": 1,\n        \"IntervalUnit\": \"Days\",\n        \"HasRegularIntervals\": False,\n        \"HasRanges\": False\n      },\n      \"dimensions\": [\"StdTime\"]\n    },\n    \"VSM_Percentile_0_10cm\": {\n      \"type\": \"data\", \n      \"attrs\": {\n        \"Count\": 31,\n        \"Minimum\": 45857,\n        \"Maximum\": 45887,\n        \"Interval\": 1,\n        \"IntervalUnit\": \"Days\",\n        \"HasRegularIntervals\": True\n      },\n      \"dimensions\": [\"StdTime\"]\n    }\n  },\n  \"cube:dimensions\": {\n    \"StdTime\": {\n      \"type\": \"temporal\",\n      \"step\": \"P1D\",\n      \"extent\": [\"2025-07-19T00:00:00Z\", \"2025-08-17T00:00:00Z\"],\n      \"values\": [\n        \"2025-07-19T00:00:00Z\",\n        \"2025-07-20T00:00:00Z\",\n        \"2025-07-21T00:00:00Z\"\n      ]\n    }\n  },\n  \"dashboard:is_periodic\": true,\n  \"dashboard:time_density\": \"day\", \n  \"dashboard:time_interval\": \"P1D\",\n  \"extent\": {\n    \"spatial\": {\n      \"bbox\": [[-124.94, 25.05, -67.07, 52.93]]\n    },\n    \"temporal\": {\n      \"interval\": [[\"2025-07-19T00:00:00Z\", \"2025-08-18T00:00:00Z\"]]\n    }\n  },\n  \"license\": \"not-applicable\",\n  \"item_assets\": {}\n}\n\n\nKey Configuration Elements\n\nDatacube Extension\nThe datacube extension describes multidimensional data structure:\n{\n  \"cube:variables\": {\n    \"variable_name\": {\n      \"type\": \"data\",\n      \"attrs\": {\n        \"Count\": 31,\n        \"Minimum\": 45857,\n        \"Maximum\": 45887,\n        \"Interval\": 1,\n        \"IntervalUnit\": \"Days\",\n        \"HasRegularIntervals\": true\n      },\n      \"dimensions\": [\"StdTime\"]\n    }\n  },\n  \"cube:dimensions\": {\n    \"StdTime\": {\n      \"type\": \"temporal\",\n      \"step\": \"P1D\", \n      \"extent\": [\"2025-07-19T00:00:00Z\", \"2025-08-17T00:00:00Z\"],\n      \"values\": [\"2025-07-19T00:00:00Z\", \"2025-07-20T00:00:00Z\"]\n    }\n  }\n}\n\n\nRender Configuration\nDefines how variables should be visualized:\n{\n  \"renders\": {\n    \"variable_name\": {\n      \"layers\": \"ArcGIS_Layer_Name\"\n    }\n  }\n}\n\n\nWMS Integration\nProvides Web Map Service endpoints for visualization:\n{\n  \"links\": [{\n    \"rel\": \"wms\",\n    \"href\": \"https://server.com/WMSServer\",\n    \"type\": \"image/png\",\n    \"title\": \"Visualized through a WMS\",\n    \"wms:layers\": [\"layer1\", \"layer2\"],\n    \"wms:styles\": [\"default\"]\n  }]\n}",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "ImageServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/imageserver-integration.html#imageserver-specific-best-practices",
+    "href": "user-guide/content-curation/external-collection-indexing/imageserver-integration.html#imageserver-specific-best-practices",
+    "title": "ImageServer Integration",
+    "section": "ImageServer-Specific Best Practices",
+    "text": "ImageServer-Specific Best Practices\n\nMultidimensional Data Handling\n\nVariable Validation: Ensure all variables have proper dimensions\nif 'cube:variables' in collection.extra_fields:\n    variables = collection.extra_fields['cube:variables']\n    for var_name, var_info in variables.items():\n        if 'dimensions' not in var_info:\n            print(f\"⚠️  Variable {var_name} missing dimensions\")\nTemporal Dimension Verification: Check time series configuration\nif 'cube:dimensions' in collection.extra_fields:\n    dimensions = collection.extra_fields['cube:dimensions']\n    if 'StdTime' in dimensions:\n        time_info = dimensions['StdTime']\n        if 'step' not in time_info:\n            print(\"⚠️  Missing temporal step information\")",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "ImageServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/imageserver-integration.html#imageserver-specific-troubleshooting",
+    "href": "user-guide/content-curation/external-collection-indexing/imageserver-integration.html#imageserver-specific-troubleshooting",
+    "title": "ImageServer Integration",
+    "section": "ImageServer-Specific Troubleshooting",
+    "text": "ImageServer-Specific Troubleshooting\n\nMultidimensional Data Issues\n\nMissing Variable Information\nWarning: No variables found in multidimensional service\nSolution: Check multidimensional configuration:\nmd_info = requests.get(f\"{image_server_url}/multidimensionalInfo?f=pjson\").json()\nvariables = md_info.get('multidimensionalInfo', {}).get('variables', [])\nif not variables:\n    print(\"⚠️  Service may not be properly configured for multidimensional access\")\n\n\nDatacube Extension Issues\nError: Unable to create datacube dimensions\nSolution: Verify temporal dimension configuration and ensure service has time-enabled data.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "ImageServer Integration"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/external-collection-indexing/imageserver-integration.html#imageserver-resources",
+    "href": "user-guide/content-curation/external-collection-indexing/imageserver-integration.html#imageserver-resources",
+    "title": "ImageServer Integration",
+    "section": "ImageServer Resources",
+    "text": "ImageServer Resources\n\npyarc2stac ImageServer Example\nSTAC Datacube Extension\nArcGIS ImageServer Documentation\n\n\n\n\n\n\n\nTip\n\n\n\nFor general ArcGIS Server integration support, troubleshooting, and additional resources, see the ArcGIS Server Integration page.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "External Collection Indexing",
+      "ArcGIS Server Integration",
+      "ImageServer Integration"
     ]
   },
   {
