@@ -35,20 +35,22 @@ graph LR
     style A fill:#e1f5fe
     style B fill:#f3e5f5
     style C fill:#fff3e0
-    subgraph "ArcGIS Services"
+    subgraph ArcGISServices [ArcGIS Services]
         E[ImageServer]
         F[MapServer] 
         G[FeatureServer]
+        style ArcGISServices fill:#D3D3D3
     end
     
     E --> B
     F --> B
     G --> B
     
-    subgraph "VEDA Integration"
+    subgraph VedaIntegration [VEDA Integration]
         H[Dashboard Visualization]
         I[API Access]
         J[Data Discovery]
+        style VedaIntegration fill:#D3D3D3
     end
     
     D --> H

@@ -19,18 +19,20 @@ graph LR
     B --> C[STAC Collection]
     C --> D[VEDA Catalog]
     
-    subgraph "Services"
+    subgraph Services [Services]
         E[Pre-rendered Map Tiles]
         F[Layer Capabilities] 
+        style Services fill:#D3D3D3
     end
     
     E --> B
     F --> B
     
-    subgraph "VEDA Integration"
+    subgraph VedaIntegration [VEDA Integration]
         H[Dashboard Visualization]
         I[API Access]
         J[Data Discovery]
+        style VedaIntegration fill:#D3D3D3
     end
     
     D --> H
