@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Web Map Tile Service Integration – VEDA Documentation</title>
+<title>Global Imagery Browse Services (GIBS) Integration – VEDA Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -288,7 +288,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../user-guide/index.html">User Guide</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/index.html">Content Curation</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/external-collection-indexing/index.html">External Collection Indexing</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/external-collection-indexing/wmts.html">Web Map Tile Service Integration</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../user-guide/index.html">User Guide</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/index.html">Content Curation</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/external-collection-indexing/index.html">External Collection Indexing</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/external-collection-indexing/wmts.html">Global Imagery Browse Services (GIBS) Integration</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -507,7 +507,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../user-guide/content-curation/external-collection-indexing/wmts.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Web Map Tile Service Integration</span></a>
+ <span class="menu-text">Global Imagery Browse Services (GIBS) Integration</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
@@ -975,9 +975,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../user-guide/index.html">User Guide</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/index.html">Content Curation</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/external-collection-indexing/index.html">External Collection Indexing</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/external-collection-indexing/wmts.html">Web Map Tile Service Integration</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../user-guide/index.html">User Guide</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/index.html">Content Curation</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/external-collection-indexing/index.html">External Collection Indexing</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/external-collection-indexing/wmts.html">Global Imagery Browse Services (GIBS) Integration</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Web Map Tile Service Integration</h1>
+<h1 class="title">Global Imagery Browse Services (GIBS) Integration</h1>
 <p class="subtitle lead">Indexing OGC Web Map Tile Services for STAC collection creation</p>
 </div>
 
@@ -995,11 +995,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><a href="https://www.ogc.org/standards/wmts/">OGCWeb Map Tile Service (WMTS)</a> A WMTS enabled server application can serve map tiles of spatially referenced data using tile images with predefined content, extent, and resolution.</p>
+<p><a href="https://nasa-gibs.github.io/gibs-api-docs/#overview">Global Imagery Browse Services (GIBS)</a> delivers access to full-resolution visualizations of satellite imagery through standardized access through services like the OGC Web Map Tile Service or Wep Map Service.</p>
+<p><a href="https://www.ogc.org/standards/wmts/">OGC Web Map Tile Service (WMTS)</a> A WMTS enabled server application can serve map tiles of spatially referenced data using tile images with predefined content, extent, and resolution.</p>
+<p><a href="https://www.ogc.org/standards/wms/">OGC Web Map Service (WMS)</a> Provides a simple HTTP interface for requesting geo-registered map images from one or more distributed geospatial databases.</p>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>Web Map Tile Service (WMTS) is normally used for interactive web mapping, but may be used for general visualizations and data analysis. WMTS is much more responsive for interactive maps and very scalable for generating large images or bulk downloads.</p>
 <p>NASA’s Global Imagery Browse Services (GIBS) API leverages the OGC WMTS specification to deliver the collections of NASA satellite imagery.</p>
+<p>Web Map Tile Service (WMTS) is normally used for interactive web mapping, but may be used for general visualizations and data analysis. WMTS is much more responsive for interactive maps and very scalable for generating large images or bulk downloads.</p>
 </section>
 <section id="architecture" class="level2">
 <h2 class="anchored" data-anchor-id="architecture">Architecture</h2>
