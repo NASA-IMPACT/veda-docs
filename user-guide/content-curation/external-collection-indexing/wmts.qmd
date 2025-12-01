@@ -14,35 +14,25 @@ Provides a simple HTTP interface for requesting geo-registered map images from o
 ## Overview 
 NASA's Global Imagery Browse Services (GIBS) API leverages the OGC WMTS specification to deliver the collections of NASA satellite imagery.
 
-Web Map Tile Service (WMTS) is normally used for interactive web mapping, but may be used for general visualizations and data analysis. WMTS is much more responsive for interactive maps and very scalable for generating large images or bulk downloads.
+Web Map Tile Service (WMTS) is used for interactive web mapping and is an OGC standard for serving pre-rendered map tiles by pre-generating and caching tiles on the server. To learn more about the OGC WMTS implementation of a STAC compliant collection, please refer to the [web-map-links extension documentation](https://github.com/stac-extensions/web-map-links?tab=readme-ov-file#ogc-wmts).
 
 ## Architecture
 
 ```{mermaid}
 graph LR
-    A[WMTS Server] --> B[GIBS API]
-    B --> C[STAC Collection]
-    C --> D[VEDA Catalog]
-    
-    subgraph Services [Services]
-        E[Pre-rendered Map Tiles]
-        F[Layer Capabilities] 
-        style Services fill:#D3D3D3
-    end
-    
-    E --> B
-    F --> B
+    A[GIBS API] --> B[STAC Collection]
+    B --> C[VEDA Catalog]
     
     subgraph VedaIntegration [VEDA Integration]
-        H[Dashboard Visualization]
-        I[API Access]
-        J[Data Discovery]
+        D[Dashboard Visualization]
+        E[API Access]
+        F[Data Discovery]
         style VedaIntegration fill:#D3D3D3
     end
     
-    D --> H
-    D --> I
-    D --> J
+    C --> D
+    C --> E
+    C --> F
 ```
 
 ## Schema
@@ -53,7 +43,7 @@ This [stac-browser preview](https://radiantearth.github.io/stac-browser/#/extern
 To integrate WMTS capabilities into a STAC collection, you need to implement the [web map links extension](https://github.com/stac-extensions/web-map-links). 
 
 ### Implementing Web Map Link Extensions for GIBS hosted datasets
-In this section, we will explain what is needed to create a web map link extension for a GIBS hosted dataset for WMTS map layers.
+In this section, we will explain what is needed to create a web map link metadata for a GIBS hosted dataset in order to render WMTS map layers.
 
 #### Extension Structure
 
@@ -64,6 +54,8 @@ The extension would extend the **Link Object** in all the STAC entities (Items, 
 The `rel` field is required and indicates the type of web map link. For example `wms` for a Web Map Service or `wmts` for a Web Map Tile Service. In this case, we would use `wmts`. But the full list of valid `rel` field values and additional metadata for that specific extension type can be found in the [web-map-links docs](https://github.com/stac-extensions/web-map-links?tab=readme-ov-file#link-object-fields).
 
 The `href` field is also required and indicates the URL of the web map link. In this case, the value would be `"https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/wmts.cgi"`.
+
+For reference, this [table](https://github.com/stac-extensions/web-map-links?tab=readme-ov-file#ogc-wmts) within the stac-extensions/web-map-links documentation details the required and optional fields for the WMTS extension to be STAC compliant.
 
 ##### Creation
 
