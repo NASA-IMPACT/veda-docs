@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html" rel="next">
-<link href="../../../user-guide/content-curation/external-collection-indexing/titiler-cmr.html" rel="prev">
+<link href="../../../user-guide/content-curation/external-collection-indexing/examples/README.md" rel="next">
+<link href="../../../user-guide/content-curation/external-collection-indexing/featureserver-integration.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -504,12 +504,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Titiler-CMR Integration</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../user-guide/content-curation/external-collection-indexing/wmts.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Global Imagery Browse Services (GIBS) Integration</span></a>
-  </div>
-</li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../../user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html" class="sidebar-item-text sidebar-link">
@@ -539,6 +533,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/content-curation/external-collection-indexing/wmts.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Global Imagery Browse Services (GIBS) Integration</span></a>
+  </div>
+</li>
       </ul>
   </li>
           <li class="sidebar-item sidebar-item-section">
@@ -1001,7 +1001,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>NASA’s Global Imagery Browse Services (GIBS) API leverages the OGC WMTS specification to deliver the collections of NASA satellite imagery.</p>
-<p>Web Map Tile Service (WMTS) is normally used for interactive web mapping, but may be used for general visualizations and data analysis. WMTS is much more responsive for interactive maps and very scalable for generating large images or bulk downloads.</p>
+<p>Web Map Tile Service (WMTS) is used for interactive web mapping and is an OGC standard for serving pre-rendered map tiles by pre-generating and caching tiles on the server. To learn more about the OGC WMTS implementation of a STAC compliant collection, please refer to the <a href="https://github.com/stac-extensions/web-map-links?tab=readme-ov-file#ogc-wmts">web-map-links extension documentation</a>.</p>
 </section>
 <section id="architecture" class="level2">
 <h2 class="anchored" data-anchor-id="architecture">Architecture</h2>
@@ -1011,29 +1011,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">graph LR
-    A[WMTS Server] --&gt; B[GIBS API]
-    B --&gt; C[STAC Collection]
-    C --&gt; D[VEDA Catalog]
-    
-    subgraph Services [Services]
-        E[Pre-rendered Map Tiles]
-        F[Layer Capabilities] 
-        style Services fill:#D3D3D3
-    end
-    
-    E --&gt; B
-    F --&gt; B
+    A[GIBS API] --&gt; B[STAC Collection]
+    B --&gt; C[VEDA Catalog]
     
     subgraph VedaIntegration [VEDA Integration]
-        H[Dashboard Visualization]
-        I[API Access]
-        J[Data Discovery]
+        D[Dashboard Visualization]
+        E[API Access]
+        F[Data Discovery]
         style VedaIntegration fill:#D3D3D3
     end
     
-    D --&gt; H
-    D --&gt; I
-    D --&gt; J
+    C --&gt; D
+    C --&gt; E
+    C --&gt; F
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -1048,13 +1038,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>To integrate WMTS capabilities into a STAC collection, you need to implement the <a href="https://github.com/stac-extensions/web-map-links">web map links extension</a>.</p>
 <section id="implementing-web-map-link-extensions-for-gibs-hosted-datasets" class="level3">
 <h3 class="anchored" data-anchor-id="implementing-web-map-link-extensions-for-gibs-hosted-datasets">Implementing Web Map Link Extensions for GIBS hosted datasets</h3>
-<p>In this section, we will explain what is needed to create a web map link extension for a GIBS hosted dataset for WMTS map layers.</p>
+<p>In this section, we will explain what is needed to create a web map link metadata for a GIBS hosted dataset in order to render WMTS map layers.</p>
 <section id="extension-structure" class="level4">
 <h4 class="anchored" data-anchor-id="extension-structure">Extension Structure</h4>
 <p>JSON Schema for Web Map Link extensions can be found <a href="https://stac-extensions.github.io/web-map-links/v1.2.0/schema.json">here</a>.</p>
 <p>The extension would extend the <strong>Link Object</strong> in all the STAC entities (Items, Collections, Catalogs).</p>
 <p>The <code>rel</code> field is required and indicates the type of web map link. For example <code>wms</code> for a Web Map Service or <code>wmts</code> for a Web Map Tile Service. In this case, we would use <code>wmts</code>. But the full list of valid <code>rel</code> field values and additional metadata for that specific extension type can be found in the <a href="https://github.com/stac-extensions/web-map-links?tab=readme-ov-file#link-object-fields">web-map-links docs</a>.</p>
 <p>The <code>href</code> field is also required and indicates the URL of the web map link. In this case, the value would be <code>"https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/wmts.cgi"</code>.</p>
+<p>For reference, this <a href="https://github.com/stac-extensions/web-map-links?tab=readme-ov-file#ogc-wmts">table</a> within the stac-extensions/web-map-links documentation details the required and optional fields for the WMTS extension to be STAC compliant.</p>
 <section id="creation" class="level5">
 <h5 class="anchored" data-anchor-id="creation">Creation</h5>
 <p>To create this Web Map Link Extension, define an object with <code>"rel": "wmts"</code> and <code>"href": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/wmts.cgi"</code> and then add any additional metadata.</p>
@@ -1583,13 +1574,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../../user-guide/content-curation/external-collection-indexing/titiler-cmr.html" class="pagination-link" aria-label="Titiler-CMR Integration">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Titiler-CMR Integration</span>
+      <a href="../../../user-guide/content-curation/external-collection-indexing/featureserver-integration.html" class="pagination-link" aria-label="FeatureServer Integration">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">FeatureServer Integration</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html" class="pagination-link" aria-label="ArcGIS Server Integration">
-        <span class="nav-page-text">ArcGIS Server Integration</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../user-guide/content-curation/external-collection-indexing/examples/README.md" class="pagination-link" aria-label="">
+        <span class="nav-page-text"></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
