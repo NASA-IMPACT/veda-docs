@@ -2495,130 +2495,465 @@
     ]
   },
   {
-    "objectID": "user-guide/content-curation/dataset-ingestion/index.html",
-    "href": "user-guide/content-curation/dataset-ingestion/index.html",
-    "title": "Dataset Ingestion",
+    "objectID": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html",
+    "href": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html",
+    "title": "VEDA Ingest UI",
     "section": "",
-    "text": "VEDA uses a centralized Spatio-Temporal Asset Catalog (STAC) for data dissemination and prefers to host datasets in cloud-object storage (AWS S3 in the region us-west-2) in the cloud-optimized file formats Cloud-Optimized GeoTIFF (COG) and Zarr, which enables viewing and efficient access in the cloud directly from the original datafiles without copies or multiple versions.",
+    "text": "The VEDA Ingest UI is a web-based application that simplifies the process of creating dataset ingestion requests for the VEDA platform. It provides both form-based and manual JSON editing capabilities to help users create properly formatted dataset definitions and submit them to the VEDA data pipeline.",
     "crumbs": [
       "User Guide",
       "Content Curation",
-      "Dataset Ingestion"
+      "Dataset Ingestion",
+      "VEDA Ingest UI"
     ]
   },
   {
-    "objectID": "user-guide/content-curation/dataset-ingestion/index.html#steps-for-ingesting-a-dataset",
-    "href": "user-guide/content-curation/dataset-ingestion/index.html#steps-for-ingesting-a-dataset",
-    "title": "Dataset Ingestion",
-    "section": "Steps for ingesting a dataset",
-    "text": "Steps for ingesting a dataset\nFor dataset ingestion, generally four steps are required. Depending on the capacity of the dataset provider, some of the steps can be completed by the VEDA team on request.\nThe data ingestion process requires authenticating using Keycloak and an Identity Provider listed by CILogon. See Setting Up Keycloak for more details.\nComplete as many steps of the process as you have capacity or authorization to. You will initially publish to a staging catalog where you can review the data before publishing to the public production catalog. Please follow the steps and guides outlined below:\n\nTransform datasets to conform with cloud-optimized file formats - see file preparation\nUpload files to storage (may be skipped, if data is cloud-optimized and in us-west-2)\nLoad those records into the STAGING VEDA STAC - see catalog ingestion\nFinally, when you are satisfied with how your data look in the staging catalog, request a review on the veda-data pull request that the Ingest UI opened with the configuration you used to publish to the staging catalog. When this PR is approved, the data will be published to the production catalog at openveda.cloud!\n\n\n\n\n\n\n\nNoteIf the above instructions do not cover the data you want to ingest and/or if you could use extra help getting started\n\n\n\nOpen a dedicated pull request in the veda-data repository. Please read through these docs fully first as you they will help supply the information required to complete the PR. Use this “new dataset” template to open a new issue and get started.",
+    "objectID": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html#overview",
+    "href": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html#overview",
+    "title": "VEDA Ingest UI",
+    "section": "Overview",
+    "text": "Overview\nThe Ingest UI serves as the primary interface for the VEDA ingestion pipeline. It automates the process of:\n\nCreating STAC-compliant dataset definitions\nValidating dataset metadata and configurations\nOpening pull requests in the veda-data repository\nPublishing datasets to the staging catalog for review\nFacilitating the transition from staging to production catalogs",
     "crumbs": [
       "User Guide",
       "Content Curation",
-      "Dataset Ingestion"
+      "Dataset Ingestion",
+      "VEDA Ingest UI"
     ]
   },
   {
-    "objectID": "user-guide/content-curation/dataset-ingestion/index.html#end-to-end-ingest-example",
-    "href": "user-guide/content-curation/dataset-ingestion/index.html#end-to-end-ingest-example",
-    "title": "Dataset Ingestion",
-    "section": "End to end ingest example",
-    "text": "End to end ingest example\nFor a walk through of the full process outlined above, please refer to this example notebook. This notebook uses the GEOGLAM June 2023 to ingest this file CropMonitor_2023_06_28.tif into VEDA’s staging STAC catalog.\n\n\n\n\n\n\nWarningThis is an actual ingest and will update the staging STAC catalog\n\n\n\nPlease use this as a guide for the ingestion process (and required dataset defintions), replacing the GEOGLAM dataset metadata and file with your own data.\n\n\nStuck on how to develop compliant metadata records for your dataset?\nCheckout the following notebooks and resources to help provide you with the STAC metadata required to create the dataset definitions needed for catalog ingestion.\n\nHow to create STAC Collections: see this example notebook and related STAC conventions\nHow to create STAC Items: see this example notebook and conventions.",
+    "objectID": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html#key-features",
+    "href": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html#key-features",
+    "title": "VEDA Ingest UI",
+    "section": "Key Features",
+    "text": "Key Features\n\nDynamic Form Generation\n\nSchema-driven forms: Automatically generates input forms based on JSON schemas\nField validation: Real-time validation with helpful error messages\n\n\n\nManual JSON Editing\n\nDirect JSON manipulation: Full control over dataset definition structure\nSyntax validation: Real-time JSON syntax checking and validation\nSchema compliance: Ensures adherence to VEDA dataset definition requirements\n\n\n\nCollection Management\n\nCreate new collections: Generate STAC collections from scratch\nEdit existing collections: Modify open pull requests and update configurations\n\n\n\nGitHub Integration\n\nAutomatic PR creation: Creates pull requests in veda-data repository with consistent naming conventions\nCommit tracking: Maintains commit history for configuration changes\nReview workflow: Integrates with VEDA team review process",
     "crumbs": [
       "User Guide",
       "Content Curation",
-      "Dataset Ingestion"
+      "Dataset Ingestion",
+      "VEDA Ingest UI"
     ]
   },
   {
-    "objectID": "user-guide/index.html",
-    "href": "user-guide/index.html",
-    "title": "User Guide",
-    "section": "",
-    "text": "Welcome to the NASA VEDA platform operated by NASA and targeted at selected user groups at NASA and partnering programs. Below are resources for users and content contributors.\nWhile these resources are targeted at users of the NASA VEDA platform, many of the open-source approaches promoted here will also apply to other platforms built on VEDA open-source software or equivalent.\n\nInstructions for ingesting data into VEDA Data Services\nHow to add and manage content on the VEDA Dashboard\nUsing cloud-based scientific computing resources\nExample and tutorial Jupyter notebooks",
+    "objectID": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html#user-workflow",
+    "href": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html#user-workflow",
+    "title": "VEDA Ingest UI",
+    "section": "User Workflow",
+    "text": "User Workflow\n\nAuthentication\n\nNavigate to ingest.openveda.cloud\nClick “Sign in with Keycloak”\nSelect your institutional identity provider through CILogon\nComplete authentication and return to the Ingest UI\n\n\n\nCreating a Dataset Definition\n\nOption 1: Form-Based Creation\n\nNavigate to the “Create Collection” section\nFill out the guided form with your dataset information:\n\nCollection ID: Unique identifier (lowercase, alphanumeric with hyphens)\nTitle: Human-readable dataset title\nDescription: Detailed dataset description\nLicense: Data usage license (default: CC0-1.0)\nSpatial Extent: Geographic bounds of the dataset\nTemporal Extent: Time range covered by the dataset\nDiscovery Items: Configuration for data discovery and processing\n\nValidate inputs with real-time feedback\n\n\n\nOption 2: Manual JSON Editing\n\nNavigate to the “Manual JSON Edit” section\nPaste or type your dataset definition JSON\nUse the built-in validation to check syntax and schema compliance\n\n\n\n\nDataset Publication\n\nSubmit to Staging: Click “Submit” to publish to the staging catalog\nGitHub PR Creation: Automatic pull request creation in veda-data repository\nStaging Review: Review your dataset at staging.openveda.cloud\nProduction Approval: VEDA team reviews and approves for production deployment",
     "crumbs": [
-      "User Guide"
+      "User Guide",
+      "Content Curation",
+      "Dataset Ingestion",
+      "VEDA Ingest UI"
     ]
   },
   {
-    "objectID": "open-source-ecosystem/external-resources.html",
-    "href": "open-source-ecosystem/external-resources.html",
-    "title": "External Resources",
+    "objectID": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html#form-configuration",
+    "href": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html#form-configuration",
+    "title": "VEDA Ingest UI",
+    "section": "Form Configuration",
+    "text": "Form Configuration\nThe Ingest UI uses JSON Schema and UI Schema files to generate dynamic forms:\n\nJSON Schema: Defines data structure and validation rules\nUI Schema: Controls form layout, field ordering, and presentation\n24-Column Grid: Responsive layout system for optimal form organization\n\n\nCustomizing Form Fields\nForm fields are configured through the UI Schema’s ui:grid property:\n\"ui:grid\": [\n  {\n    \"collection\": 4,\n    \"title\": 4,\n    \"license\": 4,\n    \"description\": 12\n  }\n]\nEach row must total 24 columns for proper layout alignment.",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "Dataset Ingestion",
+      "VEDA Ingest UI"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html#github-workflow",
+    "href": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html#github-workflow",
+    "title": "VEDA Ingest UI",
+    "section": "GitHub Workflow",
+    "text": "GitHub Workflow\n\nRepository: Creates PRs in veda-data\nNaming Convention: 'Ingest Request for [collectionName]'\nBranch Strategy: feat/[sanitizedCollectionName]\nFile Organization: ingestion-data/staging/dataset-config/[collectionName].json",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "Dataset Ingestion",
+      "VEDA Ingest UI"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html#troubleshooting",
+    "href": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html#troubleshooting",
+    "title": "VEDA Ingest UI",
+    "section": "Troubleshooting",
+    "text": "Troubleshooting\n\nCommon Issues\n\nCollection Name Conflicts\nError: Collection already exists Solution: - Choose a unique collection identifier - Check existing collections in the STAC catalog - Use descriptive, specific naming conventions\n\n\n\nGetting Help\n\nDocumentation: Review dataset ingestion guides\nExamples: Study the GEOGLAM ingestion example\nGitHub Issues: Open issues in veda-data repository\nFeature Demonstrations: Visit the live test reports for visual feature overviews",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "Dataset Ingestion",
+      "VEDA Ingest UI"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html#related-resources",
+    "href": "user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html#related-resources",
+    "title": "VEDA Ingest UI",
+    "section": "Related Resources",
+    "text": "Related Resources\n\nDataset Ingestion Overview\nCatalog Ingestion Guide\nSTAC Collection Conventions\nSTAC Item Conventions\nVEDA Ingest UI GitHub Repository\nLive Feature Demonstrations",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "Dataset Ingestion",
+      "VEDA Ingest UI"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/dataset-ingestion/file-preparation.html",
+    "href": "user-guide/content-curation/dataset-ingestion/file-preparation.html",
+    "title": "File preparation",
     "section": "",
-    "text": "This list is intended for scientists who want to get started with cloud-based, collaborative, open geospatial data analysis, or those looking to refresh their knowledge. It is by no means complete, but contains pointers to more elaborate resources. We anticipate this list to evolve as our platform and use cases evolve. Suggestions for additional resources or topics are highly welcome.\n\n\n\nGit - for managing code versions\nConda - for managing dependencies\nJupyter - for running code\n\n\n\n\n\nData Carpentry geospatial course\nUW course on Geospatial Data Analysis with Python\nGeographic data book - emphasis on vector data\n\n\n\n\n\nCloud-Optimized Geospatial Formats Guide\nNASA Openscapes Earthdata Cloud Cookbook\nCryoCloud JupyterBook\nProject Pythia - Pangeo’s education hub\nPlanetary Computer\nGeospatial Computing Platform library of training resources (by Python package)\n\n\n\n\n\nUW GeoHackWeek\nUW OceanHackWeek\n\n\n\n\n\nBlog series on latest trends and resources in geospatial - entry-level",
+    "text": "VEDA supports inclusion of cloud optimized GeoTIFFs (COGs) to its data store.\n\n\nWe often encounter issues like missing or wrong nodata value, missing coordinate-reference system, missing or wrong overviews - polluted by fill values or not conserving class values in categorical data, empty files, or artifacts in the data.\nDiscovering these issues early on (ideally before upload to our buckets) can save us all a lot of time.\nA command-line tool for creating and validating COGs is rio-cogeo. The rio-cogeo documentation is a great starting reference point and have a very helpful guide on preparing COGs, too.\n\nTo inspect and validate your raster dataset use the following\nrio cogeo info /path/to/file.tif\nThis will allow you to explore the size in rows and lines, understand the data type (e.g., byte, float, etc.), and verify how NoData is defined. Once you have explored the COG’s definitions you can validate it by using the following commands:\nrio cogeo validate /path/to/file.tif\nCOG validation can be used to identify if any errors are found. The following steps can be used to resolve any errors.\nIf your raster contains empty pixels, make sure the nodata value is set correctly (check with rio cogeo info). The nodata value needs to be set before cloud-optimizing the raster, so overviews are computed from real data pixels only. Pro-tip: For floating-point rasters, using NaN for flagging nodata helps avoid roundoff errors later on.\nYou can set the nodata flag on a GeoTIFF in-place with:\nrio edit_info --nodata 255 /path/to/file.tif\nor in Python with\nimport rasterio\n\nwith rasterio.open(\"/path/to/file.tif\", \"r+\") as ds:\n    ds.nodata = 255\nNote that this only changes the flag. If you want to change the actual value you have in the data, you need to create a new copy of the file where you change the pixel values.\nMake sure the coordinate reference system is embedded in the COG (check with rio cogeo info)\nWhen creating the COG, use the most appropriate resampling method for overviews. For example, use average for continuous / floating point data and mode for categorical / integer.\nrio cogeo create --overview-resampling \"mode\" /path/to/input.tif /path/to/output.tif\n\n\n\n\nMake sure that the COG filename is meaningful and contains the datetime associated with the COG in the following format. All the datetime values in the file should be preceded by the _ underscore character. Some examples are shown below:\n\n\n\nYear data: nightlights_2012.tif, nightlights_2012-yearly.tif\nMonth data: nightlights_201201.tif, nightlights_2012-01_monthly.tif\nDay data: nightlights_20120101day.tif, nightlights_2012-01-01_day.tif\n\n\n\n\n\nYear data: nightlights_2012_2014.tif, nightlights_2012_year_2015.tif\nMonth data: nightlights_201201_201205.tif, nightlights_2012-01_month_2012-06_data.tif\nDay data: nightlights_20120101day_20121221.tif, nightlights_2012-01-01_to_2012-12-31_day.tif\n\n\n\n\n\nDate + hour/minute/second: TEMPO_NO2_L3_V03_2024-04-11T19:09:53Z.tif, TEMPO_NO2_L3_V03_20240411T19:09:53Z.tif\n\nNote that the date/datetime value is always preceded by an _ (underscore).",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "Dataset Ingestion",
+      "File preparation"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/dataset-ingestion/file-preparation.html#step-i-prepare-the-data",
+    "href": "user-guide/content-curation/dataset-ingestion/file-preparation.html#step-i-prepare-the-data",
+    "title": "File preparation",
+    "section": "",
+    "text": "VEDA supports inclusion of cloud optimized GeoTIFFs (COGs) to its data store.\n\n\nWe often encounter issues like missing or wrong nodata value, missing coordinate-reference system, missing or wrong overviews - polluted by fill values or not conserving class values in categorical data, empty files, or artifacts in the data.\nDiscovering these issues early on (ideally before upload to our buckets) can save us all a lot of time.\nA command-line tool for creating and validating COGs is rio-cogeo. The rio-cogeo documentation is a great starting reference point and have a very helpful guide on preparing COGs, too.\n\nTo inspect and validate your raster dataset use the following\nrio cogeo info /path/to/file.tif\nThis will allow you to explore the size in rows and lines, understand the data type (e.g., byte, float, etc.), and verify how NoData is defined. Once you have explored the COG’s definitions you can validate it by using the following commands:\nrio cogeo validate /path/to/file.tif\nCOG validation can be used to identify if any errors are found. The following steps can be used to resolve any errors.\nIf your raster contains empty pixels, make sure the nodata value is set correctly (check with rio cogeo info). The nodata value needs to be set before cloud-optimizing the raster, so overviews are computed from real data pixels only. Pro-tip: For floating-point rasters, using NaN for flagging nodata helps avoid roundoff errors later on.\nYou can set the nodata flag on a GeoTIFF in-place with:\nrio edit_info --nodata 255 /path/to/file.tif\nor in Python with\nimport rasterio\n\nwith rasterio.open(\"/path/to/file.tif\", \"r+\") as ds:\n    ds.nodata = 255\nNote that this only changes the flag. If you want to change the actual value you have in the data, you need to create a new copy of the file where you change the pixel values.\nMake sure the coordinate reference system is embedded in the COG (check with rio cogeo info)\nWhen creating the COG, use the most appropriate resampling method for overviews. For example, use average for continuous / floating point data and mode for categorical / integer.\nrio cogeo create --overview-resampling \"mode\" /path/to/input.tif /path/to/output.tif\n\n\n\n\nMake sure that the COG filename is meaningful and contains the datetime associated with the COG in the following format. All the datetime values in the file should be preceded by the _ underscore character. Some examples are shown below:\n\n\n\nYear data: nightlights_2012.tif, nightlights_2012-yearly.tif\nMonth data: nightlights_201201.tif, nightlights_2012-01_monthly.tif\nDay data: nightlights_20120101day.tif, nightlights_2012-01-01_day.tif\n\n\n\n\n\nYear data: nightlights_2012_2014.tif, nightlights_2012_year_2015.tif\nMonth data: nightlights_201201_201205.tif, nightlights_2012-01_month_2012-06_data.tif\nDay data: nightlights_20120101day_20121221.tif, nightlights_2012-01-01_to_2012-12-31_day.tif\n\n\n\n\n\nDate + hour/minute/second: TEMPO_NO2_L3_V03_2024-04-11T19:09:53Z.tif, TEMPO_NO2_L3_V03_20240411T19:09:53Z.tif\n\nNote that the date/datetime value is always preceded by an _ (underscore).",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "Dataset Ingestion",
+      "File preparation"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/dataset-ingestion/file-preparation.html#step-ii-upload-to-the-veda-data-store",
+    "href": "user-guide/content-curation/dataset-ingestion/file-preparation.html#step-ii-upload-to-the-veda-data-store",
+    "title": "File preparation",
+    "section": "STEP II: Upload to the VEDA data store",
+    "text": "STEP II: Upload to the VEDA data store\nOnce you have the COGs, obtain permissions (Cognito credentials) from the VEDA team to upload them to the veda-data-store-staging bucket.\nUpload the data to a sensible location inside the bucket. Example: s3://veda-data-store-staging/&lt;collection-id&gt;/",
+    "crumbs": [
+      "User Guide",
+      "Content Curation",
+      "Dataset Ingestion",
+      "File preparation"
+    ]
+  },
+  {
+    "objectID": "open-source-ecosystem/architecture.html",
+    "href": "open-source-ecosystem/architecture.html",
+    "title": "Software Architecture",
+    "section": "",
+    "text": "Architecture diagram\n\n\n\nThis diagram shows a high level overview of the components in the the VEDA Open-Source Ecosystem. See the repositories page for links to software used for VEDA services.",
     "crumbs": [
       "The VEDA Open Source Ecosystem",
-      "External Resources"
+      "Software Architecture"
     ]
   },
   {
-    "objectID": "open-source-ecosystem/external-resources.html#learning-about-open-source-cloud-native-geospatial",
-    "href": "open-source-ecosystem/external-resources.html#learning-about-open-source-cloud-native-geospatial",
-    "title": "External Resources",
+    "objectID": "open-source-ecosystem/architecture.html#architecture",
+    "href": "open-source-ecosystem/architecture.html#architecture",
+    "title": "Software Architecture",
     "section": "",
-    "text": "This list is intended for scientists who want to get started with cloud-based, collaborative, open geospatial data analysis, or those looking to refresh their knowledge. It is by no means complete, but contains pointers to more elaborate resources. We anticipate this list to evolve as our platform and use cases evolve. Suggestions for additional resources or topics are highly welcome.\n\n\n\nGit - for managing code versions\nConda - for managing dependencies\nJupyter - for running code\n\n\n\n\n\nData Carpentry geospatial course\nUW course on Geospatial Data Analysis with Python\nGeographic data book - emphasis on vector data\n\n\n\n\n\nCloud-Optimized Geospatial Formats Guide\nNASA Openscapes Earthdata Cloud Cookbook\nCryoCloud JupyterBook\nProject Pythia - Pangeo’s education hub\nPlanetary Computer\nGeospatial Computing Platform library of training resources (by Python package)\n\n\n\n\n\nUW GeoHackWeek\nUW OceanHackWeek\n\n\n\n\n\nBlog series on latest trends and resources in geospatial - entry-level",
+    "text": "Architecture diagram\n\n\n\nThis diagram shows a high level overview of the components in the the VEDA Open-Source Ecosystem. See the repositories page for links to software used for VEDA services.",
     "crumbs": [
       "The VEDA Open Source Ecosystem",
-      "External Resources"
+      "Software Architecture"
     ]
   },
   {
-    "objectID": "open-source-ecosystem/external-resources.html#related-projects",
-    "href": "open-source-ecosystem/external-resources.html#related-projects",
-    "title": "External Resources",
-    "section": "Related projects",
-    "text": "Related projects\n\nMicrosoft Planetary Computer\nCopernicus Data Space Ecosystems\nEarth Observation Exploitation Platform Common Architecture (EOEPCA)\nEarth Observing Dashboard by ESA, NASA, and JAXA",
-    "crumbs": [
-      "The VEDA Open Source Ecosystem",
-      "External Resources"
-    ]
-  },
-  {
-    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html",
-    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html",
-    "title": "How To Make Your Own Dashboard",
+    "objectID": "open-source-ecosystem/index.html",
+    "href": "open-source-ecosystem/index.html",
+    "title": "The VEDA Open Source Ecosystem",
     "section": "",
-    "text": "VEDA provides the software architecture for an open, accessible, and powerful platform to help science teams communicate insights hidden in large-scale geospatial data.\n\nBuilt to work with cloud-optimized formats like COG and the emerging web-optimized Zarr.\nEnables rapid, compelling storytelling at scale.\nOpen-source under permissive licenses to encourage broad use and innovation.\n\nOur goal is to lower the barriers to entry for scientists to talk about their work, for users to learn about and explore geospatial data, and for geospatial data to come alive in ways it never has before.\nWhether you want a turnkey dashboard, individual components, or a foundation for your own innovation, we want the VEDA Dashboard to be flexible and modular enough for your needs.\nAs the number of projects that depend on VEDA grows, we want to make it straightforward for organizations outside of NASA to use and extend these tools. If you have any feedback on the tools or your ability to use them, please reach out to veda@uah.edu\nThis document shares guidance on how you can adopt the VEDA Dashboard in a way that fits your needs.\n\n\nIf you are going to use the VEDA Dashboard for your own purposes, we assume that you will be self-hosting your own website and data. - That website and data could all be VEDA tools, so if you’re starting from scratch, don’t worry! Visit the top-level instructions for using VEDA.\nThe primary repository for the VEDA Dashboard is here: - veda-ui Github\nWe have created a Template Dashboard to showcase how you can pull in veda-ui and create a website compiled with NextJS. You can explore and review that implementation here: - Template Dashboard GitHub That Template Dashboard is live here: - Template Dashboard\n\n\n\nDepending on your goals and technical preferences, there are three main ways to leverage the VEDA Dashboard:\n\n\n\n\nIn this case, we recommend manually cloning the Template Dashboard GitHub repository. This will allow you to adjust styling, add any custom features, and manage your own content.\n\nThis approach gives you full control and flexibility\nBenefit from updates to core VEDA functionality\n\nWhen to choose this:\n\nYou value simplicity and speed.\nYou are also using other VEDA tools and patterns, such as STAC and eoAPI.\nYou don’t already have a web presence for your project, or you are interested in completely replacing your current website\n\n\n\n\n\n\n\nIf you already have a robust web presence but want to use VEDA’s powerful tools and widgets—such as data stories or analysis tools, then you can simply import them as an NPM package. The package is published under @teamimpact/veda-ui.\n\nAllows you to selectively integrate VEDA components into your existing site.\nTake advantage of novel storytelling and COG (Cloud-Optimized GeoTIFF) capabilities without a full rebuild.\n\nWhen to choose this:\n\nYou want to enhance your existing website\nYou already have a preferred CMS tool for managing your site\n\nCurrently available components, hooks and providers:\nProviders and Hooks: DevseedUiThemeProvider, VedaUIProvider, ReactQueryProvider, useTimelineDatasetAtom, useFiltersWithQS\nUI Components: Block, Image, MapBlock, ScrollytellingBlock, Figure, Prose, MDXImage, Caption, Chapter, Chart, Table, CompareImage, Embed, PageHeader, PageFooter, DefaultCard, FlagCard, Widget, PageHero\nPage Components: CatalogContent, ExplorationAndAnalysis, StoriesHubContent, DatasetSelectorModal\nNote: VEDA is in the process of migrating the remaining components to the USWDS system. If you need additional UI primitives to build custom components within VEDA, we recommend using USWDS or react-uswds (if using React).\n\n\n\n\n\n\nThe VEDA Dashboard is designed for content to be easily managed.\n\nDefault: Content is stored in simple, human-readable MDX files. Editors can write, edit, and customize pages directly.\nOptional: We have prototyped an integration with Strapi CMS, providing a more familiar, GUI-based editing experience for non-technical users.\nFlexible: We have extended the MDX Editor to allow customization and story editing directly within your existing CMS or backend platform.\n\nThis flexibility ensures that both technical and non-technical teams can collaborate seamlessly.\n\nIf you have questions, ideas, or would like support adopting VEDA, we welcome collaboration.\nLet us know how we can help! email us at veda@uah.edu",
+    "text": "Below are resources for prospective platform providers and contributors to the open source ecosystem that VEDA leverages to provide science data platforms.\n\nSoftware architecture\nCode repositories of redeployable software components\nExternal resources for learning and reference\n\nIf you are interested in setting up your own platform based on VEDA open-source software, please email the VEDA team at veda@uah.edu and we will provide further direction.",
     "crumbs": [
-      "The VEDA Open Source Ecosystem",
-      "Using VEDA For Your Own Team",
-      "How To Make Your Own Dashboard"
+      "The VEDA Open Source Ecosystem"
     ]
   },
   {
-    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#getting-started",
-    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#getting-started",
-    "title": "How To Make Your Own Dashboard",
+    "objectID": "open-source-ecosystem/index.html#the-ecosystem",
+    "href": "open-source-ecosystem/index.html#the-ecosystem",
+    "title": "The VEDA Open Source Ecosystem",
     "section": "",
-    "text": "If you are going to use the VEDA Dashboard for your own purposes, we assume that you will be self-hosting your own website and data. - That website and data could all be VEDA tools, so if you’re starting from scratch, don’t worry! Visit the top-level instructions for using VEDA.\nThe primary repository for the VEDA Dashboard is here: - veda-ui Github\nWe have created a Template Dashboard to showcase how you can pull in veda-ui and create a website compiled with NextJS. You can explore and review that implementation here: - Template Dashboard GitHub That Template Dashboard is live here: - Template Dashboard",
+    "text": "Below are resources for prospective platform providers and contributors to the open source ecosystem that VEDA leverages to provide science data platforms.\n\nSoftware architecture\nCode repositories of redeployable software components\nExternal resources for learning and reference\n\nIf you are interested in setting up your own platform based on VEDA open-source software, please email the VEDA team at veda@uah.edu and we will provide further direction.",
     "crumbs": [
-      "The VEDA Open Source Ecosystem",
-      "Using VEDA For Your Own Team",
-      "How To Make Your Own Dashboard"
+      "The VEDA Open Source Ecosystem"
     ]
   },
   {
-    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#choosing-your-path-how-to-use-veda",
-    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#choosing-your-path-how-to-use-veda",
-    "title": "How To Make Your Own Dashboard",
+    "objectID": "open-source-ecosystem/creating-your-own-instance/index.html",
+    "href": "open-source-ecosystem/creating-your-own-instance/index.html",
+    "title": "Using VEDA For Your Own Team",
     "section": "",
-    "text": "Depending on your goals and technical preferences, there are three main ways to leverage the VEDA Dashboard:\n\n\n\n\nIn this case, we recommend manually cloning the Template Dashboard GitHub repository. This will allow you to adjust styling, add any custom features, and manage your own content.\n\nThis approach gives you full control and flexibility\nBenefit from updates to core VEDA functionality\n\nWhen to choose this:\n\nYou value simplicity and speed.\nYou are also using other VEDA tools and patterns, such as STAC and eoAPI.\nYou don’t already have a web presence for your project, or you are interested in completely replacing your current website\n\n\n\n\n\n\n\nIf you already have a robust web presence but want to use VEDA’s powerful tools and widgets—such as data stories or analysis tools, then you can simply import them as an NPM package. The package is published under @teamimpact/veda-ui.\n\nAllows you to selectively integrate VEDA components into your existing site.\nTake advantage of novel storytelling and COG (Cloud-Optimized GeoTIFF) capabilities without a full rebuild.\n\nWhen to choose this:\n\nYou want to enhance your existing website\nYou already have a preferred CMS tool for managing your site\n\nCurrently available components, hooks and providers:\nProviders and Hooks: DevseedUiThemeProvider, VedaUIProvider, ReactQueryProvider, useTimelineDatasetAtom, useFiltersWithQS\nUI Components: Block, Image, MapBlock, ScrollytellingBlock, Figure, Prose, MDXImage, Caption, Chapter, Chart, Table, CompareImage, Embed, PageHeader, PageFooter, DefaultCard, FlagCard, Widget, PageHero\nPage Components: CatalogContent, ExplorationAndAnalysis, StoriesHubContent, DatasetSelectorModal\nNote: VEDA is in the process of migrating the remaining components to the USWDS system. If you need additional UI primitives to build custom components within VEDA, we recommend using USWDS or react-uswds (if using React).",
+    "text": "The modular VEDA platform architecture provides a blueprint on how prominent open-source tools for geospatial data discovery, access, and analysis can be used together to provide a basis for research and science communication with geospatial data. Depending on your needs, you might use the VEDA software ecosystem as a tool for:\n\nEfficient data storage using a cloud-optimized Data Catalog\nBackend Data Services to provide easy access to your data organized in STAC\nCloud computing with your own tailored JupyterHub environment\nBrowser-based visualization and storytelling using the Dashboard’s cloud-native tools\n\nSee Software Architecture for more information on how all of these pieces fit together.\nThere are many options for how to use the VEDA software ecosystem, depending on your needs and existing set of tools.\nReach out to us at veda@uah.edu if you need help navigating the options.",
     "crumbs": [
       "The VEDA Open Source Ecosystem",
-      "Using VEDA For Your Own Team",
-      "How To Make Your Own Dashboard"
+      "Using VEDA For Your Own Team"
     ]
   },
   {
-    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#content-management-options",
-    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#content-management-options",
-    "title": "How To Make Your Own Dashboard",
+    "objectID": "open-source-ecosystem/creating-your-own-instance/index.html#veda-is-a-suite-of-open-source-tools",
+    "href": "open-source-ecosystem/creating-your-own-instance/index.html#veda-is-a-suite-of-open-source-tools",
+    "title": "Using VEDA For Your Own Team",
     "section": "",
-    "text": "The VEDA Dashboard is designed for content to be easily managed.\n\nDefault: Content is stored in simple, human-readable MDX files. Editors can write, edit, and customize pages directly.\nOptional: We have prototyped an integration with Strapi CMS, providing a more familiar, GUI-based editing experience for non-technical users.\nFlexible: We have extended the MDX Editor to allow customization and story editing directly within your existing CMS or backend platform.\n\nThis flexibility ensures that both technical and non-technical teams can collaborate seamlessly.\n\nIf you have questions, ideas, or would like support adopting VEDA, we welcome collaboration.\nLet us know how we can help! email us at veda@uah.edu",
+    "text": "The modular VEDA platform architecture provides a blueprint on how prominent open-source tools for geospatial data discovery, access, and analysis can be used together to provide a basis for research and science communication with geospatial data. Depending on your needs, you might use the VEDA software ecosystem as a tool for:\n\nEfficient data storage using a cloud-optimized Data Catalog\nBackend Data Services to provide easy access to your data organized in STAC\nCloud computing with your own tailored JupyterHub environment\nBrowser-based visualization and storytelling using the Dashboard’s cloud-native tools\n\nSee Software Architecture for more information on how all of these pieces fit together.\nThere are many options for how to use the VEDA software ecosystem, depending on your needs and existing set of tools.\nReach out to us at veda@uah.edu if you need help navigating the options.",
     "crumbs": [
       "The VEDA Open Source Ecosystem",
-      "Using VEDA For Your Own Team",
-      "How To Make Your Own Dashboard"
+      "Using VEDA For Your Own Team"
+    ]
+  },
+  {
+    "objectID": "AGU2024.html",
+    "href": "AGU2024.html",
+    "title": "AGU 2024",
+    "section": "",
+    "text": "AGU Searchable Schedule\nBelow is information workshops, talks, posters, and demos related to VEDA. Expanding a talk or poster item below reveals an AGU link for full author list, abstract, time, and location.\n\n\nTalks\n\n\nTalk: Advancing Open Science: Lessons Learned from NASA Projects. 08:40 - 08:50 EST. Point of Contact: Aimee Barciauskas\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1607534\nSession: U11A: Accelerating Scientific Discovery and Interdisciplinary Collaboration Through Cloud Computing Hubs and Tools I Oral\nMonday, 9 December 2024, 08:40 - 08:50 EST Ballroom A (Convention Center)\n\n\n\nTalk: From Global Models to Local Impacts: Interactive “Explor-anatory” Visualization of CMIP Data for Museumgoers (Invited). 16:00 - 16:10 EST. Point of Contact: Alex Gurvich\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1616551\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 16:00 - 16:10 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nTalk: Enhancing Geospatial Data Interoperability with pyarc2stac (Invited). 16:40 - 16:50 EST. Points of Contact: Slesa Adhikari, Abdelhak Marouane, Brian Freitag\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1625370\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 16:40 - 16:50 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nTalk: On-the-fly raster visualizations leveraging STAC metadata standards. 16:50 - 17:00 EST. Points of Contact: Saadiq Mohiuddin, Hanbyul Jo, Aimee Barciauskas, Brian Freitag\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1733434\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 16:50 - 17:00 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nTalk: Dynamic Tiling for Earth Data Visualization. 17:00 - 17:10 EST. Points of Contact: Aimee Barciauskas, Manil Maskey, Vncent Sarago, Henry Rodman, Max Jones, Sean Harkins\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1624796\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 17:00 - 17:10 EST Marquis 12-13 (Marriott Marquis)\n\nSessions\n\n\nIN14B - Emerging Technologies for Earth Science Data Access and Visualization II (Oral). 16:00 - 17:30 EST. Points of Contact: Ryan A Boller, James G Acker, Lorraine Tighe, Aimee Barciauskas, Elizabeth Joynerv\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Session/240646\nMonday, 9 December 2024, 16:00 - 17:30 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nIN11B - Emerging Technologies for Earth Science Data Access and Visualization II (Poster). 08:30 - 12:20 EST. Points of Contact: Ryan A Boller, James G Acker, Lorraine Tighe, Aimee Barciauskas, Elizabeth Joynerv\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Session/240535\nMonday, 9 December 2024, 16:00 - 17:30 EST Hall B-C (Poster Hall) (Convention Center)\n\n\n\n\nPosters\n\n\nTalk: Beyond Boundaries: Remote Sensing in Highlighting and Bridging Gaps for Environmental Justice. 13:40 - 17:30 EST. Points of Contact: Maheshwari Neelam, Yaítza Luna-Cruz, Antarpreet Singh Jutla, Brian Freitag\n\nSession: GH23A: Poster Session\nTuesday, 10 December 2024, 17:00 - 17:10 EST Hall B-C (Poster Hall) (Convention Center)\n\n\n\n\nPosters\n\n\nTalk: Human-Induced Drought: Escalating Mental Health Crises and Environmental Inequities. 08:30 - 12:20 EST. Points of Contact: Maheshwari Neelam, Brian Freitag\n\nSession: GH31B-2402: Poster Session\nWednesday, 11 December 2024, 08:30 - 12:20 EST Hall B-C (Poster Hall) (Convention Center)\n\n\n\n\nPosters\n\n\nTalk: STAC And Virtualizarr Pipelines For Optimized NODD Data Accessibility. 08:30 - 12:20 EST. Points of Contact: Sean Harkins, Aimee Barciauskas, Henry Rodman\n\nSession: SY41G-2637: Poster Session\nThursday, 12 December 2024, 08:30 - 12:20 EST Hall B-C (Poster Hall) (Convention Center)\n\n\n\n\n\n\n\nHackday with Pangeo: We’ll join Pangeo hackday to meet and work with other awesome open science/cloud/geospatial folks!"
+  },
+  {
+    "objectID": "AGU2024.html#monday-dec-09",
+    "href": "AGU2024.html#monday-dec-09",
+    "title": "AGU 2024",
+    "section": "",
+    "text": "Talks\n\n\nTalk: Advancing Open Science: Lessons Learned from NASA Projects. 08:40 - 08:50 EST. Point of Contact: Aimee Barciauskas\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1607534\nSession: U11A: Accelerating Scientific Discovery and Interdisciplinary Collaboration Through Cloud Computing Hubs and Tools I Oral\nMonday, 9 December 2024, 08:40 - 08:50 EST Ballroom A (Convention Center)\n\n\n\nTalk: From Global Models to Local Impacts: Interactive “Explor-anatory” Visualization of CMIP Data for Museumgoers (Invited). 16:00 - 16:10 EST. Point of Contact: Alex Gurvich\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1616551\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 16:00 - 16:10 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nTalk: Enhancing Geospatial Data Interoperability with pyarc2stac (Invited). 16:40 - 16:50 EST. Points of Contact: Slesa Adhikari, Abdelhak Marouane, Brian Freitag\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1625370\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 16:40 - 16:50 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nTalk: On-the-fly raster visualizations leveraging STAC metadata standards. 16:50 - 17:00 EST. Points of Contact: Saadiq Mohiuddin, Hanbyul Jo, Aimee Barciauskas, Brian Freitag\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1733434\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 16:50 - 17:00 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nTalk: Dynamic Tiling for Earth Data Visualization. 17:00 - 17:10 EST. Points of Contact: Aimee Barciauskas, Manil Maskey, Vncent Sarago, Henry Rodman, Max Jones, Sean Harkins\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1624796\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 17:00 - 17:10 EST Marquis 12-13 (Marriott Marquis)\n\nSessions\n\n\nIN14B - Emerging Technologies for Earth Science Data Access and Visualization II (Oral). 16:00 - 17:30 EST. Points of Contact: Ryan A Boller, James G Acker, Lorraine Tighe, Aimee Barciauskas, Elizabeth Joynerv\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Session/240646\nMonday, 9 December 2024, 16:00 - 17:30 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nIN11B - Emerging Technologies for Earth Science Data Access and Visualization II (Poster). 08:30 - 12:20 EST. Points of Contact: Ryan A Boller, James G Acker, Lorraine Tighe, Aimee Barciauskas, Elizabeth Joynerv\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Session/240535\nMonday, 9 December 2024, 16:00 - 17:30 EST Hall B-C (Poster Hall) (Convention Center)"
+  },
+  {
+    "objectID": "AGU2024.html#tuesday-dec-10",
+    "href": "AGU2024.html#tuesday-dec-10",
+    "title": "AGU 2024",
+    "section": "",
+    "text": "Posters\n\n\nTalk: Beyond Boundaries: Remote Sensing in Highlighting and Bridging Gaps for Environmental Justice. 13:40 - 17:30 EST. Points of Contact: Maheshwari Neelam, Yaítza Luna-Cruz, Antarpreet Singh Jutla, Brian Freitag\n\nSession: GH23A: Poster Session\nTuesday, 10 December 2024, 17:00 - 17:10 EST Hall B-C (Poster Hall) (Convention Center)"
+  },
+  {
+    "objectID": "AGU2024.html#wednesday-dec-11",
+    "href": "AGU2024.html#wednesday-dec-11",
+    "title": "AGU 2024",
+    "section": "",
+    "text": "Posters\n\n\nTalk: Human-Induced Drought: Escalating Mental Health Crises and Environmental Inequities. 08:30 - 12:20 EST. Points of Contact: Maheshwari Neelam, Brian Freitag\n\nSession: GH31B-2402: Poster Session\nWednesday, 11 December 2024, 08:30 - 12:20 EST Hall B-C (Poster Hall) (Convention Center)"
+  },
+  {
+    "objectID": "AGU2024.html#thursday-dec-12",
+    "href": "AGU2024.html#thursday-dec-12",
+    "title": "AGU 2024",
+    "section": "",
+    "text": "Posters\n\n\nTalk: STAC And Virtualizarr Pipelines For Optimized NODD Data Accessibility. 08:30 - 12:20 EST. Points of Contact: Sean Harkins, Aimee Barciauskas, Henry Rodman\n\nSession: SY41G-2637: Poster Session\nThursday, 12 December 2024, 08:30 - 12:20 EST Hall B-C (Poster Hall) (Convention Center)"
+  },
+  {
+    "objectID": "AGU2024.html#saturday-dec-14",
+    "href": "AGU2024.html#saturday-dec-14",
+    "title": "AGU 2024",
+    "section": "",
+    "text": "Hackday with Pangeo: We’ll join Pangeo hackday to meet and work with other awesome open science/cloud/geospatial folks!"
+  },
+  {
+    "objectID": "veda-project/index.html",
+    "href": "veda-project/index.html",
+    "title": "The VEDA project",
+    "section": "",
+    "text": "Visualization Exploration and Data Analysis (VEDA) is an ecosystem of tools and services built with the goal to provide a redeployable and unified open-source science cyberinfrastructure for data processing, visualization, exploration, and GIS capabilities with NASA data on the cloud.\nDeveloped through a collaboration between NASA IMPACT, Development Seed, University of Alabama in Huntsville, Element 84, Georgia Tech, International Interactive Computing Collaboration (2i2c), Earth Science Data and Information System (ESDIS) Project, NASA Science Managed Cloud Environment (SMCE), and NASA Mission Cloud Platform (MCP), VEDA significantly reduces the barriers to accessing Earth science data and the computational resources needed for exploring and processing the petabyte-scale Earth data archives in the cloud. VEDA’s achievement exemplifies the core principles of NASA’s Open-Source Science Initiative (OSSI), showcasing commitment to promoting transparent, accessible, and collaborative scientific research.\nRead more about the history of VEDA in this blog post.",
+    "crumbs": [
+      "The VEDA project"
+    ]
+  },
+  {
+    "objectID": "veda-project/index.html#project-context",
+    "href": "veda-project/index.html#project-context",
+    "title": "The VEDA project",
+    "section": "",
+    "text": "Visualization Exploration and Data Analysis (VEDA) is an ecosystem of tools and services built with the goal to provide a redeployable and unified open-source science cyberinfrastructure for data processing, visualization, exploration, and GIS capabilities with NASA data on the cloud.\nDeveloped through a collaboration between NASA IMPACT, Development Seed, University of Alabama in Huntsville, Element 84, Georgia Tech, International Interactive Computing Collaboration (2i2c), Earth Science Data and Information System (ESDIS) Project, NASA Science Managed Cloud Environment (SMCE), and NASA Mission Cloud Platform (MCP), VEDA significantly reduces the barriers to accessing Earth science data and the computational resources needed for exploring and processing the petabyte-scale Earth data archives in the cloud. VEDA’s achievement exemplifies the core principles of NASA’s Open-Source Science Initiative (OSSI), showcasing commitment to promoting transparent, accessible, and collaborative scientific research.\nRead more about the history of VEDA in this blog post.",
+    "crumbs": [
+      "The VEDA project"
+    ]
+  },
+  {
+    "objectID": "veda-project/index.html#project-goals",
+    "href": "veda-project/index.html#project-goals",
+    "title": "The VEDA project",
+    "section": "Project Goals",
+    "text": "Project Goals\n\nLeverage existing open source components (NASA-MAAP, Cumulus, Pangeo, STAC, etc) to assemble interoperable ecosystem of tools\nMaximize the capabilities offered by data and compute on the cloud\nProvide services for future mission data processing\nProvide a platform for new priorities and directives: NASA’s Earth Action, NASA’s Earth Science Data Systems (ESDS) Program, and other priority initiatives\n\n\nStakeholder Benefits\n\nGeneral Public: Interactive stories\nScientist: scientific (visual) analysis and communication\nData producers/Researchers: processing and self publishing\nTOPS: platform for summer schools and competitions\nApplied science/Decision makers: geospatial analysis and communication\nCommunication: Interactive storytelling\n\n\n\nOverview\n\n\n\nVEDA Overview Diagram",
+    "crumbs": [
+      "The VEDA project"
+    ]
+  },
+  {
+    "objectID": "veda-project/target-use-cases/data-services.html",
+    "href": "veda-project/target-use-cases/data-services.html",
+    "title": "Data Services",
+    "section": "",
+    "text": "The goal of VEDA Data Services is to support open science through community standard tooling, Application Programming Interfaces (APIs), and providing access to persistent, discoverable Earth science datasets. This approach includes:\n\nMaking key datasets available in analysis-optimized formats\nTying together VEDA products by providing access to hosted data, existing third-party geospatial datasets, and new datasets produced within the VEDA ecosystem\nMaking data Findable, Accessible, Interoperable, and Reusable (FAIR), within and also beyond VEDA",
+    "crumbs": [
+      "The VEDA project",
+      "Target Use Cases",
+      "Data Services"
+    ]
+  },
+  {
+    "objectID": "veda-project/target-use-cases/data-services.html#goals",
+    "href": "veda-project/target-use-cases/data-services.html#goals",
+    "title": "Data Services",
+    "section": "",
+    "text": "The goal of VEDA Data Services is to support open science through community standard tooling, Application Programming Interfaces (APIs), and providing access to persistent, discoverable Earth science datasets. This approach includes:\n\nMaking key datasets available in analysis-optimized formats\nTying together VEDA products by providing access to hosted data, existing third-party geospatial datasets, and new datasets produced within the VEDA ecosystem\nMaking data Findable, Accessible, Interoperable, and Reusable (FAIR), within and also beyond VEDA",
+    "crumbs": [
+      "The VEDA project",
+      "Target Use Cases",
+      "Data Services"
+    ]
+  },
+  {
+    "objectID": "veda-project/target-use-cases/data-services.html#resources",
+    "href": "veda-project/target-use-cases/data-services.html#resources",
+    "title": "Data Services",
+    "section": "Resources",
+    "text": "Resources\nSee the user guides for data services operated by the NASA VEDA project.\nWant to contribute or reuse the open-source software that makes up VEDA data services? See the relevant code repositories.",
+    "crumbs": [
+      "The VEDA project",
+      "Target Use Cases",
+      "Data Services"
+    ]
+  },
+  {
+    "objectID": "veda-project/target-use-cases/index.html",
+    "href": "veda-project/target-use-cases/index.html",
+    "title": "Target Use Cases",
+    "section": "",
+    "text": "These components of open-source geospatial data science platforms are curated and promoted by VEDA:\n\nVEDA Dashboard\nData Access and Data Management Services\nResources for Scientific Computing in the cloud",
+    "crumbs": [
+      "The VEDA project",
+      "Target Use Cases"
+    ]
+  },
+  {
+    "objectID": "veda-project/target-use-cases/index.html#platform-components",
+    "href": "veda-project/target-use-cases/index.html#platform-components",
+    "title": "Target Use Cases",
+    "section": "",
+    "text": "These components of open-source geospatial data science platforms are curated and promoted by VEDA:\n\nVEDA Dashboard\nData Access and Data Management Services\nResources for Scientific Computing in the cloud",
+    "crumbs": [
+      "The VEDA project",
+      "Target Use Cases"
+    ]
+  },
+  {
+    "objectID": "veda-project/target-use-cases/index.html#use-cases",
+    "href": "veda-project/target-use-cases/index.html#use-cases",
+    "title": "Target Use Cases",
+    "section": "Use cases",
+    "text": "Use cases\nThe VEDA platform components can service different target audiences:\n\n\n\nVEDA platform target audiences",
+    "crumbs": [
+      "The VEDA project",
+      "Target Use Cases"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "VEDA Docs",
+    "section": "",
+    "text": "VEDA (Visualization, Exploration and Data Analysis) is a redeployable data platform to support scientific visualization and analysis. By combining interactive storytelling with open science principles, VEDA enables researchers to engage new audiences and share their analysis results effectively.\nThese docs help you use the services provided by the NASA VEDA Platform and learn about the open-source software ecosystem that it is based on.\n\n\n\n\n\n\nAbout the VEDA Project\nWhy Platforms?\nPlatform Components and Target Use Cases\n\n\n\n\n\n\n\nContent Curation\nData Access and Management Services\nUsage Examples and Tutorials\nScientific Computing\nService Status\n\n\n\n\n\n\n\nSoftware Architecture\nRepositiories\nExternal Resources",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "VEDA Docs",
+    "section": "",
+    "text": "VEDA (Visualization, Exploration and Data Analysis) is a redeployable data platform to support scientific visualization and analysis. By combining interactive storytelling with open science principles, VEDA enables researchers to engage new audiences and share their analysis results effectively.\nThese docs help you use the services provided by the NASA VEDA Platform and learn about the open-source software ecosystem that it is based on.\n\n\n\n\n\n\nAbout the VEDA Project\nWhy Platforms?\nPlatform Components and Target Use Cases\n\n\n\n\n\n\n\nContent Curation\nData Access and Management Services\nUsage Examples and Tutorials\nScientific Computing\nService Status\n\n\n\n\n\n\n\nSoftware Architecture\nRepositiories\nExternal Resources",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#new-to-veda",
+    "href": "index.html#new-to-veda",
+    "title": "VEDA Docs",
+    "section": "New to VEDA?",
+    "text": "New to VEDA?\nTo learn from examples, see the VEDA Example Notebooks - examples of open-source data science using VEDA services.\nSelected user groups can also get access to a VEDA-provided JupyterHub service.\nIf you are just getting started with open-source geospatial data science (in Python) or want to learn more, you may find the Collection of External Resources useful.\nWant to contribute data, stories, and example code to this site and the VEDA Dashboard for NASA EarthData? Please see the docs on Content Curation.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "veda-project/target-use-cases/dashboard.html",
+    "href": "veda-project/target-use-cases/dashboard.html",
+    "title": "VEDA Dashboard",
+    "section": "",
+    "text": "The VEDA Dashboard aims to help science teams visualize their data for their stakeholders, no matter how well versed they might be in Earth science data or how to work with it. In order to do this, VEDA leverages existing open source technologies to build a modular, flexible web application for viewing complex data in the browser.\nThe VEDA Dashboard powers several platforms, most prominently the U.S. Greenhouse Gas Center and Earth.gov, with more platform instances underway. For more information on the VEDA Dashboard or how to use it, read on.",
+    "crumbs": [
+      "The VEDA project",
+      "Target Use Cases",
+      "VEDA Dashboard"
+    ]
+  },
+  {
+    "objectID": "veda-project/target-use-cases/dashboard.html#goals",
+    "href": "veda-project/target-use-cases/dashboard.html#goals",
+    "title": "VEDA Dashboard",
+    "section": "",
+    "text": "The VEDA Dashboard aims to help science teams visualize their data for their stakeholders, no matter how well versed they might be in Earth science data or how to work with it. In order to do this, VEDA leverages existing open source technologies to build a modular, flexible web application for viewing complex data in the browser.\nThe VEDA Dashboard powers several platforms, most prominently the U.S. Greenhouse Gas Center and Earth.gov, with more platform instances underway. For more information on the VEDA Dashboard or how to use it, read on.",
+    "crumbs": [
+      "The VEDA project",
+      "Target Use Cases",
+      "VEDA Dashboard"
+    ]
+  },
+  {
+    "objectID": "veda-project/target-use-cases/dashboard.html#resources",
+    "href": "veda-project/target-use-cases/dashboard.html#resources",
+    "title": "VEDA Dashboard",
+    "section": "Resources",
+    "text": "Resources\nIf you already have your own instance of the VEDA Dashboard, see more information at Dashboard Configuration.\nIf you would like to learn more about how to create your own instance of the VEDA Dashboard, read more about the open-source software ecosuystem or email us at veda@uah.edu.",
+    "crumbs": [
+      "The VEDA project",
+      "Target Use Cases",
+      "VEDA Dashboard"
+    ]
+  },
+  {
+    "objectID": "veda-project/target-use-cases/dashboard.html#things-to-know-about-the-veda-dashboard",
+    "href": "veda-project/target-use-cases/dashboard.html#things-to-know-about-the-veda-dashboard",
+    "title": "VEDA Dashboard",
+    "section": "Things to Know About the VEDA Dashboard",
+    "text": "Things to Know About the VEDA Dashboard\n\n1. Science teams need a way to show their work\n\nScience teams often need a web presence to show their research program, findings, and methods and data to their stakeholders, colleagues, and other audiences\nModern data-driven science is not only presented through papers, posters, and lectures to fellow scientists and through reports to decision makers, but also through up-to-date interactive online tools and blogs that are available directly to either audience. Web and cloud platforms can enable scientists to publish contents in these interactive ways.\nOften, science programs will want to put their information into a specific context and make it discoverable via their name, which is also important for credibility and attribution.\nVEDA UI helps science teams combine the two - program-specific websites with interactive data visualization and standardized access.\n\n\n\n2. The VEDA Dashboard visualizes Earth science data in a way that a CMS can’t\n\nIn order to include interactive data exploration and analysis tools into sites built with traditional CMS tools, you often need to manually embed third-party services into your website, losing any reference to the original data.\nOtherwise, you have to rely on a highly customized and expensive service.\nThe VEDA Dashboard set of tools allows you to visualize spatio-temporal data assets within your website, maintaining an interoperable reference to the source data. At the same time, it is completely open source, customizable, and comes without a subscription.\n\n\n\n3. It enables science workflows AND communicates to stakeholders in one platform\n\nWe show that, with cloud-optimized data, we can achieve multiple purposes without considerable additional effort or duplicating data sources\nData visualization in web interfaces often relies on copies of original data that were prepared for visualization (even scalable visualization services like NASA WorldView rely on statically produced rendered replicas). Linking the visualization back to original source data, as required for (re)producing scientific analysis, is often not possible or requires connecting a lot of dots.\nVEDA visualizes data directly off a single authoritative reference that contains data optimized for visualization as well as direct access, avoiding the issue of missing links between source and rendered data. The data a user sees in VEDA has a direct reference to source data (often via STAC). Another benefit of dynamic tiling is that users are able to adjust viewing parameters such as color map and value range to focus on, to study details of their interest.\n\n\n\n4. Features are optimized for Earth science data but other spatio-temporal applications might find them useful\n\nSpatio-temporal data often comes from Earth observations or Earth system models. However, the principle of integrating dynamically rendered data into a website is valuable for many branches of data-intensive science, such as heliophysics or astrophysics\n\n\n\n5. The VEDA Dashboard is completely open-source\n\nThe code is open and accessible, and the tool itself promotes the use of open standards and reproducible data access for open science Community involvement will become important to the long-term success of VEDA\n\n\n\n6. Each science team can create their own VEDA Dashboard with different content, data, and features\nExisting VEDA instances:\n\nTemplate\nEarthdata\nGreenhouse Gas Center Portal\nearth.gov\n\nPlanned VEDA instances:\n\nAir Quality Portal\n\n\n\n7. Each science team will customize their VEDA Dashboard to meet the needs of their audience\n\nThe Dashboard is NOT a replicable white-label website/dashboard, or even a single website\nEach science team will make their own instance of the Dashboard, and a template instance will provide some guidance and a starting point, if the teams need it\nHowever, each team can decide how to use the features available\n\n\n\n8. Utilizing an integrated STAC, a VEDA Dashboard can show data from a variety of sources\nThere are different ways to integrate data, such as:\n\nUsing platform storage, catalog, and data access services\nCatalog externally stored data, serve through platform services (e.g. cloud-optimized GeoTIFF in DAAC S3; TiTiler and TiTiler-Xarray)\nRely on external storage and catalog, serve through platform services (e.g. TiTiler-CMR)\nIntegrate third-party data services (ArcGIS ImageServer etc., WorldView WMS) While open source cloud-native geospatial data services are preferred, we should also avoid making copies of data and instead rely on existing, authoritative services.\n\n\n\n9. There are other frontends for VEDA\n\nThe VEDA Dashboard is just one frontend for VEDA, and should integrate well with other frontend options for users\nThe virtue of open-standard, open-access data services is that many interfaces can connect to them (interoperability).\nWithin the VEDA project, we promote the use of STAC Browser to browse the VEDA catalog, interactive code notebooks for finding and loading data (VEDA JupyterHub), and multiple data websites to use the same services (ESA/NASA/JAXA EO Dashboard, Earth.gov, …).",
+    "crumbs": [
+      "The VEDA project",
+      "Target Use Cases",
+      "VEDA Dashboard"
+    ]
+  },
+  {
+    "objectID": "veda-project/target-use-cases/scientific-computing.html",
+    "href": "veda-project/target-use-cases/scientific-computing.html",
+    "title": "Scientific Computing",
+    "section": "",
+    "text": "VEDA scientific computing services provide scientists with the resources they need to develop (interactively) and execute (operationally) algorithms for geospatial data science and scalable computing, and to support open science by giving all users access to sufficient resources and tools to do science and replicate scientific results. This approach includes:\n\nIdentifying and configuring interactive, collaborative science environments (e.g., Jupyter notebooks) for advanced data exploration and prototyping new products\nProviding frameworks for cloud-native simulation modeling and data assimilation\nImproving technologies for dynamic scaling and operationalization of product generation workflows\nProviding managed resources for data analysis in the cloud",
+    "crumbs": [
+      "The VEDA project",
+      "Target Use Cases",
+      "Scientific Computing"
+    ]
+  },
+  {
+    "objectID": "veda-project/target-use-cases/scientific-computing.html#goals",
+    "href": "veda-project/target-use-cases/scientific-computing.html#goals",
+    "title": "Scientific Computing",
+    "section": "",
+    "text": "VEDA scientific computing services provide scientists with the resources they need to develop (interactively) and execute (operationally) algorithms for geospatial data science and scalable computing, and to support open science by giving all users access to sufficient resources and tools to do science and replicate scientific results. This approach includes:\n\nIdentifying and configuring interactive, collaborative science environments (e.g., Jupyter notebooks) for advanced data exploration and prototyping new products\nProviding frameworks for cloud-native simulation modeling and data assimilation\nImproving technologies for dynamic scaling and operationalization of product generation workflows\nProviding managed resources for data analysis in the cloud",
+    "crumbs": [
+      "The VEDA project",
+      "Target Use Cases",
+      "Scientific Computing"
+    ]
+  },
+  {
+    "objectID": "veda-project/target-use-cases/scientific-computing.html#resources",
+    "href": "veda-project/target-use-cases/scientific-computing.html#resources",
+    "title": "Scientific Computing",
+    "section": "Resources",
+    "text": "Resources\nThe user guide has details on resources provided to NASA-afiliated users.",
+    "crumbs": [
+      "The VEDA project",
+      "Target Use Cases",
+      "Scientific Computing"
     ]
   },
   {
@@ -2699,361 +3034,130 @@
     ]
   },
   {
-    "objectID": "veda-project/target-use-cases/scientific-computing.html",
-    "href": "veda-project/target-use-cases/scientific-computing.html",
-    "title": "Scientific Computing",
+    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html",
+    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html",
+    "title": "How To Make Your Own Dashboard",
     "section": "",
-    "text": "VEDA scientific computing services provide scientists with the resources they need to develop (interactively) and execute (operationally) algorithms for geospatial data science and scalable computing, and to support open science by giving all users access to sufficient resources and tools to do science and replicate scientific results. This approach includes:\n\nIdentifying and configuring interactive, collaborative science environments (e.g., Jupyter notebooks) for advanced data exploration and prototyping new products\nProviding frameworks for cloud-native simulation modeling and data assimilation\nImproving technologies for dynamic scaling and operationalization of product generation workflows\nProviding managed resources for data analysis in the cloud",
-    "crumbs": [
-      "The VEDA project",
-      "Target Use Cases",
-      "Scientific Computing"
-    ]
-  },
-  {
-    "objectID": "veda-project/target-use-cases/scientific-computing.html#goals",
-    "href": "veda-project/target-use-cases/scientific-computing.html#goals",
-    "title": "Scientific Computing",
-    "section": "",
-    "text": "VEDA scientific computing services provide scientists with the resources they need to develop (interactively) and execute (operationally) algorithms for geospatial data science and scalable computing, and to support open science by giving all users access to sufficient resources and tools to do science and replicate scientific results. This approach includes:\n\nIdentifying and configuring interactive, collaborative science environments (e.g., Jupyter notebooks) for advanced data exploration and prototyping new products\nProviding frameworks for cloud-native simulation modeling and data assimilation\nImproving technologies for dynamic scaling and operationalization of product generation workflows\nProviding managed resources for data analysis in the cloud",
-    "crumbs": [
-      "The VEDA project",
-      "Target Use Cases",
-      "Scientific Computing"
-    ]
-  },
-  {
-    "objectID": "veda-project/target-use-cases/scientific-computing.html#resources",
-    "href": "veda-project/target-use-cases/scientific-computing.html#resources",
-    "title": "Scientific Computing",
-    "section": "Resources",
-    "text": "Resources\nThe user guide has details on resources provided to NASA-afiliated users.",
-    "crumbs": [
-      "The VEDA project",
-      "Target Use Cases",
-      "Scientific Computing"
-    ]
-  },
-  {
-    "objectID": "veda-project/target-use-cases/dashboard.html",
-    "href": "veda-project/target-use-cases/dashboard.html",
-    "title": "VEDA Dashboard",
-    "section": "",
-    "text": "The VEDA Dashboard aims to help science teams visualize their data for their stakeholders, no matter how well versed they might be in Earth science data or how to work with it. In order to do this, VEDA leverages existing open source technologies to build a modular, flexible web application for viewing complex data in the browser.\nThe VEDA Dashboard powers several platforms, most prominently the U.S. Greenhouse Gas Center and Earth.gov, with more platform instances underway. For more information on the VEDA Dashboard or how to use it, read on.",
-    "crumbs": [
-      "The VEDA project",
-      "Target Use Cases",
-      "VEDA Dashboard"
-    ]
-  },
-  {
-    "objectID": "veda-project/target-use-cases/dashboard.html#goals",
-    "href": "veda-project/target-use-cases/dashboard.html#goals",
-    "title": "VEDA Dashboard",
-    "section": "",
-    "text": "The VEDA Dashboard aims to help science teams visualize their data for their stakeholders, no matter how well versed they might be in Earth science data or how to work with it. In order to do this, VEDA leverages existing open source technologies to build a modular, flexible web application for viewing complex data in the browser.\nThe VEDA Dashboard powers several platforms, most prominently the U.S. Greenhouse Gas Center and Earth.gov, with more platform instances underway. For more information on the VEDA Dashboard or how to use it, read on.",
-    "crumbs": [
-      "The VEDA project",
-      "Target Use Cases",
-      "VEDA Dashboard"
-    ]
-  },
-  {
-    "objectID": "veda-project/target-use-cases/dashboard.html#resources",
-    "href": "veda-project/target-use-cases/dashboard.html#resources",
-    "title": "VEDA Dashboard",
-    "section": "Resources",
-    "text": "Resources\nIf you already have your own instance of the VEDA Dashboard, see more information at Dashboard Configuration.\nIf you would like to learn more about how to create your own instance of the VEDA Dashboard, read more about the open-source software ecosuystem or email us at veda@uah.edu.",
-    "crumbs": [
-      "The VEDA project",
-      "Target Use Cases",
-      "VEDA Dashboard"
-    ]
-  },
-  {
-    "objectID": "veda-project/target-use-cases/dashboard.html#things-to-know-about-the-veda-dashboard",
-    "href": "veda-project/target-use-cases/dashboard.html#things-to-know-about-the-veda-dashboard",
-    "title": "VEDA Dashboard",
-    "section": "Things to Know About the VEDA Dashboard",
-    "text": "Things to Know About the VEDA Dashboard\n\n1. Science teams need a way to show their work\n\nScience teams often need a web presence to show their research program, findings, and methods and data to their stakeholders, colleagues, and other audiences\nModern data-driven science is not only presented through papers, posters, and lectures to fellow scientists and through reports to decision makers, but also through up-to-date interactive online tools and blogs that are available directly to either audience. Web and cloud platforms can enable scientists to publish contents in these interactive ways.\nOften, science programs will want to put their information into a specific context and make it discoverable via their name, which is also important for credibility and attribution.\nVEDA UI helps science teams combine the two - program-specific websites with interactive data visualization and standardized access.\n\n\n\n2. The VEDA Dashboard visualizes Earth science data in a way that a CMS can’t\n\nIn order to include interactive data exploration and analysis tools into sites built with traditional CMS tools, you often need to manually embed third-party services into your website, losing any reference to the original data.\nOtherwise, you have to rely on a highly customized and expensive service.\nThe VEDA Dashboard set of tools allows you to visualize spatio-temporal data assets within your website, maintaining an interoperable reference to the source data. At the same time, it is completely open source, customizable, and comes without a subscription.\n\n\n\n3. It enables science workflows AND communicates to stakeholders in one platform\n\nWe show that, with cloud-optimized data, we can achieve multiple purposes without considerable additional effort or duplicating data sources\nData visualization in web interfaces often relies on copies of original data that were prepared for visualization (even scalable visualization services like NASA WorldView rely on statically produced rendered replicas). Linking the visualization back to original source data, as required for (re)producing scientific analysis, is often not possible or requires connecting a lot of dots.\nVEDA visualizes data directly off a single authoritative reference that contains data optimized for visualization as well as direct access, avoiding the issue of missing links between source and rendered data. The data a user sees in VEDA has a direct reference to source data (often via STAC). Another benefit of dynamic tiling is that users are able to adjust viewing parameters such as color map and value range to focus on, to study details of their interest.\n\n\n\n4. Features are optimized for Earth science data but other spatio-temporal applications might find them useful\n\nSpatio-temporal data often comes from Earth observations or Earth system models. However, the principle of integrating dynamically rendered data into a website is valuable for many branches of data-intensive science, such as heliophysics or astrophysics\n\n\n\n5. The VEDA Dashboard is completely open-source\n\nThe code is open and accessible, and the tool itself promotes the use of open standards and reproducible data access for open science Community involvement will become important to the long-term success of VEDA\n\n\n\n6. Each science team can create their own VEDA Dashboard with different content, data, and features\nExisting VEDA instances:\n\nTemplate\nEarthdata\nGreenhouse Gas Center Portal\nearth.gov\n\nPlanned VEDA instances:\n\nAir Quality Portal\n\n\n\n7. Each science team will customize their VEDA Dashboard to meet the needs of their audience\n\nThe Dashboard is NOT a replicable white-label website/dashboard, or even a single website\nEach science team will make their own instance of the Dashboard, and a template instance will provide some guidance and a starting point, if the teams need it\nHowever, each team can decide how to use the features available\n\n\n\n8. Utilizing an integrated STAC, a VEDA Dashboard can show data from a variety of sources\nThere are different ways to integrate data, such as:\n\nUsing platform storage, catalog, and data access services\nCatalog externally stored data, serve through platform services (e.g. cloud-optimized GeoTIFF in DAAC S3; TiTiler and TiTiler-Xarray)\nRely on external storage and catalog, serve through platform services (e.g. TiTiler-CMR)\nIntegrate third-party data services (ArcGIS ImageServer etc., WorldView WMS) While open source cloud-native geospatial data services are preferred, we should also avoid making copies of data and instead rely on existing, authoritative services.\n\n\n\n9. There are other frontends for VEDA\n\nThe VEDA Dashboard is just one frontend for VEDA, and should integrate well with other frontend options for users\nThe virtue of open-standard, open-access data services is that many interfaces can connect to them (interoperability).\nWithin the VEDA project, we promote the use of STAC Browser to browse the VEDA catalog, interactive code notebooks for finding and loading data (VEDA JupyterHub), and multiple data websites to use the same services (ESA/NASA/JAXA EO Dashboard, Earth.gov, …).",
-    "crumbs": [
-      "The VEDA project",
-      "Target Use Cases",
-      "VEDA Dashboard"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "VEDA Docs",
-    "section": "",
-    "text": "VEDA (Visualization, Exploration and Data Analysis) is a redeployable data platform to support scientific visualization and analysis. By combining interactive storytelling with open science principles, VEDA enables researchers to engage new audiences and share their analysis results effectively.\nThese docs help you use the services provided by the NASA VEDA Platform and learn about the open-source software ecosystem that it is based on.\n\n\n\n\n\n\nAbout the VEDA Project\nWhy Platforms?\nPlatform Components and Target Use Cases\n\n\n\n\n\n\n\nContent Curation\nData Access and Management Services\nUsage Examples and Tutorials\nScientific Computing\nService Status\n\n\n\n\n\n\n\nSoftware Architecture\nRepositiories\nExternal Resources",
-    "crumbs": [
-      "Welcome"
-    ]
-  },
-  {
-    "objectID": "index.html#welcome",
-    "href": "index.html#welcome",
-    "title": "VEDA Docs",
-    "section": "",
-    "text": "VEDA (Visualization, Exploration and Data Analysis) is a redeployable data platform to support scientific visualization and analysis. By combining interactive storytelling with open science principles, VEDA enables researchers to engage new audiences and share their analysis results effectively.\nThese docs help you use the services provided by the NASA VEDA Platform and learn about the open-source software ecosystem that it is based on.\n\n\n\n\n\n\nAbout the VEDA Project\nWhy Platforms?\nPlatform Components and Target Use Cases\n\n\n\n\n\n\n\nContent Curation\nData Access and Management Services\nUsage Examples and Tutorials\nScientific Computing\nService Status\n\n\n\n\n\n\n\nSoftware Architecture\nRepositiories\nExternal Resources",
-    "crumbs": [
-      "Welcome"
-    ]
-  },
-  {
-    "objectID": "index.html#new-to-veda",
-    "href": "index.html#new-to-veda",
-    "title": "VEDA Docs",
-    "section": "New to VEDA?",
-    "text": "New to VEDA?\nTo learn from examples, see the VEDA Example Notebooks - examples of open-source data science using VEDA services.\nSelected user groups can also get access to a VEDA-provided JupyterHub service.\nIf you are just getting started with open-source geospatial data science (in Python) or want to learn more, you may find the Collection of External Resources useful.\nWant to contribute data, stories, and example code to this site and the VEDA Dashboard for NASA EarthData? Please see the docs on Content Curation.",
-    "crumbs": [
-      "Welcome"
-    ]
-  },
-  {
-    "objectID": "veda-project/target-use-cases/index.html",
-    "href": "veda-project/target-use-cases/index.html",
-    "title": "Target Use Cases",
-    "section": "",
-    "text": "These components of open-source geospatial data science platforms are curated and promoted by VEDA:\n\nVEDA Dashboard\nData Access and Data Management Services\nResources for Scientific Computing in the cloud",
-    "crumbs": [
-      "The VEDA project",
-      "Target Use Cases"
-    ]
-  },
-  {
-    "objectID": "veda-project/target-use-cases/index.html#platform-components",
-    "href": "veda-project/target-use-cases/index.html#platform-components",
-    "title": "Target Use Cases",
-    "section": "",
-    "text": "These components of open-source geospatial data science platforms are curated and promoted by VEDA:\n\nVEDA Dashboard\nData Access and Data Management Services\nResources for Scientific Computing in the cloud",
-    "crumbs": [
-      "The VEDA project",
-      "Target Use Cases"
-    ]
-  },
-  {
-    "objectID": "veda-project/target-use-cases/index.html#use-cases",
-    "href": "veda-project/target-use-cases/index.html#use-cases",
-    "title": "Target Use Cases",
-    "section": "Use cases",
-    "text": "Use cases\nThe VEDA platform components can service different target audiences:\n\n\n\nVEDA platform target audiences",
-    "crumbs": [
-      "The VEDA project",
-      "Target Use Cases"
-    ]
-  },
-  {
-    "objectID": "veda-project/target-use-cases/data-services.html",
-    "href": "veda-project/target-use-cases/data-services.html",
-    "title": "Data Services",
-    "section": "",
-    "text": "The goal of VEDA Data Services is to support open science through community standard tooling, Application Programming Interfaces (APIs), and providing access to persistent, discoverable Earth science datasets. This approach includes:\n\nMaking key datasets available in analysis-optimized formats\nTying together VEDA products by providing access to hosted data, existing third-party geospatial datasets, and new datasets produced within the VEDA ecosystem\nMaking data Findable, Accessible, Interoperable, and Reusable (FAIR), within and also beyond VEDA",
-    "crumbs": [
-      "The VEDA project",
-      "Target Use Cases",
-      "Data Services"
-    ]
-  },
-  {
-    "objectID": "veda-project/target-use-cases/data-services.html#goals",
-    "href": "veda-project/target-use-cases/data-services.html#goals",
-    "title": "Data Services",
-    "section": "",
-    "text": "The goal of VEDA Data Services is to support open science through community standard tooling, Application Programming Interfaces (APIs), and providing access to persistent, discoverable Earth science datasets. This approach includes:\n\nMaking key datasets available in analysis-optimized formats\nTying together VEDA products by providing access to hosted data, existing third-party geospatial datasets, and new datasets produced within the VEDA ecosystem\nMaking data Findable, Accessible, Interoperable, and Reusable (FAIR), within and also beyond VEDA",
-    "crumbs": [
-      "The VEDA project",
-      "Target Use Cases",
-      "Data Services"
-    ]
-  },
-  {
-    "objectID": "veda-project/target-use-cases/data-services.html#resources",
-    "href": "veda-project/target-use-cases/data-services.html#resources",
-    "title": "Data Services",
-    "section": "Resources",
-    "text": "Resources\nSee the user guides for data services operated by the NASA VEDA project.\nWant to contribute or reuse the open-source software that makes up VEDA data services? See the relevant code repositories.",
-    "crumbs": [
-      "The VEDA project",
-      "Target Use Cases",
-      "Data Services"
-    ]
-  },
-  {
-    "objectID": "veda-project/index.html",
-    "href": "veda-project/index.html",
-    "title": "The VEDA project",
-    "section": "",
-    "text": "Visualization Exploration and Data Analysis (VEDA) is an ecosystem of tools and services built with the goal to provide a redeployable and unified open-source science cyberinfrastructure for data processing, visualization, exploration, and GIS capabilities with NASA data on the cloud.\nDeveloped through a collaboration between NASA IMPACT, Development Seed, University of Alabama in Huntsville, Element 84, Georgia Tech, International Interactive Computing Collaboration (2i2c), Earth Science Data and Information System (ESDIS) Project, NASA Science Managed Cloud Environment (SMCE), and NASA Mission Cloud Platform (MCP), VEDA significantly reduces the barriers to accessing Earth science data and the computational resources needed for exploring and processing the petabyte-scale Earth data archives in the cloud. VEDA’s achievement exemplifies the core principles of NASA’s Open-Source Science Initiative (OSSI), showcasing commitment to promoting transparent, accessible, and collaborative scientific research.\nRead more about the history of VEDA in this blog post.",
-    "crumbs": [
-      "The VEDA project"
-    ]
-  },
-  {
-    "objectID": "veda-project/index.html#project-context",
-    "href": "veda-project/index.html#project-context",
-    "title": "The VEDA project",
-    "section": "",
-    "text": "Visualization Exploration and Data Analysis (VEDA) is an ecosystem of tools and services built with the goal to provide a redeployable and unified open-source science cyberinfrastructure for data processing, visualization, exploration, and GIS capabilities with NASA data on the cloud.\nDeveloped through a collaboration between NASA IMPACT, Development Seed, University of Alabama in Huntsville, Element 84, Georgia Tech, International Interactive Computing Collaboration (2i2c), Earth Science Data and Information System (ESDIS) Project, NASA Science Managed Cloud Environment (SMCE), and NASA Mission Cloud Platform (MCP), VEDA significantly reduces the barriers to accessing Earth science data and the computational resources needed for exploring and processing the petabyte-scale Earth data archives in the cloud. VEDA’s achievement exemplifies the core principles of NASA’s Open-Source Science Initiative (OSSI), showcasing commitment to promoting transparent, accessible, and collaborative scientific research.\nRead more about the history of VEDA in this blog post.",
-    "crumbs": [
-      "The VEDA project"
-    ]
-  },
-  {
-    "objectID": "veda-project/index.html#project-goals",
-    "href": "veda-project/index.html#project-goals",
-    "title": "The VEDA project",
-    "section": "Project Goals",
-    "text": "Project Goals\n\nLeverage existing open source components (NASA-MAAP, Cumulus, Pangeo, STAC, etc) to assemble interoperable ecosystem of tools\nMaximize the capabilities offered by data and compute on the cloud\nProvide services for future mission data processing\nProvide a platform for new priorities and directives: NASA’s Earth Action, NASA’s Earth Science Data Systems (ESDS) Program, and other priority initiatives\n\n\nStakeholder Benefits\n\nGeneral Public: Interactive stories\nScientist: scientific (visual) analysis and communication\nData producers/Researchers: processing and self publishing\nTOPS: platform for summer schools and competitions\nApplied science/Decision makers: geospatial analysis and communication\nCommunication: Interactive storytelling\n\n\n\nOverview\n\n\n\nVEDA Overview Diagram",
-    "crumbs": [
-      "The VEDA project"
-    ]
-  },
-  {
-    "objectID": "AGU2024.html",
-    "href": "AGU2024.html",
-    "title": "AGU 2024",
-    "section": "",
-    "text": "AGU Searchable Schedule\nBelow is information workshops, talks, posters, and demos related to VEDA. Expanding a talk or poster item below reveals an AGU link for full author list, abstract, time, and location.\n\n\nTalks\n\n\nTalk: Advancing Open Science: Lessons Learned from NASA Projects. 08:40 - 08:50 EST. Point of Contact: Aimee Barciauskas\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1607534\nSession: U11A: Accelerating Scientific Discovery and Interdisciplinary Collaboration Through Cloud Computing Hubs and Tools I Oral\nMonday, 9 December 2024, 08:40 - 08:50 EST Ballroom A (Convention Center)\n\n\n\nTalk: From Global Models to Local Impacts: Interactive “Explor-anatory” Visualization of CMIP Data for Museumgoers (Invited). 16:00 - 16:10 EST. Point of Contact: Alex Gurvich\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1616551\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 16:00 - 16:10 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nTalk: Enhancing Geospatial Data Interoperability with pyarc2stac (Invited). 16:40 - 16:50 EST. Points of Contact: Slesa Adhikari, Abdelhak Marouane, Brian Freitag\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1625370\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 16:40 - 16:50 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nTalk: On-the-fly raster visualizations leveraging STAC metadata standards. 16:50 - 17:00 EST. Points of Contact: Saadiq Mohiuddin, Hanbyul Jo, Aimee Barciauskas, Brian Freitag\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1733434\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 16:50 - 17:00 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nTalk: Dynamic Tiling for Earth Data Visualization. 17:00 - 17:10 EST. Points of Contact: Aimee Barciauskas, Manil Maskey, Vncent Sarago, Henry Rodman, Max Jones, Sean Harkins\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1624796\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 17:00 - 17:10 EST Marquis 12-13 (Marriott Marquis)\n\nSessions\n\n\nIN14B - Emerging Technologies for Earth Science Data Access and Visualization II (Oral). 16:00 - 17:30 EST. Points of Contact: Ryan A Boller, James G Acker, Lorraine Tighe, Aimee Barciauskas, Elizabeth Joynerv\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Session/240646\nMonday, 9 December 2024, 16:00 - 17:30 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nIN11B - Emerging Technologies for Earth Science Data Access and Visualization II (Poster). 08:30 - 12:20 EST. Points of Contact: Ryan A Boller, James G Acker, Lorraine Tighe, Aimee Barciauskas, Elizabeth Joynerv\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Session/240535\nMonday, 9 December 2024, 16:00 - 17:30 EST Hall B-C (Poster Hall) (Convention Center)\n\n\n\n\nPosters\n\n\nTalk: Beyond Boundaries: Remote Sensing in Highlighting and Bridging Gaps for Environmental Justice. 13:40 - 17:30 EST. Points of Contact: Maheshwari Neelam, Yaítza Luna-Cruz, Antarpreet Singh Jutla, Brian Freitag\n\nSession: GH23A: Poster Session\nTuesday, 10 December 2024, 17:00 - 17:10 EST Hall B-C (Poster Hall) (Convention Center)\n\n\n\n\nPosters\n\n\nTalk: Human-Induced Drought: Escalating Mental Health Crises and Environmental Inequities. 08:30 - 12:20 EST. Points of Contact: Maheshwari Neelam, Brian Freitag\n\nSession: GH31B-2402: Poster Session\nWednesday, 11 December 2024, 08:30 - 12:20 EST Hall B-C (Poster Hall) (Convention Center)\n\n\n\n\nPosters\n\n\nTalk: STAC And Virtualizarr Pipelines For Optimized NODD Data Accessibility. 08:30 - 12:20 EST. Points of Contact: Sean Harkins, Aimee Barciauskas, Henry Rodman\n\nSession: SY41G-2637: Poster Session\nThursday, 12 December 2024, 08:30 - 12:20 EST Hall B-C (Poster Hall) (Convention Center)\n\n\n\n\n\n\n\nHackday with Pangeo: We’ll join Pangeo hackday to meet and work with other awesome open science/cloud/geospatial folks!"
-  },
-  {
-    "objectID": "AGU2024.html#monday-dec-09",
-    "href": "AGU2024.html#monday-dec-09",
-    "title": "AGU 2024",
-    "section": "",
-    "text": "Talks\n\n\nTalk: Advancing Open Science: Lessons Learned from NASA Projects. 08:40 - 08:50 EST. Point of Contact: Aimee Barciauskas\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1607534\nSession: U11A: Accelerating Scientific Discovery and Interdisciplinary Collaboration Through Cloud Computing Hubs and Tools I Oral\nMonday, 9 December 2024, 08:40 - 08:50 EST Ballroom A (Convention Center)\n\n\n\nTalk: From Global Models to Local Impacts: Interactive “Explor-anatory” Visualization of CMIP Data for Museumgoers (Invited). 16:00 - 16:10 EST. Point of Contact: Alex Gurvich\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1616551\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 16:00 - 16:10 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nTalk: Enhancing Geospatial Data Interoperability with pyarc2stac (Invited). 16:40 - 16:50 EST. Points of Contact: Slesa Adhikari, Abdelhak Marouane, Brian Freitag\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1625370\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 16:40 - 16:50 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nTalk: On-the-fly raster visualizations leveraging STAC metadata standards. 16:50 - 17:00 EST. Points of Contact: Saadiq Mohiuddin, Hanbyul Jo, Aimee Barciauskas, Brian Freitag\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1733434\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 16:50 - 17:00 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nTalk: Dynamic Tiling for Earth Data Visualization. 17:00 - 17:10 EST. Points of Contact: Aimee Barciauskas, Manil Maskey, Vncent Sarago, Henry Rodman, Max Jones, Sean Harkins\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Paper/1624796\nSession: IN14B: Emerging Technologies for Earth Science Data Access and Visualization II Oral\nMonday, 9 December 2024, 17:00 - 17:10 EST Marquis 12-13 (Marriott Marquis)\n\nSessions\n\n\nIN14B - Emerging Technologies for Earth Science Data Access and Visualization II (Oral). 16:00 - 17:30 EST. Points of Contact: Ryan A Boller, James G Acker, Lorraine Tighe, Aimee Barciauskas, Elizabeth Joynerv\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Session/240646\nMonday, 9 December 2024, 16:00 - 17:30 EST Marquis 12-13 (Marriott Marquis)\n\n\n\nIN11B - Emerging Technologies for Earth Science Data Access and Visualization II (Poster). 08:30 - 12:20 EST. Points of Contact: Ryan A Boller, James G Acker, Lorraine Tighe, Aimee Barciauskas, Elizabeth Joynerv\n\nhttps://agu.confex.com/agu/agu24/meetingapp.cgi/Session/240535\nMonday, 9 December 2024, 16:00 - 17:30 EST Hall B-C (Poster Hall) (Convention Center)"
-  },
-  {
-    "objectID": "AGU2024.html#tuesday-dec-10",
-    "href": "AGU2024.html#tuesday-dec-10",
-    "title": "AGU 2024",
-    "section": "",
-    "text": "Posters\n\n\nTalk: Beyond Boundaries: Remote Sensing in Highlighting and Bridging Gaps for Environmental Justice. 13:40 - 17:30 EST. Points of Contact: Maheshwari Neelam, Yaítza Luna-Cruz, Antarpreet Singh Jutla, Brian Freitag\n\nSession: GH23A: Poster Session\nTuesday, 10 December 2024, 17:00 - 17:10 EST Hall B-C (Poster Hall) (Convention Center)"
-  },
-  {
-    "objectID": "AGU2024.html#wednesday-dec-11",
-    "href": "AGU2024.html#wednesday-dec-11",
-    "title": "AGU 2024",
-    "section": "",
-    "text": "Posters\n\n\nTalk: Human-Induced Drought: Escalating Mental Health Crises and Environmental Inequities. 08:30 - 12:20 EST. Points of Contact: Maheshwari Neelam, Brian Freitag\n\nSession: GH31B-2402: Poster Session\nWednesday, 11 December 2024, 08:30 - 12:20 EST Hall B-C (Poster Hall) (Convention Center)"
-  },
-  {
-    "objectID": "AGU2024.html#thursday-dec-12",
-    "href": "AGU2024.html#thursday-dec-12",
-    "title": "AGU 2024",
-    "section": "",
-    "text": "Posters\n\n\nTalk: STAC And Virtualizarr Pipelines For Optimized NODD Data Accessibility. 08:30 - 12:20 EST. Points of Contact: Sean Harkins, Aimee Barciauskas, Henry Rodman\n\nSession: SY41G-2637: Poster Session\nThursday, 12 December 2024, 08:30 - 12:20 EST Hall B-C (Poster Hall) (Convention Center)"
-  },
-  {
-    "objectID": "AGU2024.html#saturday-dec-14",
-    "href": "AGU2024.html#saturday-dec-14",
-    "title": "AGU 2024",
-    "section": "",
-    "text": "Hackday with Pangeo: We’ll join Pangeo hackday to meet and work with other awesome open science/cloud/geospatial folks!"
-  },
-  {
-    "objectID": "open-source-ecosystem/creating-your-own-instance/index.html",
-    "href": "open-source-ecosystem/creating-your-own-instance/index.html",
-    "title": "Using VEDA For Your Own Team",
-    "section": "",
-    "text": "The modular VEDA platform architecture provides a blueprint on how prominent open-source tools for geospatial data discovery, access, and analysis can be used together to provide a basis for research and science communication with geospatial data. Depending on your needs, you might use the VEDA software ecosystem as a tool for:\n\nEfficient data storage using a cloud-optimized Data Catalog\nBackend Data Services to provide easy access to your data organized in STAC\nCloud computing with your own tailored JupyterHub environment\nBrowser-based visualization and storytelling using the Dashboard’s cloud-native tools\n\nSee Software Architecture for more information on how all of these pieces fit together.\nThere are many options for how to use the VEDA software ecosystem, depending on your needs and existing set of tools.\nReach out to us at veda@uah.edu if you need help navigating the options.",
+    "text": "VEDA provides the software architecture for an open, accessible, and powerful platform to help science teams communicate insights hidden in large-scale geospatial data.\n\nBuilt to work with cloud-optimized formats like COG and the emerging web-optimized Zarr.\nEnables rapid, compelling storytelling at scale.\nOpen-source under permissive licenses to encourage broad use and innovation.\n\nOur goal is to lower the barriers to entry for scientists to talk about their work, for users to learn about and explore geospatial data, and for geospatial data to come alive in ways it never has before.\nWhether you want a turnkey dashboard, individual components, or a foundation for your own innovation, we want the VEDA Dashboard to be flexible and modular enough for your needs.\nAs the number of projects that depend on VEDA grows, we want to make it straightforward for organizations outside of NASA to use and extend these tools. If you have any feedback on the tools or your ability to use them, please reach out to veda@uah.edu\nThis document shares guidance on how you can adopt the VEDA Dashboard in a way that fits your needs.\n\n\nIf you are going to use the VEDA Dashboard for your own purposes, we assume that you will be self-hosting your own website and data. - That website and data could all be VEDA tools, so if you’re starting from scratch, don’t worry! Visit the top-level instructions for using VEDA.\nThe primary repository for the VEDA Dashboard is here: - veda-ui Github\nWe have created a Template Dashboard to showcase how you can pull in veda-ui and create a website compiled with NextJS. You can explore and review that implementation here: - Template Dashboard GitHub That Template Dashboard is live here: - Template Dashboard\n\n\n\nDepending on your goals and technical preferences, there are three main ways to leverage the VEDA Dashboard:\n\n\n\n\nIn this case, we recommend manually cloning the Template Dashboard GitHub repository. This will allow you to adjust styling, add any custom features, and manage your own content.\n\nThis approach gives you full control and flexibility\nBenefit from updates to core VEDA functionality\n\nWhen to choose this:\n\nYou value simplicity and speed.\nYou are also using other VEDA tools and patterns, such as STAC and eoAPI.\nYou don’t already have a web presence for your project, or you are interested in completely replacing your current website\n\n\n\n\n\n\n\nIf you already have a robust web presence but want to use VEDA’s powerful tools and widgets—such as data stories or analysis tools, then you can simply import them as an NPM package. The package is published under @teamimpact/veda-ui.\n\nAllows you to selectively integrate VEDA components into your existing site.\nTake advantage of novel storytelling and COG (Cloud-Optimized GeoTIFF) capabilities without a full rebuild.\n\nWhen to choose this:\n\nYou want to enhance your existing website\nYou already have a preferred CMS tool for managing your site\n\nCurrently available components, hooks and providers:\nProviders and Hooks: DevseedUiThemeProvider, VedaUIProvider, ReactQueryProvider, useTimelineDatasetAtom, useFiltersWithQS\nUI Components: Block, Image, MapBlock, ScrollytellingBlock, Figure, Prose, MDXImage, Caption, Chapter, Chart, Table, CompareImage, Embed, PageHeader, PageFooter, DefaultCard, FlagCard, Widget, PageHero\nPage Components: CatalogContent, ExplorationAndAnalysis, StoriesHubContent, DatasetSelectorModal\nNote: VEDA is in the process of migrating the remaining components to the USWDS system. If you need additional UI primitives to build custom components within VEDA, we recommend using USWDS or react-uswds (if using React).\n\n\n\n\n\n\nThe VEDA Dashboard is designed for content to be easily managed.\n\nDefault: Content is stored in simple, human-readable MDX files. Editors can write, edit, and customize pages directly.\nOptional: We have prototyped an integration with Strapi CMS, providing a more familiar, GUI-based editing experience for non-technical users.\nFlexible: We have extended the MDX Editor to allow customization and story editing directly within your existing CMS or backend platform.\n\nThis flexibility ensures that both technical and non-technical teams can collaborate seamlessly.\n\nIf you have questions, ideas, or would like support adopting VEDA, we welcome collaboration.\nLet us know how we can help! email us at veda@uah.edu",
     "crumbs": [
       "The VEDA Open Source Ecosystem",
-      "Using VEDA For Your Own Team"
+      "Using VEDA For Your Own Team",
+      "How To Make Your Own Dashboard"
     ]
   },
   {
-    "objectID": "open-source-ecosystem/creating-your-own-instance/index.html#veda-is-a-suite-of-open-source-tools",
-    "href": "open-source-ecosystem/creating-your-own-instance/index.html#veda-is-a-suite-of-open-source-tools",
-    "title": "Using VEDA For Your Own Team",
+    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#getting-started",
+    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#getting-started",
+    "title": "How To Make Your Own Dashboard",
     "section": "",
-    "text": "The modular VEDA platform architecture provides a blueprint on how prominent open-source tools for geospatial data discovery, access, and analysis can be used together to provide a basis for research and science communication with geospatial data. Depending on your needs, you might use the VEDA software ecosystem as a tool for:\n\nEfficient data storage using a cloud-optimized Data Catalog\nBackend Data Services to provide easy access to your data organized in STAC\nCloud computing with your own tailored JupyterHub environment\nBrowser-based visualization and storytelling using the Dashboard’s cloud-native tools\n\nSee Software Architecture for more information on how all of these pieces fit together.\nThere are many options for how to use the VEDA software ecosystem, depending on your needs and existing set of tools.\nReach out to us at veda@uah.edu if you need help navigating the options.",
+    "text": "If you are going to use the VEDA Dashboard for your own purposes, we assume that you will be self-hosting your own website and data. - That website and data could all be VEDA tools, so if you’re starting from scratch, don’t worry! Visit the top-level instructions for using VEDA.\nThe primary repository for the VEDA Dashboard is here: - veda-ui Github\nWe have created a Template Dashboard to showcase how you can pull in veda-ui and create a website compiled with NextJS. You can explore and review that implementation here: - Template Dashboard GitHub That Template Dashboard is live here: - Template Dashboard",
     "crumbs": [
       "The VEDA Open Source Ecosystem",
-      "Using VEDA For Your Own Team"
+      "Using VEDA For Your Own Team",
+      "How To Make Your Own Dashboard"
     ]
   },
   {
-    "objectID": "open-source-ecosystem/index.html",
-    "href": "open-source-ecosystem/index.html",
-    "title": "The VEDA Open Source Ecosystem",
+    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#choosing-your-path-how-to-use-veda",
+    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#choosing-your-path-how-to-use-veda",
+    "title": "How To Make Your Own Dashboard",
     "section": "",
-    "text": "Below are resources for prospective platform providers and contributors to the open source ecosystem that VEDA leverages to provide science data platforms.\n\nSoftware architecture\nCode repositories of redeployable software components\nExternal resources for learning and reference\n\nIf you are interested in setting up your own platform based on VEDA open-source software, please email the VEDA team at veda@uah.edu and we will provide further direction.",
-    "crumbs": [
-      "The VEDA Open Source Ecosystem"
-    ]
-  },
-  {
-    "objectID": "open-source-ecosystem/index.html#the-ecosystem",
-    "href": "open-source-ecosystem/index.html#the-ecosystem",
-    "title": "The VEDA Open Source Ecosystem",
-    "section": "",
-    "text": "Below are resources for prospective platform providers and contributors to the open source ecosystem that VEDA leverages to provide science data platforms.\n\nSoftware architecture\nCode repositories of redeployable software components\nExternal resources for learning and reference\n\nIf you are interested in setting up your own platform based on VEDA open-source software, please email the VEDA team at veda@uah.edu and we will provide further direction.",
-    "crumbs": [
-      "The VEDA Open Source Ecosystem"
-    ]
-  },
-  {
-    "objectID": "open-source-ecosystem/architecture.html",
-    "href": "open-source-ecosystem/architecture.html",
-    "title": "Software Architecture",
-    "section": "",
-    "text": "Architecture diagram\n\n\n\nThis diagram shows a high level overview of the components in the the VEDA Open-Source Ecosystem. See the repositories page for links to software used for VEDA services.",
+    "text": "Depending on your goals and technical preferences, there are three main ways to leverage the VEDA Dashboard:\n\n\n\n\nIn this case, we recommend manually cloning the Template Dashboard GitHub repository. This will allow you to adjust styling, add any custom features, and manage your own content.\n\nThis approach gives you full control and flexibility\nBenefit from updates to core VEDA functionality\n\nWhen to choose this:\n\nYou value simplicity and speed.\nYou are also using other VEDA tools and patterns, such as STAC and eoAPI.\nYou don’t already have a web presence for your project, or you are interested in completely replacing your current website\n\n\n\n\n\n\n\nIf you already have a robust web presence but want to use VEDA’s powerful tools and widgets—such as data stories or analysis tools, then you can simply import them as an NPM package. The package is published under @teamimpact/veda-ui.\n\nAllows you to selectively integrate VEDA components into your existing site.\nTake advantage of novel storytelling and COG (Cloud-Optimized GeoTIFF) capabilities without a full rebuild.\n\nWhen to choose this:\n\nYou want to enhance your existing website\nYou already have a preferred CMS tool for managing your site\n\nCurrently available components, hooks and providers:\nProviders and Hooks: DevseedUiThemeProvider, VedaUIProvider, ReactQueryProvider, useTimelineDatasetAtom, useFiltersWithQS\nUI Components: Block, Image, MapBlock, ScrollytellingBlock, Figure, Prose, MDXImage, Caption, Chapter, Chart, Table, CompareImage, Embed, PageHeader, PageFooter, DefaultCard, FlagCard, Widget, PageHero\nPage Components: CatalogContent, ExplorationAndAnalysis, StoriesHubContent, DatasetSelectorModal\nNote: VEDA is in the process of migrating the remaining components to the USWDS system. If you need additional UI primitives to build custom components within VEDA, we recommend using USWDS or react-uswds (if using React).",
     "crumbs": [
       "The VEDA Open Source Ecosystem",
-      "Software Architecture"
+      "Using VEDA For Your Own Team",
+      "How To Make Your Own Dashboard"
     ]
   },
   {
-    "objectID": "open-source-ecosystem/architecture.html#architecture",
-    "href": "open-source-ecosystem/architecture.html#architecture",
-    "title": "Software Architecture",
+    "objectID": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#content-management-options",
+    "href": "open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html#content-management-options",
+    "title": "How To Make Your Own Dashboard",
     "section": "",
-    "text": "Architecture diagram\n\n\n\nThis diagram shows a high level overview of the components in the the VEDA Open-Source Ecosystem. See the repositories page for links to software used for VEDA services.",
+    "text": "The VEDA Dashboard is designed for content to be easily managed.\n\nDefault: Content is stored in simple, human-readable MDX files. Editors can write, edit, and customize pages directly.\nOptional: We have prototyped an integration with Strapi CMS, providing a more familiar, GUI-based editing experience for non-technical users.\nFlexible: We have extended the MDX Editor to allow customization and story editing directly within your existing CMS or backend platform.\n\nThis flexibility ensures that both technical and non-technical teams can collaborate seamlessly.\n\nIf you have questions, ideas, or would like support adopting VEDA, we welcome collaboration.\nLet us know how we can help! email us at veda@uah.edu",
     "crumbs": [
       "The VEDA Open Source Ecosystem",
-      "Software Architecture"
+      "Using VEDA For Your Own Team",
+      "How To Make Your Own Dashboard"
     ]
   },
   {
-    "objectID": "user-guide/content-curation/dataset-ingestion/file-preparation.html",
-    "href": "user-guide/content-curation/dataset-ingestion/file-preparation.html",
-    "title": "File preparation",
+    "objectID": "open-source-ecosystem/external-resources.html",
+    "href": "open-source-ecosystem/external-resources.html",
+    "title": "External Resources",
     "section": "",
-    "text": "VEDA supports inclusion of cloud optimized GeoTIFFs (COGs) to its data store.\n\n\nWe often encounter issues like missing or wrong nodata value, missing coordinate-reference system, missing or wrong overviews - polluted by fill values or not conserving class values in categorical data, empty files, or artifacts in the data.\nDiscovering these issues early on (ideally before upload to our buckets) can save us all a lot of time.\nA command-line tool for creating and validating COGs is rio-cogeo. The rio-cogeo documentation is a great starting reference point and have a very helpful guide on preparing COGs, too.\n\nTo inspect and validate your raster dataset use the following\nrio cogeo info /path/to/file.tif\nThis will allow you to explore the size in rows and lines, understand the data type (e.g., byte, float, etc.), and verify how NoData is defined. Once you have explored the COG’s definitions you can validate it by using the following commands:\nrio cogeo validate /path/to/file.tif\nCOG validation can be used to identify if any errors are found. The following steps can be used to resolve any errors.\nIf your raster contains empty pixels, make sure the nodata value is set correctly (check with rio cogeo info). The nodata value needs to be set before cloud-optimizing the raster, so overviews are computed from real data pixels only. Pro-tip: For floating-point rasters, using NaN for flagging nodata helps avoid roundoff errors later on.\nYou can set the nodata flag on a GeoTIFF in-place with:\nrio edit_info --nodata 255 /path/to/file.tif\nor in Python with\nimport rasterio\n\nwith rasterio.open(\"/path/to/file.tif\", \"r+\") as ds:\n    ds.nodata = 255\nNote that this only changes the flag. If you want to change the actual value you have in the data, you need to create a new copy of the file where you change the pixel values.\nMake sure the coordinate reference system is embedded in the COG (check with rio cogeo info)\nWhen creating the COG, use the most appropriate resampling method for overviews. For example, use average for continuous / floating point data and mode for categorical / integer.\nrio cogeo create --overview-resampling \"mode\" /path/to/input.tif /path/to/output.tif\n\n\n\n\nMake sure that the COG filename is meaningful and contains the datetime associated with the COG in the following format. All the datetime values in the file should be preceded by the _ underscore character. Some examples are shown below:\n\n\n\nYear data: nightlights_2012.tif, nightlights_2012-yearly.tif\nMonth data: nightlights_201201.tif, nightlights_2012-01_monthly.tif\nDay data: nightlights_20120101day.tif, nightlights_2012-01-01_day.tif\n\n\n\n\n\nYear data: nightlights_2012_2014.tif, nightlights_2012_year_2015.tif\nMonth data: nightlights_201201_201205.tif, nightlights_2012-01_month_2012-06_data.tif\nDay data: nightlights_20120101day_20121221.tif, nightlights_2012-01-01_to_2012-12-31_day.tif\n\n\n\n\n\nDate + hour/minute/second: TEMPO_NO2_L3_V03_2024-04-11T19:09:53Z.tif, TEMPO_NO2_L3_V03_20240411T19:09:53Z.tif\n\nNote that the date/datetime value is always preceded by an _ (underscore).",
+    "text": "This list is intended for scientists who want to get started with cloud-based, collaborative, open geospatial data analysis, or those looking to refresh their knowledge. It is by no means complete, but contains pointers to more elaborate resources. We anticipate this list to evolve as our platform and use cases evolve. Suggestions for additional resources or topics are highly welcome.\n\n\n\nGit - for managing code versions\nConda - for managing dependencies\nJupyter - for running code\n\n\n\n\n\nData Carpentry geospatial course\nUW course on Geospatial Data Analysis with Python\nGeographic data book - emphasis on vector data\n\n\n\n\n\nCloud-Optimized Geospatial Formats Guide\nNASA Openscapes Earthdata Cloud Cookbook\nCryoCloud JupyterBook\nProject Pythia - Pangeo’s education hub\nPlanetary Computer\nGeospatial Computing Platform library of training resources (by Python package)\n\n\n\n\n\nUW GeoHackWeek\nUW OceanHackWeek\n\n\n\n\n\nBlog series on latest trends and resources in geospatial - entry-level",
+    "crumbs": [
+      "The VEDA Open Source Ecosystem",
+      "External Resources"
+    ]
+  },
+  {
+    "objectID": "open-source-ecosystem/external-resources.html#learning-about-open-source-cloud-native-geospatial",
+    "href": "open-source-ecosystem/external-resources.html#learning-about-open-source-cloud-native-geospatial",
+    "title": "External Resources",
+    "section": "",
+    "text": "This list is intended for scientists who want to get started with cloud-based, collaborative, open geospatial data analysis, or those looking to refresh their knowledge. It is by no means complete, but contains pointers to more elaborate resources. We anticipate this list to evolve as our platform and use cases evolve. Suggestions for additional resources or topics are highly welcome.\n\n\n\nGit - for managing code versions\nConda - for managing dependencies\nJupyter - for running code\n\n\n\n\n\nData Carpentry geospatial course\nUW course on Geospatial Data Analysis with Python\nGeographic data book - emphasis on vector data\n\n\n\n\n\nCloud-Optimized Geospatial Formats Guide\nNASA Openscapes Earthdata Cloud Cookbook\nCryoCloud JupyterBook\nProject Pythia - Pangeo’s education hub\nPlanetary Computer\nGeospatial Computing Platform library of training resources (by Python package)\n\n\n\n\n\nUW GeoHackWeek\nUW OceanHackWeek\n\n\n\n\n\nBlog series on latest trends and resources in geospatial - entry-level",
+    "crumbs": [
+      "The VEDA Open Source Ecosystem",
+      "External Resources"
+    ]
+  },
+  {
+    "objectID": "open-source-ecosystem/external-resources.html#related-projects",
+    "href": "open-source-ecosystem/external-resources.html#related-projects",
+    "title": "External Resources",
+    "section": "Related projects",
+    "text": "Related projects\n\nMicrosoft Planetary Computer\nCopernicus Data Space Ecosystems\nEarth Observation Exploitation Platform Common Architecture (EOEPCA)\nEarth Observing Dashboard by ESA, NASA, and JAXA",
+    "crumbs": [
+      "The VEDA Open Source Ecosystem",
+      "External Resources"
+    ]
+  },
+  {
+    "objectID": "user-guide/index.html",
+    "href": "user-guide/index.html",
+    "title": "User Guide",
+    "section": "",
+    "text": "Welcome to the NASA VEDA platform operated by NASA and targeted at selected user groups at NASA and partnering programs. Below are resources for users and content contributors.\nWhile these resources are targeted at users of the NASA VEDA platform, many of the open-source approaches promoted here will also apply to other platforms built on VEDA open-source software or equivalent.\n\nInstructions for ingesting data into VEDA Data Services\nHow to add and manage content on the VEDA Dashboard\nUsing cloud-based scientific computing resources\nExample and tutorial Jupyter notebooks",
+    "crumbs": [
+      "User Guide"
+    ]
+  },
+  {
+    "objectID": "user-guide/content-curation/dataset-ingestion/index.html",
+    "href": "user-guide/content-curation/dataset-ingestion/index.html",
+    "title": "Dataset Ingestion",
+    "section": "",
+    "text": "VEDA uses a centralized Spatio-Temporal Asset Catalog (STAC) for data dissemination and prefers to host datasets in cloud-object storage (AWS S3 in the region us-west-2) in the cloud-optimized file formats Cloud-Optimized GeoTIFF (COG) and Zarr, which enables viewing and efficient access in the cloud directly from the original datafiles without copies or multiple versions.",
     "crumbs": [
       "User Guide",
       "Content Curation",
-      "Dataset Ingestion",
-      "File preparation"
+      "Dataset Ingestion"
     ]
   },
   {
-    "objectID": "user-guide/content-curation/dataset-ingestion/file-preparation.html#step-i-prepare-the-data",
-    "href": "user-guide/content-curation/dataset-ingestion/file-preparation.html#step-i-prepare-the-data",
-    "title": "File preparation",
-    "section": "",
-    "text": "VEDA supports inclusion of cloud optimized GeoTIFFs (COGs) to its data store.\n\n\nWe often encounter issues like missing or wrong nodata value, missing coordinate-reference system, missing or wrong overviews - polluted by fill values or not conserving class values in categorical data, empty files, or artifacts in the data.\nDiscovering these issues early on (ideally before upload to our buckets) can save us all a lot of time.\nA command-line tool for creating and validating COGs is rio-cogeo. The rio-cogeo documentation is a great starting reference point and have a very helpful guide on preparing COGs, too.\n\nTo inspect and validate your raster dataset use the following\nrio cogeo info /path/to/file.tif\nThis will allow you to explore the size in rows and lines, understand the data type (e.g., byte, float, etc.), and verify how NoData is defined. Once you have explored the COG’s definitions you can validate it by using the following commands:\nrio cogeo validate /path/to/file.tif\nCOG validation can be used to identify if any errors are found. The following steps can be used to resolve any errors.\nIf your raster contains empty pixels, make sure the nodata value is set correctly (check with rio cogeo info). The nodata value needs to be set before cloud-optimizing the raster, so overviews are computed from real data pixels only. Pro-tip: For floating-point rasters, using NaN for flagging nodata helps avoid roundoff errors later on.\nYou can set the nodata flag on a GeoTIFF in-place with:\nrio edit_info --nodata 255 /path/to/file.tif\nor in Python with\nimport rasterio\n\nwith rasterio.open(\"/path/to/file.tif\", \"r+\") as ds:\n    ds.nodata = 255\nNote that this only changes the flag. If you want to change the actual value you have in the data, you need to create a new copy of the file where you change the pixel values.\nMake sure the coordinate reference system is embedded in the COG (check with rio cogeo info)\nWhen creating the COG, use the most appropriate resampling method for overviews. For example, use average for continuous / floating point data and mode for categorical / integer.\nrio cogeo create --overview-resampling \"mode\" /path/to/input.tif /path/to/output.tif\n\n\n\n\nMake sure that the COG filename is meaningful and contains the datetime associated with the COG in the following format. All the datetime values in the file should be preceded by the _ underscore character. Some examples are shown below:\n\n\n\nYear data: nightlights_2012.tif, nightlights_2012-yearly.tif\nMonth data: nightlights_201201.tif, nightlights_2012-01_monthly.tif\nDay data: nightlights_20120101day.tif, nightlights_2012-01-01_day.tif\n\n\n\n\n\nYear data: nightlights_2012_2014.tif, nightlights_2012_year_2015.tif\nMonth data: nightlights_201201_201205.tif, nightlights_2012-01_month_2012-06_data.tif\nDay data: nightlights_20120101day_20121221.tif, nightlights_2012-01-01_to_2012-12-31_day.tif\n\n\n\n\n\nDate + hour/minute/second: TEMPO_NO2_L3_V03_2024-04-11T19:09:53Z.tif, TEMPO_NO2_L3_V03_20240411T19:09:53Z.tif\n\nNote that the date/datetime value is always preceded by an _ (underscore).",
+    "objectID": "user-guide/content-curation/dataset-ingestion/index.html#steps-for-ingesting-a-dataset",
+    "href": "user-guide/content-curation/dataset-ingestion/index.html#steps-for-ingesting-a-dataset",
+    "title": "Dataset Ingestion",
+    "section": "Steps for ingesting a dataset",
+    "text": "Steps for ingesting a dataset\nFor dataset ingestion, generally four steps are required. Depending on the capacity of the dataset provider, some of the steps can be completed by the VEDA team on request.\nThe data ingestion process requires authenticating using Keycloak and an Identity Provider listed by CILogon. See Setting Up Keycloak for more details.\nComplete as many steps of the process as you have capacity or authorization to. You will initially publish to a staging catalog where you can review the data before publishing to the public production catalog. Please follow the steps and guides outlined below:\n\nTransform datasets to conform with cloud-optimized file formats - see file preparation\nUpload files to storage (may be skipped, if data is cloud-optimized and in us-west-2)\nLoad those records into the STAGING VEDA STAC - see catalog ingestion\nFinally, when you are satisfied with how your data look in the staging catalog, request a review on the veda-data pull request that the Ingest UI opened with the configuration you used to publish to the staging catalog. When this PR is approved, the data will be published to the production catalog at openveda.cloud!\n\n\n\n\n\n\n\nNoteIf the above instructions do not cover the data you want to ingest and/or if you could use extra help getting started\n\n\n\nOpen a dedicated pull request in the veda-data repository. Please read through these docs fully first as you they will help supply the information required to complete the PR. Use this “new dataset” template to open a new issue and get started.",
     "crumbs": [
       "User Guide",
       "Content Curation",
-      "Dataset Ingestion",
-      "File preparation"
+      "Dataset Ingestion"
     ]
   },
   {
-    "objectID": "user-guide/content-curation/dataset-ingestion/file-preparation.html#step-ii-upload-to-the-veda-data-store",
-    "href": "user-guide/content-curation/dataset-ingestion/file-preparation.html#step-ii-upload-to-the-veda-data-store",
-    "title": "File preparation",
-    "section": "STEP II: Upload to the VEDA data store",
-    "text": "STEP II: Upload to the VEDA data store\nOnce you have the COGs, obtain permissions (Cognito credentials) from the VEDA team to upload them to the veda-data-store-staging bucket.\nUpload the data to a sensible location inside the bucket. Example: s3://veda-data-store-staging/&lt;collection-id&gt;/",
+    "objectID": "user-guide/content-curation/dataset-ingestion/index.html#end-to-end-ingest-example",
+    "href": "user-guide/content-curation/dataset-ingestion/index.html#end-to-end-ingest-example",
+    "title": "Dataset Ingestion",
+    "section": "End to end ingest example",
+    "text": "End to end ingest example\nFor a walk through of the full process outlined above, please refer to this example notebook. This notebook uses the GEOGLAM June 2023 to ingest this file CropMonitor_2023_06_28.tif into VEDA’s staging STAC catalog.\n\n\n\n\n\n\nWarningThis is an actual ingest and will update the staging STAC catalog\n\n\n\nPlease use this as a guide for the ingestion process (and required dataset defintions), replacing the GEOGLAM dataset metadata and file with your own data.\n\n\nStuck on how to develop compliant metadata records for your dataset?\nCheckout the following notebooks and resources to help provide you with the STAC metadata required to create the dataset definitions needed for catalog ingestion.\n\nHow to create STAC Collections: see this example notebook and related STAC conventions\nHow to create STAC Items: see this example notebook and conventions.",
     "crumbs": [
       "User Guide",
       "Content Curation",
-      "Dataset Ingestion",
-      "File preparation"
+      "Dataset Ingestion"
     ]
   },
   {

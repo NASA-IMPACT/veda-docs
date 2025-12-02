@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data Services – VEDA Documentation</title>
+<title>VEDA Ingest UI – VEDA Documentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,32 +20,67 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../veda-project/target-use-cases/scientific-computing.html" rel="next">
-<link href="../../veda-project/target-use-cases/dashboard.html" rel="prev">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-c16d2075821f60783b9dd602420178f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-d923747b48259b0bc07d7b5d7b088e92.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-c16d2075821f60783b9dd602420178f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../user-guide/notebooks/veda-operations/generate-cmip6-virtual-zarr-historical.html" rel="next">
+<link href="../../../user-guide/content-curation/dataset-ingestion/catalog-ingestion.html" rel="prev">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-c16d2075821f60783b9dd602420178f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-d923747b48259b0bc07d7b5d7b088e92.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-c16d2075821f60783b9dd602420178f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -76,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
 <script defer="" data-domain="nasa-impact.github.io/veda-docs" src="https://plausible.io/js/script.js"></script>
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../../styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -250,7 +285,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../veda-project/index.html">The VEDA project</a></li><li class="breadcrumb-item"><a href="../../veda-project/target-use-cases/index.html">Target Use Cases</a></li><li class="breadcrumb-item"><a href="../../veda-project/target-use-cases/data-services.html">Data Services</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../user-guide/index.html">User Guide</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/index.html">Content Curation</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/dataset-ingestion/index.html">Dataset Ingestion</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html">VEDA Ingest UI</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -264,7 +299,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
-      <a href="../../index.html" class="sidebar-logo-link">
+      <a href="../../../index.html" class="sidebar-logo-link">
       <img src="https://visex.netlify.app/graphics/nasa-veda-logo-pos.svg" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
       <img src="https://visex.netlify.app/graphics/nasa-veda-logo-pos.svg" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
@@ -283,14 +318,14 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../veda-project/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../../veda-project/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The VEDA project</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -299,34 +334,34 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../veda-project/why.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../veda-project/why.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Yet another plaform?</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../veda-project/target-use-cases/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../../veda-project/target-use-cases/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Target Use Cases</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../veda-project/target-use-cases/dashboard.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../veda-project/target-use-cases/dashboard.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">VEDA Dashboard</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../veda-project/target-use-cases/data-services.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../veda-project/target-use-cases/data-services.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data Services</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../veda-project/target-use-cases/scientific-computing.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../veda-project/target-use-cases/scientific-computing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Scientific Computing</span></a>
   </div>
 </li>
@@ -337,7 +372,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../user-guide/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../../user-guide/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">User Guide</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -346,43 +381,43 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../user-guide/content-curation/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../../user-guide/content-curation/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Content Curation</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../user-guide/content-curation/dataset-ingestion/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../../user-guide/content-curation/dataset-ingestion/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dataset Ingestion</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 ">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/content-curation/dataset-ingestion/file-preparation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/content-curation/dataset-ingestion/file-preparation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">File preparation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/content-curation/dataset-ingestion/catalog-ingestion.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/content-curation/dataset-ingestion/catalog-ingestion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Catalog Ingestion</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">VEDA Ingest UI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/veda-operations/generate-cmip6-virtual-zarr-historical.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/veda-operations/generate-cmip6-virtual-zarr-historical.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Generate Virtual Zarr from CMIP6 NetCDF files</span></a>
   </div>
 </li>
@@ -397,19 +432,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/content-curation/dataset-ingestion/stac-collection-conventions.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/content-curation/dataset-ingestion/stac-collection-conventions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">STAC collection conventions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/veda-operations/stac-collection-creation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/veda-operations/stac-collection-creation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">STAC Collection Creation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/veda-operations/publish-cmip6-virtual-zarr-stac.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/veda-operations/publish-cmip6-virtual-zarr-stac.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Publishing CMIP6 Virtual Zarr to STAC</span></a>
   </div>
 </li>
@@ -426,13 +461,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/content-curation/dataset-ingestion/stac-item-conventions.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/content-curation/dataset-ingestion/stac-item-conventions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">STAC item conventions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/veda-operations/stac-item-creation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/veda-operations/stac-item-creation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">STAC Item Creation</span></a>
   </div>
 </li>
@@ -449,7 +484,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/content-curation/dataset-ingestion/example-template/example-geoglam-ingest.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/content-curation/dataset-ingestion/example-template/example-geoglam-ingest.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ingestion Workflow for Uploading Data to the VEDA Catalog for the VEDA Dashboard</span></a>
   </div>
 </li>
@@ -459,7 +494,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../user-guide/content-curation/external-collection-indexing/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../../user-guide/content-curation/external-collection-indexing/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">External Collection Indexing</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -468,13 +503,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/content-curation/external-collection-indexing/titiler-cmr.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/content-curation/external-collection-indexing/titiler-cmr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Titiler-CMR Integration</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html" class="sidebar-item-text sidebar-link">
+            <a href="../../../user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ArcGIS Server Integration</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -483,19 +518,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/content-curation/external-collection-indexing/imageserver-integration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/content-curation/external-collection-indexing/imageserver-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ImageServer Integration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/content-curation/external-collection-indexing/mapserver-integration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/content-curation/external-collection-indexing/mapserver-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MapServer Integration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/content-curation/external-collection-indexing/featureserver-integration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/content-curation/external-collection-indexing/featureserver-integration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FeatureServer Integration</span></a>
   </div>
 </li>
@@ -503,7 +538,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/content-curation/external-collection-indexing/wmts.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/content-curation/external-collection-indexing/wmts.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Global Imagery Browse Services (GIBS) Integration</span></a>
   </div>
 </li>
@@ -511,7 +546,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../user-guide/content-curation/dashboard-configuration/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../../user-guide/content-curation/dashboard-configuration/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dashboard Configuration</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -520,13 +555,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/content-curation/dashboard-configuration/dataset-configuration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/content-curation/dashboard-configuration/dataset-configuration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dataset Configuration</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/content-curation/dashboard-configuration/story-configuration.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/content-curation/dashboard-configuration/story-configuration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Story Configuration</span></a>
   </div>
 </li>
@@ -534,7 +569,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../user-guide/content-curation/docs-and-notebooks.html" class="sidebar-item-text sidebar-link">
+            <a href="../../../user-guide/content-curation/docs-and-notebooks.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Usage Example Notebook Submission</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -543,13 +578,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/templates/template-accessing-the-data-directly.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/templates/template-accessing-the-data-directly.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Template (Accessing data directly)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/templates/template-using-the-raster-api.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/templates/template-using-the-raster-api.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Template (Using the raster API)</span></a>
   </div>
 </li>
@@ -572,31 +607,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/data-services/data-store.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/data-services/data-store.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">VEDA Data Store</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/data-services/data-ingestion.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/data-services/data-ingestion.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">VEDA Data Ingestion Services</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/data-services/setup-keycloak.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/data-services/setup-keycloak.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Setting Up Keycloak</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/data-services/rstudio-s3-access.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/data-services/rstudio-s3-access.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">RStudio VEDA S3 Bucket Access</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../user-guide/data-services/apis/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../../user-guide/data-services/apis/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">APIs</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -605,13 +640,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/data-services/apis/raster-api.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/data-services/apis/raster-api.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Raster API Docs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/data-services/apis/stac-api.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/data-services/apis/stac-api.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">STAC API Docs</span></a>
   </div>
 </li>
@@ -621,7 +656,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../user-guide/scientific-computing/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../../user-guide/scientific-computing/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Scientific Computing</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -630,31 +665,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/scientific-computing/code-server.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/scientific-computing/code-server.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to use VS Code on the VEDA JupyterHub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/scientific-computing/ssh.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/scientific-computing/ssh.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to ssh into the VEDA JupyterHub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/scientific-computing/github-authentication.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/scientific-computing/github-authentication.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to push to GitHub from the VEDA JupyterHub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/scientific-computing/custom-environments.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/scientific-computing/custom-environments.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to use a custom environment in the VEDA JupyterHub</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/scientific-computing/getting-access.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/scientific-computing/getting-access.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting access</span></a>
   </div>
 </li>
@@ -662,7 +697,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../user-guide/notebooks/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../../user-guide/notebooks/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Usage Examples and Tutorials</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -689,43 +724,43 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/quickstarts/list-collections.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/quickstarts/list-collections.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">List STAC collections</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/quickstarts/open-and-plot.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/quickstarts/open-and-plot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Open and plot COGs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/quickstarts/timeseries-rioxarray-stackstac.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/quickstarts/timeseries-rioxarray-stackstac.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Calculate timeseries from COGs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/quickstarts/visualize-zarr.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/quickstarts/visualize-zarr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualize zarr</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/quickstarts/visualize-multiple-times.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/quickstarts/visualize-multiple-times.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Open and visualize COGs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/quickstarts/downsample-zarr.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/quickstarts/downsample-zarr.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Downsample zarr</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/quickstarts/download-assets.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/quickstarts/download-assets.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Download STAC assets</span></a>
   </div>
 </li>
@@ -742,19 +777,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-20" class="collapse list-unstyled sidebar-section depth4 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/quickstarts/no2-map-plot.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/quickstarts/no2-map-plot.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Get map from COGs - NO2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/quickstarts/timeseries-stac-api.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/quickstarts/timeseries-stac-api.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Get timeseries from COGs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/quickstarts/hls-visualization.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/quickstarts/hls-visualization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Get tiles from COGs</span></a>
   </div>
 </li>
@@ -773,31 +808,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-21" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/tutorials/gif-generation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/tutorials/gif-generation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GIF generation using the TiTiler /cog/feature endpoint</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/tutorials/netcdf-to-cog-cmip6.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/tutorials/netcdf-to-cog-cmip6.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Converting NetCDF to COG (CMIP6)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/tutorials/mapping-fires.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/tutorials/mapping-fires.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Get Fire Perimeters from an OGC API</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/tutorials/stac_ipyleaflet.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/tutorials/stac_ipyleaflet.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using the stac_ipyleaflet mapping library</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/tutorials/zonal-statistics-validation.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/tutorials/zonal-statistics-validation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Calculating accurate zonal statistics with varying grid cell / pixel area</span></a>
   </div>
 </li>
@@ -814,37 +849,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-22" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/datasets/ocean-npp-timeseries-analysis.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/datasets/ocean-npp-timeseries-analysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizing Ocean NPP time series for seasonal patterns</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/datasets/nceo-biomass-statistics.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/datasets/nceo-biomass-statistics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualizing NCEO Aboveground Woody Biomass 2017 prioritization areas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/datasets/volcano-so2-monitoring.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/datasets/volcano-so2-monitoring.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Monitoring Volcanic Sulfur Dioxide Emissions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/datasets/air-quality-covid.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/datasets/air-quality-covid.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Air Quality and COVID-19</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/datasets/nldas_time_series.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/datasets/nldas_time_series.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Creating Timeseries with NLDAS-3 Sample Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/datasets/nldas_compare2_3.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/datasets/nldas_compare2_3.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data</span></a>
   </div>
 </li>
@@ -861,7 +896,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-23" class="collapse list-unstyled sidebar-section depth3 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../user-guide/notebooks/stories/derechos.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../user-guide/notebooks/stories/derechos.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">NASA Data Fusion Analysis of Derechos and Their Impact on Rural America</span></a>
   </div>
 </li>
@@ -874,7 +909,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../open-source-ecosystem/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../../open-source-ecosystem/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The VEDA Open Source Ecosystem</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -883,25 +918,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-24" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../open-source-ecosystem/architecture.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../open-source-ecosystem/architecture.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Software Architecture</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../open-source-ecosystem/repositories.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../open-source-ecosystem/repositories.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">VEDA Repositories</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../open-source-ecosystem/external-resources.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../open-source-ecosystem/external-resources.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">External Resources</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../open-source-ecosystem/creating-your-own-instance/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../../open-source-ecosystem/creating-your-own-instance/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Using VEDA For Your Own Team</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -910,7 +945,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-25" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How To Make Your Own Dashboard</span></a>
   </div>
 </li>
@@ -928,18 +963,42 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#goals" id="toc-goals" class="nav-link active" data-scroll-target="#goals">Goals</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#key-features" id="toc-key-features" class="nav-link" data-scroll-target="#key-features">Key Features</a>
+  <ul class="collapse">
+  <li><a href="#dynamic-form-generation" id="toc-dynamic-form-generation" class="nav-link" data-scroll-target="#dynamic-form-generation">Dynamic Form Generation</a></li>
+  <li><a href="#manual-json-editing" id="toc-manual-json-editing" class="nav-link" data-scroll-target="#manual-json-editing">Manual JSON Editing</a></li>
+  <li><a href="#collection-management" id="toc-collection-management" class="nav-link" data-scroll-target="#collection-management">Collection Management</a></li>
+  <li><a href="#github-integration" id="toc-github-integration" class="nav-link" data-scroll-target="#github-integration">GitHub Integration</a></li>
+  </ul></li>
+  <li><a href="#user-workflow" id="toc-user-workflow" class="nav-link" data-scroll-target="#user-workflow">User Workflow</a>
+  <ul class="collapse">
+  <li><a href="#authentication" id="toc-authentication" class="nav-link" data-scroll-target="#authentication">Authentication</a></li>
+  <li><a href="#creating-a-dataset-definition" id="toc-creating-a-dataset-definition" class="nav-link" data-scroll-target="#creating-a-dataset-definition">Creating a Dataset Definition</a></li>
+  <li><a href="#dataset-publication" id="toc-dataset-publication" class="nav-link" data-scroll-target="#dataset-publication">Dataset Publication</a></li>
+  </ul></li>
+  <li><a href="#form-configuration" id="toc-form-configuration" class="nav-link" data-scroll-target="#form-configuration">Form Configuration</a>
+  <ul class="collapse">
+  <li><a href="#customizing-form-fields" id="toc-customizing-form-fields" class="nav-link" data-scroll-target="#customizing-form-fields">Customizing Form Fields</a></li>
+  </ul></li>
+  <li><a href="#github-workflow" id="toc-github-workflow" class="nav-link" data-scroll-target="#github-workflow">GitHub Workflow</a></li>
+  <li><a href="#troubleshooting" id="toc-troubleshooting" class="nav-link" data-scroll-target="#troubleshooting">Troubleshooting</a>
+  <ul class="collapse">
+  <li><a href="#common-issues" id="toc-common-issues" class="nav-link" data-scroll-target="#common-issues">Common Issues</a></li>
+  <li><a href="#getting-help" id="toc-getting-help" class="nav-link" data-scroll-target="#getting-help">Getting Help</a></li>
+  </ul></li>
+  <li><a href="#related-resources" id="toc-related-resources" class="nav-link" data-scroll-target="#related-resources">Related Resources</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/veda-project/target-use-cases/data-services.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/user-guide/content-curation/dataset-ingestion/veda-ingest-ui.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../veda-project/index.html">The VEDA project</a></li><li class="breadcrumb-item"><a href="../../veda-project/target-use-cases/index.html">Target Use Cases</a></li><li class="breadcrumb-item"><a href="../../veda-project/target-use-cases/data-services.html">Data Services</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../user-guide/index.html">User Guide</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/index.html">Content Curation</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/dataset-ingestion/index.html">Dataset Ingestion</a></li><li class="breadcrumb-item"><a href="../../../user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html">VEDA Ingest UI</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data Services</h1>
+<h1 class="title">VEDA Ingest UI</h1>
+<p class="subtitle lead">Web interface for creating and managing dataset ingestion workflows</p>
 </div>
 
 
@@ -956,19 +1015,173 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="goals" class="level2">
-<h2 class="anchored" data-anchor-id="goals">Goals</h2>
-<p>The goal of VEDA Data Services is to support open science through community standard tooling, Application Programming Interfaces (APIs), and providing access to persistent, discoverable Earth science datasets. This approach includes:</p>
+<p>The VEDA Ingest UI is a web-based application that simplifies the process of creating dataset ingestion requests for the VEDA platform. It provides both form-based and manual JSON editing capabilities to help users create properly formatted dataset definitions and submit them to the VEDA data pipeline.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Access the Ingest UI">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Access the Ingest UI
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The VEDA Ingest UI is available at <a href="https://ingest.openveda.cloud/">ingest.openveda.cloud</a></p>
+</div>
+</div>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>The Ingest UI serves as the primary interface for the VEDA ingestion pipeline. It automates the process of:</p>
+<ul>
+<li>Creating STAC-compliant dataset definitions</li>
+<li>Validating dataset metadata and configurations</li>
+<li>Opening pull requests in the <a href="https://github.com/NASA-IMPACT/veda-data">veda-data repository</a></li>
+<li>Publishing datasets to the staging catalog for review</li>
+<li>Facilitating the transition from staging to production catalogs</li>
+</ul>
+</section>
+<section id="key-features" class="level2">
+<h2 class="anchored" data-anchor-id="key-features">Key Features</h2>
+<section id="dynamic-form-generation" class="level3">
+<h3 class="anchored" data-anchor-id="dynamic-form-generation">Dynamic Form Generation</h3>
+<ul>
+<li><strong>Schema-driven forms</strong>: Automatically generates input forms based on JSON schemas</li>
+<li><strong>Field validation</strong>: Real-time validation with helpful error messages</li>
+</ul>
+</section>
+<section id="manual-json-editing" class="level3">
+<h3 class="anchored" data-anchor-id="manual-json-editing">Manual JSON Editing</h3>
+<ul>
+<li><strong>Direct JSON manipulation</strong>: Full control over dataset definition structure</li>
+<li><strong>Syntax validation</strong>: Real-time JSON syntax checking and validation</li>
+<li><strong>Schema compliance</strong>: Ensures adherence to VEDA dataset definition requirements</li>
+</ul>
+</section>
+<section id="collection-management" class="level3">
+<h3 class="anchored" data-anchor-id="collection-management">Collection Management</h3>
+<ul>
+<li><strong>Create new collections</strong>: Generate STAC collections from scratch</li>
+<li><strong>Edit existing collections</strong>: Modify open pull requests and update configurations</li>
+</ul>
+</section>
+<section id="github-integration" class="level3">
+<h3 class="anchored" data-anchor-id="github-integration">GitHub Integration</h3>
+<ul>
+<li><strong>Automatic PR creation</strong>: Creates pull requests in veda-data repository with consistent naming conventions</li>
+<li><strong>Commit tracking</strong>: Maintains commit history for configuration changes</li>
+<li><strong>Review workflow</strong>: Integrates with VEDA team review process</li>
+</ul>
+</section>
+</section>
+<section id="user-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="user-workflow">User Workflow</h2>
+<section id="authentication" class="level3">
+<h3 class="anchored" data-anchor-id="authentication">Authentication</h3>
 <ol type="1">
-<li>Making key datasets available in analysis-optimized formats</li>
-<li>Tying together VEDA products by providing access to hosted data, existing third-party geospatial datasets, and new datasets produced within the VEDA ecosystem</li>
-<li>Making data Findable, Accessible, Interoperable, and Reusable (FAIR), within and also beyond VEDA</li>
+<li>Navigate to <a href="https://ingest.openveda.cloud/">ingest.openveda.cloud</a></li>
+<li>Click “Sign in with Keycloak”</li>
+<li>Select your institutional identity provider through CILogon</li>
+<li>Complete authentication and return to the Ingest UI</li>
 </ol>
 </section>
-<section id="resources" class="level2">
-<h2 class="anchored" data-anchor-id="resources">Resources</h2>
-<p>See the user guides for <a href="../../user-guide/data-services/index.html">data services operated by the NASA VEDA project</a>.</p>
-<p>Want to contribute or reuse the open-source software that makes up VEDA data services? See the <a href="../../open-source-ecosystem/repositories.html#data-services">relevant code repositories</a>.</p>
+<section id="creating-a-dataset-definition" class="level3">
+<h3 class="anchored" data-anchor-id="creating-a-dataset-definition">Creating a Dataset Definition</h3>
+<section id="option-1-form-based-creation" class="level4">
+<h4 class="anchored" data-anchor-id="option-1-form-based-creation">Option 1: Form-Based Creation</h4>
+<ol type="1">
+<li>Navigate to the “Create Collection” section</li>
+<li>Fill out the guided form with your dataset information:
+<ul>
+<li><strong>Collection ID</strong>: Unique identifier (lowercase, alphanumeric with hyphens)</li>
+<li><strong>Title</strong>: Human-readable dataset title</li>
+<li><strong>Description</strong>: Detailed dataset description</li>
+<li><strong>License</strong>: Data usage license (default: CC0-1.0)</li>
+<li><strong>Spatial Extent</strong>: Geographic bounds of the dataset</li>
+<li><strong>Temporal Extent</strong>: Time range covered by the dataset</li>
+<li><strong>Discovery Items</strong>: Configuration for data discovery and processing</li>
+</ul></li>
+<li>Validate inputs with real-time feedback</li>
+</ol>
+</section>
+<section id="option-2-manual-json-editing" class="level4">
+<h4 class="anchored" data-anchor-id="option-2-manual-json-editing">Option 2: Manual JSON Editing</h4>
+<ol type="1">
+<li>Navigate to the “Manual JSON Edit” section</li>
+<li>Paste or type your dataset definition JSON</li>
+<li>Use the built-in validation to check syntax and schema compliance</li>
+</ol>
+</section>
+</section>
+<section id="dataset-publication" class="level3">
+<h3 class="anchored" data-anchor-id="dataset-publication">Dataset Publication</h3>
+<ol type="1">
+<li><strong>Submit to Staging</strong>: Click “Submit” to publish to the staging catalog</li>
+<li><strong>GitHub PR Creation</strong>: Automatic pull request creation in veda-data repository</li>
+<li><strong>Staging Review</strong>: Review your dataset at <a href="https://staging.openveda.cloud">staging.openveda.cloud</a></li>
+<li><strong>Production Approval</strong>: VEDA team reviews and approves for production deployment</li>
+</ol>
+</section>
+</section>
+<section id="form-configuration" class="level2">
+<h2 class="anchored" data-anchor-id="form-configuration">Form Configuration</h2>
+<p>The Ingest UI uses JSON Schema and UI Schema files to generate dynamic forms:</p>
+<ul>
+<li><strong>JSON Schema</strong>: Defines data structure and validation rules</li>
+<li><strong>UI Schema</strong>: Controls form layout, field ordering, and presentation</li>
+<li><strong>24-Column Grid</strong>: Responsive layout system for optimal form organization</li>
+</ul>
+<section id="customizing-form-fields" class="level3">
+<h3 class="anchored" data-anchor-id="customizing-form-fields">Customizing Form Fields</h3>
+<p>Form fields are configured through the UI Schema’s <code>ui:grid</code> property:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="er">"ui:grid":</span> <span class="ot">[</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"collection"</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"title"</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"license"</span><span class="fu">:</span> <span class="dv">4</span><span class="fu">,</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"description"</span><span class="fu">:</span> <span class="dv">12</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Each row must total 24 columns for proper layout alignment.</p>
+</section>
+</section>
+<section id="github-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="github-workflow">GitHub Workflow</h2>
+<ul>
+<li><strong>Repository</strong>: Creates PRs in <a href="https://github.com/NASA-IMPACT/veda-data">veda-data</a></li>
+<li><strong>Naming Convention</strong>: <code>'Ingest Request for [collectionName]'</code></li>
+<li><strong>Branch Strategy</strong>: <code>feat/[sanitizedCollectionName]</code></li>
+<li><strong>File Organization</strong>: <code>ingestion-data/staging/dataset-config/[collectionName].json</code></li>
+</ul>
+</section>
+<section id="troubleshooting" class="level2">
+<h2 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h2>
+<section id="common-issues" class="level3">
+<h3 class="anchored" data-anchor-id="common-issues">Common Issues</h3>
+<section id="collection-name-conflicts" class="level4">
+<h4 class="anchored" data-anchor-id="collection-name-conflicts">Collection Name Conflicts</h4>
+<p><strong>Error</strong>: Collection already exists <strong>Solution</strong>: - Choose a unique collection identifier - Check existing collections in the STAC catalog - Use descriptive, specific naming conventions</p>
+</section>
+</section>
+<section id="getting-help" class="level3">
+<h3 class="anchored" data-anchor-id="getting-help">Getting Help</h3>
+<ol type="1">
+<li><strong>Documentation</strong>: Review <a href="../../../user-guide/content-curation/dataset-ingestion/index.html">dataset ingestion guides</a></li>
+<li><strong>Examples</strong>: Study the <a href="../../../user-guide/content-curation/dataset-ingestion/example-template/example-geoglam-ingest.html">GEOGLAM ingestion example</a></li>
+<li><strong>GitHub Issues</strong>: Open issues in <a href="https://github.com/NASA-IMPACT/veda-data/issues">veda-data repository</a></li>
+<li><strong>Feature Demonstrations</strong>: Visit the <a href="https://nasa-impact.github.io/veda-ingest-ui/">live test reports</a> for visual feature overviews</li>
+</ol>
+</section>
+</section>
+<section id="related-resources" class="level2">
+<h2 class="anchored" data-anchor-id="related-resources">Related Resources</h2>
+<ul>
+<li><a href="../../../user-guide/content-curation/dataset-ingestion/index.html">Dataset Ingestion Overview</a></li>
+<li><a href="../../../user-guide/content-curation/dataset-ingestion/catalog-ingestion.html">Catalog Ingestion Guide</a></li>
+<li><a href="../../../user-guide/content-curation/dataset-ingestion/stac-collection-conventions.html">STAC Collection Conventions</a></li>
+<li><a href="../../../user-guide/content-curation/dataset-ingestion/stac-item-conventions.html">STAC Item Conventions</a></li>
+<li><a href="https://github.com/NASA-IMPACT/veda-ingest-ui">VEDA Ingest UI GitHub Repository</a></li>
+<li><a href="https://nasa-impact.github.io/veda-ingest-ui/">Live Feature Demonstrations</a></li>
+</ul>
 
 
 </section>
@@ -1389,13 +1602,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../veda-project/target-use-cases/dashboard.html" class="pagination-link" aria-label="VEDA Dashboard">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">VEDA Dashboard</span>
+      <a href="../../../user-guide/content-curation/dataset-ingestion/catalog-ingestion.html" class="pagination-link" aria-label="Catalog Ingestion">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Catalog Ingestion</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../veda-project/target-use-cases/scientific-computing.html" class="pagination-link" aria-label="Scientific Computing">
-        <span class="nav-page-text">Scientific Computing</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../user-guide/notebooks/veda-operations/generate-cmip6-virtual-zarr-historical.html" class="pagination-link" aria-label="Generate Virtual Zarr from CMIP6 NetCDF files">
+        <span class="nav-page-text">Generate Virtual Zarr from CMIP6 NetCDF files</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1407,7 +1620,7 @@ ul.task-list li input[type="checkbox"] {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/veda-project/target-use-cases/data-services.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/user-guide/content-curation/dataset-ingestion/veda-ingest-ui.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
