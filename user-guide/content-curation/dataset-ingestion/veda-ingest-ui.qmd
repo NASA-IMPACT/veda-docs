@@ -1,0 +1,132 @@
+---
+title: "VEDA Ingest UI"
+subtitle: "Web interface for creating and managing dataset ingestion workflows"
+---
+
+The VEDA Ingest UI is a web-based application that simplifies the process of creating dataset ingestion requests for the VEDA platform. It provides both form-based and manual JSON editing capabilities to help users create properly formatted dataset definitions and submit them to the VEDA data pipeline.
+
+::: {.callout-tip title="Access the Ingest UI"}
+The VEDA Ingest UI is available at [ingest.openveda.cloud](https://ingest.openveda.cloud/)
+:::
+
+## Overview
+
+The Ingest UI serves as the primary interface for the VEDA ingestion pipeline. It automates the process of:
+
+- Creating STAC-compliant dataset definitions
+- Validating dataset metadata and configurations
+- Opening pull requests in the [veda-data repository](https://github.com/NASA-IMPACT/veda-data)
+- Publishing datasets to the staging catalog for review
+- Facilitating the transition from staging to production catalogs
+
+## Key Features
+
+### Dynamic Form Generation
+- **Schema-driven forms**: Automatically generates input forms based on JSON schemas
+- **Field validation**: Real-time validation with helpful error messages
+
+### Manual JSON Editing
+- **Direct JSON manipulation**: Full control over dataset definition structure
+- **Syntax validation**: Real-time JSON syntax checking and validation
+- **Schema compliance**: Ensures adherence to VEDA dataset definition requirements
+
+### Collection Management
+- **Create new collections**: Generate STAC collections from scratch
+- **Edit existing collections**: Modify open pull requests and update configurations
+
+### GitHub Integration
+- **Automatic PR creation**: Creates pull requests in veda-data repository with consistent naming conventions
+- **Commit tracking**: Maintains commit history for configuration changes
+- **Review workflow**: Integrates with VEDA team review process
+
+## User Workflow
+
+### Authentication
+1. Navigate to [ingest.openveda.cloud](https://ingest.openveda.cloud/)
+2. Click "Sign in with Keycloak"
+3. Select your institutional identity provider through CILogon
+4. Complete authentication and return to the Ingest UI
+
+
+### Creating a Dataset Definition
+
+#### Option 1: Form-Based Creation
+1. Navigate to the "Create Collection" section
+2. Fill out the guided form with your dataset information:
+   - **Collection ID**: Unique identifier (lowercase, alphanumeric with hyphens)
+   - **Title**: Human-readable dataset title
+   - **Description**: Detailed dataset description
+   - **License**: Data usage license (default: CC0-1.0)
+   - **Spatial Extent**: Geographic bounds of the dataset
+   - **Temporal Extent**: Time range covered by the dataset
+   - **Discovery Items**: Configuration for data discovery and processing
+
+3. Validate inputs with real-time feedback
+
+#### Option 2: Manual JSON Editing
+1. Navigate to the "Manual JSON Edit" section
+2. Paste or type your dataset definition JSON
+3. Use the built-in validation to check syntax and schema compliance
+
+### Dataset Publication
+1. **Submit to Staging**: Click "Submit" to publish to the staging catalog
+2. **GitHub PR Creation**: Automatic pull request creation in veda-data repository
+3. **Staging Review**: Review your dataset at [staging.openveda.cloud](https://staging.openveda.cloud)
+4. **Production Approval**: VEDA team reviews and approves for production deployment
+
+## Form Configuration
+
+The Ingest UI uses JSON Schema and UI Schema files to generate dynamic forms:
+
+- **JSON Schema**: Defines data structure and validation rules
+- **UI Schema**: Controls form layout, field ordering, and presentation
+- **24-Column Grid**: Responsive layout system for optimal form organization
+
+### Customizing Form Fields
+Form fields are configured through the UI Schema's `ui:grid` property:
+
+```json
+"ui:grid": [
+  {
+    "collection": 4,
+    "title": 4,
+    "license": 4,
+    "description": 12
+  }
+]
+```
+
+Each row must total 24 columns for proper layout alignment.
+
+## GitHub Workflow
+- **Repository**: Creates PRs in [veda-data](https://github.com/NASA-IMPACT/veda-data)
+- **Naming Convention**: `'Ingest Request for [collectionName]'`
+- **Branch Strategy**: `feat/[sanitizedCollectionName]`
+- **File Organization**: `ingestion-data/staging/dataset-config/[collectionName].json`
+
+## Troubleshooting
+
+### Common Issues
+
+#### Collection Name Conflicts
+**Error**: Collection already exists
+**Solution**:
+- Choose a unique collection identifier
+- Check existing collections in the STAC catalog
+- Use descriptive, specific naming conventions
+
+### Getting Help
+
+1. **Documentation**: Review [dataset ingestion guides](./index.qmd)
+2. **Examples**: Study the [GEOGLAM ingestion example](./example-template/example-geoglam-ingest.ipynb)
+3. **GitHub Issues**: Open issues in [veda-data repository](https://github.com/NASA-IMPACT/veda-data/issues)
+4. **Feature Demonstrations**: Visit the [live test reports](https://nasa-impact.github.io/veda-ingest-ui/) for visual feature overviews
+
+## Related Resources
+
+- [Dataset Ingestion Overview](./index.qmd)
+- [Catalog Ingestion Guide](./catalog-ingestion.qmd)
+- [STAC Collection Conventions](./stac-collection-conventions.qmd)
+- [STAC Item Conventions](./stac-item-conventions.qmd)
+- [VEDA Ingest UI GitHub Repository](https://github.com/NASA-IMPACT/veda-ingest-ui)
+- [Live Feature Demonstrations](https://nasa-impact.github.io/veda-ingest-ui/)
