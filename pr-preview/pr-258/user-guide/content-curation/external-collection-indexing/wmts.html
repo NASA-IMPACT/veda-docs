@@ -962,7 +962,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#architecture" id="toc-architecture" class="nav-link" data-scroll-target="#architecture">Architecture</a></li>
-  <li><a href="#schema" id="toc-schema" class="nav-link" data-scroll-target="#schema">Schema</a>
+  <li><a href="#stac-collection-with-gibs-web-map-links-example" id="toc-stac-collection-with-gibs-web-map-links-example" class="nav-link" data-scroll-target="#stac-collection-with-gibs-web-map-links-example">STAC Collection with GIBS Web Map Links Example</a>
   <ul class="collapse">
   <li><a href="#implementing-web-map-link-extensions-for-gibs-hosted-datasets" id="toc-implementing-web-map-link-extensions-for-gibs-hosted-datasets" class="nav-link" data-scroll-target="#implementing-web-map-link-extensions-for-gibs-hosted-datasets">Implementing Web Map Link Extensions for GIBS hosted datasets</a></li>
   </ul></li>
@@ -1000,7 +1000,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><a href="https://www.ogc.org/standards/wms/">OGC Web Map Service (WMS)</a> Provides a simple HTTP interface for requesting geo-registered map images from one or more distributed geospatial databases.</p>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>NASA’s Global Imagery Browse Services (GIBS) API leverages the OGC WMTS specification to deliver the collections of NASA satellite imagery.</p>
+<p>NASA’s <a href="https://nasa-gibs.github.io/gibs-api-docs/">Global Imagery Browse Services (GIBS) API</a> leverages the OGC WMTS specification to deliver the collections of NASA satellite imagery.</p>
 <p>Web Map Tile Service (WMTS) is used for interactive web mapping and is an OGC standard for serving pre-rendered map tiles by pre-generating and caching tiles on the server. To learn more about the OGC WMTS implementation of a STAC compliant collection, please refer to the <a href="https://github.com/stac-extensions/web-map-links?tab=readme-ov-file#ogc-wmts">web-map-links extension documentation</a>.</p>
 </section>
 <section id="architecture" class="level2">
@@ -1031,18 +1031,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="schema" class="level2">
-<h2 class="anchored" data-anchor-id="schema">Schema</h2>
+<section id="stac-collection-with-gibs-web-map-links-example" class="level2">
+<h2 class="anchored" data-anchor-id="stac-collection-with-gibs-web-map-links-example">STAC Collection with GIBS Web Map Links Example</h2>
 <p>The <a href="https://staging.openveda.cloud/api/stac/collections/GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303">GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303 collection</a> is an example of a STAC compliant collection that implements the web map links extension for a GIBS hosted dataset.</p>
-<p>This <a href="https://radiantearth.github.io/stac-browser/#/external/staging.openveda.cloud/api/stac/collections/GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303?.language=en">stac-browser preview</a> for the collection mentioned above shows how the web map links supports dynamic visualization of the data utilizing pre-rendered map tiles.</p>
+<p>This <a href="https://radiantearth.github.io/stac-browser/#/external/staging.openveda.cloud/api/stac/collections/GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303?.language=en">stac-browser preview https://radiantearth.github.io/stac-browser/#/external/staging.openveda.cloud/api/stac/collections/GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303</a> for the collection mentioned above shows how the web map links supports dynamic visualization of the data utilizing pre-rendered map tiles.</p>
 <p>To integrate WMTS capabilities into a STAC collection, you need to implement the <a href="https://github.com/stac-extensions/web-map-links">web map links extension</a>.</p>
 <section id="implementing-web-map-link-extensions-for-gibs-hosted-datasets" class="level3">
 <h3 class="anchored" data-anchor-id="implementing-web-map-link-extensions-for-gibs-hosted-datasets">Implementing Web Map Link Extensions for GIBS hosted datasets</h3>
 <p>In this section, we will explain what is needed to create a web map link metadata for a GIBS hosted dataset in order to render WMTS map layers.</p>
-<section id="extension-structure" class="level4">
-<h4 class="anchored" data-anchor-id="extension-structure">Extension Structure</h4>
-<p>JSON Schema for Web Map Link extensions can be found <a href="https://stac-extensions.github.io/web-map-links/v1.2.0/schema.json">here</a>.</p>
-<p>The extension would extend the <strong>Link Object</strong> in all the STAC entities (Items, Collections, Catalogs).</p>
+<section id="key-configuration-elements" class="level4">
+<h4 class="anchored" data-anchor-id="key-configuration-elements">Key Configuration Elements</h4>
+<p>This section outlines the key fields that are added to make a Web Map Links object in a VEDA STAC collection to describe how to visualize a dataset using GIBS’s Web Map Tilling Service.</p>
 <p>The <code>rel</code> field is required and indicates the type of web map link. For example <code>wms</code> for a Web Map Service or <code>wmts</code> for a Web Map Tile Service. In this case, we would use <code>wmts</code>. But the full list of valid <code>rel</code> field values and additional metadata for that specific extension type can be found in the <a href="https://github.com/stac-extensions/web-map-links?tab=readme-ov-file#link-object-fields">web-map-links docs</a>.</p>
 <p>The <code>href</code> field is also required and indicates the URL of the web map link. In this case, the value would be <code>"https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/wmts.cgi"</code>.</p>
 <p>For reference, this <a href="https://github.com/stac-extensions/web-map-links?tab=readme-ov-file#ogc-wmts">table</a> within the stac-extensions/web-map-links documentation details the required and optional fields for the WMTS extension to be STAC compliant.</p>
@@ -1066,14 +1065,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"STYLE"</span><span class="fu">:</span> <span class="st">"default"</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>With this extension, you would add it to your STAC compliant collection object within the <code>links</code> array. Please reference the <a href="./wmts.html#schema">example above</a> as an example.</p>
+<p>With this extension, you would add it to your STAC compliant collection object within the <code>links</code> array.</p>
 </section>
 </section>
 </section>
 </section>
 <section id="gibs-api-for-wmts-capabilties" class="level2">
 <h2 class="anchored" data-anchor-id="gibs-api-for-wmts-capabilties">GIBS API for WMTS Capabilties</h2>
-<p>To access the WMTS capabilties XML documents exchanged within the WMTS standard, the <code>GetCapabilities</code> request can be used.</p>
+<p>Information about GIBS dataset can be found in GIB’s <a href="https://nasa-gibs.github.io/gibs-api-docs/available-visualizations/">Available Visualizations</a> documentation. Details can also be found within the XML document response of a WMTS <code>GetCapabilities</code> request as documented below.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct WMTS capability URL.</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>wmtsUrl <span class="op">=</span> <span class="st">'http://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi?SERVICE=WMTS&amp;REQUEST=GetCapabilities'</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1088,9 +1087,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This will return the WMTS capabilities document in XML format for all NASA GIBS hosted dataset layers.</p>
 <p>To return a single layer’s capabilities, you would have to parse the XML response. Below is an example of a bash script to filter the GetCapabilities response for a specific layer, <code>GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303</code>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="st">'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/wmts.cgi?service=wmts&amp;request=GetCapabilities'</span> <span class="kw">|</span> <span class="ex">xq</span> <span class="st">'.Capabilities.Contents.Layer[] | select( .["ows:Identifier"] | contains("GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303"))'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<blockquote class="blockquote">
-<p>TIP: yq is a jq wrapper that can be used to parse XML as JSON</p>
-</blockquote>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="er">//</span> <span class="er">response</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="er">"ows:Title":</span> <span class="fu">{</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"@xml:lang"</span><span class="fu">:</span> <span class="st">"en"</span><span class="fu">,</span></span>
