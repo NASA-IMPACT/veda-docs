@@ -1,0 +1,175 @@
+---
+title: Global Imagery Browse Services (GIBS) Integration
+subtitle: Indexing OGC Web Map Tile Services for STAC collection creation
+---
+
+[Global Imagery Browse Services (GIBS)](https://nasa-gibs.github.io/gibs-api-docs/#overview) delivers access to full-resolution visualizations of satellite imagery through standardized access through services like the OGC Web Map Tile Service or Wep Map Service.
+
+[OGC Web Map Tile Service (WMTS)](https://www.ogc.org/standards/wmts/) 
+A WMTS enabled server application can serve map tiles of spatially referenced data using tile images with predefined content, extent, and resolution.
+
+[OGC Web Map Service (WMS)](https://www.ogc.org/standards/wms/) 
+Provides a simple HTTP interface for requesting geo-registered map images from one or more distributed geospatial databases. 
+
+## Overview 
+NASA's [Global Imagery Browse Services (GIBS) API](https://nasa-gibs.github.io/gibs-api-docs/) leverages the OGC WMTS specification to deliver the collections of NASA satellite imagery.
+
+Web Map Tile Service (WMTS) is used for interactive web mapping and is an OGC standard for serving pre-rendered map tiles by pre-generating and caching tiles on the server. To learn more about the OGC WMTS implementation of a STAC compliant collection, please refer to the [web-map-links extension documentation](https://github.com/stac-extensions/web-map-links?tab=readme-ov-file#ogc-wmts).
+
+## Architecture
+
+```{mermaid}
+graph LR
+    A[GIBS API] --> B[STAC Collection]
+    B --> C[VEDA Catalog]
+    
+    subgraph VedaIntegration [VEDA Integration]
+        D[Dashboard Visualization]
+        E[API Access]
+        F[Data Discovery]
+        style VedaIntegration fill:#D3D3D3
+    end
+    
+    C --> D
+    C --> E
+    C --> F
+```
+
+## STAC Collection with GIBS Web Map Links Example
+The [GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303 collection](https://staging.openveda.cloud/api/stac/collections/GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303) is an example of a STAC compliant collection that implements the web map links extension for a GIBS hosted dataset.
+
+This [stac-browser preview https://radiantearth.github.io/stac-browser/#/external/staging.openveda.cloud/api/stac/collections/GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303](https://radiantearth.github.io/stac-browser/#/external/staging.openveda.cloud/api/stac/collections/GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303?.language=en) for the collection mentioned above shows how the web map links supports dynamic visualization of the data utilizing pre-rendered map tiles.
+
+To integrate WMTS capabilities into a STAC collection, you need to implement the [web map links extension](https://github.com/stac-extensions/web-map-links). 
+
+### Implementing Web Map Link Extensions for GIBS hosted datasets
+In this section, we will explain what is needed to create a web map link metadata for a GIBS hosted dataset in order to render WMTS map layers.
+
+#### Key Configuration Elements
+This section outlines the key fields that are added to make a Web Map Links object  in a VEDA STAC collection to describe how to visualize a dataset using GIBS's Web Map Tilling Service. 
+
+The `rel` field is required and indicates the type of web map link. For example `wms` for a Web Map Service or `wmts` for a Web Map Tile Service. In this case, we would use `wmts`. But the full list of valid `rel` field values and additional metadata for that specific extension type can be found in the [web-map-links docs](https://github.com/stac-extensions/web-map-links?tab=readme-ov-file#link-object-fields).
+
+The `href` field is also required and indicates the URL of the web map link. In this case, the value would be `"https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/wmts.cgi"`.
+
+::: {.callout-tip} 
+For reference, this [OGC WMTS Web Map Links Extension Table](https://github.com/stac-extensions/web-map-links?tab=readme-ov-file#ogc-wmts) within the stac-extensions/web-map-links documentation details the required and optional fields for the WMTS extension to be STAC compliant.
+:::
+
+
+##### Creation
+
+To create this Web Map Link Extension, define an object with `"rel": "wmts"` and `"href": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/wmts.cgi"` and then add any additional metadata.
+
+The extension object would look like this:
+```json
+    {
+      "rel": "wmts", 
+      "href": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/wmts.cgi", // Required: Link to the WMTS wihtout any specific query parameters
+      "type": "image/png", // Media type to be used for the tile requests
+      "title": "Visualized through a WMTS",
+      "wmts:layer": [
+        "GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303" // Required: specific layers to show on map by default. Can be a list of layer names or a single layer name
+      ],
+      "href:servers": [ // Specifies a set of URLs for a web mapping library so requests can be sent to multiple servers to avoid request limits
+        "https://gibs-a.earthdata.nasa.gov/wmts/epsg3857/best/wmts.cgi",
+        "https://gibs-b.earthdata.nasa.gov/wmts/epsg3857/best/wmts.cgi"
+      ],
+      "wmts:dimensions": { // Any additional dimension parameters
+        "STYLE": "default"
+      }
+    }
+```
+
+With this extension, you would add it to your STAC compliant collection object within the `links` array.
+
+#### Closer Look at GIBS API WMTS Capabilities 
+Information about GIBS dataset can be found in GIB's [Available Visualizations](https://nasa-gibs.github.io/gibs-api-docs/available-visualizations/) documentation. Details can also be found within the XML document response of a WMTS `GetCapabilities` request as documented below.
+
+```python
+# Construct WMTS capability URL.
+wmtsUrl = 'http://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi?SERVICE=WMTS&REQUEST=GetCapabilities'
+
+# Request capabilities.
+response = requests.get(wmtsUrl)
+
+# Display capability XML.
+WmtsXml = xmltree.fromstring(response.content)
+
+# Uncomment the following to display the large file:
+# print(xmltree.tostring(WmtsXml, pretty_print = True, encoding = str))
+```
+This will return the WMTS capabilities document in XML format for all NASA GIBS hosted dataset layers.
+
+To return a single layer's capabilities, you would have to parse the XML response. Below is an example of a bash script to filter the GetCapabilities response for a specific layer, `GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303`.
+
+```bash
+curl 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/wmts.cgi?service=wmts&request=GetCapabilities' | xq '.Capabilities.Contents.Layer[] | select( .["ows:Identifier"] | contains("GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303"))'
+```
+
+```json
+// response
+  "ows:Title": {
+    "@xml:lang": "en",
+    "#text": "Canopy Height Mean (L3, RH100, 201904-202303, GEDI, ISS)"
+  },
+	
+  "ows:WGS84BoundingBox": {
+    "@crs": "urn:ogc:def:crs:OGC:2:84",
+    "ows:LowerCorner": "-180 -85.051129",
+    "ows:UpperCorner": "180 85.051129"
+  },
+	
+	  "Style": {
+    "@isDefault": "true",
+    "ows:Title": {
+      "@xml:lang": "en",
+      "#text": "default"
+    },
+    "ows:Identifier": "default",
+    "LegendURL": [
+      {
+        "@xlink:title": "GIBS Color Map Legend: Horizontal",
+        "@xlink:href": "https://gibs.earthdata.nasa.gov/legends/GEDI_RH100_Mean_Color_Index_H.svg",
+        "@xlink:role": "http://earthdata.nasa.gov/gibs/legend-type/horizontal",
+        "@height": "86",
+        "@format": "image/svg+xml",
+        "@width": "378",
+        "@xlink:type": "simple"
+      },
+      {
+        "@xlink:title": "GIBS Color Map Legend: Vertical",
+        "@xlink:href": "https://gibs.earthdata.nasa.gov/legends/GEDI_RH100_Mean_Color_Index_V.svg",
+        "@xlink:role": "http://earthdata.nasa.gov/gibs/legend-type/vertical",
+        "@height": "288",
+        "@format": "image/svg+xml",
+        "@width": "135",
+        "@xlink:type": "simple"
+      }
+    ]
+  },
+	
+	  "Dimension": {
+    "ows:Identifier": "Time",
+    "ows:UOM": "ISO8601",
+    "Default": "2019-04-18",
+    "Current": "false",
+    "Value": "2019-04-18/2019-04-18/P1429D"
+  },
+	
+  "TileMatrixSetLink": {
+    "TileMatrixSet": "GoogleMapsCompatible_Level7"
+  },
+
+```
+
+In this response, there is useful info for populating STAC metadata and to inform visualization expectations -- note the `"TileMatrixSet": "GoogleMapsCompatible_Level7"` tells us that tiles are only provided up to zoom level 7. At higher zooms, the tiles will become blurry.
+
+
+## Related Resources
+
+- [GIBS API GET WMTS Capabilities](https://nasa-gibs.github.io/gibs-api-docs/python-usage/#get-wmts-capabilities)
+- [OGC WMTS Specification](https://www.ogc.org/standard/wmts/)
+- [STAC Web Map Links Extenstions (WML)](https://github.com/stac-extensions/web-map-links?tab=readme-ov-file#web-map-links-extension-specification)
+- [STAC Specification](https://stacspec.org/)
+- [VEDA Dataset Configuration Guide](../dashboard-configuration/dataset-configuration.qmd)
