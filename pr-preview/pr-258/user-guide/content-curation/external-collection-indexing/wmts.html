@@ -966,6 +966,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#implementing-web-map-link-extensions-for-gibs-hosted-datasets" id="toc-implementing-web-map-link-extensions-for-gibs-hosted-datasets" class="nav-link" data-scroll-target="#implementing-web-map-link-extensions-for-gibs-hosted-datasets">Implementing Web Map Link Extensions for GIBS hosted datasets</a></li>
   </ul></li>
+  <li><a href="#related-resources" id="toc-related-resources" class="nav-link" data-scroll-target="#related-resources">Related Resources</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/user-guide/content-curation/external-collection-indexing/wmts.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -1035,10 +1036,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This <a href="https://radiantearth.github.io/stac-browser/#/external/staging.openveda.cloud/api/stac/collections/GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303?.language=en">stac-browser preview https://radiantearth.github.io/stac-browser/#/external/staging.openveda.cloud/api/stac/collections/GEDI_ISS_L3_Canopy_Height_Mean_RH100_201904-202303</a> for the collection mentioned above shows how the web map links supports dynamic visualization of the data utilizing pre-rendered map tiles.</p>
 <p>To integrate WMTS capabilities into a STAC collection, you need to implement the <a href="https://github.com/stac-extensions/web-map-links">web map links extension</a>.</p>
 <section id="implementing-web-map-link-extensions-for-gibs-hosted-datasets" class="level3">
-<h3 class="anchored">Implementing Web Map Link Extensions for GIBS hosted datasets</h3>
+<h3 class="anchored" data-anchor-id="implementing-web-map-link-extensions-for-gibs-hosted-datasets">Implementing Web Map Link Extensions for GIBS hosted datasets</h3>
 <p>In this section, we will explain what is needed to create a web map link metadata for a GIBS hosted dataset in order to render WMTS map layers.</p>
 <section id="key-configuration-elements" class="level4">
-<h4 class="anchored">Key Configuration Elements</h4>
+<h4 class="anchored" data-anchor-id="key-configuration-elements">Key Configuration Elements</h4>
 <p>This section outlines the key fields that are added to make a Web Map Links object in a VEDA STAC collection to describe how to visualize a dataset using GIBS’s Web Map Tilling Service.</p>
 <p>The <code>rel</code> field is required and indicates the type of web map link. For example <code>wms</code> for a Web Map Service or <code>wmts</code> for a Web Map Tile Service. In this case, we would use <code>wmts</code>. But the full list of valid <code>rel</code> field values and additional metadata for that specific extension type can be found in the <a href="https://github.com/stac-extensions/web-map-links?tab=readme-ov-file#link-object-fields">web-map-links docs</a>.</p>
 <p>The <code>href</code> field is also required and indicates the URL of the web map link. In this case, the value would be <code>"https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/wmts.cgi"</code>.</p>
@@ -1053,6 +1054,8 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p>For reference, this <a href="https://github.com/stac-extensions/web-map-links?tab=readme-ov-file#ogc-wmts">OGC WMTS Web Map Links Extension Table</a> within the stac-extensions/web-map-links documentation details the required and optional fields for the WMTS extension to be STAC compliant.</p>
+</div>
+</div>
 <section id="creation" class="level5">
 <h5 class="anchored" data-anchor-id="creation">Creation</h5>
 <p>To create this Web Map Link Extension, define an object with <code>"rel": "wmts"</code> and <code>"href": "https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/wmts.cgi"</code> and then add any additional metadata.</p>
@@ -1074,6 +1077,7 @@ Tip
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>With this extension, you would add it to your STAC compliant collection object within the <code>links</code> array.</p>
+</section>
 </section>
 <section id="closer-look-at-gibs-api-wmts-capabilities" class="level4">
 <h4 class="anchored" data-anchor-id="closer-look-at-gibs-api-wmts-capabilities">Closer Look at GIBS API WMTS Capabilities</h4>
@@ -1146,6 +1150,8 @@ Tip
 <span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span><span class="er">,</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>In this response, there is useful info for populating STAC metadata and to inform visualization expectations – note the <code>"TileMatrixSet": "GoogleMapsCompatible_Level7"</code> tells us that tiles are only provided up to zoom level 7. At higher zooms, the tiles will become blurry.</p>
 </section>
+</section>
+</section>
 <section id="related-resources" class="level2">
 <h2 class="anchored" data-anchor-id="related-resources">Related Resources</h2>
 <ul>
@@ -1157,11 +1163,6 @@ Tip
 </ul>
 
 
-</section>
-</div>
-</div>
-</section>
-</section>
 </section>
 
 </main> <!-- /main -->
