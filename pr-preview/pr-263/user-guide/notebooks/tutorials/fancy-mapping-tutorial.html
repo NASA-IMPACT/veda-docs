@@ -1,0 +1,2876 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-12-09">
+
+<title>Run This Notebook – VEDA Documentation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b758ccaa5987ceb1b75504551e579abf.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-c16d2075821f60783b9dd602420178f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-d923747b48259b0bc07d7b5d7b088e92.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-c16d2075821f60783b9dd602420178f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script defer="" data-domain="nasa-impact.github.io/veda-docs" src="https://plausible.io/js/script.js"></script>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Run This Notebook</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../../../index.html" class="sidebar-logo-link">
+      <img src="https://visex.netlify.app/graphics/nasa-veda-logo-pos.svg" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="https://visex.netlify.app/graphics/nasa-veda-logo-pos.svg" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://www.earthdata.nasa.gov/esds/veda" title="earthdata.nasa.gov/esds/veda" class="quarto-navigation-tool px-1" aria-label="earthdata.nasa.gov/esds/veda"><i class="bi bi-info-circle"></i></a>
+    <a href="https://github.com/nasa-impact/veda-docs" title="Repository home" class="quarto-navigation-tool px-1" aria-label="Repository home"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../veda-project/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The VEDA project</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../veda-project/why.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Yet another plaform?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../veda-project/target-use-cases/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Target Use Cases</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../veda-project/target-use-cases/dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VEDA Dashboard</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../veda-project/target-use-cases/data-services.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data Services</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../veda-project/target-use-cases/scientific-computing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scientific Computing</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../user-guide/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">User Guide</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../user-guide/content-curation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Content Curation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../user-guide/content-curation/dataset-ingestion/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dataset Ingestion</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/content-curation/dataset-ingestion/file-preparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">File preparation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/content-curation/dataset-ingestion/catalog-ingestion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Catalog Ingestion</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/content-curation/dataset-ingestion/veda-ingest-ui.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VEDA Ingest UI</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/veda-operations/generate-cmip6-virtual-zarr-historical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generate Virtual Zarr from CMIP6 NetCDF files</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">STAC Collection Creation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/content-curation/dataset-ingestion/stac-collection-conventions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">STAC collection conventions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/veda-operations/stac-collection-creation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">STAC Collection Creation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/veda-operations/publish-cmip6-virtual-zarr-stac.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Publishing CMIP6 Virtual Zarr to STAC</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">STAC Item Creation</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/content-curation/dataset-ingestion/stac-item-conventions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">STAC item conventions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/veda-operations/stac-item-creation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">STAC Item Creation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false">
+ <span class="menu-text">Boilerplate ingest example</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/content-curation/dataset-ingestion/example-template/example-geoglam-ingest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ingestion Workflow for Uploading Data to the VEDA Catalog for the VEDA Dashboard</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../user-guide/content-curation/external-collection-indexing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">External Collection Indexing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/content-curation/external-collection-indexing/titiler-cmr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Titiler-CMR Integration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../user-guide/content-curation/external-collection-indexing/arcgis-server-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ArcGIS Server Integration</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/content-curation/external-collection-indexing/imageserver-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ImageServer Integration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/content-curation/external-collection-indexing/mapserver-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MapServer Integration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/content-curation/external-collection-indexing/featureserver-integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FeatureServer Integration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/content-curation/external-collection-indexing/wmts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Global Imagery Browse Services (GIBS) Integration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../user-guide/content-curation/dashboard-configuration/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dashboard Configuration</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/content-curation/dashboard-configuration/dataset-configuration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dataset Configuration</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/content-curation/dashboard-configuration/story-configuration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Story Configuration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../user-guide/content-curation/docs-and-notebooks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Usage Example Notebook Submission</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-12" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-12" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/templates/template-accessing-the-data-directly.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Template (Accessing data directly)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/templates/template-using-the-raster-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Template (Using the raster API)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Data Services</span></span>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false">
+ <span class="menu-text">Data Access and Data Management</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-14" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-14" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/data-services/data-store.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VEDA Data Store</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/data-services/data-ingestion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VEDA Data Ingestion Services</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/data-services/setup-keycloak.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Setting Up Keycloak</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/data-services/rstudio-s3-access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RStudio VEDA S3 Bucket Access</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../user-guide/data-services/apis/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">APIs</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-15" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-15" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/data-services/apis/raster-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Raster API Docs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/data-services/apis/stac-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">STAC API Docs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../user-guide/scientific-computing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Scientific Computing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-16" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-16" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/scientific-computing/code-server.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to use VS Code on the VEDA JupyterHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/scientific-computing/ssh.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to ssh into the VEDA JupyterHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/scientific-computing/github-authentication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to push to GitHub from the VEDA JupyterHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/scientific-computing/custom-environments.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to use a custom environment in the VEDA JupyterHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/scientific-computing/getting-access.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting access</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../user-guide/notebooks/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Usage Examples and Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="false">
+ <span class="menu-text">Quickstarts</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-18" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" role="navigation" aria-expanded="false">
+ <span class="menu-text">Accessing the Data Directly</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-19" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-19" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/quickstarts/list-collections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">List STAC collections</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/quickstarts/open-and-plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Open and plot COGs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/quickstarts/timeseries-rioxarray-stackstac.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calculate timeseries from COGs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/quickstarts/visualize-zarr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualize zarr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/quickstarts/visualize-multiple-times.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Open and visualize COGs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/quickstarts/downsample-zarr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Downsample zarr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/quickstarts/download-assets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Download STAC assets</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" role="navigation" aria-expanded="false">
+ <span class="menu-text">Using the Raster API</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-20" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-20" class="collapse list-unstyled sidebar-section depth4 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/quickstarts/no2-map-plot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get map from COGs - NO2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/quickstarts/timeseries-stac-api.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get timeseries from COGs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/quickstarts/hls-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get tiles from COGs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="false">
+ <span class="menu-text">Tutorials</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-21" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/tutorials/gif-generation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GIF generation using the TiTiler /cog/feature endpoint</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/tutorials/netcdf-to-cog-cmip6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Converting NetCDF to COG (CMIP6)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/tutorials/mapping-fires.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Get Fire Perimeters from an OGC API</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/tutorials/stac_ipyleaflet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using the stac_ipyleaflet mapping library</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/tutorials/zonal-statistics-validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calculating accurate zonal statistics with varying grid cell / pixel area</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" role="navigation" aria-expanded="false">
+ <span class="menu-text">Datasets</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-22" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-22" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/datasets/ocean-npp-timeseries-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualizing Ocean NPP time series for seasonal patterns</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/datasets/nceo-biomass-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualizing NCEO Aboveground Woody Biomass 2017 prioritization areas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/datasets/volcano-so2-monitoring.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Monitoring Volcanic Sulfur Dioxide Emissions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/datasets/air-quality-covid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Air Quality and COVID-19</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/datasets/nldas_time_series.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Creating Timeseries with NLDAS-3 Sample Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/datasets/nldas_compare2_3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Comparing NLDAS-2 and NLDAS-3 Precipitation Forcing Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" role="navigation" aria-expanded="false">
+ <span class="menu-text">Stories</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-23" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-23" class="collapse list-unstyled sidebar-section depth3 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/stories/derechos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NASA Data Fusion Analysis of Derechos and Their Impact on Rural America</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../open-source-ecosystem/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The VEDA Open Source Ecosystem</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-24" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-24" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../open-source-ecosystem/architecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Software Architecture</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../open-source-ecosystem/repositories.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VEDA Repositories</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../open-source-ecosystem/external-resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">External Resources</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../../open-source-ecosystem/creating-your-own-instance/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using VEDA For Your Own Team</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-25" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-25" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../open-source-ecosystem/creating-your-own-instance/creating-your-own-veda-dashboard.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How To Make Your Own Dashboard</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#environment-setup" id="toc-environment-setup" class="nav-link active" data-scroll-target="#environment-setup">Environment Setup</a></li>
+  <li><a href="#processing-steps" id="toc-processing-steps" class="nav-link" data-scroll-target="#processing-steps">Processing steps:</a></li>
+  <li><a href="#choose-variable-and-retrieve-json-from-veda-stac-catalogue" id="toc-choose-variable-and-retrieve-json-from-veda-stac-catalogue" class="nav-link" data-scroll-target="#choose-variable-and-retrieve-json-from-veda-stac-catalogue">Choose variable and retrieve json from VEDA STAC catalogue</a></li>
+  <li><a href="#plot-data" id="toc-plot-data" class="nav-link" data-scroll-target="#plot-data">Plot data</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.dev/nasa-impact/veda-docs/blob/main/user-guide/notebooks/tutorials/fancy-mapping-tutorial.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Run This Notebook</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 9, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<h3 class="anchored">
+<a href="https://hub.openveda.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&amp;urlpath=lab/tree/veda-docs/user-guide/notebooks/stories/tornadoes_2024_notebook.ipynb&amp;branch=main">🚀 Launch in VEDA JupyterHub (requires access)</a>
+</h3>
+<h4 class="anchored">
+To obtain credentials to VEDA Hub, <a href="https://docs.openveda.cloud/user-guide/scientific-computing/getting-access.html"> follow this link for more information.</a>
+</h4>
+<div class="alert alert-block" style="
+     background-color: #f8d7da;
+     color: #721c24;
+     border-left: 4px solid #28a745;
+  ">
+Disclaimer: it is highly recommended to run a tutorial within NASA VEDA JupyterHub, which already includes functions for processing and visualizing data specific to VEDA stories. Running the tutorial outside of the VEDA JupyterHub may lead to errors, specifically related to EarthData authentication. Additionally, it is recommended to use the Pangeo workspace within the VEDA JupyterHub, since certain packages relevant to this tutorial are already installed.
+</div>
+<h4 class="anchored">
+If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch this notebook on your local environment using MyBinder by clicking the icon below.
+</h4>
+<p><br> <a href="https://binder.openveda.cloud/v2/gh/NASA-IMPACT/veda-docs/9c8cdbae92906fb7062b8a0c759dad90e223a4f9?urlpath=lab%2Ftree%2Fuser-guide%2Fnotebooks%2Fstories%2Fderechos.ipynb"> <img src="https://binder.openveda.cloud/badge_logo.svg" alt="Binder" title="A cute binder" width="150"> </a></p>
+<section id="environment-setup" class="level2">
+<h2 class="anchored" data-anchor-id="environment-setup">Environment Setup</h2>
+<p>If running this notebook outside of the VEDA JupyterHub, install the following packages:</p>
+<div id="ec1de5e8-a5c7-48f6-bf76-15ecda6ea98c" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotutils <span class="im">as</span> putils</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="31f75db5-cc3e-4c9d-b3a7-0bab3aaa0a3b" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For retrieving data already catalogued in VEDA STAC</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>STAC_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/stac"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>RASTER_API_URL <span class="op">=</span> <span class="st">"https://openveda.cloud/api/raster"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Open STAC client designed for interacting with SpatioTemporal Asset Catalog (STAC) APIs and Catalogs</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>client_STAC <span class="op">=</span> Client.<span class="bu">open</span>(STAC_API_URL)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This example will show how to create an interactive mapping experience similar to what is used in the VEDA environment. Using an example dataset from the VEDA STAC catalog, this notebook utilizes the Folium package to create this experience.</p>
+</section>
+<section id="processing-steps" class="level2">
+<h2 class="anchored" data-anchor-id="processing-steps">Processing steps:</h2>
+<p>1.) Choose collection ID from the STAC catalog and date for analysis<br> 2.) Retrieve collection information and items from VEDA STAC catalog<br> 3.) Retrieve item statistics and tiling information<br> 4.) Plot data<br></p>
+</section>
+<section id="choose-variable-and-retrieve-json-from-veda-stac-catalogue" class="level2">
+<h2 class="anchored" data-anchor-id="choose-variable-and-retrieve-json-from-veda-stac-catalogue">Choose variable and retrieve json from VEDA STAC catalogue</h2>
+<div id="5cee838d-6182-4a73-88bf-3e5001e1e0e6" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>collection_id <span class="op">=</span> <span class="st">"landslides-ndvi"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> <span class="st">"2024-10-12"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> client_STAC.search(collections<span class="op">=</span>[collection_id], datetime<span class="op">=</span>date)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Collection Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>items <span class="op">=</span> <span class="bu">list</span>(results.items())</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(items) <span class="op">!=</span> <span class="dv">0</span>, <span class="st">"No items found"</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>item <span class="op">=</span> items[<span class="dv">0</span>]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> item.get_collection()</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the dashboard render block</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>dashboard_render <span class="op">=</span> collection.extra_fields[<span class="st">"renders"</span>][<span class="st">"dashboard"</span>]</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>assets <span class="op">=</span> dashboard_render[<span class="st">"assets"</span>][<span class="dv">0</span>]</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>((vmin, vmax),) <span class="op">=</span> dashboard_render[<span class="st">"rescale"</span>]</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>collection</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+
+
+<style>
+.pystac-summary {
+    cursor: pointer;
+    display: list-item;
+    list-style: revert;
+    margin-bottom: 0 !important;
+
+    .pystac-l {
+        padding-left: 0.5em;
+        color: rgb(64, 128, 128);
+        font-style: italic;
+    }
+}
+.pystac-row {
+    overflow-wrap: break-word;
+    padding-left: .825em;
+
+    .pystac-k {
+        display: inline-block;
+        margin: 0px 0.5em 0px 0px;
+    }
+    .pystac-v {
+        color: rgb(186, 33, 33);
+    }
+}
+.pystac-k {
+    color: rgb(0, 128, 0);
+    font-weight: 700;
+}
+.pystac-wrap {
+  display: block !important;
+}
+.pystac-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+</style>
+<div>
+<div class="pystac-text-repr-fallback">
+    &lt;CollectionClient id=landslides-ndvi&gt;
+</div>
+<div class="jp-RenderedJSON jp-mod-trusted jp-OutputArea-output pystac-wrap" style="display:none">
+    <div class="container" style="line-height: normal;">
+        <ul style="padding: 0px; margin: 0px; list-style: none; display: block;">
+            
+                
+                    
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"Collection"</span>
+        </li>
+    
+                
+            
+                
+                    
+        <li class="pystac-row">
+            <span class="pystac-k">id</span>
+            <span class="pystac-v">"landslides-ndvi"</span>
+        </li>
+    
+                
+            
+                
+                    
+        <li class="pystac-row">
+            <span class="pystac-k">stac_version</span>
+            <span class="pystac-v">"1.1.0"</span>
+        </li>
+    
+                
+            
+                
+                    
+        <li class="pystac-row">
+            <span class="pystac-k">description</span>
+            <span class="pystac-v">"Normalized Difference Vegetation Index (NDVI) differences post minus pre-Helene in the Southern Appalachia region. This index was computed from Sentinel 2 data at 10m spatial resolution."</span>
+        </li>
+    
+                
+            
+                
+                    <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">links</span><span class="pystac-l">[] 5 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">0</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"items"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://openveda.cloud/api/stac/collections/landslides-ndvi/items"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/geo+json"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">1</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"parent"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://openveda.cloud/api/stac/"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">2</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"root"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://openveda.cloud/api/stac"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"VEDA (Visualization, Exploration, and Data Analysis) STAC API"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">3</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"http://www.opengis.net/def/rel/ogc/1.0/queryables"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://openveda.cloud/api/stac/collections/landslides-ndvi/queryables"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/schema+json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Queryables"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">4</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"self"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://openveda.cloud/api/stac/collections/landslides-ndvi"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+                
+            
+                
+                    <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">stac_extensions</span><span class="pystac-l">[] 1 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">"https://stac-extensions.github.io/render/v1.0.0/schema.json"</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+                
+            
+                
+                    
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">renders</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">dashboard</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">bidx</span><span class="pystac-l">[] 1 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">1</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">assets</span><span class="pystac-l">[] 1 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">"cog_default"</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">nodata</span>
+            <span class="pystac-v">"3.4028235e+38"</span>
+        </li>
+    
+            
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">rescale</span><span class="pystac-l">[] 1 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">0</span><span class="pystac-l">[] 2 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">-0.5</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">0.5</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">resampling</span>
+            <span class="pystac-v">"bilinear"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">colormap_name</span>
+            <span class="pystac-v">"coolwarm_r"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+                
+            
+                
+                    
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">item_assets</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">cog_default</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"image/tiff; application=geotiff; profile=cloud-optimized"</span>
+        </li>
+    
+            
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">roles</span><span class="pystac-l">[] 2 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">"data"</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">"layer"</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Default COG Layer"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">description</span>
+            <span class="pystac-v">"Cloud optimized default layer to display on map"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+                
+            
+                
+                    
+        <li class="pystac-row">
+            <span class="pystac-k">datetime_range</span>
+            <span class="pystac-v">"day"</span>
+        </li>
+    
+                
+            
+                
+                    
+        <li class="pystac-row">
+            <span class="pystac-k">dashboard:is_periodic</span>
+            <span class="pystac-v">False</span>
+        </li>
+    
+                
+            
+                
+                    
+        <li class="pystac-row">
+            <span class="pystac-k">dashboard:time_density</span>
+            <span class="pystac-v">"day"</span>
+        </li>
+    
+                
+            
+                
+                    
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"S2 NDVI Difference - Hurricane Helene"</span>
+        </li>
+    
+                
+            
+                
+                    
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">extent</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">spatial</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">bbox</span><span class="pystac-l">[] 1 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">0</span><span class="pystac-l">[] 4 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">-84.37131820919367</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">34.20966703314409</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">2</span>
+            <span class="pystac-v">-80.89024067922162</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">3</span>
+            <span class="pystac-v">37.04653228059104</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">temporal</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">interval</span><span class="pystac-l">[] 1 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">0</span><span class="pystac-l">[] 2 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">"2024-10-12T00:00:00Z"</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">1</span>
+            <span class="pystac-v">"2024-10-12T23:59:59Z"</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+                
+            
+                
+                    
+        <li class="pystac-row">
+            <span class="pystac-k">license</span>
+            <span class="pystac-v">"CC0-1.0"</span>
+        </li>
+    
+                
+            
+                
+                    <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">providers</span><span class="pystac-l">[] 1 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">0</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">name</span>
+            <span class="pystac-v">"NASA VEDA"</span>
+        </li>
+    
+            
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">roles</span><span class="pystac-l">[] 1 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">"host"</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">url</span>
+            <span class="pystac-v">"https://www.earthdata.nasa.gov/dashboard/"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+                
+            
+                
+                    
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">summaries</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">datetime</span><span class="pystac-l">[] 1 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">"2024-10-12T00:00:00Z"</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        </details></li>
+    
+                
+            
+                
+                    
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">assets</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">thumbnail</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://thumbnails.openveda.cloud/landslides-background.png"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"image/png"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Thumbnail"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">description</span>
+            <span class="pystac-v">"Landslide blocks I-40 in North Carolina post-Helene."</span>
+        </li>
+    
+            
+        
+            
+                <li><details>
+        <summary class="pystac-summary"><span class="pystac-k">roles</span><span class="pystac-l">[] 1 items</span></summary>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">0</span>
+            <span class="pystac-v">"thumbnail"</span>
+        </li>
+    
+            
+        
+    </ul>
+        
+    </details></li>
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+                
+            
+        </ul>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<div id="b6072940-bfd6-4de5-aa6f-2399b6f04b01" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── VEDA Tile Request ─────────────────────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>colormap_name <span class="op">=</span> <span class="st">"coolwarm_r"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Build endpoint URL without worrying about trailing slashes</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"</span><span class="sc">{</span>RASTER_API_URL<span class="sc">.</span>rstrip(<span class="st">'/'</span>)<span class="sc">}</span><span class="ss">/collections/</span><span class="sc">{</span>collection_id<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"/items/</span><span class="sc">{</span>item<span class="sc">.</span><span class="bu">id</span><span class="sc">}</span><span class="ss">/WebMercatorQuad/tilejson.json?"</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;assets=</span><span class="sc">{</span>assets<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;color_formula=gamma+r+1.05&amp;colormap_name=</span><span class="sc">{</span>colormap_name<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"&amp;rescale=</span><span class="sc">{</span>vmin<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>vmax<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>response.raise_for_status()</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>tiles <span class="op">=</span> response.json()</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tiles)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'tilejson': '2.2.0', 'version': '1.0.0', 'scheme': 'xyz', 'tiles': ['https://openveda.cloud/api/raster/collections/landslides-ndvi/items/S2_NDVI_Diff_2024-10-12/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default&amp;color_formula=gamma+r+1.05&amp;colormap_name=coolwarm_r&amp;rescale=-0.5%2C0.5'], 'minzoom': 0, 'maxzoom': 24, 'bounds': [-84.37131820919367, 34.20966703314409, -80.89024067922162, 37.04653228059104], 'center': [-82.63077944420765, 35.62809965686756, 0]}</code></pre>
+</div>
+</div>
+</section>
+<section id="plot-data" class="level2">
+<h2 class="anchored" data-anchor-id="plot-data">Plot data</h2>
+<div id="73ceb0c1-74b3-4924-80c9-ac4c61fadd5f" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First we will present the different basemaps that we have access to underlay beneath our tile requests</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For the first map, we will utilize the 'esri-satellite-labels' map layer</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>putils.get_available_basemaps()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="88cdb033-48fc-42fd-b07d-04099f827e0a" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the new plot_folium_from_VEDA_STAC function</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> putils.plot_folium_from_VEDA_STAC(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    tiles_url_template<span class="op">=</span>tiles[<span class="st">"tiles"</span>][<span class="dv">0</span>],</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    center_coords<span class="op">=</span>[<span class="fl">35.44368</span>, <span class="op">-</span><span class="fl">82.26868</span>],</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    zoom_level<span class="op">=</span><span class="fl">12.5</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    rescale<span class="op">=</span>(vmin, vmax),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    colormap_name<span class="op">=</span>colormap_name,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    capitalize_cmap<span class="op">=</span><span class="va">False</span>,  <span class="co"># to better match VEDA colors and matplotlib colors</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    layer_name<span class="op">=</span><span class="st">"Sentinel 2 NDVI Difference: Hurricane Helene"</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    date<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>date<span class="sc">}</span><span class="ss">T00:00:00Z"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    colorbar_caption<span class="op">=</span><span class="st">"Normalized Difference Vegetation Index (Difference)"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    attribution<span class="op">=</span><span class="st">"Sentinel 2 NDVI Difference: Hurricane Helene"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    tile_name<span class="op">=</span><span class="st">"Sentinel 2 NDVI Difference: Hurricane Helene"</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="st">"800px"</span>,</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    basemap_style<span class="op">=</span><span class="st">"cartodb-positron"</span>  <span class="co"># Use light basemap for good contrast</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Visualization of vegetation damage done by Hurricane Helene in western North Caroline in September 2024."</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the map</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Visualization of vegetation damage done by Hurricane Helene in western North Caroline in September 2024.</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div style="width:100%;"><div style="position:relative;width:100%;height:0;padding-bottom:60%;"><span style="color:#565656">Make this Notebook Trusted to load map: File -&gt; Trust Notebook</span><iframe srcdoc="<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; />
+    <script src=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js&quot;></script>
+    <script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;></script>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js&quot;></script>
+    <script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js&quot;></script>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css&quot;/>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css&quot;/>
+    
+            <meta name=&quot;viewport&quot; content=&quot;width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot; />
+            <style>
+                #map_7800b3f3f4536250884cf62ec1391973 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 800.0px;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div style=&quot;
+                position: fixed;
+                top: 60px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1000;
+                background: white;
+                padding: 15px 20px 10px 20px;
+                border-radius: 4px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            &quot;>
+                <div style=&quot;
+                    position: relative;
+                    width: 450px;
+                    height: 15px;
+                    background: linear-gradient(to right, rgba(179, 3, 38, 1) 0.0%, rgba(182, 13, 40, 1) 1.0101010101010102%, rgba(187, 26, 43, 1) 2.0202020202020203%, rgba(190, 35, 45, 1) 3.0303030303030303%, rgba(194, 45, 49, 1) 4.040404040404041%, rgba(197, 50, 51, 1) 5.05050505050505%, rgba(201, 59, 55, 1) 6.0606060606060606%, rgba(205, 66, 58, 1) 7.07070707070707%, rgba(207, 70, 61, 1) 8.080808080808081%, rgba(211, 77, 64, 1) 9.090909090909092%, rgba(214, 82, 67, 1) 10.1010101010101%, rgba(217, 88, 71, 1) 11.11111111111111%, rgba(220, 94, 75, 1) 12.121212121212121%, rgba(222, 98, 78, 1) 13.131313131313133%, rgba(225, 104, 82, 1) 14.14141414141414%, rgba(227, 108, 84, 1) 15.151515151515152%, rgba(230, 114, 89, 1) 16.161616161616163%, rgba(231, 117, 92, 1) 17.17171717171717%, rgba(234, 123, 96, 1) 18.181818181818183%, rgba(236, 128, 100, 1) 19.19191919191919%, rgba(237, 132, 103, 1) 20.2020202020202%, rgba(239, 137, 108, 1) 21.21212121212121%, rgba(240, 141, 111, 1) 22.22222222222222%, rgba(242, 145, 115, 1) 23.232323232323232%, rgba(243, 150, 120, 1) 24.242424242424242%, rgba(244, 154, 123, 1) 25.252525252525253%, rgba(245, 158, 127, 1) 26.262626262626267%, rgba(245, 161, 130, 1) 27.27272727272727%, rgba(246, 166, 135, 1) 28.28282828282828%, rgba(246, 169, 138, 1) 29.292929292929294%, rgba(247, 173, 143, 1) 30.303030303030305%, rgba(247, 177, 148, 1) 31.313131313131315%, rgba(247, 179, 151, 1) 32.323232323232325%, rgba(246, 183, 156, 1) 33.33333333333333%, rgba(246, 186, 159, 1) 34.34343434343434%, rgba(246, 189, 164, 1) 35.35353535353536%, rgba(245, 193, 168, 1) 36.36363636363637%, rgba(244, 195, 171, 1) 37.37373737373738%, rgba(243, 198, 176, 1) 38.38383838383838%, rgba(242, 200, 179, 1) 39.39393939393939%, rgba(241, 203, 184, 1) 40.4040404040404%, rgba(239, 206, 188, 1) 41.41414141414141%, rgba(237, 207, 192, 1) 42.42424242424242%, rgba(236, 210, 196, 1) 43.43434343434344%, rgba(234, 211, 199, 1) 44.44444444444444%, rgba(231, 214, 204, 1) 45.45454545454545%, rgba(230, 215, 207, 1) 46.464646464646464%, rgba(227, 217, 211, 1) 47.474747474747474%, rgba(224, 218, 215, 1) 48.484848484848484%, rgba(222, 219, 218, 1) 49.494949494949495%, rgba(219, 220, 222, 1) 50.505050505050505%, rgba(217, 220, 224, 1) 51.515151515151516%, rgba(214, 219, 228, 1) 52.52525252525253%, rgba(210, 218, 231, 1) 53.535353535353536%, rgba(208, 218, 233, 1) 54.54545454545454%, rgba(205, 217, 236, 1) 55.55555555555556%, rgba(202, 216, 238, 1) 56.56565656565656%, rgba(199, 214, 240, 1) 57.57575757575758%, rgba(197, 213, 242, 1) 58.58585858585859%, rgba(193, 212, 244, 1) 59.59595959595959%, rgba(189, 210, 246, 1) 60.60606060606061%, rgba(187, 209, 247, 1) 61.61616161616161%, rgba(183, 207, 249, 1) 62.62626262626263%, rgba(180, 205, 250, 1) 63.63636363636363%, rgba(176, 203, 251, 1) 64.64646464646465%, rgba(172, 200, 252, 1) 65.65656565656566%, rgba(170, 198, 253, 1) 66.66666666666666%, rgba(166, 195, 253, 1) 67.67676767676768%, rgba(163, 193, 254, 1) 68.68686868686868%, rgba(159, 190, 254, 1) 69.6969696969697%, rgba(155, 187, 254, 1) 70.70707070707071%, rgba(152, 185, 254, 1) 71.71717171717171%, rgba(148, 181, 254, 1) 72.72727272727273%, rgba(145, 179, 254, 1) 73.73737373737373%, rgba(141, 175, 253, 1) 74.74747474747475%, rgba(138, 173, 253, 1) 75.75757575757575%, rgba(134, 169, 252, 1) 76.76767676767676%, rgba(130, 165, 251, 1) 77.77777777777779%, rgba(127, 162, 250, 1) 78.78787878787878%, rgba(123, 158, 248, 1) 79.7979797979798%, rgba(120, 155, 247, 1) 80.8080808080808%, rgba(116, 151, 245, 1) 81.81818181818183%, rgba(112, 147, 243, 1) 82.82828282828282%, rgba(109, 144, 241, 1) 83.83838383838383%, rgba(105, 139, 239, 1) 84.84848484848484%, rgba(103, 136, 237, 1) 85.85858585858585%, rgba(99, 131, 234, 1) 86.86868686868688%, rgba(96, 128, 232, 1) 87.87878787878788%, rgba(92, 123, 229, 1) 88.88888888888889%, rgba(88, 118, 226, 1) 89.8989898989899%, rgba(86, 115, 224, 1) 90.9090909090909%, rgba(82, 110, 220, 1) 91.91919191919192%, rgba(80, 107, 218, 1) 92.92929292929293%, rgba(76, 102, 214, 1) 93.93939393939394%, rgba(72, 96, 209, 1) 94.94949494949495%, rgba(70, 93, 207, 1) 95.95959595959596%, rgba(66, 88, 202, 1) 96.96969696969697%, rgba(64, 84, 199, 1) 97.97979797979798%, rgba(60, 79, 195, 1) 98.98989898989899%, rgba(58, 76, 192, 1) 100.0%);
+                    border: 1px solid black;
+                    margin: 0 auto;
+                &quot;>
+                    <div style=&quot;position: relative; width: 100%; height: 100%;&quot;>
+                        
+                    <div style=&quot;
+                        position: absolute;
+                        left: 0.0%;
+                        top: 0;
+                        width: 1px;
+                        height: 8px;
+                        background: black;
+                    &quot;></div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 10.0%;
+                        top: 0;
+                        width: 1px;
+                        height: 8px;
+                        background: black;
+                    &quot;></div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 20.0%;
+                        top: 0;
+                        width: 1px;
+                        height: 8px;
+                        background: black;
+                    &quot;></div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 30.0%;
+                        top: 0;
+                        width: 1px;
+                        height: 8px;
+                        background: black;
+                    &quot;></div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 40.0%;
+                        top: 0;
+                        width: 1px;
+                        height: 8px;
+                        background: black;
+                    &quot;></div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 50.0%;
+                        top: 0;
+                        width: 1px;
+                        height: 8px;
+                        background: black;
+                    &quot;></div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 60.0%;
+                        top: 0;
+                        width: 1px;
+                        height: 8px;
+                        background: black;
+                    &quot;></div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 70.0%;
+                        top: 0;
+                        width: 1px;
+                        height: 8px;
+                        background: black;
+                    &quot;></div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 80.0%;
+                        top: 0;
+                        width: 1px;
+                        height: 8px;
+                        background: black;
+                    &quot;></div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 90.0%;
+                        top: 0;
+                        width: 1px;
+                        height: 8px;
+                        background: black;
+                    &quot;></div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 100.0%;
+                        top: 0;
+                        width: 1px;
+                        height: 8px;
+                        background: black;
+                    &quot;></div>
+                
+                    </div>
+                    <div style=&quot;position: relative; width: 100%; height: 30px;&quot;>
+                        
+                    <div style=&quot;
+                        position: absolute;
+                        left: 0.0%;
+                        transform: translateX(-50%);
+                        top: 10px;
+                        font-size: 11px;
+                        white-space: nowrap;
+                    &quot;>-0.50</div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 10.0%;
+                        transform: translateX(-50%);
+                        top: 10px;
+                        font-size: 11px;
+                        white-space: nowrap;
+                    &quot;>-0.40</div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 20.0%;
+                        transform: translateX(-50%);
+                        top: 10px;
+                        font-size: 11px;
+                        white-space: nowrap;
+                    &quot;>-0.30</div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 30.0%;
+                        transform: translateX(-50%);
+                        top: 10px;
+                        font-size: 11px;
+                        white-space: nowrap;
+                    &quot;>-0.20</div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 40.0%;
+                        transform: translateX(-50%);
+                        top: 10px;
+                        font-size: 11px;
+                        white-space: nowrap;
+                    &quot;>-0.10</div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 50.0%;
+                        transform: translateX(-50%);
+                        top: 10px;
+                        font-size: 11px;
+                        white-space: nowrap;
+                    &quot;>0</div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 60.0%;
+                        transform: translateX(-50%);
+                        top: 10px;
+                        font-size: 11px;
+                        white-space: nowrap;
+                    &quot;>0.10</div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 70.0%;
+                        transform: translateX(-50%);
+                        top: 10px;
+                        font-size: 11px;
+                        white-space: nowrap;
+                    &quot;>0.20</div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 80.0%;
+                        transform: translateX(-50%);
+                        top: 10px;
+                        font-size: 11px;
+                        white-space: nowrap;
+                    &quot;>0.30</div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 90.0%;
+                        transform: translateX(-50%);
+                        top: 10px;
+                        font-size: 11px;
+                        white-space: nowrap;
+                    &quot;>0.40</div>
+                
+                    <div style=&quot;
+                        position: absolute;
+                        left: 100.0%;
+                        transform: translateX(-50%);
+                        top: 10px;
+                        font-size: 11px;
+                        white-space: nowrap;
+                    &quot;>0.50</div>
+                
+                    </div>
+                </div>
+                <div style=&quot;text-align: center; margin-top: 25px; font-size: 12px;&quot;>
+                    Normalized Difference Vegetation Index (Difference)
+                </div>
+            </div>
+            
+    
+    <div style=&quot;
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        font-size: 18px;
+        font-weight: bold;
+        background: rgba(255,255,255,0.8);
+        padding: 8px 20px;
+        min-width: 750px;
+        text-align: center;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    &quot;>
+        Sentinel 2 NDVI Difference: Hurricane Helene — October 12, 2024
+    </div>
+    
+    
+            <div class=&quot;folium-map&quot; id=&quot;map_7800b3f3f4536250884cf62ec1391973&quot; ></div>
+        
+</body>
+<script>
+    
+    
+            var map_7800b3f3f4536250884cf62ec1391973 = L.map(
+                &quot;map_7800b3f3f4536250884cf62ec1391973&quot;,
+                {
+                    center: [35.44368, -82.26868],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  &quot;zoom&quot;: 12.5,
+  &quot;zoomControl&quot;: true,
+  &quot;preferCanvas&quot;: false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_7800b3f3f4536250884cf62ec1391973);
+
+            
+
+        
+    
+            var tile_layer_4bcbbcd83543cfd7dea690c4b9232981 = L.tileLayer(
+                &quot;https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png&quot;,
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 20,
+  &quot;maxNativeZoom&quot;: 20,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;\u0026copy; \u003ca href=\&quot;https://www.openstreetmap.org/copyright\&quot;\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\&quot;https://carto.com/attributions\&quot;\u003eCARTO\u003c/a\u003e&quot;,
+  &quot;subdomains&quot;: &quot;abcd&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 1,
+}
+
+            );
+        
+    
+            tile_layer_4bcbbcd83543cfd7dea690c4b9232981.addTo(map_7800b3f3f4536250884cf62ec1391973);
+        
+    
+            var tile_layer_567337cb30fbdc7fa4dbaff325823d7f = L.tileLayer(
+                &quot;https://openveda.cloud/api/raster/collections/landslides-ndvi/items/S2_NDVI_Diff_2024-10-12/tiles/WebMercatorQuad/{z}/{x}/{y}@1x?assets=cog_default\u0026color_formula=gamma+r+1.05\u0026colormap_name=coolwarm_r\u0026rescale=-0.5%2C0.5&quot;,
+                {
+  &quot;minZoom&quot;: 0,
+  &quot;maxZoom&quot;: 18,
+  &quot;maxNativeZoom&quot;: 18,
+  &quot;noWrap&quot;: false,
+  &quot;attribution&quot;: &quot;Sentinel 2 NDVI Difference: Hurricane Helene&quot;,
+  &quot;subdomains&quot;: &quot;abc&quot;,
+  &quot;detectRetina&quot;: false,
+  &quot;tms&quot;: false,
+  &quot;opacity&quot;: 0.8,
+}
+
+            );
+        
+    
+            tile_layer_567337cb30fbdc7fa4dbaff325823d7f.addTo(map_7800b3f3f4536250884cf62ec1391973);
+        
+    
+            var layer_control_a28e4f91396f98f54cd593838236c132_layers = {
+                base_layers : {
+                    &quot;CartoDB Positron&quot; : tile_layer_4bcbbcd83543cfd7dea690c4b9232981,
+                },
+                overlays :  {
+                    &quot;Sentinel 2 NDVI Difference: Hurricane Helene&quot; : tile_layer_567337cb30fbdc7fa4dbaff325823d7f,
+                },
+            };
+            let layer_control_a28e4f91396f98f54cd593838236c132 = L.control.layers(
+                layer_control_a28e4f91396f98f54cd593838236c132_layers.base_layers,
+                layer_control_a28e4f91396f98f54cd593838236c132_layers.overlays,
+                {
+  &quot;position&quot;: &quot;topright&quot;,
+  &quot;collapsed&quot;: true,
+  &quot;autoZIndex&quot;: true,
+}
+            ).addTo(map_7800b3f3f4536250884cf62ec1391973);
+
+        
+</script>
+</html>" style="position:absolute;width:100%;height:100%;left:0;top:0;border:none !important;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe></div></div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/docs\.openveda\.cloud");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© CC-By NASA, 2022-2024</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/nasa-impact/veda-docs/blob/main/user-guide/notebooks/tutorials/fancy-mapping-tutorial.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
