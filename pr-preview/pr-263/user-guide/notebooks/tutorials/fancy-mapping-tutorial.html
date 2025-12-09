@@ -65,6 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
+<link href="../../../user-guide/notebooks/datasets/ocean-npp-timeseries-analysis.html" rel="next">
+<link href="../../../user-guide/notebooks/tutorials/zonal-statistics-validation.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -287,7 +289,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Run This Notebook</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../user-guide/index.html">User Guide</a></li><li class="breadcrumb-item"><a href="../../../user-guide/notebooks/index.html">Usage Examples and Tutorials</a></li><li class="breadcrumb-item"><a href="../../../user-guide/notebooks/tutorials/gif-generation.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../../user-guide/notebooks/tutorials/fancy-mapping-tutorial.html">Run This Notebook</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -701,11 +703,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../../user-guide/notebooks/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Usage Examples and Tutorials</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-17" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-17" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-18" role="navigation" aria-expanded="false">
@@ -801,13 +803,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="true">
  <span class="menu-text">Tutorials</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-21" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-21" class="collapse list-unstyled sidebar-section depth3 ">  
+      <ul id="quarto-sidebar-section-21" class="collapse list-unstyled sidebar-section depth3 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../user-guide/notebooks/tutorials/gif-generation.html" class="sidebar-item-text sidebar-link">
@@ -836,6 +838,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../../user-guide/notebooks/tutorials/zonal-statistics-validation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Calculating accurate zonal statistics with varying grid cell / pixel area</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../user-guide/notebooks/tutorials/fancy-mapping-tutorial.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Run This Notebook</span></a>
   </div>
 </li>
       </ul>
@@ -976,7 +984,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../user-guide/index.html">User Guide</a></li><li class="breadcrumb-item"><a href="../../../user-guide/notebooks/index.html">Usage Examples and Tutorials</a></li><li class="breadcrumb-item"><a href="../../../user-guide/notebooks/tutorials/gif-generation.html">Tutorials</a></li><li class="breadcrumb-item"><a href="../../../user-guide/notebooks/tutorials/fancy-mapping-tutorial.html">Run This Notebook</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Run This Notebook</h1>
 </div>
@@ -1002,7 +1010,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <h3 class="anchored">
-<a href="https://hub.openveda.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&amp;urlpath=lab/tree/veda-docs/user-guide/notebooks/stories/tornadoes_2024_notebook.ipynb&amp;branch=main">🚀 Launch in VEDA JupyterHub (requires access)</a>
+<a href="https://hub.openveda.cloud/hub/user-redirect/git-pull?repo=https://github.com/NASA-IMPACT/veda-docs&amp;urlpath=lab/tree/veda-docs/user-guide/notebooks/tutorials/fancy-mapping-tutorial.ipynb&amp;branch=main">🚀 Launch in VEDA JupyterHub (requires access)</a>
 </h3>
 <h4 class="anchored">
 To obtain credentials to VEDA Hub, <a href="https://docs.openveda.cloud/user-guide/scientific-computing/getting-access.html"> follow this link for more information.</a>
@@ -1017,7 +1025,7 @@ Disclaimer: it is highly recommended to run a tutorial within NASA VEDA JupyterH
 <h4 class="anchored">
 If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch this notebook on your local environment using MyBinder by clicking the icon below.
 </h4>
-<p><br> <a href="https://binder.openveda.cloud/v2/gh/NASA-IMPACT/veda-docs/9c8cdbae92906fb7062b8a0c759dad90e223a4f9?urlpath=lab%2Ftree%2Fuser-guide%2Fnotebooks%2Fstories%2Fderechos.ipynb"> <img src="https://binder.openveda.cloud/badge_logo.svg" alt="Binder" title="A cute binder" width="150"> </a></p>
+<p><br> <a href="https://binder.openveda.cloud/v2/gh/NASA-IMPACT/veda-docs/9c8cdbae92906fb7062b8a0c759dad90e223a4f9?urlpath=lab%2Ftree%2Fuser-guide%2Fnotebooks%2Ftutorials%2Ffancy-mapping-tutorial.ipynb"> <img src="https://binder.openveda.cloud/badge_logo.svg" alt="Binder" title="A cute binder" width="150"> </a></p>
 <section id="environment-setup" class="level2">
 <h2 class="anchored" data-anchor-id="environment-setup">Environment Setup</h2>
 <p>If running this notebook outside of the VEDA JupyterHub, install the following packages:</p>
@@ -2855,6 +2863,18 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
     }
   });
   </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../user-guide/notebooks/tutorials/zonal-statistics-validation.html" class="pagination-link" aria-label="Calculating accurate zonal statistics with varying grid cell / pixel area">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Calculating accurate zonal statistics with varying grid cell / pixel area</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../user-guide/notebooks/datasets/ocean-npp-timeseries-analysis.html" class="pagination-link" aria-label="Visualizing Ocean NPP time series for seasonal patterns">
+        <span class="nav-page-text">Visualizing Ocean NPP time series for seasonal patterns</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
