@@ -323,7 +323,7 @@
     "href": "user-guide/notebooks/templates/template-accessing-the-data-directly.html#read-data",
     "title": "Template (Accessing data directly)",
     "section": "Read data",
-    "text": "Read data\nCreate an xarray.DataSet using stackstac\n\nimport pandas as pd\nimport rasterio as rio\n\n\n# workaround for lack of stackstac support for projection extension v2\nda = stackstac.stack(item_collection, epsg=4326)\n\n# assign the time coordinate to the start time\nda = da.assign_coords({\"time\": pd.to_datetime(da.start_datetime)})\n\nda",
+    "text": "Read data\nCreate an xarray.DataSet using stackstac\n\nimport pandas as pd\n\n\n# workaround for lack of stackstac support for projection extension v2\nda = stackstac.stack(item_collection, epsg=4326)\n\n# assign the time coordinate to the start time\nda = da.assign_coords({\"time\": pd.to_datetime(da.start_datetime)})\n\nda",
     "crumbs": [
       "User Guide",
       "Content Curation",
