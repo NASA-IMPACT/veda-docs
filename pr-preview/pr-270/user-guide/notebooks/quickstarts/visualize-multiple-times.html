@@ -1707,7 +1707,7 @@ if (window.Jupyter !== undefined) {
 </section>
 <section id="read-data" class="level2">
 <h2 class="anchored" data-anchor-id="read-data">Read data</h2>
-<p>Create an <code>xarray.DataArray</code> using <code>odc-stac</code></p>
+<p>Create an <code>xarray.DataArray</code> using <code>odc-stac</code>. Geopolygon being set will result in the dataset / data array only being loaded bounded by the bbox of the geopolygon.</p>
 <div id="63322407-16d3-471a-9cac-3716a7bd33e1" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> odc.stac.load(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    item_collection,</span>
@@ -2322,6 +2322,7 @@ Attributes:
 </section>
 <section id="clip-the-data-to-aoi" class="level2">
 <h2 class="anchored" data-anchor-id="clip-the-data-to-aoi">Clip the data to AOI</h2>
+<p>This will mask the raster by the geometry shape itself</p>
 <div id="63ea5ffb-dde5-418f-a3cd-4f3a5e815625" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>subset <span class="op">=</span> da.rio.clip([france_aoi[<span class="st">"geometry"</span>]])</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>subset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
