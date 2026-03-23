@@ -1716,15 +1716,39 @@
     ]
   },
   {
-    "objectID": "user-guide/data-services/setup-keycloak.html",
-    "href": "user-guide/data-services/setup-keycloak.html",
-    "title": "Setting Up Keycloak",
+    "objectID": "user-guide/data-services/login-keycloak.html",
+    "href": "user-guide/data-services/login-keycloak.html",
+    "title": "Logging in with Keycloak",
     "section": "",
-    "text": "Users can authenticate to access VEDA services such as JupyterHub, APIs, Monitoring or Ingest UI using Keycloak. Once you successfully log in you will need to contact a member of the VEDA Data Services Team at veda@uah.edu who can set up permissions for your account.\nWhen logging into a service, users will be redirected to CILogon to choose an identity provider. We recommend you use your work or educational institution email.\n\n\n\nCI Logon Example",
+    "text": "VEDA uses Keycloak as its identity and access management system across all services. Rather than maintaining separate credentials for each tool, Keycloak provides a single authentication layer that integrates with CILogon, allowing you to log in using your existing institutional or organizational identity provider.\nThe following VEDA services are protected by Keycloak:\nWhen you log in to any of these services, you are redirected to CILogon to select your identity provider. Keycloak automatically pulls your user information (username, email, first name, last name) from CILogon to create your account.",
     "crumbs": [
       "User Guide",
       "Data Access and Data Management",
-      "Setting Up Keycloak"
+      "Logging in with Keycloak"
+    ]
+  },
+  {
+    "objectID": "user-guide/data-services/login-keycloak.html#account-creation-and-permissions",
+    "href": "user-guide/data-services/login-keycloak.html#account-creation-and-permissions",
+    "title": "Logging in with Keycloak",
+    "section": "Account Creation and Permissions",
+    "text": "Account Creation and Permissions\nKeycloak accounts are created automatically the first time you log in to any VEDA service. The process works as follows:\n\nNavigate to any VEDA service (e.g., Ingest UI, JupyterHub)\nYou will be redirected to the CILogon page - select your identity provider (we recommend using your work or institutional email)\nComplete authentication with your identity provider\nKeycloak automatically creates your account by pulling your username, email, first name, and last name from CILogon\n\n\n\n\nCILogon identity provider selection page\n\n\n\n\n\n\n\n\nWarningNew accounts have no permissions by default\n\n\n\nWhen your account is first created, you will not have permissions to perform any actions in any VEDA service. Your account exists but is essentially inactive until an administrator grants you access by adding you to the appropriate Keycloak group.\nAfter your first login, contact the VEDA Data Services team via the #veda-data-services Slack channel or email veda@uah.edu to request access to the services you need.\n\n\n\n\n\n\n\n\nNoteAlways use the same identity provider\n\n\n\nOnce you have been added to a Keycloak group, you must continue logging in with the same CILogon identity provider you used when your account was created. Switching to a different identity provider will create a separate account that does not have the permissions assigned to your original account.\n\n\n\n\n\n\n\n\nTipSame login flow across all services\n\n\n\nThe login flow is identical across all VEDA services: you are redirected to CILogon, select your identity provider, and authenticate. The only difference is the specific URL you start from. If you have already logged in to one service, the steps for any other service will feel familiar.",
+    "crumbs": [
+      "User Guide",
+      "Data Access and Data Management",
+      "Logging in with Keycloak"
+    ]
+  },
+  {
+    "objectID": "user-guide/data-services/login-keycloak.html#service-specific-login-instructions",
+    "href": "user-guide/data-services/login-keycloak.html#service-specific-login-instructions",
+    "title": "Logging in with Keycloak",
+    "section": "Service-Specific Login Instructions",
+    "text": "Service-Specific Login Instructions\n\nIngest API\nThe Ingest API uses OAuth 2.0 with PKCE for authentication through its Swagger documentation interface.\n\nGo to openveda.cloud/api/ingest/docs\nClick the “Authorize” button\n\n\n\n\nAuthorize button on the Ingest API docs page\n\n\n\nScroll to the top of the authorization dialog and find the “PKCE” authorization section\n\n\n\n\nPKCE authorization section in the Ingest API\n\n\n\nClick “Authorize” within the PKCE section\n\n\n\n\nPKCE authorization section in the Ingest API\n\n\n\nSelect your identity provider and complete authentication in the CILogon page.\nNavigate back to the Ingest API docs page and select the Authorize button within the PKCE section.",
+    "crumbs": [
+      "User Guide",
+      "Data Access and Data Management",
+      "Logging in with Keycloak"
     ]
   },
   {
