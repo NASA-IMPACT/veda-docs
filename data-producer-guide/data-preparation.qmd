@@ -2,29 +2,35 @@
 title: "Data Preparation"
 ---
 
-For best data use within any VEDA instance, the format and structure of data can either hinder visualization or ensure success and user satisfaction. This section lays out the optimal formats, file sizes, and data structure for the best performance.
+For best use within any VEDA instance, the format and structure of data can either hinder visualization or ensure performance and user satisfaction. This section outlines recommended formats, file sizes, chunking strategies, and compression best practices.
 
-## Suggested File Formats
+---
 
-### Raster Data
+## **Suggested File Formats**
+
+### **Raster Data**
 
 **1. Cloud Optimized GeoTIFF (COG)**
 
 - ***Best for:***
   - 2D gridded data (e.g., NO₂, AOD, precipitation snapshots)
-- ***Why use it:***  
-  - Enables HTTP range requests for fast map visualization
-  - Optimized for web-based tile access
-- ***Recommendations::***  
-  - Use internal tiling
-  - Generate overviews for multi-resolution access
 
-Additional [Cloud-Optimized GeoTIFFs details](https://guide.cloudnativegeo.org/cloud-optimized-geotiffs/intro.html) that can be helpful.
+- ***Why use it:***  
+  - Enables HTTP range requests for fast map visualization  
+  - Optimized for web-based tile access  
+
+- ***Recommendations:***  
+  - Use internal tiling  
+  - Generate overviews for multi-resolution access  
+
+Additional [Cloud-Optimized GeoTIFF details](https://guide.cloudnativegeo.org/cloud-optimized-geotiffs/intro.html) can be helpful.
+
+---
 
 **2. Zarr (Preferred for Multidimensional Data)**
 
 - ***Best for:***
-  - Time-series and multi-variable datasets (e.g., GEOS-CF, IMERG)
+  - Time-series and multi-variable datasets (e.g., GEOS-CF, IMERG)  
   - Large-scale analytics and cloud-native workflows  
 
 - ***Why use it:***  
@@ -34,60 +40,64 @@ Additional [Cloud-Optimized GeoTIFFs details](https://guide.cloudnativegeo.org/c
 
 - ***Recommendations:***  
   - Align chunking with access patterns (e.g., time vs spatial queries)  
-  - Store data in cloud object storage (e.g., S3) with clear directory structure  
+  - Store data in cloud object storage (e.g., S3) with clear structure  
   - Consolidate metadata for faster access  
 
-Additional [Zarr details](https://guide.cloudnativegeo.org/zarr/intro.html) that can be helpful.
+Additional [Zarr details](https://guide.cloudnativegeo.org/zarr/intro.html) can be helpful.
 
+---
 
 **3. NetCDF4 (CF-compliant)**
 
 - ***Best for:***
-  - Widely distributed scientific datasets and legacy data formats  
-  - Interoperability with existing Earth science tools and workflows  
+  - Widely distributed scientific datasets and legacy formats  
+  - Interoperability with existing Earth science tools  
 
 - ***Why use it:***  
-  - Mature, widely supported format across the scientific community  
+  - Mature, widely supported format  
   - Supports chunking and compression (via HDF5)  
   - Compatible with most analysis tools and libraries  
 
 - ***Recommendations:***  
-  - Ensure chunking is properly configured (avoid default chunking)  
+  - Ensure chunking is properly configured (avoid defaults)  
   - Use compression (e.g., gzip with shuffle filter)  
-  - Consider complementing with a **Virtual Zarr layer (e.g., Kerchunk)** for improved cloud performance and scalability  
+  - Consider complementing with a **Virtual Zarr layer (e.g., Kerchunk)** for cloud performance  
 
-Additional [Cloud-Optimized HDF/NetCDF details](https://guide.cloudnativegeo.org/cloud-optimized-netcdf4-hdf5/) that can be helpful.
+Additional [Cloud-Optimized HDF/NetCDF details](https://guide.cloudnativegeo.org/cloud-optimized-netcdf4-hdf5/) can be helpful.
+
+---
+
 ### **Vector Data**
 
-**1. GeoJSON **
+**1. GeoJSON**
 
 - ***Best for:***
-  - Small to medium-sized vector datasets
+  - Small to medium-sized datasets  
   - Web-based visualization and APIs  
 
 - ***Why use it:***  
-  - Widely supported across web mapping tools  
+  - Widely supported across web tools  
   - Human-readable and easy to debug  
-  - Native support in most visualization libraries  
 
 - ***Recommendations:***  
   - Avoid for large datasets due to performance limitations  
 
+---
 
 **2. Shapefiles**
 
 - ***Best for:***
   - Legacy GIS workflows  
-  - Interoperability with traditional GIS tools  
+  - Interoperability with traditional tools  
 
 - ***Why use it:***  
   - Broad compatibility across GIS software  
-  - Common exchange format in many datasets  
 
 - ***Recommendations:***  
   - Avoid for cloud-native workflows  
-  - Consider converting to GeoJSON or GeoParquet for better performance  
+  - Convert to GeoJSON or GeoParquet where possible  
 
+---
 
 **3. GeoParquet (Preferred)**
 
@@ -98,13 +108,11 @@ Additional [Cloud-Optimized HDF/NetCDF details](https://guide.cloudnativegeo.org
 - ***Why use it:***  
   - Columnar format optimized for performance  
   - Efficient storage and query capabilities  
-  - Well-suited for big data processing  
 
 - ***Recommendations:***  
-  - Use for large datasets where performance is critical  
-  - Partition data appropriately for scalable access 
-   
-Additional [GeoParquet](https://guide.cloudnativegeo.org/geoparquet/) that can be helpful.
+  - Partition data for scalable access  
+
+Additional [GeoParquet details](https://guide.cloudnativegeo.org/geoparquet/) can be helpful.
 
 ---
 
@@ -113,16 +121,16 @@ Additional [GeoParquet](https://guide.cloudnativegeo.org/geoparquet/) that can b
 **1. CSV**
 
 - ***Best for:***
-  - Simple, small tabular datasets  
-  - Data exchange and quick inspection  
+  - Simple, small datasets  
 
 - ***Why use it:***  
   - Universally supported  
-  - Easy to read and use  
+  - Easy to use  
 
 - ***Recommendations:***  
-  - Avoid for large datasets due to size and performance limitations  
+  - Avoid for large datasets  
 
+---
 
 **2. JSON (Structured as Tabular)**
 
@@ -130,115 +138,82 @@ Additional [GeoParquet](https://guide.cloudnativegeo.org/geoparquet/) that can b
   - Lightweight structured data  
   - API responses and metadata  
 
-- ***Why use it:***  
-  - Flexible schema  
-  - Easy integration with web applications  
-
 - ***Recommendations:***  
-  - Ensure data is structured as records (row-based)  
-  - Avoid deeply nested structures for tabular use cases  
+  - Use row-based (record) structure  
+  - Avoid deeply nested formats  
   - Not recommended for large datasets  
 
+---
 
 **3. Parquet (Preferred for Large Tabular Data)**
 
 - ***Best for:***
-  - Large-scale tabular datasets  
-  - Analytical and cloud-native workflows  
+  - Large-scale datasets  
+  - Analytical workflows  
 
 - ***Why use it:***  
   - Columnar storage enables efficient queries  
   - Compressed and optimized for performance  
-  - Works well with analytics tools (e.g., Spark, Pandas)  
 
 - ***Recommendations:***  
-  - Use for large datasets instead of CSV or JSON  
-  - Partition data for scalable access in cloud environments  
-
-## **Optimal File Sizes**
-
-### **Cloud Optimized GeoTIFF (COG)**
-
-- ***Recommended:***
-  - **10 MB – 1 GB** per file  
-
-- ***Avoid:***
-  - Very small files (<10 MB) — high request overhead  
-  - Very large files (>2–5 GB) — reduced interactivity and slower partial reads  
-
-
-### **Zarr Stores**
-
-- ***Recommended:***
-  - Total dataset size can scale to TBs or more  
-  - Individual chunk sizes: **~1–10 MB**  
-
-- ***Notes:***
-  - Performance depends on chunking strategy rather than total size  
-  - Designed for scalable, cloud-native access  
-
-
-### **NetCDF4 (HDF5-based)**
-
-- ***Recommended:***
-  - File size should align with dataset scope and access patterns  
-  - Moderate file sizes (e.g., ~x MB – x GB) are often practical  
-
-- ***Notes:***
-  - Performance is driven primarily by chunking and metadata layout  
-  - Large files are acceptable if properly chunked and cloud-optimized (e.g., via Kerchunk)  
-
+  - Partition data for scalable cloud access  
 
 ---
 
-## **Optimal Chunks for Visualization**
+## **File Size and Chunking Strategy**
 
-### **Chunking Guidelines**
+Efficient cloud access depends on how data is partitioned. Performance is driven by minimizing the number of requests while maximizing useful data retrieved per request.
 
-- ***Chunk Size Target:***
-  - **~1–10 MB per chunk**  
+---
 
-- ***Avoid:***
-  - Very small chunks (<256 KB) — request overhead dominates  
-  - Very large chunks (>50–100 MB) — slow reads and poor interactivity  
+### **Key Principles**
 
+- Minimize the number of requests to cloud storage  
+- Retrieve larger, contiguous data regions when possible  
+- Align chunking with expected access patterns (spatial vs temporal)  
+- Balance chunk size for both interactivity and analytics  
 
-### **Key Considerations**
+---
 
-- Chunking should reflect **expected access patterns**:
-  - Spatial access (map visualization)  
-  - Temporal access (time-series analysis)  
+### **COG**
 
-- Balanced chunking across dimensions is recommended for mixed-use workloads (e.g., dashboards)
+- **10 MB – 1 GB** recommended  
+- Avoid <10 MB and >2–5 GB  
 
-- Many legacy datasets use:
-  - Very small chunks  
-  - Inefficient file layouts  
+- Use tiling (256×256 or 512×512) and overviews  
 
-  → This leads to **severely degraded cloud performance**
+---
 
-- Cloud-native best practices emphasize:
-  - Minimizing the number of network requests  
-  - While still enabling efficient subsetting of data  
+### **Zarr**
+
+- Scales to TBs+  
+- Chunk size:
+  - **1–10 MB** → visualization  
+  - **10–200 MB** → analytics  
+
+- Store chunks as separate objects  
+- Use consolidated metadata  
+
+---
+
+### **NetCDF4**
+
+- Practical size: **~500 MB – 5 GB**  
+- Chunk size: **~1–10 MB**  
+
+- Avoid default chunking  
+- Balance across dimensions  
+- Use **Kerchunk** for cloud optimization  
+
+---
 
 ### **Balanced Chunking Strategy (Recommended)**
 
-This approach aligns with NASA ESDS guidance on “balanced chunking” for multidimensional datasets.
-
-The chunking strategy should ultimately be determined by the dataset’s expected use cases. Below is a balanced approach that supports both map visualization and time-series access:
-
 | Dimension | Recommended |
-|-----------|-------------|
-| Time | 1–24 timesteps per chunk |
-| Spatial | 256 × 256 or 512 × 512 pixels |
-| Chunk size | ~1–10 MB per chunk |
-
-**Why this matters:**
-
-- Enables efficient subsetting across both time and space  
-- Reduces unnecessary data reads (minimizes I/O overhead)  
-- Improves responsiveness in interactive dashboards (e.g., VEDA)  
-
+|----------|------------|
+| Time | 1–24 timesteps |
+| Spatial | 256×256 or 512×512 |
+| Chunk size | ~1–10 MB |
 
 ---
 
@@ -246,51 +221,43 @@ The chunking strategy should ultimately be determined by the dataset’s expecte
 
 ### **Best Practices**
 
-- Use **DEFLATE (gzip)** compression (recommended for interoperability across NetCDF4/HDF5 tools)  
-- Use a moderate compression level (e.g., **~5**) to balance file size and performance  
-- Apply a **shuffle filter** to improve compression efficiency  
+- Use **DEFLATE (gzip)**  
+- Use moderate levels (**~5**)  
+- Apply **shuffle filter**  
 
-> **Note:** NASA ESDS guidance recommends using only officially supported compression filters (e.g., DEFLATE) to ensure compatibility across tools and platforms.  
-> *DIWG, “Use Only Officially Supported Compression Filters on NetCDF-4 and NetCDF-4-Compatible HDF5 Data,” January 10, 2024.*
+> NASA ESDS recommends using only officially supported compression filters (e.g., DEFLATE) for interoperability.  
 
 ---
 
-### **HDF/NetCDF-Specific Considerations**
+### **HDF/NetCDF Considerations**
 
-When preparing HDF/NetCDF data for cloud environments:
+- Use NetCDF4/HDF5 (not NetCDF3/HDF4)  
+- Consolidate metadata  
+- Tune chunk sizes based on access patterns  
+- Provide cloud-access guidance  
 
-- Use formats that support **chunking, compression, and consolidated metadata**  
-  *(HDF5 / NetCDF4; not supported in HDF4 or NetCDF3)*  
-
-- Consolidate metadata to enable efficient access in a **single request**  
-
-- Tune chunk sizes appropriately:
-  - Chunk size should be selected based on expected access patterns  
-  - In cloud-based workflows, **~1–10 MB per chunk** is commonly recommended to balance request overhead and data transfer efficiency  
-
-- Design chunk shapes based on expected access patterns:
-  - Spatial visualization (map-based access)  
-  - Time-series analysis  
-
-- Apply **gzip (deflate) compression with shuffle filter**  
-
-- Include in data product documentation:
-  - Instructions for **direct cloud access**  
-  - Guidance on using client libraries (e.g., `xarray`, `kerchunk`) for efficient data access  
 ---
 
-### **Data Packing (Optional Optimization)**
+### **Data Packing (Optional)**
 
-- Store data using **scale_factor** and **add_offset** to reduce size  
-- Convert floating-point data to lower-precision integers where appropriate  
-- Improves compression efficiency when combined with shuffle + deflate  
-
-**Note:** Recommended when data has a limited dynamic range.
+- Use `scale_factor` and `add_offset`  
+- Convert floats to integers when appropriate  
+- Improves compression efficiency  
 
 ---
 
 ### **Useful Tools**
 
-- `nccopy` — rechunking and compression (NetCDF)
-- `ncks` — data transformation and packing
-- `h5repack` — optimize HDF5 chunking/compression
+- `nccopy`  
+- `ncks`  
+- `h5repack`  
+
+---
+
+## **References**
+
+- AWS, *[Amazon S3 Best Practices](https://d1.awsstatic.com/whitepapers/AmazonS3BestPractices.pdf)*  
+- Pangeo, *[Cloud-Performant NetCDF/Zarr Access](https://medium.com/pangeo/cloud-performant-reading-of-netcdf4-hdf5-data-using-the-zarr-library-1a95c5c92314)*  
+- Element84, *[NetCDF-as-Zarr Optimizations](https://element84.com/data-science/cloud-optimized-formats-netcdf-as-zarr-optimizations-and-next-steps)*  
+- Unidata, *[Chunking Data: Choosing Shapes](https://www.unidata.ucar.edu/blogs/developer/en/entry/chunking_data_choosing_shapes)*  
+- DIWG, *[Use Only Officially Supported Compression Filters on NetCDF-4 and NetCDF-4-Compatible HDF5 Data](https://wiki.earthdata.nasa.gov/spaces/ESDSWG/pages/157189494/Use+Only+Officially+Supported+Compression+Filters+on+NetCDF-4+and+NetCDF-4-Compatible+HDF5+Data)
