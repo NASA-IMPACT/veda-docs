@@ -221,7 +221,9 @@ Additional [GeoParquet](https://guide.cloudnativegeo.org/geoparquet/) that can b
   - Minimizing the number of network requests  
   - While still enabling efficient subsetting of data  
 
-### **Balanced Strategy**
+### **Balanced Chunking Strategy (Recommended)**
+
+This approach aligns with NASA ESDS guidance on “balanced chunking” for multidimensional datasets.
 
 The chunking strategy should ultimately be determined by the dataset’s expected use cases. Below is a balanced approach that supports both map visualization and time-series access:
 
@@ -244,10 +246,12 @@ The chunking strategy should ultimately be determined by the dataset’s expecte
 
 ### **Best Practices**
 
-- Use **DEFLATE (gzip)** compression  
-- Use moderate compression levels (e.g., **~x–y**) to balance size and performance  
+- Use **DEFLATE (gzip)** compression (recommended for interoperability across NetCDF4/HDF5 tools)  
+- Use a moderate compression level (e.g., **~5**) to balance file size and performance  
 - Apply a **shuffle filter** to improve compression efficiency  
 
+> **Note:** NASA ESDS guidance recommends using only officially supported compression filters (e.g., DEFLATE) to ensure compatibility across tools and platforms.  
+> *DIWG, “Use Only Officially Supported Compression Filters on NetCDF-4 and NetCDF-4-Compatible HDF5 Data,” January 10, 2024.*
 
 ---
 
@@ -261,8 +265,8 @@ When preparing HDF/NetCDF data for cloud environments:
 - Consolidate metadata to enable efficient access in a **single request**  
 
 - Tune chunk sizes appropriately:
-  - Preferred: **~1–10 MB per chunk**
-  - Acceptable range: **100 KB – 16 MB**
+  - Chunk size should be selected based on expected access patterns  
+  - In cloud-based workflows, **~1–10 MB per chunk** is commonly recommended to balance request overhead and data transfer efficiency  
 
 - Design chunk shapes based on expected access patterns:
   - Spatial visualization (map-based access)  
@@ -273,3 +277,20 @@ When preparing HDF/NetCDF data for cloud environments:
 - Include in data product documentation:
   - Instructions for **direct cloud access**  
   - Guidance on using client libraries (e.g., `xarray`, `kerchunk`) for efficient data access  
+---
+
+### **Data Packing (Optional Optimization)**
+
+- Store data using **scale_factor** and **add_offset** to reduce size  
+- Convert floating-point data to lower-precision integers where appropriate  
+- Improves compression efficiency when combined with shuffle + deflate  
+
+**Note:** Recommended when data has a limited dynamic range.
+
+---
+
+### **Useful Tools**
+
+- `nccopy` — rechunking and compression (NetCDF)
+- `ncks` — data transformation and packing
+- `h5repack` — optimize HDF5 chunking/compression
