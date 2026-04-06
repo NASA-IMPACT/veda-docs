@@ -2739,7 +2739,7 @@
     "href": "data-producer-guide/data-preparation.html",
     "title": "Data Preparation",
     "section": "",
-    "text": "For best data use within any VEDA instance, the format and structure of data can either hinder visualization or ensure success and user satisfaction. This section lays out the optimal formats, file sizes, and data structure for the best performance.",
+    "text": "For best use within any VEDA instance, the format and structure of data can either hinder visualization or ensure performance and user satisfaction. This section outlines recommended formats, file sizes, chunking strategies, and compression best practices.",
     "crumbs": [
       "Data Producer Guide",
       "Data Preparation"
@@ -2750,29 +2750,18 @@
     "href": "data-producer-guide/data-preparation.html#suggested-file-formats",
     "title": "Data Preparation",
     "section": "Suggested File Formats",
-    "text": "Suggested File Formats\n\nRaster Data\n1. Cloud Optimized GeoTIFF (COG)\n\nBest for:\n\n2D gridded data (e.g., NO₂, AOD, precipitation snapshots)\n\nWhy use it:\n\nEnables HTTP range requests for fast map visualization\nOptimized for web-based tile access\n\nRecommendations::\n\nUse internal tiling\nGenerate overviews for multi-resolution access\n\n\nAdditional Cloud-Optimized GeoTIFFs details that can be helpful.\n2. Zarr (Preferred for Multidimensional Data)\n\nBest for:\n\nTime-series and multi-variable datasets (e.g., GEOS-CF, IMERG)\nLarge-scale analytics and cloud-native workflows\n\nWhy use it:\n\nDesigned for cloud object storage with parallel, chunk-based access\n\nEnables efficient subsetting across time and space\n\nWorks seamlessly with tools like xarray, dask, and Python analytics ecosystems\n\nRecommendations:\n\nAlign chunking with access patterns (e.g., time vs spatial queries)\n\nStore data in cloud object storage (e.g., S3) with clear directory structure\n\nConsolidate metadata for faster access\n\n\nAdditional Zarr details that can be helpful.\n3. NetCDF4 (CF-compliant)\n\nBest for:\n\nWidely distributed scientific datasets and legacy data formats\n\nInteroperability with existing Earth science tools and workflows\n\nWhy use it:\n\nMature, widely supported format across the scientific community\n\nSupports chunking and compression (via HDF5)\n\nCompatible with most analysis tools and libraries\n\nRecommendations:\n\nEnsure chunking is properly configured (avoid default chunking)\n\nUse compression (e.g., gzip with shuffle filter)\n\nConsider complementing with a Virtual Zarr layer (e.g., Kerchunk) for improved cloud performance and scalability\n\n\nAdditional Cloud-Optimized HDF/NetCDF details that can be helpful. ### Vector Data\n1. GeoJSON \n\nBest for:\n\nSmall to medium-sized vector datasets\nWeb-based visualization and APIs\n\nWhy use it:\n\nWidely supported across web mapping tools\n\nHuman-readable and easy to debug\n\nNative support in most visualization libraries\n\nRecommendations:\n\nAvoid for large datasets due to performance limitations\n\n\n2. Shapefiles\n\nBest for:\n\nLegacy GIS workflows\n\nInteroperability with traditional GIS tools\n\nWhy use it:\n\nBroad compatibility across GIS software\n\nCommon exchange format in many datasets\n\nRecommendations:\n\nAvoid for cloud-native workflows\n\nConsider converting to GeoJSON or GeoParquet for better performance\n\n\n3. GeoParquet (Preferred)\n\nBest for:\n\nLarge-scale vector datasets\n\nAnalytical and cloud-native workflows\n\nWhy use it:\n\nColumnar format optimized for performance\n\nEfficient storage and query capabilities\n\nWell-suited for big data processing\n\nRecommendations:\n\nUse for large datasets where performance is critical\n\nPartition data appropriately for scalable access\n\n\nAdditional GeoParquet that can be helpful.\n\n\n\nTabular Data\n1. CSV\n\nBest for:\n\nSimple, small tabular datasets\n\nData exchange and quick inspection\n\nWhy use it:\n\nUniversally supported\n\nEasy to read and use\n\nRecommendations:\n\nAvoid for large datasets due to size and performance limitations\n\n\n2. JSON (Structured as Tabular)\n\nBest for:\n\nLightweight structured data\n\nAPI responses and metadata\n\nWhy use it:\n\nFlexible schema\n\nEasy integration with web applications\n\nRecommendations:\n\nEnsure data is structured as records (row-based)\n\nAvoid deeply nested structures for tabular use cases\n\nNot recommended for large datasets\n\n\n3. Parquet (Preferred for Large Tabular Data)\n\nBest for:\n\nLarge-scale tabular datasets\n\nAnalytical and cloud-native workflows\n\nWhy use it:\n\nColumnar storage enables efficient queries\n\nCompressed and optimized for performance\n\nWorks well with analytics tools (e.g., Spark, Pandas)\n\nRecommendations:\n\nUse for large datasets instead of CSV or JSON\n\nPartition data for scalable access in cloud environments",
+    "text": "Suggested File Formats\n\nRaster Data\n1. Cloud Optimized GeoTIFF (COG)\n\nBest for:\n\n2D gridded data (e.g., NO₂, AOD, precipitation snapshots)\n\nWhy use it:\n\nEnables HTTP range requests for fast map visualization\n\nOptimized for web-based tile access\n\nRecommendations:\n\nUse internal tiling\n\nGenerate overviews for multi-resolution access\n\n\nAdditional Cloud-Optimized GeoTIFF details can be helpful.\n\n2. Zarr (Preferred for Multidimensional Data)\n\nBest for:\n\nTime-series and multi-variable datasets (e.g., GEOS-CF, IMERG)\n\nLarge-scale analytics and cloud-native workflows\n\nWhy use it:\n\nDesigned for cloud object storage with parallel, chunk-based access\n\nEnables efficient subsetting across time and space\n\nWorks seamlessly with tools like xarray, dask, and Python analytics ecosystems\n\nRecommendations:\n\nAlign chunking with access patterns (e.g., time vs spatial queries)\n\nStore data in cloud object storage (e.g., S3) with clear structure\n\nConsolidate metadata for faster access\n\n\nAdditional Zarr details can be helpful.\n\n3. NetCDF4 (CF-compliant)\n\nBest for:\n\nWidely distributed scientific datasets and legacy formats\n\nInteroperability with existing Earth science tools\n\nWhy use it:\n\nMature, widely supported format\n\nSupports chunking and compression (via HDF5)\n\nCompatible with most analysis tools and libraries\n\nRecommendations:\n\nEnsure chunking is properly configured (avoid defaults)\n\nUse compression (e.g., gzip with shuffle filter)\n\nConsider complementing with a Virtual Zarr layer (e.g., Kerchunk) for cloud performance\n\n\nAdditional Cloud-Optimized HDF/NetCDF details can be helpful.\n\n\n\nVector Data\n1. GeoJSON\n\nBest for:\n\nSmall to medium-sized datasets\n\nWeb-based visualization and APIs\n\nWhy use it:\n\nWidely supported across web tools\n\nHuman-readable and easy to debug\n\nRecommendations:\n\nAvoid for large datasets due to performance limitations\n\n\n\n2. Shapefiles\n\nBest for:\n\nLegacy GIS workflows\n\nInteroperability with traditional tools\n\nWhy use it:\n\nBroad compatibility across GIS software\n\nRecommendations:\n\nAvoid for cloud-native workflows\n\nConvert to GeoJSON or GeoParquet where possible\n\n\n\n3. GeoParquet (Preferred)\n\nBest for:\n\nLarge-scale vector datasets\n\nAnalytical and cloud-native workflows\n\nWhy use it:\n\nColumnar format optimized for performance\n\nEfficient storage and query capabilities\n\nRecommendations:\n\nPartition data for scalable access\n\n\nAdditional GeoParquet details can be helpful.\n\n\n\nTabular Data\n1. CSV\n\nBest for:\n\nSimple, small datasets\n\nWhy use it:\n\nUniversally supported\n\nEasy to use\n\nRecommendations:\n\nAvoid for large datasets\n\n\n\n2. JSON (Structured as Tabular)\n\nBest for:\n\nLightweight structured data\n\nAPI responses and metadata\n\nRecommendations:\n\nUse row-based (record) structure\n\nAvoid deeply nested formats\n\nNot recommended for large datasets\n\n\n\n3. Parquet (Preferred for Large Tabular Data)\n\nBest for:\n\nLarge-scale datasets\n\nAnalytical workflows\n\nWhy use it:\n\nColumnar storage enables efficient queries\n\nCompressed and optimized for performance\n\nRecommendations:\n\nPartition data for scalable cloud access",
     "crumbs": [
       "Data Producer Guide",
       "Data Preparation"
     ]
   },
   {
-    "objectID": "data-producer-guide/data-preparation.html#optimal-file-sizes",
-    "href": "data-producer-guide/data-preparation.html#optimal-file-sizes",
+    "objectID": "data-producer-guide/data-preparation.html#file-size-and-chunking-strategy",
+    "href": "data-producer-guide/data-preparation.html#file-size-and-chunking-strategy",
     "title": "Data Preparation",
-    "section": "Optimal File Sizes",
-    "text": "Optimal File Sizes\n\nCloud Optimized GeoTIFF (COG)\n\nRecommended:\n\n10 MB – 1 GB per file\n\nAvoid:\n\nVery small files (&lt;10 MB) — high request overhead\n\nVery large files (&gt;2–5 GB) — reduced interactivity and slower partial reads\n\n\n\n\nZarr Stores\n\nRecommended:\n\nTotal dataset size can scale to TBs or more\n\nIndividual chunk sizes: ~1–10 MB\n\nNotes:\n\nPerformance depends on chunking strategy rather than total size\n\nDesigned for scalable, cloud-native access\n\n\n\n\nNetCDF4 (HDF5-based)\n\nRecommended:\n\nFile size should align with dataset scope and access patterns\n\nModerate file sizes (e.g., ~x MB – x GB) are often practical\n\nNotes:\n\nPerformance is driven primarily by chunking and metadata layout\n\nLarge files are acceptable if properly chunked and cloud-optimized (e.g., via Kerchunk)",
-    "crumbs": [
-      "Data Producer Guide",
-      "Data Preparation"
-    ]
-  },
-  {
-    "objectID": "data-producer-guide/data-preparation.html#optimal-chunks-for-visualization",
-    "href": "data-producer-guide/data-preparation.html#optimal-chunks-for-visualization",
-    "title": "Data Preparation",
-    "section": "Optimal Chunks for Visualization",
-    "text": "Optimal Chunks for Visualization\n\nChunking Guidelines\n\nChunk Size Target:\n\n~1–10 MB per chunk\n\nAvoid:\n\nVery small chunks (&lt;256 KB) — request overhead dominates\n\nVery large chunks (&gt;50–100 MB) — slow reads and poor interactivity\n\n\n\n\nKey Considerations\n\nChunking should reflect expected access patterns:\n\nSpatial access (map visualization)\n\nTemporal access (time-series analysis)\n\nBalanced chunking across dimensions is recommended for mixed-use workloads (e.g., dashboards)\nMany legacy datasets use:\n\nVery small chunks\n\nInefficient file layouts\n\n→ This leads to severely degraded cloud performance\nCloud-native best practices emphasize:\n\nMinimizing the number of network requests\n\nWhile still enabling efficient subsetting of data\n\n\n\n\nBalanced Chunking Strategy (Recommended)\nThis approach aligns with NASA ESDS guidance on “balanced chunking” for multidimensional datasets.\nThe chunking strategy should ultimately be determined by the dataset’s expected use cases. Below is a balanced approach that supports both map visualization and time-series access:\n\n\n\nDimension\nRecommended\n\n\n\n\nTime\n1–24 timesteps per chunk\n\n\nSpatial\n256 × 256 or 512 × 512 pixels\n\n\nChunk size\n~1–10 MB per chunk\n\n\n\nWhy this matters:\n\nEnables efficient subsetting across both time and space\n\nReduces unnecessary data reads (minimizes I/O overhead)\n\nImproves responsiveness in interactive dashboards (e.g., VEDA)",
+    "section": "File Size and Chunking Strategy",
+    "text": "File Size and Chunking Strategy\nEfficient cloud access depends on how data is partitioned. Performance is driven by minimizing the number of requests while maximizing useful data retrieved per request.\n\n\nKey Principles\n\nMinimize the number of requests to cloud storage\n\nRetrieve larger, contiguous data regions when possible\n\nAlign chunking with expected access patterns (spatial vs temporal)\n\nBalance chunk size for both interactivity and analytics\n\n\n\n\nCOG\n\n10 MB – 1 GB recommended\n\nAvoid &lt;10 MB and &gt;2–5 GB\nUse tiling (256×256 or 512×512) and overviews\n\n\n\n\nZarr\n\nScales to TBs+\n\nChunk size:\n\n1–10 MB → visualization\n\n10–200 MB → analytics\n\nStore chunks as separate objects\n\nUse consolidated metadata\n\n\n\n\nNetCDF4\n\nPractical size: ~500 MB – 5 GB\n\nChunk size: ~1–10 MB\nAvoid default chunking\n\nBalance across dimensions\n\nUse Kerchunk for cloud optimization\n\n\n\n\nBalanced Chunking Strategy (Recommended)\n\n\n\nDimension\nRecommended\n\n\n\n\nTime\n1–24 timesteps\n\n\nSpatial\n256×256 or 512×512\n\n\nChunk size\n~1–10 MB",
     "crumbs": [
       "Data Producer Guide",
       "Data Preparation"
@@ -2783,7 +2772,18 @@
     "href": "data-producer-guide/data-preparation.html#compression",
     "title": "Data Preparation",
     "section": "Compression",
-    "text": "Compression\n\nBest Practices\n\nUse DEFLATE (gzip) compression (recommended for interoperability across NetCDF4/HDF5 tools)\n\nUse a moderate compression level (e.g., ~5) to balance file size and performance\n\nApply a shuffle filter to improve compression efficiency\n\n\nNote: NASA ESDS guidance recommends using only officially supported compression filters (e.g., DEFLATE) to ensure compatibility across tools and platforms.\nDIWG, “Use Only Officially Supported Compression Filters on NetCDF-4 and NetCDF-4-Compatible HDF5 Data,” January 10, 2024.\n\n\n\n\nHDF/NetCDF-Specific Considerations\nWhen preparing HDF/NetCDF data for cloud environments:\n\nUse formats that support chunking, compression, and consolidated metadata\n(HDF5 / NetCDF4; not supported in HDF4 or NetCDF3)\nConsolidate metadata to enable efficient access in a single request\nTune chunk sizes appropriately:\n\nChunk size should be selected based on expected access patterns\n\nIn cloud-based workflows, ~1–10 MB per chunk is commonly recommended to balance request overhead and data transfer efficiency\n\nDesign chunk shapes based on expected access patterns:\n\nSpatial visualization (map-based access)\n\nTime-series analysis\n\nApply gzip (deflate) compression with shuffle filter\nInclude in data product documentation:\n\nInstructions for direct cloud access\n\nGuidance on using client libraries (e.g., xarray, kerchunk) for efficient data access\n\n\n\n\nData Packing (Optional Optimization)\n\nStore data using scale_factor and add_offset to reduce size\n\nConvert floating-point data to lower-precision integers where appropriate\n\nImproves compression efficiency when combined with shuffle + deflate\n\nNote: Recommended when data has a limited dynamic range.\n\n\n\nUseful Tools\n\nnccopy — rechunking and compression (NetCDF)\nncks — data transformation and packing\nh5repack — optimize HDF5 chunking/compression",
+    "text": "Compression\n\nBest Practices\n\nUse DEFLATE (gzip)\n\nUse moderate levels (~5)\n\nApply shuffle filter\n\n\nNASA ESDS recommends using only officially supported compression filters (e.g., DEFLATE) for interoperability.\n\n\n\n\nHDF/NetCDF Considerations\n\nUse NetCDF4/HDF5 (not NetCDF3/HDF4)\n\nConsolidate metadata\n\nTune chunk sizes based on access patterns\n\nProvide cloud-access guidance\n\n\n\n\nData Packing (Optional)\n\nUse scale_factor and add_offset\n\nConvert floats to integers when appropriate\n\nImproves compression efficiency\n\n\n\n\nUseful Tools\n\nnccopy\n\nncks\n\nh5repack",
+    "crumbs": [
+      "Data Producer Guide",
+      "Data Preparation"
+    ]
+  },
+  {
+    "objectID": "data-producer-guide/data-preparation.html#references",
+    "href": "data-producer-guide/data-preparation.html#references",
+    "title": "Data Preparation",
+    "section": "References",
+    "text": "References\n\nAWS, Amazon S3 Best Practices\n\nPangeo, Cloud-Performant NetCDF/Zarr Access\n\nElement84, NetCDF-as-Zarr Optimizations\n\nUnidata, Chunking Data: Choosing Shapes\n\nDIWG, *Use Only Officially Supported Compression Filters on NetCDF-4 and NetCDF-4-Compatible HDF5 Data",
     "crumbs": [
       "Data Producer Guide",
       "Data Preparation"
@@ -2814,7 +2814,7 @@
     "href": "data-producer-guide/index.html#contents",
     "title": "Data Producer Guide",
     "section": "Contents",
-    "text": "Contents\n\nData Preparation\nGuidance on recommended file formats (COG, Zarr, NetCDF, GeoParquet), optimal file sizes, chunking strategies, and compression best practices.\n\n\nProviding Data\nInformation on where to host your data, storage location guidelines, open data requirements, and how to include proper data citation.\n\n\nData Inclusion Workflow\nStep-by-step workflow for both data producers and the ODSI/DSE team—from data preparation and upload through ingestion, optimization, and QA/QC.",
+    "text": "Contents\n\nData Preparation\nGuidance on recommended file formats (COG, Zarr, NetCDF4, GeoParquet), optimal file sizes, chunking strategies, and compression best practices.\n\n\nChoosing the Right Data Format\nA decision framework to help select the appropriate format (COG, Zarr, NetCDF4, GeoParquet) based on data type, structure, and access patterns.\n\n\nProviding Data\nInformation on where to host your data, storage location guidelines, open data requirements, and how to include proper data citation.\n\n\nData Inclusion Workflow\nStep-by-step workflow for both data producers and the ODSI/DSE team—from data preparation and upload through ingestion, optimization, and QA/QC.",
     "crumbs": [
       "Data Producer Guide"
     ]
@@ -2872,6 +2872,72 @@
     "crumbs": [
       "Data Producer Guide",
       "Providing Data"
+    ]
+  },
+  {
+    "objectID": "data-producer-guide/decision-framework.html",
+    "href": "data-producer-guide/decision-framework.html",
+    "title": "Choosing the Right Data Format",
+    "section": "",
+    "text": "This guide helps data producers choose the most appropriate format for their dataset based on structure, size, and access patterns.",
+    "crumbs": [
+      "Data Producer Guide",
+      "Choosing the Right Data Format"
+    ]
+  },
+  {
+    "objectID": "data-producer-guide/decision-framework.html#quick-decision-guide",
+    "href": "data-producer-guide/decision-framework.html#quick-decision-guide",
+    "title": "Choosing the Right Data Format",
+    "section": "Quick Decision Guide",
+    "text": "Quick Decision Guide\n\n\n\nUse Case\nRecommended Format\n\n\n\n\n2D raster (maps, tiles)\nCOG\n\n\nTime-series / multidimensional data\nZarr\n\n\nLegacy scientific datasets\nNetCDF4\n\n\nLarge vector data\nGeoParquet\n\n\nSmall vector / API\nGeoJSON\n\n\nLarge tabular data\nParquet",
+    "crumbs": [
+      "Data Producer Guide",
+      "Choosing the Right Data Format"
+    ]
+  },
+  {
+    "objectID": "data-producer-guide/decision-framework.html#decision-tree",
+    "href": "data-producer-guide/decision-framework.html#decision-tree",
+    "title": "Choosing the Right Data Format",
+    "section": "Decision Tree",
+    "text": "Decision Tree\n\nStep 1: What type of data do you have?\n\nRaster Data\n→ Go to Step 2\n\n\nVector Data\n\nSmall → GeoJSON\n\nLarge → GeoParquet\n\n\n\nTabular Data\n\nSmall → CSV / JSON\n\nLarge → Parquet\n\n\n\n\n\nStep 2: Raster Data — What is the structure?\n\nSingle timestep (2D snapshot)?\n→ Use COG\nExamples: - Satellite imagery\n- Air quality snapshot\n- Precipitation map\n\n\n\nTime-series or multidimensional data?\n→ Go to Step 3\n\n\n\n\nStep 3: Access Pattern\n\nCloud-native, scalable analytics needed?\n→ Use Zarr (Preferred)\n\nParallel access\n\nWorks with xarray, dask\n\nBest for VEDA dashboards + analytics\n\n\n\n\nExisting dataset in NetCDF?\n→ Use NetCDF4, optionally:\n\nAdd Kerchunk (Virtual Zarr) for cloud optimization",
+    "crumbs": [
+      "Data Producer Guide",
+      "Choosing the Right Data Format"
+    ]
+  },
+  {
+    "objectID": "data-producer-guide/decision-framework.html#comparison-summary",
+    "href": "data-producer-guide/decision-framework.html#comparison-summary",
+    "title": "Choosing the Right Data Format",
+    "section": "Comparison Summary",
+    "text": "Comparison Summary\n\n\n\n\n\n\n\n\n\nFeature\nCOG\nZarr\nNetCDF4\n\n\n\n\nData type\n2D raster\nMultidimensional\nMultidimensional\n\n\nCloud optimized\nYes\nYes (native)\nPartial\n\n\nParallel access\nLimited\nExcellent\nLimited (unless optimized)\n\n\nBest use case\nVisualization\nAnalytics + visualization\nLegacy / interoperability\n\n\nComplexity\nLow\nMedium\nMedium",
+    "crumbs": [
+      "Data Producer Guide",
+      "Choosing the Right Data Format"
+    ]
+  },
+  {
+    "objectID": "data-producer-guide/decision-framework.html#key-takeaways",
+    "href": "data-producer-guide/decision-framework.html#key-takeaways",
+    "title": "Choosing the Right Data Format",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\nUse COG for map-based visualization\n\nUse Zarr for scalable, cloud-native datasets\n\nUse NetCDF4 when required, but optimize for cloud access\n\nWhen in doubt:\n\nPrefer Zarr for new datasets\nUse COG for visualization layers",
+    "crumbs": [
+      "Data Producer Guide",
+      "Choosing the Right Data Format"
+    ]
+  },
+  {
+    "objectID": "data-producer-guide/decision-framework.html#related-sections",
+    "href": "data-producer-guide/decision-framework.html#related-sections",
+    "title": "Choosing the Right Data Format",
+    "section": "Related Sections",
+    "text": "Related Sections\n\nData Preparation\nProviding Data\nData Inclusion Workflow",
+    "crumbs": [
+      "Data Producer Guide",
+      "Choosing the Right Data Format"
     ]
   },
   {

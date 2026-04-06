@@ -32,7 +32,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../data-producer-guide/providing-data.html" rel="next">
+<link href="../data-producer-guide/decision-framework.html" rel="next">
 <link href="../data-producer-guide/index.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -894,6 +894,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../data-producer-guide/decision-framework.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choosing the Right Data Format</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../data-producer-guide/providing-data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Providing Data</span></a>
   </div>
@@ -963,30 +969,28 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#suggested-file-formats" id="toc-suggested-file-formats" class="nav-link active" data-scroll-target="#suggested-file-formats">Suggested File Formats</a>
+  <li><a href="#suggested-file-formats" id="toc-suggested-file-formats" class="nav-link active" data-scroll-target="#suggested-file-formats"><strong>Suggested File Formats</strong></a>
   <ul class="collapse">
-  <li><a href="#raster-data" id="toc-raster-data" class="nav-link" data-scroll-target="#raster-data">Raster Data</a></li>
+  <li><a href="#raster-data" id="toc-raster-data" class="nav-link" data-scroll-target="#raster-data"><strong>Raster Data</strong></a></li>
+  <li><a href="#vector-data" id="toc-vector-data" class="nav-link" data-scroll-target="#vector-data"><strong>Vector Data</strong></a></li>
   <li><a href="#tabular-data" id="toc-tabular-data" class="nav-link" data-scroll-target="#tabular-data"><strong>Tabular Data</strong></a></li>
   </ul></li>
-  <li><a href="#optimal-file-sizes" id="toc-optimal-file-sizes" class="nav-link" data-scroll-target="#optimal-file-sizes"><strong>Optimal File Sizes</strong></a>
+  <li><a href="#file-size-and-chunking-strategy" id="toc-file-size-and-chunking-strategy" class="nav-link" data-scroll-target="#file-size-and-chunking-strategy"><strong>File Size and Chunking Strategy</strong></a>
   <ul class="collapse">
-  <li><a href="#cloud-optimized-geotiff-cog" id="toc-cloud-optimized-geotiff-cog" class="nav-link" data-scroll-target="#cloud-optimized-geotiff-cog"><strong>Cloud Optimized GeoTIFF (COG)</strong></a></li>
-  <li><a href="#zarr-stores" id="toc-zarr-stores" class="nav-link" data-scroll-target="#zarr-stores"><strong>Zarr Stores</strong></a></li>
-  <li><a href="#netcdf4-hdf5-based" id="toc-netcdf4-hdf5-based" class="nav-link" data-scroll-target="#netcdf4-hdf5-based"><strong>NetCDF4 (HDF5-based)</strong></a></li>
-  </ul></li>
-  <li><a href="#optimal-chunks-for-visualization" id="toc-optimal-chunks-for-visualization" class="nav-link" data-scroll-target="#optimal-chunks-for-visualization"><strong>Optimal Chunks for Visualization</strong></a>
-  <ul class="collapse">
-  <li><a href="#chunking-guidelines" id="toc-chunking-guidelines" class="nav-link" data-scroll-target="#chunking-guidelines"><strong>Chunking Guidelines</strong></a></li>
-  <li><a href="#key-considerations" id="toc-key-considerations" class="nav-link" data-scroll-target="#key-considerations"><strong>Key Considerations</strong></a></li>
+  <li><a href="#key-principles" id="toc-key-principles" class="nav-link" data-scroll-target="#key-principles"><strong>Key Principles</strong></a></li>
+  <li><a href="#cog" id="toc-cog" class="nav-link" data-scroll-target="#cog"><strong>COG</strong></a></li>
+  <li><a href="#zarr" id="toc-zarr" class="nav-link" data-scroll-target="#zarr"><strong>Zarr</strong></a></li>
+  <li><a href="#netcdf4" id="toc-netcdf4" class="nav-link" data-scroll-target="#netcdf4"><strong>NetCDF4</strong></a></li>
   <li><a href="#balanced-chunking-strategy-recommended" id="toc-balanced-chunking-strategy-recommended" class="nav-link" data-scroll-target="#balanced-chunking-strategy-recommended"><strong>Balanced Chunking Strategy (Recommended)</strong></a></li>
   </ul></li>
   <li><a href="#compression" id="toc-compression" class="nav-link" data-scroll-target="#compression"><strong>Compression</strong></a>
   <ul class="collapse">
   <li><a href="#best-practices" id="toc-best-practices" class="nav-link" data-scroll-target="#best-practices"><strong>Best Practices</strong></a></li>
-  <li><a href="#hdfnetcdf-specific-considerations" id="toc-hdfnetcdf-specific-considerations" class="nav-link" data-scroll-target="#hdfnetcdf-specific-considerations"><strong>HDF/NetCDF-Specific Considerations</strong></a></li>
-  <li><a href="#data-packing-optional-optimization" id="toc-data-packing-optional-optimization" class="nav-link" data-scroll-target="#data-packing-optional-optimization"><strong>Data Packing (Optional Optimization)</strong></a></li>
+  <li><a href="#hdfnetcdf-considerations" id="toc-hdfnetcdf-considerations" class="nav-link" data-scroll-target="#hdfnetcdf-considerations"><strong>HDF/NetCDF Considerations</strong></a></li>
+  <li><a href="#data-packing-optional" id="toc-data-packing-optional" class="nav-link" data-scroll-target="#data-packing-optional"><strong>Data Packing (Optional)</strong></a></li>
   <li><a href="#useful-tools" id="toc-useful-tools" class="nav-link" data-scroll-target="#useful-tools"><strong>Useful Tools</strong></a></li>
   </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><strong>References</strong></a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/nasa-impact/veda-docs/edit/main/data-producer-guide/data-preparation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nasa-impact/veda-docs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -1013,11 +1017,12 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>For best data use within any VEDA instance, the format and structure of data can either hinder visualization or ensure success and user satisfaction. This section lays out the optimal formats, file sizes, and data structure for the best performance.</p>
+<p>For best use within any VEDA instance, the format and structure of data can either hinder visualization or ensure performance and user satisfaction. This section outlines recommended formats, file sizes, chunking strategies, and compression best practices.</p>
+<hr>
 <section id="suggested-file-formats" class="level2">
-<h2 class="anchored" data-anchor-id="suggested-file-formats">Suggested File Formats</h2>
+<h2 class="anchored" data-anchor-id="suggested-file-formats"><strong>Suggested File Formats</strong></h2>
 <section id="raster-data" class="level3">
-<h3 class="anchored" data-anchor-id="raster-data">Raster Data</h3>
+<h3 class="anchored" data-anchor-id="raster-data"><strong>Raster Data</strong></h3>
 <p><strong>1. Cloud Optimized GeoTIFF (COG)</strong></p>
 <ul>
 <li><strong><em>Best for:</em></strong>
@@ -1026,21 +1031,25 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 <li><strong><em>Why use it:</em></strong>
 <ul>
-<li>Enables HTTP range requests for fast map visualization</li>
+<li>Enables HTTP range requests for fast map visualization<br>
+</li>
 <li>Optimized for web-based tile access</li>
 </ul></li>
-<li><strong><em>Recommendations::</em></strong>
+<li><strong><em>Recommendations:</em></strong>
 <ul>
-<li>Use internal tiling</li>
+<li>Use internal tiling<br>
+</li>
 <li>Generate overviews for multi-resolution access</li>
 </ul></li>
 </ul>
-<p>Additional <a href="https://guide.cloudnativegeo.org/cloud-optimized-geotiffs/intro.html">Cloud-Optimized GeoTIFFs details</a> that can be helpful.</p>
+<p>Additional <a href="https://guide.cloudnativegeo.org/cloud-optimized-geotiffs/intro.html">Cloud-Optimized GeoTIFF details</a> can be helpful.</p>
+<hr>
 <p><strong>2. Zarr (Preferred for Multidimensional Data)</strong></p>
 <ul>
 <li><strong><em>Best for:</em></strong>
 <ul>
-<li>Time-series and multi-variable datasets (e.g., GEOS-CF, IMERG)</li>
+<li>Time-series and multi-variable datasets (e.g., GEOS-CF, IMERG)<br>
+</li>
 <li>Large-scale analytics and cloud-native workflows</li>
 </ul></li>
 <li><strong><em>Why use it:</em></strong>
@@ -1055,23 +1064,24 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Align chunking with access patterns (e.g., time vs spatial queries)<br>
 </li>
-<li>Store data in cloud object storage (e.g., S3) with clear directory structure<br>
+<li>Store data in cloud object storage (e.g., S3) with clear structure<br>
 </li>
 <li>Consolidate metadata for faster access</li>
 </ul></li>
 </ul>
-<p>Additional <a href="https://guide.cloudnativegeo.org/zarr/intro.html">Zarr details</a> that can be helpful.</p>
+<p>Additional <a href="https://guide.cloudnativegeo.org/zarr/intro.html">Zarr details</a> can be helpful.</p>
+<hr>
 <p><strong>3. NetCDF4 (CF-compliant)</strong></p>
 <ul>
 <li><strong><em>Best for:</em></strong>
 <ul>
-<li>Widely distributed scientific datasets and legacy data formats<br>
+<li>Widely distributed scientific datasets and legacy formats<br>
 </li>
-<li>Interoperability with existing Earth science tools and workflows</li>
+<li>Interoperability with existing Earth science tools</li>
 </ul></li>
 <li><strong><em>Why use it:</em></strong>
 <ul>
-<li>Mature, widely supported format across the scientific community<br>
+<li>Mature, widely supported format<br>
 </li>
 <li>Supports chunking and compression (via HDF5)<br>
 </li>
@@ -1079,55 +1089,58 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 <li><strong><em>Recommendations:</em></strong>
 <ul>
-<li>Ensure chunking is properly configured (avoid default chunking)<br>
+<li>Ensure chunking is properly configured (avoid defaults)<br>
 </li>
 <li>Use compression (e.g., gzip with shuffle filter)<br>
 </li>
-<li>Consider complementing with a <strong>Virtual Zarr layer (e.g., Kerchunk)</strong> for improved cloud performance and scalability</li>
+<li>Consider complementing with a <strong>Virtual Zarr layer (e.g., Kerchunk)</strong> for cloud performance</li>
 </ul></li>
 </ul>
-<p>Additional <a href="https://guide.cloudnativegeo.org/cloud-optimized-netcdf4-hdf5/">Cloud-Optimized HDF/NetCDF details</a> that can be helpful. ### <strong>Vector Data</strong></p>
-<p><strong>1. GeoJSON </strong></p>
+<p>Additional <a href="https://guide.cloudnativegeo.org/cloud-optimized-netcdf4-hdf5/">Cloud-Optimized HDF/NetCDF details</a> can be helpful.</p>
+<hr>
+</section>
+<section id="vector-data" class="level3">
+<h3 class="anchored" data-anchor-id="vector-data"><strong>Vector Data</strong></h3>
+<p><strong>1. GeoJSON</strong></p>
 <ul>
 <li><strong><em>Best for:</em></strong>
 <ul>
-<li>Small to medium-sized vector datasets</li>
+<li>Small to medium-sized datasets<br>
+</li>
 <li>Web-based visualization and APIs</li>
 </ul></li>
 <li><strong><em>Why use it:</em></strong>
 <ul>
-<li>Widely supported across web mapping tools<br>
+<li>Widely supported across web tools<br>
 </li>
-<li>Human-readable and easy to debug<br>
-</li>
-<li>Native support in most visualization libraries</li>
+<li>Human-readable and easy to debug</li>
 </ul></li>
 <li><strong><em>Recommendations:</em></strong>
 <ul>
 <li>Avoid for large datasets due to performance limitations</li>
 </ul></li>
 </ul>
+<hr>
 <p><strong>2. Shapefiles</strong></p>
 <ul>
 <li><strong><em>Best for:</em></strong>
 <ul>
 <li>Legacy GIS workflows<br>
 </li>
-<li>Interoperability with traditional GIS tools</li>
+<li>Interoperability with traditional tools</li>
 </ul></li>
 <li><strong><em>Why use it:</em></strong>
 <ul>
-<li>Broad compatibility across GIS software<br>
-</li>
-<li>Common exchange format in many datasets</li>
+<li>Broad compatibility across GIS software</li>
 </ul></li>
 <li><strong><em>Recommendations:</em></strong>
 <ul>
 <li>Avoid for cloud-native workflows<br>
 </li>
-<li>Consider converting to GeoJSON or GeoParquet for better performance</li>
+<li>Convert to GeoJSON or GeoParquet where possible</li>
 </ul></li>
 </ul>
+<hr>
 <p><strong>3. GeoParquet (Preferred)</strong></p>
 <ul>
 <li><strong><em>Best for:</em></strong>
@@ -1140,18 +1153,14 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Columnar format optimized for performance<br>
 </li>
-<li>Efficient storage and query capabilities<br>
-</li>
-<li>Well-suited for big data processing</li>
+<li>Efficient storage and query capabilities</li>
 </ul></li>
 <li><strong><em>Recommendations:</em></strong>
 <ul>
-<li>Use for large datasets where performance is critical<br>
-</li>
-<li>Partition data appropriately for scalable access</li>
+<li>Partition data for scalable access</li>
 </ul></li>
 </ul>
-<p>Additional <a href="https://guide.cloudnativegeo.org/geoparquet/">GeoParquet</a> that can be helpful.</p>
+<p>Additional <a href="https://guide.cloudnativegeo.org/geoparquet/">GeoParquet details</a> can be helpful.</p>
 <hr>
 </section>
 <section id="tabular-data" class="level3">
@@ -1160,21 +1169,20 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><strong><em>Best for:</em></strong>
 <ul>
-<li>Simple, small tabular datasets<br>
-</li>
-<li>Data exchange and quick inspection</li>
+<li>Simple, small datasets</li>
 </ul></li>
 <li><strong><em>Why use it:</em></strong>
 <ul>
 <li>Universally supported<br>
 </li>
-<li>Easy to read and use</li>
+<li>Easy to use</li>
 </ul></li>
 <li><strong><em>Recommendations:</em></strong>
 <ul>
-<li>Avoid for large datasets due to size and performance limitations</li>
+<li>Avoid for large datasets</li>
 </ul></li>
 </ul>
+<hr>
 <p><strong>2. JSON (Structured as Tabular)</strong></p>
 <ul>
 <li><strong><em>Best for:</em></strong>
@@ -1183,145 +1191,98 @@ ul.task-list li input[type="checkbox"] {
 </li>
 <li>API responses and metadata</li>
 </ul></li>
-<li><strong><em>Why use it:</em></strong>
-<ul>
-<li>Flexible schema<br>
-</li>
-<li>Easy integration with web applications</li>
-</ul></li>
 <li><strong><em>Recommendations:</em></strong>
 <ul>
-<li>Ensure data is structured as records (row-based)<br>
+<li>Use row-based (record) structure<br>
 </li>
-<li>Avoid deeply nested structures for tabular use cases<br>
+<li>Avoid deeply nested formats<br>
 </li>
 <li>Not recommended for large datasets</li>
 </ul></li>
 </ul>
+<hr>
 <p><strong>3. Parquet (Preferred for Large Tabular Data)</strong></p>
 <ul>
 <li><strong><em>Best for:</em></strong>
 <ul>
-<li>Large-scale tabular datasets<br>
+<li>Large-scale datasets<br>
 </li>
-<li>Analytical and cloud-native workflows</li>
+<li>Analytical workflows</li>
 </ul></li>
 <li><strong><em>Why use it:</em></strong>
 <ul>
 <li>Columnar storage enables efficient queries<br>
 </li>
-<li>Compressed and optimized for performance<br>
-</li>
-<li>Works well with analytics tools (e.g., Spark, Pandas)</li>
+<li>Compressed and optimized for performance</li>
 </ul></li>
 <li><strong><em>Recommendations:</em></strong>
 <ul>
-<li>Use for large datasets instead of CSV or JSON<br>
-</li>
-<li>Partition data for scalable access in cloud environments</li>
-</ul></li>
-</ul>
-</section>
-</section>
-<section id="optimal-file-sizes" class="level2">
-<h2 class="anchored" data-anchor-id="optimal-file-sizes"><strong>Optimal File Sizes</strong></h2>
-<section id="cloud-optimized-geotiff-cog" class="level3">
-<h3 class="anchored" data-anchor-id="cloud-optimized-geotiff-cog"><strong>Cloud Optimized GeoTIFF (COG)</strong></h3>
-<ul>
-<li><strong><em>Recommended:</em></strong>
-<ul>
-<li><strong>10 MB – 1 GB</strong> per file</li>
-</ul></li>
-<li><strong><em>Avoid:</em></strong>
-<ul>
-<li>Very small files (&lt;10 MB) — high request overhead<br>
-</li>
-<li>Very large files (&gt;2–5 GB) — reduced interactivity and slower partial reads</li>
-</ul></li>
-</ul>
-</section>
-<section id="zarr-stores" class="level3">
-<h3 class="anchored" data-anchor-id="zarr-stores"><strong>Zarr Stores</strong></h3>
-<ul>
-<li><strong><em>Recommended:</em></strong>
-<ul>
-<li>Total dataset size can scale to TBs or more<br>
-</li>
-<li>Individual chunk sizes: <strong>~1–10 MB</strong></li>
-</ul></li>
-<li><strong><em>Notes:</em></strong>
-<ul>
-<li>Performance depends on chunking strategy rather than total size<br>
-</li>
-<li>Designed for scalable, cloud-native access</li>
-</ul></li>
-</ul>
-</section>
-<section id="netcdf4-hdf5-based" class="level3">
-<h3 class="anchored" data-anchor-id="netcdf4-hdf5-based"><strong>NetCDF4 (HDF5-based)</strong></h3>
-<ul>
-<li><strong><em>Recommended:</em></strong>
-<ul>
-<li>File size should align with dataset scope and access patterns<br>
-</li>
-<li>Moderate file sizes (e.g., ~x MB – x GB) are often practical</li>
-</ul></li>
-<li><strong><em>Notes:</em></strong>
-<ul>
-<li>Performance is driven primarily by chunking and metadata layout<br>
-</li>
-<li>Large files are acceptable if properly chunked and cloud-optimized (e.g., via Kerchunk)</li>
+<li>Partition data for scalable cloud access</li>
 </ul></li>
 </ul>
 <hr>
 </section>
 </section>
-<section id="optimal-chunks-for-visualization" class="level2">
-<h2 class="anchored" data-anchor-id="optimal-chunks-for-visualization"><strong>Optimal Chunks for Visualization</strong></h2>
-<section id="chunking-guidelines" class="level3">
-<h3 class="anchored" data-anchor-id="chunking-guidelines"><strong>Chunking Guidelines</strong></h3>
+<section id="file-size-and-chunking-strategy" class="level2">
+<h2 class="anchored" data-anchor-id="file-size-and-chunking-strategy"><strong>File Size and Chunking Strategy</strong></h2>
+<p>Efficient cloud access depends on how data is partitioned. Performance is driven by minimizing the number of requests while maximizing useful data retrieved per request.</p>
+<hr>
+<section id="key-principles" class="level3">
+<h3 class="anchored" data-anchor-id="key-principles"><strong>Key Principles</strong></h3>
 <ul>
-<li><strong><em>Chunk Size Target:</em></strong>
-<ul>
-<li><strong>~1–10 MB per chunk</strong></li>
-</ul></li>
-<li><strong><em>Avoid:</em></strong>
-<ul>
-<li>Very small chunks (&lt;256 KB) — request overhead dominates<br>
+<li>Minimize the number of requests to cloud storage<br>
 </li>
-<li>Very large chunks (&gt;50–100 MB) — slow reads and poor interactivity</li>
-</ul></li>
+<li>Retrieve larger, contiguous data regions when possible<br>
+</li>
+<li>Align chunking with expected access patterns (spatial vs temporal)<br>
+</li>
+<li>Balance chunk size for both interactivity and analytics</li>
 </ul>
+<hr>
 </section>
-<section id="key-considerations" class="level3">
-<h3 class="anchored" data-anchor-id="key-considerations"><strong>Key Considerations</strong></h3>
+<section id="cog" class="level3">
+<h3 class="anchored" data-anchor-id="cog"><strong>COG</strong></h3>
 <ul>
-<li><p>Chunking should reflect <strong>expected access patterns</strong>:</p>
-<ul>
-<li>Spatial access (map visualization)<br>
-</li>
-<li>Temporal access (time-series analysis)</li>
-</ul></li>
-<li><p>Balanced chunking across dimensions is recommended for mixed-use workloads (e.g., dashboards)</p></li>
-<li><p>Many legacy datasets use:</p>
-<ul>
-<li>Very small chunks<br>
-</li>
-<li>Inefficient file layouts</li>
+<li><p><strong>10 MB – 1 GB</strong> recommended<br>
+</p></li>
+<li><p>Avoid &lt;10 MB and &gt;2–5 GB</p></li>
+<li><p>Use tiling (256×256 or 512×512) and overviews</p></li>
 </ul>
-<p>→ This leads to <strong>severely degraded cloud performance</strong></p></li>
-<li><p>Cloud-native best practices emphasize:</p>
+<hr>
+</section>
+<section id="zarr" class="level3">
+<h3 class="anchored" data-anchor-id="zarr"><strong>Zarr</strong></h3>
 <ul>
-<li>Minimizing the number of network requests<br>
+<li>Scales to TBs+<br>
 </li>
-<li>While still enabling efficient subsetting of data</li>
+<li>Chunk size:
+<ul>
+<li><strong>1–10 MB</strong> → visualization<br>
+</li>
+<li><strong>10–200 MB</strong> → analytics</li>
 </ul></li>
+<li>Store chunks as separate objects<br>
+</li>
+<li>Use consolidated metadata</li>
 </ul>
+<hr>
+</section>
+<section id="netcdf4" class="level3">
+<h3 class="anchored" data-anchor-id="netcdf4"><strong>NetCDF4</strong></h3>
+<ul>
+<li><p>Practical size: <strong>~500 MB – 5 GB</strong><br>
+</p></li>
+<li><p>Chunk size: <strong>~1–10 MB</strong></p></li>
+<li><p>Avoid default chunking<br>
+</p></li>
+<li><p>Balance across dimensions<br>
+</p></li>
+<li><p>Use <strong>Kerchunk</strong> for cloud optimization</p></li>
+</ul>
+<hr>
 </section>
 <section id="balanced-chunking-strategy-recommended" class="level3">
 <h3 class="anchored" data-anchor-id="balanced-chunking-strategy-recommended"><strong>Balanced Chunking Strategy (Recommended)</strong></h3>
-<p>This approach aligns with NASA ESDS guidance on “balanced chunking” for multidimensional datasets.</p>
-<p>The chunking strategy should ultimately be determined by the dataset’s expected use cases. Below is a balanced approach that supports both map visualization and time-series access:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1332,26 +1293,18 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td>Time</td>
-<td>1–24 timesteps per chunk</td>
+<td>1–24 timesteps</td>
 </tr>
 <tr class="even">
 <td>Spatial</td>
-<td>256 × 256 or 512 × 512 pixels</td>
+<td>256×256 or 512×512</td>
 </tr>
 <tr class="odd">
 <td>Chunk size</td>
-<td>~1–10 MB per chunk</td>
+<td>~1–10 MB</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Why this matters:</strong></p>
-<ul>
-<li>Enables efficient subsetting across both time and space<br>
-</li>
-<li>Reduces unnecessary data reads (minimizes I/O overhead)<br>
-</li>
-<li>Improves responsiveness in interactive dashboards (e.g., VEDA)</li>
-</ul>
 <hr>
 </section>
 </section>
@@ -1360,68 +1313,68 @@ ul.task-list li input[type="checkbox"] {
 <section id="best-practices" class="level3">
 <h3 class="anchored" data-anchor-id="best-practices"><strong>Best Practices</strong></h3>
 <ul>
-<li>Use <strong>DEFLATE (gzip)</strong> compression (recommended for interoperability across NetCDF4/HDF5 tools)<br>
+<li>Use <strong>DEFLATE (gzip)</strong><br>
 </li>
-<li>Use a moderate compression level (e.g., <strong>~5</strong>) to balance file size and performance<br>
+<li>Use moderate levels (<strong>~5</strong>)<br>
 </li>
-<li>Apply a <strong>shuffle filter</strong> to improve compression efficiency</li>
+<li>Apply <strong>shuffle filter</strong></li>
 </ul>
 <blockquote class="blockquote">
-<p><strong>Note:</strong> NASA ESDS guidance recommends using only officially supported compression filters (e.g., DEFLATE) to ensure compatibility across tools and platforms.<br>
-<em>DIWG, “Use Only Officially Supported Compression Filters on NetCDF-4 and NetCDF-4-Compatible HDF5 Data,” January 10, 2024.</em></p>
+<p>NASA ESDS recommends using only officially supported compression filters (e.g., DEFLATE) for interoperability.</p>
 </blockquote>
 <hr>
 </section>
-<section id="hdfnetcdf-specific-considerations" class="level3">
-<h3 class="anchored"><strong>HDF/NetCDF-Specific Considerations</strong></h3>
-<p>When preparing HDF/NetCDF data for cloud environments:</p>
+<section id="hdfnetcdf-considerations" class="level3">
+<h3 class="anchored" data-anchor-id="hdfnetcdf-considerations"><strong>HDF/NetCDF Considerations</strong></h3>
 <ul>
-<li><p>Use formats that support <strong>chunking, compression, and consolidated metadata</strong><br>
-<em>(HDF5 / NetCDF4; not supported in HDF4 or NetCDF3)</em></p></li>
-<li><p>Consolidate metadata to enable efficient access in a <strong>single request</strong></p></li>
-<li><p>Tune chunk sizes appropriately:</p>
-<ul>
-<li>Chunk size should be selected based on expected access patterns<br>
+<li>Use NetCDF4/HDF5 (not NetCDF3/HDF4)<br>
 </li>
-<li>In cloud-based workflows, <strong>~1–10 MB per chunk</strong> is commonly recommended to balance request overhead and data transfer efficiency</li>
-</ul></li>
-<li><p>Design chunk shapes based on expected access patterns:</p>
-<ul>
-<li>Spatial visualization (map-based access)<br>
+<li>Consolidate metadata<br>
 </li>
-<li>Time-series analysis</li>
-</ul></li>
-<li><p>Apply <strong>gzip (deflate) compression with shuffle filter</strong></p></li>
-<li><p>Include in data product documentation:</p>
-<ul>
-<li>Instructions for <strong>direct cloud access</strong><br>
+<li>Tune chunk sizes based on access patterns<br>
 </li>
-<li><h2 id="guidance-on-using-client-libraries-e.g.-xarray-kerchunk-for-efficient-data-access" class="anchored" data-anchor-id="hdfnetcdf-specific-considerations">Guidance on using client libraries (e.g., <code>xarray</code>, <code>kerchunk</code>) for efficient data access</h2></li>
-</ul></li>
+<li>Provide cloud-access guidance</li>
 </ul>
+<hr>
 </section>
-<section id="data-packing-optional-optimization" class="level3">
-<h3 class="anchored" data-anchor-id="data-packing-optional-optimization"><strong>Data Packing (Optional Optimization)</strong></h3>
+<section id="data-packing-optional" class="level3">
+<h3 class="anchored" data-anchor-id="data-packing-optional"><strong>Data Packing (Optional)</strong></h3>
 <ul>
-<li>Store data using <strong>scale_factor</strong> and <strong>add_offset</strong> to reduce size<br>
+<li>Use <code>scale_factor</code> and <code>add_offset</code><br>
 </li>
-<li>Convert floating-point data to lower-precision integers where appropriate<br>
+<li>Convert floats to integers when appropriate<br>
 </li>
-<li>Improves compression efficiency when combined with shuffle + deflate</li>
+<li>Improves compression efficiency</li>
 </ul>
-<p><strong>Note:</strong> Recommended when data has a limited dynamic range.</p>
 <hr>
 </section>
 <section id="useful-tools" class="level3">
 <h3 class="anchored" data-anchor-id="useful-tools"><strong>Useful Tools</strong></h3>
 <ul>
-<li><code>nccopy</code> — rechunking and compression (NetCDF)</li>
-<li><code>ncks</code> — data transformation and packing</li>
-<li><code>h5repack</code> — optimize HDF5 chunking/compression</li>
+<li><code>nccopy</code><br>
+</li>
+<li><code>ncks</code><br>
+</li>
+<li><code>h5repack</code></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references"><strong>References</strong></h2>
+<ul>
+<li>AWS, <em><a href="https://d1.awsstatic.com/whitepapers/AmazonS3BestPractices.pdf">Amazon S3 Best Practices</a></em><br>
+</li>
+<li>Pangeo, <em><a href="https://medium.com/pangeo/cloud-performant-reading-of-netcdf4-hdf5-data-using-the-zarr-library-1a95c5c92314">Cloud-Performant NetCDF/Zarr Access</a></em><br>
+</li>
+<li>Element84, <em><a href="https://element84.com/data-science/cloud-optimized-formats-netcdf-as-zarr-optimizations-and-next-steps">NetCDF-as-Zarr Optimizations</a></em><br>
+</li>
+<li>Unidata, <em><a href="https://www.unidata.ucar.edu/blogs/developer/en/entry/chunking_data_choosing_shapes">Chunking Data: Choosing Shapes</a></em><br>
+</li>
+<li>DIWG, *<a href="https://wiki.earthdata.nasa.gov/spaces/ESDSWG/pages/157189494/Use+Only+Officially+Supported+Compression+Filters+on+NetCDF-4+and+NetCDF-4-Compatible+HDF5+Data">Use Only Officially Supported Compression Filters on NetCDF-4 and NetCDF-4-Compatible HDF5 Data</a></li>
 </ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1845,8 +1798,8 @@ ul.task-list li input[type="checkbox"] {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../data-producer-guide/providing-data.html" class="pagination-link" aria-label="Providing Data">
-        <span class="nav-page-text">Providing Data</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../data-producer-guide/decision-framework.html" class="pagination-link" aria-label="Choosing the Right Data Format">
+        <span class="nav-page-text">Choosing the Right Data Format</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
