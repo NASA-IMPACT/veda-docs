@@ -27,20 +27,33 @@ We are exploring two options for using VS Code on the VEDA JupyterHub. These opt
 Treat this token like you would treat a password to your JupyterHub instance!
 :::
 
-### Setup your local `~/.ssh/config`
+### Setup your local `~/.ssh/config` and ssh keys
 
 Before your first time remotely connecting to the VEDA JupyterHub, you need to configure your local ssh.
+
+1. Create a set of ssh keys for logging into the Hub.
+
+   ```bash
+   ssh-keygen -t ed25519 -C "your_email@example.com" -f ~/.ssh/id_ed25519_hub
+   ```
+
+   This creates `~/.ssh/id_ed25519_hub` and `~/.ssh/id_ed25519_hub.pub` on your local machine.
+1. Add the public key to github
+   1. Sign into github.com
+   2. Navigate to Settings > SSH and GPG keys
+   3. Click "New SSH key" and paste the contents of `~/.ssh/id_ed25519_hub.pub` into the "Key" field
 
 1. Add an entry that looks like the following to the end of your ~/.ssh/config. Create it if it does not exist.
 
    ```bash
    Host hub.openveda.cloud
        User jovyan
+       IdentityFile ~/.ssh/id_ed25519_hub
        ProxyCommand websocat --binary -H='Authorization: token <YOUR-JUPYTERHUB-TOKEN>' asyncstdio: wss://%h/user/<YOUR-JUPYTERHUB-USERNAME>/sshd/
    ```
 
-2. Replace `<YOUR-JUPYTERHUB-TOKEN>` with the token you created earlier.
-3. Replace `<YOUR-JUPYTERHUB-USERNAME>` with your VEDA JupyterHub username.
+1. Replace `<YOUR-JUPYTERHUB-TOKEN>` with the token you created earlier.
+1. Replace `<YOUR-JUPYTERHUB-USERNAME>` with your VEDA JupyterHub username.
 
 ### Setup ssh keys on your JupyterHub server
 
