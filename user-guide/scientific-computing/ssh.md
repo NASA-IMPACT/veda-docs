@@ -38,36 +38,45 @@ Before your first time remotely connecting to the VEDA JupyterHub, you need to c
    ```
 
    This creates `~/.ssh/id_ed25519_hub` and `~/.ssh/id_ed25519_hub.pub` on your local machine.
-1. Add the public key to github
-   1. Sign into github.com
-   2. Navigate to Settings > SSH and GPG keys
-   3. Click "New SSH key" and paste the contents of `~/.ssh/id_ed25519_hub.pub` into the "Key" field
 
-1. Add an entry that looks like the following to the end of your ~/.ssh/config. Create it if it does not exist.
+2. Add an entry like the following to the end of your ~/.ssh/config. Create it if it does not exist.
 
    ```bash
-   Host hub.openveda.cloud
+   Host veda-hub.default
+       HostName hub.openveda.cloud
        User jovyan
        IdentityFile ~/.ssh/id_ed25519_hub
+       IdentitiesOnly yes
        ProxyCommand websocat --binary -H='Authorization: token <YOUR-JUPYTERHUB-TOKEN>' asyncstdio: wss://%h/user/<YOUR-JUPYTERHUB-USERNAME>/sshd/
    ```
 
-1. Replace `<YOUR-JUPYTERHUB-TOKEN>` with the token you created earlier.
-1. Replace `<YOUR-JUPYTERHUB-USERNAME>` with your VEDA JupyterHub username.
+3. Replace `<YOUR-JUPYTERHUB-TOKEN>` with the token you created earlier.
+4. Replace `<YOUR-JUPYTERHUB-USERNAME>` with your VEDA JupyterHub username.
+5. If using a custom named Veda server, add additional entries to your ssh config, specifying `<SERVER_NAME>` in the Host short name and the ProxyCommand fields:
+     ```bash
+   Host veda-hub.<SERVER_NAME>
+       HostName hub.openveda.cloud
+       User jovyan
+       IdentityFile ~/.ssh/id_ed25519_hub
+       IdentitiesOnly 
+       ProxyCommand websocat --binary -H='Authorization: token <YOUR-JUPYTERHUB-TOKEN>' asyncstdio: wss://%h/user/<YOUR-JUPYTERHUB-USERNAME>/<SERVER_NAME>/sshd/
+   ```
 
 ### Setup ssh keys on your JupyterHub server
 
-You need to put some ssh public keys in `~/.ssh/authorized_keys` after you start your JupyterHub server and have completed the [setup of your private keys on your local machine](#setup-your-local-.sshconfig).
+Put your ssh public key in `~/.ssh/authorized_keys` after you start your JupyterHub server and have completed the [setup of your private keys on your local machine](#setup-your-local-sshconfig-and-ssh-keys).
 
 1. Launch a server from the [VEDA JupyterHub home page](https://hub.openveda.cloud/) if you don't already have one running.
-2. Open a terminal in JupyterLab
-3. Run the following commands, replacing <YOUR-GITHUB-USERNAME> with your github username:
+2. Open a terminal in JupyterLab and run the following commands
 
    ```bash
-   mkdir -p ~/.ssh
-   wget https://github.com/<YOUR-GITHUB-USERNAME>.keys -O ~/.ssh/authorized_keys
-   chmod 0600 ~/.ssh/authorized_keys
+   mkdir -p ~/.ssh && chmod 700 ~/.ssh
+   cat >> ~/.ssh/authorized_keys   
+   # copy-paste the contents of ~/.ssh/id_ed25519_hub.pub from your local machine
+   # then type Ctrl-D
+   chmod 600 ~/.ssh/authorized_keys
    ```
+This ssh key will be shared across all of your VEDA servers.
 
 ## Connect to JupyterHub
 
@@ -79,7 +88,7 @@ There are two ways to connect to JupyterHub: [Connect to the JupyterHub using VS
 2. Open a new VS Code Window on your local maachine.
 3. Open the command prompt (command + shift + P on macOS)
 4. Enter `Remote-SSH: Connect to Host...`
-5. Select `hub.openveda.cloud`
+5. Select `veda-hub.default` (or your custom server name, if you have set one up above)
 6. Select "Open Folder" and select the specific folder that you want to work in.
 
 Now you're connected and ready to develop using VS Code! You may need to [install some extensions in the SSH server](#install-extensions) to use your regular development workflows.
@@ -118,7 +127,7 @@ Exiting VS Code will also close the remote connection.
 
 1. Launch a server from the [VEDA JupyterHub home page](https://hub.openveda.cloud/) if you don't already have one running.
 2. Open a new terminal on your local machine.
-3. Enter `ssh hub.openveda.cloud`
+3. Enter `ssh veda-hub.default`
 
 You are now ssh'd into the JupyterHub! If you enter a command (e.g., `touch am-i-on-the-jupyterhub`), it will be run on the remote server.
 
