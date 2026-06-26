@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Build and cache on mybinder.org
-      uses: jupyterhub/repo2docker-action@master
+      # Action does not use versioned releases, refer to default branch
+      uses: jupyterhub/repo2docker-action@92fefcbd2b46dd9716f5263a9e740cbc972f6dd9 #2026-02-23
       with:
         NO_PUSH: true
         MYBINDERORG_TAG: ${{ github.event.ref }}
