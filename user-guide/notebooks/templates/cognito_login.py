@@ -1,10 +1,14 @@
-from cognito_client import CognitoClient
+from pathlib import Path
+
 import boto3
+import rasterio as rio
+from cognito_client import CognitoClient
 from rasterio.session import AWSSession
-import os
 
 client = CognitoClient(
-    identity_pool_id="us-west-2:XXX", user_pool_id="us-west-2_XXX", client_id="XXX"
+    identity_pool_id="us-west-2:XXX",
+    user_pool_id="us-west-2_XXX",
+    client_id="XXX",
 )
 _ = client.login()
 
@@ -25,7 +29,7 @@ if __name__ == "__main__":
     rio_env = rio.Env(
         AWSSession(session),
         GDAL_DISABLE_READDIR_ON_OPEN="EMPTY_DIR",
-        GDAL_HTTP_COOKIEFILE=os.path.expanduser("~/cookies.txt"),
-        GDAL_HTTP_COOKIEJAR=os.path.expanduser("~/cookies.txt"),
+        GDAL_HTTP_COOKIEFILE=str(Path("~/cookies.txt").expanduser()),
+        GDAL_HTTP_COOKIEJAR=str(Path("~/cookies.txt").expanduser()),
     )
     rio_env.__enter__()

@@ -44,7 +44,7 @@ if feature_links:
     feature_link = feature_links[0]
     layers = feature_link.extra_fields.get('featureserver:layers', {})
     print(f"Available feature layers: {list(layers.keys())}")
-    
+
     # Inspect layer schemas
     for layer_name, layer_info in layers.items():
         if 'fields' in layer_info:
@@ -81,14 +81,14 @@ Based on the Climate Mapping Resilience and Adaptation projections FeatureServer
       "title": "ArcGIS FeatureServer",
       "featureserver:layers": {
         "0": "Counties",
-        "1": "Tracts", 
+        "1": "Tracts",
         "2": "American Indian/Alaska Native/Native Hawaiian Areas"
       }
     },
     {
       "rel": "via",
       "href": "https://services3.arcgis.com/0Fs3HcaFfvzXvm7w/ArcGIS/rest/services/Climate_Mapping_Resilience_and_Adaptation_(CMRA)_Climate_and_Coastal_Inundation_Projections/FeatureServer",
-      "type": "text/html", 
+      "type": "text/html",
       "title": "Parent ArcGIS server url"
     }
   ],
@@ -166,7 +166,7 @@ Maps layer IDs to descriptive names:
    for layer in service_info.get('layers', []):
        layer_info = requests.get(f"{feature_server_url}/{layer['id']}?f=pjson").json()
        fields = layer_info.get('fields', [])
-       
+
        # Check for essential fields
        field_names = [f['name'] for f in fields]
        if 'OBJECTID' not in field_names:

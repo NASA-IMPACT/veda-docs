@@ -67,12 +67,12 @@ The extensions will be installed for the duration of your session. For persistan
 
 ![VS Code Run View](images/run-and-debug.png){width=500 fig-align="left"}
 
-2. Click on "create a launch.json file":
+1. Click on "create a launch.json file":
 
 ![Create a launch.json file](images/launch-json.png){width=500 fig-align="left"}
 
-3. Select "Python Debugger".
-4. Select "Python File: Debug the currently active Python file".
+1. Select "Python Debugger".
+2. Select "Python File: Debug the currently active Python file".
 
 :::{.callout-note}
 Check out the [Visual Studio Code Debugging docs](https://code.visualstudio.com/docs/python/debugging#_set-configuration-options) for additional configuration options. One of the more useful controls is setting `"justMyCode": false` to debug imported libraries.
@@ -85,11 +85,11 @@ Check out the [Visual Studio Code Debugging docs](https://code.visualstudio.com/
 
 ![Add a breakpoint](images/add-breakpoint.png)
 
-3. From the **Run** view, click on the green triangle to start debugging
+1. From the **Run** view, click on the green triangle to start debugging
 
 ![Start debugger](images/start-debugger.png)
 
-4. Use the debugger controls to continue, restart, stop, step over, step in, or step out of functions.
+1. Use the debugger controls to continue, restart, stop, step over, step in, or step out of functions.
 
 ![Debugger control](images/debugger-control.png)
 

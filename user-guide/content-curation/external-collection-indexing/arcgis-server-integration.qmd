@@ -37,22 +37,22 @@ graph LR
     style C fill:#fff3e0
     subgraph ArcGISServices [ArcGIS Services]
         E[ImageServer]
-        F[MapServer] 
+        F[MapServer]
         G[FeatureServer]
         style ArcGISServices fill:#D3D3D3
     end
-    
+
     E --> B
     F --> B
     G --> B
-    
+
     subgraph VedaIntegration [VEDA Integration]
         H[Dashboard Visualization]
         I[API Access]
         J[Data Discovery]
         style VedaIntegration fill:#D3D3D3
     end
-    
+
     D --> H
     D --> I
     D --> J
@@ -92,7 +92,7 @@ Ideal for raster datasets, satellite imagery, and multidimensional scientific da
 
 [Learn more about ImageServer Integration →](./imageserver-integration.qmd)
 
-### MapServer Integration  
+### MapServer Integration
 Perfect for visualized map services with multiple layers and styling.
 
 [Learn more about MapServer Integration →](./mapserver-integration.qmd)
@@ -223,7 +223,7 @@ Test integration with VEDA components:
 wms_links = [link for link in collection.links if link.rel == "wms"]
 if wms_links:
     print(f"WMS endpoint: {wms_links[0].href}")
-    
+
 # Test render configuration
 if hasattr(collection, 'extra_fields') and 'renders' in collection.extra_fields:
     print(f"Render configs: {list(collection.extra_fields['renders'].keys())}")

@@ -1,19 +1,17 @@
 import datetime
-import os
-import requests
 import time
+from pathlib import Path
 
 import folium
 import numpy as np
-from PIL import Image, ImageFont, ImageDraw
 import rasterio
 import rasterio.features
-
+import requests
+from PIL import Image, ImageDraw, ImageFont
+from scipy.ndimage import binary_dilation
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-from scipy.ndimage import binary_dilation
-
 
 # Constants
 STAC_API_URL = "https://openveda.cloud/api/stac"
@@ -27,11 +25,13 @@ def get_image(
     item,
     geojson,
     image_format="tif",
-    additional_args={},
+    additional_args=None,
     image_height=512,
     image_width=512,
 ):
 
+    if additional_args is None:
+        additional_args = {}
     response = requests.post(
         f"{RASTER_API_URL}/cog/feature",
         params={
@@ -43,7 +43,7 @@ def get_image(
         },
         json=geojson,
     )
-    if not response.status_code == 200:
+    if response.status_code != 200:
         print(response.content)
         raise Exception
     return response.content
@@ -59,11 +59,9 @@ def overlay_geojson(image_filepath, geojson):
         elif geojson["type"] == "Feature":
             features = [geojson]
         else:
-            raise Exception(
-                "Geojson to overlay must be either type Feature or FeatureCollection"
-            )
+            raise Exception("Geojson to overlay must be either type Feature or FeatureCollection")
 
-        for feature in geojson["features"]:
+        for feature in features:
             mask = rasterio.features.rasterize(
                 ((feature["geometry"], 255),),
                 fill=0,
@@ -83,7 +81,6 @@ def overlay_geojson(image_filepath, geojson):
 def overlay_raster_on_folium(image_filepath):
     # open with rasterio to get band data and bounds
     with rasterio.open(image_filepath) as dataset:
-
         [lon_min, lat_min, lon_max, lat_max] = list(dataset.bounds)
 
         data = dataset.read()
@@ -123,9 +120,7 @@ def overlay_raster_on_folium(image_filepath):
     options = webdriver.ChromeOptions()
     options.headless = True
     driver = webdriver.Chrome(
-        service=ChromeService(
-            ChromeDriverManager(path="./gif_generation_dependencies/").install()
-        ),
+        service=ChromeService(ChromeDriverManager(path="./gif_generation_dependencies/").install()),
         options=options,
     )
     driver.set_window_size(400, 400)  # choose a resolution
@@ -145,9 +140,7 @@ def overlay_date(image_filepath, datestring):
     image_draw = ImageDraw.Draw(image)
 
     # set font and size for date string
-    font = ImageFont.truetype(
-        "./gif_generation_dependencies/Gidole-Regular.ttf", size=45
-    )
+    font = ImageFont.truetype("./gif_generation_dependencies/Gidole-Regular.ttf", size=45)
 
     # calculate text size for date string
     xs, ys = image_draw.textsize(datestring, font=font)
@@ -174,7 +167,10 @@ def overlay_date(image_filepath, datestring):
 
     # draw text over the background rectangle
     image_draw.text(
-        tuple(i + 5 for i in text_rectangle_top_left), datestring, (0, 0, 0), font=font
+        tuple(i + 5 for i in text_rectangle_top_left),
+        datestring,
+        (0, 0, 0),
+        font=font,
     )
     # Save output image
     image.save(image_filepath)
@@ -188,28 +184,24 @@ def generate_frame(
     dir_path,
     image_format="png",
     overlay=None,
-    additional_cog_feature_args={},
+    additional_cog_feature_args=None,
     image_height=512,
     image_width=512,
 ):
+    if additional_cog_feature_args is None:
+        additional_cog_feature_args = {}
     if image_format == "png" and overlay is not None:
         raise Exception("Unable to add overlay to png format image")
 
     datestring = (
-        datetime.datetime.strptime(
-            item["properties"]["start_datetime"], "%Y-%m-%dT%H:%M:%S"
-        )
-        .date()
-        .isoformat()
+        datetime.datetime.strptime(item["properties"]["start_datetime"], "%Y-%m-%dT%H:%M:%S").date().isoformat()
     )
 
     # prepend datestring in filename so that we can sort the files by alphabetical order
     # when generating the GIF
-    filepath = os.path.join(
-        dir_path, "_".join([datestring, item["id"].replace(".nc", f".{image_format}")])
-    )
+    filepath = Path(dir_path) / "_".join([datestring, item["id"].replace(".nc", f".{image_format}")])
 
-    with open(filepath, "wb") as f:
+    with Path.open(filepath, "wb") as f:
         f.write(
             get_image(
                 item,
@@ -227,12 +219,12 @@ def generate_frame(
         overlay_raster_on_folium(filepath)
         # folium screenshots get saved as png
         filepath = filepath.replace(".tif", ".png")
-    else:
-        if not isinstance(overlay, dict):
-            # TODO: add check for geojson validity (ie: Feature/FeatureCollection "type" field, etc)
-            raise Exception("Param: overlay must be a valid geojson dict")
-
+    elif isinstance(overlay, dict):
         overlay_geojson(filepath, overlay)
+
+    else:
+        # TODO: add check for geojson validity (ie: Feature/FeatureCollection "type" field, etc)
+        raise Exception("Param: overlay must be a valid geojson dict")
 
     overlay_date(filepath, datestring)
 
