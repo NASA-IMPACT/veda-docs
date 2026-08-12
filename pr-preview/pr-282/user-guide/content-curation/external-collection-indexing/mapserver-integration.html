@@ -1066,7 +1066,7 @@ Tip
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    wms_link <span class="op">=</span> wms_links[<span class="dv">0</span>]</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    layers <span class="op">=</span> wms_link.extra_fields.get(<span class="st">'wms:layers'</span>, [])</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Available WMS layers: </span><span class="sc">{</span>layers<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check styling options</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    styles <span class="op">=</span> wms_link.extra_fields.get(<span class="st">'wms:styles'</span>, [])</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Available styles: </span><span class="sc">{</span>styles<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -1075,7 +1075,7 @@ Tip
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'renders'</span> <span class="kw">in</span> collection.extra_fields:</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    renders <span class="op">=</span> collection.extra_fields[<span class="st">'renders'</span>]</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Render configurations: </span><span class="sc">{</span><span class="bu">list</span>(renders.keys())<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Inspect render details</span></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> render_name, render_config <span class="kw">in</span> renders.items():</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>render_name<span class="sc">}</span><span class="ss">: layers=</span><span class="sc">{</span>render_config<span class="sc">.</span>get(<span class="st">'layers'</span>, <span class="st">'Unknown'</span>)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1103,7 +1103,7 @@ Tip
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"wms:styles"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"default"</span><span class="ot">]</span></span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span><span class="ot">,</span></span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"rel"</span><span class="fu">:</span> <span class="st">"via"</span><span class="fu">,</span> </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"rel"</span><span class="fu">:</span> <span class="st">"via"</span><span class="fu">,</span></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"href"</span><span class="fu">:</span> <span class="st">"https://gis1.servirglobal.net/arcgis/rest/services/Global/ESI_4WK/MapServer"</span><span class="fu">,</span></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"text/html"</span><span class="fu">,</span></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"title"</span><span class="fu">:</span> <span class="st">"Parent ArcGIS server url"</span></span>
@@ -1114,7 +1114,7 @@ Tip
 <span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"layers"</span><span class="fu">:</span> <span class="st">"1"</span></span>
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"footprint"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"layers"</span><span class="fu">:</span> <span class="st">"2"</span>  </span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"layers"</span><span class="fu">:</span> <span class="st">"2"</span></span>
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">},</span></span>
 <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"boundary"</span><span class="fu">:</span> <span class="fu">{</span></span>
 <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"layers"</span><span class="fu">:</span> <span class="st">"3"</span></span>
@@ -1173,7 +1173,7 @@ Tip
 <p>For time-enabled MapServer services:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"dashboard:is_periodic"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"dashboard:time_density"</span><span class="fu">:</span> <span class="st">"day"</span><span class="fu">,</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"dashboard:time_density"</span><span class="fu">:</span> <span class="st">"day"</span><span class="fu">,</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"dashboard:time_interval"</span><span class="fu">:</span> <span class="st">"P7D"</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>

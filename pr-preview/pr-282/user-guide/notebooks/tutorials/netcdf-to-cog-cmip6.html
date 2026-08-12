@@ -1052,9 +1052,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="step-1---inspect-source-netcdf" class="level3">
 <h3 class="anchored" data-anchor-id="step-1---inspect-source-netcdf">Step 1 - Inspect source NetCDF</h3>
 <div id="e8e5464f-6868-46e4-9351-85169aa7b32c" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>SOURCE_URI <span class="op">=</span> (</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cmip6-staging/Sample/FWI/Yearly/MME/MME50_historical_fwi_metrics_yearly_2014.nc"</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>SOURCE_URI <span class="op">=</span> <span class="st">"cmip6-staging/Sample/FWI/Yearly/MME/MME50_historical_fwi_metrics_yearly_2014.nc"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="78c9a1ef-6574-4f0b-9b61-5413cb98f525" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fs <span class="op">=</span> s3fs.S3FileSystem()</span>
@@ -2731,9 +2729,7 @@ f = y-coordinate of the of the upper-left corner of the upper-left pixel</code><
 <section id="combined-workflow-from-conversion-to-upload" class="level2">
 <h2 class="anchored" data-anchor-id="combined-workflow-from-conversion-to-upload">Combined workflow from conversion to upload</h2>
 <div id="45977426-ecde-4490-a4ea-55e1a884c387" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>SOURCE_URI <span class="op">=</span> (</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cmip6-staging/Sample/FWI/Yearly/MME/MME50_historical_fwi_metrics_yearly_2014.nc"</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>SOURCE_URI <span class="op">=</span> <span class="st">"cmip6-staging/Sample/FWI/Yearly/MME/MME50_historical_fwi_metrics_yearly_2014.nc"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="a64c5607-b323-43c2-8fae-5e0aeaa6f6d0" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>VARIABLE_NAME <span class="op">=</span> <span class="st">"FFMC"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2747,41 +2743,42 @@ f = y-coordinate of the of the upper-left corner of the upper-left pixel</code><
 </div>
 <div id="e844b722-7fc8-4a95-988a-f861d42d2050" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>fs <span class="op">=</span> s3fs.S3FileSystem()</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> fs.<span class="bu">open</span>(SOURCE_URI) <span class="im">as</span> fileobj:</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> xr.open_dataset(fileobj, engine<span class="op">=</span><span class="st">"h5netcdf"</span>) <span class="im">as</span> ds:</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Read individual metric into data array (only one time in yearly NetCDFs)</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        da <span class="op">=</span> ds[VARIABLE_NAME]</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Realign the x dimension to -180 origin for dataset</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        da <span class="op">=</span> da.assign_coords(lon<span class="op">=</span>(((da.lon <span class="op">+</span> <span class="dv">180</span>) <span class="op">%</span> <span class="dv">360</span>) <span class="op">-</span> <span class="dv">180</span>)).sortby(<span class="st">"lon"</span>)</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Reverse the DataArray's y dimension to comply with raster common practice</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> da.lat.values[<span class="op">-</span><span class="dv">1</span>] <span class="op">&gt;</span> da.lat.values[<span class="dv">0</span>]:</span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>            da <span class="op">=</span> da.isel(lat<span class="op">=</span><span class="bu">slice</span>(<span class="va">None</span>, <span class="va">None</span>, <span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Set raster attributes</span></span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>        da.rio.set_spatial_dims(<span class="st">"lon"</span>, <span class="st">"lat"</span>)</span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>        da.rio.write_crs(<span class="st">"epsg:4326"</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> MemoryFile() <span class="im">as</span> memfile:</span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>            da.rio.to_raster(memfile.name, <span class="op">**</span>COG_PROFILE)</span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Validate COG in-memory</span></span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>            cog_valid <span class="op">=</span> rio_cogeo.cogeo.cog_validate(memfile.name)[<span class="dv">0</span>]</span>
-<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="kw">not</span> cog_valid:</span>
-<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>                <span class="cf">raise</span> <span class="pp">RuntimeError</span>(<span class="st">"COG validation failed."</span>)</span>
-<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Upload to S3</span></span>
-<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> DESTINATION_BUCKET <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>                client <span class="op">=</span> boto3.client(<span class="st">"s3"</span>)</span>
-<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>                r <span class="op">=</span> client.put_object(</span>
-<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>                    Body<span class="op">=</span>memfile,</span>
-<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>                    Bucket<span class="op">=</span>DESTINATION_BUCKET,</span>
-<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>                    Key<span class="op">=</span>DESTINATION_KEY,</span>
-<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>                )</span>
-<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> r[<span class="st">"ResponseMetadata"</span>][<span class="st">"HTTPStatusCode"</span>] <span class="op">!=</span> <span class="dv">200</span>:</span>
-<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">raise</span> <span class="pp">RuntimeError</span>(<span class="st">"Upload failed."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> (</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    fs.<span class="bu">open</span>(SOURCE_URI) <span class="im">as</span> fileobj,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    xr.open_dataset(fileobj, engine<span class="op">=</span><span class="st">"h5netcdf"</span>) <span class="im">as</span> ds,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Read individual metric into data array (only one time in yearly NetCDFs)</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    da <span class="op">=</span> ds[VARIABLE_NAME]</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Realign the x dimension to -180 origin for dataset</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    da <span class="op">=</span> da.assign_coords(lon<span class="op">=</span>(((da.lon <span class="op">+</span> <span class="dv">180</span>) <span class="op">%</span> <span class="dv">360</span>) <span class="op">-</span> <span class="dv">180</span>)).sortby(<span class="st">"lon"</span>)</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Reverse the DataArray's y dimension to comply with raster common practice</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> da.lat.values[<span class="op">-</span><span class="dv">1</span>] <span class="op">&gt;</span> da.lat.values[<span class="dv">0</span>]:</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>        da <span class="op">=</span> da.isel(lat<span class="op">=</span><span class="bu">slice</span>(<span class="va">None</span>, <span class="va">None</span>, <span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set raster attributes</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    da.rio.set_spatial_dims(<span class="st">"lon"</span>, <span class="st">"lat"</span>)</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    da.rio.write_crs(<span class="st">"epsg:4326"</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> MemoryFile() <span class="im">as</span> memfile:</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>        da.rio.to_raster(memfile.name, <span class="op">**</span>COG_PROFILE)</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Validate COG in-memory</span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>        cog_valid <span class="op">=</span> rio_cogeo.cogeo.cog_validate(memfile.name)[<span class="dv">0</span>]</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> cog_valid:</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">RuntimeError</span>(<span class="st">"COG validation failed."</span>)</span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Upload to S3</span></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> DESTINATION_BUCKET <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>            client <span class="op">=</span> boto3.client(<span class="st">"s3"</span>)</span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>            r <span class="op">=</span> client.put_object(</span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>                Body<span class="op">=</span>memfile,</span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>                Bucket<span class="op">=</span>DESTINATION_BUCKET,</span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>                Key<span class="op">=</span>DESTINATION_KEY,</span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> r[<span class="st">"ResponseMetadata"</span>][<span class="st">"HTTPStatusCode"</span>] <span class="op">!=</span> <span class="dv">200</span>:</span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a>                <span class="cf">raise</span> <span class="pp">RuntimeError</span>(<span class="st">"Upload failed."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 

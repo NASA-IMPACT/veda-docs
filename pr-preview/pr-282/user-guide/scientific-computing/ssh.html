@@ -1030,8 +1030,8 @@ Warning
 <section id="get-the-token" class="level3">
 <h3 class="anchored" data-anchor-id="get-the-token">Get the token</h3>
 <ol type="1">
-<li><p>Launch a server from the <a href="https://hub.openveda.cloud/">VEDA JupyterHub home page</a>. The server must be started in order to connect remotely.</p></li>
-<li><p>Get a new token from the <a href="https://hub.openveda.cloud/hub/token">VEDA JupyterHub token page</a>:</p>
+<li>Launch a server from the <a href="https://hub.openveda.cloud/">VEDA JupyterHub home page</a>. The server must be started in order to connect remotely.</li>
+<li>Get a new token from the <a href="https://hub.openveda.cloud/hub/token">VEDA JupyterHub token page</a>:
 <ul>
 <li>Enter a descriptive name in the ‘Note’ text window.</li>
 <li>Enter an expiration date.</li>
@@ -1072,11 +1072,11 @@ Warning
 </section>
 <section id="setup-ssh-keys-on-your-jupyterhub-server" class="level3">
 <h3 class="anchored" data-anchor-id="setup-ssh-keys-on-your-jupyterhub-server">Setup ssh keys on your JupyterHub server</h3>
-<p>You need to put some ssh public keys in <code>~/.ssh/authorized_keys</code> after you start your JupyterHub server and have completed the <a href="#setup-your-local-.sshconfig">setup of your private keys on your local machine</a>.</p>
+<p>You need to put some ssh public keys in <code>~/.ssh/authorized_keys</code> after you start your JupyterHub server and have completed the <a href="#setup-your-local-sshconfig">setup of your private keys on your local machine</a>.</p>
 <ol type="1">
 <li><p>Launch a server from the <a href="https://hub.openveda.cloud/">VEDA JupyterHub home page</a> if you don’t already have one running.</p></li>
 <li><p>Open a terminal in JupyterLab</p></li>
-<li><p>Run the following commands, replacing <your-github-username> with your github username:</your-github-username></p>
+<li><p>Run the following commands, replacing <code>&lt;YOUR-GITHUB-USERNAME&gt;</code> with your GitHub username:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/.ssh</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://github.com/<span class="op">&lt;</span>YOUR-GITHUB-USERNAME<span class="op">&gt;</span>.keys <span class="at">-O</span> ~/.ssh/authorized_keys</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 0600 ~/.ssh/authorized_keys</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
@@ -1090,7 +1090,7 @@ Warning
 <h3 class="anchored" data-anchor-id="connect-to-the-jupyterhub-using-the-vs-code-remote-ssh-feature">Connect to the JupyterHub using the VS Code Remote SSH feature</h3>
 <ol type="1">
 <li>Launch a server from the <a href="https://hub.openveda.cloud/">VEDA JupyterHub home page</a> if you don’t already have one running.</li>
-<li>Open a new VS Code Window on your local maachine.</li>
+<li>Open a new VS Code Window on your local machine.</li>
 <li>Open the command prompt (command + shift + P on macOS)</li>
 <li>Enter <code>Remote-SSH: Connect to Host...</code></li>
 <li>Select <code>hub.openveda.cloud</code></li>

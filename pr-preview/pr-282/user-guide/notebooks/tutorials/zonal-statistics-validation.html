@@ -1111,32 +1111,26 @@ Learn more
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    deltas <span class="op">=</span> np.diff(arr)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> np.allclose(deltas, deltas[<span class="dv">0</span>]):</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"The spacing in the array is not uniform: </span><span class="sc">{</span><span class="bu">list</span>(np.unique(deltas))<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> deltas[<span class="dv">0</span>]</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> grid_cell_area(lat):</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">    https://www.mathworks.com/matlabcentral/answers/447847-how-to-calculate-the-area-of-each-grid-cell</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">    https://gis.stackexchange.com/a/28156</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get lat spacing asserting it is uniform</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    dlat <span class="op">=</span> _get_unique_diff(lat)</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate cell edge lat</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    lat_edge <span class="op">=</span> lat <span class="op">-</span> dlat <span class="op">/</span> <span class="fl">2.0</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># radius of Earth in meters</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    R_e <span class="op">=</span> <span class="fl">6371e3</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate cell area as a function of latitude</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>        R_e<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>        <span class="op">*</span> (np.sin(np.radians(lat_edge <span class="op">+</span> dlat)) <span class="op">-</span> np.sin(np.radians(lat_edge)))</span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>        <span class="op">*</span> np.radians(dlat)</span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="ss">f"The spacing in the array is not uniform: </span><span class="sc">{</span><span class="bu">list</span>(np.unique(deltas))<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> deltas[<span class="dv">0</span>]</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> grid_cell_area(lat):</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">    https://www.mathworks.com/matlabcentral/answers/447847-how-to-calculate-the-area-of-each-grid-cell</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">    https://gis.stackexchange.com/a/28156</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get lat spacing asserting it is uniform</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    dlat <span class="op">=</span> _get_unique_diff(lat)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate cell edge lat</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    lat_edge <span class="op">=</span> lat <span class="op">-</span> dlat <span class="op">/</span> <span class="fl">2.0</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># radius of Earth in meters</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    R_e <span class="op">=</span> <span class="fl">6371e3</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate cell area as a function of latitude</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> R_e<span class="op">**</span><span class="dv">2</span> <span class="op">*</span> (np.sin(np.radians(lat_edge <span class="op">+</span> dlat)) <span class="op">-</span> np.sin(np.radians(lat_edge))) <span class="op">*</span> np.radians(dlat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="define-a-geometry-to-average-over" class="level2">
@@ -1151,48 +1145,49 @@ Learn more
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"type"</span>: <span class="st">"Feature"</span>,</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"properties"</span>: {},</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">"geometry"</span>: {</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">"coordinates"</span>: [</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                    [[<span class="op">-</span><span class="dv">115</span>, <span class="dv">82</span>], [<span class="op">-</span><span class="dv">115</span>, <span class="op">-</span><span class="dv">82</span>], [<span class="op">-</span><span class="dv">43</span>, <span class="op">-</span><span class="dv">82</span>], [<span class="op">-</span><span class="dv">43</span>, <span class="dv">82</span>], [<span class="op">-</span><span class="dv">115</span>, <span class="dv">82</span>]]</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                ],</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>                <span class="st">"type"</span>: <span class="st">"Polygon"</span>,</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>            },</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    ],</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">"coordinates"</span>: [[[<span class="op">-</span><span class="dv">115</span>, <span class="dv">82</span>], [<span class="op">-</span><span class="dv">115</span>, <span class="op">-</span><span class="dv">82</span>], [<span class="op">-</span><span class="dv">43</span>, <span class="op">-</span><span class="dv">82</span>], [<span class="op">-</span><span class="dv">43</span>, <span class="dv">82</span>], [<span class="op">-</span><span class="dv">115</span>, <span class="dv">82</span>]]],</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">"type"</span>: <span class="st">"Polygon"</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>            },</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="compute-averages-with-xarray" class="level2">
 <h2 class="anchored" data-anchor-id="compute-averages-with-xarray">Compute averages with Xarray</h2>
 <div id="cell-14" class="cell" data-tags="[]" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>timeseries <span class="op">=</span> {<span class="st">"start_datetime"</span>: [], <span class="st">"average_weighted"</span>: [], <span class="st">"average_unweighted"</span>: []}</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> tqdm.tqdm(items):</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    item_uri <span class="op">=</span> item.assets[ASSET_NAME].href</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> xr.open_dataset(item_uri, engine<span class="op">=</span><span class="st">"rasterio"</span>) <span class="im">as</span> xds:</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># calculate area as a function of latitude</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        area_lat <span class="op">=</span> grid_cell_area(xds.y.values)</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        area_lat_2d <span class="op">=</span> np.ones((<span class="bu">len</span>(xds.y), <span class="bu">len</span>(xds.x))) <span class="op">*</span> area_lat[:, np.newaxis]</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        xds[<span class="st">"area"</span>] <span class="op">=</span> xr.DataArray(area_lat_2d, dims<span class="op">=</span>(<span class="st">"y"</span>, <span class="st">"x"</span>))</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># clip to geometry</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        xds_clip <span class="op">=</span> xds.rio.clip([AOI[<span class="st">"features"</span>][<span class="dv">0</span>][<span class="st">"geometry"</span>]])</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>timeseries <span class="op">=</span> {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"start_datetime"</span>: [],</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_weighted"</span>: [],</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_unweighted"</span>: [],</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> tqdm.tqdm(items):</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    item_uri <span class="op">=</span> item.assets[ASSET_NAME].href</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> xr.open_dataset(item_uri, engine<span class="op">=</span><span class="st">"rasterio"</span>) <span class="im">as</span> xds:</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># calculate area as a function of latitude</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        area_lat <span class="op">=</span> grid_cell_area(xds.y.values)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        area_lat_2d <span class="op">=</span> np.ones((<span class="bu">len</span>(xds.y), <span class="bu">len</span>(xds.x))) <span class="op">*</span> area_lat[:, np.newaxis]</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        xds[<span class="st">"area"</span>] <span class="op">=</span> xr.DataArray(area_lat_2d, dims<span class="op">=</span>(<span class="st">"y"</span>, <span class="st">"x"</span>))</span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># get data arrays</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> xds_clip[<span class="st">"band_data"</span>].isel(band<span class="op">=</span><span class="dv">0</span>).to_masked_array()</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        weights <span class="op">=</span> xds_clip[<span class="st">"area"</span>].to_masked_array()</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        weights.mask <span class="op">=</span> data.mask</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># calculate averages</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        average_weighted <span class="op">=</span> (data <span class="op">*</span> weights).<span class="bu">sum</span>() <span class="op">/</span> weights.<span class="bu">sum</span>()</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        average_unweighted <span class="op">=</span> data.mean()</span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        timeseries[<span class="st">"average_weighted"</span>].append(average_weighted)</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>        timeseries[<span class="st">"average_unweighted"</span>].append(average_unweighted)</span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>        timeseries[<span class="st">"start_datetime"</span>].append(item.properties[<span class="st">"start_datetime"</span>])</span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        lat_vals <span class="op">=</span> xds.y.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># clip to geometry</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        xds_clip <span class="op">=</span> xds.rio.clip([AOI[<span class="st">"features"</span>][<span class="dv">0</span>][<span class="st">"geometry"</span>]])</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># get data arrays</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> xds_clip[<span class="st">"band_data"</span>].isel(band<span class="op">=</span><span class="dv">0</span>).to_masked_array()</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        weights <span class="op">=</span> xds_clip[<span class="st">"area"</span>].to_masked_array()</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        weights.mask <span class="op">=</span> data.mask</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        <span class="co"># calculate averages</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        average_weighted <span class="op">=</span> (data <span class="op">*</span> weights).<span class="bu">sum</span>() <span class="op">/</span> weights.<span class="bu">sum</span>()</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>        average_unweighted <span class="op">=</span> data.mean()</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>        timeseries[<span class="st">"average_weighted"</span>].append(average_weighted)</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        timeseries[<span class="st">"average_unweighted"</span>].append(average_unweighted)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>        timeseries[<span class="st">"start_datetime"</span>].append(item.properties[<span class="st">"start_datetime"</span>])</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>        lat_vals <span class="op">=</span> xds.y.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>100%|██████████| 12/12 [00:52&lt;00:00,  4.39s/it]</code></pre>
 </div>
@@ -1202,7 +1197,10 @@ Learn more
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df.index <span class="op">=</span> pd.to_datetime(df.index)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="cell-16" class="cell" data-tags="[]" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df.plot(ylabel<span class="op">=</span><span class="ss">f"average </span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss">"</span>, title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df.plot(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    ylabel<span class="op">=</span><span class="ss">f"average </span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1255,12 +1253,10 @@ Learn more
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item <span class="kw">in</span> tqdm.tqdm(items):</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># generate stats with and without reprojection</span></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    stats_noproj <span class="op">=</span> generate_stats(item, AOI, ASSET_NAME)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    stats_proj <span class="op">=</span> generate_stats(</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        item, AOI, ASSET_NAME, params<span class="op">=</span>{<span class="st">"dst_crs"</span>: WORKING_PROJECTION}</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    timeseries_titiler_noproj.append(stats_noproj)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    timeseries_titiler_proj.append(stats_proj)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    stats_proj <span class="op">=</span> generate_stats(item, AOI, ASSET_NAME, params<span class="op">=</span>{<span class="st">"dst_crs"</span>: WORKING_PROJECTION})</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    timeseries_titiler_noproj.append(stats_noproj)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    timeseries_titiler_proj.append(stats_proj)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>100%|██████████| 12/12 [02:56&lt;00:00, 14.68s/it]</code></pre>
 </div>
@@ -1303,16 +1299,16 @@ Learn more
 </div>
 </div>
 </div>
-<div id="cell-28" class="cell" data-tags="[]" data-execution_count="19">
+<div id="cell-28" class="cell" data-tags="[]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure()</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.gca()</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>ax.plot(df_all[<span class="st">"average_weighted"</span>], df_all[<span class="st">"average_weighted"</span>], color<span class="op">=</span><span class="st">"grey"</span>)</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key, style <span class="kw">in</span> {</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_titiler_proj"</span>: <span class="bu">dict</span>(c<span class="op">=</span><span class="st">"#e41a1c"</span>),</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_unweighted"</span>: <span class="bu">dict</span>(c<span class="op">=</span><span class="st">"#377eb8"</span>),</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_titiler_noproj"</span>: <span class="bu">dict</span>(c<span class="op">=</span><span class="st">"#984ea3"</span>, marker<span class="op">=</span><span class="st">"x"</span>, s<span class="op">=</span><span class="dv">100</span>),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_titiler_proj"</span>: {<span class="st">"c"</span>: <span class="st">"#e41a1c"</span>},</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_unweighted"</span>: {<span class="st">"c"</span>: <span class="st">"#377eb8"</span>},</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"average_titiler_noproj"</span>: {<span class="st">"c"</span>: <span class="st">"#984ea3"</span>, <span class="st">"marker"</span>: <span class="st">"x"</span>, <span class="st">"s"</span>: <span class="dv">100</span>},</span>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>}.items():</span>
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    df_all.plot.scatter(<span class="st">"average_weighted"</span>, key, ax<span class="op">=</span>ax, label<span class="op">=</span>key, <span class="op">**</span>style)</span>
 <span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
@@ -1342,8 +1338,9 @@ Learn more
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>df_rmse <span class="op">=</span> df_rmse.set_index(<span class="st">"algorithm"</span>)</span>
 <span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>df_rmse.plot.barh(</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"RMSE wrt average_weighted"</span>, title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    xlabel<span class="op">=</span><span class="st">"RMSE wrt average_weighted"</span>,</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>ASSET_NAME<span class="sc">}</span><span class="ss"> averaged over </span><span class="sc">{</span>AOI_NAME<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
