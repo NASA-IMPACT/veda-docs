@@ -7505,7 +7505,7 @@ Attributes: (12/30)
 <p>Remove any <strong>.gif</strong> files that were created to save on storage space. Additionally, remove any <strong>core</strong> files that were created if the kernel crashed.</p>
 <div id="46fcc420-3c68-481c-9223-86484eea1820" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find all .gif files in the current directory</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> gif_path <span class="kw">in</span> Path.glob(<span class="st">"*.gif"</span>):</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> gif_path <span class="kw">in</span> Path().glob(<span class="st">"*.gif"</span>):</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>        Path(gif_path).unlink()</span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Removed </span><span class="sc">{</span>gif_path<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -7513,7 +7513,7 @@ Attributes: (12/30)
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Error removing </span><span class="sc">{</span>gif_path<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># find all core files in the current directory</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> core_path <span class="kw">in</span> Path.glob(<span class="st">"core.*"</span>):</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> core_path <span class="kw">in</span> Path().glob(<span class="st">"core.*"</span>):</span>
 <span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
 <span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>        Path(core_path).unlink()</span>
 <span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Removed </span><span class="sc">{</span>core_path<span class="sc">}</span><span class="ss">"</span>)</span>
