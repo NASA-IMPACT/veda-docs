@@ -201,7 +201,7 @@ def generate_frame(
     # when generating the GIF
     filepath = Path(dir_path) / "_".join([datestring, item["id"].replace(".nc", f".{image_format}")])
 
-    with Path.open(filepath, "wb") as f:
+    with Path(filepath).open("wb") as f:
         f.write(
             get_image(
                 item,
