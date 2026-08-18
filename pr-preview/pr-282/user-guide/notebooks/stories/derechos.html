@@ -87,9 +87,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-ba8a16673e0fbc6b06743a8bc446b19e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark-38b4b083567852a073b42d376d0d06bd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../../site_libs/bootstrap/bootstrap-ba8a16673e0fbc6b06743a8bc446b19e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-d89a72bfbd7e0b9c3705c5cccbc9cf0d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-dark-d5065c2f1b005f72236c022f63012b33.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../site_libs/bootstrap/bootstrap-d89a72bfbd7e0b9c3705c5cccbc9cf0d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -1133,11 +1133,13 @@ If you <strong>do not</strong> have a VEDA Jupyterhub Account you can launch thi
 <section id="processing-steps" class="level3">
 <h3 class="anchored" data-anchor-id="processing-steps">Processing steps:</h3>
 <p>1.) Provide credentials for EarthAccess authentication<br> 2.) Select a start and end date for the data granules<br> 3.) Add <a href="https://search.earthdata.nasa.gov/search/granules?p=C1690022359-GES_DISC&amp;pg[0][v]=f&amp;pg[0][gsk]=-start_date&amp;q=GLDAS_CLSM10_3H_2.1&amp;tl=1347014600.484!5!!&amp;lat=0.05719976537514171&amp;long=-0.07464366545408296&amp;zoom=3.0033333333333334" target="_blank" rel="noopener noreferrer" style="color: blue; text-decoration: none;"> model name and version from EarthData portal </a><br> 4.) Add the prefix for the data within the bucket (e.g., remote sensing mission, reanalysis model, etc.)<br> 5.) Retrieve all files within the collection based on the start and end date. (If the same year is selected for start_date and end_date, then only the common year will be retrieved. Else all granules are retrived.<br> 6.) Filter all collected granules based on the start_ and end_date range.<br> 7.) Compute daily mean of hourly files<br> 8.) Plot variable based on coordinates selected<br> 9.) Create a .gif over the start_ and end_date range</p>
-<div id="0bfac17a-2af1-489f-b1ad-655f7541e23a" class="cell" data-execution_count="3">
+<div id="0bfac17a-2af1-489f-b1ad-655f7541e23a" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Authenticate ──────────────────────────────────────────────────────────────</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login()</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> Store(auth)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># You must have accepted the NASA GESDISC DATA ARCHIVE EULA</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Earthdata Login: https://urs.earthdata.nasa.gov/home/ &gt; EULAs &gt; Accept New EULAs &gt; NASA GESDISC DATA ARCHIVE</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>auth <span class="op">=</span> earthaccess.login()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>store <span class="op">=</span> Store(auth)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="select-dates-and-find-links" class="level2">
