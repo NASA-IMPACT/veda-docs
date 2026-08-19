@@ -1146,7 +1146,7 @@ Learn more
 <p>Now that we’ve explored the dataset through the STAC API, let’s read and access the dataset itself.</p>
 <div id="cell-16" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> odc.stac</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rioxarray <span class="co"># noqa</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rioxarray  <span class="co"># noqa</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>da <span class="op">=</span> odc.stac.load(items[:<span class="dv">1</span>], chunks<span class="op">=</span>{<span class="st">"latitude"</span>: <span class="st">"auto"</span>, <span class="st">"longitude"</span>: <span class="st">"auto"</span>}, dtype<span class="op">=</span><span class="st">"float32"</span>)[</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cog_default"</span></span>
@@ -1707,7 +1707,7 @@ Attributes:
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>biomass <span class="op">=</span> da.rio.clip_box(<span class="op">*</span>admin2_gdf.total_bounds).compute()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="cell-22" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hvplot.xarray <span class="co"># noqa</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hvplot.xarray  <span class="co"># noqa</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>biomass.hvplot(</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"longitude"</span>,</span>
@@ -2886,7 +2886,7 @@ if (window.Jupyter !== undefined) {
 <h2 class="anchored" data-anchor-id="visualizing-the-results-with-a-choropleth-map">Visualizing the results with a choropleth map</h2>
 <p>Now, let’s visualize the results!</p>
 <div id="cell-30" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hvplot.pandas <span class="co"># noqa</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> hvplot.pandas  <span class="co"># noqa</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># renaming the shapeName to District for improved legend</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>concat_df.rename(columns<span class="op">=</span>{<span class="st">"shapeName"</span>: <span class="st">"District"</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span>
