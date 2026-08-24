@@ -1,6 +1,8 @@
+exclude: 'user-guide/notebooks/stories/plotutils.py'
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -10,42 +12,26 @@ repos:
       - id: debug-statements
       - id: mixed-line-ending
 
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.17.0
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.1
     hooks:
-      - id: pyupgrade
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+        types_or: [python, pyi, jupyter, pyproject]
+
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.23.2
+    hooks:
+      - id: markdownlint-cli2
         args:
-          - "--py38-plus"
+        - "--fix"
+        - "--config"
+        - "pyproject.toml"
+        - "--configPointer"
+        - "/tool/markdownlint-cli2"
 
-  - repo: https://github.com/psf/black
-    rev: 24.8.0
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.12.5
     hooks:
-      - id: black
-
-  - repo: https://github.com/keewis/blackdoc
-    rev: v0.3.9
-    hooks:
-      - id: blackdoc
-
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: "v0.5.7"
-    hooks:
-      - id: ruff
-        args: ["--fix"]
-
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v4.0.0-alpha.8
-    hooks:
-      - id: prettier
-
-  - repo: https://github.com/nbQA-dev/nbQA
-    rev: 1.8.7
-    hooks:
-      - id: nbqa-ruff
-        args: ["--fix"]
-      - id: nbqa-isort
-        args: ["--profile=black"]
-        additional_dependencies: [isort==5.6.4]
-      - id: nbqa-black
-      - id: nbqa-pyupgrade
-        args: ["--py37-plus"]
+      - id: uv-lock

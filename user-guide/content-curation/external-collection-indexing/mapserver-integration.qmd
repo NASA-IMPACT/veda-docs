@@ -44,7 +44,7 @@ if wms_links:
     wms_link = wms_links[0]
     layers = wms_link.extra_fields.get('wms:layers', [])
     print(f"Available WMS layers: {layers}")
-    
+
     # Check styling options
     styles = wms_link.extra_fields.get('wms:styles', [])
     print(f"Available styles: {styles}")
@@ -53,7 +53,7 @@ if wms_links:
 if 'renders' in collection.extra_fields:
     renders = collection.extra_fields['renders']
     print(f"Render configurations: {list(renders.keys())}")
-    
+
     # Inspect render details
     for render_name, render_config in renders.items():
         print(f"  {render_name}: layers={render_config.get('layers', 'Unknown')}")
@@ -84,7 +84,7 @@ Based on the SERVIR Global ESI 4-week service:
       "wms:styles": ["default"]
     },
     {
-      "rel": "via", 
+      "rel": "via",
       "href": "https://gis1.servirglobal.net/arcgis/rest/services/Global/ESI_4WK/MapServer",
       "type": "text/html",
       "title": "Parent ArcGIS server url"
@@ -95,7 +95,7 @@ Based on the SERVIR Global ESI 4-week service:
       "layers": "1"
     },
     "footprint": {
-      "layers": "2"  
+      "layers": "2"
     },
     "boundary": {
       "layers": "3"
@@ -160,7 +160,7 @@ For time-enabled MapServer services:
 ```json
 {
   "dashboard:is_periodic": true,
-  "dashboard:time_density": "day", 
+  "dashboard:time_density": "day",
   "dashboard:time_interval": "P7D"
 }
 ```

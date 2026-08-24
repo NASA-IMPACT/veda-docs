@@ -1,27 +1,39 @@
-import folium
-from folium import Map, Element
-from folium.raster_layers import ImageOverlay
-from folium.plugins import FloatImage, SideBySideLayers
-import numpy as np
-import xarray as xr
-import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
-import matplotlib.ticker as mticker
-import matplotlib.cm as cm
-import io
 import base64
-import pandas as pd
-from typing import Tuple
-from branca.colormap import LinearColormap
-import imageio.v2 as imageio
+import io
+
 import cartopy.crs as ccrs
-from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
+import folium
+import imageio.v2 as imageio
+import ipywidgets as widgets
+import matplotlib.cm as cm
+import matplotlib.colors as mcolors
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mticker
+import numpy as np
+import pandas as pd
+import xarray as xr
+from cartopy.mpl.gridliner import LATITUDE_FORMATTER, LONGITUDE_FORMATTER
+from folium import Element, Map
+from folium.plugins import FloatImage, SideBySideLayers
+from folium.raster_layers import ImageOverlay
 from IPython.display import Image, display
 from PIL import Image as pilImage
-import ipywidgets as widgets
 
 
-def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipud, matplot_ramp, zoom_level, save_tif=False, tif_filename=None, crs=None, opacity=0.8, basemap_style='cartodb-positron'):
+def plot_folium_from_xarray(
+    dataset,
+    day_select,
+    bbox,
+    var_name_for_title,
+    flipud,
+    matplot_ramp,
+    zoom_level,
+    save_tif=False,
+    tif_filename=None,
+    crs=None,
+    opacity=0.8,
+    basemap_style="cartodb-positron",
+):
     """
     Plot a selected day's xarray data on an interactive Folium map with a colorbar.
 
@@ -44,7 +56,7 @@ def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipu
     basemap_style : str, optional
         Basemap style to use (default 'cartodb-positron').
         See get_available_basemaps() for options.
-        
+
     Returns
     -------
     folium.Map
@@ -54,10 +66,7 @@ def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipu
     lon_min, lat_min, lon_max, lat_max = bbox
 
     # Select slice
-    da = dataset.sel(time=day_select).sel(
-        lon=slice(lon_min, lon_max),
-        lat=slice(lat_min, lat_max)
-    )
+    da = dataset.sel(time=day_select).sel(lon=slice(lon_min, lon_max), lat=slice(lat_min, lat_max))
 
     lons = da.lon.values
     lats = da.lat.values
@@ -67,14 +76,14 @@ def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipu
     dx = float(lons[1] - lons[0])
     dy = float(lats[1] - lats[0])
 
-    lon_left   = float(lons.min() - dx/2)
-    lon_right  = float(lons.max() + dx/2)
-    lat_bottom = float(lats.min() - dy/2)
-    lat_top    = float(lats.max() + dy/2)
+    lon_left = float(lons.min() - dx / 2)
+    lon_right = float(lons.max() + dx / 2)
+    lat_bottom = float(lats.min() - dy / 2)
+    lat_top = float(lats.max() + dy / 2)
 
-    #center on the true middle
+    # center on the true middle
     center_lat = (lat_bottom + lat_top) / 2
-    center_lon = (lon_left   + lon_right) / 2
+    center_lon = (lon_left + lon_right) / 2
 
     # Flip latitudes if needed
     if flipud and lats[0] < lats[-1]:
@@ -95,42 +104,41 @@ def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipu
             data,
             dims=["lat", "lon"],
             coords={"lat": lats, "lon": lons},
-            name=var_name_for_title
+            name=var_name_for_title,
         )
 
         # Set CRS and spatial dimensions properly
         da_out.rio.set_spatial_dims(x_dim="lon", y_dim="lat", inplace=True)
-        da_out.rio.write_crs(crs, inplace=False)  
-        
+        da_out.rio.write_crs(crs, inplace=False)
+
         # Save as GeoTIFF
         da_out.rio.to_raster(tif_filename)
         print(f"Saved GeoTIFF to {tif_filename}")
-    
+
     # ========== Plot and Save Main Image ==========
     fig, ax = plt.subplots(figsize=(8, 6))
 
     # — in your plotting section —
     extent_edges = [lon_left, lon_right, lat_bottom, lat_top]
-    ax.imshow(
-        normed,
-        cmap=matplot_ramp,
-        extent=extent_edges,
-        origin='lower'
-    )
+    ax.imshow(normed, cmap=matplot_ramp, extent=extent_edges, origin="lower")
 
     ax.imshow(
         normed,
         cmap=matplot_ramp,
         extent=[lon_min, lon_max, lat_min, lat_max],
-        origin='lower'
+        origin="lower",
     )
-    ax.axis('off')
-    ax.set_title(f"{var_name_for_title} on {pd.to_datetime(day_select).strftime('%B %d, %Y')}", fontsize=16, pad=10)
+    ax.axis("off")
+    ax.set_title(
+        f"{var_name_for_title} on {pd.to_datetime(day_select).strftime('%B %d, %Y')}",
+        fontsize=16,
+        pad=10,
+    )
 
     buf = io.BytesIO()
-    plt.savefig(buf, format='png', bbox_inches='tight', pad_inches=0, transparent=True)
+    plt.savefig(buf, format="png", bbox_inches="tight", pad_inches=0, transparent=True)
     buf.seek(0)
-    encoded = base64.b64encode(buf.read()).decode('utf-8')
+    encoded = base64.b64encode(buf.read()).decode("utf-8")
     buf.close()
     plt.close(fig)
 
@@ -140,46 +148,46 @@ def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipu
     cbar = plt.colorbar(
         plt.cm.ScalarMappable(cmap=matplot_ramp, norm=norm),
         cax=ax_cbar,
-        orientation='vertical'
+        orientation="vertical",
     )
     ax_cbar.set_ylabel(var_name_for_title, rotation=270, labelpad=15)
-    ax_cbar.yaxis.set_label_position('left')
+    ax_cbar.yaxis.set_label_position("left")
 
     buf_cbar = io.BytesIO()
-    plt.savefig(buf_cbar, format='png', bbox_inches='tight', pad_inches=0.05, transparent=True)
+    plt.savefig(buf_cbar, format="png", bbox_inches="tight", pad_inches=0.05, transparent=True)
     buf_cbar.seek(0)
-    encoded_cbar = base64.b64encode(buf_cbar.read()).decode('utf-8')
+    encoded_cbar = base64.b64encode(buf_cbar.read()).decode("utf-8")
     buf_cbar.close()
     plt.close(fig_cbar)
 
     # ========== Create Folium Map ==========
     # — after you've computed `normed` (shape [ny, nx]) and the half-cell edges:
-    rgba = cm.get_cmap(matplot_ramp)(normed)         # shape [ny, nx, 4], floats 0–1
-    
+    rgba = cm.get_cmap(matplot_ramp)(normed)  # shape [ny, nx, 4], floats 0–1
+
     # convert RGBA [0–1] → uint8 [0–255] → pure‐Python nested lists
     rgba_uint8 = (rgba * 255).astype("uint8")
     image_list = rgba_uint8.tolist()
-    
+
     m = Map(
-        location=[ (lat_bottom+lat_top)/2, (lon_left+lon_right)/2 ],
+        location=[(lat_bottom + lat_top) / 2, (lon_left + lon_right) / 2],
         zoom_start=zoom_level,
-        tiles=None  # We'll add basemap separately
+        tiles=None,  # We'll add basemap separately
     )
-    
+
     # Add basemap
     try:
         add_basemap_to_map(m, basemap_style)
     except Exception as e:
         print(f"Warning: Could not add basemap '{basemap_style}': {e}. Continuing without basemap.")
-    
+
     ImageOverlay(
         image=image_list,
         bounds=[[lat_bottom, lon_left], [lat_top, lon_right]],
         opacity=opacity,
-        origin="lower",                # ensures array[0] is the bottom row
-        mercator_project=True          # ← this warps your Plate Carrée array into 3857
+        origin="lower",  # ensures array[0] is the bottom row
+        mercator_project=True,  # ← this warps your Plate Carrée array into 3857
     ).add_to(m)
-    
+
     m
 
     # 1) build a little HTML <div> with your title
@@ -196,10 +204,10 @@ def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipu
              padding: 5px 10px;
              border-radius: 5px;
          ">
-             {var_name_for_title} on {pd.to_datetime(day_select).strftime('%B %d, %Y')}
+             {var_name_for_title} on {pd.to_datetime(day_select).strftime("%B %d, %Y")}
          </div>
     """
-    
+
     # 2) inject it into the map’s HTML
     m.get_root().html.add_child(Element(title_html))
 
@@ -207,7 +215,7 @@ def plot_folium_from_xarray(dataset, day_select, bbox, var_name_for_title, flipu
     colorbar = FloatImage(f"data:image/png;base64,{encoded_cbar}", bottom=30, left=85)
     colorbar.add_to(m)
 
-    #adds a little widgetthat lists all of the map’s named layers—both base‐layers (TileLayer) and overlays (ImageOverlay, WMS layers, etc.)
+    # adds a little widgetthat lists all of the map’s named layers—both base‐layers (TileLayer) and overlays (ImageOverlay, WMS layers, etc.)
     folium.LayerControl().add_to(m)
 
     return m
@@ -223,21 +231,21 @@ def plot_hdf4_as_png(directory, extension, variable_name, colorbar_label, plot_t
     group_dict = dateutils.group_files_by_year_and_day_EARTHDATA(directory, extension)
 
     for (year, doy), files in group_dict.items():
-        plt.figure(figsize=(12,6))
+        plt.figure(figsize=(12, 6))
         for f in files:
             # print("Reading", f)
             try:
                 hdf = SD(f, SDC.READ)
                 data = hdf.select(variable_name)[:]
-                lat = hdf.select('Latitude')[:]
-                lon = hdf.select('Longitude')[:]
+                lat = hdf.select("Latitude")[:]
+                lon = hdf.select("Longitude")[:]
                 data = np.ma.masked_where(data < -9000, data)
-                plt.scatter(lon, lat, c=data, s=1, cmap='jet', alpha=0.5, vmin=0, vmax=1)
+                plt.scatter(lon, lat, c=data, s=1, cmap="jet", alpha=0.5, vmin=0, vmax=1)
             except Exception as e:
                 print(f"Failed on {f}: {e}")
 
-        plt.xlabel('Longitude')
-        plt.ylabel('Latitude')
+        plt.xlabel("Longitude")
+        plt.ylabel("Latitude")
         plt.title(f"{plot_title} {year} Day {doy}")
         plt.colorbar(label=colorbar_label)
         plt.tight_layout()
@@ -259,35 +267,37 @@ def matplotlib_gif(
     frames = []
 
     for t in data.time.values:
-        da = data.sel(time=t).sel(
-            lon=slice(lon_min, lon_max),
-            lat=slice(lat_min, lat_max)
-        )
+        da = data.sel(time=t).sel(lon=slice(lon_min, lon_max), lat=slice(lat_min, lat_max))
 
-        fig = plt.figure(figsize=(6,5))
+        fig = plt.figure(figsize=(6, 5))
         ax = plt.axes(projection=ccrs.PlateCarree())
 
         da.plot(
             ax=ax,
             transform=ccrs.PlateCarree(),
-            vmin=vmin, vmax=vmax,
+            vmin=vmin,
+            vmax=vmax,
             cmap=cmap,
-            add_colorbar=True
+            add_colorbar=True,
         )
         ax.coastlines()
 
         # add gridlines with labels
         gl = ax.gridlines(
             draw_labels=True,
-            x_inline=False, y_inline=False,
-            linewidth=0.5, color='gray', alpha=0.7, linestyle='--'
+            x_inline=False,
+            y_inline=False,
+            linewidth=0.5,
+            color="gray",
+            alpha=0.7,
+            linestyle="--",
         )
         gl.top_labels = False
         gl.right_labels = False
 
         # set tick locations every 5° (or whatever interval you prefer)
-        gl.xlocator = mticker.FixedLocator(np.arange(lon_min, lon_max+1, 5))
-        gl.ylocator = mticker.FixedLocator(np.arange(lat_min, lat_max+1, 5))
+        gl.xlocator = mticker.FixedLocator(np.arange(lon_min, lon_max + 1, 5))
+        gl.ylocator = mticker.FixedLocator(np.arange(lat_min, lat_max + 1, 5))
 
         # hook up nice formatters
         gl.xformatter = LONGITUDE_FORMATTER
@@ -310,7 +320,7 @@ def load_preview(path: str, target_width: int = 800) -> np.ndarray:
     """
     Load an image from disk, resize it to a given width while preserving aspect ratio,
     and return its pixel data as a NumPy array.
-    
+
     Parameters
     ----------
     path : str
@@ -318,7 +328,7 @@ def load_preview(path: str, target_width: int = 800) -> np.ndarray:
     target_width : int, optional
         Desired width of the output image in pixels. The height will be scaled
         to preserve the original aspect ratio. Default is 800.
-        
+
     Returns
     -------
     np.ndarray
@@ -336,26 +346,26 @@ def load_preview(path: str, target_width: int = 800) -> np.ndarray:
 def get_available_basemaps() -> dict:
     """
     Get a dictionary of available basemap styles and their descriptions.
-    
+
     Returns
     -------
     dict
         Dictionary mapping basemap style names to their descriptions
     """
     return {
-        'openstreetmap': 'OpenStreetMap standard tiles',
-        'cartodb-positron': 'Light gray CartoDB basemap (subtle, good for data visualization)',
-        'cartodb-dark': 'Dark CartoDB basemap (good for bright data)',
-        'esri-satellite': 'ESRI satellite imagery without labels',
-        'esri-satellite-labels': 'ESRI satellite imagery with place labels overlay',
-        None: 'No basemap (transparent background)'
+        "openstreetmap": "OpenStreetMap standard tiles",
+        "cartodb-positron": "Light gray CartoDB basemap (subtle, good for data visualization)",
+        "cartodb-dark": "Dark CartoDB basemap (good for bright data)",
+        "esri-satellite": "ESRI satellite imagery without labels",
+        "esri-satellite-labels": "ESRI satellite imagery with place labels overlay",
+        None: "No basemap (transparent background)",
     }
 
 
 def add_basemap_to_map(m: folium.Map, basemap_style: str) -> None:
     """
     Add a basemap layer to a Folium map with error checking.
-    
+
     Parameters
     ----------
     m : folium.Map
@@ -368,14 +378,14 @@ def add_basemap_to_map(m: folium.Map, basemap_style: str) -> None:
         - 'esri-satellite': ESRI satellite imagery
         - 'esri-satellite-labels': ESRI satellite with place labels overlay
         - None: No basemap added
-        
+
     Raises
     ------
     ValueError
         If an invalid basemap_style is provided
     TypeError
         If m is not a folium.Map object
-        
+
     Returns
     -------
     None
@@ -384,65 +394,65 @@ def add_basemap_to_map(m: folium.Map, basemap_style: str) -> None:
     # Type checking
     if not isinstance(m, (folium.Map, Map)):
         raise TypeError(f"Expected folium.Map object, got {type(m).__name__}")
-    
+
     # Skip if no basemap requested
     if basemap_style is None or basemap_style == "":
         return
-    
+
     # Validate basemap_style
     valid_styles = {
-        'openstreetmap', 'cartodb-positron', 'cartodb-dark', 
-        'esri-satellite', 'esri-satellite-labels'
+        "openstreetmap",
+        "cartodb-positron",
+        "cartodb-dark",
+        "esri-satellite",
+        "esri-satellite-labels",
     }
-    
+
     if not isinstance(basemap_style, str):
         raise TypeError(f"basemap_style must be a string, got {type(basemap_style).__name__}")
-    
+
     if basemap_style not in valid_styles:
-        raise ValueError(
-            f"Invalid basemap_style '{basemap_style}'. "
-            f"Valid options are: {', '.join(sorted(valid_styles))}, or None"
-        )
-    
+        raise ValueError(f"Invalid basemap_style '{basemap_style}'. Valid options are: {', '.join(sorted(valid_styles))}, or None")
+
     # Add the appropriate basemap
     try:
-        if basemap_style == 'openstreetmap':
-            folium.TileLayer('openstreetmap', name='OpenStreetMap').add_to(m)
-            
-        elif basemap_style == 'cartodb-positron':
-            folium.TileLayer('cartodbpositron', name='CartoDB Positron').add_to(m)
-            
-        elif basemap_style == 'cartodb-dark':
-            folium.TileLayer('cartodbdark_matter', name='CartoDB Dark').add_to(m)
-            
-        elif basemap_style == 'esri-satellite':
+        if basemap_style == "openstreetmap":
+            folium.TileLayer("openstreetmap", name="OpenStreetMap").add_to(m)
+
+        elif basemap_style == "cartodb-positron":
+            folium.TileLayer("cartodbpositron", name="CartoDB Positron").add_to(m)
+
+        elif basemap_style == "cartodb-dark":
+            folium.TileLayer("cartodbdark_matter", name="CartoDB Dark").add_to(m)
+
+        elif basemap_style == "esri-satellite":
             folium.TileLayer(
-                tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-                attr='Esri',
-                name='ESRI Satellite',
+                tiles="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                attr="Esri",
+                name="ESRI Satellite",
                 overlay=False,
-                control=True
+                control=True,
             ).add_to(m)
-            
-        elif basemap_style == 'esri-satellite-labels':
+
+        elif basemap_style == "esri-satellite-labels":
             # Add satellite imagery
             folium.TileLayer(
-                tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-                attr='Esri',
-                name='ESRI Satellite',
+                tiles="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                attr="Esri",
+                name="ESRI Satellite",
                 overlay=False,
-                control=True
+                control=True,
             ).add_to(m)
             # Add reference overlay with cities, towns, and street labels
             folium.TileLayer(
-                tiles='https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer/tile/{z}/{y}/{x}',
-                attr='Esri',
-                name='Place Labels',
+                tiles="https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer/tile/{z}/{y}/{x}",
+                attr="Esri",
+                name="Place Labels",
                 overlay=True,
                 control=True,
-                show=True
+                show=True,
             ).add_to(m)
-            
+
     except Exception as e:
         raise RuntimeError(f"Failed to add basemap '{basemap_style}': {str(e)}")
 
@@ -450,7 +460,7 @@ def add_basemap_to_map(m: folium.Map, basemap_style: str) -> None:
 def add_map_title(m: folium.Map, title_text: str, top_position: int = 10) -> None:
     """
     Add a centered title to a Folium map.
-    
+
     Parameters
     ----------
     m : folium.Map
@@ -459,7 +469,7 @@ def add_map_title(m: folium.Map, title_text: str, top_position: int = 10) -> Non
         The text to display in the title
     top_position : int, optional
         Distance from top of map in pixels (default 10)
-        
+
     Returns
     -------
     None
@@ -467,7 +477,7 @@ def add_map_title(m: folium.Map, title_text: str, top_position: int = 10) -> Non
     """
     if not title_text:
         return
-        
+
     title_html = f"""
     <div style="
         position: fixed;
@@ -490,11 +500,16 @@ def add_map_title(m: folium.Map, title_text: str, top_position: int = 10) -> Non
     m.get_root().html.add_child(Element(title_html))
 
 
-def add_custom_html_legend(m: folium.Map, custom_colors: list, colorbar_caption: str, 
-                           position: str = "top", top_offset: int = 50) -> None:
+def add_custom_html_legend(
+    m: folium.Map,
+    custom_colors: list,
+    colorbar_caption: str,
+    position: str = "top",
+    top_offset: int = 50,
+) -> None:
     """
     Add a custom HTML legend with discrete color categories to a Folium map.
-    
+
     Parameters
     ----------
     m : folium.Map
@@ -508,12 +523,12 @@ def add_custom_html_legend(m: folium.Map, custom_colors: list, colorbar_caption:
         Position of the legend. Options: "top", "bottom", "left", "right" (default "top")
     top_offset : int, optional
         Pixels from top when position="top" (default 50)
-        
+
     Returns
     -------
     None
         Modifies the map in place by adding the HTML legend
-        
+
     Raises
     ------
     ValueError
@@ -521,97 +536,103 @@ def add_custom_html_legend(m: folium.Map, custom_colors: list, colorbar_caption:
     TypeError
         If m is not a folium.Map object
     """
-    from branca.element import Template, MacroElement
-    
+    from branca.element import MacroElement, Template
+
     # Type checking
     if not isinstance(m, (folium.Map, Map)):
         raise TypeError(f"Expected folium.Map object, got {type(m).__name__}")
-    
+
     # Validate custom_colors
     if not custom_colors:
         raise ValueError("custom_colors list cannot be empty")
-    
+
     if not isinstance(custom_colors, list):
         raise TypeError(f"custom_colors must be a list, got {type(custom_colors).__name__}")
-    
+
     # Validate each color entry
     for i, cat in enumerate(custom_colors):
         if not isinstance(cat, dict):
             raise TypeError(f"custom_colors[{i}] must be a dict, got {type(cat).__name__}")
-        if 'color' not in cat or 'label' not in cat:
+        if "color" not in cat or "label" not in cat:
             raise ValueError(f"custom_colors[{i}] must have 'color' and 'label' keys")
-    
+
     # Set position styles based on position parameter
     if position == "top":
         position_style = f"""
-            position: fixed; 
-            top: {top_offset}px; 
+            position: fixed;
+            top: {top_offset}px;
             left: 50%;
             transform: translateX(-50%);
         """
     elif position == "bottom":
         position_style = """
-            position: fixed; 
-            bottom: 50px; 
+            position: fixed;
+            bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
         """
     elif position == "left":
         position_style = """
-            position: fixed; 
-            top: 50%; 
+            position: fixed;
+            top: 50%;
             left: 20px;
             transform: translateY(-50%);
         """
     elif position == "right":
         position_style = """
-            position: fixed; 
-            top: 50%; 
+            position: fixed;
+            top: 50%;
             right: 20px;
             transform: translateY(-50%);
         """
     else:
         raise ValueError(f"Invalid position '{position}'. Must be 'top', 'bottom', 'left', or 'right'")
-    
+
     # Build the HTML legend
-    legend_html = '''
+    legend_html = (
+        """
     {% macro html(this, kwargs) %}
     <div style="
-        ''' + position_style + '''
+        """
+        + position_style
+        + """
         width: auto;
         max-width: 90%;
-        height: auto; 
-        background-color: white; 
-        border: 2px solid grey; 
-        z-index: 9999; 
+        height: auto;
+        background-color: white;
+        border: 2px solid grey;
+        z-index: 9999;
         font-size: 14px;
         padding: 8px 15px;
         box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
         border-radius: 4px;
         ">
-        <p style="margin: 0 0 8px 0; font-weight: bold; text-align: center; font-size: 16px;">''' + colorbar_caption + '''</p>
+        <p style="margin: 0 0 8px 0; font-weight: bold; text-align: center; font-size: 16px;">"""
+        + colorbar_caption
+        + """</p>
         <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;">
-    '''
-    
+    """
+    )
+
     for cat in custom_colors:
-        legend_html += f'''
+        legend_html += f"""
             <div style="display: flex; align-items: center;">
-                <span style="background-color: {cat['color']}; 
-                             display: inline-block; 
-                             width: 25px; 
-                             height: 20px; 
+                <span style="background-color: {cat["color"]};
+                             display: inline-block;
+                             width: 25px;
+                             height: 20px;
                              margin-right: 5px;
                              border: 1px solid #333;"></span>
-                <span style="font-weight: 600;">{cat['label']}</span>
+                <span style="font-weight: 600;">{cat["label"]}</span>
             </div>
-        '''
-    
-    legend_html += '''
+        """
+
+    legend_html += """
         </div>
     </div>
     {% endmacro %}
-    '''
-    
+    """
+
     # Create and add the legend to the map
     custom_legend = MacroElement()
     custom_legend._template = Template(legend_html)
@@ -639,7 +660,7 @@ def create_pausable_blend_slider(img1_path, img2_path, width=800):
         print(f"Error loading images: {e}")
         # Return an empty widget or raise the error further
         return widgets.Label("Error: Image files not found. Cannot create blend slider.")
-    
+
     # Ensure same dimensions for blending
     min_height = min(img1.shape[0], img2.shape[0])
     min_width = min(img1.shape[1], img2.shape[1])
@@ -655,40 +676,40 @@ def create_pausable_blend_slider(img1_path, img2_path, width=800):
         min=0.0,
         max=1.0,
         step=0.01,
-        description='Blend:',
-        continuous_update=True, # Update image as slider is dragged
-        orientation='horizontal',
+        description="Blend:",
+        continuous_update=True,  # Update image as slider is dragged
+        orientation="horizontal",
         readout=True,
-        readout_format='.0%', # Display value as percentage
+        readout_format=".0%",  # Display value as percentage
     )
 
     # Define the update function that will be called when the slider value changes
     def update_image_display(change):
-        with output_image_widget: # Direct output to this widget
-            output_image_widget.clear_output(wait=True) # Clear previous image
-            
-            blend_factor = change['new'] # Get the new slider value (0.0 to 1.0)
-            
+        with output_image_widget:  # Direct output to this widget
+            output_image_widget.clear_output(wait=True)  # Clear previous image
+
+            blend_factor = change["new"]  # Get the new slider value (0.0 to 1.0)
+
             # Perform the image blending
             blended_array = (1 - blend_factor) * img1 + blend_factor * img2
-            
+
             # Convert the blended NumPy array back to a PIL Image
             pil_blended_img = pilImage.fromarray(blended_array.astype(np.uint8))
-            
+
             # Convert PIL Image to bytes in PNG format for display in Jupyter
             img_byte_arr = io.BytesIO()
-            pil_blended_img.save(img_byte_arr, format='PNG')
-            img_byte_arr.seek(0) # Rewind to the beginning of the BytesIO object
-            
+            pil_blended_img.save(img_byte_arr, format="PNG")
+            img_byte_arr.seek(0)  # Rewind to the beginning of the BytesIO object
+
             # Display the image
             display(Image(data=img_byte_arr.read()))
 
     # Link the slider's value changes to the update function
-    blend_slider.observe(update_image_display, names='value')
+    blend_slider.observe(update_image_display, names="value")
 
     # Initial display of the image when the widget is first created
     # Call the update function once with the initial slider value
-    update_image_display({'new': blend_slider.value})
+    update_image_display({"new": blend_slider.value})
 
     # Return a VBox (vertical box) containing the slider and the image output
     # This VBox is the interactive widget that will be displayed in Jupyter
@@ -708,15 +729,15 @@ def plot_folium_from_VEDA_STAC(
     attribution: str = "VEDA",
     tile_name: str = None,
     opacity: float = 0.8,
-    width: str = "100%", 
+    width: str = "100%",
     height: str = "500px",
     capitalize_cmap: bool = False,
     remove_default_legend: bool = False,
-    basemap_style: str = "cartodb-positron"
+    basemap_style: str = "cartodb-positron",
 ) -> folium.Map:
     """
     Create a Folium map displaying VEDA STAC data with a colorbar and title.
-    
+
     Parameters
     ----------
     tiles_url_template : str
@@ -755,32 +776,28 @@ def plot_folium_from_VEDA_STAC(
         Whether to remove the default LinearColormap colorbar (default False).
         Note: Ignored when custom_colors is provided (HTML legend used instead)
     basemap_style : str, optional
-        Basemap style to use. Options: 'openstreetmap', 'cartodb-positron', 'cartodb-dark', 
+        Basemap style to use. Options: 'openstreetmap', 'cartodb-positron', 'cartodb-dark',
         'esri-satellite', 'esri-satellite-labels', None (default 'cartodb-positron')
-        
+
     Returns
     -------
     folium.Map
         The configured Folium map object
     """
-    
-    
+
     # Apply colormap name transformation if requested
     if capitalize_cmap:
-        cmap_name = "".join(
-            c.upper() if i % 2 == 0 else c.lower()
-            for i, c in enumerate(colormap_name)
-        )
+        cmap_name = "".join(c.upper() if i % 2 == 0 else c.lower() for i, c in enumerate(colormap_name))
     else:
         cmap_name = colormap_name
-    
+
     # Use layer_name for tile_name if not provided
     if tile_name is None:
         tile_name = layer_name
-    
+
     # Extract rescale values
     vmin_val, vmax_val = rescale
-    
+
     # Initialize the Folium Map
     m = folium.Map(
         location=center_coords,
@@ -789,15 +806,15 @@ def plot_folium_from_VEDA_STAC(
         height=height,
         control_scale=True,
         crs="EPSG3857",
-        tiles=None  # We'll add tiles separately
+        tiles=None,  # We'll add tiles separately
     )
-    
+
     # Add basemap
     try:
         add_basemap_to_map(m, basemap_style)
     except Exception as e:
         print(f"Warning: Could not add basemap '{basemap_style}': {e}. Continuing without basemap.")
-    
+
     # Add the VEDA data Tile Layer to the Map
     folium.TileLayer(
         tiles=tiles_url_template,
@@ -806,39 +823,39 @@ def plot_folium_from_VEDA_STAC(
         overlay=True,
         control=True,
         tms=False,
-        opacity=opacity
+        opacity=opacity,
     ).add_to(m)
-    
+
     # Add Layer Control
     folium.LayerControl().add_to(m)
-    
+
     # Determine if title exists and its position
     has_title = date is not None
     title_bottom = 45 if has_title else 0  # Title box extends to about 45px from top (10px top + 18px font + 16px padding + border)
     colorbar_top = title_bottom + 15 if has_title else 50  # Add 15px spacing after title, or default 50px
-    
+
     # Handle colorbar/legend with clear, mutually exclusive logic
     if custom_colors:
         # For categorical data, ONLY use HTML legend (no LinearColormap)
         # HTML legend is added later in the function via add_custom_html_legend()
         pass  # Don't add LinearColormap for categorical data
-        
+
     elif not remove_default_legend:
         # For continuous data, add HTML gradient colorbar centered under title
         steps = 10
         try:
             mpl_cmap = plt.get_cmap(cmap_name)
-            
+
             # Generate gradient CSS for continuous colormap
             gradient_stops = []
             for i in range(100):  # More stops for smoother gradient
                 ratio = i / 99
                 rgba = mpl_cmap(ratio)
-                color = f"rgba({int(rgba[0]*255)}, {int(rgba[1]*255)}, {int(rgba[2]*255)}, 1)"
-                gradient_stops.append(f"{color} {ratio*100}%")
-            
+                color = f"rgba({int(rgba[0] * 255)}, {int(rgba[1] * 255)}, {int(rgba[2] * 255)}, 1)"
+                gradient_stops.append(f"{color} {ratio * 100}%")
+
             gradient_css = f"linear-gradient(to right, {', '.join(gradient_stops)})"
-            
+
             # Calculate tick values (like LinearColormap does)
             tick_values = []
             for i in range(steps + 1):
@@ -854,14 +871,14 @@ def plot_folium_from_VEDA_STAC(
                 else:
                     # Small numbers (<5): use 2 decimal places
                     tick_values.append(f"{val:.2f}")
-            
+
             # Create tick marks HTML
             tick_marks_html = ""
             tick_labels_html = ""
             for i, tick_val in enumerate(tick_values):
                 position = (i / (len(tick_values) - 1)) * 100
                 # Tick mark
-                tick_marks_html += f'''
+                tick_marks_html += f"""
                     <div style="
                         position: absolute;
                         left: {position}%;
@@ -870,9 +887,9 @@ def plot_folium_from_VEDA_STAC(
                         height: 8px;
                         background: black;
                     "></div>
-                '''
+                """
                 # Tick label
-                tick_labels_html += f'''
+                tick_labels_html += f"""
                     <div style="
                         position: absolute;
                         left: {position}%;
@@ -881,8 +898,8 @@ def plot_folium_from_VEDA_STAC(
                         font-size: 11px;
                         white-space: nowrap;
                     ">{tick_val}</div>
-                '''
-            
+                """
+
             # Create centered colorbar HTML matching LinearColormap style
             colorbar_html = f"""
             <div style="
@@ -920,27 +937,33 @@ def plot_folium_from_VEDA_STAC(
         except Exception as e:
             print(f"Warning: Could not create gradient colorbar: {e}")
     # else: remove_default_legend=True and no custom_colors = no legend at all
-    
+
     # Add custom HTML legend if provided
     if custom_colors:
         try:
-            add_custom_html_legend(m, custom_colors, colorbar_caption, position="top", top_offset=colorbar_top)
+            add_custom_html_legend(
+                m,
+                custom_colors,
+                colorbar_caption,
+                position="top",
+                top_offset=colorbar_top,
+            )
         except (ValueError, TypeError) as e:
             print(f"Warning: Could not add custom legend: {e}")
-    
+
     # Add Dynamic Title if date is provided
     if date:
         # Handle various date formats
-        if '(' in str(date) and ')' in str(date):
+        if "(" in str(date) and ")" in str(date):
             # Handle cases like "(March-May 2024)"
             formatted_date = str(date)
         else:
             # Convert standard date formats
-            formatted_date = pd.to_datetime(date).strftime('%B %d, %Y')
-        
+            formatted_date = pd.to_datetime(date).strftime("%B %d, %Y")
+
         title_text = f"{layer_name} — {formatted_date}"
         add_map_title(m, title_text, top_position=10)
-    
+
     return m
 
 
@@ -955,7 +978,7 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
     layer_name_left: str = "Left Layer",
     layer_name_right: str = "Right Layer",
     opacity: float = 0.8,
-    basemap_style: str = 'esri-satellite-labels',
+    basemap_style: str = "esri-satellite-labels",
     height: str = "800px",
     width: str = "100%",
     colormap_left: str = None,
@@ -963,15 +986,15 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
     rescale_left: tuple = None,
     rescale_right: tuple = None,
     units_left: str = None,
-    units_right: str = None
+    units_right: str = None,
 ) -> folium.Map:
     """
     Create a Folium map with side-by-side layer comparison using a draggable slider.
-    
+
     Uses the Leaflet leaflet-side-by-side plugin to create an interactive comparison
     between two tile layers. The user can drag a vertical slider to reveal more of
     either layer.
-    
+
     Parameters
     ----------
     tiles_url_left : str
@@ -995,8 +1018,8 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
     opacity : float, optional
         Opacity for both layers, between 0 and 1 (default 0.8)
     basemap_style : str, optional
-        Basemap style to use. Options: 'openstreetmap', 'cartodb-positron', 
-        'cartodb-dark', 'esri-satellite', 'esri-satellite-labels', None 
+        Basemap style to use. Options: 'openstreetmap', 'cartodb-positron',
+        'cartodb-dark', 'esri-satellite', 'esri-satellite-labels', None
         (default 'esri-satellite-labels')
     height : str, optional
         Map height as CSS string (default "800px")
@@ -1014,12 +1037,12 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
         Units for left colorbar (e.g., 'dBZ')
     units_right : str, optional
         Units for right colorbar (e.g., 'm/s')
-        
+
     Returns
     -------
     folium.Map
         The configured Folium map object with side-by-side layers
-        
+
     Examples
     --------
     >>> # Create a comparison of two radar products
@@ -1030,10 +1053,10 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
     ...     zoom_level=14,
     ...     title="DOW7 Radar Comparison",
     ...     label_left="← Reflectivity (dBZ)",
-    ...     label_right="Velocity (m/s) →"
+    ...     label_right="Velocity (m/s) →",
     ... )
     >>> m
-    
+
     Notes
     -----
     - Both tile layers must be added to the map before being passed to SideBySideLayers
@@ -1041,7 +1064,7 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
     - Basemap is added beneath both comparison layers for context
     - HTML elements are used for title, labels, and description positioning
     """
-    
+
     # Create the base map
     m = folium.Map(
         location=center_coords,
@@ -1049,16 +1072,16 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
         control_scale=True,
         width=width,
         height=height,
-        tiles=None  # We'll add basemap separately
+        tiles=None,  # We'll add basemap separately
     )
-    
+
     # Add basemap if specified
     if basemap_style:
         try:
             add_basemap_to_map(m, basemap_style)
         except Exception as e:
             print(f"Warning: Could not add basemap '{basemap_style}': {e}. Continuing without basemap.")
-    
+
     # Create left layer
     layer_left = folium.TileLayer(
         tiles=tiles_url_left,
@@ -1067,9 +1090,9 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
         overlay=True,
         control=True,
         opacity=opacity,
-        tms=False
+        tms=False,
     )
-    
+
     # Create right layer
     layer_right = folium.TileLayer(
         tiles=tiles_url_right,
@@ -1078,52 +1101,49 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
         overlay=True,
         control=True,
         opacity=opacity,
-        tms=False
+        tms=False,
     )
-    
+
     # IMPORTANT: Add layers to map BEFORE using in SideBySideLayers
     # This is required by the plugin
     layer_left.add_to(m)
     layer_right.add_to(m)
-    
+
     # Create and add the SideBySideLayers plugin
-    sbs = SideBySideLayers(
-        layer_left=layer_left,
-        layer_right=layer_right
-    )
+    sbs = SideBySideLayers(layer_left=layer_left, layer_right=layer_right)
     sbs.add_to(m)
-    
+
     # Add layer control for basemap options
     folium.LayerControl().add_to(m)
-    
+
     # Add title to the map
     add_map_title(m, title, top_position=10)
-    
+
     # Helper function to generate HTML colorbar
     def generate_html_colorbar(colormap_name, vmin, vmax, units=None):
         if not colormap_name or vmin is None or vmax is None:
             return ""
-        
+
         # Get matplotlib colormap
         try:
             cmap = plt.get_cmap(colormap_name)
-        except:
+        except ValueError:
             return ""
-        
+
         # Generate gradient CSS
         n_stops = 10
         gradient_stops = []
         for i in range(n_stops):
             ratio = i / (n_stops - 1)
             rgba = cmap(ratio)
-            color = f"rgba({int(rgba[0]*255)}, {int(rgba[1]*255)}, {int(rgba[2]*255)}, 1)"
-            gradient_stops.append(f"{color} {ratio*100}%")
-        
+            color = f"rgba({int(rgba[0] * 255)}, {int(rgba[1] * 255)}, {int(rgba[2] * 255)}, 1)"
+            gradient_stops.append(f"{color} {ratio * 100}%")
+
         gradient_css = f"linear-gradient(to right, {', '.join(gradient_stops)})"
-        
+
         # Format units string
         units_str = f" {units}" if units else ""
-        
+
         return f"""
         <div style="margin-top: 8px; background: rgba(255,255,255,0.9); padding: 4px; border-radius: 3px;">
             <div style="
@@ -1139,21 +1159,17 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
             </div>
         </div>
         """
-    
+
     # Generate colorbars HTML if needed
     left_colorbar_html = ""
     right_colorbar_html = ""
-    
+
     if colormap_left and rescale_left:
-        left_colorbar_html = generate_html_colorbar(
-            colormap_left, rescale_left[0], rescale_left[1], units_left
-        )
-    
+        left_colorbar_html = generate_html_colorbar(colormap_left, rescale_left[0], rescale_left[1], units_left)
+
     if colormap_right and rescale_right:
-        right_colorbar_html = generate_html_colorbar(
-            colormap_right, rescale_right[0], rescale_right[1], units_right
-        )
-    
+        right_colorbar_html = generate_html_colorbar(colormap_right, rescale_right[0], rescale_right[1], units_right)
+
     # Add labels for left and right panels with optional colorbars
     labels_html = f"""
     <div style="
@@ -1190,9 +1206,9 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
     </div>
     """
     m.get_root().html.add_child(Element(labels_html))
-    
+
     # Add description text at the bottom if provided
-    description_html = f"""
+    description_html = """
     <div style="
         position: fixed;
         bottom: 30px;
@@ -1207,10 +1223,9 @@ def plot_folium_SidebySide_layer_from_VEDA_STAC(
         text-align: center;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     ">
-        Drag the slider to compare rendered tiles. 
+        Drag the slider to compare rendered tiles.
     </div>
     """
     m.get_root().html.add_child(Element(description_html))
-    
-    return m
 
+    return m

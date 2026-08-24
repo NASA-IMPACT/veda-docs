@@ -16,6 +16,7 @@ A complete STAC collection configuration for the GPM IMERG Final Daily precipita
 - **Spatial Resolution**: 0.1° × 0.1°
 
 This example demonstrates:
+
 - Multi-variable configuration with different visualization settings
 - Proper backend selection for NetCDF data
 - Dimension and coordinate system definitions
@@ -35,6 +36,7 @@ SERVIR Global Evaporative Stress Index 4-week MapServer service:
 - **Update Frequency**: Weekly
 
 This example demonstrates:
+
 - Multi-layer MapServer configuration
 - WMS integration for visualization
 - Time-enabled service handling
@@ -51,6 +53,7 @@ NASA disasters test soil moisture percentile ImageServer:
 - **Variables**: Soil moisture percentiles
 
 This example demonstrates:
+
 - Datacube extension for multidimensional data
 - Variable and dimension definitions
 - Temporal data handling
@@ -66,6 +69,7 @@ Climate resilience and adaptation projections FeatureServer:
 - **Data Type**: Climate projection and vulnerability data
 
 This example demonstrates:
+
 - Multi-layer FeatureServer configuration
 - Timeless data handling
 - Feature layer metadata
