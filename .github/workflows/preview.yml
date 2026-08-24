@@ -8,6 +8,7 @@ concurrency: preview-${{ github.ref }}
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
     steps:
       - name: Checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
@@ -20,7 +21,7 @@ jobs:
         with:
           enable-cache: true
 
-      - run: uv sync --frozen
+      - run: uv sync --locked
       - run: quarto render --to html
 
       - name: Deploy preview
