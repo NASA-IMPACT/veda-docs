@@ -16,7 +16,6 @@ We are exploring two options for using VS Code on the VEDA JupyterHub. These opt
 
 1. Launch a server from the [VEDA JupyterHub home page](https://hub.openveda.cloud/). The server must be started in order to connect remotely.
 2. Get a new token from the [VEDA JupyterHub token page](https://hub.openveda.cloud/hub/token):
-
    - Enter a descriptive name in the 'Note' text window.
    - Enter an expiration date.
    - Click "request a new API token"
@@ -44,11 +43,11 @@ Before your first time remotely connecting to the VEDA JupyterHub, you need to c
 
 ### Setup ssh keys on your JupyterHub server
 
-You need to put some ssh public keys in `~/.ssh/authorized_keys` after you start your JupyterHub server and have completed the [setup of your private keys on your local machine](#setup-your-local-.sshconfig).
+You need to put some ssh public keys in `~/.ssh/authorized_keys` after you start your JupyterHub server and have completed the [setup of your private keys on your local machine](#setup-your-local-sshconfig).
 
 1. Launch a server from the [VEDA JupyterHub home page](https://hub.openveda.cloud/) if you don't already have one running.
 2. Open a terminal in JupyterLab
-3. Run the following commands, replacing <YOUR-GITHUB-USERNAME> with your github username:
+3. Run the following commands, replacing `<YOUR-GITHUB-USERNAME>` with your GitHub username:
 
    ```bash
    mkdir -p ~/.ssh
@@ -63,7 +62,7 @@ There are two ways to connect to JupyterHub: [Connect to the JupyterHub using VS
 ### Connect to the JupyterHub using the VS Code Remote SSH feature
 
 1. Launch a server from the [VEDA JupyterHub home page](https://hub.openveda.cloud/) if you don't already have one running.
-2. Open a new VS Code Window on your local maachine.
+2. Open a new VS Code Window on your local machine.
 3. Open the command prompt (command + shift + P on macOS)
 4. Enter `Remote-SSH: Connect to Host...`
 5. Select `hub.openveda.cloud`

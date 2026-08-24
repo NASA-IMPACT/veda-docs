@@ -33,7 +33,7 @@ collection = reader.generate_stac()
 if 'cube:variables' in collection.extra_fields:
     variables = collection.extra_fields['cube:variables']
     print(f"Variables: {list(variables.keys())}")
-    
+
     for var_name, var_info in variables.items():
         print(f"  {var_name}: {var_info.get('dimensions', [])}")
 
@@ -65,7 +65,7 @@ Based on the disasters test soil moisture ImageServer:
     {
       "rel": "wms",
       "href": "https://gis.earthdata.nasa.gov/UAT/services/disasters_test/lis_vsm_percentile_10cm/ImageServer/WMSServer",
-      "type": "image/png", 
+      "type": "image/png",
       "title": "Visualized through a WMS",
       "wms:layers": [
         "lis_vsm_percentile_10cm",
@@ -85,7 +85,7 @@ Based on the disasters test soil moisture ImageServer:
       "layers": "lis_vsm_percentile_10cm"
     },
     "vsm_percentile_0_10cm": {
-      "layers": "VSM_Percentile_0_10cm"  
+      "layers": "VSM_Percentile_0_10cm"
     }
   },
   "cube:variables": {
@@ -103,7 +103,7 @@ Based on the disasters test soil moisture ImageServer:
       "dimensions": ["StdTime"]
     },
     "VSM_Percentile_0_10cm": {
-      "type": "data", 
+      "type": "data",
       "attrs": {
         "Count": 31,
         "Minimum": 45857,
@@ -128,7 +128,7 @@ Based on the disasters test soil moisture ImageServer:
     }
   },
   "dashboard:is_periodic": true,
-  "dashboard:time_density": "day", 
+  "dashboard:time_density": "day",
   "dashboard:time_interval": "P1D",
   "extent": {
     "spatial": {
@@ -167,7 +167,7 @@ The datacube extension describes multidimensional data structure:
   "cube:dimensions": {
     "StdTime": {
       "type": "temporal",
-      "step": "P1D", 
+      "step": "P1D",
       "extent": ["2025-07-19T00:00:00Z", "2025-08-17T00:00:00Z"],
       "values": ["2025-07-19T00:00:00Z", "2025-07-20T00:00:00Z"]
     }

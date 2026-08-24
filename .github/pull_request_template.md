@@ -1,12 +1,14 @@
+# Description
+
 <!---
 Thanks for making a contribution to veda-docs!
 If you are updating an existing notebook feel free to delete the sections below
 -->
 
-## Description
 This notebook shows ...
 
 ## What type of example is this?
+
 _Choose one of the following and delete the rest ([read more](https://nasa-impact.github.io/veda-docs/notebooks))_
 
 Quickstart: Accessing the Data Directly
@@ -15,6 +17,7 @@ Tutorial
 Dataset
 
 ## Checklist
+
 _The following checklist ensures that our notebooks are internally consistent ([read more](https://nasa-impact.github.io/veda-docs/content-curation/doc-and-notebooks))_
 
 - [ ] The first cell contains the rendering information with author and data

@@ -15,19 +15,19 @@ Discovering these issues early on (ideally before upload to our buckets) can sav
 
 A command-line tool for creating and validating COGs is [`rio-cogeo`](https://cogeotiff.github.io/rio-cogeo/). The `rio-cogeo` documentation is a great starting reference point and have a very helpful [guide on preparing COGs](https://cogeotiff.github.io/rio-cogeo/Is_it_a_COG/), too.
 
-0. To inspect and validate your raster dataset use the following  
+0. To inspect and validate your raster dataset use the following
 
    ```bash
    rio cogeo info /path/to/file.tif
    ```
 
-   This will allow you to explore the size in rows and lines, understand the data type (e.g., byte, float, etc.), and verify how `NoData` is defined. Once you have explored the COG's definitions you can validate it by using the following commands: 
+   This will allow you to explore the size in rows and lines, understand the data type (e.g., byte, float, etc.), and verify how `NoData` is defined. Once you have explored the COG's definitions you can validate it by using the following commands:
 
       ```bash
    rio cogeo validate /path/to/file.tif
    ```
 
-   COG validation can be used to identify if any errors are found. The following steps can be used to resolve any errors. 
+   COG validation can be used to identify if any errors are found. The following steps can be used to resolve any errors.
 
 1. If your raster contains empty pixels, make sure the `nodata` value is set correctly (check with `rio cogeo info`). The `nodata` value needs to be set **before cloud-optimizing the raster**, so overviews are computed from real data pixels only. Pro-tip: For floating-point rasters, using `NaN` for flagging nodata helps avoid roundoff errors later on.
 

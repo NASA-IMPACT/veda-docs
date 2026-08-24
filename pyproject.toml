@@ -1,0 +1,61 @@
+[project]
+name = "veda-docs"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "cognito_client",
+    "sphinx>=1.4",
+    "nbconvert",
+    "ipykernel~=6.4.1",
+    "ipyleaflet",
+    "matplotlib",
+    "nbsphinx",
+    "rio_cogeo",
+    "rioxarray",
+    "pystac_client",
+    "sphinxcontrib-napoleon",
+    "sphinx-rtd-theme",
+    "folium",
+    "boto3",
+    "hvplot",
+    "pydantic[dotenv]",
+    "selenium",
+    "webdriver_manager",
+    "scipy",
+    "jupyter",
+    "jupyterlab",
+    "geopandas",
+    "mapclassify",
+    "owslib",
+    "pre-commit==4.6.1",
+]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # Pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "SIM",  # flake8-simplify
+    "PTH",  # flake8-use-pathlib
+    "RET",  # flake8-return
+    "TID",  # flake8-tidy-imports
+    "TC",   # flake8-type-checking
+    "ISC",  # flake8-implicit-str-concat
+    "ICN",  # flake8-import-conventions
+]
+ignore = [
+  "BLE001",  # Blind Exceptions
+]
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+[tool.markdownlint-cli2.config]
+MD013 = false
