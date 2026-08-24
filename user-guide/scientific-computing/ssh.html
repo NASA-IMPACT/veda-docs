@@ -976,7 +976,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a>
   <ul class="collapse">
   <li><a href="#get-the-token" id="toc-get-the-token" class="nav-link" data-scroll-target="#get-the-token">Get the token</a></li>
-  <li><a href="#setup-your-local-.sshconfig" id="toc-setup-your-local-.sshconfig" class="nav-link" data-scroll-target="#setup-your-local-.sshconfig">Setup your local <code>~/.ssh/config</code></a></li>
+  <li><a href="#setup-your-local-.sshconfig-and-ssh-keys" id="toc-setup-your-local-.sshconfig-and-ssh-keys" class="nav-link" data-scroll-target="#setup-your-local-.sshconfig-and-ssh-keys">Setup your local <code>~/.ssh/config</code> and ssh keys</a></li>
   <li><a href="#setup-ssh-keys-on-your-jupyterhub-server" id="toc-setup-ssh-keys-on-your-jupyterhub-server" class="nav-link" data-scroll-target="#setup-ssh-keys-on-your-jupyterhub-server">Setup ssh keys on your JupyterHub server</a></li>
   </ul></li>
   <li><a href="#connect-to-jupyterhub" id="toc-connect-to-jupyterhub" class="nav-link" data-scroll-target="#connect-to-jupyterhub">Connect to JupyterHub</a>
@@ -1058,28 +1058,37 @@ Warning
 </div>
 </div>
 </section>
-<section id="setup-your-local-.sshconfig" class="level3">
-<h3 class="anchored" data-anchor-id="setup-your-local-.sshconfig">Setup your local <code>~/.ssh/config</code></h3>
+<section id="setup-your-local-.sshconfig-and-ssh-keys" class="level3">
+<h3 class="anchored" data-anchor-id="setup-your-local-.sshconfig-and-ssh-keys">Setup your local <code>~/.ssh/config</code> and ssh keys</h3>
 <p>Before your first time remotely connecting to the VEDA JupyterHub, you need to configure your local ssh.</p>
 <ol type="1">
-<li><p>Add an entry that looks like the following to the end of your ~/.ssh/config. Create it if it does not exist.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Host</span> hub.openveda.cloud</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">User</span> jovyan</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">ProxyCommand</span> websocat <span class="at">--binary</span> <span class="at">-H</span><span class="op">=</span><span class="st">'Authorization: token &lt;YOUR-JUPYTERHUB-TOKEN&gt;'</span> asyncstdio: wss://%h/user/<span class="op">&lt;</span>YOUR-JUPYTERHUB-USERNAME<span class="op">&gt;</span>/sshd/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Create a set of ssh keys for logging into the Hub.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh-keygen</span> <span class="at">-t</span> ed25519 <span class="at">-C</span> <span class="st">"your_email@example.com"</span> <span class="at">-f</span> ~/.ssh/id_ed25519_hub</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This creates <code>~/.ssh/id_ed25519_hub</code> and <code>~/.ssh/id_ed25519_hub.pub</code> on your local machine.</p></li>
+<li><p>Add an entry like the following to the end of your ~/.ssh/config. Create it if it does not exist.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Host</span> veda-hub.default</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">HostName</span> hub.openveda.cloud</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="ex">User</span> jovyan</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">IdentityFile</span> ~/.ssh/id_ed25519_hub</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">IdentitiesOnly</span> yes</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">ProxyCommand</span> websocat <span class="at">--binary</span> <span class="at">-H</span><span class="op">=</span><span class="st">'Authorization: token &lt;YOUR-JUPYTERHUB-TOKEN&gt;'</span> asyncstdio: wss://%h/user/<span class="op">&lt;</span>YOUR-JUPYTERHUB-USERNAME<span class="op">&gt;</span>/sshd/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Replace <code>&lt;YOUR-JUPYTERHUB-TOKEN&gt;</code> with the token you created earlier.</p></li>
 <li><p>Replace <code>&lt;YOUR-JUPYTERHUB-USERNAME&gt;</code> with your VEDA JupyterHub username.</p></li>
+<li><p>If using a custom named Veda server, add additional entries to your ssh config, specifying <code>&lt;SERVER_NAME&gt;</code> in the Host short name and the ProxyCommand fields: <code>bash Host veda-hub.&lt;SERVER_NAME&gt;     HostName hub.openveda.cloud     User jovyan     IdentityFile ~/.ssh/id_ed25519_hub     IdentitiesOnly      ProxyCommand websocat --binary -H='Authorization: token &lt;YOUR-JUPYTERHUB-TOKEN&gt;' asyncstdio: wss://%h/user/&lt;YOUR-JUPYTERHUB-USERNAME&gt;/&lt;SERVER_NAME&gt;/sshd/</code></p></li>
 </ol>
 </section>
 <section id="setup-ssh-keys-on-your-jupyterhub-server" class="level3">
 <h3 class="anchored" data-anchor-id="setup-ssh-keys-on-your-jupyterhub-server">Setup ssh keys on your JupyterHub server</h3>
-<p>You need to put some ssh public keys in <code>~/.ssh/authorized_keys</code> after you start your JupyterHub server and have completed the <a href="#setup-your-local-sshconfig">setup of your private keys on your local machine</a>.</p>
+<p>Put your ssh public key in <code>~/.ssh/authorized_keys</code> after you start your JupyterHub server and have completed the <a href="#setup-your-local-sshconfig-and-ssh-keys">setup of your private keys on your local machine</a>.</p>
 <ol type="1">
 <li><p>Launch a server from the <a href="https://hub.openveda.cloud/">VEDA JupyterHub home page</a> if you don’t already have one running.</p></li>
-<li><p>Open a terminal in JupyterLab</p></li>
-<li><p>Run the following commands, replacing <code>&lt;YOUR-GITHUB-USERNAME&gt;</code> with your GitHub username:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/.ssh</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://github.com/<span class="op">&lt;</span>YOUR-GITHUB-USERNAME<span class="op">&gt;</span>.keys <span class="at">-O</span> ~/.ssh/authorized_keys</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 0600 ~/.ssh/authorized_keys</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Open a terminal in JupyterLab and run the following commands</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/.ssh <span class="kw">&amp;&amp;</span> <span class="fu">chmod</span> 700 ~/.ssh</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;&gt;</span> ~/.ssh/authorized_keys   </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># copy-paste the contents of ~/.ssh/id_ed25519_hub.pub from your local machine</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># then type Ctrl-D</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 600 ~/.ssh/authorized_keys</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This ssh key will be shared across all of your VEDA servers.</p></li>
 </ol>
 </section>
 </section>
@@ -1093,7 +1102,7 @@ Warning
 <li>Open a new VS Code Window on your local machine.</li>
 <li>Open the command prompt (command + shift + P on macOS)</li>
 <li>Enter <code>Remote-SSH: Connect to Host...</code></li>
-<li>Select <code>hub.openveda.cloud</code></li>
+<li>Select <code>veda-hub.default</code> (or your custom server name, if you have set one up above)</li>
 <li>Select “Open Folder” and select the specific folder that you want to work in.</li>
 </ol>
 <p>Now you’re connected and ready to develop using VS Code! You may need to <a href="#install-extensions">install some extensions in the SSH server</a> to use your regular development workflows.</p>
@@ -1163,7 +1172,7 @@ Note
 <ol type="1">
 <li>Launch a server from the <a href="https://hub.openveda.cloud/">VEDA JupyterHub home page</a> if you don’t already have one running.</li>
 <li>Open a new terminal on your local machine.</li>
-<li>Enter <code>ssh hub.openveda.cloud</code></li>
+<li>Enter <code>ssh veda-hub.default</code></li>
 </ol>
 <p>You are now ssh’d into the JupyterHub! If you enter a command (e.g., <code>touch am-i-on-the-jupyterhub</code>), it will be run on the remote server.</p>
 <div class="callout callout-style-default callout-note callout-titled">
