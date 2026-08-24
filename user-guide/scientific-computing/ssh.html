@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -75,14 +78,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f418161beb48e0141c760e455f12af2c.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-66bb1de59051dcd28834a266a56490aa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-51df9340ab2130629064d09b8431d8d8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-66bb1de59051dcd28834a266a56490aa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-d89a72bfbd7e0b9c3705c5cccbc9cf0d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-d5065c2f1b005f72236c022f63012b33.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-d89a72bfbd7e0b9c3705c5cccbc9cf0d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -1027,8 +1030,8 @@ Warning
 <section id="get-the-token" class="level3">
 <h3 class="anchored" data-anchor-id="get-the-token">Get the token</h3>
 <ol type="1">
-<li><p>Launch a server from the <a href="https://hub.openveda.cloud/">VEDA JupyterHub home page</a>. The server must be started in order to connect remotely.</p></li>
-<li><p>Get a new token from the <a href="https://hub.openveda.cloud/hub/token">VEDA JupyterHub token page</a>:</p>
+<li>Launch a server from the <a href="https://hub.openveda.cloud/">VEDA JupyterHub home page</a>. The server must be started in order to connect remotely.</li>
+<li>Get a new token from the <a href="https://hub.openveda.cloud/hub/token">VEDA JupyterHub token page</a>:
 <ul>
 <li>Enter a descriptive name in the ‘Note’ text window.</li>
 <li>Enter an expiration date.</li>
@@ -1069,11 +1072,11 @@ Warning
 </section>
 <section id="setup-ssh-keys-on-your-jupyterhub-server" class="level3">
 <h3 class="anchored" data-anchor-id="setup-ssh-keys-on-your-jupyterhub-server">Setup ssh keys on your JupyterHub server</h3>
-<p>You need to put some ssh public keys in <code>~/.ssh/authorized_keys</code> after you start your JupyterHub server and have completed the <a href="#setup-your-local-.sshconfig">setup of your private keys on your local machine</a>.</p>
+<p>You need to put some ssh public keys in <code>~/.ssh/authorized_keys</code> after you start your JupyterHub server and have completed the <a href="#setup-your-local-sshconfig">setup of your private keys on your local machine</a>.</p>
 <ol type="1">
 <li><p>Launch a server from the <a href="https://hub.openveda.cloud/">VEDA JupyterHub home page</a> if you don’t already have one running.</p></li>
 <li><p>Open a terminal in JupyterLab</p></li>
-<li><p>Run the following commands, replacing <your-github-username> with your github username:</your-github-username></p>
+<li><p>Run the following commands, replacing <code>&lt;YOUR-GITHUB-USERNAME&gt;</code> with your GitHub username:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/.ssh</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://github.com/<span class="op">&lt;</span>YOUR-GITHUB-USERNAME<span class="op">&gt;</span>.keys <span class="at">-O</span> ~/.ssh/authorized_keys</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 0600 ~/.ssh/authorized_keys</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
@@ -1087,7 +1090,7 @@ Warning
 <h3 class="anchored" data-anchor-id="connect-to-the-jupyterhub-using-the-vs-code-remote-ssh-feature">Connect to the JupyterHub using the VS Code Remote SSH feature</h3>
 <ol type="1">
 <li>Launch a server from the <a href="https://hub.openveda.cloud/">VEDA JupyterHub home page</a> if you don’t already have one running.</li>
-<li>Open a new VS Code Window on your local maachine.</li>
+<li>Open a new VS Code Window on your local machine.</li>
 <li>Open the command prompt (command + shift + P on macOS)</li>
 <li>Enter <code>Remote-SSH: Connect to Host...</code></li>
 <li>Select <code>hub.openveda.cloud</code></li>
