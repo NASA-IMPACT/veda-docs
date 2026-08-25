@@ -52,12 +52,13 @@ Before your first time remotely connecting to the VEDA JupyterHub, you need to c
 3. Replace `<YOUR-JUPYTERHUB-TOKEN>` with the token you created earlier.
 4. Replace `<YOUR-JUPYTERHUB-USERNAME>` with your VEDA JupyterHub username.
 5. If using a custom named Veda server, add additional entries to your ssh config, specifying `<SERVER_NAME>` in the Host short name and the ProxyCommand fields:
+
      ```bash
    Host veda-hub.<SERVER_NAME>
        HostName hub.openveda.cloud
        User jovyan
        IdentityFile ~/.ssh/id_ed25519_hub
-       IdentitiesOnly 
+       IdentitiesOnly
        ProxyCommand websocat --binary -H='Authorization: token <YOUR-JUPYTERHUB-TOKEN>' asyncstdio: wss://%h/user/<YOUR-JUPYTERHUB-USERNAME>/<SERVER_NAME>/sshd/
    ```
 
@@ -70,11 +71,12 @@ Put your ssh public key in `~/.ssh/authorized_keys` after you start your Jupyter
 
    ```bash
    mkdir -p ~/.ssh && chmod 700 ~/.ssh
-   cat >> ~/.ssh/authorized_keys   
+   cat >> ~/.ssh/authorized_keys
    # copy-paste the contents of ~/.ssh/id_ed25519_hub.pub from your local machine
    # then type Ctrl-D
    chmod 600 ~/.ssh/authorized_keys
    ```
+
 This ssh key will be shared across all of your VEDA servers.
 
 ## Connect to JupyterHub
