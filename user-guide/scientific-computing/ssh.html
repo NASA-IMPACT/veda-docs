@@ -1074,7 +1074,13 @@ Warning
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="ex">ProxyCommand</span> websocat <span class="at">--binary</span> <span class="at">-H</span><span class="op">=</span><span class="st">'Authorization: token &lt;YOUR-JUPYTERHUB-TOKEN&gt;'</span> asyncstdio: wss://%h/user/<span class="op">&lt;</span>YOUR-JUPYTERHUB-USERNAME<span class="op">&gt;</span>/sshd/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Replace <code>&lt;YOUR-JUPYTERHUB-TOKEN&gt;</code> with the token you created earlier.</p></li>
 <li><p>Replace <code>&lt;YOUR-JUPYTERHUB-USERNAME&gt;</code> with your VEDA JupyterHub username.</p></li>
-<li><p>If using a custom named Veda server, add additional entries to your ssh config, specifying <code>&lt;SERVER_NAME&gt;</code> in the Host short name and the ProxyCommand fields: <code>bash Host veda-hub.&lt;SERVER_NAME&gt;     HostName hub.openveda.cloud     User jovyan     IdentityFile ~/.ssh/id_ed25519_hub     IdentitiesOnly      ProxyCommand websocat --binary -H='Authorization: token &lt;YOUR-JUPYTERHUB-TOKEN&gt;' asyncstdio: wss://%h/user/&lt;YOUR-JUPYTERHUB-USERNAME&gt;/&lt;SERVER_NAME&gt;/sshd/</code></p></li>
+<li><p>If using a custom named Veda server, add additional entries to your ssh config, specifying <code>&lt;SERVER_NAME&gt;</code> in the Host short name and the ProxyCommand fields:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Host</span> veda-hub.<span class="op">&lt;</span>SERVER_NAME<span class="op">&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">HostName</span> hub.openveda.cloud</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">User</span> jovyan</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">IdentityFile</span> ~/.ssh/id_ed25519_hub</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">IdentitiesOnly</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ProxyCommand</span> websocat <span class="at">--binary</span> <span class="at">-H</span><span class="op">=</span><span class="st">'Authorization: token &lt;YOUR-JUPYTERHUB-TOKEN&gt;'</span> asyncstdio: wss://%h/user/<span class="op">&lt;</span>YOUR-JUPYTERHUB-USERNAME<span class="op">&gt;</span>/<span class="op">&lt;</span>SERVER_NAME<span class="op">&gt;</span>/sshd/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 </ol>
 </section>
 <section id="setup-ssh-keys-on-your-jupyterhub-server" class="level3">
@@ -1083,13 +1089,13 @@ Warning
 <ol type="1">
 <li><p>Launch a server from the <a href="https://hub.openveda.cloud/">VEDA JupyterHub home page</a> if you don’t already have one running.</p></li>
 <li><p>Open a terminal in JupyterLab and run the following commands</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/.ssh <span class="kw">&amp;&amp;</span> <span class="fu">chmod</span> 700 ~/.ssh</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;&gt;</span> ~/.ssh/authorized_keys   </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># copy-paste the contents of ~/.ssh/id_ed25519_hub.pub from your local machine</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># then type Ctrl-D</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 600 ~/.ssh/authorized_keys</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This ssh key will be shared across all of your VEDA servers.</p></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/.ssh <span class="kw">&amp;&amp;</span> <span class="fu">chmod</span> 700 ~/.ssh</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&gt;&gt;</span> ~/.ssh/authorized_keys</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># copy-paste the contents of ~/.ssh/id_ed25519_hub.pub from your local machine</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># then type Ctrl-D</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> 600 ~/.ssh/authorized_keys</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 </ol>
+<p>This ssh key will be shared across all of your VEDA servers.</p>
 </section>
 </section>
 <section id="connect-to-jupyterhub" class="level2">
