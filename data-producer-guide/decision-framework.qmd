@@ -1,0 +1,108 @@
+---
+title: "Choosing the Right Data Format"
+---
+
+This guide helps data producers choose the most appropriate format for their dataset based on structure, size, and access patterns.
+
+---
+
+## **Quick Decision Guide**
+
+| Use Case | Recommended Format |
+|----------|------------------|
+| 2D raster (maps, tiles) | **COG** |
+| Time-series / multidimensional data | **Zarr** |
+| Legacy scientific datasets | **NetCDF4** |
+| Large vector data | **GeoParquet** |
+| Small vector / API | **GeoJSON** |
+| Large tabular data | **Parquet** |
+
+---
+
+## **Decision Tree**
+
+### **Step 1: What type of data do you have?**
+
+#### **Raster Data**
+
+→ Go to Step 2
+
+#### **Vector Data**
+
+- Small → **GeoJSON**  
+- Large → **GeoParquet**
+
+#### **Tabular Data**
+
+- Small → **CSV / JSON**  
+- Large → **Parquet**
+
+---
+
+### **Step 2: Raster Data — What is the structure?**
+
+#### **Single timestep (2D snapshot)?**
+
+→ Use **COG**
+
+Examples:
+- Satellite imagery  
+- Air quality snapshot  
+- Precipitation map  
+
+---
+
+#### **Time-series or multidimensional data?**
+
+→ Go to Step 3
+
+---
+
+### **Step 3: Access Pattern**
+
+#### **Cloud-native, scalable analytics needed?**
+
+→ Use **Zarr (Preferred)**
+
+- Parallel access  
+- Works with `xarray`, `dask`  
+- Best for VEDA dashboards + analytics  
+
+---
+
+#### **Existing dataset in NetCDF?**
+
+→ Use **NetCDF4**, optionally:
+
+- Add **Kerchunk (Virtual Zarr)** for cloud optimization  
+
+---
+
+## **Comparison Summary**
+
+| Feature | COG | Zarr | NetCDF4 |
+|--------|-----|------|--------|
+| Data type | 2D raster | Multidimensional | Multidimensional |
+| Cloud optimized | Yes | Yes (native) | Partial |
+| Parallel access | Limited | Excellent | Limited (unless optimized) |
+| Best use case | Visualization | Analytics + visualization | Legacy / interoperability |
+| Complexity | Low | Medium | Medium |
+
+---
+
+## **Key Takeaways**
+
+- Use **COG** for map-based visualization  
+- Use **Zarr** for scalable, cloud-native datasets  
+- Use **NetCDF4** when required, but optimize for cloud access  
+- When in doubt:
+  - Prefer **Zarr for new datasets**
+  - Use **COG for visualization layers**
+
+---
+
+## **Related Sections**
+
+- [Data Preparation](data-preparation.qmd)
+- [Providing Data](providing-data.qmd)
+- [Data Inclusion Workflow](inclusion-workflow.qmd)

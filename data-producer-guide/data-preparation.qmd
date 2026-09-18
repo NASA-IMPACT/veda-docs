@@ -1,0 +1,263 @@
+---
+title: "Data Preparation"
+---
+
+For best use within any VEDA instance, the format and structure of data can either hinder visualization or ensure performance and user satisfaction. This section outlines recommended formats, file sizes, chunking strategies, and compression best practices.
+
+---
+
+## **Suggested File Formats**
+
+### **Raster Data**
+
+**1. Cloud Optimized GeoTIFF (COG)**
+
+- ***Best for:***
+  - 2D gridded data (e.g., NO₂, AOD, precipitation snapshots)
+
+- ***Why use it:***  
+  - Enables HTTP range requests for fast map visualization  
+  - Optimized for web-based tile access  
+
+- ***Recommendations:***  
+  - Use internal tiling  
+  - Generate overviews for multi-resolution access  
+
+Additional [Cloud-Optimized GeoTIFF details](https://guide.cloudnativegeo.org/cloud-optimized-geotiffs/intro.html) can be helpful.
+
+---
+
+**2. Zarr (Preferred for Multidimensional Data)**
+
+- ***Best for:***
+  - Time-series and multi-variable datasets (e.g., GEOS-CF, IMERG)  
+  - Large-scale analytics and cloud-native workflows  
+
+- ***Why use it:***  
+  - Designed for cloud object storage with parallel, chunk-based access  
+  - Enables efficient subsetting across time and space  
+  - Works seamlessly with tools like `xarray`, `dask`, and Python analytics ecosystems  
+
+- ***Recommendations:***  
+  - Align chunking with access patterns (e.g., time vs spatial queries)  
+  - Store data in cloud object storage (e.g., S3) with clear structure  
+  - Consolidate metadata for faster access  
+
+Additional [Zarr details](https://guide.cloudnativegeo.org/zarr/intro.html) can be helpful.
+
+---
+
+**3. NetCDF4 (CF-compliant)**
+
+- ***Best for:***
+  - Widely distributed scientific datasets and legacy formats  
+  - Interoperability with existing Earth science tools  
+
+- ***Why use it:***  
+  - Mature, widely supported format  
+  - Supports chunking and compression (via HDF5)  
+  - Compatible with most analysis tools and libraries  
+
+- ***Recommendations:***  
+  - Ensure chunking is properly configured (avoid defaults)  
+  - Use compression (e.g., gzip with shuffle filter)  
+  - Consider complementing with a **Virtual Zarr layer (e.g., Kerchunk)** for cloud performance  
+
+Additional [Cloud-Optimized HDF/NetCDF details](https://guide.cloudnativegeo.org/cloud-optimized-netcdf4-hdf5/) can be helpful.
+
+---
+
+### **Vector Data**
+
+**1. GeoJSON**
+
+- ***Best for:***
+  - Small to medium-sized datasets  
+  - Web-based visualization and APIs  
+
+- ***Why use it:***  
+  - Widely supported across web tools  
+  - Human-readable and easy to debug  
+
+- ***Recommendations:***  
+  - Avoid for large datasets due to performance limitations  
+
+---
+
+**2. Shapefiles**
+
+- ***Best for:***
+  - Legacy GIS workflows  
+  - Interoperability with traditional tools  
+
+- ***Why use it:***  
+  - Broad compatibility across GIS software  
+
+- ***Recommendations:***  
+  - Avoid for cloud-native workflows  
+  - Convert to GeoJSON or GeoParquet where possible  
+
+---
+
+**3. GeoParquet (Preferred)**
+
+- ***Best for:***
+  - Large-scale vector datasets  
+  - Analytical and cloud-native workflows  
+
+- ***Why use it:***  
+  - Columnar format optimized for performance  
+  - Efficient storage and query capabilities  
+
+- ***Recommendations:***  
+  - Partition data for scalable access  
+
+Additional [GeoParquet details](https://guide.cloudnativegeo.org/geoparquet/) can be helpful.
+
+---
+
+### **Tabular Data**
+
+**1. CSV**
+
+- ***Best for:***
+  - Simple, small datasets  
+
+- ***Why use it:***  
+  - Universally supported  
+  - Easy to use  
+
+- ***Recommendations:***  
+  - Avoid for large datasets  
+
+---
+
+**2. JSON (Structured as Tabular)**
+
+- ***Best for:***
+  - Lightweight structured data  
+  - API responses and metadata  
+
+- ***Recommendations:***  
+  - Use row-based (record) structure  
+  - Avoid deeply nested formats  
+  - Not recommended for large datasets  
+
+---
+
+**3. Parquet (Preferred for Large Tabular Data)**
+
+- ***Best for:***
+  - Large-scale datasets  
+  - Analytical workflows  
+
+- ***Why use it:***  
+  - Columnar storage enables efficient queries  
+  - Compressed and optimized for performance  
+
+- ***Recommendations:***  
+  - Partition data for scalable cloud access  
+
+---
+
+## **File Size and Chunking Strategy**
+
+Efficient cloud access depends on how data is partitioned. Performance is driven by minimizing the number of requests while maximizing useful data retrieved per request.
+
+---
+
+### **Key Principles**
+
+- Minimize the number of requests to cloud storage  
+- Retrieve larger, contiguous data regions when possible  
+- Align chunking with expected access patterns (spatial vs temporal)  
+- Balance chunk size for both interactivity and analytics  
+
+---
+
+### **COG**
+
+- **10 MB – 1 GB** recommended  
+- Avoid <10 MB and >2–5 GB  
+
+- Use tiling (256×256 or 512×512) and overviews  
+
+---
+
+### **Zarr**
+
+- Scales to TBs+  
+- Chunk size:
+  - **1–10 MB** → visualization  
+  - **10–200 MB** → analytics  
+
+- Store chunks as separate objects  
+- Use consolidated metadata  
+
+---
+
+### **NetCDF4**
+
+- Practical size: **~500 MB – 5 GB**  
+- Chunk size: **~1–10 MB**  
+
+- Avoid default chunking  
+- Balance across dimensions  
+- Use **Kerchunk** for cloud optimization  
+
+---
+
+### **Balanced Chunking Strategy (Recommended)**
+
+| Dimension | Recommended |
+|----------|------------|
+| Time | 1–24 timesteps |
+| Spatial | 256×256 or 512×512 |
+| Chunk size | ~1–10 MB |
+
+---
+
+## **Compression**
+
+### **Best Practices**
+
+- Use **DEFLATE (gzip)**  
+- Use moderate levels (**~5**)  
+- Apply **shuffle filter**  
+
+> NASA ESDS recommends using only officially supported compression filters (e.g., DEFLATE) for interoperability.  
+
+---
+
+### **HDF/NetCDF Considerations**
+
+- Use NetCDF4/HDF5 (not NetCDF3/HDF4)  
+- Consolidate metadata  
+- Tune chunk sizes based on access patterns  
+- Provide cloud-access guidance  
+
+---
+
+### **Data Packing (Optional)**
+
+- Use `scale_factor` and `add_offset`  
+- Convert floats to integers when appropriate  
+- Improves compression efficiency  
+
+---
+
+### **Useful Tools**
+
+- `nccopy`  
+- `ncks`  
+- `h5repack`  
+
+---
+
+## **References**
+
+- AWS, *[Amazon S3 Best Practices](https://d1.awsstatic.com/whitepapers/AmazonS3BestPractices.pdf)*  
+- Pangeo, *[Cloud-Performant NetCDF/Zarr Access](https://medium.com/pangeo/cloud-performant-reading-of-netcdf4-hdf5-data-using-the-zarr-library-1a95c5c92314)*  
+- Element84, *[NetCDF-as-Zarr Optimizations](https://element84.com/data-science/cloud-optimized-formats-netcdf-as-zarr-optimizations-and-next-steps)*  
+- Unidata, *[Chunking Data: Choosing Shapes](https://www.unidata.ucar.edu/blogs/developer/en/entry/chunking_data_choosing_shapes)*  
+- DIWG, *[Use Only Officially Supported Compression Filters on NetCDF-4 and NetCDF-4-Compatible HDF5 Data](https://wiki.earthdata.nasa.gov/spaces/ESDSWG/pages/157189494/Use+Only+Officially+Supported+Compression+Filters+on+NetCDF-4+and+NetCDF-4-Compatible+HDF5+Data)
