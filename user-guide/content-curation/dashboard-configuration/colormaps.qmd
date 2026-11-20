@@ -1,0 +1,25 @@
+---
+title: "Choosing a colormap"
+subtitle: "Which VEDA tile service to change when a layer needs a new colormap"
+---
+
+VEDA draws map tiles with three separate services. A new colormap only works in the service it was added to. So the first question is: **what kind of data is your layer?**
+
+| If your layer is | Add the colormap to | For developers |
+|---|---|---|
+| **Image files in the VEDA catalog.** Most Disasters and GHG layers (COGs). | **veda-backend** (the raster API) | [NASA-IMPACT/veda-backend](https://github.com/NASA-IMPACT/veda-backend), `raster_api/runtime/src/cmap_data/` |
+| **A data cube with time and variables.** Zarr, NetCDF or GRIB, such as TEMPO or model output. | **titiler-multidim** | [developmentseed/titiler-multidim](https://github.com/developmentseed/titiler-multidim), `src/titiler/multidim/main.py` |
+| **NASA archive data found through CMR.** Data read straight from a NASA data center, such as HLS. See [titiler-cmr](../external-collection-indexing/titiler-cmr.qmd). | **titiler-cmr** | [developmentseed/titiler-cmr](https://github.com/developmentseed/titiler-cmr), `titiler/cmr/main.py` |
+
+::: {.callout-tip}
+Standard colormaps such as `viridis` and `turbo` already work in every service. If one fits your layer, set `colormap_name` in the layer's configuration and nothing else needs to change.
+:::
+
+## Good to know
+
+- If several kinds of data need the same custom colormap, it has to be added to each of those services.
+- A layer that fails with "unknown colormap" usually means the colormap was added to a different service.
+- Server-side styling of vectors (boundaries, points) and vector tile layers is not recommended for performance reasons; instead colors are set in the dashboard configuration where they can be quickly changed client side ([veda-config](https://github.com/NASA-IMPACT/veda-config) and [veda-ui](https://github.com/NASA-IMPACT/veda-ui)).
+- There is a [proposal for a shared colormaps library in the earthaccess organization](https://github.com/earthaccess-dev/earthaccess/discussions/1507).
+
+Once the colormap is available, pick it in your layer's `sourceParams` as described in [Dataset Configuration](./dataset-configuration.qmd).
