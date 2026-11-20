@@ -19,7 +19,7 @@ Standard colormaps such as `viridis` and `turbo` already work in every service. 
 
 - If several kinds of data need the same custom colormap, it has to be added to each of those services.
 - A layer that fails with "unknown colormap" usually means the colormap was added to a different service.
-- Vector layers (boundaries, points) aren't tiled, so their colors are set in the dashboard configuration ([veda-config](https://github.com/NASA-IMPACT/veda-config) and [veda-ui](https://github.com/NASA-IMPACT/veda-ui)).
+- Server-side styling of vectors (boundaries, points) and vector tile layers is not recommended for performance reasons; instead colors are set in the dashboard configuration where they can be quickly changed client side ([veda-config](https://github.com/NASA-IMPACT/veda-config) and [veda-ui](https://github.com/NASA-IMPACT/veda-ui)).
 - There is a [proposal for a shared colormaps library in the earthaccess organization](https://github.com/earthaccess-dev/earthaccess/discussions/1507).
 
 Once the colormap is available, pick it in your layer's `sourceParams` as described in [Dataset Configuration](./dataset-configuration.qmd).
